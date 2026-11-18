@@ -1,0 +1,53 @@
+{
+  "schema": "prime-desk-verification/0501",
+  "batch": "0524.prime-desk/05.01",
+  "session": "01a17ded-90ba-79e3-8b8c-7e1f0005193e",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "suite": {
+    "command": "python -B -m unittest -v labs/prime-desk-pass01/tests/test_prime_desk.py",
+    "cwd": "D:\\Git\\lib-build",
+    "exit": 0,
+    "tests": 17,
+    "seconds": 1.969,
+    "result": "OK",
+    "evidence": "evidence/build05.01/tests.txt",
+    "first_local_exit": 1,
+    "first_local_note": "evidence/build05.01/tests-first-note.md"
+  },
+  "demo": {
+    "command": "python -B labs/prime-desk-pass01/demo.py --out D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0524.prime-desk\\evidence\\build05.01\\demo-output",
+    "process_exit": 0,
+    "tool_exit": 1,
+    "selected_id": "work-0522-0504",
+    "verified_result_basis": "unknown",
+    "request_sha256": "179cb04997dc85a139ef2fe4ad67fc522477d3700c6f2fdfd5f054fcc826ff16",
+    "fingerprint": "42e9fcd6a4a262e43812ae0222e233a5f3f50de432bfef3edad709a353c54ff8",
+    "observed_at": "2026-11-01T16:40:43Z",
+    "matched": 24,
+    "missing": 1,
+    "stale": 0,
+    "changed": 0,
+    "live_read_executed": false
+  },
+  "live_drift": [
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+      "pin_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+      "pin_bytes": 7395,
+      "live_sha256": "7280a0fadd520b5ad02d72ed3a30d08d0289e61a0bdb0fa7db159c7ba6d0b3f1",
+      "live_bytes": 8250,
+      "parsed": false
+    }
+  ],
+  "not_claimed": [
+    "acceptance",
+    "whole-app success",
+    "cold-model success",
+    "live process activity",
+    "0124 custody filed",
+    "capture complete",
+    "librarian integration applied"
+  ]
+}

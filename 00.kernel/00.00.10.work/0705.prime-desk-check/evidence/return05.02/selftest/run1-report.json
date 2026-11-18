@@ -1,0 +1,119 @@
+{
+ "schema": "desk-lab-selftest/1",
+ "label": "SYNTHETIC checker self-tests; not desk evidence",
+ "python": "3.14.0",
+ "tests_run": 0,
+ "failures": 0,
+ "errors": 3,
+ "skipped": 0,
+ "runs": [
+  {
+   "label": "build all fixtures",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:/Git/lib-build/00.kernel/00.00.10.work/0705.prime-desk-check/evidence/pack05.02/source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "ccc892ff3a161409e2299baae80b274572eba25bed48c50041b7e338489dbda5",
+   "stderr": ""
+  },
+  {
+   "label": "materialize synthetic observations",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--out",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr": "Traceback (most recent call last):\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py\", line 122, in <module>\r\n    sys.exit(main())\r\n             ~~~~^^\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py\", line 111, in main\r\n    obs = build(json.loads(Path(a.expected).read_bytes()), Path(a.fixtures))\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705."
+  },
+  {
+   "label": "build all fixtures",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:/Git/lib-build/00.kernel/00.00.10.work/0705.prime-desk-check/evidence/pack05.02/source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "dac8c34aef05d5b40fa079efbe70281f52a43d25810e8d215fe6a3959c89f73e",
+   "stderr": ""
+  },
+  {
+   "label": "materialize synthetic observations",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--out",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr": "Traceback (most recent call last):\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py\", line 122, in <module>\r\n    sys.exit(main())\r\n             ~~~~^^\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py\", line 111, in main\r\n    obs = build(json.loads(Path(a.expected).read_bytes()), Path(a.fixtures))\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705."
+  },
+  {
+   "label": "build all fixtures",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:/Git/lib-build/00.kernel/00.00.10.work/0705.prime-desk-check/evidence/pack05.02/source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "1e50941134cd316379c3542bb86ca503b2fa6bc0d014f94903fa9f17d2d53fff",
+   "stderr": ""
+  },
+  {
+   "label": "materialize synthetic observations",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--out",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr": "Traceback (most recent call last):\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py\", line 122, in <module>\r\n    sys.exit(main())\r\n             ~~~~^^\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py\", line 111, in main\r\n    obs = build(json.loads(Path(a.expected).read_bytes()), Path(a.fixtures))\r\n  File \"D:\\Git\\lib-build\\colab\\labs\\0705."
+  }
+ ]
+}

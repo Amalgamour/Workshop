@@ -1,0 +1,122 @@
+{
+ "schema": "prima-verification/1",
+ "verified_at": "2026-11-01T12:30:54-06:00",
+ "verifier": "Prima (Grok Bot; model unknown)",
+ "method": "Prima re-read files on the shared computer and the source code; separate from worker claims",
+ "snapshot_unchanged": {
+  "observed": true,
+  "detail": "All 105 snapshot files re-hashed after both workers: git blob SHA-1 and sha256 equal snapshot-blob-verify.json; no missing or extra files; 29 directories; no __pycache__/.pyc; no writable paths (chmod -R a-w held)"
+ },
+ "branches_at_verification": {
+  "prima/returns": "9798895846006c8fa4c026143aad9ee57df71fed",
+  "prima/assignments": "566d7eb969243761e550f98f50f649f2173442e4",
+  "assignments_drift": "assignments advanced 39d86e87 -> 0081096d (2026-11-01T12:17:22-06:00, 'Record Director usage reporting and five percent reserve for Prima') -> 566d7eb9 (12:18:58-06:00, Gameatron assignment). Compare 39d86e87...566d7eb9 changed only 0422.prima/06.02.md, 0422.prima/06.03.md, prima/GAMEATRON.md, prima/USAGE.md, prima/notices.json; assignments.json byte-identical (sha256 14d06cd4...95fc); pack and manifest untouched. No job-key conflict."
+ },
+ "claim_commit": {
+  "sha": "9798895846006c8fa4c026143aad9ee57df71fed",
+  "parent": "39d86e871c86484669cafecd7d2e1a8d86e15e34",
+  "author": "Cursor Agent <cursoragent@cursor.com> 2026-11-01T12:24:12-06:00",
+  "committer": "Cursor Agent <cursoragent@cursor.com> 2026-11-01T12:24:12-06:00",
+  "github_verification_verified": true,
+  "files": [
+   "00.kernel/00.00.10.work/0706.prima-loop/evidence/run05.01/claim.json (added)"
+  ],
+  "message_trailers": "Model: Prima (Grok Bot, model unknown); publisher Cursor cloud agent (Grok 4.7) / Co-authored-by: Mathias  <Amalgamour@users.noreply.github.com> (two spaces before '<', appended by a prepare-commit-msg hook)",
+  "readback": "claim.json fetched at 9798895 via cursor-github: 3521 bytes, sha256 9b2420e7b3a057240fa6b3a2f58e80b161deede3d4614318b48628c85e0280c4, byte-identical to local"
+ },
+ "workerA": {
+  "observed": {
+   "exit": 0,
+   "stdout_sha256": "286d13e5a1631f578bbb647392eb0aaba9a9c69a15822621d9fd95d19608ccaf",
+   "stdout_bytes": 2958,
+   "stderr_bytes": 0,
+   "stdout_parsed": {
+    "schema": "return-capture-inspection/1",
+    "status": "complete",
+    "problems": [],
+    "capture.source_commit": null,
+    "capture.return.includes_prime_review": false,
+    "capture.retrospective": false,
+    "capture.submission_id": "claude-0519-0501",
+    "capture.origin": {
+     "book": "00.00.10.work",
+     "page": "0519.desk-app",
+     "batch": "05.01"
+    },
+    "reservation.release": "Reservation only; Director release must be recorded on 0519.desk-app/05.01."
+   },
+   "hash_crosscheck": "Prima recomputed sha256 of 0182 payload/0001-0006.blob, manifest.json, receipt.json, reservation.json, return.md: all 10 equal the values in stdout",
+   "fingerprints": "fingerprint-before.txt == fingerprint-after.txt (sha256 510a93f0...0f1e, 2574 bytes, 19 entries)"
+  },
+  "worker_claims_matching": [
+   "exit 0",
+   "stdout sha256/bytes",
+   "stderr empty",
+   "status complete, problems []",
+   "source_commit null, includes_prime_review false, reservation release text",
+   "before/after identical"
+  ],
+  "discrepancy": "Worker A reported 'Fingerprints: 20 files'; the fingerprint files contain 19 entries (6 under labs/return-capture-pass01 incl. .gitignore, 2 under its tests/, 5 member files, 6 payload blobs). Minor reporting error; no effect on integrity result.",
+  "model_self_report": "unknown"
+ },
+ "workerB": {
+  "observed": {
+   "exit": 1,
+   "stdout_bytes": 0,
+   "stderr_sha256": "e18db17d218a3d789accb5fb962315e48a87df6b6fffdadd427efe692e0e5e16",
+   "stderr_bytes": 1173,
+   "error": "FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\Git\\\\lib-build/labs/review-construction-pass02/construct.py'",
+   "traceback_frames": "review_loop.py:1094 <module> -> :1021 main pin_set() -> :151 pin_set pin_file(CONSTRUCT,...) -> :143 pin_file path.read_bytes() -> pathlib open",
+   "fingerprints": "fingerprint-before == after (sha256 f5df7164...85fa, 67 entries); tree-before == tree-after (sha256 f8f9d37c...c9f8, 135 entries = root + 29 dirs + 105 files)"
+  },
+  "code_confirmed_by_prima": {
+   "labs/review-loop-pass02/review_loop.py:27": "ROOT = Path(r\"D:\\Git\\lib-build\")",
+   "labs/review-loop-pass02/review_loop.py:29": "CONSTRUCT = ROOT / \"labs\" / \"review-construction-pass02\" / \"construct.py\"",
+   "labs/review-loop-pass02/review_loop.py:143": "data = path.read_bytes()  (inside pin_file, :142)",
+   "labs/review-loop-pass02/review_loop.py:151": "\"construct\": pin_file(CONSTRUCT, CONSTRUCT_SHA, CONSTRUCT_BYTES, \"construct\")  (first entry of pin_set)",
+   "labs/review-loop-pass02/review_loop.py:1021": "pin_set()  inside main's try, before the describe-legacy dispatch at :1022-1023",
+   "labs/review-loop-pass02/review_loop.py:1050": "except Refusal as exc:  - only Refusal is handled, so FileNotFoundError propagates -> traceback, exit 1",
+   "app/review_loop_tools_v2.py:64-68": "review_loop pin: path labs/review-loop-pass02/review_loop.py, sha256 8082750f...7fedf7, bytes 47189",
+   "app/review_loop_tools_v2.py:286-292": "subprocess.run([sys.executable, '-B', pinned['review_loop'], *forwarded], cwd=code_root, env, check=False, shell=False)",
+   "app/review-loop-v2.json:41-45": "review_loop pin, same sha256 8082750f...7fedf7 / 47189 bytes",
+   "app/librarian.py:97-106": "code_root = Path(__file__).resolve().parent.parent; review-loop -> review_loop_tools_v2.perform",
+   "review_loop.py actual sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7, 47189 bytes (pin matches; app door passed)"
+  },
+  "first_blocking_path_confirmed": "'D:\\\\Git\\\\lib-build/labs/review-construction-pass02/construct.py' (relative to cwd = snapshot root), produced by review_loop.py:27 + :29 and read at :143 via :151 from :1021",
+  "worker_claims_matching": [
+   "exit 1, empty stdout, traceback",
+   "first blocking path and lines 27/143/151/1021",
+   "app door pins passed and forwarded at :286-292",
+   "SRC unchanged",
+   "re-pin needed at review_loop_tools_v2.py:64-68 and review-loop-v2.json:41-45 if review_loop.py changes"
+  ],
+  "worker_claim_checked": "grep of 0119.app-entry-0503 for '0519' or '0182' returns no files (Prima re-ran; rc=1)",
+  "worker_inference_not_verified": "That ROOT = Path(__file__).resolve().parents[2] is sufficient; no run was made (forbidden by pack)",
+  "model_self_report": "unknown"
+ },
+ "prima_phase01_prediction_miss": "windows-path-findings.json (phase 01, static) predicted the first block inside describe_legacy at pin_file(INSPECT). Actual: main() calls pin_set() at :1021 first, which fails on CONSTRUCT at :151. The phase-01 file is kept unchanged as evidence.",
+ "staging_redaction": {
+  "file": "workers/workerB/environment.txt",
+  "worker_redactions_already_present": [
+   "CURSOR_AUTH_TOKEN",
+   "DBUS_SESSION_BUS_ADDRESS",
+   "SAND_BOX_AUTH_ID",
+   "SAND_BOX_PERSISTENT_KEYRING",
+   "CURSOR_AUTH_TOKEN in __CURSOR_SANDBOX_ENV_RESTORE"
+  ],
+  "no_live_tokens_or_keys_found": true,
+  "additional_precautionary_redactions_by_Prima": [
+   "SAND_BOX_TENANT_ID",
+   "SAND_BOX_STORE_ID",
+   "SAND_BOX_BOOT_ID",
+   "SAND_BOX_BOOT_STATIC_SNAPSHOT",
+   "CURSOR_REQUEST_ID (2 places)"
+  ],
+  "original_local_sha256": "30e1dc8d930c629a94622335895e40c01a567651fb527ceb56691e0b6306240e (3935 bytes, kept only on the box at /workspace/prima/run05.01/workerB/environment.txt)"
+ },
+ "omitted_from_staging": {
+  "snapshot-tree.json": "2,032,966 bytes (> 1 MB); full recursive tree of 39d86e87 (9625 entries) is reproducible from GitHub; kept on the box at /workspace/prima/run05.01/evidence/snapshot-tree.json",
+  "claim.json": "already published at 9798895; listed in artifact-manifest with published bytes",
+  "source files": "not copied"
+ }
+}

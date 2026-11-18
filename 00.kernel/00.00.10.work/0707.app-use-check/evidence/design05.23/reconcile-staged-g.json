@@ -1,0 +1,316 @@
+{
+ "schema": "fbt-reconcile/1",
+ "kind": "staged-g",
+ "rows": [
+  {
+   "id": "M0-N5",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "M1-N5",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "after M1: read is not held/stale/refused (it reads current or crashed)"
+   ]
+  },
+  {
+   "id": "M2-N5",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "after M2: read is not held/stale/refused (it reads current or crashed)"
+   ]
+  },
+  {
+   "id": "M3-N5",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "after M3: read is not held/stale/refused (it reads current or crashed)"
+   ]
+  },
+  {
+   "id": "M4-N5",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "M5-N5",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "M0-N7",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "M1-N7",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "after M1: read is not held/stale/refused (it reads current or crashed)"
+   ]
+  },
+  {
+   "id": "M2-N7",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "after M2: read is not held/stale/refused (it reads current or crashed)"
+   ]
+  },
+  {
+   "id": "M3-N7",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "after M3: read is not held/stale/refused (it reads current or crashed)"
+   ]
+  },
+  {
+   "id": "M4-N7",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "M5-N7",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "R0",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "a permitted Review-only edit made the review non-current"
+   ]
+  },
+  {
+   "id": "R1",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "R2",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "R3",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "R4",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "F1",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "not-reached",
+   "class": "DIFFERS-FROM-PREDICTION",
+   "reasons": [
+    "fixture did not reach record/publish; kept as not-reached, never credited"
+   ]
+  },
+  {
+   "id": "F1b",
+   "predicted": "observe",
+   "prediction_time": "after smoke-02",
+   "observed": "pass",
+   "class": "observed (no prediction)",
+   "reasons": []
+  },
+  {
+   "id": "F2",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "F3",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "F4",
+   "predicted": "observe",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "observed (no prediction)",
+   "reasons": []
+  },
+  {
+   "id": "F5",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "F6",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "F7a",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "a permitted Review-only edit made the review non-current"
+   ]
+  },
+  {
+   "id": "F7b",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "E1",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "E2",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "E3",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "C1",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "the byte-copied book reads the foreign review current"
+   ]
+  },
+  {
+   "id": "C2",
+   "predicted": "fail",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "fail",
+   "class": "expected-baseline-failure",
+   "reasons": [
+    "a Review-only edit made the N7 review non-current"
+   ]
+  },
+  {
+   "id": "C3",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "pass",
+   "class": "expected-pass",
+   "reasons": []
+  },
+  {
+   "id": "C4",
+   "predicted": "blocked",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "blocked",
+   "class": "blocked as declared",
+   "reasons": [
+    "candidate kind 'staged-g' is not the combined candidate; not executed"
+   ]
+  },
+  {
+   "id": "D1",
+   "predicted": "deferred",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "deferred",
+   "class": "deferred as declared",
+   "reasons": [
+    "not tested by design"
+   ]
+  }
+ ],
+ "differs": [
+  {
+   "id": "F1",
+   "predicted": "pass",
+   "prediction_time": "before code (06.23 notes)",
+   "observed": "not-reached",
+   "class": "DIFFERS-FROM-PREDICTION",
+   "reasons": [
+    "fixture did not reach record/publish; kept as not-reached, never credited"
+   ]
+  }
+ ]
+}

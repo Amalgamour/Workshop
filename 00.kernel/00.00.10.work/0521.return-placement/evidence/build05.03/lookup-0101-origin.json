@@ -1,0 +1,42 @@
+{
+  "check": "return-line-relocation/1",
+  "command": "lookup",
+  "correction": "Observed checks passed. This is not acceptance, seating, or publication.",
+  "descriptor": {
+    "custody_format": "legacy-relocated/1",
+    "custody_path": "0104.app-entry/05.06.custody",
+    "manifest_path": "0104.app-entry/05.06.custody/manifest.json",
+    "origin": {
+      "batch": "05.06",
+      "book": "00.00.10.work",
+      "page": "0504.app-entry"
+    },
+    "receipt_path": "0104.app-entry/05.06.custody/receipt.json",
+    "receipt_sha256": "bb71698f903c786497fa44b34cef046f32fabc01a039b40e53e8bd940a1a3580",
+    "return_bytes": 13251,
+    "return_path": "0104.app-entry/05.06.return.md",
+    "return_sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+    "route": "matched-workflow-return-line",
+    "schema": "return-line-descriptor/1",
+    "state": "complete",
+    "submission_id": "0504-05-06-pinned",
+    "target_page": "0104.app-entry",
+    "verification": {
+      "evidence_path": "0104.app-entry/05.06.custody/relocation.json",
+      "result": "complete",
+      "tool_path": "labs/return-lines-pass01/return_lines.py",
+      "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    }
+  },
+  "detail": {
+    "acceptance": null,
+    "accepted": false,
+    "approved": false,
+    "problems": [],
+    "published": false
+  },
+  "evidence": "0104.app-entry/05.06.custody/relocation.json",
+  "exit": 0,
+  "schema": "return-line-result/1",
+  "state": "complete"
+}

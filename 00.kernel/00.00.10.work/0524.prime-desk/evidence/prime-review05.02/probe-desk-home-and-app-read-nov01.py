@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,subprocess,sys,importlib.util,difflib,hashlib
+R=Path(r'D:\Git\lib-build');O=Path(r'D:\librarian\temp\two-prime-returns-review-nov01')
+p=R/'labs/prime-desk-pass02/prime_desk.py';s=importlib.util.spec_from_file_location('desk02_inspection',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+ident={x:m.page_identity(x) for x in ['0521.return-placement/05.03.md','1599.synth-lab/05.01.md','0705.prime-desk-check/06.01.review.md','1705.prime-desk-check/06.01.review.md','0705.prime-desk-check/05.01.pack.md']};(O/'identity-probes.json').write_text(json.dumps(ident,indent=2),encoding='utf-8');print(json.dumps(ident,indent=2))
+book=R/'00.kernel/00.00.10.work';member=book/'0182.desk-app-integration-design-0501'
+def fingerprint():return {f.relative_to(member).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in member.rglob('*') if f.is_file()}
+before=fingerprint();args=[sys.executable,'-B','-X','utf8',str(R/'app/librarian.py'),'review-loop','describe-legacy','--book',str(book),'--member',member.name];q=subprocess.run(args,capture_output=True);(O/'prime-app-read.stdout').write_bytes(q.stdout);(O/'prime-app-read.stderr').write_bytes(q.stderr);assert fingerprint()==before;d=json.loads(q.stdout);(O/'prime-app-read.json').write_text(json.dumps({'command':args,'exit':q.returncode,'source_unchanged':True,'state':d.get('state'),'descriptor':d.get('descriptor'),'qualification':'actual read-only app use, not a new semantic review or live render'},indent=2),encoding='utf-8');print('Actual app read:',q.returncode,d.get('state'))
+# Exact facade delta against the pack's frozen preimage.
+pin=book/'0522.review-construction/evidence/pack05.05';pm=json.loads((pin/'source-manifest.json').read_text());r=next(r for r in pm['sources'] if r['path']=='app/librarian.py');old=(pin/r['snapshot']).read_text(encoding='utf-8');new=(R/'app/librarian.py').read_text(encoding='utf-8');(O/'facade-delta.diff').write_text(''.join(difflib.unified_diff(old.splitlines(True),new.splitlines(True),fromfile='pack-before/librarian.py',tofile='returned/librarian.py')),encoding='utf-8')

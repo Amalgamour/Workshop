@@ -1,0 +1,43 @@
+{
+  "schema": "prima-advisory-findings/1",
+  "assignment_id": "prima-0706-0503",
+  "method": "source inspection only; nothing executed (lab files refuse non-canonical roots and pin D:\\Git\\lib-build)",
+  "sources": {
+    "n7": {"path": "labs/n7-local-lifecycle-pass01/workbook.py", "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a"},
+    "n5": {"path": "labs/review-instance-binding-pass01/workbook.py", "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"},
+    "pass02": {"path": "labs/workbook-review-pass02/workbook.py", "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"},
+    "integration": {"path": "labs/review-instance-binding-pass01/INTEGRATION.md", "sha256": "f089f1f998d81b8ffb088e4702fd388855b7ebe87cd6585ff7d5d6cdf6807bc7"}
+  },
+  "findings": [
+    {"id": "F1", "title": "Absent or non-dict stored intake is reported as not changed by every layer", "grade": "likely", "severity": "medium-high",
+     "where": ["pass02 source_changed L725-727", "n5 n5_instance_hold L108-109", "n7 source_changed L150 then L158"],
+     "fact": "pass02 returns False when stored is not a dict; N5 returns None (no hold) for non-dict stored; N7 only checks dict stored, then delegates to pass02.",
+     "inference": "freshness() L980 then relies solely on revalidate(); revalidate is not in the packet, so whether it catches this is unknown.",
+     "counterexample": "Book with a current review in its journal; stored intake file removed or unreadable so read_stored_intake yields None; return bytes edited. source_changed -> False in all three layers.",
+     "action": "When a journal names a current review but the stored intake is absent or not a dict, return held/unknown instead of False."},
+    {"id": "F2", "title": "N7 pack region cut is a first-occurrence prefix match", "grade": "likely", "severity": "medium",
+     "where": ["n7 regions L76-82", "n7 source_changed L153-157"],
+     "fact": "bound ends at the first b'\\n## Review' after the first b'\\n## Return pointer'; prefix match also hits '## Reviewer', '## Reviews'. With equal bound hashes, the assignment row is dropped from comparison.",
+     "inference": "Any pack text after an early false cut becomes exempt like the Review section.",
+     "counterexample": "Pack body quotes an example block containing '\\n## Return pointer' then '\\n## Review - Codex Prime' before its real pointer; editing task text or the real pointer below the example leaves bound_sha256 unchanged and, if submission rows are unchanged, source_changed returns False.",
+     "action": "Cut only at the last exact heading line '## Return pointer' and the exact '## Review - ' heading that follows it (line-anchored, full-line match); otherwise treat the whole pack as bound."},
+    {"id": "F3", "title": "N7 book identity is a raw string compare; N5's stronger guard never applies to N7", "grade": "likely", "severity": "medium",
+     "where": ["n7 source_changed L151", "pass02 build_intake 'book': str(book) L472", "n7 exchange_of 'book': str(book.resolve()) L119", "n5 n5_instance_hold L108 (N5NN only)"],
+     "fact": "N7 compares unresolved str(book) only; instance_id, resolved directory, link/relocation checks exist only for kind N5NN. exchange.book is resolved but is not compared.",
+     "inference": "Different spellings of one book over-hold (fail-safe); a different instance at the same textual path (re-clone or remapped drive) passes the book check and is judged only by row hashes.",
+     "counterexample": "Replace D:\\Books\\X with a fresh clone carrying the same pack/return bytes and a copied store; stored and live 'book' strings are equal, so N7 never marks it stale.",
+     "action": "Apply n5_instance_hold's instance_id + resolved-directory check to N7NN too (or compare exchange.book and instance_id in N7 source_changed)."},
+    {"id": "F4", "title": "Nested composition depends on which p2 module copy each layer patched", "grade": "possible", "severity": "medium",
+     "where": ["n7 load_pass04 L56-58, BASE_CHANGED L69, patch L174", "n5 load_pass05 L42-44, BASE_CHANGED L51, patch p2.source_changed L157", "INTEGRATION.md call order"],
+     "fact": "Each layer loads its predecessor with a fresh spec_from_file_location module, captures BASE_CHANGED at import, and assigns its own function to its own p2 copy.",
+     "inference": "If pass05 and pass04 hold separate p2 module objects (pass05 internals not in packet), a 'nest by captured predecessor' overlay can call raw pass02 from one layer and silently skip the other.",
+     "counterexample": "Composed entry imports the N5 layer, whose BASE_CHANGED is pass02 from the pass05 chain; an N7 book with a changed book string reaches pass02 row equality only and returns False.",
+     "action": "Compose by calling n5_instance_hold, the N7 check and pass02 source_changed explicitly by function identity in INTEGRATION.md order, not via captured module globals."}
+  ],
+  "no_finding_checks": [
+    "Review-only edit after an exact pointer: assignment row dropped only when bound hash is equal; return, manifest and artifact rows still compared (n7 L155-157).",
+    "Pointer or task-body edit with normal headings: bound hash changes, pass02 row compare applies (n7 L158).",
+    "Different pass on the same page: row paths include page/pass, so rows differ."
+  ],
+  "overflow": ["If '## Return pointer' is absent, regions() searches '## Review' from byte 0 (n7 L80); state would be pointer-pending/incomplete, so lower impact; not explored."]
+}

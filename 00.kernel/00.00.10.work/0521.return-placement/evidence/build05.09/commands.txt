@@ -1,0 +1,67 @@
+# Commands — 0521.return-placement/05.09
+
+Date: 2026-11-02. Executor: Grok-2.
+Working directory: D:\Git\lib-build
+Environment: PYTHONDONTWRITEBYTECODE=1
+Interpreter: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+
+This file is a print summary of the official rehearsal. It is not a byte copy of the terminal log. Full argv and stdout sha256 are in commands.json. Stderr bytes are recorded there too.
+
+Official command:
+
+C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B labs\return-access-pass02\tests\run_suite.py
+
+Exit: 0
+Work root: D:\librarian\temp\0521-0509\20261102T213852169046Z-suite
+This rehearsal does not delete that root or the two earlier roots under D:\librarian\temp\0521-0509. Those roots are temporary retention, not a durable archive.
+
+Earlier stops, retained under evidence/build05.09/earlier/:
+
+20261102T212933Z-suite stopped because verify of 0521.synthetic-filing/05.01 ran before the filing existed. The tool correctly reported incomplete evidence. The next run verifies that filing after the filings. The contract files were not edited.
+
+20261102T213114Z-suite reached the marked-copy path, the filings, the guard refusal, and the declared handoff retry. It then stopped because guard_mismatch wrote tampered-guard.py before creating its directory. The next run creates that directory first. The contract files were not edited. That crash did not call fail(), so the evidence commands.json from the first stop stayed in place until this official run replaced it. The earlier copies keep the first stop.
+
+Print summary of the official run:
+
+logged commands 74
+claims passed 26
+claims not-run 4
+suite process stderr empty
+logged child stderr 88 bytes, on two facade refusals only: reserve exit 2 wrote 49 bytes, capture exit 2 wrote 39 bytes. Those are the malformed-layout side-book refusals. Every other logged command recorded 0 stderr bytes.
+copied primary members 83
+retired originals 65, occupants 18
+live layout absent at the end
+live plan sha256 52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66, 789717 bytes, matches the 05.06 plan
+live fingerprint unchanged: 75061b0c183e299c36623e809be8518a0d6efd4482ff13ed3bb3d4865c5e2e6d
+historical writer reserve exit 0 on a doorless declared side copy and exit 0 on a marked side copy
+fixture dispatcher status exit 0, fixture capture-return exit 2
+OK D:\librarian\temp\0521-0509\20261102T213852169046Z-suite
+
+Phase exits from commands.json:
+
+clerk.py queue 0 once, claim 0 once, return 0 once
+fixture-driver.py status path exit 0 once, capture-return path exit 2 once
+handoff.py perform 2 once
+handoff_tools_v2.py --binding 2 twice
+return_capture.py reserve 0 twice
+return_capture.py verify 0 twice, and 2 four times
+return_capture_guard.py reserve 0 twice, and 2 twice
+return_capture_guard.py capture 2 once
+return_line_tools_v3.py plan 0 four times
+return_line_tools_v3.py preflight 0 twice, and 2 three times
+return_line_tools_v3.py init 0 three times, and 2 three times
+return_line_tools_v3.py stage 0 three times
+return_line_tools_v3.py reconstruct 0 three times
+return_line_tools_v3.py publish 0 twice, and 3 once
+return_line_tools_v3.py publish-resume 0 once
+return_line_tools_v3.py retire 0 twice
+return_line_tools_v3.py rollback-retire 0 once
+return_line_tools_v3.py rollback-publish 0 once
+return_line_tools_v3.py reserve 1 seven times, 0 once, and 2 twice
+return_line_tools_v3.py capture 0 seven times, and 2 twice
+return_line_tools_v3.py lookup 0 twice, and 1 once
+return_line_tools_v3.py verify 0 once, and 2 once
+
+The seven reserve exits 1 are stored line-pass reservations, not completions. The following capture exits 0 seal those filings with accepted false. The two facade reserve exits 2 are the conflicting submission and the duplicate-key layout on a side book. The facade reserve exit 0 is the same reservation repeated, with rewritten false. The two facade capture exits 2 are the changed sealed payload and the directory layout on a side book. The two historical reserve exits 0 are the unselected writer on disposable side copies. The guard reserve exits 0 are undeclared doorless delegation, including the plain-book payload case before the identity refusal. The guard reserve and capture exits 2 are declared or malformed refusals before the writer loads.
+
+commands.json and the other files this build authored use LF.

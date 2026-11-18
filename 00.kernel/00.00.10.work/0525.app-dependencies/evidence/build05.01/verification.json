@@ -1,0 +1,47 @@
+{
+  "schema": "app-dependencies-verification/1",
+  "pass": "0525.app-dependencies/05.01",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "pack_inputs": {
+    "schema": "prime-pack-inputs/1",
+    "files": 30,
+    "bad": 0,
+    "manifest_sha256": "77ce5a5d98fc476b32f2748c628c68d03747f3f069b0c6990185b5d34abad123",
+    "manifest_bytes": 10275
+  },
+  "reader": {
+    "path": "labs/module-dependencies-pass01/depdecl.py",
+    "sha256": "be32e7be8b481d7439f9f884f3cc709841964c807c8274f68bed7a3ce12567f0",
+    "bytes": 48898,
+    "edited": false
+  },
+  "app_edited": false,
+  "set_id": "review-loop-entry-1",
+  "set_sha256": "0a2ae9b028e974a20c15c3c5904ff654f7fa91f01a0380fbd6b5e9dfcf6e6af6",
+  "set_bytes": 7039,
+  "commands": [
+    {"name": "validate", "exit": 0, "status": "valid"},
+    {"name": "requires-transitive", "exit": 0, "status": "complete-for-declared-coverage", "findings": {"condition-inapplicable": 1, "environment-unverified": 21, "shared": 33}},
+    {"name": "requires-depth-2", "exit": 1, "status": "incomplete", "findings": {"depth-limit": 9, "environment-unverified": 5}},
+    {"name": "identity", "exit": 0, "status": "complete-for-declared-coverage", "fixtures_identical": 12},
+    {"name": "explain-return-capture", "exit": 0, "status": "complete-for-declared-coverage", "paths": 3},
+    {"name": "impacted-depth-1", "exit": 1, "status": "truncated"},
+    {"name": "impacted-depth-8", "exit": 0, "status": "candidates-for-review"},
+    {"name": "impacted-implementation", "exit": 0, "status": "candidates-for-review", "implementation_compared": "sha256 only"},
+    {"name": "negative-missing-capture", "exit": 1, "status": "incomplete", "record_missing": 3}
+  ],
+  "contract_revised_after_commands": false,
+  "custody": "pending",
+  "matching_line": "0125.app-dependencies",
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "receipt": null,
+  "note": "Exit 0 is an answer about the declared records. It is not Prime review, seating, or production classification."
+}

@@ -1,0 +1,37 @@
+{
+  "inspector_capture_and_reservation_equal": true,
+  "fingerprints": {
+    "workerA": {
+      "identical": true,
+      "entries": 19,
+      "sha256": "510a93f049cfcfa3c9c6345f73848fd60ce374a10a37602803f17f0937760f1e"
+    },
+    "workerB": {
+      "identical": true,
+      "entries": 67,
+      "sha256": "f5df7164fb8878e83939efbfbf2cc0ba8ea79ba299fec5de50402bec860085fa"
+    }
+  },
+  "route": {
+    "band": "5",
+    "custody_dir": "0119.desk-app/05.01.custody",
+    "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0519.desk-app"
+    },
+    "pack_path": null,
+    "page_number": "0519",
+    "pass": "05.01",
+    "return_path": "0119.desk-app/05.01.return.md",
+    "review_path": null,
+    "route": "matched-workflow-return-line",
+    "schema": "return-placement-route/1",
+    "sequential_allocation": false,
+    "subject": "desk-app",
+    "target_number": "0119",
+    "target_page": "0119.desk-app",
+    "workflow_space": "0"
+  },
+  "limit": "Native Windows re-read of same capture; not a rerun of Linux execution. Route derivation does not file or migrate 0182."
+}

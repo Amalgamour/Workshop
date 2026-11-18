@@ -1,0 +1,17 @@
+{
+ "case": "C01",
+ "conflicts": [
+  {
+   "kind": "selection-vs-canonical",
+   "selected": "0522.review-construction/05.04",
+   "canonical_current_work": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+   "canonical_as_address": "0522.review-construction/05.03",
+   "raw": [
+    "/selected/address",
+    "/record/assignment_reader/0/fields/current_work"
+   ],
+   "note": "candidate selected from its own selector while the canonical record names different work (PD-01)"
+  }
+ ],
+ "note": "reported, never resolved; contains-matching in the checker can miss these"
+}

@@ -1,0 +1,76 @@
+{
+  "schema": "prime-desk-verification/0502",
+  "batch": "0524.prime-desk/05.02",
+  "session": "01a17ded-90ba-79e3-8b8c-7e1f0005193e",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "suite": {
+    "command": "python -B -m unittest -v labs/prime-desk-pass02/tests/test_prime_desk.py",
+    "cwd": "D:\\Git\\lib-build",
+    "exit": 0,
+    "tests": 14,
+    "seconds": 6.089,
+    "result": "OK",
+    "evidence": "evidence/build05.02/tests.txt",
+    "stdout_bytes": 0,
+    "first_local_exit": 1,
+    "first_local_tests": 12,
+    "first_local_seconds": 2.995,
+    "first_local_evidence": "evidence/build05.02/tests-first.txt"
+  },
+  "demo": {
+    "command": "python -B labs/prime-desk-pass02/demo.py --out D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0524.prime-desk\\evidence\\build05.02\\demo-output",
+    "process_exit": 0,
+    "tool_exit": 1,
+    "selected_id": "work-0521-0503",
+    "second_selected_id": "work-0522-0504",
+    "second_tool_exit": 1,
+    "rule": "assignment-record/v1",
+    "review_home": "0121.return-placement/05.03",
+    "request_sha256": "4af3649b2f20557efd60717c54197c0f4e70750265125618f964c84fda1fd668",
+    "fingerprint": "3ab4a484f29777df1f89e3a6cf0b5c950467a2802f437ad71af4cdca28331243",
+    "observed_at": "2026-11-01T17:34:41Z",
+    "second_request_sha256": "763abe9e424bd5700a3eea3a9244d36331b5c371e917c95a3b2421ee104be66b",
+    "second_fingerprint": "a2dbc9ecbf9e3d12db072066ea30b67b10227f630b748df5094a8f49f38832d7",
+    "second_observed_at": "2026-11-01T17:34:43Z",
+    "matched": 21,
+    "missing": 0,
+    "stale": 0,
+    "changed": 0,
+    "live_read_executed": false
+  },
+  "live_drift": [
+    {
+      "path": "app/README.md",
+      "pin_sha256": "4164ee218ac7e2bffdfea5bbf8c6f7b0d2a7edf01bb1dd4684d60d4e909c535d",
+      "pin_bytes": 26362,
+      "live_sha256": "f33cf04646fbc6841bea4a9e99a37841edbd3d9e04635f52297d0fca906b2b3c",
+      "live_bytes": 29833,
+      "parsed": false
+    },
+    {
+      "path": "app/librarian.py",
+      "pin_sha256": "939484f152c9227482e857f9ce88eaf40649f433a57d6c9d213a07bde16baee5",
+      "pin_bytes": 10463,
+      "live_sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b",
+      "live_bytes": 11037,
+      "parsed": false
+    }
+  ],
+  "pass01_prime_desk": {
+    "sha256": "b047a30324b2a764298ec69daafb9621606bdc10fe5fc45e042105f5c1f10b20",
+    "bytes": 57475,
+    "edited": false
+  },
+  "not_claimed": [
+    "acceptance",
+    "whole-app success",
+    "cold-model success",
+    "live process activity",
+    "0124 custody filed",
+    "capture complete",
+    "production activation",
+    "oracle adjusted"
+  ]
+}

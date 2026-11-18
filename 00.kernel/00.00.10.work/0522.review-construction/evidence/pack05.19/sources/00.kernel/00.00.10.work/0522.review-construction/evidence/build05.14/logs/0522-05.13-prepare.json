@@ -1,0 +1,686 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/05.13.md",
+      "role": "assignment",
+      "root": "book",
+      "text": "# 05.13 - Actual return intake and canonical source binding repair\ndate: 2026-11-02\nwho: Codex Prime\nexecutor: Grok-1\nreviewer: Codex Prime\nstate: PREPARED; execute on named Director invocation only\n\n## Goal / method\nFinish the approved 0412/06.06 operator cycle by correcting K1/K2 on 06.24. Verify evidence/pack05.13/source-manifest.json; claim/notes in NEW 06.25.md. Reproduce the frozen actual 05",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/submission.md",
+      "role": "submission",
+      "root": "book",
+      "text": "# Submission - 0522.review-construction/05.13\n\ndate: 2026-11-02\nexecutor: Grok-1\nreviewer: Codex Prime\naccepted: false\ncommitted_by_this_builder: false\ncustody: pending\nmatching line: 0122.review-construction unfiled\nreadiness: returned for Codex Prime review\n\nThis is the builder return for the named invocation of 05.13. It is a claim. It is not acceptance, not custody, and not a release. Notes in",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/06.25.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# 06.25 - Notes before the return intake repair\ndate: 2026-11-02\nwho: Grok-1\nreviewer: Codex Prime\nstate: reread after the operator suite; contract not revised\n\n## Invocation\nGrok-1 claims 0522.review-construction/05.13. Session 01a17ded-90ba-79e3-8b8c-7e1f0005193e. Named Director invocation of this page on 2026-11-02. Reviewer Codex Prime. This claim is not acceptance, not custody, and not a rele",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/CONTRACT.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# CONTRACT - workbook review pass03\ndate: 2026-11-02\nwho: Grok-1\nschema: workbook-review-contract/1\nstate: written before code; not revised after tests\n\nThis is the API, delta, failure, and ownership contract for 0522.review-construction/05.13. It repairs K1 and K2 from 06.24. It is a successor of the 05.12 workbook. It is not a workflow engine and not a kernel rewrite.\n\n## Reuse\n\nPinned and not e",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/PRIME-USE.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# PRIME-USE - workbook review pass03\n\nSource: 0522.review-construction/05.13. This pack repairs actual return intake and duplicate source identities. It is not acceptance and not a release.\n\nRun these from `D:\\Git\\lib-build` with `python -B`. The book is an absolute directory. The source is a page id. The pass is `05.NN`.\n\nThe owned book is `D:\\Git\\lib-build\\00.kernel\\00.00.10.work`, or a director",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/form.stderr.txt",
+      "role": "artifact",
+      "root": "book",
+      "text": "",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/form.stdout.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"form\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"form\": {\n    \"bindings\": {\n      \"custody\": \"missing\",\n      \"destination\": \"0521.return-placement/05.10.md\",\n      \"director_text\": null,\n      \"findings\": [\n        {\n          \"code\": \"index-context-bounded\",\n          \"count",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/inspect.stderr.txt",
+      "role": "artifact",
+      "root": "book",
+      "text": "",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/inspect.stdout.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"inspect\",\n  \"current\": null,\n  \"destination\": \"0521.return-placement/05.10.md\",\n  \"director_text\": null,\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"findings\": [\n    {\n      \"code\": \"index-context-bounded\",\n      \"count\": 16,\n      \"path\": \"evidence/build05.10/artifact-manifest.",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/prepare.stderr.txt",
+      "role": "artifact",
+      "root": "book",
+      "text": "",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/prepare.stdout.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"prepare\",\n  \"custody\": \"missing\",\n  \"cuts\": [\n    {\n      \"encoding\": \"utf-8\",\n      \"path\": \"0521.return-placement/05.10.md\",\n      \"role\": \"assignment\",\n      \"root\": \"book\",\n      \"text\": \"# 05.10 - Read-only return-route selection and dependency readiness\\ndate: 2026-11-02\\nwho: Codex Prime",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/current-book/summary.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"commands\": [\n    {\n      \"artifact_count\": 16,\n      \"artifact_cut_count\": 12,\n      \"command\": \"prepare\",\n      \"correction_route\": \"labs/workbook-review-pass03/PRIME-USE.md\",\n      \"custody\": \"missing\",\n      \"cut_count\": 15,\n      \"director_text\": null,\n      \"exit\": 0,\n      \"findings\": [\n        \"index-context-bounded\",\n        \"custody-missing\",\n        \"return-missing\",\n        \"verifi",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/reproduce/k1-prepare.stderr",
+      "role": "artifact",
+      "root": "book",
+      "text": "",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.13/reproduce/k1-prepare.stdout",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"prepare\",\n  \"custody\": \"missing\",\n  \"cuts\": [\n    {\n      \"encoding\": \"utf-8\",\n      \"path\": \"0521.return-placement/05.10.md\",\n      \"role\": \"assignment\",\n      \"root\": \"book\",\n      \"text\": \"# 05.10 - Read-only return-route selection and dependency readiness\\ndate: 2026-11-02\\nwho: Codex Prime",
+      "truncated": true
+    }
+  ],
+  "destination": "0522.review-construction/05.13.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "verification-not-measured",
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/submission.md"
+    },
+    {
+      "code": "index-context-bounded",
+      "count": 29,
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/artifact-manifest.json"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0122.review-construction"
+    },
+    {
+      "code": "return-missing",
+      "path": "0122.review-construction/05.13.return.md"
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0522.review-construction/05.13.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "verification-not-measured",
+          "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/submission.md"
+        },
+        {
+          "code": "index-context-bounded",
+          "count": 29,
+          "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/artifact-manifest.json"
+        },
+        {
+          "code": "custody-missing",
+          "path": "0122.review-construction"
+        },
+        {
+          "code": "return-missing",
+          "path": "0122.review-construction/05.13.return.md"
+        }
+      ],
+      "instance_id": "f65985786558d8627fb965a1642f44b944481a44591bd7241423ccdc28f1498b",
+      "intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+      "kind": "N5NN",
+      "member": "0122.review-construction",
+      "return_path": null,
+      "rows": [
+        {
+          "bytes": 7609,
+          "declared_path": "0522.review-construction/05.13.md",
+          "path": "0522.review-construction/05.13.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "632b9c6ed61c800f42c8aa64e148b66c36350f6ef0725dbfeb5f7108c723a6d8"
+        },
+        {
+          "bytes": 25656,
+          "declared_bytes": 25656,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/submission.md",
+          "declared_sha256": "0bf16292a0a10f4cd2120cf3f20915db9ab1d57c48da6609b25a699973ec49e5",
+          "path": "0522.review-construction/evidence/build05.13/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "0bf16292a0a10f4cd2120cf3f20915db9ab1d57c48da6609b25a699973ec49e5"
+        },
+        {
+          "bytes": 6704,
+          "declared_bytes": 6704,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/artifact-manifest.json",
+          "declared_sha256": "e806c09a08b5596d25e62efc1988188fb64ca064bb05545abda911a75f61fe04",
+          "path": "0522.review-construction/evidence/build05.13/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "e806c09a08b5596d25e62efc1988188fb64ca064bb05545abda911a75f61fe04"
+        },
+        {
+          "bytes": 9600,
+          "declared_bytes": 9600,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/06.25.md",
+          "declared_sha256": "0480da3242a46b30cf04cc5456c345b2a766e4e5f28ad8c5b85cc4115e438c87",
+          "path": "0522.review-construction/06.25.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0480da3242a46b30cf04cc5456c345b2a766e4e5f28ad8c5b85cc4115e438c87"
+        },
+        {
+          "bytes": 14580,
+          "declared_bytes": 14580,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/CONTRACT.md",
+          "declared_sha256": "685b1e86e4a8fb321251c61fa0e65df398ef0c0acddf495f03f00d77ae26a057",
+          "path": "0522.review-construction/evidence/build05.13/CONTRACT.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "685b1e86e4a8fb321251c61fa0e65df398ef0c0acddf495f03f00d77ae26a057"
+        },
+        {
+          "bytes": 4178,
+          "declared_bytes": 4178,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/PRIME-USE.md",
+          "declared_sha256": "8a280550deb366e08c0b595f92ef87db1b2044da403a40cb2c4f22ea6640fe6d",
+          "path": "0522.review-construction/evidence/build05.13/PRIME-USE.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "8a280550deb366e08c0b595f92ef87db1b2044da403a40cb2c4f22ea6640fe6d"
+        },
+        {
+          "bytes": 0,
+          "declared_bytes": 0,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/form.stderr.txt",
+          "declared_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "0522.review-construction/evidence/build05.13/current-book/form.stderr.txt",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 16510,
+          "declared_bytes": 16510,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/form.stdout.json",
+          "declared_sha256": "17dc7a4aae97066221be6ab9c14cd7ea213d66f1d93d44a6e475299103d551f2",
+          "path": "0522.review-construction/evidence/build05.13/current-book/form.stdout.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "17dc7a4aae97066221be6ab9c14cd7ea213d66f1d93d44a6e475299103d551f2"
+        },
+        {
+          "bytes": 0,
+          "declared_bytes": 0,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/inspect.stderr.txt",
+          "declared_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "0522.review-construction/evidence/build05.13/current-book/inspect.stderr.txt",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 17604,
+          "declared_bytes": 17604,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/inspect.stdout.json",
+          "declared_sha256": "e76103f6ec6b3cf8384188759cfc4ea28247ee516d31f224b883871c8f06c91d",
+          "path": "0522.review-construction/evidence/build05.13/current-book/inspect.stdout.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e76103f6ec6b3cf8384188759cfc4ea28247ee516d31f224b883871c8f06c91d"
+        },
+        {
+          "bytes": 0,
+          "declared_bytes": 0,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/prepare.stderr.txt",
+          "declared_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "0522.review-construction/evidence/build05.13/current-book/prepare.stderr.txt",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 26418,
+          "declared_bytes": 26418,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/prepare.stdout.json",
+          "declared_sha256": "dcf87d669b6f2966c92c30ae45c65aab772ff9c3ecce4292d63ae14d21ae771d",
+          "path": "0522.review-construction/evidence/build05.13/current-book/prepare.stdout.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "dcf87d669b6f2966c92c30ae45c65aab772ff9c3ecce4292d63ae14d21ae771d"
+        },
+        {
+          "bytes": 34508,
+          "declared_bytes": 34508,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/current-book/summary.json",
+          "declared_sha256": "689ae11c03b81da3f71115730eee1b082f6c048a9a3109b01047e15df82a6066",
+          "path": "0522.review-construction/evidence/build05.13/current-book/summary.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "689ae11c03b81da3f71115730eee1b082f6c048a9a3109b01047e15df82a6066"
+        },
+        {
+          "bytes": 0,
+          "declared_bytes": 0,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/k1-prepare.stderr",
+          "declared_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/k1-prepare.stderr",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 8449,
+          "declared_bytes": 8449,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/k1-prepare.stdout",
+          "declared_sha256": "bc16f6709a1acabe822acc4d681d103ce596bb7d65ea0dac6dabce3c58dffd5f",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/k1-prepare.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "bc16f6709a1acabe822acc4d681d103ce596bb7d65ea0dac6dabce3c58dffd5f"
+        },
+        {
+          "bytes": 0,
+          "declared_bytes": 0,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/k2-prepare.stderr",
+          "declared_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/k2-prepare.stderr",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 11922,
+          "declared_bytes": 11922,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/k2-prepare.stdout",
+          "declared_sha256": "1611c6b622750033ec06b6570d0cecad694b2df1813c1895bce0f140df848c42",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/k2-prepare.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1611c6b622750033ec06b6570d0cecad694b2df1813c1895bce0f140df848c42"
+        },
+        {
+          "bytes": 0,
+          "declared_bytes": 0,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/k2-record.stderr",
+          "declared_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/k2-record.stderr",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 711,
+          "declared_bytes": 711,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/k2-record.stdout",
+          "declared_sha256": "c376f6f09168a9db5b0237d284f36621e2d62cd4c473f6152145bd2485d62ba2",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/k2-record.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "c376f6f09168a9db5b0237d284f36621e2d62cd4c473f6152145bd2485d62ba2"
+        },
+        {
+          "bytes": 486,
+          "declared_bytes": 486,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/manifest-audit.json",
+          "declared_sha256": "1752492a95d3775165205e9a5c5743cfc9e2874740ac29fda7ccf0ab4861852a",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/manifest-audit.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1752492a95d3775165205e9a5c5743cfc9e2874740ac29fda7ccf0ab4861852a"
+        },
+        {
+          "bytes": 3375,
+          "declared_bytes": 3375,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/reproduce/summary.json",
+          "declared_sha256": "05fdf4af9f38aa92c737aef4925c85057f0cd5dbdcbf31b9d6359bd6cdc07925",
+          "path": "0522.review-construction/evidence/build05.13/reproduce/summary.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "05fdf4af9f38aa92c737aef4925c85057f0cd5dbdcbf31b9d6359bd6cdc07925"
+        },
+        {
+          "bytes": 25656,
+          "declared_bytes": 25656,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/submission.md",
+          "declared_sha256": "0bf16292a0a10f4cd2120cf3f20915db9ab1d57c48da6609b25a699973ec49e5",
+          "path": "0522.review-construction/evidence/build05.13/submission.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0bf16292a0a10f4cd2120cf3f20915db9ab1d57c48da6609b25a699973ec49e5"
+        },
+        {
+          "bytes": 5018,
+          "declared_bytes": 5018,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/verification.json",
+          "declared_sha256": "8c85afe9ec3f290a2604997c3e78876f4a02e8d9404f4d7873000032307139f7",
+          "path": "0522.review-construction/evidence/build05.13/verification.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "8c85afe9ec3f290a2604997c3e78876f4a02e8d9404f4d7873000032307139f7"
+        },
+        {
+          "bytes": 39687,
+          "declared_bytes": 39687,
+          "declared_path": "app/README.md",
+          "declared_sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920",
+          "path": "app/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+        },
+        {
+          "bytes": 12204,
+          "declared_bytes": 12204,
+          "declared_path": "app/librarian.py",
+          "declared_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+          "path": "app/librarian.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+        },
+        {
+          "bytes": 3515,
+          "declared_bytes": 3515,
+          "declared_path": "app/review-loop-v7.json",
+          "declared_sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8",
+          "path": "app/review-loop-v7.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+        },
+        {
+          "bytes": 10291,
+          "declared_bytes": 10291,
+          "declared_path": "app/review_loop_tools_v7.py",
+          "declared_sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d",
+          "path": "app/review_loop_tools_v7.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+        },
+        {
+          "bytes": 4178,
+          "declared_bytes": 4178,
+          "declared_path": "labs/workbook-review-pass03/PRIME-USE.md",
+          "declared_sha256": "8a280550deb366e08c0b595f92ef87db1b2044da403a40cb2c4f22ea6640fe6d",
+          "path": "labs/workbook-review-pass03/PRIME-USE.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "8a280550deb366e08c0b595f92ef87db1b2044da403a40cb2c4f22ea6640fe6d"
+        },
+        {
+          "bytes": 544,
+          "declared_bytes": 544,
+          "declared_path": "labs/workbook-review-pass03/README.md",
+          "declared_sha256": "5774890da67f5b66b9aa23de30ff7c81325a9bec53ce070bb78ff5e1739e075f",
+          "path": "labs/workbook-review-pass03/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "5774890da67f5b66b9aa23de30ff7c81325a9bec53ce070bb78ff5e1739e075f"
+        },
+        {
+          "bytes": 4532,
+          "declared_bytes": 4532,
+          "declared_path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+          "declared_sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b",
+          "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+        },
+        {
+          "bytes": 41446,
+          "declared_bytes": 41446,
+          "declared_path": "labs/workbook-review-pass03/tests/test_workbook.py",
+          "declared_sha256": "e7de8740d3262ed843e52bef173b3fea8c87ea486dfaa3e07e715c4026f37fe0",
+          "path": "labs/workbook-review-pass03/tests/test_workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "e7de8740d3262ed843e52bef173b3fea8c87ea486dfaa3e07e715c4026f37fe0"
+        },
+        {
+          "bytes": 19533,
+          "declared_bytes": 19533,
+          "declared_path": "labs/workbook-review-pass03/workbook.py",
+          "declared_sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c",
+          "path": "labs/workbook-review-pass03/workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "f65985786558d8627fb965a1642f44b944481a44591bd7241423ccdc28f1498b",
+  "intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+  "kind": "N5NN",
+  "live_intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+  "measurement": "complete",
+  "missing": [],
+  "page": "0522.review-construction",
+  "pass": "05.13",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": "45d9f51bf2e3e10ed2ca7dd9204fc7ff629b7034a1cfc18ec9aa78134404b5d2",
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

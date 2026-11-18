@@ -1,0 +1,282 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0794.prime-probe/05.01.pack.md",
+      "role": "assignment",
+      "root": "book",
+      "text": "# SYNTHETIC independent N7 fixture\r\n\r\n## Return pointer\r\nReturned: 05.01.return.md (Prime synthetic fixture), sha256 9374fa1f3c711c1045722a31572c64f8c93dba96951e1b3bd915f26cbe3b942c, 55 bytes.\r\nArtifact manifest: evidence/manifest.json, sha256 45d2cd10a70fc6de79df26df12946356b8c8d159c595b05724fc7fe2f73961dc, 325 bytes.\r\nVerification:\r\n\r\n## Review - Codex Prime\r\nPENDING.\r\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0794.prime-probe/05.01.return.md",
+      "role": "return",
+      "root": "book",
+      "text": "SYNTHETIC Prime probe return. Not a production review.\n",
+      "truncated": false
+    }
+  ],
+  "destination": "0794.prime-probe/06.01.review.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "unparsed-return-line",
+      "path": null,
+      "text": "Verification:"
+    },
+    {
+      "code": "malformed-n7-declaration",
+      "path": null,
+      "text": "Verification:"
+    },
+    {
+      "code": "custody-missing",
+      "path": null
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0794.prime-probe/06.01.review.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "unparsed-return-line",
+          "path": null,
+          "text": "Verification:"
+        },
+        {
+          "code": "malformed-n7-declaration",
+          "path": null,
+          "text": "Verification:"
+        },
+        {
+          "code": "custody-missing",
+          "path": null
+        }
+      ],
+      "instance_id": "a08595ee0c6dbdc5b0cb0e40ada901a12427251a743ebe37dac1f1d5b8c7b2ef",
+      "intake_id": "ff70e92b05789da9788524ab2f80d18409274cdee5db105b068a92094e73929a",
+      "kind": "N7NN",
+      "member": null,
+      "return_path": "0794.prime-probe/05.01.return.md",
+      "rows": [
+        {
+          "bytes": 374,
+          "declared_path": "0794.prime-probe/05.01.pack.md",
+          "path": "0794.prime-probe/05.01.pack.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "45ef24a4069bf3e5caa4057baac5b5457f4032856b9379fcccb9b6d4f8af9db3"
+        },
+        {
+          "bytes": 55,
+          "declared_path": "0794.prime-probe/05.01.return.md",
+          "path": "0794.prime-probe/05.01.return.md",
+          "role": "return",
+          "root": "book",
+          "sha256": "9374fa1f3c711c1045722a31572c64f8c93dba96951e1b3bd915f26cbe3b942c"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "a08595ee0c6dbdc5b0cb0e40ada901a12427251a743ebe37dac1f1d5b8c7b2ef",
+  "intake_id": "ff70e92b05789da9788524ab2f80d18409274cdee5db105b068a92094e73929a",
+  "kind": "N7NN",
+  "live_intake_id": "ff70e92b05789da9788524ab2f80d18409274cdee5db105b068a92094e73929a",
+  "measurement": "incomplete",
+  "missing": [],
+  "page": "0794.prime-probe",
+  "pass": "05.01",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": null,
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

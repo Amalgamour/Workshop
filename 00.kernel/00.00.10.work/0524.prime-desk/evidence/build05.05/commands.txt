@@ -1,0 +1,62 @@
+cwd: D:\Git\lib-build
+env: PYTHONDONTWRITEBYTECODE=1
+python: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+python version: 3.14.0
+
+python -B -m unittest -v labs/prime-desk-pass04/tests/test_prime_desk.py
+exit 0
+27 tests, 3.750s, OK
+record: evidence/build05.05/tests.txt
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\request_index.py --list D:\Git\lib-build\labs\prime-desk-use-pass02\source-list.json --out D:\Git\lib-build\labs\prime-desk-use-pass02\request.json
+exit 0
+stdout:
+pinned
+request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json
+--accept was not passed.
+
+Each later tool stdout is under evidence/build05.05/run/. Each .exit file records the code and empty stderr unless noted.
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py view --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json
+stdout: run/view.md
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py view --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --json
+stdout: run/view.json
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py packet --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --work-id work-0524-0504
+stdout: run/packet.md
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py packet --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --work-id work-0524-0504 --json
+stdout: run/packet.json
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py packet --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --work-id work-0522-0505
+stdout: run/packet-0522.md
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py packet --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --work-id work-0522-0505 --json
+stdout: run/packet-0522.json
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py packet --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --work-id work-0707-0501
+stdout: run/packet-0707.md
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py packet --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --work-id work-0707-0501 --json
+stdout: run/packet-0707.json
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py view --request D:\Git\lib-build\labs\prime-desk-use-pass02\request.json --json
+stdout: run/view-repeat.json
+exit 1
+
+python -B D:\Git\lib-build\labs\prime-desk-pass04\prime_desk.py view --request D:\Git\lib-build\labs\prime-desk-use-pass01\request.json --json
+stdout: run/old-profile.json
+exit 1
+state partial
+selected null
+gap kind stale
+The use-pass01 request file was not rewritten.

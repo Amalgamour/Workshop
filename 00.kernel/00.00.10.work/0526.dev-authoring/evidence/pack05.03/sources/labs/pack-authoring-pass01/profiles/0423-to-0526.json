@@ -1,0 +1,37 @@
+{
+  "schema": "authoring-profile/1",
+  "profile_id": "0423-to-0526",
+  "book_policy": "live-or-outside",
+  "source_home": "00.kernel/00.00.10.work/0423.dev-authoring",
+  "work_home": "00.kernel/00.00.10.work/0526.dev-authoring",
+  "source_page": "00.kernel/00.00.10.work/0423.dev-authoring/01.md",
+  "work_page_note": "00.kernel/00.00.10.work/0526.dev-authoring/01.md",
+  "template": "00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md",
+  "declared_notes": [
+    "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+    "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md"
+  ],
+  "raw_sources": [],
+  "dependency_set": {
+    "root": "code",
+    "path": "labs/app-dependencies-pass02/set.json"
+  },
+  "queries": [
+    {
+      "command": "validate"
+    },
+    {
+      "command": "requires",
+      "module": "lib-build:app/librarian.py",
+      "depth": 1
+    },
+    {
+      "command": "requires",
+      "module": "lib-build:labs/review-loop-pass02/review_loop.py",
+      "depth": 1,
+      "condition": [
+        "render-or-recover=inapplicable"
+      ]
+    }
+  ]
+}

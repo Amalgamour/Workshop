@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-readiness-pass01\readiness.py", line 700, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\Git\lib-build\labs\return-readiness-pass01\readiness.py", line 689, in main
+    body = inspect(code_root, book, code_text=code_text, book_text=book_text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\return-readiness-pass01\readiness.py", line 592, in inspect
+    parsed = recognize(dispatcher_row["data"].decode("utf-8"))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte

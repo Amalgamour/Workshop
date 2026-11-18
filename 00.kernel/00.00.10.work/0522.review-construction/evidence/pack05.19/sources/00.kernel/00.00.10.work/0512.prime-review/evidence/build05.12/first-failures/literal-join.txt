@@ -1,0 +1,7 @@
+The source-size case was run once before the suite through a subset loader.
+It failed one assertion: the joined next-step sentence was not a single line of successor source.
+The successor stores that sentence as two adjacent string literals.
+The over-bound refusal already contained the joined sentence.
+The successor, adapter, door, and candidate were not edited for that failure.
+The assertion was changed to the two literals.
+The first __main__ suite then ran 30 tests in 52.854s and passed.

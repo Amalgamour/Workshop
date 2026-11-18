@@ -1,0 +1,206 @@
+{
+  "attention": [],
+  "catalog": {
+    "items": [
+      {
+        "address": "0522.review-construction/05.04",
+        "basis": "observed",
+        "label": "work",
+        "work_id": "w-0522-review-construction-05-04"
+      },
+      {
+        "address": "0524.prime-desk/05.01",
+        "basis": "observed",
+        "label": "supplied (catalog index)",
+        "work_id": "w-0524-prime-desk-05-01"
+      },
+      {
+        "address": "0705.prime-desk-check/05.01",
+        "basis": "observed",
+        "label": "supplied (catalog index)",
+        "work_id": "w-0705-prime-desk-check-05-01"
+      }
+    ],
+    "source": {
+      "basis": "observed",
+      "bytes": 447,
+      "path": "prime-desk-catalog.json",
+      "sha256": "e64ca2dadcf56d28779766b2f298a27f7adc643a4b47a81e26155bcc1951e64b",
+      "status": "matched"
+    },
+    "used_for_selection": false
+  },
+  "check": "prime-desk-request/1",
+  "command": "view",
+  "correction": "Read the gaps and open attention. Restore or explicitly rehash a stale source. Do not treat a supplied label as process activity. Escalation: Codex Prime on 0524.prime-desk/05.01. This tool does not decide meaning, acceptance, or live authority.",
+  "coverage": {
+    "changed": 0,
+    "declared": 6,
+    "matched": 6,
+    "missing": 0,
+    "outside": 0,
+    "stale": 0,
+    "statement": "Declared request paths only. Unregistered sources were not searched.",
+    "unreadable": 0
+  },
+  "exit": 1,
+  "foreign": [],
+  "gaps": [
+    {
+      "basis": "unknown",
+      "check": "selector.checkpoint",
+      "kind": "checkpoint",
+      "message": "no checkpoint is declared",
+      "path": null
+    },
+    {
+      "basis": "unknown",
+      "check": "selector.verified_result",
+      "kind": "verification",
+      "message": "verified result is null",
+      "path": null
+    },
+    {
+      "basis": "observed",
+      "check": "prime-desk-catalog/1",
+      "kind": "catalog-not-chosen",
+      "message": "catalog names w-0524-prime-desk-05-01; selector names w-0522-review-construction-05-04. The selector is kept.",
+      "path": "prime-desk-catalog.json"
+    },
+    {
+      "basis": "observed",
+      "check": "prime-desk-catalog/1",
+      "kind": "catalog-not-chosen",
+      "message": "catalog names w-0705-prime-desk-check-05-01; selector names w-0522-review-construction-05-04. The selector is kept.",
+      "path": "prime-desk-catalog.json"
+    }
+  ],
+  "inspectability": {
+    "basis_legend": "observed = declared bytes matched; supplied = caller label; unknown = not present; stale = different bytes withheld; changed = bytes moved during the read and were withheld",
+    "escalation": "Escalation: Codex Prime on 0524.prime-desk/05.01. This tool does not decide meaning, acceptance, or live authority.",
+    "fingerprint": "78b92dfe1c89cdb19161df8c4dbe1649ac7a380e5c49cf3336d6a67e21b28f38",
+    "request_sha256": "1a70381fe5a6ddf7fb5723b43181de5a13f8634df050f3117c0ddfa6e6449958"
+  },
+  "instance": {
+    "basis": "observed",
+    "book": "00.00.10.work",
+    "role": "prime",
+    "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\0705\\b1\\runs\\C02\\book",
+    "tools_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\0705\\b1\\pinned"
+  },
+  "legacy": [],
+  "not_selected": [
+    {
+      "address": "0524.prime-desk/05.01",
+      "basis": "observed",
+      "id": "w-0524-prime-desk-05-01",
+      "reason": "not the canonical selector",
+      "source": {
+        "basis": "observed",
+        "bytes": 6132,
+        "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+        "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11",
+        "status": "matched"
+      }
+    },
+    {
+      "address": "0705.prime-desk-check/05.01",
+      "basis": "observed",
+      "id": "w-0705-prime-desk-check-05-01",
+      "reason": "not the canonical selector",
+      "source": {
+        "basis": "observed",
+        "bytes": 14172,
+        "path": "00.kernel/00.00.10.work/0705.prime-desk-check/05.01.return.md",
+        "sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+        "status": "matched"
+      }
+    }
+  ],
+  "observed_at": "2026-11-01T17:15:34Z",
+  "operations": [
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "review-loop-integration",
+      "limitation": "Pending. Successor modules were not imported.",
+      "limitation_basis": "tool",
+      "name": "review-loop",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": null
+    }
+  ],
+  "packet": null,
+  "record": {
+    "assignment_reader": [
+      {
+        "basis": "observed",
+        "bytes": 573,
+        "fields": {
+          "assignment_state": "running",
+          "basis": "observed",
+          "current_work": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+          "pack": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+          "updated": "2026-11-01"
+        },
+        "limit": "assignment_state is a record field, not a live process check. validate_context was not called.",
+        "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+        "reader": "app-context.parse_assignment",
+        "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+        "status": "matched"
+      }
+    ],
+    "history": [],
+    "history_inlined": false,
+    "references": [
+      {
+        "id": "canonical-selector",
+        "label": "canonical assignment record 0401/06.01 (reference only in this interface)",
+        "label_basis": "supplied",
+        "role": "assignment",
+        "source": {
+          "basis": "observed",
+          "bytes": 573,
+          "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+          "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+          "status": "matched"
+        }
+      }
+    ],
+    "supplied_without_worker": [],
+    "talk_parsed": false
+  },
+  "schema": "prime-desk-view/1",
+  "selected": {
+    "address": "0522.review-construction/05.04",
+    "basis": "observed",
+    "checkpoint": {
+      "basis": "unknown",
+      "source": null
+    },
+    "id": "w-0522-review-construction-05-04",
+    "next_route": {
+      "basis": "unknown",
+      "source": null,
+      "speaker": null
+    },
+    "rule": "prime-desk-selector/1",
+    "source": {
+      "basis": "observed",
+      "bytes": 7395,
+      "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+      "sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+      "status": "matched"
+    },
+    "verified_result": {
+      "basis": "unknown",
+      "limit": "missing verification is unknown, not a clean bill of health",
+      "source": null
+    }
+  },
+  "state": "attention",
+  "workers": []
+}

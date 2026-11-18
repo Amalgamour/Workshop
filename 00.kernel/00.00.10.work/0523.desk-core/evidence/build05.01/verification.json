@@ -1,0 +1,35 @@
+{
+  "schema": "desk-core-verification/1",
+  "interpreter": "Python 3.11.2",
+  "interpreter_command": "python3.11",
+  "python3_also_present": "Python 3.10.22",
+  "python_3_12": "not installed; no installation performed",
+  "runtime_dependencies": ["python-stdlib"],
+  "runtime_imports_of_pinned_modules": [],
+  "tests": {
+    "command": "python3.11 -B -m unittest app.desk_core.test_loop -v",
+    "cwd": "repository root",
+    "ran": 9,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 0,
+    "elapsed_seconds": 4.642,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.01/unittest.txt"
+  },
+  "demo": {
+    "command": "python3.11 -B -m app.desk_core.demo --transcript <absolute path>",
+    "exit": 0,
+    "step_exits": [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+    "interrupt_exit": 3,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.01/demo-transcript.txt",
+    "note": "The saved transcript contains one /tmp book path. Re-running the command uses a new disposable directory and the same exits."
+  },
+  "pins": {
+    "command": "python3.11 -B -m app.desk_core pins",
+    "matched": 33,
+    "sources": 33
+  },
+  "implementation_commit": "6024a4245a87471a68cb85230172b333cc8c1549",
+  "not_production_ready": true,
+  "accepted": false
+}

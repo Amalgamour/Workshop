@@ -1,0 +1,216 @@
+{
+ "binding_sha256": "c6ef45ec7406b69fbfb366501b263ef6475ff2d303958aa95ee803edfb2af53e",
+ "covered_by": {
+  "adapter": "plan identity, declared reviewer/stage, context equality, required fields, ids, sequence by captured_at",
+  "return_inspect": "custody status, receipt, origin and payload identities of each member"
+ },
+ "findings": [
+  {
+   "declared_in_plan": {
+    "conversation_supplied": "none",
+    "familiarity": "SYNTHETIC: none",
+    "host_context": "SYNTHETIC: none declared",
+    "isolation": "unknown"
+   },
+   "declared_in_result": {
+    "conversation_supplied": "full",
+    "familiarity": "SYNTHETIC: none",
+    "host_context": "SYNTHETIC: none declared",
+    "isolation": "unknown"
+   },
+   "finding": "context-mismatch",
+   "member": "0101.context-error-01"
+  }
+ ],
+ "findings_index": [],
+ "incomplete": [],
+ "mode": "combination",
+ "note": "Comprehension and findings are supplied text, kept verbatim; compute checked shape and links, not correctness. Isolation is as declared, never verified.",
+ "plan_id": "plan-1",
+ "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+ "producer_digest": "0d6b6b379a6ae5ee5aa80fc4e80956a0526297b328a69e26223b1aad171bc82f",
+ "results": [
+  {
+   "captured_at": "2026-10-31T20:50:01.031469Z",
+   "custody": "complete",
+   "inspect_exit": 0,
+   "member": "0101.context-error-01",
+   "origin": {
+    "batch": "05.01",
+    "book": "00.00.10.work",
+    "page": "0702.colab-review-fixture"
+   },
+   "receipt_sha256": "15eccce7711ada7f15b4f572a31386e2fff17c495e80c38639b2225b52ab7999",
+   "result": {
+    "comprehension": {
+     "current_system": "SYNTHETIC: nothing exists yet.",
+     "handback_route": "SYNTHETIC: one return in the reserved member.",
+     "proposed": "SYNTHETIC R01: the page proposes a fixture design.",
+     "task_authority": "SYNTHETIC: Prime reviews; the Director decides forks."
+    },
+    "context": {
+     "conversation_supplied": "full",
+     "familiarity": "SYNTHETIC: none",
+     "host_context": "SYNTHETIC: none declared",
+     "isolation": "unknown"
+    },
+    "findings": [],
+    "label": "SYNTHETIC",
+    "plan_id": "plan-1",
+    "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+    "reviewer": "R01",
+    "schema": "colab-review-result/1",
+    "simplicity": null,
+    "stage": "S01",
+    "status": "completed"
+   },
+   "result_sha256": "66d80ec1675128ff11e849317d86cecbc81e0858faa175dbe3d961bdfbae5969"
+  },
+  {
+   "captured_at": "2026-10-31T20:50:01.863834Z",
+   "custody": "complete",
+   "inspect_exit": 0,
+   "member": "0102.context-error-02",
+   "origin": {
+    "batch": "05.01",
+    "book": "00.00.10.work",
+    "page": "0702.colab-review-fixture"
+   },
+   "receipt_sha256": "f39f3a8de548823bf05f382e1a2fe5d446e45ca3b05e46529bb99ef64a10744a",
+   "result": {
+    "comprehension": {
+     "current_system": "SYNTHETIC: nothing exists yet.",
+     "handback_route": "SYNTHETIC: one return in the reserved member.",
+     "proposed": "SYNTHETIC R02: the page proposes a fixture design.",
+     "task_authority": "SYNTHETIC: Prime reviews; the Director decides forks."
+    },
+    "context": {
+     "conversation_supplied": "none",
+     "familiarity": "SYNTHETIC: none",
+     "host_context": "SYNTHETIC: none declared",
+     "isolation": "unknown"
+    },
+    "findings": [],
+    "label": "SYNTHETIC",
+    "plan_id": "plan-1",
+    "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+    "reviewer": "R02",
+    "schema": "colab-review-result/1",
+    "simplicity": null,
+    "stage": "S01",
+    "status": "completed"
+   },
+   "result_sha256": "5014f1066579e8f907439a6778c1f8a81c631881de7d75cc2183282cc53f5671"
+  },
+  {
+   "captured_at": "2026-10-31T20:50:02.818790Z",
+   "custody": "complete",
+   "inspect_exit": 0,
+   "member": "0103.context-error-03",
+   "origin": {
+    "batch": "05.01",
+    "book": "00.00.10.work",
+    "page": "0702.colab-review-fixture"
+   },
+   "receipt_sha256": "86dbeb84ebba1c5e2a0ad9c374a8e12bb40569801aa4e90c230689cc0565eb87",
+   "result": {
+    "comprehension": null,
+    "context": {
+     "conversation_supplied": "none",
+     "familiarity": "SYNTHETIC: none",
+     "host_context": "SYNTHETIC: none declared",
+     "isolation": "unknown"
+    },
+    "findings": [],
+    "label": "SYNTHETIC",
+    "plan_id": "plan-1",
+    "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+    "reviewer": "R01",
+    "schema": "colab-review-result/1",
+    "simplicity": null,
+    "stage": "S02",
+    "status": "completed"
+   },
+   "result_sha256": "36bbd6461823bd4d257441f8389defd99becf1263ec2c9b6f16aa0b98acbbd24"
+  },
+  {
+   "captured_at": "2026-10-31T20:50:03.694204Z",
+   "custody": "complete",
+   "inspect_exit": 0,
+   "member": "0104.context-error-04",
+   "origin": {
+    "batch": "05.01",
+    "book": "00.00.10.work",
+    "page": "0702.colab-review-fixture"
+   },
+   "receipt_sha256": "4c46a9caf53de0b6780844d92a2a0ebe0362cc5e1f97f6159bac9051279b495b",
+   "result": {
+    "comprehension": null,
+    "context": {
+     "conversation_supplied": "none",
+     "familiarity": "SYNTHETIC: none",
+     "host_context": "SYNTHETIC: none declared",
+     "isolation": "unknown"
+    },
+    "findings": [],
+    "label": "SYNTHETIC",
+    "plan_id": "plan-1",
+    "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+    "reviewer": "R02",
+    "schema": "colab-review-result/1",
+    "simplicity": null,
+    "stage": "S02",
+    "status": "completed"
+   },
+   "result_sha256": "30477826c9a3c8a343c4f64573b2d3fb6753e255fefefc77c9155c3555ee4725"
+  }
+ ],
+ "round": {
+  "cap": 2,
+  "number": 1
+ },
+ "schema": "colab-review-intake/2",
+ "stage_status": [
+  {
+   "member": "0101.context-error-01",
+   "receipt_sha256": "15eccce7711ada7f15b4f572a31386e2fff17c495e80c38639b2225b52ab7999",
+   "required": true,
+   "reviewer": "R01",
+   "stage": "S01",
+   "status": "completed"
+  },
+  {
+   "member": "0102.context-error-02",
+   "receipt_sha256": "f39f3a8de548823bf05f382e1a2fe5d446e45ca3b05e46529bb99ef64a10744a",
+   "required": true,
+   "reviewer": "R02",
+   "stage": "S01",
+   "status": "completed"
+  },
+  {
+   "member": "0103.context-error-03",
+   "receipt_sha256": "86dbeb84ebba1c5e2a0ad9c374a8e12bb40569801aa4e90c230689cc0565eb87",
+   "required": true,
+   "reviewer": "R01",
+   "stage": "S02",
+   "status": "completed"
+  },
+  {
+   "member": "0104.context-error-04",
+   "receipt_sha256": "4c46a9caf53de0b6780844d92a2a0ebe0362cc5e1f97f6159bac9051279b495b",
+   "required": true,
+   "reviewer": "R02",
+   "stage": "S02",
+   "status": "completed"
+  },
+  {
+   "member": null,
+   "receipt_sha256": null,
+   "required": false,
+   "reviewer": "R01",
+   "stage": "S03",
+   "status": "absent"
+  }
+ ],
+ "status": "incomplete"
+}

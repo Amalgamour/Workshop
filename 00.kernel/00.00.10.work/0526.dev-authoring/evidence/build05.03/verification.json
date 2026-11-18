@@ -1,0 +1,116 @@
+{
+  "schema": "authoring-verification/1",
+  "pass": "0526.dev-authoring/05.03",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "custody": "pending",
+  "matching_line": "0126.dev-authoring",
+  "matching_status": "unfiled",
+  "slot_0126_occupant": "0126.boot-members-0509",
+  "readiness": "blocked",
+  "receipt": null,
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "index_at_close_check": "empty",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "pack_inputs_before_edit": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/pack05.03/source-manifest.json",
+    "sha256": "d7cf4eeb27c1ffe06619d73100d6f7fe274a9aff3ac439191aa831cb2f872195",
+    "bytes": 9384,
+    "files": 28,
+    "bad": 0,
+    "missing": 0,
+    "live_bytes": 366497
+  },
+  "pack_inputs_after_edit": {
+    "files": 28,
+    "missing": 0,
+    "snapshot_mismatches": 0,
+    "repinned": false,
+    "live_bytes": 367442,
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "note": "The snapshot remains the before-edit freeze. Those two live files differ because this slice edited them. No other frozen row drifted."
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.03/CONTRACT.md",
+    "sha256": "7af1999d87d2ee2a097d331464bec5f9927af723c92dab744fce79809569408d",
+    "bytes": 7563,
+    "schema": "authoring-delta-contract/1",
+    "revised_after_commands": false
+  },
+  "schemas": {
+    "contract": "authoring-delta-contract/1",
+    "pins": "authoring-pins/2",
+    "forms": "authoring-forms/1",
+    "form_id": "build-pack-v1",
+    "form_result": "authoring-form/1",
+    "record": "authoring-record/1",
+    "result": "authoring-result/2",
+    "entry_run": "authoring-entry-run/1",
+    "verification": "authoring-verification/1"
+  },
+  "binding": {
+    "candidate_sha256": "689bda49a3454d7010da28d38994835b836f2133c57500d90586462065d261e6",
+    "final_sha256": "dbdcc43ad9b1e0e225d27e704bc119b53b18fe4b1b41eb4b4d5c49be47c076b5",
+    "final_bytes": 3425,
+    "retained_page": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.03/runs/20261102T183436Z/05.01.md",
+    "retained_draft": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.03/runs/20261102T183436Z/draft.md",
+    "page_equals_draft": true
+  },
+  "tests": {
+    "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.03/runs/20261102T183436Z/summary.json",
+    "stamp": "20261102T183436Z",
+    "cases": 89,
+    "failed": 0,
+    "first_failure": null,
+    "pass01_suite_rerun": false,
+    "review_loop_v4_suite_rerun": false,
+    "preview_unchanged": true,
+    "live_freeze_refused": true
+  },
+  "pins": {
+    "module": {
+      "path": "labs/pack-authoring-pass02/pack_author.py",
+      "sha256": "345c2f79a325ace9e3c0c42847d9ba9ce626ada5be205dbdd26f195907dcf6c2",
+      "bytes": 40491
+    },
+    "form": {
+      "path": "labs/pack-authoring-pass02/forms/build-pack-v1.json",
+      "sha256": "b3d18c26699674d7aa0607e491210664b31e90a63dba13860befb5409b0416ab",
+      "bytes": 19453
+    },
+    "door": {
+      "path": "app/authoring_tools_v2.py",
+      "sha256": "f191e43337ab9b6ac2c863b0c0f0eb91a0b55d00d2df99c2897a96a0965e1124",
+      "bytes": 8049
+    },
+    "declaration": {
+      "path": "app/authoring-v2.json",
+      "sha256": "14965030b2344f77e196a1d6a29b8cb74400cc3cf237e4f5ecc44c2adf332d11",
+      "bytes": 2106
+    },
+    "predecessor": {
+      "path": "labs/pack-authoring-pass01/pack_author.py",
+      "sha256": "30908475162fe9b1a566018d217d26465151b1243bb3a8f391cb54254f3ba10c",
+      "bytes": 67547
+    },
+    "librarian_after": {
+      "path": "app/librarian.py",
+      "sha256": "3f9dbfec25f71b4b3e0845d367d1d08138854bc1862b3b5b150aa6ce9250bc22",
+      "bytes": 11581
+    },
+    "readme_after": {
+      "path": "app/README.md",
+      "sha256": "82f839d211e1e4471f89cbc53f04b427d2929b9e67f139f4edd228925415355c",
+      "bytes": 35626
+    }
+  }
+}

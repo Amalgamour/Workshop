@@ -1,0 +1,394 @@
+{
+  "schema": "0707-05.10-acceptance-index/1",
+  "note": "Interface-neutral acceptance cases for 0522/05.11. Every assertion is NOT RUN. Fixtures are SYNTHETIC. Prime binds the steps to the returned real API; no API is assumed here.",
+  "contract": "evidence/pack05.10/sources/review-integration-contract.md (lines cited as C<n>)",
+  "fixture_root": "fixtures/book (a disposable book instance; copy it, never use it in place)",
+  "primary_hostile": [
+    "E",
+    "C"
+  ],
+  "cases": [
+    {
+      "id": "A",
+      "title": "Thin N5NN submission, substantive evidence, pending N1NN custody, preliminary judgment",
+      "requirements": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R6",
+        "R8"
+      ],
+      "fixtures": [
+        "fixtures/book/00.00.10.work/0599.fixture-review/05.01.md",
+        "fixtures/book/00.00.10.work/0599.fixture-review/evidence/build05.01/submission.md",
+        "fixtures/book/00.00.10.work/0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+        "fixtures/book/00.00.10.work/0599.fixture-review/evidence/build05.01/artifact-manifest.json",
+        "fixtures/judgments/A.preliminary.json"
+      ],
+      "steps": [
+        "prepare by address: book instance + 0599.fixture-review + 05.01",
+        "read the returned form",
+        "supply A.preliminary.json content",
+        "record",
+        "inspect",
+        "publish",
+        "new-process read"
+      ],
+      "assertions": [
+        {
+          "id": "A1",
+          "status": "NOT RUN",
+          "text": "Intake lists VERIFICATION.md, artifact-manifest.json and payload/parser.py as inspectable evidence, not only submission.md (C14)."
+        },
+        {
+          "id": "A2",
+          "status": "NOT RUN",
+          "text": "The missing digest for VERIFICATION.md in the artifact manifest is shown as a finding or missing evidence, not filled in (C14)."
+        },
+        {
+          "id": "A3",
+          "status": "NOT RUN",
+          "text": "Custody is reported as missing or preliminary (unfiled); no receipt, task association or completion is shown or written; no file appears under any 01NN path (C16)."
+        },
+        {
+          "id": "A4",
+          "status": "NOT RUN",
+          "text": "The supplied judgment is recorded and survives a new-process read with the same assessment, findings, operation and next action (C23, C28)."
+        },
+        {
+          "id": "A5",
+          "status": "NOT RUN",
+          "text": "Tests are shown as T1 passed, T2 failed, T3 unknown. T3 never renders as passed (C19)."
+        },
+        {
+          "id": "A6",
+          "status": "NOT RUN",
+          "text": "The review is not eligible for any custody-dependent completion or closure (C16)."
+        },
+        {
+          "id": "A7",
+          "status": "NOT RUN",
+          "text": "Source preservation: submission.md, VERIFICATION.md, artifact-manifest.json and payload are byte-identical before and after (C28)."
+        },
+        {
+          "id": "A8",
+          "status": "NOT RUN",
+          "added_on_reread": true,
+          "text": "The record names an intake candidate identity, bound before the judgment, and a separate final review identity. Both are returned by compute; Prime never supplies or predicts either (C23)."
+        },
+        {
+          "id": "A9",
+          "status": "NOT RUN",
+          "added_on_reread": true,
+          "text": "The published review contains both findings F1 (elevated) and F2 (answered) with their dispositions; none is dropped (C21)."
+        }
+      ],
+      "forbidden_writes": [
+        "any 01NN path",
+        "evidence/build05.01/*",
+        "05.01.md outside its Review - Codex Prime area"
+      ],
+      "variations_omitted": [
+        "the filed (native or relocated) mode: needs a fixture produced by the accepted line tool, not a hand-made receipt"
+      ]
+    },
+    {
+      "id": "B",
+      "title": "N7NN prior review, Director hold and reply, distinct successor review",
+      "requirements": [
+        "R5",
+        "R7",
+        "R9",
+        "R10"
+      ],
+      "fixtures": [
+        "fixtures/book/00.00.10.work/0799.fixture-colab/05.01.pack.md",
+        "fixtures/book/00.00.10.work/0799.fixture-colab/05.01.return.md",
+        "fixtures/book/00.00.10.work/0799.fixture-colab/06.01.review.md",
+        "fixtures/book/00.00.10.work/0799.fixture-colab/06.02.decisions.md",
+        "fixtures/judgments/B.successor.json"
+      ],
+      "steps": [
+        "prepare by address: 0799.fixture-colab + 05.01",
+        "read the form: it must show the 06.01 hold and the 06.02 Director words",
+        "supply B.successor.json content",
+        "record",
+        "publish",
+        "new-process read"
+      ],
+      "assertions": [
+        {
+          "id": "B1",
+          "status": "NOT RUN",
+          "text": "06.01.review.md and 06.02.decisions.md are byte-identical after publication; the successor is a new page-local 06.NN.review.md, not an edit of 06.01 (C26)."
+        },
+        {
+          "id": "B2",
+          "status": "NOT RUN",
+          "text": "The Director's words (#Q1) appear verbatim and attributed, separate from the successor's model text (C21; 06.06)."
+        },
+        {
+          "id": "B3",
+          "status": "NOT RUN",
+          "text": "Before the successor review is recorded, dependent item D1 is still held. The reply alone does not release D1 or any pack (C36; 0412/01 Director-input)."
+        },
+        {
+          "id": "B4",
+          "status": "NOT RUN",
+          "text": "After the successor review is recorded with operation continue, the selected current review is the successor; 06.01 stays as a predecessor (C26)."
+        },
+        {
+          "id": "B5",
+          "status": "NOT RUN",
+          "text": "Independent item I1 was never held (agreement: a hard stop affects dependent work only)."
+        },
+        {
+          "id": "B6",
+          "status": "NOT RUN",
+          "text": "No pack, release or worker prompt is executed by recording the successor (C21, C36)."
+        }
+      ],
+      "forbidden_writes": [
+        "05.01.pack.md",
+        "05.01.return.md",
+        "06.01.review.md",
+        "06.02.decisions.md",
+        "any 01NN path"
+      ],
+      "ambiguity": "Whether D1 becomes released by the successor review itself or needs a further released pack. The contract says a reply does not auto-release a pack (C36). It does not name the exact state after a successor 'continue'. B4 asserts only selection and preservation; the D1 state after the successor is for Prime or the Director to define."
+    },
+    {
+      "id": "C",
+      "title": "Drift between intake and publication: unrelated change versus the tool's own pointer write",
+      "requirements": [
+        "R6",
+        "R8"
+      ],
+      "fixtures": [
+        "fixtures/book/00.00.10.work/0599.fixture-review/05.01.md",
+        "fixtures/book/00.00.10.work/0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+        "fixtures/judgments/A.preliminary.json"
+      ],
+      "steps": [
+        "C-a: prepare, record A judgment, then edit the 05.01.md Scope body (one word) before publish; publish",
+        "C-b: fresh copy; prepare, record, then edit VERIFICATION.md (T3 row) before publish; publish",
+        "C-c: fresh copy; prepare, record, publish normally (the tool writes its own Review-area pointer); then read and recover"
+      ],
+      "assertions": [
+        {
+          "id": "C1",
+          "status": "NOT RUN",
+          "text": "C-a: publication is blocked or stale; the recorded judgment is preserved unchanged; nothing is silently repinned or reapproved (C23, C28)."
+        },
+        {
+          "id": "C2",
+          "status": "NOT RUN",
+          "text": "C-b: the same outcome for selected evidence drift (C23)."
+        },
+        {
+          "id": "C3",
+          "status": "NOT RUN",
+          "text": "C-c: the tool's own pointer write does not make its own judgment stale. Read and recover report it as current and complete (C28)."
+        },
+        {
+          "id": "C4",
+          "status": "NOT RUN",
+          "text": "C-c: the diff of 05.01.md before versus after is limited to the Review - Codex Prime area; before and after identities are retained (C28)."
+        },
+        {
+          "id": "C5",
+          "status": "NOT RUN",
+          "text": "C-a and C-b: the edited bytes are not reverted by the tool (the change is preserved for review)."
+        },
+        {
+          "id": "C6",
+          "status": "NOT RUN",
+          "added_on_reread": true,
+          "text": "C-a and C-b: the stale state survives a new-process read and recover; it is not cleared by restarting (C36 'held/stale state survives recovery')."
+        }
+      ],
+      "forbidden_writes": [
+        "05.01.md outside the Review area",
+        "evidence/build05.01/*"
+      ],
+      "plausible_mistake": "The implementation hashes the whole work page at intake and at publish. Either its own pointer write then self-invalidates (C3 fails), or the check is loosened to ignore the work page, so a Scope edit passes (C1 fails).",
+      "ambiguity": "Edits to files on the page that are NOT selected evidence (for example a new 06.NN notes file) are not covered. The contract says 'unrelated assignment/body changes' block; whether other page files count is for Prime."
+    },
+    {
+      "id": "D",
+      "title": "Judgment recorded, publication blocked by an existing manual review; new-process recovery",
+      "requirements": [
+        "R6",
+        "R7",
+        "R8"
+      ],
+      "fixtures": [
+        "fixtures/book/00.00.10.work/0599.fixture-review/05.01.md",
+        "fixtures/judgments/A.preliminary.json"
+      ],
+      "steps": [
+        "fresh copy; replace 'PENDING.' in the Review - Codex Prime area with the text 'Manual review by hand: looks fine.' (SYNTHETIC)",
+        "prepare",
+        "record A judgment",
+        "publish",
+        "end the process",
+        "new process: read, then recover"
+      ],
+      "assertions": [
+        {
+          "id": "D1",
+          "status": "NOT RUN",
+          "text": "Publication does not overwrite the manual text and does not adopt it as an approval; the outcome is held or blocked (C26)."
+        },
+        {
+          "id": "D2",
+          "status": "NOT RUN",
+          "text": "The judgment is durable in the tool's record, not only in a rendered file. Recover returns the exact assessment, findings, operation, next action and holds (C23, C28)."
+        },
+        {
+          "id": "D3",
+          "status": "NOT RUN",
+          "text": "Status reports publication incomplete; no completion or closure is reported (C28)."
+        },
+        {
+          "id": "D4",
+          "status": "NOT RUN",
+          "text": "Deleting or altering any rendered review file between the two processes does not change what recover returns as the judgment (it re-derives from the record, or reports the rendered file as drifted)."
+        }
+      ],
+      "forbidden_writes": [
+        "the manual text in the Review area",
+        "evidence/build05.01/*"
+      ],
+      "variations_omitted": [
+        "a block caused by a read-only target or a permission error"
+      ]
+    },
+    {
+      "id": "E",
+      "title": "Interruption between render and pointer; then a changed 'completed' output before restart",
+      "requirements": [
+        "R8"
+      ],
+      "fixtures": [
+        "fixtures/book/00.00.10.work/0599.fixture-review/05.01.md",
+        "fixtures/judgments/A.preliminary.json"
+      ],
+      "steps": [
+        "E-a: fresh copy; prepare, record, publish, stopping after the rendered review is written and before the pointer update (Prime binds the stop: a supported fault hook or a process kill)",
+        "E-a: new process recover",
+        "E-b: fresh copy; complete a normal publish; then append one line to the rendered review file; new process recover",
+        "E-c: fresh copy; complete a normal publish; then edit the Review area pointer text; new process recover"
+      ],
+      "assertions": [
+        {
+          "id": "E1",
+          "status": "NOT RUN",
+          "text": "E-a: status before recover shows publication incomplete (journaled partial), not success (C28)."
+        },
+        {
+          "id": "E2",
+          "status": "NOT RUN",
+          "text": "E-a: recover completes the pointer only after re-verifying the rendered bytes equal the recorded render; the judgment is unchanged (C28)."
+        },
+        {
+          "id": "E3",
+          "status": "NOT RUN",
+          "text": "E-b: recover does NOT report completed. It reports the rendered file as changed, holds without overwriting it, and keeps the judgment (C28 'never trusts a done label')."
+        },
+        {
+          "id": "E4",
+          "status": "NOT RUN",
+          "text": "E-c: the same for a changed pointer area: held or drifted, not silently rewritten."
+        },
+        {
+          "id": "E5",
+          "status": "NOT RUN",
+          "text": "In every variant, the source evidence files are byte-identical."
+        }
+      ],
+      "forbidden_writes": [
+        "silent overwrite of a changed rendered review or pointer",
+        "evidence/build05.01/*"
+      ],
+      "plausible_mistake": "Recovery checks a done flag or step label and returns already-complete without re-reading the rendered file and the pointer (exactly the defect class found in 0710 lifecycle review L-P1).",
+      "prerequisite": "A supported way to stop between render and pointer. If the returned API exposes none, E-a is NOT BINDABLE and must be reported as such, not faked."
+    },
+    {
+      "id": "F",
+      "title": "Replay, conflict, wrong type, omitted tests",
+      "requirements": [
+        "R4",
+        "R6"
+      ],
+      "fixtures": [
+        "fixtures/judgments/A.preliminary.json",
+        "fixtures/judgments/F.replay-same.json",
+        "fixtures/judgments/F.replay-conflict.json",
+        "fixtures/judgments/F.wrong-type.json",
+        "fixtures/judgments/F.tests-omitted.json"
+      ],
+      "steps": [
+        "F-a: record A, then record F.replay-same with the same operation identity",
+        "F-b: record F.replay-conflict with the same identity",
+        "F-c: fresh copy; record F.wrong-type (T3 = 'yes')",
+        "F-d: fresh copy; record F.tests-omitted (T3 absent)"
+      ],
+      "assertions": [
+        {
+          "id": "F1",
+          "status": "NOT RUN",
+          "text": "F-a: idempotent. The same stored result; no second record; no new write (C23)."
+        },
+        {
+          "id": "F2",
+          "status": "NOT RUN",
+          "text": "F-b: refused; the original record is byte-identical; the conflicting input is preserved with correction help (C23)."
+        },
+        {
+          "id": "F3",
+          "status": "NOT RUN",
+          "text": "F-c: refused at the T3 field, naming the expected type and the observed value; the input is kept; nothing recorded (C19, C23)."
+        },
+        {
+          "id": "F4",
+          "status": "NOT RUN",
+          "text": "F-d: T3 is not silently treated as passed. Either refused as missing or recorded as unknown, never passed (C19)."
+        },
+        {
+          "id": "F5",
+          "status": "NOT RUN",
+          "text": "No variant changes source files."
+        }
+      ],
+      "forbidden_writes": [
+        "the original record on F-b",
+        "any record on F-c"
+      ],
+      "ambiguity": "F-d: the contract forbids defaulting unknown tests to passed (C19) but does not say whether an omitted test must be refused or may be recorded as unknown. Both are acceptable here; 'passed' is not."
+    }
+  ],
+  "requirements": {
+    "R1": "Address-first intake: book instance + source page + pass; no caller-supplied paths, hashes or registration (C12, C34; 06.06 #02).",
+    "R2": "A thin submission does not become the whole packet; a bounded index of evidence and missing evidence; unknown pointers are findings (C14).",
+    "R3": "A missing N1NN custody is a truthful preliminary mode: no fake receipt, task association or completion; ineligible for custody-dependent closure (C16; 06.06).",
+    "R4": "The typed form never defaults unknown tests to passed, unresolved findings to empty, or a missing decision to consent (C19).",
+    "R5": "Prime supplies meaning; each finding answered, fixed or elevated; Director text verbatim and separate (C21; 06.06; director-agreement).",
+    "R6": "Bind the candidate before the judgment, with the final identity separate; record before publish; drift preserves the old record and shows staleness; replay idempotent; conflict refused; failed input kept (C23).",
+    "R7": "Targets derived by compute; N5NN Review area plus a record under the page; N7NN 06.NN.review.md; earlier and manual reviews preserved, not adopted (C26).",
+    "R8": "Pointer diff restricted and no self-invalidation; unrelated change blocks; sealed files never edited; interrupted publication visible; recovery revalidates completed bytes; a new process recovers exact judgment, next action and holds; a block never erases the judgment or reports completion (C28).",
+    "R9": "A Director reply never auto-releases a pack or closes a finding outside its review path; a hold affects dependent work only (C36; 0412/01; director-agreement).",
+    "R10": "Compute does not infer meaning or approval from headers, filenames, green tests or the word yes (0412/01; C21)."
+  },
+  "reread_corrections": [
+    "A8 candidate and final identity (C23) was missing",
+    "A9 finding dispositions kept (C21) was missing",
+    "C6 stale state survives recovery (C36) was missing"
+  ],
+  "limits": [
+    "Not covered: the C36 required case 'missing/ambiguous return'; the same address in another book instance (C14); a finding without a disposition being refused; the 0412 per-operation report floor (For [model] prompt, complete report).",
+    "The filed mode needs a fixture produced by the accepted line tool; none is fabricated here.",
+    "E-a needs a supported stop point between render and pointer; if none exists it is NOT BINDABLE."
+  ]
+}

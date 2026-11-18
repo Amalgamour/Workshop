@@ -1,0 +1,32 @@
+{
+  "_note": "Development wiring for the guarded capture handoff successor. Not kernel law. Capture launches labs/capture-handoff-guard-pass01/handoff.py after the reviewed guard pin matches. The sealed handoff remains directly runnable. Boot and batch are not repinned. This file is not app selection. A receipt is custody, not review, acceptance, or publication.",
+  "schema": "librarian-capture-handoff-v2",
+  "tools": {
+    "clerk": {
+      "bytes": 52279,
+      "path": "labs/clerk-handoff-pass02/clerk.py",
+      "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+    },
+    "guard": {
+      "bytes": 8931,
+      "path": "labs/return-capture-guard-pass01/return_capture_guard.py",
+      "sha256": "ca2707845a033901053620c70512a0a6a5ebf52d1b3069704aae8a93e17c7b2a"
+    },
+    "handoff": {
+      "bytes": 7851,
+      "path": "labs/capture-handoff-guard-pass01/handoff.py",
+      "sha256": "1b2e76915965d3a48bf158e01c96057e72bddf1cfa3b7c9abd53efa4a76b13c5"
+    },
+    "return_capture": {
+      "bytes": 45767,
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    }
+  },
+  "version": 1
+}

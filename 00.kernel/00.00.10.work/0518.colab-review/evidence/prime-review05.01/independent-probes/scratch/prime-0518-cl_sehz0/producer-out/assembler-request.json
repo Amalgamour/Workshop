@@ -1,0 +1,69 @@
+{
+  "schema": "pack-assembly-request/1",
+  "template": "pack-assembly-draft/1",
+  "title": "SYNTHETIC review of a fixture design page",
+  "date": "2026-10-31",
+  "author": "Codex Prime (SYNTHETIC fixture)",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0702.colab-review-fixture",
+    "batch": "05.01"
+  },
+  "identity": {
+    "book": "00.00.10.work",
+    "pppp": "0702",
+    "keyword": "colab-review-fixture",
+    "batch": "05.01"
+  },
+  "executor": "SYNTHETIC reviewer, unassigned",
+  "reviewer": "Codex Prime",
+  "goal": "Question: Explain the design first, then report findings, following the review plan.\nWhy: Fixture: proves the review plan and prompts survive preparation and verification.",
+  "scope": [
+    "Recipient writes: your one return file"
+  ],
+  "revision": "df9c58c930763ac7e054a43314c744e4b10da825",
+  "paths": [
+    "00.kernel/00.00.10.work/0599.synthetic-subject/01.md",
+    "reviews/plan-1/review-plan.json",
+    "reviews/plan-1/COMPREHENSION.md",
+    "reviews/plan-1/SIMPLICITY.md",
+    "reviews/plan-1/RESULT-TEMPLATE.json"
+  ],
+  "instructions": [
+    {
+      "nn": "01",
+      "heading": "Transport support only",
+      "text": "This is the accepted assembler's draft, kept under support/ for custody checks. It is not an instruction source. Read ENTRY.md, then 05.01.pack.md."
+    },
+    {
+      "nn": "02",
+      "heading": "Method",
+      "text": "Read COMPREHENSION.md and answer it before any finding; fill RESULT-TEMPLATE.json."
+    },
+    {
+      "nn": "03",
+      "heading": "Case C01",
+      "text": "Explain what the subject proposes, then list findings, if any."
+    },
+    {
+      "nn": "04",
+      "heading": "Return",
+      "text": "Return one file shaped like templates/05.01.return.TEMPLATE.md. Prime places it as 05.01.return.md only after capture; this package does not contain it."
+    }
+  ],
+  "evidence": "One return file in the return template shape. A receipt of it is custody, not acceptance.",
+  "dependencies": {
+    "state": "supplied",
+    "items": [
+      {
+        "name": "sources",
+        "detail": "every selected source is included as a snapshot"
+      }
+    ]
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "the reserved N1 member for this pass"
+  },
+  "repository_label": "fixture"
+}

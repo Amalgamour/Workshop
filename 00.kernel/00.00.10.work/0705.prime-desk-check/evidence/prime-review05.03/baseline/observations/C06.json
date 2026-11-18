@@ -1,0 +1,93 @@
+{
+ "schema": "desk-observation/1",
+ "case_id": "C06",
+ "producer": {
+  "kind": "candidate",
+  "adapter": {
+   "id": "0705-pass03-adapter/1",
+   "sha256": "52553954f6657df07106849e88f7b21bc3eafc8990a1ada90906aa689c33717d",
+   "status": "connected"
+  },
+  "raw_outputs": [
+   {
+    "path": "view.stdout",
+    "sha256": "7eaa5e780bb6c1b194d8a2b69f362ab01445bdfd351e5a719a426d8a368ba949"
+   },
+   {
+    "path": "packet.stdout",
+    "sha256": "fd1d829322c7d55e9b655c69eac9ee592e8924e28c33e4db79d8b5bf9d24caf7"
+   }
+  ],
+  "unmapped": [
+   "works",
+   "parallel",
+   "coverage",
+   "workers",
+   [
+    "selected",
+    "source"
+   ]
+  ]
+ },
+ "instance": {
+  "selected": "instance-A"
+ },
+ "selected": {
+  "work_ref": "0522.review-construction/05.04",
+  "basis": "observed",
+  "source": {
+   "path": null,
+   "sha256": null
+  }
+ },
+ "parallel": [],
+ "works": [],
+ "attention": {
+  "total": 3,
+  "shown": 3,
+  "overflow_route": null,
+  "items": [
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "conflict",
+    "ref": null
+   }
+  ]
+ },
+ "holds": [],
+ "coverage": [],
+ "sources": [
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+   "instance": "instance-A",
+   "expected_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "observed_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+   "instance": "instance-A",
+   "expected_sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+   "observed_sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "observed_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "status": "ok"
+  }
+ ],
+ "quotes": [],
+ "workers": [],
+ "refusals": [],
+ "identity_fingerprint": "968de68fc675d591717de9926cbd95edc13325a031219e86a7913a8e992c1322"
+}

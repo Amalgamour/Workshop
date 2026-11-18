@@ -1,0 +1,24 @@
+test_bad_arguments_refuse_before_the_loop (__main__.ReviewLoopEntryTests.test_bad_arguments_refuse_before_the_loop) ... ok
+test_changed_evidence_stays_stale (__main__.ReviewLoopEntryTests.test_changed_evidence_stays_stale) ... ok
+test_core_pins_and_old_facade_stay (__main__.ReviewLoopEntryTests.test_core_pins_and_old_facade_stay) ... ok
+test_duplicate_partial_and_existing_section (__main__.ReviewLoopEntryTests.test_duplicate_partial_and_existing_section) ... ok
+test_linked_declaration_is_not_followed (__main__.ReviewLoopEntryTests.test_linked_declaration_is_not_followed) ... skipped "symlink privilege unavailable: [WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\rc0505-link-jhrkebn2\\\\app\\\\real.json' -> 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\rc0505-link-jhrkebn2\\\\app\\\\review-loop-v2.json'"
+test_live_legacy_read_writes_nothing (__main__.ReviewLoopEntryTests.test_live_legacy_read_writes_nothing) ... ok
+test_nonzero_and_n7_through_prepare_record_render_read (__main__.ReviewLoopEntryTests.test_nonzero_and_n7_through_prepare_record_render_read) ... ok
+test_pin_conflicts_refuse_before_launch (__main__.ReviewLoopEntryTests.test_pin_conflicts_refuse_before_launch) ... ok
+test_real_producer_round_trip_through_the_app (__main__.ReviewLoopEntryTests.test_real_producer_round_trip_through_the_app) ... ERROR
+test_unrelated_commands_keep_their_dispatch (__main__.ReviewLoopEntryTests.test_unrelated_commands_keep_their_dispatch) ... ok
+
+======================================================================
+ERROR: test_real_producer_round_trip_through_the_app (__main__.ReviewLoopEntryTests.test_real_producer_round_trip_through_the_app)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\app\tests\test_review_loop_entry_v2.py", line 577, in test_real_producer_round_trip_through_the_app
+    self.assertFalse(render_view["filing_claimed"])
+                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'filing_claimed'
+
+----------------------------------------------------------------------
+Ran 10 tests in 144.073s
+
+FAILED (errors=1, skipped=1)

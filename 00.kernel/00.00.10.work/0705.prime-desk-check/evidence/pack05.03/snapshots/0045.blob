@@ -1,0 +1,813 @@
+{
+ "schema": "desk-expected/1",
+ "written_before_evaluation": true,
+ "date": "2026-11-01",
+ "who": "claude-opus-5-5 (Claude)",
+ "executable_cases": [
+  "C01",
+  "C02",
+  "C03",
+  "C04",
+  "C05",
+  "C06",
+  "C07",
+  "C08",
+  "C09",
+  "C10",
+  "C11",
+  "C13",
+  "C14",
+  "C16",
+  "C17",
+  "C18"
+ ],
+ "manual_cases": [
+  "C12",
+  "C15"
+ ],
+ "assertions": [
+  {
+   "id": "A-C01-01",
+   "case": "C01",
+   "path": [
+    "selected",
+    "work_ref"
+   ],
+   "op": "eq",
+   "value": "0522.review-construction/05.03",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-02",
+   "case": "C01",
+   "path": [
+    "selected",
+    "basis"
+   ],
+   "op": "eq",
+   "value": "observed",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-03",
+   "case": "C01",
+   "path": [
+    "selected",
+    "source",
+    "path"
+   ],
+   "op": "eq",
+   "value": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-04",
+   "case": "C01",
+   "path": [
+    "selected",
+    "source",
+    "sha256"
+   ],
+   "op": "eq",
+   "value": {
+    "fixture_file": [
+     "instance-A",
+     "00.kernel/00.00.10.work/0401.goal/06.01.md"
+    ]
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-05",
+   "case": "C01",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.03"
+    },
+    "review",
+    "state"
+   ],
+   "op": "eq",
+   "value": "review-complete",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-06",
+   "case": "C01",
+   "path": [
+    "attention",
+    "items"
+   ],
+   "op": "contains",
+   "value": {
+    "kind": "conflict",
+    "ref": "0522.review-construction/05.03"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-01",
+   "case": "C02",
+   "path": [
+    "selected",
+    "work_ref"
+   ],
+   "op": "eq",
+   "value": "0522.review-construction/05.04",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-02",
+   "case": "C02",
+   "path": [
+    "parallel"
+   ],
+   "op": "contains",
+   "value": {
+    "work_ref": "0524.prime-desk/05.01",
+    "basis": "supplied"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-03",
+   "case": "C02",
+   "path": [
+    "parallel"
+   ],
+   "op": "contains",
+   "value": {
+    "work_ref": "0705.prime-desk-check/05.01",
+    "basis": "supplied"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-04",
+   "case": "C02",
+   "path": [
+    "works",
+    {
+     "work_ref": "0524.prime-desk/05.01"
+    },
+    "claim",
+    "state"
+   ],
+   "op": "eq",
+   "value": "pending",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-05",
+   "case": "C02",
+   "path": [
+    "works",
+    {
+     "work_ref": "0524.prime-desk/05.01"
+    },
+    "claim",
+    "basis"
+   ],
+   "op": "eq",
+   "value": "observed",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-01",
+   "case": "C03",
+   "path": [
+    "instance",
+    "selected"
+   ],
+   "op": "eq",
+   "value": "instance-A",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-02",
+   "case": "C03",
+   "path": [
+    "refusals"
+   ],
+   "op": "contains",
+   "value": {
+    "target_instance": "instance-B"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-03",
+   "case": "C03",
+   "path": [
+    "sources"
+   ],
+   "op": "contains",
+   "value": {
+    "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+    "instance": "instance-B",
+    "status": "outside-instance"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-01",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0521.return-placement/05.03"
+    },
+    "custody",
+    "state"
+   ],
+   "op": "eq",
+   "value": "pending",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-02",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0521.return-placement/05.03"
+    },
+    "review",
+    "state"
+   ],
+   "op": "eq",
+   "value": "review-complete",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-03",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0521.return-placement/05.03"
+    },
+    "disposition",
+    "value"
+   ],
+   "op": "eq",
+   "value": "bounded migration/capture candidate checks passed; live adoption not performed",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-04",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0521.return-placement/05.03"
+    },
+    "disposition",
+    "attributed_to"
+   ],
+   "op": "eq",
+   "value": "Codex Prime",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-05",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0521.return-placement/05.03"
+    },
+    "director_approval",
+    "state"
+   ],
+   "op": "eq",
+   "value": "none-recorded",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-06",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.03"
+    },
+    "review",
+    "state"
+   ],
+   "op": "eq",
+   "value": "review-complete",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-07",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.03"
+    },
+    "disposition",
+    "value"
+   ],
+   "op": "eq",
+   "value": "repair required before real capture integration",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-08",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.03"
+    },
+    "custody",
+    "state"
+   ],
+   "op": "eq",
+   "value": "pending",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-09",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.04"
+    },
+    "return",
+    "state"
+   ],
+   "op": "eq",
+   "value": "not-returned",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-10",
+   "case": "C04",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.04"
+    },
+    "review",
+    "state"
+   ],
+   "op": "eq",
+   "value": "pending",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-01",
+   "case": "C05",
+   "path": [
+    "quotes"
+   ],
+   "op": "contains",
+   "value": {
+    "kind": "verbatim",
+    "attributed_to": "Director",
+    "source_path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+    "quote_sha256": {
+     "fixture_derived": "C05_director_quote_sha256"
+    }
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-02",
+   "case": "C05",
+   "path": [
+    "quotes"
+   ],
+   "op": "contains",
+   "value": {
+    "kind": "interpretation",
+    "attributed_to": "Codex Prime",
+    "source_path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-01",
+   "case": "C06",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.03"
+    },
+    "custody",
+    "state"
+   ],
+   "op": "in",
+   "value": [
+    "pending",
+    "unknown"
+   ],
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-02",
+   "case": "C06",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.03"
+    },
+    "return",
+    "state"
+   ],
+   "op": "eq",
+   "value": "returned",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-01",
+   "case": "C07",
+   "path": [
+    "holds"
+   ],
+   "op": "contains",
+   "value": {
+    "id": "H1",
+    "work_ref": "0522.review-construction/05.03",
+    "visible": true
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-02",
+   "case": "C07",
+   "path": [
+    "works",
+    {
+     "work_ref": "0524.prime-desk/05.01"
+    },
+    "blocked"
+   ],
+   "op": "eq",
+   "value": false,
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-03",
+   "case": "C07",
+   "path": [
+    "attention",
+    "items"
+   ],
+   "op": "contains",
+   "value": {
+    "kind": "hold",
+    "ref": "0522.review-construction/05.03"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C08-01",
+   "case": "C08",
+   "path": [
+    "coverage"
+   ],
+   "op": "contains",
+   "value": {
+    "area": "observer",
+    "status": "not-covered"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-01",
+   "case": "C09",
+   "path": [
+    "workers"
+   ],
+   "op": "contains",
+   "value": {
+    "name": "Grok-2",
+    "state": "running",
+    "basis": "supplied"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-02",
+   "case": "C09",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.04"
+    },
+    "claim",
+    "state"
+   ],
+   "op": "eq",
+   "value": "pending",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-03",
+   "case": "C09",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.04"
+    },
+    "claim",
+    "basis"
+   ],
+   "op": "eq",
+   "value": "observed",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-01",
+   "case": "C10",
+   "path": [
+    "holds"
+   ],
+   "op": "contains",
+   "value": {
+    "id": "H9",
+    "visible": true
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-02",
+   "case": "C10",
+   "path": [
+    "attention",
+    "total"
+   ],
+   "op": "ge",
+   "value": 40,
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-03",
+   "case": "C10",
+   "path": [
+    "attention"
+   ],
+   "op": "overflow-consistent",
+   "value": null,
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-01",
+   "case": "C11",
+   "path": [
+    "sources"
+   ],
+   "op": "contains",
+   "value": {
+    "path": "00.kernel/00.00.10.work/0420.prime-desk/evidence/assignment-before-nov01.md",
+    "status": "absent",
+    "expected_sha256": "305189287e3dca1b5a22063bf4493930caa54b866583a82c38db8c8e01ff3ec8"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-02",
+   "case": "C11",
+   "path": [
+    "selected",
+    "work_ref"
+   ],
+   "op": "eq",
+   "value": "0522.review-construction/05.04",
+   "mandatory": true
+  },
+  {
+   "id": "A-C13-01",
+   "case": "C13",
+   "path": [
+    "sources"
+   ],
+   "op": "contains",
+   "value": {
+    "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+    "status": "changed",
+    "expected_sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11",
+    "observed_sha256": {
+     "fixture_file": [
+      "instance-A",
+      "00.kernel/00.00.10.work/0524.prime-desk/05.01.md"
+     ]
+    }
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-01",
+   "case": "C14",
+   "path": [
+    "identity_fingerprint"
+   ],
+   "op": "same-as-second",
+   "value": null,
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-02",
+   "case": "C14",
+   "path": [
+    "selected",
+    "work_ref"
+   ],
+   "op": "same-as-second",
+   "value": null,
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-03",
+   "case": "C14",
+   "path": [
+    "holds"
+   ],
+   "op": "same-as-second",
+   "value": null,
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-04",
+   "case": "C14",
+   "path": [
+    "selected",
+    "work_ref"
+   ],
+   "op": "eq",
+   "value": "0522.review-construction/05.04",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-01",
+   "case": "C16",
+   "path": [
+    "works",
+    {
+     "work_ref": "0705.prime-desk-check/05.01"
+    },
+    "tails"
+   ],
+   "op": "contains",
+   "value": {
+    "name": "05.01.pack.md",
+    "present": true
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-02",
+   "case": "C16",
+   "path": [
+    "works",
+    {
+     "work_ref": "0705.prime-desk-check/05.01"
+    },
+    "tails"
+   ],
+   "op": "contains",
+   "value": {
+    "name": "05.01.return.md",
+    "present": true
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-03",
+   "case": "C16",
+   "path": [
+    "works",
+    {
+     "work_ref": "0705.prime-desk-check/05.01"
+    },
+    "tails"
+   ],
+   "op": "contains",
+   "value": {
+    "name": "06.01.review.md",
+    "present": true
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-01",
+   "case": "C17",
+   "path": null,
+   "op": "one-of",
+   "value": null,
+   "mandatory": true,
+   "any_of": [
+    {
+     "path": [
+      "works",
+      {
+       "work_ref": "0524.prime-desk/05.01"
+      },
+      "return",
+      "source_path"
+     ],
+     "op": "eq",
+     "value": "00.kernel/00.00.10.work/0124.prime-desk/05.01.return.md"
+    },
+    {
+     "path": [
+      "coverage"
+     ],
+     "op": "contains",
+     "value": {
+      "area": "return-form:0524.prime-desk/05.01",
+      "status": "unsupported"
+     }
+    }
+   ]
+  },
+  {
+   "id": "A-C17-02",
+   "case": "C17",
+   "path": null,
+   "op": "one-of",
+   "value": null,
+   "mandatory": true,
+   "any_of": [
+    {
+     "path": [
+      "works",
+      {
+       "work_ref": "1524.prime-desk/05.01"
+      },
+      "return",
+      "source_path"
+     ],
+     "op": "eq",
+     "value": "00.kernel/00.00.10.work/1124.prime-desk/05.01.return.md"
+    },
+    {
+     "path": [
+      "coverage"
+     ],
+     "op": "contains",
+     "value": {
+      "area": "return-form:1524.prime-desk/05.01",
+      "status": "unsupported"
+     }
+    }
+   ]
+  },
+  {
+   "id": "A-C18-01",
+   "case": "C18",
+   "path": [
+    "selected",
+    "work_ref"
+   ],
+   "op": "null",
+   "value": null,
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-02",
+   "case": "C18",
+   "path": [
+    "selected",
+    "basis"
+   ],
+   "op": "eq",
+   "value": "unknown",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-03",
+   "case": "C18",
+   "path": [
+    "refusals"
+   ],
+   "op": "contains",
+   "value": {
+    "rule_ref": "00.kernel/00.00.10.work/0410.imports/01.md#assignment-record",
+    "target_path": "00.kernel/00.00.10.work/0401.goal/06.01.md"
+   },
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-04",
+   "case": "C18",
+   "path": [
+    "works",
+    {
+     "work_ref": "0522.review-construction/05.04"
+    },
+    "review",
+    "state"
+   ],
+   "op": "eq",
+   "value": "pending",
+   "mandatory": true
+  }
+ ]
+}

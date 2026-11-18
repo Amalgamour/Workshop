@@ -1,0 +1,11 @@
+--- labs/review-entry-integration-pass01/candidate/labs/workbook-review-pass04/workbook.py	2026-11-03 17:12:55.044275700 -0600
++++ labs/review-entry-integration-pass01/adapter/workbook-pass04.lab.py	2026-11-03 17:12:55.108290200 -0600
+@@ -25,7 +25,7 @@
+ sys.dont_write_bytecode = True
+ os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+ 
+-REPO = Path(r"D:\Git\lib-build")
++REPO = Path(__file__).resolve().parents[2]  # LAB ADAPTER: the candidate root (production: D:\Git\lib-build)
+ HERE_ROOT = Path(__file__).resolve().parents[2]
+ PASS03_REL = "labs/workbook-review-pass03/workbook.py"
+ PASS03_SHA = "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"

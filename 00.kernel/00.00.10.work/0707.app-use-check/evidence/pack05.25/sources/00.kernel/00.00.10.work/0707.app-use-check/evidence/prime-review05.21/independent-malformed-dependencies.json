@@ -1,0 +1,38 @@
+{
+  "scope": "direct aggregation unit probes; not proof that actual app was accepted",
+  "cases": [
+    {
+      "dependencies": null,
+      "result": {
+        "ready": true,
+        "reasons": [],
+        "counts": {
+          "pass": 1
+        },
+        "required": 1
+      }
+    },
+    {
+      "dependencies": {},
+      "result": {
+        "ready": true,
+        "reasons": [],
+        "counts": {
+          "pass": 1
+        },
+        "required": 1
+      }
+    },
+    {
+      "dependencies": "not-a-list",
+      "result": {
+        "ready": true,
+        "reasons": [],
+        "counts": {
+          "pass": 1
+        },
+        "required": 1
+      }
+    }
+  ]
+}

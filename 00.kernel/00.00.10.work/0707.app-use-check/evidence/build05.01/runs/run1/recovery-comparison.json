@@ -1,0 +1,318 @@
+{
+  "all_ok_excluding_observation_checks": true,
+  "checks": [
+    {
+      "check": "A book decision.json bytes == evidence A-decision.json",
+      "left": "749a1d37ea27fe117ec7d1d9959753265beb86537082702f69a00297bc4d7f38",
+      "ok": true,
+      "right": "749a1d37ea27fe117ec7d1d9959753265beb86537082702f69a00297bc4d7f38"
+    },
+    {
+      "check": "A record.json sha == read latest_review.record_sha256",
+      "left": "134c65ef6f44565812be5be61c0c6a7576f36b6093f11cb859c8e99b2caeaddf",
+      "ok": true,
+      "right": "134c65ef6f44565812be5be61c0c6a7576f36b6093f11cb859c8e99b2caeaddf"
+    },
+    {
+      "check": "A COMMITTED.json names the same record",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered decision.attribution == recorded decision.attribution (canonical)",
+      "left": "36b761b9a267fcea6e63c66569efaf86cfaac91398b91ff1e3f8b0abf0f2891f",
+      "ok": true,
+      "right": "36b761b9a267fcea6e63c66569efaf86cfaac91398b91ff1e3f8b0abf0f2891f"
+    },
+    {
+      "check": "A recovered decision.judgment == recorded decision.judgment (canonical)",
+      "left": "a58101e037ed98d804db6b47ab93c07661f9e895cd86a8984e164a630551aaf1",
+      "ok": true,
+      "right": "a58101e037ed98d804db6b47ab93c07661f9e895cd86a8984e164a630551aaf1"
+    },
+    {
+      "check": "A recovered decision.supplied_record == recorded decision.supplied_record (canonical)",
+      "left": "f2ea44de1689a06ca56eddbbdbbd0bf0c05d9b605111920120bbdce00d6782eb",
+      "ok": true,
+      "right": "f2ea44de1689a06ca56eddbbdbbd0bf0c05d9b605111920120bbdce00d6782eb"
+    },
+    {
+      "check": "A recovered decision.binding == recorded decision.binding (canonical)",
+      "left": "e0f0caed2dd48e123d57bd56bf240fedb9aa83c4dba0e5c5631654ac42c333f5",
+      "ok": true,
+      "right": "e0f0caed2dd48e123d57bd56bf240fedb9aa83c4dba0e5c5631654ac42c333f5"
+    },
+    {
+      "check": "A recovered decision.review_id == recorded decision.review_id (canonical)",
+      "left": "4fb20a614cf431ed2751fa744c112a0d82a9b6f1d9e794b89d1fb1207e14b7fc",
+      "ok": true,
+      "right": "4fb20a614cf431ed2751fa744c112a0d82a9b6f1d9e794b89d1fb1207e14b7fc"
+    },
+    {
+      "check": "A recovered attribution == supplied attribution",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered judgment.outcome == supplied",
+      "left": "continue",
+      "ok": true,
+      "right": "continue"
+    },
+    {
+      "check": "A recovered judgment.disposition == supplied",
+      "left": "held",
+      "ok": true,
+      "right": "held"
+    },
+    {
+      "check": "A recovered judgment.finding == supplied",
+      "left": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+      "ok": true,
+      "right": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here."
+    },
+    {
+      "check": "A recovered judgment.reasons == supplied",
+      "left": [
+        "Custody of the disposable copy was verified by the pinned inspector (describe-legacy state complete); that is capture integrity only.",
+        "Task association is not-established: the custody records do not name this review task.",
+        "The writer of this sample authored the reviewed return, so it cannot stand as a review of it."
+      ],
+      "ok": true,
+      "right": [
+        "Custody of the disposable copy was verified by the pinned inspector (describe-legacy state complete); that is capture integrity only.",
+        "Task association is not-established: the custody records do not name this review task.",
+        "The writer of this sample authored the reviewed return, so it cannot stand as a review of it."
+      ]
+    },
+    {
+      "check": "A recovered judgment.semantic_conflict == supplied",
+      "left": false,
+      "ok": true,
+      "right": false
+    },
+    {
+      "check": "A recovered judgment.design_fork == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered next_action.text == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered section return_result == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered section prime_finding == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered section within_direction == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered section next_bounded_action == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A recovered section limits == supplied",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A read stdout supplied_judgment is null (judgment not carried by read)",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A page support record sha == page record_sha256",
+      "left": "484638b7b0096a050d84f7cde879dbe527bb915905edca4599be41ec2a8dc3c8",
+      "ok": true,
+      "right": "484638b7b0096a050d84f7cde879dbe527bb915905edca4599be41ec2a8dc3c8"
+    },
+    {
+      "check": "A page support record == recorded supplied_record (canonical)",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A page shows supplied finding verbatim",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A page shows every supplied reason verbatim",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A page shows every supplied section verbatim",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A page shows attribution actor_label",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "A page in-section states disposition (expected by an operator; observed?)",
+      "left": null,
+      "ok": false,
+      "right": null
+    },
+    {
+      "check": "A page in-section states pass_terminal (observed?)",
+      "left": null,
+      "ok": false,
+      "right": null
+    },
+    {
+      "check": "A page keeps OUTSIDE and TAIL tokens",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "binding.return_sha256 == pack pin of 0182 return.md",
+      "left": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+      "ok": true,
+      "right": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464"
+    },
+    {
+      "check": "binding.receipt_sha256 == pack pin of 0182 receipt.json",
+      "left": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+      "ok": true,
+      "right": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401"
+    },
+    {
+      "check": "binding.member is the derived line 0119.desk-app",
+      "left": "0119.desk-app",
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "binding.submission_id == descriptor submission_id",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "binding.origin == descriptor origin",
+      "left": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0519.desk-app"
+      },
+      "ok": true,
+      "right": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0519.desk-app"
+      }
+    },
+    {
+      "check": "capture source content_sha256 == pack pin",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "capture identity member/submission/receipt/origin",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "read observation custody_verified true (capture integrity)",
+      "left": true,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "read observation task_association not-established (separate fact)",
+      "left": "not-established",
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "read flags accepted false / custody not-established / authority none",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "copied member in book still equals pack pins after all calls",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "B recovered decision.judgment == A recovered (canonical)",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "B task binding == A task binding",
+      "left": null,
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "B rendered section bytes == A rendered section bytes",
+      "left": "08f63ed5d1df3115b81aa03ecb6906a3d6b4c37d9ae26d0a6494f0c5166cc688",
+      "ok": true,
+      "right": "08f63ed5d1df3115b81aa03ecb6906a3d6b4c37d9ae26d0a6494f0c5166cc688"
+    },
+    {
+      "check": "E exactly one partial",
+      "left": [
+        "r1-08f63ed5d1df.md"
+      ],
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "E render-conflict.json names the partial",
+      "left": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\0707-books\\run1\\E\\partial\\r1-08f63ed5d1df.md",
+      "ok": true,
+      "right": null
+    },
+    {
+      "check": "E partial contains the supplied finding",
+      "left": null,
+      "ok": true,
+      "right": null
+    }
+  ],
+  "recorded_decision_sha256": "749a1d37ea27fe117ec7d1d9959753265beb86537082702f69a00297bc4d7f38",
+  "recorded_judgment_canonical_sha256": "a58101e037ed98d804db6b47ab93c07661f9e895cd86a8984e164a630551aaf1",
+  "recovered_judgment_canonical_sha256": "a58101e037ed98d804db6b47ab93c07661f9e895cd86a8984e164a630551aaf1",
+  "recovered_record_sha256": "134c65ef6f44565812be5be61c0c6a7576f36b6093f11cb859c8e99b2caeaddf",
+  "run": "run1",
+  "schema": "0707-recovery-comparison/1",
+  "supplied_judgment_canonical_sha256": "fd4e35e498a96cb7cb7b3c7b5681704355232edc96f80668bbfc757e22116fe5"
+}

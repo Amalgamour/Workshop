@@ -1,0 +1,25 @@
+{
+ "_note": "TEMPLATE for Prime (0707/05.24). Copy, fill every <...> from the FROZEN successor candidate, keep R and W pending until Prime reviews them. Do not change dependencies/fixture_source/judgments from the frozen pass02 inputs except by the DEPENDENCIES.md (05.22) replacement procedure. Remove this _note.",
+ "schema": "harness-inputs/3",
+ "made_for": "<0522/05.18 successor, frozen by Prime>",
+ "candidate": {
+  "schema": "candidate-identity/1",
+  "name": "<name>",
+  "kind": "combined",
+  "entry": "app/librarian.py",
+  "workbook_entry": "<relative path of the workbook that prepare/read/report actually execute>",
+  "open_entry": "<relative path, or null, or equal to workbook_entry>",
+  "reporter_entry": "<relative path, or null>",
+  "candidate_json_sha256": "<sha256 of CANDIDATE.json in the frozen root>",
+  "files": [
+   {"path": "app/librarian.py", "sha256": "<sha256>", "bytes": 0, "role": "entry"},
+   {"path": "<workbook path>", "sha256": "<sha256>", "bytes": 0, "role": "workbook"},
+   {"path": "<every executed dependency/adapter/declaration>", "sha256": "<sha256>", "bytes": 0, "role": "dependency"}
+  ],
+  "lab_differences": [{"path": "<path>", "differs": "<what differs from the production proposal and why>"}],
+  "builder": {"path": "<frozen builder under D:/Git/lib-build>", "sha256": "<sha256>", "bytes": 0, "args": ["<args before --root>"]}
+ },
+ "dependencies": "<copy the six rows from Prime's latest frozen readiness inputs (0522/evidence/prime-review05.17/combined-measured-inputs.json carries G/L/K/I accepted with review_ref, R/W pending); change R/W only by the 05.22 DEPENDENCIES.md replacement procedure after Prime review>",
+ "fixture_source": "<copy from the frozen pass02 inputs>",
+ "judgments": "<copy from the frozen pass02 inputs>"
+}

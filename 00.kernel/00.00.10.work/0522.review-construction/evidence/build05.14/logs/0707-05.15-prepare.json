@@ -1,0 +1,674 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/05.15.pack.md",
+      "role": "assignment",
+      "root": "book",
+      "text": "# 05.15.pack - Finish the task-agreement reference lab and compatibility contract\ndate: 2026-11-03\nwho: Codex Prime\nexecutor: Claude, Colab design/labs\nreviewer: Codex Prime\nstate: PREPARED; execute on named Director invocation; nonproduction successor only\n\n## Goal / method\nComplete the coherent task-agreement lab/spec slice by repairing J1-J3 in 06.14.review and confirming compatibility against ",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/05.15.return.md",
+      "role": "submission",
+      "root": "book",
+      "text": "# 05.15 return — task-agreement reference lab completed (J1–J3 plus core compatibility)\ndate: 2026-11-03 · who: claude-opus-5-5 (Claude), Colab design/labs · reviewer: Codex Prime\npack: `05.15.pack.md` · notes: `06.15.notes.md` · design: `evidence/design05.15/` · lab: `labs/task-agreement-reference-pass02/` · route: page-local N7NN\nstate: **returned; stopped for Prime review.**\n- Nonproduction; no",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/05.15.return.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# 05.15 return — task-agreement reference lab completed (J1–J3 plus core compatibility)\ndate: 2026-11-03 · who: claude-opus-5-5 (Claude), Colab design/labs · reviewer: Codex Prime\npack: `05.15.pack.md` · notes: `06.15.notes.md` · design: `evidence/design05.15/` · lab: `labs/task-agreement-reference-pass02/` · route: page-local N7NN\nstate: **returned; stopped for Prime review.**\n- Nonproduction; no",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/06.15.notes.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# 06.15 notes — finishing the task-agreement reference lab (0707/05.15)\ndate: 2026-11-03\nwho: claude-opus-5-5 (Claude), Colab design/labs; reviewer Codex Prime\nstate: started before any code. Later sections are appended.\n\n## Invocation\nThe Director, chat: \"In D:\\Git\\lib-build, run 0707.app-use-check/05.15.pack.md. Verify frozen inputs and read 06.14.review.md. Repair the disclosed fence and bindin",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/COMPAT.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Compatibility with the frozen core helper `measured_agreement` (0707/05.15)\nwho: claude-opus-5-5 · state: **observed behavior plus proposed handling.** The helper is not edited.\n\n**Source:** `labs/workbook-review-pass01/workbook.py` (sha256 60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a, 79131 bytes). The parts used are `IDENT`, `sha256_bytes`, `section_between`, `first_paragra",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.exit",
+      "role": "artifact",
+      "root": "book",
+      "text": "exit 0\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\r\n \"schema\": \"task-agreement-lab-results/1\",\r\n \"root\": \"D:\\\\librarian\\\\temp\\\\task-agreement-0715\\\\compat16-run01\",\r\n \"cases\": 16,\r\n \"failed\": 0,\r\n \"first_failure\": null,\r\n \"rows\": [\r\n  {\r\n   \"id\": \"T06\",\r\n   \"says\": \"H1 hostile: a heading that appears only inside a code fence is not a target; a real one beside a fenced twin resolves once\",\r\n   \"label\": \"author lab test\",\r\n   \"status\": \"PASS\",\r\n  ",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.stdout",
+      "role": "artifact",
+      "root": "book",
+      "text": "PASS  T06 H1 hostile: a heading that appears only inside a code fence is not a target; a real one be\r\nPASS  T10 H2 hostile: cited cut unchanged but a revocation added elsewhere in the same record -> con\r\nPASS  T01 ordinary task: construct -> assemble -> bind -> inspect -> new-process compare; late Retur\r\nPASS  T02 hold/reply/successor: the decision answers only the cited question; no release field",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/DECISIONS.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# J1–J3 and compatibility dispositions (0707/05.15)\nwho: claude-opus-5-5 · **Prime's 06.14 findings are technical directions, not Director quotations.** No Director decision is needed for these mechanical corrections.\n\n| Item | Disposition | Evidence | Owner |\n|---|---|---|---|\n| **J1 fences** | **fixed** with a bounded grammar (backtick and tilde, length, indent ≤3, closing rule). An unclosed fen",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/FAILURE-MATRIX.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Failure matrix — runs and case classes (0707/05.15)\nwho: claude-opus-5-5. **Every row is a lab result on retained external fixtures** (`D:/librarian/temp/task-agreement-0715/…`, local retention, not an archive). **No row is independent coverage or production behavior.**\n\n## Runs\n| Run | Suite | Test file sha256 | Result | First failure and notes |\n|---|---|---|---|---|\n| new-run01 | `tests/test_",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/HANDOFF.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Builder handoff v2 — task agreements in authoring and review intake (0707/05.15)\nwho: claude-opus-5-5 · state: **implementation-ready PROPOSAL.** It supersedes `design05.14/HANDOFF.md` (preserved). The reference is `labs/task-agreement-reference-pass02` (author lab). **No connector below exists, and no hashes are guessed.**\n\n## What passed (author lab; external fixtures)\n- **The fence grammar, b",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.exit",
+      "role": "artifact",
+      "root": "book",
+      "text": "exit 0\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\r\n \"schema\": \"task-agreement-lab2-results/1\",\r\n \"root\": \"D:\\\\librarian\\\\temp\\\\task-agreement-0715\\\\new-run01\",\r\n \"aggregate\": {\r\n  \"PASS\": 21,\r\n  \"FAIL\": 0,\r\n  \"ERROR\": 0,\r\n  \"SKIP\": 0\r\n },\r\n \"first_failure\": null,\r\n \"rows\": [\r\n  {\r\n   \"id\": \"KR-tilde\",\r\n   \"label\": \"known-failure reproduction\",\r\n   \"says\": \"J1 tilde fence: pass01 counts a fenced Goal (count 2); pass02 selects only the real Goal\"",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.stdout",
+      "role": "artifact",
+      "root": "book",
+      "text": "PASS  KR-tilde           known-failure reproduction     J1 tilde fence: pass01 counts a fenced Goal (count 2); pass02 selects \r\nPASS  KR-long_backtick   known-failure reproduction     J1 long_backtick fence: pass01 counts a fenced Goal (count 2); pass02 \r\nPASS  KR-indented        known-failure reproduction     J1 indented fence: pass01 counts a fenced Goal (count 2); pass02 selec\r\nPASS  KR-pointer",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/05.15.return.md",
+      "role": "return",
+      "root": "book",
+      "text": "# 05.15 return — task-agreement reference lab completed (J1–J3 plus core compatibility)\ndate: 2026-11-03 · who: claude-opus-5-5 (Claude), Colab design/labs · reviewer: Codex Prime\npack: `05.15.pack.md` · notes: `06.15.notes.md` · design: `evidence/design05.15/` · lab: `labs/task-agreement-reference-pass02/` · route: page-local N7NN\nstate: **returned; stopped for Prime review.**\n- Nonproduction; no",
+      "truncated": true
+    }
+  ],
+  "destination": "0707.app-use-check/06.15.review.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "unparsed-return-line",
+      "path": null,
+      "text": "Notes: 06.15.notes.md. Lab: labs/task-agreement-reference-pass02 (new-run02 21/21; compat16 16/16; first failures and test defects kept). Nonproduction."
+    },
+    {
+      "code": "verification-not-measured",
+      "path": "05.15.return.md"
+    },
+    {
+      "code": "index-context-bounded",
+      "count": 26,
+      "path": "evidence/design05.15/artifact-manifest.json"
+    },
+    {
+      "code": "custody-missing",
+      "path": null
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0707.app-use-check/06.15.review.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "unparsed-return-line",
+          "path": null,
+          "text": "Notes: 06.15.notes.md. Lab: labs/task-agreement-reference-pass02 (new-run02 21/21; compat16 16/16; first failures and test defects kept). Nonproduction."
+        },
+        {
+          "code": "verification-not-measured",
+          "path": "05.15.return.md"
+        },
+        {
+          "code": "index-context-bounded",
+          "count": 26,
+          "path": "evidence/design05.15/artifact-manifest.json"
+        },
+        {
+          "code": "custody-missing",
+          "path": null
+        }
+      ],
+      "instance_id": "a48df79416a6be011cedc196cf0d9c215d49211c3c8c7ee6bdc4ce00410c50af",
+      "intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+      "kind": "N7NN",
+      "member": null,
+      "return_path": "0707.app-use-check/05.15.return.md",
+      "rows": [
+        {
+          "bytes": 7178,
+          "declared_path": "0707.app-use-check/05.15.pack.md",
+          "path": "0707.app-use-check/05.15.pack.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "6e7668dd94c587f80383d7fe152b74eeebbe68cf5d45db39cfa6e456e240868f"
+        },
+        {
+          "bytes": 7929,
+          "declared_bytes": 7929,
+          "declared_path": "05.15.return.md",
+          "declared_sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008",
+          "path": "0707.app-use-check/05.15.return.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008"
+        },
+        {
+          "bytes": 5322,
+          "declared_bytes": 5322,
+          "declared_path": "evidence/design05.15/artifact-manifest.json",
+          "declared_sha256": "f7a508017f1c0b5a9738a7b26d642f0713bdbb0a4a7c96d5e85d37aa06308a37",
+          "path": "0707.app-use-check/evidence/design05.15/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "f7a508017f1c0b5a9738a7b26d642f0713bdbb0a4a7c96d5e85d37aa06308a37"
+        },
+        {
+          "bytes": 7929,
+          "declared_bytes": 7929,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/05.15.return.md",
+          "declared_sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008",
+          "path": "0707.app-use-check/05.15.return.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008"
+        },
+        {
+          "bytes": 5592,
+          "declared_bytes": 5592,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/06.15.notes.md",
+          "declared_sha256": "d686647abe4c44b1bc54ac82874a3302ac4bc6973a2955beabc878bf8aa6ba73",
+          "path": "0707.app-use-check/06.15.notes.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d686647abe4c44b1bc54ac82874a3302ac4bc6973a2955beabc878bf8aa6ba73"
+        },
+        {
+          "bytes": 2796,
+          "declared_bytes": 2796,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/COMPAT.md",
+          "declared_sha256": "268896ec8330154c41a78fb442fdfc014502ebe823fb54b09565bd61bc1f1ceb",
+          "path": "0707.app-use-check/evidence/design05.15/COMPAT.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "268896ec8330154c41a78fb442fdfc014502ebe823fb54b09565bd61bc1f1ceb"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/compat16-run01.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.15/compat16-run01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 7194,
+          "declared_bytes": 7194,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/compat16-run01.json",
+          "declared_sha256": "2e6220436574cbcd52b52ad5df5c9a98388b131eccfd6540a8416103e485bf44",
+          "path": "0707.app-use-check/evidence/design05.15/compat16-run01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "2e6220436574cbcd52b52ad5df5c9a98388b131eccfd6540a8416103e485bf44"
+        },
+        {
+          "bytes": 1545,
+          "declared_bytes": 1545,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/compat16-run01.stdout",
+          "declared_sha256": "db6ee9b222759b355dca5e99bcc5f2c7d3caff0de154f60241722e68696a6e53",
+          "path": "0707.app-use-check/evidence/design05.15/compat16-run01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "db6ee9b222759b355dca5e99bcc5f2c7d3caff0de154f60241722e68696a6e53"
+        },
+        {
+          "bytes": 1757,
+          "declared_bytes": 1757,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/DECISIONS.md",
+          "declared_sha256": "572ffbc53660aedfeba1cd20b41d626446973888dda14b3706a3ef763783d71c",
+          "path": "0707.app-use-check/evidence/design05.15/DECISIONS.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "572ffbc53660aedfeba1cd20b41d626446973888dda14b3706a3ef763783d71c"
+        },
+        {
+          "bytes": 2605,
+          "declared_bytes": 2605,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/FAILURE-MATRIX.md",
+          "declared_sha256": "f3ec512d50ef44a2d836c7e229a29ca44b292593cb92b19437666fefd0e3bbe4",
+          "path": "0707.app-use-check/evidence/design05.15/FAILURE-MATRIX.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "f3ec512d50ef44a2d836c7e229a29ca44b292593cb92b19437666fefd0e3bbe4"
+        },
+        {
+          "bytes": 4069,
+          "declared_bytes": 4069,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/HANDOFF.md",
+          "declared_sha256": "0cfb6e2be2b14b2c15fa24380312fcdef8395e90a2e7772409dc09333f079ab6",
+          "path": "0707.app-use-check/evidence/design05.15/HANDOFF.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0cfb6e2be2b14b2c15fa24380312fcdef8395e90a2e7772409dc09333f079ab6"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/new-run01.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.15/new-run01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 10330,
+          "declared_bytes": 10330,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/new-run01.json",
+          "declared_sha256": "d8cf54ffbbbec1219589da0565c66f72adefba033736c1ded4ce97bceca34ca2",
+          "path": "0707.app-use-check/evidence/design05.15/new-run01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d8cf54ffbbbec1219589da0565c66f72adefba033736c1ded4ce97bceca34ca2"
+        },
+        {
+          "bytes": 2743,
+          "declared_bytes": 2743,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/new-run01.stdout",
+          "declared_sha256": "20183e841357ceee00f4e0fb08d724ee1f393218a46d36f3c516fa98a17aa3af",
+          "path": "0707.app-use-check/evidence/design05.15/new-run01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "20183e841357ceee00f4e0fb08d724ee1f393218a46d36f3c516fa98a17aa3af"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/new-run02.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.15/new-run02.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 10610,
+          "declared_bytes": 10610,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/new-run02.json",
+          "declared_sha256": "1d1e00ba2a44188c3f930ea2ec7aa80658a4195c0c3b2b1564333768c06e96cd",
+          "path": "0707.app-use-check/evidence/design05.15/new-run02.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1d1e00ba2a44188c3f930ea2ec7aa80658a4195c0c3b2b1564333768c06e96cd"
+        },
+        {
+          "bytes": 2743,
+          "declared_bytes": 2743,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/new-run02.stdout",
+          "declared_sha256": "20183e841357ceee00f4e0fb08d724ee1f393218a46d36f3c516fa98a17aa3af",
+          "path": "0707.app-use-check/evidence/design05.15/new-run02.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "20183e841357ceee00f4e0fb08d724ee1f393218a46d36f3c516fa98a17aa3af"
+        },
+        {
+          "bytes": 4695,
+          "declared_bytes": 4695,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/SPEC.md",
+          "declared_sha256": "d18bf36562abccad3bdb61004784375b9647b74df6f9bef2272be2f2158aab2f",
+          "path": "0707.app-use-check/evidence/design05.15/SPEC.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d18bf36562abccad3bdb61004784375b9647b74df6f9bef2272be2f2158aab2f"
+        },
+        {
+          "bytes": 1426,
+          "declared_bytes": 1426,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.15/verification.json",
+          "declared_sha256": "1577b994cc25b14d4acbe5c2e0ac5c27cd699407bf228e1985438fb94cd5ba1c",
+          "path": "0707.app-use-check/evidence/design05.15/verification.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1577b994cc25b14d4acbe5c2e0ac5c27cd699407bf228e1985438fb94cd5ba1c"
+        },
+        {
+          "bytes": 488,
+          "declared_bytes": 488,
+          "declared_path": "labs/task-agreement-reference-pass02/compat16/profiles/legacy-headings-v0.json",
+          "declared_sha256": "7552e9f9716db4897cd58060041566940dc316b6258024ea54cab38fe7ab6a4a",
+          "path": "labs/task-agreement-reference-pass02/compat16/profiles/legacy-headings-v0.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "7552e9f9716db4897cd58060041566940dc316b6258024ea54cab38fe7ab6a4a"
+        },
+        {
+          "bytes": 623,
+          "declared_bytes": 623,
+          "declared_path": "labs/task-agreement-reference-pass02/compat16/run_compat16.py",
+          "declared_sha256": "31e9610c1964162c556775df1b2decee915340e0f996aa72c02fabe963a308c4",
+          "path": "labs/task-agreement-reference-pass02/compat16/run_compat16.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "31e9610c1964162c556775df1b2decee915340e0f996aa72c02fabe963a308c4"
+        },
+        {
+          "bytes": 669,
+          "declared_bytes": 669,
+          "declared_path": "labs/task-agreement-reference-pass02/compat16/ta.py",
+          "declared_sha256": "e46bf7537854eb1010c4570e4c507f2b2a4f38f8e8c4613b5d4c03093c0523bd",
+          "path": "labs/task-agreement-reference-pass02/compat16/ta.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "e46bf7537854eb1010c4570e4c507f2b2a4f38f8e8c4613b5d4c03093c0523bd"
+        },
+        {
+          "bytes": 22279,
+          "declared_bytes": 22279,
+          "declared_path": "labs/task-agreement-reference-pass02/compat16/tests/test_ta.py",
+          "declared_sha256": "8e653250abbc480d16c2a56e35480183cded2fe51e64450c0154b44ec899a94c",
+          "path": "labs/task-agreement-reference-pass02/compat16/tests/test_ta.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "8e653250abbc480d16c2a56e35480183cded2fe51e64450c0154b44ec899a94c"
+        },
+        {
+          "bytes": 2434,
+          "declared_bytes": 2434,
+          "declared_path": "labs/task-agreement-reference-pass02/core_compat.py",
+          "declared_sha256": "4d7b84062b647be2cacee05cd6b1da9f7dc8918c41e0ba72a27958f63b487d55",
+          "path": "labs/task-agreement-reference-pass02/core_compat.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "4d7b84062b647be2cacee05cd6b1da9f7dc8918c41e0ba72a27958f63b487d55"
+        },
+        {
+          "bytes": 488,
+          "declared_bytes": 488,
+          "declared_path": "labs/task-agreement-reference-pass02/profiles/legacy-headings-v0.json",
+          "declared_sha256": "7552e9f9716db4897cd58060041566940dc316b6258024ea54cab38fe7ab6a4a",
+          "path": "labs/task-agreement-reference-pass02/profiles/legacy-headings-v0.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "7552e9f9716db4897cd58060041566940dc316b6258024ea54cab38fe7ab6a4a"
+        },
+        {
+          "bytes": 1331,
+          "declared_bytes": 1331,
+          "declared_path": "labs/task-agreement-reference-pass02/README.md",
+          "declared_sha256": "a1679e0bbc58f734c7876e176da9510dc28af91c27e09c3dd3409538dd3f5f0a",
+          "path": "labs/task-agreement-reference-pass02/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "a1679e0bbc58f734c7876e176da9510dc28af91c27e09c3dd3409538dd3f5f0a"
+        },
+        {
+          "bytes": 29633,
+          "declared_bytes": 29633,
+          "declared_path": "labs/task-agreement-reference-pass02/ta2.py",
+          "declared_sha256": "e9aaede8cf895a661145472865da2fb02f4866b26a06c67b7c04b6c30e9f2fdd",
+          "path": "labs/task-agreement-reference-pass02/ta2.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "e9aaede8cf895a661145472865da2fb02f4866b26a06c67b7c04b6c30e9f2fdd"
+        },
+        {
+          "bytes": 25247,
+          "declared_bytes": 25247,
+          "declared_path": "labs/task-agreement-reference-pass02/tests/test_ta2.py",
+          "declared_sha256": "87a2595960f73aec660b5b2fa48859363638c04a52a78812417eade7eb0b97f2",
+          "path": "labs/task-agreement-reference-pass02/tests/test_ta2.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "87a2595960f73aec660b5b2fa48859363638c04a52a78812417eade7eb0b97f2"
+        },
+        {
+          "bytes": 7929,
+          "declared_path": "0707.app-use-check/05.15.return.md",
+          "path": "0707.app-use-check/05.15.return.md",
+          "role": "return",
+          "root": "book",
+          "sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "a48df79416a6be011cedc196cf0d9c215d49211c3c8c7ee6bdc4ce00410c50af",
+  "intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+  "kind": "N7NN",
+  "live_intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+  "measurement": "complete",
+  "missing": [],
+  "page": "0707.app-use-check",
+  "pass": "05.15",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": null,
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

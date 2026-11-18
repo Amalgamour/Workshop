@@ -1,0 +1,84 @@
+{
+ "schema": "rie-ctx/1",
+ "room": "D:\\librarian\\temp\\rie-0718\\ctx02",
+ "aggregate": {
+  "X1": true,
+  "X2": true,
+  "X3": true,
+  "X4": true
+ },
+ "cases": {
+  "X1": {
+   "ok": true,
+   "seen": [
+    {
+     "source": "0512.prime-review",
+     "pass": "05.06",
+     "kind_inside": "N5NN",
+     "collision_manifest": "m.json,"
+    },
+    {
+     "source": "0707.app-use-check",
+     "pass": "05.15",
+     "kind_inside": "N7NN",
+     "collision_manifest": "m.json"
+    },
+    {
+     "source": "0512.prime-review",
+     "pass": "05.06",
+     "kind_inside": "N5NN",
+     "collision_manifest": "m.json,"
+    },
+    {
+     "source": "0707.app-use-check",
+     "pass": "05.15",
+     "kind_inside": "N7NN",
+     "collision_manifest": "m.json"
+    }
+   ],
+   "rows": [
+    {
+     "source": "0512.prime-review",
+     "kind_after": null,
+     "submission": "0512.prime-review/evidence/build05.06/submission.md",
+     "artifacts": 14,
+     "intake_id": "1f3444d30d41fbbcdab269d294d41b2d28f7f2c4884b81a0d704c17ffda628b2"
+    },
+    {
+     "source": "0707.app-use-check",
+     "kind_after": null,
+     "submission": "0707.app-use-check/05.15.return.md",
+     "artifacts": 26,
+     "intake_id": "eb143a5cb5d5c4fc6c5892fd335c762bbc6771c805e475faa5147a064fa43e47"
+    },
+    {
+     "source": "0512.prime-review",
+     "kind_after": null,
+     "submission": "0512.prime-review/evidence/build05.06/submission.md",
+     "artifacts": 14,
+     "intake_id": "1f3444d30d41fbbcdab269d294d41b2d28f7f2c4884b81a0d704c17ffda628b2"
+    },
+    {
+     "source": "0707.app-use-check",
+     "kind_after": null,
+     "submission": "0707.app-use-check/05.15.return.md",
+     "artifacts": 26,
+     "intake_id": "eb143a5cb5d5c4fc6c5892fd335c762bbc6771c805e475faa5147a064fa43e47"
+    }
+   ]
+  },
+  "X2": {
+   "ok": true
+  },
+  "X3": {
+   "ok": true,
+   "raised": "LAB fault injected inside intake",
+   "kind_after_exception": null
+  },
+  "X4": {
+   "ok": true,
+   "n7_artifacts": 26,
+   "n5_submission": "0512.prime-review/evidence/build05.06/submission.md"
+  }
+ }
+}

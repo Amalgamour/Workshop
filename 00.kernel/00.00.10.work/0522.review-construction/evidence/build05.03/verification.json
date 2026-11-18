@@ -1,0 +1,481 @@
+{
+  "schema": "review-construction-verification/1",
+  "pass": "0522.review-construction/05.03",
+  "accepted": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "committed_by_this_builder": false,
+  "staged_by_this_builder": false,
+  "pack": {
+    "schema": "prime-pack-sources/1",
+    "sources": 43,
+    "live_equals_snapshot_equals_declared": 43,
+    "bad": 0,
+    "rechecked_at_handback": true
+  },
+  "notes_path_correction": "The opening pin list named labs/return-inspect-pass01/return_inspect.py. That directory does not exist. At handback the line was corrected to labs/return-capture-pass01/return_inspect.py. The hash and length were already that file.",
+  "contract_revised_after_tests": false,
+  "tests": {
+    "command": "python -B labs/review-loop-pass01/test_review_loop.py",
+    "cwd": "D:/Git/lib-build",
+    "first_run": {
+      "passed": 0,
+      "failed": 14,
+      "skipped": 0,
+      "seconds": "1.294",
+      "exit": 1,
+      "cause": "harness placed the subcommand after --fixture-root",
+      "log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/first-suite-failure.log"
+    },
+    "second_run": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": "25.404",
+      "exit": 0,
+      "log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/second-suite.log",
+      "transcript": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/transcript.json"
+    }
+  },
+  "carried_cycle_tests": [
+    {
+      "command": "python -B labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+      "tests": 14,
+      "seconds": "34.660",
+      "exit": 0
+    },
+    {
+      "command": "python -B labs/prime-cycle-pass01/tests/test_binding_log.py",
+      "tests": 12,
+      "seconds": "31.007",
+      "exit": 0
+    },
+    {
+      "command": "python -B labs/prime-cycle-pass01/tests/test_observation.py",
+      "tests": 6,
+      "seconds": "9.132",
+      "exit": 0
+    }
+  ],
+  "carried_log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/carry-over-cycle-tests.log",
+  "skipped": [
+    {
+      "name": "labs/review-construction-pass01/test_construct.py",
+      "reason": "teardown overwrites evidence/build05.02/transcript.json and sample-review.md"
+    },
+    {
+      "name": "AR-01 inventory and bridge fixtures",
+      "reason": "held; this pack does not run them"
+    },
+    {
+      "name": "broad app suites",
+      "reason": "not this pack"
+    }
+  ],
+  "launcher_smoke": {
+    "log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/launcher-smoke.log",
+    "seated": false,
+    "exits": [
+      {
+        "marker": "EXIT-NONE",
+        "exit": 2,
+        "text": "refused: unknown review-loop command"
+      },
+      {
+        "marker": "EXIT-TOOL",
+        "exit": 2,
+        "text": "refused: caller tool override is refused"
+      },
+      {
+        "marker": "EXIT-CAPTURE",
+        "exit": 2,
+        "text": "refused: caller tool override is refused"
+      },
+      {
+        "marker": "EXIT-RESERVE",
+        "exit": 2,
+        "text": "refused: caller tool override is refused"
+      },
+      {
+        "marker": "EXIT-READ",
+        "exit": 2,
+        "text": "review_loop.py read requires --fixture-root and --request"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "zero-record",
+      "exit": 0
+    },
+    {
+      "name": "zero-read-pending",
+      "exit": 0
+    },
+    {
+      "name": "zero-render",
+      "exit": 0
+    },
+    {
+      "name": "zero-read-new-process",
+      "exit": 0
+    },
+    {
+      "name": "zero-recover",
+      "exit": 0
+    },
+    {
+      "name": "zero-replay",
+      "exit": 0
+    },
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "stale-record",
+      "exit": 0
+    },
+    {
+      "name": "stale-render",
+      "exit": 0
+    },
+    {
+      "name": "stale-evidence",
+      "exit": 0
+    },
+    {
+      "name": "stale-task",
+      "exit": 0
+    },
+    {
+      "name": "stale-agreement",
+      "exit": 0
+    },
+    {
+      "name": "stale-receipt",
+      "exit": 0
+    },
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "rebind-record",
+      "exit": 0
+    },
+    {
+      "name": "rebind-render",
+      "exit": 0
+    },
+    {
+      "name": "rebind-read",
+      "exit": 0
+    },
+    {
+      "name": "rebind-record-b",
+      "exit": 2
+    },
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "held-record",
+      "exit": 1
+    },
+    {
+      "name": "held-render",
+      "exit": 1
+    },
+    {
+      "name": "held-read",
+      "exit": 0
+    },
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "dup-record",
+      "exit": 0
+    },
+    {
+      "name": "dup-replay",
+      "exit": 0
+    },
+    {
+      "name": "dup-conflict",
+      "exit": 2
+    },
+    {
+      "name": "bad-origin",
+      "exit": 0
+    },
+    {
+      "name": "bad-target",
+      "exit": 2
+    },
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "conflict-record",
+      "exit": 0
+    },
+    {
+      "name": "conflict-recover",
+      "exit": 2
+    },
+    {
+      "name": "conflict-recover-again",
+      "exit": 2
+    },
+    {
+      "name": "1599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "nonzero-record",
+      "exit": 0
+    },
+    {
+      "name": "nonzero-render",
+      "exit": 1
+    },
+    {
+      "name": "nonzero-recover",
+      "exit": 1
+    },
+    {
+      "name": "nonzero-pass01",
+      "exit": 2
+    },
+    {
+      "name": "nonzero-pass02",
+      "exit": 0
+    },
+    {
+      "name": "1799.synth-colab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "n7-run",
+      "exit": 0
+    },
+    {
+      "name": "n7-read",
+      "exit": 0
+    },
+    {
+      "name": "state-missing",
+      "exit": 0
+    },
+    {
+      "name": "state-reserved",
+      "exit": 0
+    },
+    {
+      "name": "state-incomplete",
+      "exit": 0
+    },
+    {
+      "name": "state-failed",
+      "exit": 0
+    },
+    {
+      "name": "legacy-read",
+      "exit": 0
+    },
+    {
+      "name": "old-prepare",
+      "exit": 0
+    },
+    {
+      "name": "old-read",
+      "exit": 0
+    },
+    {
+      "name": "old-stale",
+      "exit": 0
+    },
+    {
+      "name": "partial-read",
+      "exit": 0
+    },
+    {
+      "name": "partial-record",
+      "exit": 0
+    },
+    {
+      "name": "0599.synth-lab-prepare",
+      "exit": 0
+    },
+    {
+      "name": "full-record",
+      "exit": 0
+    },
+    {
+      "name": "full-render",
+      "exit": 0
+    }
+  ],
+  "custody": "pending",
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "matching_line": "0122.review-construction",
+  "unchanged_facades": [
+    {
+      "path": "app/librarian.py",
+      "sha256": "939484f152c9227482e857f9ce88eaf40649f433a57d6c9d213a07bde16baee5",
+      "bytes": 10463
+    },
+    {
+      "path": "app/prime-review.json",
+      "sha256": "dfdab3fa784bd1fb1bfcce4cc594e12278e0bb95eb2848b4754c50dc75743073",
+      "bytes": 403
+    },
+    {
+      "path": "app/prime_review_tools.py",
+      "sha256": "2a5a59a3fd4cbab97f078c024fc31e2fa0dd34f4aec9ce1d4ebf404961f5246f",
+      "bytes": 10770
+    }
+  ],
+  "files": [
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/06.05.md",
+      "sha256": "e530f30b64d13b982e93491e5935131366931e409286b8e3ad960110d14f7bc4",
+      "bytes": 11116
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/CONTRACT.md",
+      "sha256": "f3311905e5f2abce1aad712e5b9a06c48f78ea0a15dc06026a7039cb93326577",
+      "bytes": 15134
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/PRIME-USE.md",
+      "sha256": "ddb83c16a222bedaaacc847ce874c5531a4d9115e2f9dd84ea98ca55a4558082",
+      "bytes": 2589
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/integration-patch.md",
+      "sha256": "2bb6b1bbe1f0aa98daca1f625d76a13489f437ecdb7f545ef849ec461bee8fad",
+      "bytes": 1511
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/submission.md",
+      "sha256": "6e001c6cdbaf1d96bf8f442758bde95dcd0ecca7f746c0e59dd85b73cbad2dd6",
+      "bytes": 3148
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/sample-review.md",
+      "sha256": "eb3794681c7f7162a3ffe59c65191cf7f8bb3c7d5c516f8a88ecf0d40237fef4",
+      "bytes": 4119
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/transcript.json",
+      "sha256": "5f1732a2dd2b346cf6de8b215f2ec2797492585eca00a94f0e8040304e3d7f98",
+      "bytes": 726570
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/synthetic-descriptor.json",
+      "sha256": "0a5d0e2a17a1428c7a15394607db7b3c74bbc9c592e9b66adf2fd4d67ced55df",
+      "bytes": 893
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/first-suite-failure.log",
+      "sha256": "9c6b45ca48156a11403d0044d262989893cc502063e62ed6fa37648ef6e37a6c",
+      "bytes": 90879
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/second-suite.log",
+      "sha256": "553060307c722850f4f578fc7f6302139da2e83ba8383b7e8ae32f854bbb6002",
+      "bytes": 1693
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/carry-over-cycle-tests.log",
+      "sha256": "c3d76117d961a58a5b1bcf058866ec57625904d7474e7afb19ff214a70c3007e",
+      "bytes": 384
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/launcher-smoke.log",
+      "sha256": "7489cfd5813511a78787e2e2a600836fb0a1f361c64df2bdbaa8114a1c0dcbb0",
+      "bytes": 407
+    },
+    {
+      "path": "labs/prime-cycle-pass02/prime_cycle.py",
+      "sha256": "689d63d26b0dfb59363563effa50acbd69856ffcc2ee728b7f54615f16fabd50",
+      "bytes": 58448
+    },
+    {
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+      "bytes": 58560
+    },
+    {
+      "path": "labs/review-loop-pass01/review_loop.py",
+      "sha256": "fac0881d1e7e991b630d1deab688a3e28745e2f7b2075c7eb5148251b8ac5595",
+      "bytes": 26028
+    },
+    {
+      "path": "labs/review-loop-pass01/test_review_loop.py",
+      "sha256": "5a75ca1a67c401f7920743e32d80d1f676fbe2dadc1fa66b7094ac12c4e1e55f",
+      "bytes": 42626
+    },
+    {
+      "path": "app/review_loop_tools.py",
+      "sha256": "b77617c81e073449147c1171aa09bd3c9d4378ff737704ccceec2e3b0bfcecea",
+      "bytes": 6417
+    },
+    {
+      "path": "app/review-loop.json",
+      "sha256": "bd3e917fc57ffcc435467cd90e6fa2d13fcf07e8233d1462772cc324365e2aae",
+      "bytes": 1089
+    },
+    {
+      "path": "labs/review-construction-pass01/construct.py",
+      "sha256": "8b9d4a6eda460f594404042f7ee232a7ac55fcc09af38905de364defa189ea8a",
+      "bytes": 35956
+    },
+    {
+      "path": "labs/review-construction-pass01/test_construct.py",
+      "sha256": "430f62aaa911b483e722b619773c46e256ea5ac177be0bce41fb17184f5c509d",
+      "bytes": 46207
+    },
+    {
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+      "bytes": 58324
+    },
+    {
+      "path": "labs/prime-cycle-pass01/prime_cycle.py",
+      "sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+      "bytes": 77846
+    },
+    {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    },
+    {
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.02/transcript.json",
+      "sha256": "b8a07fe1bb6a00fc561b82297694ddd3b520bf004bf4742ca166816ee960e210",
+      "bytes": 86883
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.02/sample-review.md",
+      "sha256": "ede86bcbbbd5768cbc81d858fdeee39497a81fd5fed6a262cb366690b890ee51",
+      "bytes": 4406
+    }
+  ]
+}

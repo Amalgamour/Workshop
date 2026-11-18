@@ -1,0 +1,111 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "authority flags false: describe",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "authority flags false: prepare",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "prepare target.state pending",
+      "expected": null,
+      "observed": "pending",
+      "ok": true
+    },
+    {
+      "check": "fixture removed the target",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "authority flags false: record",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "record exit 2",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "record no traceback",
+      "expected": null,
+      "observed": "refused: target-absent: target file is absent; the cycle did not commit this decision\r\n",
+      "ok": true
+    },
+    {
+      "check": "decision.json bytes identical",
+      "expected": null,
+      "observed": {
+        "after": "910198ed5e99dcd45ebf5aac480587c8d32846e689384a48c6b8fa12be499ab7",
+        "before": "910198ed5e99dcd45ebf5aac480587c8d32846e689384a48c6b8fa12be499ab7"
+      },
+      "ok": true
+    },
+    {
+      "check": "no committed review",
+      "expected": null,
+      "observed": [],
+      "ok": true
+    },
+    {
+      "check": "target not recreated",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "no partial",
+      "expected": null,
+      "observed": [],
+      "ok": true
+    },
+    {
+      "check": "authority flags false: read",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "read does not claim a commitment",
+      "expected": null,
+      "observed": "No judgment is recorded. The target is absent, so this entry does not commit one. \"No judgment is recorded. The target is absent, so this entry does not commit one.\"",
+      "ok": true
+    },
+    {
+      "check": "R02 wording: not recorded (heuristic, unchanged)",
+      "expected": null,
+      "observed": "No judgment is recorded. The target is absent, so this entry does not commit one. \"No judgment is recorded. The target is absent, so this entry does not commit one.\"",
+      "ok": true
+    },
+    {
+      "check": "still no committed review after read",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,25 @@
+{
+  "case_count": 3,
+  "detail": {
+    "check": "return-line-plan/1",
+    "code": 0,
+    "correction": "Read-only plan written. Live migration is not authorized.",
+    "detail": {
+      "acceptance": null,
+      "accepted": false,
+      "approved": false,
+      "bytes": 92562,
+      "change_count": 0,
+      "enforcement": "pending",
+      "item_count": 9,
+      "live_apply": false,
+      "live_moves": false,
+      "occupancy_conflict_count": 1,
+      "published": false,
+      "sha256": "fa6057ff4bc6a44b2709969a087bd5768496f55c7c1bcef53bc85502c78ad4a9"
+    },
+    "state": "incomplete"
+  },
+  "first_failure": "producer-plan",
+  "schema": "return-access-entry-run/1"
+}

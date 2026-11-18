@@ -1,0 +1,15 @@
+# Review - Codex Prime: 0521/05.06
+date: 2026-11-02
+outcome: bounded recorded-authorization capability verified; no live cutover released
+
+## Evidence
+Read return verification, contract, authority decision table, relevant successor implementation and recorded test claims. All 23 artifacts and 20 input snapshots/live files verify. Independently reran the 17 focused tests under Python 3.12.14, exit 0, 7.738 seconds. These include ordinary CLI recorded-release init without designation, canonical-classification sharing the same validator, no unconditional canonical deny, stale material, wrong authority and copy interruption/recovery. Did not rerun the builder's 55-command full rehearsal. Its measured 83-record preservation, 18+65 retirement, seven synthetic filings and unchanged live fingerprint remain attributed to that retained run.
+
+## Judgment
+The repeated pass03 capability gap is now repaired in pass04. The normal recorded-schema path calls the shared release/material validator without a designation requirement or blanket canonical veto. Default refusal, candidate/fixture exclusions, exact bindings and same-process bound checks remain. Permission to implement this path is not execution release; no real book authority record was created and no live mutation was run in Prime review.
+
+## Integration correction
+The return says later integration is declaration-only. That is not true of the app now returned by Grok-1: app/return_line_tools_v2.py compares declaration entries to hard-coded FILES and refuses canonical writes before launch; return_access.py pins pass03 itself. Selecting pass04 needs a reviewed adapter/facade successor or explicit changes to all those bindings/gates/status text plus tests. Editing a single JSON pin would refuse or leave the old backend selected. Preserve old modules and sealed hashes; no global repin or direct guard removal.
+
+## Remaining gates
+Old supported sequential writer routes are still open; no sentinel policy has been adopted. Concrete archive roots and exact live plan still need Director release after integration/recovery review. Incomplete 0154 is intentionally preserved, not a defect requiring invention. Current pending 0121 custody remains pending. Next bounded work is app/backend integration and supported writer closure on copies, then a concrete release proposal. No further authority-schema rewrite is justified by these checks alone.

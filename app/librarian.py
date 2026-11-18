@@ -7,6 +7,9 @@ clerk-deliver copies one collected fixture delivery into the caller's claimed Cl
 pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
 prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
 prime-review, prime-guard, and prime-check-next call the pinned read-only Prime review tool on one explicit input.
+review-loop forwards workbook prepare, form, record, inspect, publish, read, and recover to the pinned v7 door. The v4 fixture commands stay on the pinned v4 door. reproduce is not an app command.
+authoring forwards form, start, add-note, add-item, revise, inspect, review, and freeze to the pinned authoring v2 door.
+return-lines forwards status, lookup, and verify to the pinned return-access adapter, and reserve and capture to the pinned pass03 door.
 boot-prepare, boot-check, boot-judge, and boot-show forward explicit arguments to the pinned recorded-boot tool.
 batch-observe calls the pinned read-only batch observation tool on one explicit commit and path.
 capture-return calls the pinned capture handoff on one absolute binding. It does not launch a worker.
@@ -89,10 +92,40 @@ def main(argv: list[str] | None = None) -> None:
         "boot-show",
         "batch-observe",
         "capture-return",
+        "review-loop",
+        "authoring",
+        "return-lines",
     ):
         stop("normal run is not activated")
     command = args.pop(0)
     code_root = Path(__file__).resolve().parent.parent
+    if command == "review-loop":
+        door = load_module(Path(__file__).resolve().parent / "review_loop_tools_v7.py", "librarian_review_loop_tools_v7")
+        try:
+            code = door.perform(args, code_root)
+        except door.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned review loop returned no exit code")
+        raise SystemExit(code)
+    if command == "authoring":
+        door = load_module(Path(__file__).resolve().parent / "authoring_tools_v2.py", "librarian_authoring_tools_v2")
+        try:
+            code = door.perform(args, code_root)
+        except door.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned authoring tool returned no exit code")
+        raise SystemExit(code)
+    if command == "return-lines":
+        door = load_module(Path(__file__).resolve().parent / "return_line_tools_v2.py", "librarian_return_line_tools_v2")
+        try:
+            code = door.perform(args, code_root)
+        except door.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned return line tool returned no exit code")
+        raise SystemExit(code)
     if command in ("boot-prepare", "boot-check", "boot-judge", "boot-show"):
         boot = load_module(Path(__file__).resolve().parent / "boot_tools.py", "librarian_boot_tools")
         try:

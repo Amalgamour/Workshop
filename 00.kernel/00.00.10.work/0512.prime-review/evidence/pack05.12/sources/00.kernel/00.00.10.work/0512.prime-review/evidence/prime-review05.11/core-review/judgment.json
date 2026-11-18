@@ -1,0 +1,51 @@
+{
+  "finding": "Source-count and filing-test corrections are useful; actual 44-source replay remains blocked by conflated source-size/document limits.",
+  "reasons": [
+    "50 artifacts and 261 frozen inputs verify. Prime reran the lifecycle-aware post-filing test: pass. Independent count probes confirm 64 source-only bound and unrelated 24 limit. The preserved 44-source record is under 262144 document bytes, but a 276423-byte artifact with null inline record fails source content_bytes; bound-file reader also uses MAX_DOC. Full author 25-case suite is attributed, not rerun.",
+    "No app selection.",
+    "Current core recording remains subject to old source count.",
+    "Do not label the actual replay successful merely because an expected-refusal test passed."
+  ],
+  "operation": "continue",
+  "disposition": "correction-required",
+  "pass_terminal": "open",
+  "goal_terminal": "open",
+  "next_action": "Separate external-source size metadata/binding limits from JSON input and inline limits in a versioned successor, preserving hashes, paths and every source. Then replay the actual 44-source judgment without dropping the large artifact.",
+  "semantic_conflict": false,
+  "design_fork": null,
+  "findings": [],
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": null,
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": "No app selection.; Current core recording remains subject to old source count.; Do not label the actual replay successful merely because an expected-refusal test passed.",
+    "next_bounded_action": "Separate external-source size metadata/binding limits from JSON input and inline limits in a versioned successor, preserving hashes, paths and every source. Then replay the actual 44-source judgment without dropping the large artifact.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "Source-count and filing-test corrections are useful; actual 44-source replay remains blocked by conflated source-size/document limits.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "50 artifacts and 261 frozen inputs verify. Prime reran the lifecycle-aware post-filing test: pass. Independent count probes confirm 64 source-only bound and unrelated 24 limit. The preserved 44-source record is under 262144 document bytes, but a 276423-byte artifact with null inline record fails source content_bytes; bound-file reader also uses MAX_DOC. Full author 25-case suite is attributed, not rerun.",
+    "tests_note": "50 artifacts and 261 frozen inputs verify. Prime reran the lifecycle-aware post-filing test: pass. Independent count probes confirm 64 source-only bound and unrelated 24 limit. The preserved 44-source record is under 262144 document bytes, but a 276423-byte artifact with null inline record fails source content_bytes; bound-file reader also uses MAX_DOC. Full author 25-case suite is attributed, not rerun.",
+    "tests_passed": false,
+    "within_direction": "Bounded review only; no app selection, authority grant or overall completion."
+  },
+  "holds": [],
+  "answers": [],
+  "review_passes": [],
+  "gaps": [
+    "No app selection.",
+    "Current core recording remains subject to old source count.",
+    "Do not label the actual replay successful merely because an expected-refusal test passed."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+ "example": "c1 old pack without a task-agreement block (like the real 0522/05.13)",
+ "measured": {
+  "pack_cut": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "f332ebff108d3ee5c760c019f91a3e01c8f57d4734eb4c968c0004083999fd90",
+   "bytes": 205
+  },
+  "block": "absent"
+ },
+ "specified_NOT_RUN": {
+  "states": {
+   "goal": "unknown",
+   "scope": "unknown",
+   "finish_criteria": "unknown",
+   "prime_discretion": "unknown",
+   "director_required": "unknown",
+   "recorded_decisions": "unknown"
+  },
+  "report": "agreement block absent (pack predates task-agreement/1); not migrated; not inferred from the headings Goal/Scope/Finish",
+  "may_continue": [
+   "preliminary review: record, publish, recover"
+  ],
+  "must_wait": [
+   "see holds table: complete, finished, release"
+  ]
+ }
+}

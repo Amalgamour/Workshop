@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\labs\prime-desk-pass01\prime_desk.py", line 1368, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\labs\prime-desk-pass01\prime_desk.py", line 1363, in main
+    doc = assemble(request, command, work_id)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\labs\prime-desk-pass01\prime_desk.py", line 473, in assemble
+    return finish(command, work_id, observed, request_sha, book, req, prepared)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\labs\prime-desk-pass01\prime_desk.py", line 903, in finish
+    assignment_reader.append(assignment_fields(book, row))
+                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\labs\prime-desk-pass01\prime_desk.py", line 655, in assignment_fields
+    fields = module.parse_assignment(row["data"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\app\context.py", line 273, in parse_assignment
+    stop(f"record repeats a key: {key}")
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\313e7ce7-27d2-405b-881d-6a16a47199dc\scratchpad\0705\b1\pinned\app\context.py", line 84, in stop
+    raise Stop(message)
+prime_desk_pinned_app_context.Stop: record repeats a key: current_work

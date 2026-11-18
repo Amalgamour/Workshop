@@ -1,0 +1,262 @@
+{
+ "schema": "n7-intake-tests/2",
+ "root": "D:\\librarian\\temp\\prime-morning-20261104\\g2-suite-books",
+ "aggregate": {
+  "PASS": 12,
+  "FAIL": 0,
+  "ERROR": 0
+ },
+ "first_failure": null,
+ "rows": [
+  {
+   "id": "KR1",
+   "label": "known-failure reproduction",
+   "says": "K1: preserved pass01 refuses legal N5 filenames ending in , ; ) that pass03 accepts",
+   "status": "PASS",
+   "detail": {
+    "comma-file": {
+     "pass03": "return.md,",
+     "pass01": null,
+     "pass01_codes": [
+      "submission-not-declared",
+      "unrecognized-path-punctuation"
+     ]
+    },
+    "semicolon-file": {
+     "pass03": "return.md;",
+     "pass01": null,
+     "pass01_codes": [
+      "submission-not-declared",
+      "unrecognized-path-punctuation"
+     ]
+    },
+    "paren-file": {
+     "pass03": "return.md)",
+     "pass01": null,
+     "pass01_codes": [
+      "submission-not-declared",
+      "unrecognized-path-punctuation"
+     ]
+    }
+   }
+  },
+  {
+   "id": "KR2",
+   "label": "known-failure reproduction (found by Claude's reread)",
+   "says": "pass01 ALSO changed N5 meaning silently: `Artifact manifest: m.json, sha256` means file 'm.json,' in pass03 but 'm.json' in pass01",
+   "status": "PASS",
+   "detail": {
+    "pass03": "m.json,",
+    "pass01": "m.json"
+   }
+  },
+  {
+   "id": "P1",
+   "label": "author test",
+   "says": "N5 context: every N5 input (including , ; ) filenames, the collision line, duplicates, conflicts, Returned-on-N5, PENDING, empty, garbage) parses EXACTLY as pass03",
+   "status": "PASS",
+   "detail": {
+    "plain": true,
+    "verification": true,
+    "counted": true,
+    "comma-file": true,
+    "semicolon-file": true,
+    "paren-file": true,
+    "collision-manifest": true,
+    "duplicate-submission": true,
+    "conflicting-manifests": true,
+    "returned-on-n5": true,
+    "pending": true,
+    "empty": true,
+    "garbage": true
+   }
+  },
+  {
+   "id": "P2",
+   "label": "author test",
+   "says": "no intake context (any other caller): exactly pass03, including on the real N7 pointer",
+   "status": "PASS",
+   "detail": {
+    "plain": true,
+    "verification": true,
+    "counted": true,
+    "comma-file": true,
+    "semicolon-file": true,
+    "paren-file": true,
+    "collision-manifest": true,
+    "duplicate-submission": true,
+    "conflicting-manifests": true,
+    "returned-on-n5": true,
+    "pending": true,
+    "empty": true,
+    "garbage": true,
+    "real-n7": true
+   }
+  },
+  {
+   "id": "P3",
+   "label": "author test",
+   "says": "N7 context: the real 05.15 pointer binds the exact return and manifest; the collision line is the N7 delimiter here",
+   "status": "PASS",
+   "detail": {
+    "submission": {
+     "attribution_text": "claude-opus-5-5, 2026-11-03",
+     "bytes": 7929,
+     "declared_form": "n7-returned",
+     "path": "05.15.return.md",
+     "sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008"
+    },
+    "manifest": {
+     "bytes": 5322,
+     "declared_form": "n7-manifest",
+     "path": "evidence/design05.15/artifact-manifest.json",
+     "sha256": "f7a508017f1c0b5a9738a7b26d642f0713bdbb0a4a7c96d5e85d37aa06308a37"
+    },
+    "collision_in_n7": {
+     "bytes": 9,
+     "declared_form": "n7-manifest",
+     "path": "m.json",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+   }
+  },
+  {
+   "id": "P4",
+   "label": "author test",
+   "says": "N7 context keeps old meaning for N5-form lines that are not an N7 form: `Submission: return.md, sha256` -> 'return.md,'",
+   "status": "PASS",
+   "detail": {
+    "comma-file": "return.md,",
+    "semicolon-file": "return.md;",
+    "paren-file": "return.md)"
+   }
+  },
+  {
+   "id": "P5",
+   "label": "author test",
+   "says": "N7 context duplicates and cross-form conflicts are ambiguous (nothing bound)",
+   "status": "PASS",
+   "detail": {
+    "dup": [
+     "ambiguous-submission"
+    ],
+    "cross": [
+     "ambiguous-submission"
+    ],
+    "manifests": [
+     "ambiguous-manifest"
+    ]
+   }
+  },
+  {
+   "id": "P6",
+   "label": "author test",
+   "says": "malformed N7 lines bind nothing: missing comma after ')', missing final period, trailing text, hash or label in attribution",
+   "status": "PASS",
+   "detail": {
+    "no-comma": [
+     true,
+     [
+      "submission-not-declared",
+      "unparsed-return-line"
+     ]
+    ],
+    "no-period": [
+     true,
+     [
+      "submission-not-declared",
+      "unparsed-return-line"
+     ]
+    ],
+    "trailing": [
+     true,
+     [
+      "submission-not-declared",
+      "unparsed-return-line"
+     ]
+    ],
+    "hash-attr": [
+     true,
+     [
+      "attribution-not-descriptive",
+      "submission-not-declared"
+     ]
+    ],
+    "label-attr": [
+     true,
+     [
+      "attribution-not-descriptive",
+      "submission-not-declared"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "P7",
+   "label": "author test",
+   "says": "LF and CRLF pointer blocks give identical parses in both contexts",
+   "status": "PASS",
+   "detail": {
+    "n7_equal": true,
+    "n5_equal": true
+   }
+  },
+  {
+   "id": "I-N5-comma",
+   "label": "author test",
+   "says": "N5 page with REAL legal files return.md, and artifact-manifest.json,: unpatched (v7 path) and patched intake are identical (intake_id, rows, findings, measurement)",
+   "status": "PASS",
+   "detail": {
+    "unpatched": {
+     "intake_id": "f991e7d38a02c1f87fb76cf1f509239ef748cb60d1dde6c2fd9017f0e1484e24",
+     "measurement": "complete"
+    },
+    "patched": {
+     "intake_id": "f991e7d38a02c1f87fb76cf1f509239ef748cb60d1dde6c2fd9017f0e1484e24",
+     "measurement": "complete"
+    },
+    "identical": true,
+    "punctuated_file_resolved": true,
+    "stderr": ""
+   }
+  },
+  {
+   "id": "I-N5-paren",
+   "label": "author test",
+   "says": "N5 page with REAL legal files return.md) and artifact-manifest.json): unpatched (v7 path) and patched intake are identical (intake_id, rows, findings, measurement)",
+   "status": "PASS",
+   "detail": {
+    "unpatched": {
+     "intake_id": "9079b9a1eb868cddb7befd492050ffe6b13cf82e1669b5beffcc4817aab68f74",
+     "measurement": "complete"
+    },
+    "patched": {
+     "intake_id": "9079b9a1eb868cddb7befd492050ffe6b13cf82e1669b5beffcc4817aab68f74",
+     "measurement": "complete"
+    },
+    "identical": true,
+    "punctuated_file_resolved": true,
+    "stderr": ""
+   }
+  },
+  {
+   "id": "I-N5-semicolon",
+   "label": "author test",
+   "says": "N5 page with REAL legal files return.md; and artifact-manifest.json;: unpatched (v7 path) and patched intake are identical (intake_id, rows, findings, measurement)",
+   "status": "PASS",
+   "detail": {
+    "unpatched": {
+     "intake_id": "081878987bfd03457a775aec53f995ad5fa4c1ac94609ce35e3ac426f64e59f5",
+     "measurement": "complete"
+    },
+    "patched": {
+     "intake_id": "081878987bfd03457a775aec53f995ad5fa4c1ac94609ce35e3ac426f64e59f5",
+     "measurement": "complete"
+    },
+    "identical": true,
+    "punctuated_file_resolved": true,
+    "stderr": ""
+   }
+  }
+ ]
+}

@@ -1,0 +1,417 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "reproduce",
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.04/CONTRACT.md",
+  "current": {
+    "current": true,
+    "director_replies": [],
+    "interpretation": "task-binding",
+    "latest_review": {
+      "current": true,
+      "directory": "cycle/05.01-r1",
+      "effective": "continue",
+      "prime_review_exit": 0,
+      "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+      "review_id": "05.01-r1",
+      "schema": "prime-cycle-review/3",
+      "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+      "write_token": {
+        "bytes": 110,
+        "path": "0599.synth-lab/05.01.md",
+        "schema": "review-write-token/1",
+        "sha256": "c37a58b3fa229d3c36c1e33adfcd963fa6a8b9368d98036c982dde5319ea2542"
+      }
+    },
+    "next_action": {
+      "action_id": "pack-correction",
+      "author": "Codex Prime (SUPPLIED)",
+      "authorized_in_grant": false,
+      "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+      "review_id": "05.01-r1",
+      "text": "Pack one bounded correction for the disposable capture."
+    },
+    "pass_state": "reviewed",
+    "questions": [],
+    "render_state": "rendered",
+    "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+    "write_token": {
+      "bytes": 3433,
+      "path": "0599.synth-lab/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "de9292193093ecb1258f7fc60aac66ea6b35a2a03d7bf3e6b5b87082fdace096"
+    }
+  },
+  "custody": "not-established",
+  "descriptor_sha256": "649514e352d7f82d0d23dbb1e9154bd6c3a7da88c2cc98627a1d897c01145457",
+  "destination": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0522.review-construction\\evidence\\build05.04\\demo",
+  "exit_code": 0,
+  "filing_claimed": false,
+  "full_success": true,
+  "historical": null,
+  "next": "Pack one bounded correction for the disposable capture.",
+  "observation": {
+    "custody_member": "0199.synth-lab",
+    "custody_verified": true,
+    "descriptor_state": "complete",
+    "filing_claimed": false,
+    "measured": {
+      "custody_present": true,
+      "manifest_bytes": 620,
+      "manifest_sha256": "c77146206a47dbb8fc31e8a32303fd6d7d26c2013d3adbc10f4f76d3f27c761f",
+      "receipt_bytes": 496,
+      "receipt_sha256": "9665e06a0fae82a6cfb8be2795a9ef5e6693429ad4838a7e20748f670a48d30b",
+      "return_bytes": 47,
+      "return_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e",
+      "verification_present": true
+    },
+    "member": "0199.synth-lab",
+    "placement_status": "final",
+    "reason": null,
+    "state": "complete",
+    "task_association": "not-established",
+    "task_association_reason": "custody records do not name the review task",
+    "validator": {
+      "check": "return-line-capture/1 receipt",
+      "exit": 0,
+      "problems": [],
+      "state": "complete",
+      "tool": "labs/return-lines-pass01/return_lines.py"
+    }
+  },
+  "pass_state": "reviewed",
+  "pins": {
+    "construct": {
+      "bytes": 36188,
+      "path": "labs/review-construction-pass02/construct.py",
+      "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+    },
+    "prime_cycle_pass03": {
+      "bytes": 76045,
+      "path": "labs/prime-cycle-pass03/prime_cycle.py",
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_lines": {
+      "bytes": 100897,
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    },
+    "return_placement": {
+      "bytes": 66097,
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+    },
+    "review_loop": {
+      "bytes": 47189,
+      "path": "labs/review-loop-pass02/review_loop.py",
+      "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+    }
+  },
+  "releases_action": false,
+  "request_sha256": "d8a4115c1e5ec3d72a9f052b6eead6c5250a805080cce1249b6e037f49d2792d",
+  "schema": "review-loop-result/1",
+  "supplied_judgment": null,
+  "view": {
+    "allocated": false,
+    "attention": [
+      "task association is not established by the custody records"
+    ],
+    "authenticates_actor": false,
+    "authority": "none",
+    "binding": {
+      "agreement_sha256": "05bc845f506b07a28e47109973e582d3576645bf87a17c73bfafad19a8592b8b",
+      "direction": {
+        "agreement_sha256": "05bc845f506b07a28e47109973e582d3576645bf87a17c73bfafad19a8592b8b",
+        "book": "00.00.10.work",
+        "fields": {
+          "director_required": "3d120c2c45ce9b3943a623348a53c60ba425f74f7b696723a950a8762475dad5",
+          "finish_criteria": "52219018bb0f631784c21f09200fe0138bf47d71ba1c6ca8bf33ea3c49a42a42",
+          "goal": "e4b5763865592aac88aadaed30ab34524b0289519dc536071be5acee8bcb31d4",
+          "prime_discretion": "1654a53a28c29bf3ec40577dc268150f48ee9cca76269f907cd8ccd9e0edbd04",
+          "recorded_decisions": "b3fad59ec90e998efe975753778838799e4e46a1197470f3d68641162c75fb18",
+          "scope": "7e3338104654861bfd2b54d8b63ec5f26d2a7c4a5e200b7c389fe45b95bc74a2"
+        },
+        "review_location": "cycle",
+        "schema": "prime-cycle-direction/1"
+      },
+      "expected_prior": {
+        "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+        "review_id": "05.01-r1"
+      },
+      "fingerprint": "05864f2b1e4b53a49c8c79364c54d1d85aa7d6e38bbbbda19e4527dbc313bfe6",
+      "goal": {
+        "goal_id": "g-synth",
+        "goal_sha256": "dbbe5df95873589b782ca70581f4c1b2e49d826d5a3fd0a24ea3a3e78d9134ff"
+      },
+      "manifest_sha256": "c77146206a47dbb8fc31e8a32303fd6d7d26c2013d3adbc10f4f76d3f27c761f",
+      "member": "0199.synth-lab",
+      "origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0599.synth-lab"
+      },
+      "page": "0599.synth-lab",
+      "pass": "05.01",
+      "receipt_sha256": "9665e06a0fae82a6cfb8be2795a9ef5e6693429ad4838a7e20748f670a48d30b",
+      "return_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e",
+      "schema": "prime-cycle-binding/3",
+      "source": {
+        "book": "00.00.10.work",
+        "page": "0599.synth-lab",
+        "pass": "05.01"
+      },
+      "submission_id": "repro-0504",
+      "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+      "work_id": "repro-0599",
+      "write_token": {
+        "bytes": 3433,
+        "path": "0599.synth-lab/05.01.md",
+        "schema": "review-write-token/1",
+        "sha256": "de9292193093ecb1258f7fc60aac66ea6b35a2a03d7bf3e6b5b87082fdace096"
+      }
+    },
+    "closes_work": false,
+    "current": true,
+    "custody": "not-established",
+    "director_replies": [],
+    "historical": null,
+    "interpretation": "task-binding",
+    "latest_review": {
+      "current": true,
+      "directory": "cycle/05.01-r1",
+      "effective": "continue",
+      "prime_review_exit": 0,
+      "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+      "review_id": "05.01-r1",
+      "schema": "prime-cycle-review/3",
+      "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+      "write_token": {
+        "bytes": 110,
+        "path": "0599.synth-lab/05.01.md",
+        "schema": "review-write-token/1",
+        "sha256": "c37a58b3fa229d3c36c1e33adfcd963fa6a8b9368d98036c982dde5319ea2542"
+      }
+    },
+    "member": "0199.synth-lab",
+    "next_action": {
+      "action_id": "pack-correction",
+      "author": "Codex Prime (SUPPLIED)",
+      "authorized_in_grant": false,
+      "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+      "review_id": "05.01-r1",
+      "text": "Pack one bounded correction for the disposable capture."
+    },
+    "observation": {
+      "custody_member": "0199.synth-lab",
+      "custody_verified": true,
+      "descriptor_state": "complete",
+      "filing_claimed": false,
+      "measured": {
+        "custody_present": true,
+        "manifest_bytes": 620,
+        "manifest_sha256": "c77146206a47dbb8fc31e8a32303fd6d7d26c2013d3adbc10f4f76d3f27c761f",
+        "receipt_bytes": 496,
+        "receipt_sha256": "9665e06a0fae82a6cfb8be2795a9ef5e6693429ad4838a7e20748f670a48d30b",
+        "return_bytes": 47,
+        "return_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e",
+        "verification_present": true
+      },
+      "member": "0199.synth-lab",
+      "placement_status": "final",
+      "reason": null,
+      "state": "complete",
+      "task_association": "not-established",
+      "task_association_reason": "custody records do not name the review task",
+      "validator": {
+        "check": "return-line-capture/1 receipt",
+        "exit": 0,
+        "problems": [],
+        "state": "complete",
+        "tool": "labs/return-lines-pass01/return_lines.py"
+      }
+    },
+    "page": "0599.synth-lab",
+    "pass": "05.01",
+    "pass_state": "reviewed",
+    "pins": {
+      "construct": {
+        "bytes": 36188,
+        "path": "labs/review-construction-pass02/construct.py",
+        "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+      },
+      "prime_cycle_pass03": {
+        "bytes": 76045,
+        "path": "labs/prime-cycle-pass03/prime_cycle.py",
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      "prime_review_pass01": {
+        "bytes": 58324,
+        "path": "labs/prime-review-pass01/prime_review.py",
+        "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+      },
+      "prime_review_pass02": {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      },
+      "return_inspect": {
+        "bytes": 11402,
+        "path": "labs/return-capture-pass01/return_inspect.py",
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+      },
+      "return_lines": {
+        "bytes": 100897,
+        "path": "labs/return-lines-pass01/return_lines.py",
+        "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+      },
+      "return_placement": {
+        "bytes": 66097,
+        "path": "labs/return-placement-pass01/return_placement.py",
+        "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+      }
+    },
+    "questions": [],
+    "releases_action": false,
+    "render_state": "rendered",
+    "schema": "prime-cycle-view/4",
+    "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+    "template": {
+      "attribution": {
+        "actor_label": null,
+        "evidence": null,
+        "role": "prime"
+      },
+      "binding": {
+        "agreement_sha256": "05bc845f506b07a28e47109973e582d3576645bf87a17c73bfafad19a8592b8b",
+        "direction": {
+          "agreement_sha256": "05bc845f506b07a28e47109973e582d3576645bf87a17c73bfafad19a8592b8b",
+          "book": "00.00.10.work",
+          "fields": {
+            "director_required": "3d120c2c45ce9b3943a623348a53c60ba425f74f7b696723a950a8762475dad5",
+            "finish_criteria": "52219018bb0f631784c21f09200fe0138bf47d71ba1c6ca8bf33ea3c49a42a42",
+            "goal": "e4b5763865592aac88aadaed30ab34524b0289519dc536071be5acee8bcb31d4",
+            "prime_discretion": "1654a53a28c29bf3ec40577dc268150f48ee9cca76269f907cd8ccd9e0edbd04",
+            "recorded_decisions": "b3fad59ec90e998efe975753778838799e4e46a1197470f3d68641162c75fb18",
+            "scope": "7e3338104654861bfd2b54d8b63ec5f26d2a7c4a5e200b7c389fe45b95bc74a2"
+          },
+          "review_location": "cycle",
+          "schema": "prime-cycle-direction/1"
+        },
+        "expected_prior": {
+          "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+          "review_id": "05.01-r1"
+        },
+        "fingerprint": "05864f2b1e4b53a49c8c79364c54d1d85aa7d6e38bbbbda19e4527dbc313bfe6",
+        "goal": {
+          "goal_id": "g-synth",
+          "goal_sha256": "dbbe5df95873589b782ca70581f4c1b2e49d826d5a3fd0a24ea3a3e78d9134ff"
+        },
+        "manifest_sha256": "c77146206a47dbb8fc31e8a32303fd6d7d26c2013d3adbc10f4f76d3f27c761f",
+        "member": "0199.synth-lab",
+        "origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0599.synth-lab"
+        },
+        "page": "0599.synth-lab",
+        "pass": "05.01",
+        "receipt_sha256": "9665e06a0fae82a6cfb8be2795a9ef5e6693429ad4838a7e20748f670a48d30b",
+        "return_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e",
+        "schema": "prime-cycle-binding/3",
+        "source": {
+          "book": "00.00.10.work",
+          "page": "0599.synth-lab",
+          "pass": "05.01"
+        },
+        "submission_id": "repro-0504",
+        "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+        "work_id": "repro-0599",
+        "write_token": {
+          "bytes": 3433,
+          "path": "0599.synth-lab/05.01.md",
+          "schema": "review-write-token/1",
+          "sha256": "de9292193093ecb1258f7fc60aac66ea6b35a2a03d7bf3e6b5b87082fdace096"
+        }
+      },
+      "judgment": {
+        "answers": [],
+        "design_fork": null,
+        "disposition": null,
+        "finding": null,
+        "goal": {
+          "evidence": [],
+          "goal_id": "g-synth",
+          "goal_sha256": "dbbe5df95873589b782ca70581f4c1b2e49d826d5a3fd0a24ea3a3e78d9134ff",
+          "terminal": null
+        },
+        "holds": [],
+        "next_action": null,
+        "outcome": null,
+        "pass_terminal": null,
+        "reasons": [],
+        "sections": {
+          "affected": null,
+          "assumptions": null,
+          "consequences": null,
+          "exploration": null,
+          "findings_account": null,
+          "finish_assessments": null,
+          "for_model": null,
+          "issue": null,
+          "learning": null,
+          "limits": null,
+          "next_bounded_action": null,
+          "open_questions": null,
+          "options": null,
+          "outcome_evidence": null,
+          "preservation": null,
+          "prime_finding": null,
+          "proposed_plan": null,
+          "question": null,
+          "recommendation": null,
+          "remaining_choices": null,
+          "return_result": null,
+          "tests_note": null,
+          "tests_passed": null,
+          "within_direction": null
+        },
+        "semantic_conflict": null,
+        "source_refs": [],
+        "unresolved": []
+      },
+      "recovers": null,
+      "review_id": "05.01-r2",
+      "schema": "prime-cycle-decision/3",
+      "supersedes": {
+        "record_sha256": "c0ca75a7f929deb53a1c26984b92ac11656a1d1d78169d9e88655a0e119a1724",
+        "review_id": "05.01-r1"
+      },
+      "supplied_record": null
+    },
+    "work_id": "repro-0599",
+    "write_token": {
+      "bytes": 3433,
+      "path": "0599.synth-lab/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "de9292193093ecb1258f7fc60aac66ea6b35a2a03d7bf3e6b5b87082fdace096"
+    }
+  }
+}

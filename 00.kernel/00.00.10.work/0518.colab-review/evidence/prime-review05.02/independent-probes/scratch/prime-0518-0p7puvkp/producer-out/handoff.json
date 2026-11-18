@@ -1,0 +1,444 @@
+{
+  "binding": {
+    "investigation": {
+      "book": "00.00.10.work",
+      "page": "0702.colab-review-fixture",
+      "pass": "05.01"
+    },
+    "schema": "colab-binding/1",
+    "targets": [
+      {
+        "book": "00.00.10.work",
+        "file": "01.md",
+        "id": "T01",
+        "page": "0599.synthetic-subject",
+        "section": null,
+        "source": {
+          "commit": "097d48bcf207da28eaf58041263de3fc88291052",
+          "path": "00.kernel/00.00.10.work/0599.synthetic-subject/01.md",
+          "repository": "fixture",
+          "sha256": "b9684e5f78a5aceb82d04bf2a27f3f43792b866db228dfd9431af747c7ac3b6c"
+        }
+      }
+    ]
+  },
+  "binding_sha256": "9810db4dc5c880f05e9b97c974fb666857bd2a921960824c2e87245b46820e12",
+  "digest": "0d6b6b379a6ae5ee5aa80fc4e80956a0526297b328a69e26223b1aad171bc82f",
+  "digest_domain": "colab-package-digest/2",
+  "digest_preimage": [
+    {
+      "kind": "text",
+      "value": "colab-package-digest/2"
+    },
+    {
+      "kind": "text",
+      "value": "colab-exchange-layout/2"
+    },
+    {
+      "kind": "file",
+      "value": "package/colab-request.json"
+    },
+    {
+      "kind": "file",
+      "value": "package/binding.json"
+    },
+    {
+      "kind": "text",
+      "value": "378bd34405707eec47e52b11ec1b2726965e36ce3e792310007cfbfb922b66f6"
+    },
+    {
+      "kind": "text",
+      "value": "package/ENTRY.md"
+    },
+    {
+      "kind": "text",
+      "value": "133f897b5953d62b3151cfcaba641428d3c63d375eb55fa95e293c192067127c"
+    },
+    {
+      "kind": "text",
+      "value": "3074"
+    },
+    {
+      "kind": "text",
+      "value": "package/05.01.pack.md"
+    },
+    {
+      "kind": "text",
+      "value": "bd4df347d998d3c17288a2e370c4c5d01b958ff4b3578d08b4e316306e2302b3"
+    },
+    {
+      "kind": "text",
+      "value": "2326"
+    },
+    {
+      "kind": "text",
+      "value": "package/06.01.notes.md"
+    },
+    {
+      "kind": "text",
+      "value": "defa3a7607960cd054049c960c0e8074e035e6602165b95308310e1bef9593d2"
+    },
+    {
+      "kind": "text",
+      "value": "1050"
+    },
+    {
+      "kind": "text",
+      "value": "package/templates/05.01.return.TEMPLATE.md"
+    },
+    {
+      "kind": "text",
+      "value": "11dbc566062446fb1386fc97ddad5c73b14078259100ac9f95b2a9abc039b72f"
+    },
+    {
+      "kind": "text",
+      "value": "1386"
+    },
+    {
+      "kind": "text",
+      "value": "package/templates/06.01.review.TEMPLATE.md"
+    },
+    {
+      "kind": "text",
+      "value": "512c58894c8ebc2ea6f013b2fdd7a642ed6f4510a1233ea1162945a112764d53"
+    },
+    {
+      "kind": "text",
+      "value": "1007"
+    },
+    {
+      "kind": "text",
+      "value": "package/binding.json"
+    },
+    {
+      "kind": "text",
+      "value": "9810db4dc5c880f05e9b97c974fb666857bd2a921960824c2e87245b46820e12"
+    },
+    {
+      "kind": "text",
+      "value": "596"
+    },
+    {
+      "kind": "text",
+      "value": "package/colab-request.json"
+    },
+    {
+      "kind": "text",
+      "value": "18aceb04be6616f0824c996857790a3a3af315a962487558cfb977217360f4c6"
+    },
+    {
+      "kind": "text",
+      "value": "2601"
+    },
+    {
+      "kind": "text",
+      "value": "package/support/SUPPORT.md"
+    },
+    {
+      "kind": "text",
+      "value": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+    },
+    {
+      "kind": "text",
+      "value": "574"
+    },
+    {
+      "kind": "text",
+      "value": "package/support/assembler/05.01.md"
+    },
+    {
+      "kind": "text",
+      "value": "05.01.md"
+    },
+    {
+      "kind": "text",
+      "value": "package/support/assembler/request.snapshot"
+    },
+    {
+      "kind": "text",
+      "value": "request.snapshot"
+    },
+    {
+      "kind": "text",
+      "value": "package/support/assembler/completion-receipt.json"
+    },
+    {
+      "kind": "text",
+      "value": "completion-receipt.json"
+    },
+    {
+      "kind": "text",
+      "value": "a305c2dca61f30b712dc67464c821e706e98bcbd443115c097486570e128e395"
+    },
+    {
+      "kind": "text",
+      "value": "25910"
+    }
+  ],
+  "digest_rule": "sha256 over parts in order; each part is an 8-byte big-endian length then its bytes; a 'text' part is its UTF-8 value, a 'file' part is the bytes of that OUT path",
+  "envelope": [
+    {
+      "bytes": 2326,
+      "path": "package/05.01.pack.md",
+      "role": "pack-primary-instruction",
+      "sha256": "bd4df347d998d3c17288a2e370c4c5d01b958ff4b3578d08b4e316306e2302b3"
+    },
+    {
+      "bytes": 1050,
+      "path": "package/06.01.notes.md",
+      "role": "notes",
+      "sha256": "defa3a7607960cd054049c960c0e8074e035e6602165b95308310e1bef9593d2"
+    },
+    {
+      "bytes": 3074,
+      "path": "package/ENTRY.md",
+      "role": "entry",
+      "sha256": "133f897b5953d62b3151cfcaba641428d3c63d375eb55fa95e293c192067127c"
+    },
+    {
+      "bytes": 596,
+      "path": "package/binding.json",
+      "role": "binding",
+      "sha256": "9810db4dc5c880f05e9b97c974fb666857bd2a921960824c2e87245b46820e12"
+    },
+    {
+      "bytes": 2601,
+      "path": "package/colab-request.json",
+      "role": "request",
+      "sha256": "18aceb04be6616f0824c996857790a3a3af315a962487558cfb977217360f4c6"
+    },
+    {
+      "bytes": 77,
+      "path": "package/snapshots/0001.blob",
+      "role": "snapshot",
+      "sha256": "b9684e5f78a5aceb82d04bf2a27f3f43792b866db228dfd9431af747c7ac3b6c"
+    },
+    {
+      "bytes": 1453,
+      "path": "package/snapshots/0002.blob",
+      "role": "snapshot",
+      "sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d"
+    },
+    {
+      "bytes": 786,
+      "path": "package/snapshots/0003.blob",
+      "role": "snapshot",
+      "sha256": "a2d730aad622c925be4906fbf86053ee69503a59454d4987e054894e65aa000f"
+    },
+    {
+      "bytes": 352,
+      "path": "package/snapshots/0004.blob",
+      "role": "snapshot",
+      "sha256": "859bf877f4b08738fc2492a1edc3751eeb46fa70e31ac3e0040b3b463e9559d1"
+    },
+    {
+      "bytes": 498,
+      "path": "package/snapshots/0005.blob",
+      "role": "snapshot",
+      "sha256": "819c39fa1e83f068a1f7a231a6fcf752a0b56496f25b55038a40b12bcfb30f66"
+    },
+    {
+      "bytes": 1193,
+      "path": "package/source-manifest.json",
+      "role": "source-manifest",
+      "sha256": "ece84c5d6bf2df2dc8e421d5c4ca97e54f8be917e0e474c00eebada1537b1b22"
+    },
+    {
+      "bytes": 574,
+      "path": "package/support/SUPPORT.md",
+      "role": "support-declaration",
+      "sha256": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+    },
+    {
+      "bytes": 2328,
+      "path": "package/support/assembler/05.01.md",
+      "role": "support-assembler",
+      "sha256": "e6fe3f88eda342c2b8455147068b0fdcb3e409ad5e00b35f688da021c5f728bb"
+    },
+    {
+      "bytes": 2281,
+      "path": "package/support/assembler/completion-receipt.json",
+      "role": "support-assembler",
+      "sha256": "3ade0c2cf59d9d8cae87c4381d7d901cb69cbfb4b79c9cbf0da14b4068945546"
+    },
+    {
+      "bytes": 2280,
+      "path": "package/support/assembler/request.snapshot",
+      "role": "support-assembler",
+      "sha256": "cb71b1526c2ccc53a7342de76737b0d3a9e1f978944302e5347965e60aa5460b"
+    },
+    {
+      "bytes": 1386,
+      "path": "package/templates/05.01.return.TEMPLATE.md",
+      "role": "template-return",
+      "sha256": "11dbc566062446fb1386fc97ddad5c73b14078259100ac9f95b2a9abc039b72f"
+    },
+    {
+      "bytes": 1007,
+      "path": "package/templates/06.01.review.TEMPLATE.md",
+      "role": "template-review",
+      "sha256": "512c58894c8ebc2ea6f013b2fdd7a642ed6f4510a1233ea1162945a112764d53"
+    }
+  ],
+  "evaluator": [],
+  "exchange": {
+    "nn": "01",
+    "notes": "06.01.notes.md",
+    "pack": "05.01.pack.md",
+    "pass": "05.01",
+    "primary_instruction": "05.01.pack.md",
+    "return_name": "05.01.return.md",
+    "return_template": "templates/05.01.return.TEMPLATE.md",
+    "review_name": "06.01.review.md",
+    "review_template": "templates/06.01.review.TEMPLATE.md"
+  },
+  "investigation": {
+    "book": "00.00.10.work",
+    "page": "0702.colab-review-fixture",
+    "pass": "05.01"
+  },
+  "layout": "colab-exchange-layout/2",
+  "not_created": [
+    "05.01.return.md",
+    "06.01.review.md"
+  ],
+  "schema": "colab-handoff/2",
+  "source_map": [
+    {
+      "bytes": 77,
+      "role": "target",
+      "sha256": "b9684e5f78a5aceb82d04bf2a27f3f43792b866db228dfd9431af747c7ac3b6c",
+      "snapshot": "package/snapshots/0001.blob",
+      "source_path": "00.kernel/00.00.10.work/0599.synthetic-subject/01.md",
+      "targets": [
+        "T01"
+      ]
+    },
+    {
+      "bytes": 1453,
+      "role": "required",
+      "sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+      "snapshot": "package/snapshots/0002.blob",
+      "source_path": "reviews/plan-1/review-plan.json",
+      "targets": []
+    },
+    {
+      "bytes": 786,
+      "role": "required",
+      "sha256": "a2d730aad622c925be4906fbf86053ee69503a59454d4987e054894e65aa000f",
+      "snapshot": "package/snapshots/0003.blob",
+      "source_path": "reviews/plan-1/COMPREHENSION.md",
+      "targets": []
+    },
+    {
+      "bytes": 352,
+      "role": "required",
+      "sha256": "859bf877f4b08738fc2492a1edc3751eeb46fa70e31ac3e0040b3b463e9559d1",
+      "snapshot": "package/snapshots/0004.blob",
+      "source_path": "reviews/plan-1/SIMPLICITY.md",
+      "targets": []
+    },
+    {
+      "bytes": 498,
+      "role": "required",
+      "sha256": "819c39fa1e83f068a1f7a231a6fcf752a0b56496f25b55038a40b12bcfb30f66",
+      "snapshot": "package/snapshots/0005.blob",
+      "source_path": "reviews/plan-1/RESULT-TEMPLATE.json",
+      "targets": []
+    }
+  ],
+  "statements": [
+    "This package is a draft. Preparation is not a Director release.",
+    "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+    "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+    "A verified package or receipt is custody, not review or acceptance.",
+    "The investigation binding is supplied by Prime; it does not open a live investigation.",
+    "Labels and quoted Director text do not authenticate anyone."
+  ],
+  "support_projection": [
+    {
+      "assembler_name": "05.01.md",
+      "bytes": 2328,
+      "sha256": "e6fe3f88eda342c2b8455147068b0fdcb3e409ad5e00b35f688da021c5f728bb",
+      "support_path": "package/support/assembler/05.01.md"
+    },
+    {
+      "assembler_name": "request.snapshot",
+      "bytes": 2280,
+      "sha256": "cb71b1526c2ccc53a7342de76737b0d3a9e1f978944302e5347965e60aa5460b",
+      "support_path": "package/support/assembler/request.snapshot"
+    },
+    {
+      "assembler_name": "completion-receipt.json",
+      "bytes": 2281,
+      "sha256": "3ade0c2cf59d9d8cae87c4381d7d901cb69cbfb4b79c9cbf0da14b4068945546",
+      "support_path": "package/support/assembler/completion-receipt.json"
+    }
+  ],
+  "verify": {
+    "argv": [
+      "python",
+      "-B",
+      "labs/colab-support-pass02/colab_support.py",
+      "verify",
+      "--output",
+      "<OUT>",
+      "--config",
+      "<CONFIG>",
+      "--json"
+    ],
+    "config_keys": [
+      "schema",
+      "repositories",
+      "python",
+      "assembler",
+      "checker",
+      "helper",
+      "inspector",
+      "producer_v1"
+    ],
+    "config_schema": "colab-config/2",
+    "pins": {
+      "assembler": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+      "checker": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+      "helper": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "inspector": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "producer_v1": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c"
+    },
+    "standalone": [
+      "python",
+      "-B",
+      "labs/colab-support-pass02/handoff_check.py",
+      "check",
+      "--output",
+      "<OUT>",
+      "--expected-digest",
+      "<DIGEST>",
+      "--json"
+    ]
+  },
+  "zip": {
+    "bytes": 25910,
+    "members": [
+      "05.01.pack.md",
+      "06.01.notes.md",
+      "ENTRY.md",
+      "binding.json",
+      "colab-request.json",
+      "snapshots/0001.blob",
+      "snapshots/0002.blob",
+      "snapshots/0003.blob",
+      "snapshots/0004.blob",
+      "snapshots/0005.blob",
+      "source-manifest.json",
+      "support/SUPPORT.md",
+      "support/assembler/05.01.md",
+      "support/assembler/completion-receipt.json",
+      "support/assembler/request.snapshot",
+      "templates/05.01.return.TEMPLATE.md",
+      "templates/06.01.review.TEMPLATE.md"
+    ],
+    "path": "prepared-colab.zip",
+    "sha256": "a305c2dca61f30b712dc67464c821e706e98bcbd443115c097486570e128e395"
+  }
+}

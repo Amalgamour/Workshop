@@ -1,0 +1,53 @@
+{
+  "observed": {
+    "bytes": 64,
+    "count": 4,
+    "hash_match": 1,
+    "hash_mismatch": 0,
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 3,
+    "rows": [
+      {
+        "bytes": 10,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "0599.fixture/05.01.md",
+        "role": "assignment",
+        "root": "book",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "bytes": 20,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "return.md",
+        "role": "submission",
+        "root": "book",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "bytes": 30,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "manifest.json",
+        "role": "artifact-manifest",
+        "root": "book",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      {
+        "bytes": 4,
+        "declared_bytes": 4,
+        "declared_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "path": "payload.txt",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      }
+    ],
+    "measured_by": "accepted-intake"
+  },
+  "expected_declared_artifacts": 1,
+  "expected_payload_bytes": 4,
+  "note": "All intake roles are valid evidence rows, but they are not all declared artifacts; label separate totals instead of conflating them."
+}

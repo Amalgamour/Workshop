@@ -1,0 +1,29 @@
+pass                         ST-1    strict-n7       trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,': reason
+pass                         ST-2    strict-n7       a refused declaration (hash in attribution) beside a valid alternative Returned line: reas
+pass                         ST-3    strict-n7       an incomplete recognized label ('Verification:' with no value): reason malformed-n7-declar
+pass                         ST-4    strict-n7       control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malforme
+pass                         PR-1    preservation    manual text present at the destination: publish held, bytes preserved, judgment retained
+pass                         PR-2    preservation    a destination file appearing between inspect and publish: held, bytes preserved
+pass                         PR-3    preservation    pack task-body change after record: stale; publication held
+pass                         PR-4    preservation    return change after record: stale; publication held
+pass                         PR-5    preservation    declared artifact changed or missing after record: stale; publication held
+fail                         PR-6    preservation    review-region-only pack edit after publish keeps the exchange current; a task edit does no
+pass                         PR-7    preservation    missing or altered pinned tool refuses before work (door pin)
+pass                         CTX-1   preservation    source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares
+blocked                      RP-1    reporter        review-report (candidate route) agrees with the core: published N7 current -> readable/sta
+blocked                      RP-2    reporter        review-report refuses (nonzero, no traceback) a wrong dispatcher pin, a wrong chain (workb
+known-failure-reproduced     KF-RP   reporter        KNOWN FAILURE (baseline): the frozen reporter v3 refuses this candidate's dispatcher (pins
+pass                         IN-1    instance        N5 same book: record then read is current (exit 0, not stale)
+blocked                      IN-2    instance        N5 foreign copied book: the copy's current applicability is held (positive evidence: nonze
+known-failure-reproduced     KF-IN   instance        KNOWN FAILURE (baseline): an N5 record in a byte-copied book reads current in the copy
+pass                         RC-1    reconstruction  a NEW root rebuilt by the declared builder from frozen sources has the identical candidate
+NOT READY scope=subset {'pass': 13, 'fail': 1, 'blocked': 3, 'known-failure-reproduced': 2}
+  - coverage incomplete: 20 required case(s) have no record: ['N5-1', 'N5-2', 'N5-3', 'N7-1', 'N7-2', 'LR-1', 'LR-2', 'LR-3', 'LR-4', 'LR-5', 'LR-6', 'N7-3', 'LR-7', 'CAP-0', 'CAP-1', 'CAP-2', 'CAP-3', 'CAP-4', 'LC-1', 'RB-1']
+  - required case PR-6: fail
+  - required case RP-1: blocked
+  - required case RP-2: blocked
+  - required case IN-2: blocked
+  - dependency K is pending
+  - dependency I is pending
+  - dependency R is pending
+  - dependency W is pending

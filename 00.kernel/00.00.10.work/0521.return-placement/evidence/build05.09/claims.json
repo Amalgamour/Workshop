@@ -1,0 +1,245 @@
+{
+  "claims": [
+    {
+      "case": "static read",
+      "claim": "demo and rehearsal still select the old writer",
+      "kind": "author",
+      "limit": "they were not executed and were not edited",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery preflight",
+      "claim": "missing release refuses and writes nothing",
+      "kind": "author",
+      "limit": "fixture file was absent",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery init",
+      "claim": "operations list that omits init refuses init",
+      "kind": "author",
+      "limit": "synthetic fixture, copy evidence",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery preflight",
+      "claim": "fixture preflight is readiness only",
+      "kind": "reproduced",
+      "limit": "synthetic true, not a Director release",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery",
+      "claim": "staged rebuild and retirement through the facade",
+      "kind": "reproduced",
+      "limit": "fixture authority on a copy",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "one-member copy",
+      "claim": "rollback-retire and rollback-publish restore the member bytes",
+      "kind": "reproduced",
+      "limit": "recovery case, not a second full migration",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "one-member copy",
+      "claim": "partial publish stays partial until resume",
+      "kind": "reproduced",
+      "limit": "interrupt exit 3 then resume exit 0",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary preflight",
+      "claim": "missing release refuses and writes nothing",
+      "kind": "author",
+      "limit": "fixture file was absent",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary init",
+      "claim": "operations list that omits init refuses init",
+      "kind": "author",
+      "limit": "synthetic fixture, copy evidence",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary preflight",
+      "claim": "fixture preflight is readiness only",
+      "kind": "reproduced",
+      "limit": "synthetic true, not a Director release",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary",
+      "claim": "staged rebuild and retirement through the facade",
+      "kind": "reproduced",
+      "limit": "fixture authority on a copy",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "marked copy",
+      "claim": "historical lookup keeps complete members and incomplete 0154",
+      "kind": "reproduced",
+      "limit": "0154 stays incomplete; a reader result is not approval",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "0121 05.01",
+      "claim": "repeated and conflicting submissions keep the sealed pass",
+      "kind": "author",
+      "limit": "author case on the marked copy",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "0121 05.01 capture",
+      "claim": "changed payload does not replace a sealed return",
+      "kind": "author",
+      "limit": "author case on the marked copy",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "0121 05.01",
+      "claim": "source/pass verify of a new filing stays unassociated",
+      "kind": "reproduced",
+      "limit": "verify follows the filing",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "marked copy",
+      "claim": "historical reads keep originals, occupants, and the synthetic gap",
+      "kind": "reproduced",
+      "limit": "reader result is not approval",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "0121 05.02",
+      "claim": "changed evidence is reported and left in place",
+      "kind": "author",
+      "limit": "the suite restored the byte after the observation",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary book",
+      "claim": "guard refuses legacy reserve and capture on the marked copy",
+      "kind": "author",
+      "limit": "writer module was not executed",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "side books",
+      "claim": "malformed layouts refuse before launch",
+      "kind": "author",
+      "limit": "duplicate key and directory; main layout untouched",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "doorless book",
+      "claim": "undeclared doorless reserve keeps legacy behavior and the notice",
+      "kind": "author",
+      "limit": "a marked door cannot show this delegation",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "doorless book",
+      "claim": "old reservation then declared handoff retains the failure",
+      "kind": "author",
+      "limit": "selected facade, not the current app",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "plain book",
+      "claim": "changed handoff payload does not complete capture",
+      "kind": "author",
+      "limit": "identity check happens before a successful capture",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "tampered path",
+      "claim": "guard mismatch refuses before launch",
+      "kind": "author",
+      "limit": "the real guard file was not edited",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "side copies",
+      "claim": "historical writer still reserves when the guard is not selected",
+      "kind": "author",
+      "limit": "supported-route closure is not total and not same-user confinement",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "live book",
+      "claim": "live plan and missing authority write nothing",
+      "kind": "author",
+      "limit": "read-only readiness; init stayed refused",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "temp fixture-app",
+      "claim": "fixture dispatcher exercises the two substituted branches",
+      "kind": "author",
+      "limit": "driver code_root override is not in the fixture file and the file was not copied onto the app",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "reviewer",
+      "claim": "Prime independent probes",
+      "kind": "reviewer-independent",
+      "limit": "author cases do not substitute",
+      "outcome": "not-run",
+      "run": "not-run"
+    },
+    {
+      "case": "current app",
+      "claim": "app selection and live migration",
+      "kind": "not-selected",
+      "limit": "dispatcher and README were not edited",
+      "outcome": "not-run",
+      "run": "not-run"
+    },
+    {
+      "case": "historical fixtures",
+      "claim": "demo.py and rehearse.py execution",
+      "kind": "unselected",
+      "limit": "static selection only; future disposition is a new file",
+      "outcome": "not-run",
+      "run": "not-run"
+    },
+    {
+      "case": "05.06 seam",
+      "claim": "colab seam replay",
+      "kind": "not-run",
+      "limit": "outside this pack's facade sequence",
+      "outcome": "not-run",
+      "run": "not-run"
+    }
+  ],
+  "schema": "return-access-handoff-claims/0509"
+}

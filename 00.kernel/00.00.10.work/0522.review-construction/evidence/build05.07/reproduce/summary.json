@@ -1,0 +1,40 @@
+{
+  "schema": "constructor-pass04-reproduction/1",
+  "pass03_sha256": "6eec5653c6818cfdeb98ffcd929cdf26f0ddf15c3121c703ce795abea6eb755d",
+  "pass03_bytes": 42216,
+  "pass03_unchanged": true,
+  "binding": "abababababababababababababababababababababababababababababababab",
+  "g01": {
+    "lf.md": {
+      "exit": 0,
+      "state": "constructed-same-binding",
+      "binding_sha256": "abababababababababababababababababababababababababababababababab",
+      "page_unchanged": true,
+      "show_exit": 0
+    },
+    "crlf.md": {
+      "exit": 0,
+      "state": "existing-review",
+      "binding_sha256": null,
+      "page_unchanged": true,
+      "show_exit": 2
+    }
+  },
+  "g02": {
+    "exit": 1,
+    "traceback": true,
+    "target_unchanged": true,
+    "tree_before": [
+      "envelope.json",
+      "page.md"
+    ],
+    "tree_after": [
+      "envelope.json",
+      "page.md"
+    ]
+  },
+  "findings": [],
+  "stored_newlines": "lf",
+  "runner_newlines": "crlf-normalized-to-lf",
+  "fixture_bytes": "raw"
+}

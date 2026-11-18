@@ -1,0 +1,188 @@
+{
+  "custody_before": {
+    "0112.prime-review": {
+      "present": false
+    },
+    "0112.prime-review/05.06.return.md": {
+      "present": false
+    },
+    "0122.review-construction": {
+      "present": false
+    },
+    "0122.review-construction/05.13.return.md": {
+      "present": false
+    },
+    "0122.review-construction/05.14.return.md": {
+      "present": false
+    }
+  },
+  "custody_end": {
+    "0112.prime-review": {
+      "present": false
+    },
+    "0112.prime-review/05.06.return.md": {
+      "present": false
+    },
+    "0122.review-construction": {
+      "present": false
+    },
+    "0122.review-construction/05.13.return.md": {
+      "present": false
+    },
+    "0122.review-construction/05.14.return.md": {
+      "present": false
+    }
+  },
+  "frozen_end_unchanged": true,
+  "frozen_unchanged": true,
+  "pages_end_unchanged": true,
+  "pages_unchanged": true,
+  "schema": "v8-review-intake-canonical/0514",
+  "source_manifest_end": {
+    "files": 210,
+    "manifest_bytes": 64153,
+    "manifest_cr": 0,
+    "manifest_sha256": "ae51a80ee3555b675c90869dbfa5dd7f3576e3c32e877abcb4066e4966c38438",
+    "mismatches": [],
+    "missing": [],
+    "schema": "prime-pack-inputs/1"
+  },
+  "sources": [
+    {
+      "artifact_count": 29,
+      "body_path": "canonical/0522.review-construction-05.13-prepare.stdout.json",
+      "command": "prepare",
+      "exit": 0,
+      "finding_codes": [
+        "custody-missing",
+        "index-context-bounded",
+        "return-missing",
+        "verification-not-measured"
+      ],
+      "intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+      "json": true,
+      "kind": "N5",
+      "matches_v7": true,
+      "measurement": "complete",
+      "pass": "05.13",
+      "source": "0522.review-construction",
+      "stderr_tail": "",
+      "v7_exit": 0,
+      "v7_intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f"
+    },
+    {
+      "artifact_count": 29,
+      "command": "form",
+      "exit": 0,
+      "finding_codes": [],
+      "intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+      "json": true,
+      "kind": "N5",
+      "measurement": null,
+      "pass": "05.13",
+      "source": "0522.review-construction",
+      "stderr_tail": ""
+    },
+    {
+      "artifact_count": 14,
+      "body_path": "canonical/0512.prime-review-05.06-prepare.stdout.json",
+      "command": "prepare",
+      "exit": 0,
+      "finding_codes": [
+        "custody-missing",
+        "index-context-bounded",
+        "return-missing"
+      ],
+      "intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588",
+      "json": true,
+      "kind": "N5",
+      "matches_v7": true,
+      "measurement": "complete",
+      "pass": "05.06",
+      "source": "0512.prime-review",
+      "stderr_tail": "",
+      "v7_exit": 0,
+      "v7_intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588"
+    },
+    {
+      "artifact_count": 14,
+      "command": "form",
+      "exit": 0,
+      "finding_codes": [],
+      "intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588",
+      "json": true,
+      "kind": "N5",
+      "measurement": null,
+      "pass": "05.06",
+      "source": "0512.prime-review",
+      "stderr_tail": ""
+    },
+    {
+      "artifact_count": 26,
+      "body_path": "canonical/0707.app-use-check-05.15-prepare.stdout.json",
+      "command": "prepare",
+      "exit": 0,
+      "expect_artifacts": 26,
+      "finding_codes": [
+        "custody-missing",
+        "index-context-bounded",
+        "unparsed-return-line",
+        "verification-not-measured"
+      ],
+      "intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+      "json": true,
+      "kind": "N7",
+      "measurement": "complete",
+      "pass": "05.15",
+      "source": "0707.app-use-check",
+      "stderr_tail": ""
+    },
+    {
+      "artifact_count": 26,
+      "command": "form",
+      "exit": 0,
+      "finding_codes": [],
+      "intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+      "json": true,
+      "kind": "N7",
+      "measurement": null,
+      "pass": "05.15",
+      "source": "0707.app-use-check",
+      "stderr_tail": ""
+    },
+    {
+      "artifact_count": 33,
+      "body_path": "canonical/0707.app-use-check-05.17-prepare.stdout.json",
+      "command": "prepare",
+      "exit": 0,
+      "expect_artifacts": 33,
+      "finding_codes": [
+        "custody-missing",
+        "index-context-bounded",
+        "unparsed-return-line",
+        "verification-not-measured"
+      ],
+      "intake_id": "a0d7da38c5307423b31abf3fd33f9107a72aec4a406e14f7fde42f939c660e9f",
+      "json": true,
+      "kind": "N7",
+      "measurement": "complete",
+      "pass": "05.17",
+      "source": "0707.app-use-check",
+      "stderr_tail": ""
+    },
+    {
+      "artifact_count": 33,
+      "command": "form",
+      "exit": 0,
+      "finding_codes": [],
+      "intake_id": "a0d7da38c5307423b31abf3fd33f9107a72aec4a406e14f7fde42f939c660e9f",
+      "json": true,
+      "kind": "N7",
+      "measurement": null,
+      "pass": "05.17",
+      "source": "0707.app-use-check",
+      "stderr_tail": ""
+    }
+  ],
+  "stamp": "D:\\librarian\\temp\\0522-0514\\20261103T235828680Z"
+}

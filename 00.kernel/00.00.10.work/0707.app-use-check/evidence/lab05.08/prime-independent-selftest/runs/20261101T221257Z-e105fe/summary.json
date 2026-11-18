@@ -1,0 +1,54 @@
+{
+  "aggregate": "REFUSED",
+  "canonical_paths": {
+    "evidence_root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs",
+    "fixture_root": null,
+    "run_dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs\\20261101T221257Z-e105fe"
+  },
+  "cases": [
+    {
+      "id": "S01",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "STUB ok"
+    }
+  ],
+  "code_sha256": {
+    "guards6.py": "46c3dd34a483a3d024a98b5ff0345a5e8249f8dd18f616f8fcec7ae14acf1d2b",
+    "harness6.py": "33868898bb3407353cb01568b934ce7082dca9206de590f70a392ac695205967"
+  },
+  "command": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+    "run",
+    "--config",
+    "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\interpreter-not-executable.json",
+    "--matrix",
+    "stub",
+    "--evidence",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+  ],
+  "config_sha256": "8d885bafae6a2a46f2e106c95b91eff5fc80d8105f4e7d229f04fe85197536a7",
+  "exit": 2,
+  "kind": "stub",
+  "launches": 0,
+  "loop_evidence": false,
+  "matrix": "stub",
+  "matrix_provenance": {},
+  "preflight": {
+    "reasons": [
+      "interpreter: interpreter could not be launched: OSError: [WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher"
+    ],
+    "status": "REFUSED"
+  },
+  "reused_pass05": {
+    "colab/labs/0707.app-use-check/pass05/stub_cases5.py": "8023452f91fd07e32b73ff05a2f3c22b2e89b37f93a926dfeddd754b567b1164",
+    "colab/labs/0707.app-use-check/pass05/stubs/STUB5.py": "57bcbdc6b12753d644d8b5ec11d3c29de6087c108a9c234e30cf6e984bbac332",
+    "colab/labs/0707.app-use-check/pass05/winjob.py": "c03d63a1c4d954dd537e91b65e52086a1b1ca34b7bbf868bc9de63ca0171f264"
+  },
+  "run": "20261101T221257Z-e105fe",
+  "schema": "acceptance-run/2",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

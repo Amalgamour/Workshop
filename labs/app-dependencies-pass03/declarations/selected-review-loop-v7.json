@@ -1,0 +1,99 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-loop"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "selected-review-loop-v7",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "app/review_loop_tools_v7.py",
+      "repository": "lib-build"
+    },
+    "bytes": 10291,
+    "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-loop"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false"
+    ],
+    "name": "review_loop_tools_v7",
+    "path": "app/review_loop_tools_v7.py",
+    "purpose": "Door loaded by the selected app for review-loop.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.33",
+          "file": "06.33.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "G acceptance leaves the selected door on v7",
+        "role": "review",
+        "sha256": "debbb40515843cd37ffa11e6da8ef75d0159793fa337c0dcd14a3f939464453b",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "1-20",
+        "path": "app/review_loop_tools_v7.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "v7 internal pins are outside this subset",
+      "what": "predecessor pin fan-out"
+    }
+  ]
+}

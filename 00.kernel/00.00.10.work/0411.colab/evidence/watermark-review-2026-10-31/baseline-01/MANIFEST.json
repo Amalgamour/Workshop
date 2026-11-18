@@ -1,0 +1,69 @@
+{
+ "schema": "baseline-manifest/1",
+ "protocol": "baseline-01",
+ "tasks": {
+  "T1": {
+   "version": "T1.v1",
+   "state": "ready",
+   "prompt": "tasks/T1-copy/prompt.txt",
+   "prompt_sha256": "e09bfcf5e57fa6c8acdf4ee098d61a0972158a88f96d1340eeb25ae48e924b3a",
+   "prompt_bytes": 796,
+   "fixtures": {
+    "tasks/T1-copy/source.txt": "71e5e680daa658bc37b08e94827f28c3da8714809c3491cf166e749ddcf3ca1c"
+   }
+  },
+  "T2": {
+   "version": "T2.v1",
+   "state": "ready",
+   "prompt": "tasks/T2-struct/prompt.txt",
+   "prompt_sha256": "4e9cb3224679da789de8eebe19dea0e5a9ed942b87c82ac2c35eeb2016dbb870",
+   "prompt_bytes": 1013,
+   "fixtures": {
+    "tasks/T2-struct/source.txt": "b56bac7905c59f65ed69ae50aa61ae7f3d0f765e918b092ecd02554ab51b72ad",
+    "tasks/T2-struct/expected.json": "03361b330a3b926ff6777f3ccb804c8a82529da7d50e0b87267fa2500dd9fa18"
+   }
+  },
+  "T3": {
+   "version": "T3.v1",
+   "state": "ready",
+   "prompt": "tasks/T3-code/prompt.txt",
+   "prompt_sha256": "8e858dc0be2890dcbfb0649312e27a67e497c2c85ff1053026b13f3f492723ab",
+   "prompt_bytes": 1454,
+   "fixtures": {
+    "tasks/T3-code/ledger.py": "247556dd785905e5b0decc826f1ba411f7260f44559f784cc0ea0ac514efb38c",
+    "tasks/T3-code/tests_heldout.py": "f15c8c597067fa2ad81c7b701b1bde67309245d7f310994d42a962f4424b3441"
+   }
+  },
+  "T4": {
+   "version": "T4.v1",
+   "state": "ready",
+   "prompt": "tasks/T4-spec/prompt.txt",
+   "prompt_sha256": "e3de8d1f631724c53f42aca5d76372bc097cb0c0af39f6a1676e052cc2d3d7d5",
+   "prompt_bytes": 1552,
+   "fixtures": {
+    "tasks/T4-spec/spec.md": "5c0663f1cf54d5f4f3c8b7d545f94ef5ec19a80b38b098a026c72d323da9ad5d"
+   }
+  },
+  "T5a": {
+   "version": "T5a.v1",
+   "state": "ready",
+   "prompt": "tasks/T5a-prose/prompt.txt",
+   "prompt_sha256": "dbf4f73cd3bfd974f7dceb915b12a64fdec132716a530aa1ea3d3ede647a214d",
+   "prompt_bytes": 284,
+   "fixtures": {
+    "tasks/T5a-prose/constraints.json": "601801ebba9044f1a03c793f3babc85df675e75936e5a04104459990055283ca"
+   }
+  },
+  "T5b": {
+   "version": "T5b.v1",
+   "state": "withheld",
+   "reason": "tasks/T5b-voice/VOICE-SAMPLE.txt not supplied: a passage of the Director's own writing"
+  }
+ },
+ "tools": {
+  "tools/blind.py": "ffa6a0a854d8bc5eae142b213c2ac5b17c71f2df73f8dba5f3036a4a9131932c",
+  "tools/build.py": "d007c32ed56c9fabd962ea9526226876e489490ed91937370f5b8bb3868b21f3",
+  "tools/check.py": "5461a12911c4fbe42d3ef8e731d47158cd5f1539b36cb9962d0039738e974331",
+  "tools/selftest.py": "456b2a8611fd721ab816d2354301a7694612385a5a884839ead753a93361e4c8"
+ }
+}

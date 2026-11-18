@@ -1,0 +1,280 @@
+{
+ "command": "impacted",
+ "consumers": [
+  {
+   "condition": {
+    "applies": "conditional",
+    "id": "reader-reason",
+    "statement": "verify's legacy relocation branch calls reader_reason, which loads return_capture",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "consumer_declaration": {
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v1.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+    "status": "prototype",
+    "version": 1
+   },
+   "depth": 1,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ],
+   "pin": {
+    "bytes": 45767,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "05.03.md",
+       "page": "0521.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names building labs/return-lines-pass01",
+      "role": "assignment",
+      "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "06.01",
+       "file": "06.01.md",
+       "page": "0417.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "return_lines.py tells the caller to read this note and not invent a route",
+      "role": "source-stated",
+      "sha256": "6c6d2272b692dc983f16f93f5491349bc4f99d4c14b3efbdfd583846b9f5e6ce",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/return-lines-pass01/return_lines.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+     "The current bytes are not the HEAD blob. 05.03 is the assignment that names this lab. Later edits were not given their own page here."
+    ]
+   },
+   "requirement_id": "return-capture",
+   "requires": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "revisit": null
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "id": "custody-reader",
+    "statement": "_assess_custody calls _reader; the route command used by describe-legacy and the cycle does not",
+    "status": "inapplicable"
+   },
+   "consumer": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "consumer_declaration": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "depth": 1,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py"
+   ],
+   "pin": {
+    "bytes": 45767,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.01",
+       "file": "05.01.md",
+       "page": "0521.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names building labs/return-placement-pass01",
+      "role": "assignment",
+      "sha256": "05b2eab7cddff21601eceabfeb02c223b0c7b2319bb81c0942751b90fe3bbec6",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "01",
+       "file": "01.md",
+       "page": "0417.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "routing design for matching N5NN lines; current placement bytes are a later working tree",
+      "role": "design",
+      "sha256": "dede7330a822c9dde172b7a355ed8d4dfb8b06d9e5e5fa55d042f1a3d66d2b04",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/return-placement-pass01/return_placement.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+     "05.02 of 0521 also names edits in this lab. The current working-tree bytes were not tied to one of those passes alone."
+    ]
+   },
+   "requirement_id": "return-capture",
+   "requires": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "revisit": null
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "consumer_declaration": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "depth": 1,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py"
+   ],
+   "pin": null,
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0508.return-capture",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names the new return_inspect.py",
+      "role": "assignment",
+      "sha256": "fc7047576589c56332fa0765159a4c575b081eaeb4f5e9a9fbbfe0acdaf3c5af",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes match the git blob of HEAD 960d20c5290656095df8457b1740d2d5e586b111 at this path.",
+     "0508/05.05 is a later correction on the same page family. It was not re-derived against these bytes. The bytes do match HEAD."
+    ]
+   },
+   "requirement_id": "return-capture",
+   "requires": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "revisit": null
+  }
+ ],
+ "finding_counts": {
+  "depth-limit": 1
+ },
+ "findings": [
+  {
+   "finding": "depth-limit",
+   "max_depth": 1,
+   "unexpanded": [
+    {
+     "direct_declared_consumers": 5,
+     "module": "lib-build:labs/return-lines-pass01/return_lines.py",
+     "path": [
+      "lib-build:labs/return-capture-pass01/return_capture.py",
+      "lib-build:labs/return-lines-pass01/return_lines.py"
+     ]
+    },
+    {
+     "direct_declared_consumers": 7,
+     "module": "lib-build:labs/return-placement-pass01/return_placement.py",
+     "path": [
+      "lib-build:labs/return-capture-pass01/return_capture.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    },
+    {
+     "direct_declared_consumers": 6,
+     "module": "lib-build:labs/return-capture-pass01/return_inspect.py",
+     "path": [
+      "lib-build:labs/return-capture-pass01/return_capture.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py"
+     ]
+    }
+   ]
+  }
+ ],
+ "implementation_compared": "sha256 only",
+ "note": "Derived from declared edges in this set only. These are candidates for Prime review; nothing is upgraded, invalidated, retested or edited. The walk stopped at max_depth with consumers left unexpanded: rerun with a larger --depth.",
+ "query": {
+  "implementation": null,
+  "max_depth": 1,
+  "module": "lib-build:labs/return-capture-pass01/return_capture.py"
+ },
+ "schema": "module-dependency-result/1",
+ "set": {
+  "coverage": "app/librarian.py command review-loop, its v2 door and declaration, and the reviewed modules those commands reach. Not every app namespace.",
+  "path": "D:\\Git\\lib-build\\labs\\app-dependencies-pass01\\set.json",
+  "records": 12,
+  "set_id": "review-loop-entry-1",
+  "sha256": "0a2ae9b028e974a20c15c3c5904ff654f7fa91f01a0380fbd6b5e9dfcf6e6af6"
+ },
+ "set_findings": [],
+ "status": "truncated",
+ "target_declarations": [
+  {
+   "declaration_id": "return-capture-pass01",
+   "file": "declarations/return-capture-pass01.v1.json",
+   "implementation_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "record_sha256": "55bc7932a370f67afa625df017891113a16e562dc016fd91f4d19e7c278ec7ff",
+   "status": "prototype",
+   "version": 1
+  }
+ ],
+ "unexpanded": [
+  {
+   "direct_declared_consumers": 5,
+   "module": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ]
+  },
+  {
+   "direct_declared_consumers": 7,
+   "module": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py"
+   ]
+  },
+  {
+   "direct_declared_consumers": 6,
+   "module": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py"
+   ]
+  }
+ ]
+}

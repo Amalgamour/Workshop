@@ -1,0 +1,67 @@
+{
+ "schema": "old-combined-identity-demo/1",
+ "copy": "D:\\librarian\\temp\\prime-night-0517-0723\\combined-copy",
+ "copy_identity": {
+  "CANDIDATE.json": "02198675adf7fc2ebd955e2f07b51392336536cc89df51142b9d9ae114f75414",
+  "app/librarian.py": "bb9ee7363e88da77f088e7e1c9a57f2a1ab94436defec25b6a50cbe9e5a48efc"
+ },
+ "A": {
+  "refused": "harness-inputs/2 is read only for the two frozen baselines; this candidate needs an explicit harness-inputs/3 identity; open_entry labs/review-loop-convergence-pass01/workbook.py is not a declared file; no workbook_entry is declared",
+  "ok": true
+ },
+ "B": {
+  "refused": "declared file absent: labs/review-loop-convergence-pass01/workbook.py",
+  "ok": true
+ },
+ "C": {
+  "identity": "verified",
+  "mode": "explicit",
+  "proof": {
+   "workbook": {
+    "target": "labs/review-loop-convergence-pass01/workbook.py",
+    "nonce": "cb835e56898f",
+    "evidence": "changed: probe output differs, but the stderr does not name the target",
+    "control": {
+     "exit": 0,
+     "stdout_sha256": "6288297e33fd5701443f41269066a044a13cda1ef97c320b73e0eebd8b3e0cb3"
+    },
+    "tampered": {
+     "exit": 0,
+     "stdout_sha256": "37deff37ec044222cebf7501ea9635f7d3485594e059ad68a2c0b361910c8aad",
+     "nonce_in_stderr": false,
+     "stderr_tail": ""
+    },
+    "executed": true,
+    "verdict": "executed",
+    "rooms": [
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-01\\C-proof\\workbook-control",
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-01\\C-proof\\workbook-tamper"
+    ]
+   },
+   "open": {
+    "target": "labs/review-loop-convergence-pass01/workbook.py",
+    "nonce": "0b966db48da0",
+    "evidence": "loaded: the target was compiled by the chain (prepended line broke its __future__ import)",
+    "control": {
+     "exit": 2,
+     "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tampered": {
+     "exit": 1,
+     "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "nonce_in_stderr": false,
+     "stderr_tail": "convergence-pass01\\workbook.py\", line 13\r\n    from __future__ import annotations\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nSyntaxError: from __future__ imports must occur at the beginning of the file\r\n"
+    },
+    "executed": true,
+    "verdict": "executed",
+    "rooms": [
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-01\\C-proof\\open-control",
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-01\\C-proof\\open-tamper"
+    ]
+   }
+  },
+  "gate": "refused: declared open entry labs/review-loop-convergence-pass01/workbook.py is not executable on a new root (control exit 2)",
+  "ok": false
+ },
+ "copy_unchanged": true
+}

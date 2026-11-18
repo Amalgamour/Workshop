@@ -1,0 +1,139 @@
+{
+  "accepted": false,
+  "approved": false,
+  "archive_director_approved": false,
+  "commands": 55,
+  "custody": "pending",
+  "derived_counts": {
+    "incomplete_count": 1,
+    "page_local_count": 5,
+    "record_count": 83
+  },
+  "designated_live_required": false,
+  "interrupt": {
+    "interrupt_exit": 3,
+    "resume_exit": 0
+  },
+  "live_fingerprint_after": "75061b0c183e299c36623e809be8518a0d6efd4482ff13ed3bb3d4865c5e2e6d",
+  "live_fingerprint_before": "75061b0c183e299c36623e809be8518a0d6efd4482ff13ed3bb3d4865c5e2e6d",
+  "live_mutation": false,
+  "measured_retirement": {
+    "occupants": 18,
+    "old_members_left": 0,
+    "originals": 65
+  },
+  "pass01_unchanged": true,
+  "pass02_unchanged": true,
+  "pass03_unchanged": true,
+  "plan_bytes": 789717,
+  "plan_sha256": "52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66",
+  "prior_plan_required": false,
+  "prior_plan_sha256": "52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66",
+  "proposal": {
+    "candidate_bytes": 1681,
+    "candidate_path": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\live-candidate.json",
+    "candidate_sha256": "b2cc40741208bc19c961a0e66844da02e9c082f5d459037eebab7196fbc2cdc6",
+    "plan_bytes": 789717,
+    "plan_path": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\live-plan.json",
+    "plan_sha256": "52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66",
+    "preflight_check": "return-line-release-candidate/1",
+    "preflight_exit": 2,
+    "source_files_checked": 1204,
+    "source_mismatch_count": 0,
+    "unassigned_count": 0
+  },
+  "published": false,
+  "reader": {
+    "logical_page_verifies": false,
+    "occupants_member_exit": 0,
+    "originals_member_exit": 0,
+    "rows": [
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired",
+        "exit": 2,
+        "member": "0101.app-entry-0506",
+        "not_approved": false,
+        "stderr_bytes": 0,
+        "stdout": "member is missing\nresult refused\n"
+      },
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired",
+        "exit": 2,
+        "member": "0104.app-entry-0508",
+        "not_approved": false,
+        "stderr_bytes": 0,
+        "stdout": "member is missing\nresult refused\n"
+      },
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired\\originals",
+        "exit": 0,
+        "member": "0101.app-entry-0506",
+        "not_approved": true,
+        "stderr_bytes": 0,
+        "stdout": "reservation 937140258022d1be8402b653b17108c5905e2f5af4ddcbf93d564b6ef842087d\nmanifest 233297c3257c0fb7c060671a9e733fdd1957136a01d7ec5ae8d3985b0c09006e\nreceipt bb71698f903c786497fa44b34cef046f32fabc01a039b40e53e8bd940a1a3580\npayload 0001.blo"
+      },
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired\\originals",
+        "exit": 2,
+        "member": "0104.app-entry-0508",
+        "not_approved": false,
+        "stderr_bytes": 0,
+        "stdout": "member is missing\nresult refused\n"
+      },
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired\\occupants",
+        "exit": 2,
+        "member": "0101.app-entry-0506",
+        "not_approved": false,
+        "stderr_bytes": 0,
+        "stdout": "member is missing\nresult refused\n"
+      },
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired\\occupants",
+        "exit": 0,
+        "member": "0104.app-entry-0508",
+        "not_approved": true,
+        "stderr_bytes": 0,
+        "stdout": "reservation 33d873565705e7346050af3979cd65cb454c01a9585774d7cdd0ca676a74d5ce\nmanifest 89eac0e4ac0e701bc007f5394c70b55cd086b11f0d2a334bea44a6f46bc213c9\nreceipt 84397f6c2d42c457aeccfba8d06c4e6ce7cb674d040c7e98d1463863a3d80acf\npayload 0001.blo"
+      },
+      {
+        "book": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\book",
+        "exit": 2,
+        "member": "0121.synthetic-filing",
+        "not_approved": false,
+        "stderr_bytes": 0,
+        "stdout": "unexpected 05.01.custody\nresult refused\n"
+      }
+    ],
+    "single_book_archive": false,
+    "synthetic_gap": "unexpected 05.01.custody"
+  },
+  "receipt": null,
+  "recovery": {
+    "member": "0101.app-entry-0506",
+    "rollback_publish": 0,
+    "rollback_retire": 0
+  },
+  "release_text": "TEST RECORDING for the 05.06 ordinary CLI copy. Not a Director release. Not live authority.\n",
+  "retired_root": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite\\primary\\retired",
+  "schema": "return-line-pass04-suite/1",
+  "seam": {
+    "rows": [
+      {
+        "exit": 0,
+        "label": "new-n5nn-0504-0521",
+        "pass_state": "awaiting-review",
+        "task_association": "not-established"
+      },
+      {
+        "exit": 0,
+        "label": "relocated-0101",
+        "pass_state": "awaiting-review",
+        "task_association": "not-established"
+      }
+    ]
+  },
+  "sentinel_installed": false,
+  "unit_exit": 0,
+  "work_root": "D:\\librarian\\temp\\0521-0506\\20261102T192444618088Z-suite"
+}

@@ -1,0 +1,172 @@
+[
+  {
+    "expectation": "revised",
+    "librarian_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "name": "active-surface",
+    "pointer": "pending",
+    "provenance": "author",
+    "readme_sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920",
+    "review": "pending"
+  },
+  {
+    "expectation": "revised",
+    "name": "case-reconciliation",
+    "preserved_count": 14,
+    "provenance": "author",
+    "revised": [
+      "active_surface",
+      "generated_bounds",
+      "hostile_count",
+      "hostile_document"
+    ],
+    "unchanged_18": false
+  },
+  {
+    "expectation": "preserved",
+    "name": "changed-and-missing",
+    "provenance": "author"
+  },
+  {
+    "emitted": 3,
+    "expectation": "preserved",
+    "name": "code-root-excluded",
+    "provenance": "author"
+  },
+  {
+    "custody": "missing",
+    "document_bytes": 125955,
+    "expectation": "preserved",
+    "mode": "preliminary",
+    "name": "cycle-0509",
+    "provenance": "author",
+    "publish": "published",
+    "review_id": "wecc2ddb1f86340b2",
+    "sources": 29
+  },
+  {
+    "content_bytes": 276423,
+    "correction": "refused: limit sources[24].content_bytes",
+    "document_bytes": 137328,
+    "expectation": "blocked-by-preserved-content-bytes",
+    "name": "cycle-0510",
+    "provenance": "author",
+    "recorded": false,
+    "sources": 44
+  },
+  {
+    "custody": "missing",
+    "document_bytes": 62200,
+    "expectation": "preserved",
+    "mode": "preliminary",
+    "name": "cycle-0514",
+    "provenance": "author",
+    "publish": "stale-own-review",
+    "review_id": "w72c59674fc0615ad",
+    "sources": 20
+  },
+  {
+    "bytes": 276423,
+    "expectation": "preserved",
+    "name": "document-bound",
+    "provenance": "author",
+    "sources": 22
+  },
+  {
+    "expectation": "preserved",
+    "name": "duplicate-and-conflict",
+    "provenance": "author"
+  },
+  {
+    "expectation": "revised",
+    "name": "generated-bounds",
+    "new_33": 33,
+    "new_64": 64,
+    "new_65": 65,
+    "old_24": true,
+    "old_25": "limit sources",
+    "prior_32": 32,
+    "prior_33": 33,
+    "provenance": "author"
+  },
+  {
+    "expectation": "preserved",
+    "name": "historical-modules",
+    "provenance": "author"
+  },
+  {
+    "correction": "refused: limit sources",
+    "expectation": "preserved",
+    "name": "historical-replay-0509",
+    "provenance": "known-reproduction"
+  },
+  {
+    "expectation": "preserved",
+    "name": "holds-stay-24",
+    "provenance": "author"
+  },
+  {
+    "expectation": "revised",
+    "name": "hostile-count",
+    "provenance": "author-hostile"
+  },
+  {
+    "bytes": 502359,
+    "expectation": "revised",
+    "name": "hostile-document",
+    "provenance": "author-hostile",
+    "sources": 40
+  },
+  {
+    "expectation": "known-failure",
+    "name": "known-pending-failure",
+    "provenance": "known-reproduction"
+  },
+  {
+    "expectation": "preserved",
+    "name": "lab-door-not-install",
+    "provenance": "author"
+  },
+  {
+    "expectation": "preserved",
+    "name": "answers-stay-24",
+    "provenance": "author"
+  },
+  {
+    "expectation": "preserved",
+    "name": "linked-pin",
+    "provenance": "author"
+  },
+  {
+    "expectation": "preserved",
+    "name": "malformed-and-unknown-size",
+    "provenance": "author"
+  },
+  {
+    "expectation": "preserved",
+    "name": "naive-external-copy",
+    "provenance": "known-reproduction"
+  },
+  {
+    "correction": "refused: limit sources: 44 sources exceeds supported limit 32; split the return so one record binds at most 32 sources",
+    "expectation": "revised",
+    "name": "predecessor-0510",
+    "provenance": "known-reproduction",
+    "sources": 44
+  },
+  {
+    "already_recorded": true,
+    "expectation": "new",
+    "name": "semantic-versus-raw",
+    "provenance": "author"
+  },
+  {
+    "expectation": "preserved",
+    "name": "wrong-pins",
+    "provenance": "author"
+  },
+  {
+    "expectation": "new",
+    "name": "no-live-write",
+    "provenance": "author"
+  }
+]

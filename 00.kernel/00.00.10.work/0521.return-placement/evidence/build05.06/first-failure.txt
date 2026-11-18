@@ -1,0 +1,21 @@
+# First stops before the official 05.06 suite
+
+Date: 2026-11-02. Executor: Grok-2.
+
+These stops happened before the official green rehearsal. They are harness and assertion errors. They are not a refusal from the recorded-release validator. CONTRACT.md, FAILURE.md, and AUTHORITY.md were not revised after them.
+
+## Focused tests
+
+The first `test_pass04.py` run reported 15 ok, 1 failure, and 1 error.
+
+`test_pins_and_no_bypass_flag` read `PASS02_SHA` from the loaded pass02 module. That module exposes `PASS01_SHA`. The pass02 pin is `PASS02_SHA` on pass03. The assertion now reads the pass03 constant.
+
+`test_label_alone_is_not_authority` called init on a disposable book that had no `0100.band.returns` door and was not the canonical identity. Pass02 does not require authorization for init in that case, so the command wrote a layout on that disposable book and exited 0. The test now copies the door first. A door-marked book, and the canonical book, still require authorization. The disposable layout was not the live book. The live layout stayed absent.
+
+The corrected focused run was 17 tests, OK, 6.465s. The official suite then ran the same file and recorded unit exit 0.
+
+## Suite harness
+
+The first `run_suite.py` invocation printed the live fingerprint and `unit exit 0`, then raised `FileNotFoundError` on `D:\librarian\temp\0521-0506\20261102T192351740453Z-suite\recovery\audit.json`. `small_cli` wrote the audit before creating the recovery directory. No plan, init, or other book command ran in that invocation after the unit tests. The directory was not created, because the write failed first. The fix is `root.mkdir` at the start of the small-copy helpers. The tool file was not edited after that.
+
+The official suite is `D:\librarian\temp\0521-0506\20261102T192444618088Z-suite`, exit 0.

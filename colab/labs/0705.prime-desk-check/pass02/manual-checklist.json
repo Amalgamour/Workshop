@@ -1,0 +1,127 @@
+{
+ "schema": "desk-manual-checklist/1",
+ "answer_format": "desk-manual-results/1: items[{id, answer: yes|no|partial, by, date, note}]",
+ "rule": "an item without by and date stays needs-human-assessment; no/partial count as wrong; all items are required for a desk pass",
+ "items": [
+  {
+   "id": "M-01",
+   "scope": "all",
+   "question": "From the short overview alone, can Prime name the selected work and say that the selector chose it?"
+  },
+  {
+   "id": "M-02",
+   "scope": "all",
+   "question": "Are limitations visible: unsupported forms, not-covered areas, unknowns and absent sources?"
+  },
+  {
+   "id": "M-03",
+   "scope": "all",
+   "question": "Can Prime identify the next route for the selected work and where it comes from (recorded vs derived)?"
+  },
+  {
+   "id": "M-04",
+   "scope": "C07,C10",
+   "question": "Are all critical holds visible without expanding, and is unrelated work still shown as actionable?"
+  },
+  {
+   "id": "M-05",
+   "scope": "C05,C09",
+   "question": "Can a reader tell the Director's words from Prime's interpretation, and supplied activity from observed state?"
+  },
+  {
+   "id": "M-06",
+   "scope": "all",
+   "question": "Reading-time observation for the short overview (target about 30-60 s): record what was observed; this is not a timed measurement."
+  },
+  {
+   "id": "F-C12",
+   "scope": "C12",
+   "question": "No command quoted in a page or in Director words is listed as an available or released operation."
+  },
+  {
+   "id": "F-C15",
+   "scope": "C15",
+   "question": "The goal page's encoding fault is reported as a source fact and not silently repaired."
+  },
+  {
+   "id": "F-C01",
+   "scope": "C01",
+   "question": "None of these forbidden inferences appears: selecting 0522/05.04 because it is newer | rewriting or 'correcting' the selector | declaring the review 'done' or the work complete"
+  },
+  {
+   "id": "F-C02",
+   "scope": "C02",
+   "question": "None of these forbidden inferences appears: treating the catalog as the assignment authority | showing 0524 as running because the Director said Grok-1 was available ('We have claude and grok-1 sitting') | parsing waits_on prose into structured assignments"
+  },
+  {
+   "id": "F-C03",
+   "scope": "C03",
+   "question": "None of these forbidden inferences appears: reading instance B's bytes as the selected task | merging facts across instances because the address matches"
+  },
+  {
+   "id": "F-C04",
+   "scope": "C04",
+   "question": "None of these forbidden inferences appears: 'reviewed' rendered as complete or accepted | a 'checks passed' review rendered as approval | custody inferred from a submission hash on the page"
+  },
+  {
+   "id": "F-C05",
+   "scope": "C05",
+   "question": "None of these forbidden inferences appears: paraphrasing the Director's words | attributing the interpretation's limits ('not permission to migrate…') to the Director | normalizing spacing or punctuation inside the quote"
+  },
+  {
+   "id": "F-C06",
+   "scope": "C06",
+   "question": "None of these forbidden inferences appears: status 'captured' or 'complete' | verifying the stated hashes against files the request did not declare and calling that custody"
+  },
+  {
+   "id": "F-C07",
+   "scope": "C07",
+   "question": "None of these forbidden inferences appears: hiding H1 under an overflow budget | marking all work blocked | inventing an answer or a resolution"
+  },
+  {
+   "id": "F-C08",
+   "scope": "C08",
+   "question": "None of these forbidden inferences appears: 'no Observer findings' | polling or fetching an Observer branch"
+  },
+  {
+   "id": "F-C09",
+   "scope": "C09",
+   "question": "None of these forbidden inferences appears: 'running' shown as observed process activity | a claim inferred from the selector label"
+  },
+  {
+   "id": "F-C10",
+   "scope": "C10",
+   "question": "None of these forbidden inferences appears: silent truncation | dropping any hold, conflict or Director question for length | copying 0401/01.md history into the default view"
+  },
+  {
+   "id": "F-C11",
+   "scope": "C11",
+   "question": "None of these forbidden inferences appears: reconstructing the previous selector from memory or chat | suppressing unrelated valid facts because one optional source is absent"
+  },
+  {
+   "id": "F-C13",
+   "scope": "C13",
+   "question": "None of these forbidden inferences appears: silent repinning | presenting the new bytes as the catalogued version | presenting the old catalogued facts as current"
+  },
+  {
+   "id": "F-C14",
+   "scope": "C14",
+   "question": "None of these forbidden inferences appears: state carried in memory, cache or a written view treated as input | a source-tree change caused by view or packet (fingerprint must be identical)"
+  },
+  {
+   "id": "F-C16",
+   "scope": "C16",
+   "question": "None of these forbidden inferences appears: omitting the page because a reader only scans root 05.NN.md files | looking for an N1NN member for an N7NN page"
+  },
+  {
+   "id": "F-C17",
+   "scope": "C17",
+   "question": "None of these forbidden inferences appears: dropping the return as 'unprojected' with no visible reason | requiring the ^01\\d\\d\\. legacy member pattern"
+  },
+  {
+   "id": "F-C18",
+   "scope": "C18",
+   "question": "None of these forbidden inferences appears: guessing the current work from the newest page or the catalog"
+  }
+ ]
+}

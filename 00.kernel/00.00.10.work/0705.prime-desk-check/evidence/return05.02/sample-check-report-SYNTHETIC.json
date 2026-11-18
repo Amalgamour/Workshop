@@ -1,0 +1,586 @@
+{
+ "schema": "desk-check-report/1",
+ "run_class": "synthetic-self-test",
+ "desk_verdict": "not-applicable (synthetic self-test)",
+ "blocking": [
+  "synthetic-only or mixed observations: not desk evidence",
+  "adapter-not-connected",
+  "manual: M-01=needs-human-assessment,M-02=needs-human-assessment,M-03=needs-human-assessment,M-04=needs-human-assessment,M-05=needs-human-assessment,M-06=needs-human-assessment,F-C12=needs-human-assessment,F-C15=needs-human-assessment,F-C01=needs-human-assessment,F-C02=needs-human-assessment,F-C03=needs-human-assessment,F-C04=needs-human-assessment,F-C05=needs-human-assessment,F-C06=needs-human-assessment,F-C07=needs-human-assessment,F-C08=needs-human-assessment,F-C09=needs-human-assessment,F-C10=needs-human-assessment,F-C11=needs-human-assessment,F-C13=needs-human-assessment,F-C14=needs-human-assessment,F-C16=needs-human-assessment,F-C17=needs-human-assessment,F-C18=needs-human-assessment"
+ ],
+ "expected_sha256": "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+ "cases": {
+  "executable_defined": 16,
+  "manual_defined": 2,
+  "observed": 16,
+  "observation_state": {
+   "C01": "observed",
+   "C02": "observed",
+   "C03": "observed",
+   "C04": "observed",
+   "C05": "observed",
+   "C06": "observed",
+   "C07": "observed",
+   "C08": "observed",
+   "C09": "observed",
+   "C10": "observed",
+   "C11": "observed",
+   "C13": "observed",
+   "C14": "observed",
+   "C16": "observed",
+   "C17": "observed",
+   "C18": "observed"
+  }
+ },
+ "assertions": {
+  "defined": 54,
+  "evaluated": 54,
+  "by_status": {
+   "pass": 54,
+   "wrong": 0,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 0,
+   "not-run": 0,
+   "checker-error": 0
+  }
+ },
+ "manual": {
+  "defined": 24,
+  "by_status": {
+   "pass": 0,
+   "wrong": 0,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 24,
+   "not-run": 0,
+   "checker-error": 0
+  }
+ },
+ "rows": [
+  {
+   "id": "A-C01-01",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-02",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-03",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-04",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-05",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-06",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-01",
+   "case": "C02",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-02",
+   "case": "C02",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-03",
+   "case": "C02",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-04",
+   "case": "C02",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-05",
+   "case": "C02",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-01",
+   "case": "C03",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-02",
+   "case": "C03",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-03",
+   "case": "C03",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-01",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-02",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-03",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-04",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-05",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-06",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-07",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-08",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-09",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-10",
+   "case": "C04",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-01",
+   "case": "C05",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-02",
+   "case": "C05",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-01",
+   "case": "C06",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-02",
+   "case": "C06",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-01",
+   "case": "C07",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-02",
+   "case": "C07",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-03",
+   "case": "C07",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C08-01",
+   "case": "C08",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-01",
+   "case": "C09",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-02",
+   "case": "C09",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-03",
+   "case": "C09",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-01",
+   "case": "C10",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-02",
+   "case": "C10",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-03",
+   "case": "C10",
+   "status": "pass",
+   "detail": "hidden 40",
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-01",
+   "case": "C11",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-02",
+   "case": "C11",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C13-01",
+   "case": "C13",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-01",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-02",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-03",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-04",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-01",
+   "case": "C16",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-02",
+   "case": "C16",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-03",
+   "case": "C16",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-01",
+   "case": "C17",
+   "status": "pass",
+   "detail": "a branch passed",
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-02",
+   "case": "C17",
+   "status": "pass",
+   "detail": "a branch passed",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-01",
+   "case": "C18",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-02",
+   "case": "C18",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-03",
+   "case": "C18",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-04",
+   "case": "C18",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  }
+ ],
+ "manual_rows": [
+  {
+   "id": "M-01",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-02",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-03",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-04",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-05",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-06",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C12",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C15",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C01",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C02",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C03",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C04",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C05",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C06",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C07",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C08",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C09",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C10",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C11",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C13",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C14",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C16",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C17",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C18",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  }
+ ],
+ "limits": "checks normalized facts only; forbidden inferences and readability are manual items; not a semantic judge"
+}

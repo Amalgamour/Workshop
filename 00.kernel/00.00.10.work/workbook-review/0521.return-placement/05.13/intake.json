@@ -1,0 +1,150 @@
+{
+  "agreement": {
+    "director_required": null,
+    "finish_criteria": null,
+    "goal": null,
+    "prime_discretion": null,
+    "recorded_decisions": null,
+    "scope": null
+  },
+  "assignment_path": "0521.return-placement/05.13.md",
+  "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+  "custody": "missing",
+  "descriptor_schema": null,
+  "destination": "0521.return-placement/05.13.md",
+  "director_text": null,
+  "findings": [
+    {
+      "code": "custody-missing",
+      "path": "0121.return-placement"
+    },
+    {
+      "code": "return-missing",
+      "path": "0121.return-placement/05.13.return.md"
+    },
+    {
+      "code": "verification-declared",
+      "hash_match": true,
+      "limit": "The lines are a declaration, not a successful verification run.",
+      "measured": true,
+      "path": "evidence/build05.13/verification.json",
+      "schema": "connected-return-review-verification/0513",
+      "sources": [
+        "submission-lines",
+        "artifact-index"
+      ],
+      "successful_run": false
+    }
+  ],
+  "goal_statement": null,
+  "instance_id": "51d281c730e42dcf75b1776ba62e256e066f3c050272dc938cb6dcf1edc0b744",
+  "intake_id": "387718bfe4ca9302d4b1c4a2f3614dec7b1bb615ebecf01bc7ee04b921fc9f6b",
+  "kind": "N5NN",
+  "lookup_exit": 2,
+  "measurement": "complete",
+  "member": "0121.return-placement",
+  "missing": [],
+  "page": "0521.return-placement",
+  "pass": "05.13",
+  "receipt_sha256": null,
+  "return_path": null,
+  "rows": [
+    {
+      "bytes": 6246,
+      "declared_path": "0521.return-placement/05.13.md",
+      "path": "0521.return-placement/05.13.md",
+      "role": "assignment",
+      "root": "book",
+      "sha256": "cc7a8c204221343b6afa597d75b8fdc06817576cfdf7d9bf7d4093cfc4c74dae"
+    },
+    {
+      "bytes": 1049,
+      "declared_bytes": 1049,
+      "declared_path": "evidence/build05.13/submission.md",
+      "declared_sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50",
+      "path": "0521.return-placement/evidence/build05.13/submission.md",
+      "role": "submission",
+      "root": "book",
+      "sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50"
+    },
+    {
+      "bytes": 1790,
+      "declared_bytes": 1790,
+      "declared_path": "evidence/build05.13/artifact-manifest.json",
+      "declared_sha256": "0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019",
+      "path": "0521.return-placement/evidence/build05.13/artifact-manifest.json",
+      "role": "artifact-manifest",
+      "root": "book",
+      "sha256": "0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019"
+    },
+    {
+      "bytes": 16802,
+      "declared_bytes": 16802,
+      "declared_path": "00.kernel/00.00.10.work/0521.return-placement/06.26.md",
+      "declared_sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5",
+      "path": "0521.return-placement/06.26.md",
+      "role": "artifact",
+      "root": "book",
+      "sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5"
+    },
+    {
+      "bytes": 14200,
+      "declared_bytes": 14200,
+      "declared_path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/CONTRACT.md",
+      "declared_sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14",
+      "path": "0521.return-placement/evidence/build05.13/CONTRACT.md",
+      "role": "artifact",
+      "root": "book",
+      "sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14"
+    },
+    {
+      "bytes": 1049,
+      "declared_bytes": 1049,
+      "declared_path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/submission.md",
+      "declared_sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50",
+      "path": "0521.return-placement/evidence/build05.13/submission.md",
+      "role": "artifact",
+      "root": "book",
+      "sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50"
+    },
+    {
+      "bytes": 3730,
+      "declared_bytes": 3730,
+      "declared_path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/verification.json",
+      "declared_sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6",
+      "path": "0521.return-placement/evidence/build05.13/verification.json",
+      "role": "artifact",
+      "root": "book",
+      "sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6"
+    },
+    {
+      "bytes": 45890,
+      "declared_bytes": 45890,
+      "declared_path": "labs/connected-return-review-pass02/drive.py",
+      "declared_sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc",
+      "path": "labs/connected-return-review-pass02/drive.py",
+      "role": "artifact",
+      "root": "code",
+      "sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc"
+    },
+    {
+      "bytes": 3730,
+      "declared_bytes": 3730,
+      "declared_path": "evidence/build05.13/verification.json",
+      "declared_sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6",
+      "path": "0521.return-placement/evidence/build05.13/verification.json",
+      "role": "verification",
+      "root": "book",
+      "sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6"
+    }
+  ],
+  "schema": "workbook-review-intake/1",
+  "submission_id": null,
+  "target_kind": "section",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

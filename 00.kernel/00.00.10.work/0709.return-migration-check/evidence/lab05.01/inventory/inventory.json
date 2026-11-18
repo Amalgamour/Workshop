@@ -1,0 +1,3521 @@
+{
+  "audit_bytes": 391778,
+  "audit_records_not_live": [],
+  "audit_sha256": "c3bf8c1e25bfd1a59ce40230d87f650897f3105691db732eadfe5abf4e275606",
+  "captures": 83,
+  "door_dirs": [],
+  "in_audit": 83,
+  "live_book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+  "live_member_dirs": 83,
+  "not_in_audit": [],
+  "occupancy_collision_count": 18,
+  "occupancy_collisions": [
+    "0102.prime-support-0501",
+    "0104.app-entry-0508",
+    "0105.prime-clerk-0504",
+    "0106.entry-regression-0509",
+    "0107.clerk-types-0505",
+    "0108.backfill-plan-0503",
+    "0109.clerk-seam-0510",
+    "0110.return-inspection-0504",
+    "0111.prime-boot-design-0506",
+    "0112.seam-io-0511",
+    "0113.prime-boot-0507",
+    "0114.inspection-range-0505",
+    "0115.observer-pilot-0501",
+    "0116.backfill-run-0506",
+    "0117.bridge-parent-0512",
+    "0118.workflow-start-0501",
+    "0119.app-entry-0503",
+    "0120.backfill-run-0507"
+  ],
+  "records_with_changes_or_origin_mismatch": [],
+  "routes": {
+    "matched-workflow-return-line": 78,
+    "page-local-colab": 5
+  },
+  "rows": [
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 63,
+      "audit_origin": {
+        "batch": "05.06",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0101.app-entry-0506",
+      "file_count": 65,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.06.custody",
+      "intended_return_path": "0104.app-entry/05.06.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0101.app-entry-0506",
+        "by_origin": {
+          "batch": "05.06",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0101.app-entry-0506",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.06",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "937140258022d1be8402b653b17108c5905e2f5af4ddcbf93d564b6ef842087d",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "0504-05-06-pinned"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 31,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0102.prime-support-0501",
+      "file_count": 33,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.01.custody",
+      "intended_return_path": "0107.prime-support/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0102.prime-support-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0102.prime-support-0501",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "27d6e813f499f0a3663511960983d8d4a571f65d3a0099b79f003d35d9148a7e",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "0507-05-01-pinned"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 17,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0103.return-capture-0502",
+      "file_count": 19,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.02.custody",
+      "intended_return_path": "0108.return-capture/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0103.return-capture-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0103.return-capture-0502",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "fb3dbf942aabadd1ea40e416cfc159b490bb990eb387702743c408e422460bb2",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "0508-05-02-local-return"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 43,
+      "audit_origin": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0104.app-entry-0508",
+      "file_count": 45,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.08.custody",
+      "intended_return_path": "0104.app-entry/05.08.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0104.app-entry-0508",
+        "by_origin": {
+          "batch": "05.08",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0104.app-entry-0508",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "33d873565705e7346050af3979cd65cb454c01a9585774d7cdd0ca676a74d5ce",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0508"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 38,
+      "audit_origin": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0105.prime-clerk-0504",
+      "file_count": 40,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.04.custody",
+      "intended_return_path": "0107.prime-support/05.04.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0105.prime-clerk-0504",
+        "by_origin": {
+          "batch": "05.04",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0105.prime-clerk-0504",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "db48a85731132ca988c475962ca14919b4ba195d350f45f100e0c05b109862cc",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0504"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 8,
+      "audit_origin": {
+        "batch": "05.09",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0106.entry-regression-0509",
+      "file_count": 10,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.09.custody",
+      "intended_return_path": "0104.app-entry/05.09.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0106.entry-regression-0509",
+        "by_origin": {
+          "batch": "05.09",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0106.entry-regression-0509",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.09",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "02233cd3ad691f6579a7dac720d6bd4e6681a4ddd796abdd0ab2df49ec568c0d",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0509"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.05",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0107.clerk-types-0505",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.05.custody",
+      "intended_return_path": "0107.prime-support/05.05.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0107.clerk-types-0505",
+        "by_origin": {
+          "batch": "05.05",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0107.clerk-types-0505",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.05",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "bfbcde178b6319e83199723616d19f24ac000f639abe93e15ab4c5956f953c95",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0505"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 6,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0108.backfill-plan-0503",
+      "file_count": 8,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.03.custody",
+      "intended_return_path": "0108.return-capture/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0108.backfill-plan-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0108.backfill-plan-0503",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d8dac5356e7f3ce40264f60c1971960e1ff0d662b989ecf834beb37946f5e60c",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0503"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 12,
+      "audit_origin": {
+        "batch": "05.10",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0109.clerk-seam-0510",
+      "file_count": 14,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.10.custody",
+      "intended_return_path": "0104.app-entry/05.10.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0109.clerk-seam-0510",
+        "by_origin": {
+          "batch": "05.10",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0109.clerk-seam-0510",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.10",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "8e9200caaf4f3c289ff7e48e73667500c1d46d7d081a2a495ce8be7e115bf0d2",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0510"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0110.return-inspection-0504",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.04.custody",
+      "intended_return_path": "0108.return-capture/05.04.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0110.return-inspection-0504",
+        "by_origin": {
+          "batch": "05.04",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0110.return-inspection-0504",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "ab8852df933d188504032bf19fdb6d03dc8f6a63cff7fe6bc7475e0e6de06bd5",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0504"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.06",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0111.prime-boot-design-0506",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.06.custody",
+      "intended_return_path": "0107.prime-support/05.06.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0111.prime-boot-design-0506",
+        "by_origin": {
+          "batch": "05.06",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0111.prime-boot-design-0506",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.06",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "ba79e6658e96ee5392de311b636dc115611a8a50a44f79dbc6b212fa645397b2",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0506"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.11",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0112.seam-io-0511",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.11.custody",
+      "intended_return_path": "0104.app-entry/05.11.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0112.seam-io-0511",
+        "by_origin": {
+          "batch": "05.11",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0112.seam-io-0511",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.11",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d2c499af574f84590113020847a4cd93a7d854ff3f6b59b55300c9ce8128576f",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0511"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.07",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0113.prime-boot-0507",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.07.custody",
+      "intended_return_path": "0107.prime-support/05.07.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0113.prime-boot-0507",
+        "by_origin": {
+          "batch": "05.07",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0113.prime-boot-0507",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.07",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "150041b1381d353b45d3c7a4712db5d07f1fc7d00a54480674f6615864367163",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0507"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 12,
+      "audit_origin": {
+        "batch": "05.05",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0114.inspection-range-0505",
+      "file_count": 14,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.05.custody",
+      "intended_return_path": "0108.return-capture/05.05.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0114.inspection-range-0505",
+        "by_origin": {
+          "batch": "05.05",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0114.inspection-range-0505",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.05",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "ae2b0981db70c6d2d6b46436b98fb994593aab88bd38629417abd8ea38e47a10",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0505"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 8,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0505.observer-design"
+      },
+      "backup_destination": "<backup>/sources/0115.observer-pilot-0501",
+      "file_count": 10,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0105.observer-design/05.01.custody",
+      "intended_return_path": "0105.observer-design/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0105.observer-design",
+      "lookup": {
+        "by_member": "0115.observer-pilot-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0505.observer-design"
+        }
+      },
+      "member": "0115.observer-pilot-0501",
+      "occupants_of_intended_number": [
+        "0105.prime-clerk-0504"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0505.observer-design"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "a9b2327d95561761f294a290713e1ea67a3808aedc8f324c40e6093ffead8a0c",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "historical-0505-0501-75ae515"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.06",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0116.backfill-run-0506",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.06.custody",
+      "intended_return_path": "0108.return-capture/05.06.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0116.backfill-run-0506",
+        "by_origin": {
+          "batch": "05.06",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0116.backfill-run-0506",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.06",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "2d05f24ffafad8cda469c5fcb8ac05608523044f773340254b11ab04524915c2",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0506"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0117.bridge-parent-0512",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.12.custody",
+      "intended_return_path": "0104.app-entry/05.12.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0117.bridge-parent-0512",
+        "by_origin": {
+          "batch": "05.12",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0117.bridge-parent-0512",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "7710ba34edfe039e7cc74dc0e9c90a6392c4f799a214c255992a4a0fe07930df",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0512"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 31,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0502.workflow-start"
+      },
+      "backup_destination": "<backup>/sources/0118.workflow-start-0501",
+      "file_count": 33,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0102.workflow-start/05.01.custody",
+      "intended_return_path": "0102.workflow-start/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0102.workflow-start",
+      "lookup": {
+        "by_member": "0118.workflow-start-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0502.workflow-start"
+        }
+      },
+      "member": "0118.workflow-start-0501",
+      "occupants_of_intended_number": [
+        "0102.prime-support-0501"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0502.workflow-start"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "cb1285131246798a05b85bbd0f9b90e9afc498e0ca85a72d639c896854d2b0bb",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "historical-0502-0501-75ae515"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 22,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0119.app-entry-0503",
+      "file_count": 24,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.03.custody",
+      "intended_return_path": "0104.app-entry/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0119.app-entry-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0119.app-entry-0503",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "eaa8d5f6cc9e777110d5a620c34708995eb1db11cb63fbbf01dd915a42bd1d74",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "historical-0504-0503-75ae515"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.07",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0120.backfill-run-0507",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.07.custody",
+      "intended_return_path": "0108.return-capture/05.07.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0120.backfill-run-0507",
+        "by_origin": {
+          "batch": "05.07",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0120.backfill-run-0507",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.07",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "277926615af7ae6b2f8c4e82e4a71fbfd18c01baadbaa0e6c277b2eea79aad00",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0507"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0121.archive-resolution-0508",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.08.custody",
+      "intended_return_path": "0108.return-capture/05.08.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0121.archive-resolution-0508",
+        "by_origin": {
+          "batch": "05.08",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0121.archive-resolution-0508",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d62220877d750ec4143cdb28153d20ce1b6bdf28d4e4232f7b8e4470c8eb83ec",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0508"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.13",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0122.bridge-overlap-0513",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.13.custody",
+      "intended_return_path": "0104.app-entry/05.13.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0122.bridge-overlap-0513",
+        "by_origin": {
+          "batch": "05.13",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0122.bridge-overlap-0513",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.13",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d14afbe8dc7aa5f94e6be0e6e706a2d0aed111b0943aa95d74d109a21d7ccd3e",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0513"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0123.boot-validation-0508",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.08.custody",
+      "intended_return_path": "0107.prime-support/05.08.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0123.boot-validation-0508",
+        "by_origin": {
+          "batch": "05.08",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0123.boot-validation-0508",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d0238a2dfc2df821bcd0975922898c465d49ee3792f38a789645fa89a4e8c860",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0508"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 32,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0506.clerk-handoff"
+      },
+      "backup_destination": "<backup>/sources/0124.clerk-seam-design-0503",
+      "file_count": 34,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0106.clerk-handoff/05.03.custody",
+      "intended_return_path": "0106.clerk-handoff/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0106.clerk-handoff",
+      "lookup": {
+        "by_member": "0124.clerk-seam-design-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0506.clerk-handoff"
+        }
+      },
+      "member": "0124.clerk-seam-design-0503",
+      "occupants_of_intended_number": [
+        "0106.entry-regression-0509"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0506.clerk-handoff"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "abb4c745e1a865d3d9dd1dc2931293d330ab4a04f6b7cad95d40c819584a2993",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "historical-0506-0503"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.09",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0125.mapping-capture-0509",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.09.custody",
+      "intended_return_path": "0108.return-capture/05.09.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0125.mapping-capture-0509",
+        "by_origin": {
+          "batch": "05.09",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0125.mapping-capture-0509",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.09",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "0d581bfb8a3f33ae6ad789eea150d560aec2c9e7299ba1abd9d44d10adeb1478",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0509"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.09",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0126.boot-members-0509",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.09.custody",
+      "intended_return_path": "0107.prime-support/05.09.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0126.boot-members-0509",
+        "by_origin": {
+          "batch": "05.09",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0126.boot-members-0509",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.09",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "fa2a42f80ee1b70a5b998213ced82d972f3b5a8b3883fdcfde107b2ca7017e29",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0509"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 12,
+      "audit_origin": {
+        "batch": "05.14",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0127.prime-intake-0514",
+      "file_count": 14,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.14.custody",
+      "intended_return_path": "0104.app-entry/05.14.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0127.prime-intake-0514",
+        "by_origin": {
+          "batch": "05.14",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0127.prime-intake-0514",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.14",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "3b7c1d7d1dd8268cba35c1be61977d7d0d4dedbc56b8e0f3911ef79d26ddc991",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0514"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 50,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0509.pack-assembly"
+      },
+      "backup_destination": "<backup>/sources/0128.pack-assembly-0501",
+      "file_count": 52,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0109.pack-assembly/05.01.custody",
+      "intended_return_path": "0109.pack-assembly/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0109.pack-assembly",
+      "lookup": {
+        "by_member": "0128.pack-assembly-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0509.pack-assembly"
+        }
+      },
+      "member": "0128.pack-assembly-0501",
+      "occupants_of_intended_number": [
+        "0109.clerk-seam-0510"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0509.pack-assembly"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "773436661f4a045b5f690575c72d42fc6c7d3129abe3eed2589f9e5feae53028",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "historical-0509-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.10",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0129.assembly-capture-0510",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.10.custody",
+      "intended_return_path": "0108.return-capture/05.10.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0129.assembly-capture-0510",
+        "by_origin": {
+          "batch": "05.10",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0129.assembly-capture-0510",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.10",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "f21d49b11d0862cdb3205ef5ce2c6a883984646d7e65cb1bbc6e803775bb6ab9",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0510"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 12,
+      "audit_origin": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0130.boot-entry-0515",
+      "file_count": 14,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.15.custody",
+      "intended_return_path": "0104.app-entry/05.15.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0130.boot-entry-0515",
+        "by_origin": {
+          "batch": "05.15",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0130.boot-entry-0515",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "34de8d57bdf9e8035abb85bed435ef274f82d91f9105deae2d4258827510ebfb",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0515"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.10",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0131.realbook-rehearsal-0510",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.10.custody",
+      "intended_return_path": "0107.prime-support/05.10.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0131.realbook-rehearsal-0510",
+        "by_origin": {
+          "batch": "05.10",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0131.realbook-rehearsal-0510",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.10",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "8ab6283d5a81b110529b6bc92fb4e10b5a75a2607e2a8eaa8041afb27bafdb6d",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0510"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 43,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0132.return-capture-origin-0501",
+      "file_count": 45,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.01.custody",
+      "intended_return_path": "0108.return-capture/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0132.return-capture-origin-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0132.return-capture-origin-0501",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "7485a6ac770fb464ff199c1fcbcba2887d0cf61f304a70a0717ab79a8713a2f5",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "historical-0508-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.11",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0133.original-capture-0511",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.11.custody",
+      "intended_return_path": "0108.return-capture/05.11.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0133.original-capture-0511",
+        "by_origin": {
+          "batch": "05.11",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0133.original-capture-0511",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.11",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "4f0a29dacdb2bade4f34f14714a8bc1ec6b3052350de03b7ace34959d8efc585",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0511"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.11",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0134.state-reconcile-0511",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.11.custody",
+      "intended_return_path": "0107.prime-support/05.11.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0134.state-reconcile-0511",
+        "by_origin": {
+          "batch": "05.11",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0134.state-reconcile-0511",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.11",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "3af568e079f9aa173a73d58463bc8eaf175c7c6d397ee4c079828ba325af3cba",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0511"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0135.return-shape-corpus-0512",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.12.custody",
+      "intended_return_path": "0108.return-capture/05.12.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0135.return-shape-corpus-0512",
+        "by_origin": {
+          "batch": "05.12",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0135.return-shape-corpus-0512",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "8b97b3acffd3531e967bf437a7051bc0d871ac39a4690f2da8eb7781607f72c6",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0512"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0136.state-projection-0512",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.12.custody",
+      "intended_return_path": "0107.prime-support/05.12.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0136.state-projection-0512",
+        "by_origin": {
+          "batch": "05.12",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0136.state-projection-0512",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0512"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.16",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0137.capture-handoff-design-0516",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.16.custody",
+      "intended_return_path": "0104.app-entry/05.16.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0137.capture-handoff-design-0516",
+        "by_origin": {
+          "batch": "05.16",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0137.capture-handoff-design-0516",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.16",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "f9d79cef61327eda76f2618e05e4d08d245db205d7f58c8fd47d59d4a401d1cf",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0516"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.13",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0138.batch-reader-0513",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.13.custody",
+      "intended_return_path": "0108.return-capture/05.13.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0138.batch-reader-0513",
+        "by_origin": {
+          "batch": "05.13",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0138.batch-reader-0513",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.13",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "b2484b6235ba6674c65732f53dfaaaa2bcd7a6f0adf4fc6aa736671e8a5798d5",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0513"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0139.capture-handoff-0517",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.17.custody",
+      "intended_return_path": "0104.app-entry/05.17.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0139.capture-handoff-0517",
+        "by_origin": {
+          "batch": "05.17",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0139.capture-handoff-0517",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "3cce81c4a1806083e054a33b31afb8d7c0ebc3a5ad8b9cad0caabc5e80f96ad2",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0517"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.14",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0140.batch-reader-repair-0514",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.14.custody",
+      "intended_return_path": "0108.return-capture/05.14.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0140.batch-reader-repair-0514",
+        "by_origin": {
+          "batch": "05.14",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0140.batch-reader-repair-0514",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.14",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "7621e4432f34fcafd8911c2e3e223eef75480e428e38dabf9ad64650324239d6",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0514"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 15,
+      "audit_origin": {
+        "batch": "05.13",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0141.prime-brief-fixtures-0513",
+      "file_count": 17,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.13.custody",
+      "intended_return_path": "0107.prime-support/05.13.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0141.prime-brief-fixtures-0513",
+        "by_origin": {
+          "batch": "05.13",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0141.prime-brief-fixtures-0513",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.13",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "4a893297cb41a7bffba43e92a28137e3026640c4a0c10ee184b4c373ac38f45f",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0513"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0142.batch-reader-header-0515",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.15.custody",
+      "intended_return_path": "0108.return-capture/05.15.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0142.batch-reader-header-0515",
+        "by_origin": {
+          "batch": "05.15",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0142.batch-reader-header-0515",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "2188e9ec54227151857c7247248c4d94315becebcd9c8fb883fc086374a77815",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0515"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.18",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0143.handoff-failure-repair-0518",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.18.custody",
+      "intended_return_path": "0104.app-entry/05.18.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0143.handoff-failure-repair-0518",
+        "by_origin": {
+          "batch": "05.18",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0143.handoff-failure-repair-0518",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.18",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "8f37c6f22fb257fafa2af35e3be39183ec2a58a6c7d5e16d33afddf886bf4b03",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0518"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.16",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0144.batch-reader-entry-0516",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.16.custody",
+      "intended_return_path": "0108.return-capture/05.16.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0144.batch-reader-entry-0516",
+        "by_origin": {
+          "batch": "05.16",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0144.batch-reader-entry-0516",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.16",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "e604492b0b4d3e00b38d08898d9f01abe54421bcc070abb3885faf0061d3f5da",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0516"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 14,
+      "audit_origin": {
+        "batch": "05.14",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0145.real-reader-brief-0514",
+      "file_count": 16,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.14.custody",
+      "intended_return_path": "0107.prime-support/05.14.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0145.real-reader-brief-0514",
+        "by_origin": {
+          "batch": "05.14",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0145.real-reader-brief-0514",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.14",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "6c6a4972a23ddc76fabb344a7de835cda7593fcace07f41256af1237fd27ac17",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0514"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 12,
+      "audit_origin": {
+        "batch": "05.19",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0146.capture-flow-rehearsal-0519",
+      "file_count": 14,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.19.custody",
+      "intended_return_path": "0104.app-entry/05.19.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0146.capture-flow-rehearsal-0519",
+        "by_origin": {
+          "batch": "05.19",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0146.capture-flow-rehearsal-0519",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.19",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "7475594d71ada71fdb2b5b53b4c3e3b8a586d4961280b3b4e4cf84c34f08385b",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0519"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0147.cold-prime-plan-0517",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.17.custody",
+      "intended_return_path": "0108.return-capture/05.17.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0147.cold-prime-plan-0517",
+        "by_origin": {
+          "batch": "05.17",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0147.cold-prime-plan-0517",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "a50366c75c896e6a2f16736de91d8a4c96c567d9443834fd10a39ad768bda69e",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0517"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0148.prime-packet-candidate-0515",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.15.custody",
+      "intended_return_path": "0107.prime-support/05.15.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0148.prime-packet-candidate-0515",
+        "by_origin": {
+          "batch": "05.15",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0148.prime-packet-candidate-0515",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "c6a966ea718648b0990149ec86e8607a38935ac8c2139be2d049d3c2f00bcbeb",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0515"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 6,
+      "audit_origin": {
+        "batch": "05.20",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "backup_destination": "<backup>/sources/0149.capture-handoff-entry-0520",
+      "file_count": 8,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0104.app-entry/05.20.custody",
+      "intended_return_path": "0104.app-entry/05.20.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0104.app-entry",
+      "lookup": {
+        "by_member": "0149.capture-handoff-entry-0520",
+        "by_origin": {
+          "batch": "05.20",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "member": "0149.capture-handoff-entry-0520",
+      "occupants_of_intended_number": [
+        "0104.app-entry-0508"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.20",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "4428933a2953f58a33037d39dd4d2792ebb81cc4a169bb5cccec601f87fdda85",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0504-0520"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.18",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0150.cold-prime-plan-revision-0518",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.18.custody",
+      "intended_return_path": "0108.return-capture/05.18.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0150.cold-prime-plan-revision-0518",
+        "by_origin": {
+          "batch": "05.18",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0150.cold-prime-plan-revision-0518",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.18",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "6fe8410716d35782dcf32e1ec581c7c1fd74408ec31ca69fd9d7689e5db4bb80",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0518"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 14,
+      "audit_origin": {
+        "batch": "05.16",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0151.prime-final-test-bundle-0516",
+      "file_count": 16,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.16.custody",
+      "intended_return_path": "0107.prime-support/05.16.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0151.prime-final-test-bundle-0516",
+        "by_origin": {
+          "batch": "05.16",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0151.prime-final-test-bundle-0516",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.16",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "33900fea82f4c9b12b857ed4aef242b86cb77d1be7f5f401b5cfd084f753a8c6",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0507-0516"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.19",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0152.desk-state-view-0519",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.19.custody",
+      "intended_return_path": "0108.return-capture/05.19.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0152.desk-state-view-0519",
+        "by_origin": {
+          "batch": "05.19",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0152.desk-state-view-0519",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.19",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "dde863aef37842a77e6181aaca6a5d903c73c2c0930a832f7ea5b3b2f3e60411",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0519"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 21,
+      "audit_origin": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "backup_destination": "<backup>/sources/0153.prime-orientation-trial-t2",
+      "file_count": 23,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0107.prime-support/05.17.custody",
+      "intended_return_path": "0107.prime-support/05.17.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0107.prime-support",
+      "lookup": {
+        "by_member": "0153.prime-orientation-trial-t2",
+        "by_origin": {
+          "batch": "05.17",
+          "book": "00.00.10.work",
+          "page": "0507.prime-support"
+        }
+      },
+      "member": "0153.prime-orientation-trial-t2",
+      "occupants_of_intended_number": [
+        "0107.clerk-types-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d627d46396d5e0ddb6ef0f6c3cddacda6dbb8bc565e12442272bddfc522c1b37",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "prime-trial-t2-assessment"
+    },
+    {
+      "audit_has_receipt": false,
+      "audit_hash_entries": 0,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "backup_destination": "<backup>/sources/0154.colab-support-first-0501",
+      "file_count": 2,
+      "files_changed_since_audit": [],
+      "has_receipt": false,
+      "has_return": false,
+      "in_audit": true,
+      "intended_custody_dir": "0110.colab-tools/05.01.custody",
+      "intended_return_path": "0110.colab-tools/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0110.colab-tools",
+      "lookup": {
+        "by_member": "0154.colab-support-first-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0510.colab-tools"
+        }
+      },
+      "member": "0154.colab-support-first-0501",
+      "occupants_of_intended_number": [
+        "0110.return-inspection-0504"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "fefa2e337e292d0fb349b1e5464afe6898e855b635616b99462c9d090e69c9a8",
+      "route": "matched-workflow-return-line",
+      "state": "reserved-only",
+      "submission": "claude-0510-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "backup_destination": "<backup>/sources/0155.colab-n7nn-module-0502",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0110.colab-tools/05.02.custody",
+      "intended_return_path": "0110.colab-tools/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0110.colab-tools",
+      "lookup": {
+        "by_member": "0155.colab-n7nn-module-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0510.colab-tools"
+        }
+      },
+      "member": "0155.colab-n7nn-module-0502",
+      "occupants_of_intended_number": [
+        "0110.return-inspection-0504"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "61eef7363d1cbca75189d0d52511de692d564fcce3490a974a0c1946691d36a8",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0510-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0511.workflow-colab"
+      },
+      "backup_destination": "<backup>/sources/0156.colab-workflow-0501",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0111.workflow-colab/05.01.custody",
+      "intended_return_path": "0111.workflow-colab/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0111.workflow-colab",
+      "lookup": {
+        "by_member": "0156.colab-workflow-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0511.workflow-colab"
+        }
+      },
+      "member": "0156.colab-workflow-0501",
+      "occupants_of_intended_number": [
+        "0111.prime-boot-design-0506"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0511.workflow-colab"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "1a7f4ff8fe300e281701080909f2c32613f6240e8e4f0e65a4d16d0e94ab711b",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0511-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "backup_destination": "<backup>/sources/0157.prime-review-0501",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0112.prime-review/05.01.custody",
+      "intended_return_path": "0112.prime-review/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0112.prime-review",
+      "lookup": {
+        "by_member": "0157.prime-review-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0512.prime-review"
+        }
+      },
+      "member": "0157.prime-review-0501",
+      "occupants_of_intended_number": [
+        "0112.seam-io-0511"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "8f7b601a590b3411f2e3f4e82130149d8f74d57bf6235855f809bf3dfbca02be",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0512-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0511.workflow-colab"
+      },
+      "backup_destination": "<backup>/sources/0158.colab-workflow-repair-0502",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0111.workflow-colab/05.02.custody",
+      "intended_return_path": "0111.workflow-colab/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0111.workflow-colab",
+      "lookup": {
+        "by_member": "0158.colab-workflow-repair-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0511.workflow-colab"
+        }
+      },
+      "member": "0158.colab-workflow-repair-0502",
+      "occupants_of_intended_number": [
+        "0111.prime-boot-design-0506"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0511.workflow-colab"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "45eef5277690ea070ce0500ce45e223f1f39ebf8c915ce979f2334b82cade188",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0511-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "backup_destination": "<backup>/sources/0159.colab-exchange-layout-0503",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0110.colab-tools/05.03.custody",
+      "intended_return_path": "0110.colab-tools/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0110.colab-tools",
+      "lookup": {
+        "by_member": "0159.colab-exchange-layout-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0510.colab-tools"
+        }
+      },
+      "member": "0159.colab-exchange-layout-0503",
+      "occupants_of_intended_number": [
+        "0110.return-inspection-0504"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "d12eac7041999b33d192bdcaf745fac92aef665037ed0c1f6605f1c984165194",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0510-0503"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 8,
+      "audit_origin": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "backup_destination": "<backup>/sources/0160.colab-checker-repair-0504",
+      "file_count": 10,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0110.colab-tools/05.04.custody",
+      "intended_return_path": "0110.colab-tools/05.04.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0110.colab-tools",
+      "lookup": {
+        "by_member": "0160.colab-checker-repair-0504",
+        "by_origin": {
+          "batch": "05.04",
+          "book": "00.00.10.work",
+          "page": "0510.colab-tools"
+        }
+      },
+      "member": "0160.colab-checker-repair-0504",
+      "occupants_of_intended_number": [
+        "0110.return-inspection-0504"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0510.colab-tools"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "8f78fc0c144dd67b1536605d9a0f40a4f5ba0f1f6c5a13d9c1f516d50e99b83f",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0510-0504"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0511.workflow-colab"
+      },
+      "backup_destination": "<backup>/sources/0161.colab-exchange-workflow-0503",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0111.workflow-colab/05.03.custody",
+      "intended_return_path": "0111.workflow-colab/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0111.workflow-colab",
+      "lookup": {
+        "by_member": "0161.colab-exchange-workflow-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0511.workflow-colab"
+        }
+      },
+      "member": "0161.colab-exchange-workflow-0503",
+      "occupants_of_intended_number": [
+        "0111.prime-boot-design-0506"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0511.workflow-colab"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "f3839482476355e61f6d7ae76df5f01a48fd211257956b2cbee23d8b0441cfe3",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0511-0503"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 8,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "backup_destination": "<backup>/sources/0162.prime-review-entry-0502",
+      "file_count": 10,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0112.prime-review/05.02.custody",
+      "intended_return_path": "0112.prime-review/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0112.prime-review",
+      "lookup": {
+        "by_member": "0162.prime-review-entry-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0512.prime-review"
+        }
+      },
+      "member": "0162.prime-review-entry-0502",
+      "occupants_of_intended_number": [
+        "0112.seam-io-0511"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "e99429c8ab11f400c8d1d3dcec7a0586f74354695ab12541709347ae43faeeb0",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0512-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0513.bench-build"
+      },
+      "backup_destination": "<backup>/sources/0163.prime-bench-harness-0501",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0113.bench-build/05.01.custody",
+      "intended_return_path": "0113.bench-build/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0113.bench-build",
+      "lookup": {
+        "by_member": "0163.prime-bench-harness-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0513.bench-build"
+        }
+      },
+      "member": "0163.prime-bench-harness-0501",
+      "occupants_of_intended_number": [
+        "0113.prime-boot-0507"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0513.bench-build"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "04e5152c777ff175da3a35f621f04d6b6d270f79c98e6cd426662327e0ccb47a",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0513-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 7,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "backup_destination": "<backup>/sources/0164.prime-entry-pin-repair-0503",
+      "file_count": 9,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0112.prime-review/05.03.custody",
+      "intended_return_path": "0112.prime-review/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0112.prime-review",
+      "lookup": {
+        "by_member": "0164.prime-entry-pin-repair-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0512.prime-review"
+        }
+      },
+      "member": "0164.prime-entry-pin-repair-0503",
+      "occupants_of_intended_number": [
+        "0112.seam-io-0511"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0512-0503"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 4,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0701.bench-method"
+      },
+      "backup_destination": "<backup>/sources/0165.bench-method-colab-0501",
+      "file_count": 6,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0701.bench-method/05.01.custody",
+      "intended_return_path": "0701.bench-method/05.01.return.md",
+      "intended_tail_equals_return": true,
+      "intended_tail_exists": true,
+      "intended_target_page": "0701.bench-method",
+      "lookup": {
+        "by_member": "0165.bench-method-colab-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0701.bench-method"
+        }
+      },
+      "member": "0165.bench-method-colab-0501",
+      "occupants_of_intended_number": [],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0701.bench-method"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "f99cd366dae087efc411ba5f577ad1fe7dc3c4d9928685569782d6feec7b8ac4",
+      "route": "page-local-colab",
+      "state": "complete",
+      "submission": "grok-1-0701-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0513.bench-build"
+      },
+      "backup_destination": "<backup>/sources/0166.prime-bench-controls-0502",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0113.bench-build/05.02.custody",
+      "intended_return_path": "0113.bench-build/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0113.bench-build",
+      "lookup": {
+        "by_member": "0166.prime-bench-controls-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0513.bench-build"
+        }
+      },
+      "member": "0166.prime-bench-controls-0502",
+      "occupants_of_intended_number": [
+        "0113.prime-boot-0507"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0513.bench-build"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "9b3b7e9987e30cdb56f8f47be9e90b387fc202990c4d57edc4346b4ef6e3ebd7",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0513-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0514.review-packet"
+      },
+      "backup_destination": "<backup>/sources/0167.review-packet-0501",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0114.review-packet/05.01.custody",
+      "intended_return_path": "0114.review-packet/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0114.review-packet",
+      "lookup": {
+        "by_member": "0167.review-packet-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0514.review-packet"
+        }
+      },
+      "member": "0167.review-packet-0501",
+      "occupants_of_intended_number": [
+        "0114.inspection-range-0505"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0514.review-packet"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0514-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 4,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0702.desk-state-review"
+      },
+      "backup_destination": "<backup>/sources/0168.desk-state-colab-0501",
+      "file_count": 6,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0702.desk-state-review/05.01.custody",
+      "intended_return_path": "0702.desk-state-review/05.01.return.md",
+      "intended_tail_equals_return": true,
+      "intended_tail_exists": true,
+      "intended_target_page": "0702.desk-state-review",
+      "lookup": {
+        "by_member": "0168.desk-state-colab-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0702.desk-state-review"
+        }
+      },
+      "member": "0168.desk-state-colab-0501",
+      "occupants_of_intended_number": [],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0702.desk-state-review"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "7a72b26f51f6e164f1c75d1800569db65e5ee0cc51f31cc95bf0c5383b4c948c",
+      "route": "page-local-colab",
+      "state": "complete",
+      "submission": "grok-2-0702-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 10,
+      "audit_origin": {
+        "batch": "05.20",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "backup_destination": "<backup>/sources/0169.desk-state-preservation-0520",
+      "file_count": 12,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0108.return-capture/05.20.custody",
+      "intended_return_path": "0108.return-capture/05.20.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0108.return-capture",
+      "lookup": {
+        "by_member": "0169.desk-state-preservation-0520",
+        "by_origin": {
+          "batch": "05.20",
+          "book": "00.00.10.work",
+          "page": "0508.return-capture"
+        }
+      },
+      "member": "0169.desk-state-preservation-0520",
+      "occupants_of_intended_number": [
+        "0108.backfill-plan-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.20",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "02905faacd50210fb3aa21fa28bf9b3c97049b1d87f3aa8a240a9715ae598f53",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0508-0520"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0515.prime-cycle"
+      },
+      "backup_destination": "<backup>/sources/0170.prime-cycle-integration-0501",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0115.prime-cycle/05.01.custody",
+      "intended_return_path": "0115.prime-cycle/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0115.prime-cycle",
+      "lookup": {
+        "by_member": "0170.prime-cycle-integration-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0515.prime-cycle"
+        }
+      },
+      "member": "0170.prime-cycle-integration-0501",
+      "occupants_of_intended_number": [
+        "0115.observer-pilot-0501"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0515.prime-cycle"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "95dc832f30d112aec256063e29a803d38d55f513187309aa2cf317d9abf3f59b",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0515-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 11,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0515.prime-cycle"
+      },
+      "backup_destination": "<backup>/sources/0171.prime-cycle-binding-log-0502",
+      "file_count": 13,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0115.prime-cycle/05.02.custody",
+      "intended_return_path": "0115.prime-cycle/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0115.prime-cycle",
+      "lookup": {
+        "by_member": "0171.prime-cycle-binding-log-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0515.prime-cycle"
+        }
+      },
+      "member": "0171.prime-cycle-binding-log-0502",
+      "occupants_of_intended_number": [
+        "0115.observer-pilot-0501"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0515.prime-cycle"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "1cfc5d075f6fde5e21f1b02aff75ae530884a96ce0b55fc00fd49b07aff16aa9",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0515-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 6,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0703.prime-replay"
+      },
+      "backup_destination": "<backup>/sources/0172.prime-replay-codex-01",
+      "file_count": 8,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0703.prime-replay/05.01.custody",
+      "intended_return_path": "0703.prime-replay/05.01.return.md",
+      "intended_tail_equals_return": true,
+      "intended_tail_exists": true,
+      "intended_target_page": "0703.prime-replay",
+      "lookup": {
+        "by_member": "0172.prime-replay-codex-01",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0703.prime-replay"
+        }
+      },
+      "member": "0172.prime-replay-codex-01",
+      "occupants_of_intended_number": [],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0703.prime-replay"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "b5ec9349d2f42f5e2e5c7c666acf8589f3de57963d59c2e062a92ddb81a3c529",
+      "route": "page-local-colab",
+      "state": "complete",
+      "submission": "codex-0703-01"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 6,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0703.prime-replay"
+      },
+      "backup_destination": "<backup>/sources/0173.prime-replay-grok-02",
+      "file_count": 8,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0703.prime-replay/05.02.custody",
+      "intended_return_path": "0703.prime-replay/05.02.return.md",
+      "intended_tail_equals_return": true,
+      "intended_tail_exists": true,
+      "intended_target_page": "0703.prime-replay",
+      "lookup": {
+        "by_member": "0173.prime-replay-grok-02",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0703.prime-replay"
+        }
+      },
+      "member": "0173.prime-replay-grok-02",
+      "occupants_of_intended_number": [],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0703.prime-replay"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "b033686cd9bdd152376503750ef474909fc1c88398d4b4e2bd90d27dc5bd68ac",
+      "route": "page-local-colab",
+      "state": "complete",
+      "submission": "grok-0703-02"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 6,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0703.prime-replay"
+      },
+      "backup_destination": "<backup>/sources/0174.prime-replay-claude-03",
+      "file_count": 8,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0703.prime-replay/05.03.custody",
+      "intended_return_path": "0703.prime-replay/05.03.return.md",
+      "intended_tail_equals_return": true,
+      "intended_tail_exists": true,
+      "intended_target_page": "0703.prime-replay",
+      "lookup": {
+        "by_member": "0174.prime-replay-claude-03",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0703.prime-replay"
+        }
+      },
+      "member": "0174.prime-replay-claude-03",
+      "occupants_of_intended_number": [],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0703.prime-replay"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "41c41d685d75f2a94ee799f6132e5299b36bccbb2ea844ac7c3d15c0e3a56819",
+      "route": "page-local-colab",
+      "state": "complete",
+      "submission": "claude-0703-03"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0515.prime-cycle"
+      },
+      "backup_destination": "<backup>/sources/0175.prime-reader-diagnostics-0503",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0115.prime-cycle/05.03.custody",
+      "intended_return_path": "0115.prime-cycle/05.03.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0115.prime-cycle",
+      "lookup": {
+        "by_member": "0175.prime-reader-diagnostics-0503",
+        "by_origin": {
+          "batch": "05.03",
+          "book": "00.00.10.work",
+          "page": "0515.prime-cycle"
+        }
+      },
+      "member": "0175.prime-reader-diagnostics-0503",
+      "occupants_of_intended_number": [
+        "0115.observer-pilot-0501"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0515.prime-cycle"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "c84cb7806d0942a1d3366fa2f6ae94d2997a1e9201f99ad5a6fa173c119b1669",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0515-0503"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0516.colab-readiness"
+      },
+      "backup_destination": "<backup>/sources/0176.colab-readiness-checker-0501",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0116.colab-readiness/05.01.custody",
+      "intended_return_path": "0116.colab-readiness/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0116.colab-readiness",
+      "lookup": {
+        "by_member": "0176.colab-readiness-checker-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0516.colab-readiness"
+        }
+      },
+      "member": "0176.colab-readiness-checker-0501",
+      "occupants_of_intended_number": [
+        "0116.backfill-run-0506"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0516.colab-readiness"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "1db11ad8f2fde8967341c65b5aa1f7828de3d67c1b0189aa24562a3ce60b45be",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0516-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0516.colab-readiness"
+      },
+      "backup_destination": "<backup>/sources/0177.colab-readiness-repair-0502",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0116.colab-readiness/05.02.custody",
+      "intended_return_path": "0116.colab-readiness/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0116.colab-readiness",
+      "lookup": {
+        "by_member": "0177.colab-readiness-repair-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0516.colab-readiness"
+        }
+      },
+      "member": "0177.colab-readiness-repair-0502",
+      "occupants_of_intended_number": [
+        "0116.backfill-run-0506"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0516.colab-readiness"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "1672a15137e11c66111a18f8284bb97aa93f94d9f6391a6e845a9af2c89929c7",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0516-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0517.dependencies"
+      },
+      "backup_destination": "<backup>/sources/0178.module-dependencies-prototype-0501",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0117.dependencies/05.01.custody",
+      "intended_return_path": "0117.dependencies/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0117.dependencies",
+      "lookup": {
+        "by_member": "0178.module-dependencies-prototype-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0517.dependencies"
+        }
+      },
+      "member": "0178.module-dependencies-prototype-0501",
+      "occupants_of_intended_number": [
+        "0117.bridge-parent-0512"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0517.dependencies"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "ee720d5cf66c1d2327c9ad87d5c611307a38c737cdd93f43777ede1466fd0939",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0517-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0518.colab-review"
+      },
+      "backup_destination": "<backup>/sources/0179.colab-review-integration-0501",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0118.colab-review/05.01.custody",
+      "intended_return_path": "0118.colab-review/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0118.colab-review",
+      "lookup": {
+        "by_member": "0179.colab-review-integration-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0518.colab-review"
+        }
+      },
+      "member": "0179.colab-review-integration-0501",
+      "occupants_of_intended_number": [
+        "0118.workflow-start-0501"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0518.colab-review"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "20ef0ea908aa3b4ff6d37e09cc774b8acf4905b9a4ab4824f0b4280a53170af7",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0518-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0517.dependencies"
+      },
+      "backup_destination": "<backup>/sources/0180.module-dependencies-repair-0502",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0117.dependencies/05.02.custody",
+      "intended_return_path": "0117.dependencies/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0117.dependencies",
+      "lookup": {
+        "by_member": "0180.module-dependencies-repair-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0517.dependencies"
+        }
+      },
+      "member": "0180.module-dependencies-repair-0502",
+      "occupants_of_intended_number": [
+        "0117.bridge-parent-0512"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0517.dependencies"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "20389b05cb408de186492770cf4bd4d1c6035667940559b99b1f1d86cb921d67",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0517-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 8,
+      "audit_origin": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0518.colab-review"
+      },
+      "backup_destination": "<backup>/sources/0181.colab-review-repair-0502",
+      "file_count": 10,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0118.colab-review/05.02.custody",
+      "intended_return_path": "0118.colab-review/05.02.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0118.colab-review",
+      "lookup": {
+        "by_member": "0181.colab-review-repair-0502",
+        "by_origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0518.colab-review"
+        }
+      },
+      "member": "0181.colab-review-repair-0502",
+      "occupants_of_intended_number": [
+        "0118.workflow-start-0501"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.02",
+        "book": "00.00.10.work",
+        "page": "0518.colab-review"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "a3d70a0a206e77aac68e25fb1f8ca1eb0fe0e2f40cac0ccce50adb33d176a388",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-1-0518-0502"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 9,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0519.desk-app"
+      },
+      "backup_destination": "<backup>/sources/0182.desk-app-integration-design-0501",
+      "file_count": 11,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0119.desk-app/05.01.custody",
+      "intended_return_path": "0119.desk-app/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0119.desk-app",
+      "lookup": {
+        "by_member": "0182.desk-app-integration-design-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0519.desk-app"
+        }
+      },
+      "member": "0182.desk-app-integration-design-0501",
+      "occupants_of_intended_number": [
+        "0119.app-entry-0503"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0519.desk-app"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "56f5dc454463296cd0a0da4bb76b3c22ab92857d2b8853d95395c3b8d79188fb",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "claude-0519-0501"
+    },
+    {
+      "audit_has_receipt": true,
+      "audit_hash_entries": 8,
+      "audit_origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0520.desk-loop-lab"
+      },
+      "backup_destination": "<backup>/sources/0183.desk-loop-independent-lab-0501",
+      "file_count": 10,
+      "files_changed_since_audit": [],
+      "has_receipt": true,
+      "has_return": true,
+      "in_audit": true,
+      "intended_custody_dir": "0120.desk-loop-lab/05.01.custody",
+      "intended_return_path": "0120.desk-loop-lab/05.01.return.md",
+      "intended_tail_equals_return": false,
+      "intended_tail_exists": false,
+      "intended_target_page": "0120.desk-loop-lab",
+      "lookup": {
+        "by_member": "0183.desk-loop-independent-lab-0501",
+        "by_origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0520.desk-loop-lab"
+        }
+      },
+      "member": "0183.desk-loop-independent-lab-0501",
+      "occupants_of_intended_number": [
+        "0120.backfill-run-0507"
+      ],
+      "origin_from_reservation": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0520.desk-loop-lab"
+      },
+      "origin_matches_audit": true,
+      "reservation_sha256": "b636c3f6f88c616fefbd126ea18faab0156a3e52d8ed58ac21ac441c1b0d8f59",
+      "route": "matched-workflow-return-line",
+      "state": "complete",
+      "submission": "grok-2-0520-0501"
+    }
+  ],
+  "schema": "0709-return-inventory/1",
+  "states": {
+    "complete": 82,
+    "incomplete": 0,
+    "reserved-only": 1
+  }
+}

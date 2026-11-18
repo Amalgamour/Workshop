@@ -1,0 +1,36 @@
+pass         M0-N5  missing-intake  
+pass         M1-N5  missing-intake  
+pass         M2-N5  missing-intake  
+pass         M3-N5  missing-intake  
+pass         M4-N5  missing-intake  
+pass         M5-N5  missing-intake  
+pass         M0-N7  missing-intake  
+pass         M1-N7  missing-intake  
+pass         M2-N7  missing-intake  
+pass         M3-N7  missing-intake  
+pass         M4-N7  missing-intake  
+pass         M5-N7  missing-intake  
+pass         R0     pack-region     
+pass         R1     pack-region     
+pass         R2     pack-region     
+pass         R3     pack-region     
+pass         R4     pack-region     
+pass         F1     pack-region     
+pass         F1b    pack-region     
+pass         F2     pack-region     
+pass         F3     pack-region     
+not-reached  F4     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+pass         F5     pack-region     
+pass         F6     pack-region     
+pass         F7a    pack-region     
+pass         F7b    pack-region     
+pass         E1     pack-region     
+pass         E2     pack-region     
+pass         E3     pack-region     
+pass         C1     composition     
+pass         C2     composition     
+pass         C3     composition     
+pass         C4     composition     
+deferred     D1     identity-limit  not tested by design
+ALL REQUIRED PASS {'pass': 32, 'not-reached': 1, 'deferred': 1}
+identity: explicit labs/review-loop-convergence-pass02/workbook.py | proof: {'workbook': 'executed', 'open': 'executed', 'reporter': 'executed'}

@@ -1,0 +1,87 @@
+{
+  "answers_written_as": "as pack.forms.json",
+  "compute_owned_keys": [
+    "#NN",
+    "path",
+    "output_path",
+    "sha256"
+  ],
+  "section": {
+    "page": "0423.dev-authoring",
+    "face": "02",
+    "heading": "Pack",
+    "governing": {
+      "face": "01",
+      "heading": "Pack",
+      "state": "unresolved"
+    }
+  },
+  "format_note": "HOSTILE variants for 0710/05.02 negative cases. Not proposed forms.",
+  "forms": [
+    {
+      "name": "pack-create-gated",
+      "kind": "template",
+      "purpose": "HOSTILE: adds a release gate the source does not state",
+      "revision": "001",
+      "source": {
+        "ref": "0423/01#4",
+        "state": "draft"
+      },
+      "fields": [
+        {
+          "name": "goal",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "risk_at_most_2",
+          "shape": "bool",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4",
+          "adds_gate": true
+        }
+      ]
+    },
+    {
+      "name": "pack-create-ungrounded",
+      "kind": "template",
+      "purpose": "HOSTILE: requires a meaning no ground requires",
+      "revision": "001",
+      "source": {
+        "ref": "0423/01#4",
+        "state": "draft"
+      },
+      "fields": [
+        {
+          "name": "goal",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "budget",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": null
+        }
+      ]
+    }
+  ]
+}

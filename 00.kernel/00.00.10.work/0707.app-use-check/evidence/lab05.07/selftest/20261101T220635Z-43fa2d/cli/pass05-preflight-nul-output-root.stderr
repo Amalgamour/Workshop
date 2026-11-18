@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\harness5.py", line 426, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\harness5.py", line 410, in main
+    pre = preflight(cfg)
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\harness5.py", line 174, in preflight
+    out = G.output_root(cfg["output_root"])
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\guards.py", line 87, in output_root
+    chain_without_links(p)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\guards.py", line 48, in chain_without_links
+    if is_link_like(part):
+       ~~~~~~~~~~~~^^^^^^
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\guards.py", line 35, in is_link_like
+    st = os.lstat(p)
+ValueError: lstat: embedded null character in path

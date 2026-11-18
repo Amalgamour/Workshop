@@ -1,0 +1,57 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "first prepare target pending",
+      "expected": null,
+      "observed": "pending",
+      "ok": true
+    },
+    {
+      "check": "render exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "every newline is CRLF",
+      "expected": null,
+      "observed": [
+        121,
+        121
+      ],
+      "ok": true
+    },
+    {
+      "check": "bytes before the section unchanged",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "bytes after the section unchanged",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "second prepare target constructed-same-binding",
+      "expected": null,
+      "observed": "constructed-same-binding",
+      "ok": true
+    }
+  ],
+  "error": null
+}

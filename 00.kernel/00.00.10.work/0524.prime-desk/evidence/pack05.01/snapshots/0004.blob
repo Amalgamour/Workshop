@@ -1,0 +1,79 @@
+# 01
+
+version: 001
+Authorization: draft — 2026-10-26
+who: claude-opus-5-5
+state: draft. Work page, hand form (Pack B #03, #04, #06). Import is not approval, seating, locking, or permission to reset a version.
+Face: 01
+PPPP: 0410
+book: 00.00.10.work
+keyword: imports
+why: What was imported, from where, at which bytes, with what status; and the schema of the canonical assignment record.
+
+## Imports
+Every row was checked, before any write, against its pinned `rev:path` blob (provenance), length and SHA-256. It was then checked again at worktree, index and commit (commit `ac0dea09513516f2f82cceaf7b3244b0056cda42`), with `.gitattributes` keeping the bytes exact.
+
+| Set | Rows | Source | Destination | Manifest |
+|---|---|---|---|---|
+| Snapshots | 890 (688 originally minimum, 202 originally later) | `de3b8eb`, `38a037e` | `imports/source-tree/` | `manifests/pack-snapshot-import-manifest.tsv`, as run: `manifests/step03-import-snapshots.tsv` |
+| Selected copies | 81: 73 imported reference faces, 8 inactive runtime candidates | the same objects as their snapshot rows | syntax and law books | `manifests/pack-selected-reference-manifest.tsv`, as run: `manifests/step03-import-selected.tsv` |
+| P1 Director decisions | 22 | archive `e8b1a994da07000fa576fd771e455a94718ed431` | `imports/director-decisions/` (original relative paths) | `manifests/step03-import-p1.tsv` |
+| Claude pass 02 manifests | 2 (`import-manifest.tsv`, `collisions.tsv`) | archive `fe42b017b5e8c288f70878d696cb227b09ab5a8e`, `sources/claude-pass02/` | `imports/claude-pass02/` | `manifests/step03-import-claude.tsv` |
+| Pack copies | 36: Pack B package, addendum 001, 4 pack manifests | baseline commit `d0bdd53a1d9d3cffda600b7102e3bcb0934359eb` | `0501.bootstrap/pack/`, `0501.bootstrap/addendum-001/`, `manifests/pack-*` | `labs/bootstrap-establish-pass01/evidence/step04/import-copies.tsv` |
+
+These counts are per set, not unique files: a selected copy has the same bytes as its snapshot row.
+
+## Selection register
+`manifests/step03-selection-register.tsv` lists each selected copy with its snapshot row, its snapshot path, its source and hash, and its status:
+- **imported reference; not locally approved:** 73 faces, all `01.md`. They are sources for new drafts, not a boot route. They may name old paths.
+- **inactive runtime candidate:** 8 files on law `0302`–`0307`. None is active, and no card can select them.
+There is no newest-wins rule. A collision keeps both sides.
+
+## Collisions
+Six kernel paths differ between `38a037e` and `de3b8eb`. The `de3b8eb` side is in the snapshot tree at its own path, and the `38a037e` side is under `imports/source-tree/imports/main-38a037e/` (rows M4). Claude's report of them is `imports/claude-pass02/collisions.tsv`. It also records the predecessor numbering of the rebuild's `02.clerk.00N.py` (stamped one version lower than the filename), which are kept only in the snapshot.
+
+## Runtime candidates: stamps that need adaptation
+The bytes and names are as imported (rule: preserve, do not strip `VVV`, do not alter stamps in this slice). The stamps still describe the rebuild. Adapting them is the next pass's work:
+
+| File | sha256 | Stamp now | Needed |
+|---|---|---|---|
+| `0302.run/02.run.001.py` | `af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c` | v001, PPPP 0202, book 10.10.12.rebuild | PPPP 0302, book 00.00.01.law |
+| `0303.jobs/02.jobs.010.py` | `7b39308592b63f080820de907eed996e6e9ac30c5b90e9502c628578fc1c3547` | v010, PPPP 0303, book 10.10.12.rebuild | book 00.00.01.law |
+| `0304.check/02.lcheck.001.py` | `35129397db579a4ef5a030e4ee58128b12f83077b01c4cb6e5563e47331efb23` | v001, book 10.10.12.rebuild; the stamp sits inside the docstring (`0104` #05) | book; move the stamp after the opening lines |
+| `0304.check/02.sentinel.001.py` | `985cc2b5550856d7126ba66f9727d6d3972c7b1a808d6024fb72417384179195` | as lcheck | as lcheck |
+| `0304.check/02.rules.001.toml` | `b40759f73540e896ea38e3c16872fc92459abb0c0eae4b146211662b37097e52` | v001, book 10.10.12.rebuild | book |
+| `0304.check/02.moves.001.toml` | `660ee0a36c9f50b4307e215575d385abf3c6713fde1e1efa868682f6726c96ec` | v001, book 10.10.12.rebuild | book |
+| `0305.clerk/02.clerk.009.py` | `678536e29947c94f41045a921837c9303f32c4e1ae3bbce7f39053b754987637` | v009, PPPP 0305, book 10.10.12.rebuild | book; `DRAFT_KERNEL` path and tests bound to rebuild pages |
+| `0307.face/02.face.001.py` | `6760ea7821f41c779980c538f5515c5e6cd7432c88d77b9f695063550d98c661` | **no stamp** | a first stamp (version 001) |
+
+## Byte custody
+- **Policy:** the tracked `.gitattributes` keeps `/imports`, `/labs`, `/notes`, `/packs`, `/returns` and `/00.kernel` as `-text`; everything else is `text=auto eol=lf` (addendum 001 #B-A03).
+- **Checks:** `labs/bootstrap-git-bytes-pass01/gitbytes.py` checks effective attributes, worktree bytes, the index blob before commit, and `COMMIT:path` after commit, for every custody manifest. Its fixture gate is in `labs/bootstrap-git-bytes-pass01/evidence/`.
+- **Manifests:** the original 39-file baseline is `manifests/pack-workspace-baseline.tsv` (immutable). The additive baseline is `labs/bootstrap-establish-pass01/evidence/step02/baseline-capture/additive-baseline-2026-10-26.tsv`. The import custody is `manifests/step03-custody-imports.tsv`. The new drafts and evidence are recorded at the evidence boundary (`0501.bootstrap/05.02.md`).
+
+## Labs
+| Lab | What | Status |
+|---|---|---|
+| `labs/clerk-handoff-pass01` | handoff and restart experiment (Codex) | experimental evidence; SQLite not adopted |
+| `labs/bootstrap-preservation-pass01` | Pack A copy helper, tests, verifier, evidence | evidence; clones and test repositories ignored as scratch |
+| `labs/bootstrap-git-bytes-pass01` | the Git byte verifier and its fixture gate | development tooling |
+| `labs/bootstrap-establish-pass01` | Pack B tools: inventory, import, renderer, checks | development tooling |
+
+## Assignment record schema {#assignment-record}
+The canonical current assignment is `0401.goal/06.01.md`: plain `key: value` lines, UTF-8, LF, one key per line, no other content. Version 1 requires exactly these keys, in any order:
+
+| Key | Value |
+|---|---|
+| `record` | `current-assignment` |
+| `schema` | `00.kernel/00.00.10.work/0410.imports/01.md#assignment-record version 1` |
+| `desk` | the desk folder (`00.kernel`) |
+| `book` | the book of the current work (`00.00.10.work`) |
+| `workflow_space` | a number declared by that book (`0`) |
+| `current_work` | the repository path of the current work item |
+| `pack` | the pack or packs that item executes, as repository paths joined by ` + ` |
+| `assignment_state` | one of `waiting`, `released`, `running`, `returned`, `accepted`, `stopped` |
+| `waits_on` | what must happen next, or `nothing` |
+| `next` | the next proposed step |
+| `updated` | `YYYY-MM-DD` |
+
+A record that misses a key, repeats one, carries an unknown key, or has an empty value is malformed, and a renderer must refuse it. `00.kernel/00.live.md` is only a view of this record. It names the record's hash and is never an input to anything.

@@ -1,0 +1,34 @@
+# Director decision - first real app workflow
+date: 2026-10-31
+who: Codex Prime recording Director instruction
+state: agreed direction; not runtime activation
+
+## Director reply, verbatim
+> Yes it should be. We want the compute to be building the faces and the pages. Once it's working.
+
+## Decision and context
+The first real workflow for the current Prime is reviewing one builder return:
+discover returned work -> retrieve assignment, capture and evidence -> intelligent
+inspection -> record Prime judgment -> show next action -> recover after restart.
+The work book remains the durable record; indexes and views point to it.
+
+Compute should construct the pages/faces needed for that workflow from structured
+inputs and explicit templates, preserving original captured returns and unchanged
+content. Models supply content, judgment and proposed changes. Formatting,
+addresses, required fields and structural checks should not require the model to
+regenerate entire documents. Existing release and approval boundaries still apply.
+
+## Sequencing
+First integrate a usable return-review loop for Prime. Then move construction of
+its records/pages/faces into compute as part of that path. A universal builder for
+every face type is not a prerequisite for the first usable loop. The exact minimum
+construction capability and its acceptance checks belong in the reviewed design.
+Test that records are correctly shaped, evidence remains linked and durable,
+unexplained source loss is refused where applicable, and restart recovers state.
+No claim that these capabilities are implemented yet.
+
+## Current assignment
+Clarification for 0519/05.01: prioritize this concrete Prime use case and identify
+how compute will construct its records. No expansion of Claude's allowed writes
+or production implementation authority. Grok implements separately released packs.
+No changes to the active pack, pinned sources or captured history by this note.

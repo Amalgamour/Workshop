@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/workspace/prima/run05.01/source/labs/review-loop-pass02/review_loop.py", line 1094, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/workspace/prima/run05.01/source/labs/review-loop-pass02/review_loop.py", line 1021, in main
+    pin_set()
+    ~~~~~~~^^
+  File "/workspace/prima/run05.01/source/labs/review-loop-pass02/review_loop.py", line 151, in pin_set
+    "construct": pin_file(CONSTRUCT, CONSTRUCT_SHA, CONSTRUCT_BYTES, "construct"),
+                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/prima/run05.01/source/labs/review-loop-pass02/review_loop.py", line 143, in pin_file
+    data = path.read_bytes()
+  File "/usr/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/usr/lib/python3.13/pathlib/_local.py", line 539, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Git\\lib-build/labs/review-construction-pass02/construct.py'

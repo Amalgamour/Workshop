@@ -1,0 +1,371 @@
+{
+ "schema": "task-agreement-lab2-results/1",
+ "root": "D:\\librarian\\temp\\task-agreement-0715\\new-run01",
+ "aggregate": {
+  "PASS": 21,
+  "FAIL": 0,
+  "ERROR": 0,
+  "SKIP": 0
+ },
+ "first_failure": null,
+ "rows": [
+  {
+   "id": "KR-tilde",
+   "label": "known-failure reproduction",
+   "says": "J1 tilde fence: pass01 counts a fenced Goal (count 2); pass02 selects only the real Goal",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "pass01": {
+     "exit": 2,
+     "count2": true
+    },
+    "pass02": {
+     "exit": 0,
+     "count2": false
+    }
+   }
+  },
+  {
+   "id": "KR-long_backtick",
+   "label": "known-failure reproduction",
+   "says": "J1 long_backtick fence: pass01 counts a fenced Goal (count 2); pass02 selects only the real Goal",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "pass01": {
+     "exit": 2,
+     "count2": true
+    },
+    "pass02": {
+     "exit": 0,
+     "count2": false
+    }
+   }
+  },
+  {
+   "id": "KR-indented",
+   "label": "known-failure reproduction",
+   "says": "J1 indented fence: pass01 counts a fenced Goal (count 2); pass02 selects only the real Goal",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "pass01": {
+     "exit": 2,
+     "count2": true
+    },
+    "pass02": {
+     "exit": 0,
+     "count2": false
+    }
+   }
+  },
+  {
+   "id": "KR-pointer",
+   "label": "known-failure reproduction",
+   "says": "J1 consequence: a fenced '## Return pointer' truncates the pass01 pack cut; pass02 keeps the block inside the cut",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "pass01": {
+     "construct": 2,
+     "assemble": 2,
+     "assemble_err": "rno 2] No such file or directory: 'D:\\\\librarian\\\\temp\\\\task-agreement-0715\\\\new-run01\\\\KR-pointer\\\\pass01\\\\out\\\\c.json'"
+    },
+    "pass02": {
+     "construct": 0,
+     "assemble": 0,
+     "assemble_err": "",
+     "bind": 0,
+     "cut_is_true_cut": true
+    }
+   }
+  },
+  {
+   "id": "KR-binding-path",
+   "label": "known-failure reproduction",
+   "says": "J2: a binding ref path changed to ../outside-source.md: pass01 compare reports current; pass02 refuses before reading",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "pass01": {
+     "exit": 0,
+     "status": [
+      "current"
+     ]
+    },
+    "pass02": {
+     "exit": 2,
+     "stderr": "stop: binding prime_discretion[0]: path '../outside-source.md' would escape the book root; name a path inside the book"
+    }
+   }
+  },
+  {
+   "id": "A-pack-path",
+   "label": "author test",
+   "says": "J2: a binding whose pack path points elsewhere (../x/05.02.md) is refused on compare and inspect",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "compare": 2,
+    "inspect": 2,
+    "stderr": "stop: binding pack path '../x/05.02.md' does not match its page and pass"
+   }
+  },
+  {
+   "id": "A-binding-shape",
+   "label": "author test",
+   "says": "J2: missing field, unsupported schema version and record_basis on a non-self ref are each refused with a correction message",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "missing": {
+     "exit": 2,
+     "stderr": "stop: binding field 'fields' is missing or not dict"
+    },
+    "version": {
+     "exit": 2,
+     "stderr": "binding schema must be task-agreement-binding/2 (got task-agreement-binding/1); re-bind with this tool version"
+    },
+    "basis": {
+     "exit": 2,
+     "stderr": "stop: binding prime_discretion[0]: record_basis is only valid on self references"
+    }
+   }
+  },
+  {
+   "id": "A-unclosed",
+   "label": "author test",
+   "says": "J1: an unclosed fence is refused before any heading is selected",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: unclosed code fence opened at line 7; close it (same character, at least 3 long) before citing or binding"
+   }
+  },
+  {
+   "id": "A-longer-close",
+   "label": "author test",
+   "says": "J1: a fence closed by a LONGER run of the same character closes; a shorter one does not",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 0,
+    "stderr": ""
+   }
+  },
+  {
+   "id": "A-indented-heading",
+   "label": "author test",
+   "says": "J1: an indented (1-3 spaces) line equal to the cited heading is refused as ambiguous",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 2
+   }
+  },
+  {
+   "id": "A-room",
+   "label": "author test",
+   "says": "J3: outside-room, sibling-prefix and source-book outputs are refused before anything is created; occupied is untouched",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "outside": {
+     "exit": 2,
+     "created": false,
+     "stderr": "'D:\\librarian\\temp\\task-agreement-0715\\new-run01\\A-room\\lab'; write only inside --lab-root"
+    },
+    "sibling": {
+     "exit": 2,
+     "created": false,
+     "stderr": "'D:\\librarian\\temp\\task-agreement-0715\\new-run01\\A-room\\lab'; write only inside --lab-root"
+    },
+    "in-book": {
+     "exit": 2,
+     "created": false,
+     "stderr": "k\\0599.fixture-task\\x.json' is inside the source book; write outputs elsewhere in the room"
+    },
+    "occupied": {
+     "exit": 2,
+     "untouched": true
+    },
+    "inside": {
+     "exit": 0,
+     "created": true
+    }
+   }
+  },
+  {
+   "id": "A-mock-checkout",
+   "label": "author test (mocked boundary)",
+   "says": "J3: a lab root inside a MOCKED checkout (.git and 00.kernel markers in a temp copy) is refused before any write; no real live path is probed",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 2,
+    "no_write": true
+   }
+  },
+  {
+   "id": "A-junction",
+   "label": "author test",
+   "says": "J2/J3: a junction in a source path or an output path is refused (SKIP declared if a junction cannot be created)",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "output_through_junction": 2,
+    "source_through_junction": 2,
+    "junction_created": true
+   }
+  },
+  {
+   "id": "A-readonly",
+   "label": "author test",
+   "says": "inspect and compare create nothing and need no lab root",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "inspect": 0,
+    "compare": 0,
+    "no_write": true
+   }
+  },
+  {
+   "id": "W-flow",
+   "label": "author test",
+   "says": "whole flow in a lab room: construct -> assemble -> freeze-copy -> bind -> inspect -> new-process compare; own pointer write stays current; outside-cut revocation -> context-changed; nothing written outside the room",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "inspect": 0,
+    "compare_after_own_pointer": 0,
+    "compare_after_revocation": 1,
+    "verbatim": [
+     "context-changed"
+    ]
+   }
+  },
+  {
+   "id": "C-lf-six",
+   "label": "compat observation",
+   "says": "LF legacy page: the helper observes all six fields (first paragraphs, id:text Finish bullets, em-dash Director with its body hash); pass02 stores exactly that, no decision pairing",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 0,
+    "agreement": {
+     "director_required": "Forks and judgment.",
+     "finish_criteria": [
+      {
+       "id": "f1",
+       "text": "tests run"
+      },
+      {
+       "id": "f2",
+       "text": "return written"
+      }
+     ],
+     "goal": "Goal first paragraph.",
+     "prime_discretion": "Routine fixes.",
+     "recorded_decisions": [
+      {
+       "id": "director-verbatim",
+       "text": "SYNTHETIC: Ok.",
+       "source_sha256": "6e309e43d6046acd003ca7e0634c5b4a078386b0903bb69d6f067c4314d054fc"
+      }
+     ],
+     "scope": "Scope text."
+    },
+    "goal_state": "observed-legacy"
+   }
+  },
+  {
+   "id": "C-crlf",
+   "label": "compat observation",
+   "says": "the SAME page with CRLF: the frozen helper observes NOTHING (all six None). Recorded as an existing helper defect, not fixed",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 0,
+    "agreement": {
+     "director_required": null,
+     "finish_criteria": null,
+     "goal": null,
+     "prime_discretion": null,
+     "recorded_decisions": null,
+     "scope": null
+    }
+   }
+  },
+  {
+   "id": "C-absent-empty",
+   "label": "compat observation",
+   "says": "absent vs explicit-empty: Finish absent -> None, Finish present without valid bullets -> []; an empty Goal section -> None (indistinguishable from absent)",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "present_empty": {
+     "goal": null,
+     "finish": []
+    },
+    "absent": {
+     "goal": null,
+     "finish": null
+    }
+   }
+  },
+  {
+   "id": "C-hyphen",
+   "label": "compat observation",
+   "says": "the hyphen variant '## Director - verbatim' is observed the same way as the em-dash variant",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 0,
+    "decisions": [
+     {
+      "id": "director-verbatim",
+      "text": "SYNTHETIC: Ok.",
+      "source_sha256": "6e309e43d6046acd003ca7e0634c5b4a078386b0903bb69d6f067c4314d054fc"
+     }
+    ]
+   }
+  },
+  {
+   "id": "C-fenced-goal",
+   "label": "compat observation",
+   "says": "a fenced '## Goal' before the real one: the helper takes the FENCED text (an existing helper ambiguity); pass02 block mode would select the real heading",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 0,
+    "helper_goal": "fenced example\n~~~"
+   }
+  },
+  {
+   "id": "C-helper-pin",
+   "label": "compat observation",
+   "says": "the adapter refuses a helper whose bytes differ from the pin and records the pinned identity",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "helper": {
+     "path": "labs/workbook-review-pass01/workbook.py",
+     "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+     "bytes": 79131,
+     "extracted": [
+      "IDENT",
+      "sha256_bytes",
+      "section_between",
+      "first_paragraph",
+      "finish_items",
+      "measured_agreement"
+     ],
+     "extracted_sha256": "064e424848171bd6239d539ce1b41426b96191d63231e7c6c574a1086b37c69b"
+    }
+   }
+  }
+ ]
+}

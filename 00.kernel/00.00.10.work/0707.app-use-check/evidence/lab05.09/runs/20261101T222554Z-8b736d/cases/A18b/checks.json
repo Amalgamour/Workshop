@@ -1,0 +1,73 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record.result recorded",
+      "expected": null,
+      "observed": "recorded",
+      "ok": true
+    },
+    {
+      "check": "read no traceback",
+      "expected": null,
+      "observed": "refused: record-hash: missing cycle/05.01-r1/COMMITTED.json\r\n",
+      "ok": true
+    },
+    {
+      "check": "read refuses with exit 2",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "render exit 2",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "render no traceback",
+      "expected": null,
+      "observed": "refused: record-hash: no committed review\r\n",
+      "ok": true
+    },
+    {
+      "check": "no writes: render with missing or malformed committed files",
+      "expected": null,
+      "observed": {
+        "after": {
+          "partial": [],
+          "rendered_markers": {},
+          "support": {},
+          "target": "f341411fc9207d73adfa9f37f67890b53f47e82b61147807ddc52d91781bb09b"
+        },
+        "before": {
+          "partial": [],
+          "rendered_markers": {},
+          "support": {},
+          "target": "f341411fc9207d73adfa9f37f67890b53f47e82b61147807ddc52d91781bb09b"
+        }
+      },
+      "ok": true
+    }
+  ],
+  "error": null
+}

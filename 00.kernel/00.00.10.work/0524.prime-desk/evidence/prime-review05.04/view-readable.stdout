@@ -1,0 +1,65 @@
+# Prime desk
+
+Book `00.00.10.work` role `prime`.
+Root: `D:\Git\lib-build\00.kernel\00.00.10.work`.
+Observed: 2026-11-01T18:53:05Z.
+Coverage: Declared request paths only. Unregistered sources were not searched. Matched 16, missing 0, stale 0, changed 0.
+
+## 1. Context and purpose
+
+goal: desk goal (`0401.goal/01.md` matched 20f23f4cfed6 5914 basis observed). Label basis supplied.
+scope: seats page (`0408.seats/01.md` matched dbf2399d5285 2031 basis observed). Label basis supplied.
+scope: approved desk deliverable (`0420.prime-desk/01.md` matched 557226b48a27 4153 basis observed). Label basis supplied.
+authority: Director decision (`0420.prime-desk/06.01.md` matched 2e5fe132ea0b 834 basis observed). Label basis supplied.
+This view does not grant authority.
+
+## 2. Current work
+
+Selected: work-0524-0503 `0524.prime-desk/05.03` kind work.
+Rule: assignment-record/v1.
+Source: `0524.prime-desk/05.03.md` matched c8851a91f7df 8326 basis observed.
+Record current_work: `00.kernel/00.00.10.work/0524.prime-desk/05.03.md`.
+Legacy selector: absent. Agrees: None. Hint only.
+Review: `0524.prime-desk/05.03.md` file matched. Judgment unknown. The review identity is this source page. Its review section was not parsed. A pending return does not hide this page.
+Return line: `0124.prime-desk/05.03.return.md` file undeclared. Custody unknown. The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.
+Verified result: none. Basis unknown. missing verification is unknown, not a clean bill of health
+Checkpoint: `0420.prime-desk/06.07.md` matched 5be6a36ed86f 1444 basis observed. Basis observed.
+Next route: none. Basis unknown.
+Declared and not selected:
+- work-0522-0505 `0522.review-construction/05.05` kind work executable True. not the canonical assignment record.
+Catalog index names: work-0524-0503, work-0522-0505. Used for selection: false.
+
+## 3. Attention
+
+Open declared attention: 0. Listed in full.
+Observed gaps: 3. Listed in full.
+- return-undeclared 0124.prime-desk/05.03.return.md: The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.
+- catalog-not-chosen prime-desk-catalog/2: catalog names work-0522-0505; canonical assignment names work-0524-0503. The catalog was not used to choose the work.
+- verification verification: no matched verification is bound to the canonical work
+Unregistered sources were not searched. That is not a report that none exist.
+
+## 4. Workers
+
+None declared. Activity is unknown.
+
+## 5. Operations
+
+- prime-desk-pass03 `labs/prime-desk-pass03/prime_desk.py` matched cd1e74aa0a51 77622 basis observed. Limitation (supplied): view and packet are separate commands; this request does not import or launch the module Past tests unknown (unknown). Activation unknown (unknown). Executed: false.
+- request-index `labs/prime-desk-pass03/request_index.py` matched d6dacbe94e07 3838 basis observed. Limitation (supplied): hash check and request write only; it does not choose current work Past tests unknown (unknown). Activation unknown (unknown). Executed: false.
+- review-loop no file. Limitation (tool): Pending. Successor modules were not imported. Past tests unknown (unknown). Activation unknown (unknown). Executed: false.
+
+## 6. Record
+
+Director and model wording are attribution spans, not request roles.
+- director dir bytes 111:403 ambiguous False (`0420.prime-desk/06.01.md` matched 2e5fe132ea0b 834 basis observed).
+- model mod bytes 430:834 ambiguous False (`0420.prime-desk/06.01.md` matched 2e5fe132ea0b 834 basis observed).
+talk: none declared.
+assignment_state `returned` basis observed. assignment_state is a record field, not a live process check. validate_context was not called.
+History records: 0. Bodies are not copied.
+
+## 7. Inspectability
+
+Request sha256: 87f5d657304025ef6654688170226bcb921d9eca5cee11a0fc4bd8a898242e93.
+Fingerprint: 3956f4ca6b90469c666d3624f24dd2a7e8cf9fb2b754f05e0e3457a56023f644.
+observed = declared bytes matched; supplied = caller label; unknown = not present; stale = different bytes withheld; changed = bytes moved during the read and were withheld
+Read the gaps and open attention. Keep the canonical assignment. Do not treat a supplied label or a legacy selector as the current work. Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.

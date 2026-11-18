@@ -1,0 +1,25 @@
+{
+ "schema": "desk-adapter-mapping/1",
+ "adapter": "0705-pass03-adapter/1 (adapter.py)",
+ "candidate": "labs/prime-desk-pass01/prime_desk.py (prime-desk-view/1, prime-desk-packet/1)",
+ "rule": "only candidate output values plus the declared transformations below; basis is copied verbatim; everything else is unmapped",
+ "fields": [
+  {"target": "instance.selected", "raw": "/instance/root", "transform": "exact path equality with a fixture instance root, or the run book (a copy of instance-A)"},
+  {"target": "selected.work_ref", "raw": "/selected/address", "transform": "copy; explicit null selection -> null; absent key -> unmapped"},
+  {"target": "selected.basis", "raw": "/selected/basis", "transform": "copy verbatim; explicit null selection -> 'unknown'"},
+  {"target": "selected.source", "raw": null, "transform": "UNMAPPED: the candidate reports selected.rule = prime-desk-selector/1 but no selector path or hash; its selected.source is the work page, not the selection source"},
+  {"target": "attention.items", "raw": "/attention/* and /gaps/*", "transform": "attention kind copied; gap kinds: stale|changed -> stale-source, missing -> missing-evidence, selector|catalog-not-chosen|same-address|packet-selection -> conflict, other -> coverage-gap; ref = address of the request work entry with the same path, else null"},
+  {"target": "attention.total, attention.shown", "raw": "count of mapped items", "transform": "equal: the candidate has no overflow concept"},
+  {"target": "attention.overflow_route", "raw": null, "transform": "null (no overflow concept in the candidate)"},
+  {"target": "holds", "raw": "/attention/* with kind hold", "transform": "one row each, visible true; nothing else"},
+  {"target": "sources", "raw": "/selected/source, /not_selected/*/source, /record/references/*/source, /foreign/*", "transform": "status matched -> ok, stale|changed -> changed, missing -> absent; expected_sha256 from the request the adapter wrote; foreign read=false with another root -> outside-instance, path null (candidate gives address only)"},
+  {"target": "quotes", "raw": "packet:/packet/director/*, packet:/packet/model/*", "transform": "director -> verbatim attributed 'Director'; model -> interpretation attributed 'model (unnamed in candidate output)'; quote_sha256 = sha256 of the quoted text bytes"},
+  {"target": "refusals", "raw": "/gaps/* with kind assignment-record|selector-shape|foreign", "transform": "rule_ref = gap.check; target_path = gap.path; target_instance instance-A"},
+  {"target": "identity_fingerprint", "raw": "/inspectability/fingerprint", "transform": "copy"},
+  {"target": "works", "raw": null, "transform": "UNMAPPED: the candidate does not output claim/return/custody/review/disposition/approval/blocked/tails per work"},
+  {"target": "parallel", "raw": null, "transform": "UNMAPPED: the candidate lists catalog items but has no parallel concept with a basis"},
+  {"target": "coverage", "raw": null, "transform": "UNMAPPED: the candidate gives counts and a fixed text, not per-area coverage"},
+  {"target": "workers", "raw": null, "transform": "UNMAPPED: recorded_state and supplied texts do not map to one state/basis without parsing text"}
+ ],
+ "conflicts": "per case: selection-vs-canonical (selected.address vs assignment_reader fields.current_work joined by request path), canonical-unread-but-selected, same-path-different-hash"
+}

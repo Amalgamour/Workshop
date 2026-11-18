@@ -1,0 +1,14 @@
+[
+  {
+    "probe": "nul-output-path",
+    "exception": "ValueError",
+    "detail": "lstat: embedded null character in path",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\probe-harness-0505-malformed.py\", line 12, in <module>\n    H.validate_config(cfg);value=H.preflight(cfg)\n                                 ^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py\", line 174, in preflight\n    out = G.output_root(cfg[\"output_root\"])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\guards.py\", line 87, in output_root\n    chain_without_links(p)\n  File \"D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\guards.py\", line 48, in chain_without_links\n    if is_link_like(part):\n       ^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\guards.py\", line 35, in is_link_like\n    st = os.lstat(p)\n         ^^^^^^^^^^^\nValueError: lstat: embedded null character in path\n"
+  },
+  {
+    "probe": "deep-json",
+    "exception": "Refused",
+    "detail": "config-shape: config must be a JSON object",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\probe-harness-0505-malformed.py\", line 14, in <module>\n    value=H.parse_config(b'['*1200+b'0'+b']'*1200)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py\", line 98, in parse_config\n    validate_config(cfg)\n  File \"D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py\", line 121, in validate_config\n    raise Refused(\"config-shape\", \"config must be a JSON object\")\nharness5.Refused: config-shape: config must be a JSON object\n"
+  }
+]

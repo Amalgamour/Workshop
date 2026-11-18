@@ -1,0 +1,34 @@
+{
+ "faithful-v7-read": {
+  "exit": 0,
+  "intake_id": "87ccb1d005755319d6f1669524be69ba7108011f4ead7ed3051666c04d127a0e",
+  "review_id": "wb232d69ef99b5673",
+  "stale": false,
+  "stdout_sha": "f4888999ca284820c9e93bd02460f5cdf5effdfdd2662f909b42c0bb635a1b89"
+ },
+ "v8-read": {
+  "exit": 0,
+  "intake_id": "87ccb1d005755319d6f1669524be69ba7108011f4ead7ed3051666c04d127a0e",
+  "review_id": "wb232d69ef99b5673",
+  "stale": false,
+  "stdout_sha": "f4888999ca284820c9e93bd02460f5cdf5effdfdd2662f909b42c0bb635a1b89"
+ },
+ "faithful-v7-recover": {
+  "exit": 0,
+  "intake_id": "87ccb1d005755319d6f1669524be69ba7108011f4ead7ed3051666c04d127a0e",
+  "review_id": "wb232d69ef99b5673",
+  "stale": false,
+  "stdout_sha": "17892ac8742218843c6fd23ad1f7a83cbb25270ba73da6cc9484da119f461a52"
+ },
+ "v8-recover": {
+  "exit": 0,
+  "intake_id": "87ccb1d005755319d6f1669524be69ba7108011f4ead7ed3051666c04d127a0e",
+  "review_id": "wb232d69ef99b5673",
+  "stale": false,
+  "stdout_sha": "17892ac8742218843c6fd23ad1f7a83cbb25270ba73da6cc9484da119f461a52"
+ },
+ "equal_read": true,
+ "equal_recover": true,
+ "no_writes": true,
+ "note": "faithful v7 = pinned pass03 through the explicit 05.17 root adapter on the same copy root; isolates parser parity from the copy-root wrong-root effect of the real v7 entry"
+}

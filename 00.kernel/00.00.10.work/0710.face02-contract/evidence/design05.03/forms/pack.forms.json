@@ -1,0 +1,324 @@
+{
+  "format_note": "PROPOSED example format for 0710/05.03, derived from the 05.02 set. ILLUSTRATIVE: the local subject owner is proposed, not seated (pack-subject.0423.01.proposal.md).",
+  "section": {
+    "page": "0423.dev-authoring",
+    "face": "02",
+    "heading": "Pack",
+    "governing": {
+      "face": "01",
+      "heading": "Pack",
+      "state": "unresolved"
+    }
+  },
+  "answers_written_as": {
+    "not_supplied": "key omitted",
+    "null": "JSON null",
+    "empty": "\"\" for text, [] for lists",
+    "value": "a value of the declared shape",
+    "not_applicable": "{\"not_applicable\": \"<why>\"}"
+  },
+  "compute_owned_keys": [
+    "#NN",
+    "item_id",
+    "pass",
+    "path",
+    "output_path",
+    "sha256",
+    "hash",
+    "stamp",
+    "date_of_record",
+    "encoding",
+    "layout"
+  ],
+  "forms": [
+    {
+      "name": "pack-card",
+      "kind": "card",
+      "purpose": "Remind a reader what a development pack holds.",
+      "revision": "001",
+      "source": {
+        "ref": "0423/01#4",
+        "state": "draft"
+      },
+      "body": "A pack names its source and work pass, a goal, a scope, finish criteria, an executor and a reviewer, then one #NN per work item with its acceptance. Compute numbers and stamps it. Release is separate."
+    },
+    {
+      "name": "pack-create",
+      "kind": "template",
+      "purpose": "Build a new pack draft on the linked N5NN pass from its N4NN source.",
+      "revision": "001",
+      "source": {
+        "ref": "0423/01#4",
+        "state": "draft"
+      },
+      "encoding": "utf-8",
+      "output": {
+        "rule": "registered-source-work-relation",
+        "numbering": "next-free-pass",
+        "assigned_by": "compute"
+      },
+      "fields": [
+        {
+          "name": "source",
+          "job": "the N4NN source page chosen",
+          "shape": "address",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "resolve": "relation",
+          "meaning_ground": "0423/01#2"
+        },
+        {
+          "name": "goal",
+          "job": "what the pass achieves",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "scope",
+          "job": "included / excluded / allowed writes",
+          "shape": {
+            "included": "text-list",
+            "excluded": "text-list",
+            "allowed_writes": "text-list"
+          },
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "subanswers": [
+            "value",
+            "empty"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "finish",
+          "job": "finish criteria",
+          "shape": "text-list",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "executor",
+          "job": "who builds",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "source-or-intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "reviewer",
+          "job": "who reviews",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "source-or-intelligence",
+          "meaning_ground": "0423/01#4"
+        },
+        {
+          "name": "note_dispositions",
+          "job": "one disposition per declared note",
+          "shape": "dispositions",
+          "required": true,
+          "answers": [
+            "value",
+            "empty"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#4"
+        }
+      ],
+      "repeat": {
+        "name": "items",
+        "identity": {
+          "scheme": "#NN",
+          "assigned_by": "compute",
+          "renumber": "never-silent"
+        },
+        "min": 1,
+        "fields": [
+          {
+            "name": "title",
+            "shape": "text",
+            "required": true,
+            "answers": [
+              "value"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": "0423/01#4"
+          },
+          {
+            "name": "purpose",
+            "shape": "text",
+            "required": true,
+            "answers": [
+              "value"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": "0423/01#4"
+          },
+          {
+            "name": "requirements",
+            "shape": "text",
+            "required": true,
+            "answers": [
+              "value"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": "0423/01#4"
+          },
+          {
+            "name": "interfaces",
+            "shape": "text-list",
+            "required": false,
+            "answers": [
+              "value",
+              "empty",
+              "not_supplied"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": null
+          },
+          {
+            "name": "acceptance",
+            "shape": "text",
+            "required": true,
+            "answers": [
+              "value"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": "0423/01#4"
+          },
+          {
+            "name": "breaking_change",
+            "job": "does the item break an existing caller; null = not yet known",
+            "shape": "bool",
+            "required": false,
+            "answers": [
+              "value",
+              "null",
+              "not_supplied"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": null
+          },
+          {
+            "name": "note_refs",
+            "shape": "ref-list",
+            "required": false,
+            "answers": [
+              "value",
+              "empty",
+              "not_supplied"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": null
+          },
+          {
+            "name": "open_choices",
+            "shape": "text-list",
+            "required": false,
+            "answers": [
+              "value",
+              "empty",
+              "not_supplied",
+              "not_applicable"
+            ],
+            "supplier": "intelligence",
+            "meaning_ground": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "pack-revise",
+      "kind": "template",
+      "purpose": "Change one existing item of an unfrozen pack draft, keeping its #NN.",
+      "revision": "001",
+      "source": {
+        "ref": "0423/01#3",
+        "state": "draft"
+      },
+      "encoding": "utf-8",
+      "output": {
+        "rule": "same-draft-new-revision",
+        "assigned_by": "compute"
+      },
+      "fields": [
+        {
+          "name": "item",
+          "job": "which existing item is meant",
+          "shape": "item-ref",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "resolve": "draft-item",
+          "meaning_ground": "0423/01#3"
+        },
+        {
+          "name": "changes",
+          "job": "the changed item fields; each key is an editable item field and is validated by that field's declaration",
+          "shape": "item-patch",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#3",
+          "editable": "pack-create.items"
+        },
+        {
+          "name": "reason",
+          "shape": "text",
+          "required": true,
+          "answers": [
+            "value"
+          ],
+          "supplier": "intelligence",
+          "meaning_ground": "0423/01#3"
+        }
+      ]
+    },
+    {
+      "name": "pack-check",
+      "kind": "schema",
+      "purpose": "Check a built pack draft before review.",
+      "revision": "001",
+      "source": {
+        "ref": "0423/01#4",
+        "state": "draft"
+      },
+      "checks": [
+        "required-answered",
+        "items-contiguous",
+        "note-dispositions-adequate",
+        "dependency-states-present"
+      ],
+      "check_notes": {
+        "required-answered": "every pack-create field and item field, by its declaration",
+        "note-dispositions-adequate": "one disposition per declared note; integrated names an existing item; deferred and rejected carry a reason; unresolved fails",
+        "dependency-states-present": "a non-empty dependency list, each with a declared state"
+      }
+    }
+  ]
+}

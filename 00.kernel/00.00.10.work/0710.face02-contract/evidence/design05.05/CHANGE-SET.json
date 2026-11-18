@@ -1,0 +1,233 @@
+{
+ "schema": "kernel-update-change-set/1",
+ "template": {
+  "id": "kernel-update-review/1",
+  "revision": "002",
+  "md": {
+   "path": "00.kernel/00.00.10.work/0400.band.dev/templates/kernel-update-review-v2.md",
+   "bytes": 6995,
+   "sha256": "aa1231dbc7d1c0a0aad59d44c13ba76fc10b54e9b21947a49f7fb336a936048f"
+  },
+  "json": {
+   "path": "00.kernel/00.00.10.work/0400.band.dev/templates/kernel-update-review-v2.json",
+   "bytes": 3893,
+   "sha256": "5aa9576c7f2055af7a500207ba097ada52f7e238617abca7f22d04cd273575fb"
+  },
+  "adoption": {
+   "path": "00.kernel/00.00.10.work/0400.band.dev/06.01.md",
+   "bytes": 1758,
+   "sha256": "0ee59ced718c72b1c45b8b5cb3790aade8b64687d57df0360a6bb6743bc43614"
+  }
+ },
+ "problem": "Law 0001 limited face 02 to forms shorter than the rule. The Director called that limit a mistake (0710/06.02.decisions #01). Face 02 needs named working forms (card, template, schema), declared fields, payload attachment and a stable binding to selected revisions.",
+ "book_instance": {
+  "root": "D:/Git/lib-build/00.kernel",
+  "book": "00.00.01.law",
+  "provenance": "measured working-tree bytes (pack05.05 snapshots); no commit claimed"
+ },
+ "joint_release_members": [
+  {
+   "page": "0001.law",
+   "face": "01",
+   "seat": {
+    "path": "00.kernel/00.00.01.law/0001.law/01.md",
+    "bytes": 6288,
+    "sha256": "5d8b7a0e3c7587d4d0163a096321e02e2836a0a2900de75d6a861bbe1fd8fd2e"
+   },
+   "seat_version": "004",
+   "candidate": {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/evidence/design05.02/candidates/0001.law.01.005.candidate.md",
+    "bytes": 7832,
+    "sha256": "f46ae1cd5c5cf6df7e5a5bbae847618c071c36009bfde3ce66fccde5522e81d7"
+   },
+   "candidate_version": "005",
+   "draft_target": "0001.law/01.005.md",
+   "retired_name": "01.004.09.md"
+  },
+  {
+   "page": "0002.schema",
+   "face": "01",
+   "seat": {
+    "path": "00.kernel/00.00.01.law/0002.schema/01.md",
+    "bytes": 1521,
+    "sha256": "6217bb256e9518c75bbb9173380dadd56bc568e781476322f1d45280adf861ae"
+   },
+   "seat_version": "003",
+   "candidate": {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/evidence/design05.03/candidates/0002.schema.01.004.candidate.md",
+    "bytes": 8586,
+    "sha256": "d16f05b2b7ed240038ddb84dbdaf55b4cd979b3938d1cb488bdb607f2ef6b8c5"
+   },
+   "candidate_version": "004",
+   "draft_target": "0002.schema/01.004.md",
+   "retired_name": "01.003.09.md"
+  }
+ ],
+ "joint_reason": "0001 Correspondence and 0002 Job/Coverage must agree; seated alone, either contradicts the other.",
+ "authority_scope": {
+  "director_decisions": [
+   {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/06.02.decisions.md",
+    "bytes": 5473,
+    "sha256": "d118b3be0fec60944e956c96a269867c778be2fad3b0abd67c1fcbbad38a2bd3"
+   },
+   {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/06.03.decisions.md",
+    "bytes": 2523,
+    "sha256": "f38e9e33ffa41278466b8df7c7fbe5cf35f4f74291a3f1bd412c4a13ac5c8ec3"
+   }
+  ],
+  "reviews": [
+   {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/06.01.review.md",
+    "bytes": 10708,
+    "sha256": "e8c0f9a962de9b2f201c48ee9b6e3cf2b181473e9844651253f573635b803812"
+   },
+   {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/06.02.review.md",
+    "bytes": 8983,
+    "sha256": "6cb943dcf7343c8f4fcce728e0ac44d49f3bf462d9eca154d6fa96c3426821cc"
+   },
+   {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/06.03.review.md",
+    "bytes": 5024,
+    "sha256": "eb33a01d55a519434d9a677d981cb9c582f5ee4460fa6965277d968817480ddf"
+   },
+   {
+    "path": "00.kernel/00.00.10.work/0710.face02-contract/06.04.review.md",
+    "bytes": 6972,
+    "sha256": "9d2157f7ef7c869d007b43c0bebfc0a88efb3231e5f65e500923c0cdddc13a4d"
+   }
+  ],
+  "process": [
+   {
+    "path": "00.kernel/00.00.10.work/0400.band.dev/06.01.md",
+    "bytes": 1758,
+    "sha256": "0ee59ced718c72b1c45b8b5cb3790aade8b64687d57df0360a6bb6743bc43614"
+   },
+   {
+    "path": "00.kernel/00.00.10.work/0411.colab/06.04.md",
+    "bytes": 1861,
+    "sha256": "797a6af505a240f513854cd0f24db26dfd9f18fbd5d620fe6f5730fadbbb4c97"
+   },
+   {
+    "path": "00.kernel/00.00.10.work/0412.prime-review/06.07.md",
+    "bytes": 4778,
+    "sha256": "6f46f26abd8c672c81627a7f65eb67da0a7e3c03b7e23db6a65638e643ccb6e2"
+   }
+  ],
+  "approved": "design direction only; exact candidate bytes NOT signed or approved"
+ },
+ "governing_lifecycle_sources": [
+  {
+   "path": "00.kernel/00.00.01.law/0021.write/01.md",
+   "bytes": 3000,
+   "sha256": "210d0c9844c0c7fbadc80d9d019a430849030ca7580269e0ca54976d5d10928c"
+  },
+  {
+   "path": "00.kernel/00.00.01.law/0022.approve/01.md",
+   "bytes": 1323,
+   "sha256": "b25ec8d880437f7699bd032ac800ab02af828dbe90ec7ee6e585babf59434dd0"
+  },
+  {
+   "path": "00.kernel/00.00.01.law/0023.promote/01.md",
+   "bytes": 813,
+   "sha256": "c978c77e5e4eed1764db5932f8a69ba2f615e0d68e91c6400eb4b27deeb7c9e3"
+  },
+  {
+   "path": "00.kernel/00.00.01.law/0060.drafting/01.md",
+   "bytes": 1825,
+   "sha256": "de3bdcf5200ed58995341098c87bb37d3f38c1b5fda0562f8beb64de47d0b186"
+  },
+  {
+   "path": "00.kernel/00.00.01.law/0009.retire/01.md",
+   "bytes": 2167,
+   "sha256": "6be9c2d240ec0878cff0ddc06a4fb113c7599c5bfccaa6e7465fa2b01ad4c3eb"
+  },
+  {
+   "path": "00.kernel/00.00.01.law/0018.seqaddr/01.md",
+   "bytes": 3546,
+   "sha256": "66cd971c587eced3180d5ff79736308c518ad056cba847bd714c9e855de8805a"
+  }
+ ],
+ "affected_connections": [
+  {
+   "target": "0003.operate",
+   "effect": "menus list named forms (route + selector); no text change proposed"
+  },
+  {
+   "target": "0004.user",
+   "effect": "'rule and card sections' wording; no change proposed"
+  },
+  {
+   "target": "0009.retire",
+   "effect": "warehouse layout inside 00.retire.09 is a proposal (U1); no amendment"
+  },
+  {
+   "target": "0018.seqaddr",
+   "effect": "payload 02.NAME.VVV.TYPE read as not a face file under 'For now it is a .md file'; no amendment; pending 01.011.md untouched"
+  },
+  {
+   "target": "00.00.00.syntax/00.axioms",
+   "effect": "'The card is face 02' and 'Face 02 is the snippet' are shelf-local rows; discrepancy for Prime to confirm (walkthrough #01)"
+  },
+  {
+   "target": "existing 02 drafts 0302/0304/0307/0411/0413",
+   "effect": "would need conforming successors; status only"
+  },
+  {
+   "target": "0423.dev-authoring",
+   "effect": "local Pack subject proposal (design05.03/forms) remains draft"
+  },
+  {
+   "target": "0526 authoring module",
+   "effect": "comparison only (design05.02/GROK1-ALIGNMENT.md); no edits"
+  }
+ ],
+ "stages": {
+  "01-establish-change-set": {
+   "state": "in-progress",
+   "evidence": "this file",
+   "next": "Prime review"
+  },
+  "02-account-for-meaning": {
+   "state": "in-progress",
+   "evidence": "PRESERVATION-MAP.md",
+   "next": "Prime review; any successor updates the map"
+  },
+  "03-director-review": {
+   "state": "in-progress",
+   "evidence": "DIRECTOR-WALKTHROUGH.md prepared; all answers UNANSWERED",
+   "next": "Prime assesses and presents"
+  },
+  "04-revise-demonstrate": {
+   "state": "not-started",
+   "note": "earlier revisions 05.01-05.04 are history; a successor is needed at least for finding F-1 if the Director confirms #01"
+  },
+  "05-sign-approve": {
+   "state": "not-started"
+  },
+  "06-verified-seat": {
+   "state": "not-started",
+   "held_by": [
+    "no reviewed seating tool",
+    "warehouse layout U1 open",
+    "06.04 P1-P3 conditions"
+   ]
+  },
+  "07-preserve-reuse": {
+   "state": "not-started"
+  },
+  "cold-promotion-gate": {
+   "state": "not-started",
+   "source": "0411.colab/06.04"
+  }
+ },
+ "candidate_history": [
+  "design05.01 (0002 v004 draft 1)",
+  "design05.02 (0001 v005; 0002 v004 draft 2)",
+  "design05.03 (0002 v004 selected)",
+  "design05.04 (lifecycle v2 only)"
+ ],
+ "judgment_note": "Identities and states are measured. Dispositions and findings are Claude's author judgment, for Prime to assess."
+}

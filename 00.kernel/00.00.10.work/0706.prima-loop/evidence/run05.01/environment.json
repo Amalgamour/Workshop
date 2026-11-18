@@ -1,0 +1,51 @@
+{
+ "recorded_at": "2026-11-01T12:21:53-06:00",
+ "host": "Grok Bot cloud computer (shared by this account's bots; per-agent desktops)",
+ "os": "Debian GNU/Linux 13 (trixie)",
+ "kernel": "Linux 6.12.94+ #1 SMP PREEMPT_DYNAMIC x86_64",
+ "cpu_count": 8,
+ "memory_total": "15Gi",
+ "disk_root": "128G (5.5G used)",
+ "user": "box",
+ "python": {
+  "python_on_PATH": false,
+  "python3": "/usr/bin/python3",
+  "version": "Python 3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "note": "BOOT's `python` command is absent; no alias/symlink created; nothing installed"
+ },
+ "shell": "GNU bash, version 5.2.37(1)-release (x86_64-pc-linux-gnu)",
+ "git": {
+  "version": "git version 2.47.3",
+  "credentials": "none on box",
+  "anonymous_ls_remote": "fails (private repo) - observed by Prima at ~12:20 CST",
+  "can_clone_or_push_from_box": false
+ },
+ "gh": {
+  "path": "/usr/local/bin/gh",
+  "version": "2.103.0 (2026-10-21)",
+  "auth": "You are not logged into any GitHub hosts."
+ },
+ "repo_access_method": "cursor-github built-in API tools acting as the user's (Director's) GitHub account Amalgamour: read branches, trees, file contents. No inline commit tool; no box Git credentials.",
+ "source_checkout": {
+  "path": "/workspace/prima/run05.01/source",
+  "kind": "API reconstruction (no .git), 105 files, git blob SHA-1 verified, chmod -R a-w",
+  "commit": "39d86e871c86484669cafecd7d2e1a8d86e15e34"
+ },
+ "timezone": {
+  "box": "America/Chicago",
+  "current_offset": "-06:00 (CST)"
+ },
+ "bot_delegation": "Prima can create and message Grok worker bots on the same account; workers share this computer and filesystem (not isolated checkouts). Not yet exercised in phase 01.",
+ "scheduling": {
+  "routine_id": "prima-assignment-check",
+  "enabled": true,
+  "schedule": "CRON_TZ=America/Chicago 0 */2 * * *",
+  "flexible": "+-15 min",
+  "server_picked_fire_time": "minute 52 of odd hours",
+  "next_run": "2026-11-01T13:52:00-06:00",
+  "evidence": "routine creation tool result (configuration only); no scheduled check has fired/been observed yet"
+ },
+ "git_publication_path_planned": "Cursor cloud agent pushing explicit paths to prima/returns (box has no Git credentials)",
+ "model": "unknown (self-report not verifiable from the box)",
+ "costs_usage": "unknown (not exposed in phase 01)"
+}

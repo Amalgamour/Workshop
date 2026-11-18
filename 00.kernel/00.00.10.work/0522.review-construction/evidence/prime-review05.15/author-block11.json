@@ -1,0 +1,215 @@
+{
+  "schema": "n7-block-tests/1",
+  "root": "D:\\librarian\\temp\\prime-g2-0522-0515\\author-block11-rooms",
+  "aggregate": {
+    "PASS": 11,
+    "FAIL": 0,
+    "ERROR": 0
+  },
+  "first_failure": null,
+  "rows": [
+    {
+      "id": "B1",
+      "label": "author test",
+      "says": "exact N7 manifest still binds m.json",
+      "status": "PASS",
+      "detail": {
+        "state": "parsed",
+        "codes": [
+          "submission-not-declared"
+        ],
+        "submission": null,
+        "manifest": "m.json"
+      }
+    },
+    {
+      "id": "B2",
+      "label": "author test",
+      "says": "A-01 trailing note blocks and does not bind m.json,",
+      "status": "PASS",
+      "detail": {
+        "state": "blocked",
+        "codes": [
+          "unparsed-return-line",
+          "malformed-n7-declaration"
+        ],
+        "submission": null,
+        "manifest": null
+      }
+    },
+    {
+      "id": "H-before",
+      "label": "author hostile",
+      "says": "malformed manifest before a valid Returned line binds neither field",
+      "status": "PASS",
+      "detail": {
+        "state": "blocked",
+        "codes": [
+          "unparsed-return-line",
+          "malformed-n7-declaration"
+        ],
+        "submission": null,
+        "manifest": null
+      }
+    },
+    {
+      "id": "H-after",
+      "label": "author hostile",
+      "says": "valid manifest before a non-descriptive Returned line binds neither field",
+      "status": "PASS",
+      "detail": {
+        "state": "blocked",
+        "codes": [
+          "attribution-not-descriptive",
+          "malformed-n7-declaration"
+        ],
+        "submission": null,
+        "manifest": null
+      }
+    },
+    {
+      "id": "B3",
+      "label": "author test",
+      "says": "A-02 refused declaration plus a later valid Submission binds nothing",
+      "status": "PASS",
+      "detail": {
+        "state": "blocked",
+        "codes": [
+          "attribution-not-descriptive",
+          "malformed-n7-declaration"
+        ],
+        "submission": null,
+        "manifest": null
+      }
+    },
+    {
+      "id": "B4",
+      "label": "author test",
+      "says": "labels with no value and the double-comma near-match block in N7",
+      "status": "PASS",
+      "detail": {
+        "labels": {
+          "Returned:": {
+            "state": "blocked",
+            "codes": [
+              "unparsed-return-line",
+              "malformed-n7-declaration"
+            ],
+            "submission": null,
+            "manifest": null
+          },
+          "Submission:": {
+            "state": "blocked",
+            "codes": [
+              "unparsed-return-line",
+              "malformed-n7-declaration"
+            ],
+            "submission": null,
+            "manifest": null
+          },
+          "Artifact manifest:": {
+            "state": "blocked",
+            "codes": [
+              "unparsed-return-line",
+              "malformed-n7-declaration"
+            ],
+            "submission": null,
+            "manifest": null
+          },
+          "Verification:": {
+            "state": "blocked",
+            "codes": [
+              "unparsed-return-line",
+              "malformed-n7-declaration"
+            ],
+            "submission": null,
+            "manifest": null
+          }
+        },
+        "double": {
+          "state": "blocked",
+          "codes": [
+            "unparsed-return-line",
+            "malformed-n7-declaration"
+          ],
+          "submission": null,
+          "manifest": null
+        }
+      }
+    },
+    {
+      "id": "B5",
+      "label": "author test",
+      "says": "Notes beside a valid manifest stays diagnostic and keeps the manifest",
+      "status": "PASS",
+      "detail": {
+        "state": "parsed",
+        "codes": [
+          "unparsed-return-line",
+          "submission-not-declared"
+        ],
+        "submission": null,
+        "manifest": "m.json"
+      }
+    },
+    {
+      "id": "B6",
+      "label": "author test",
+      "says": "duplicate Returned lines stay ambiguous and unblocked",
+      "status": "PASS",
+      "detail": {
+        "state": "ambiguous",
+        "codes": [
+          "ambiguous-submission"
+        ],
+        "submission": null,
+        "manifest": null
+      }
+    },
+    {
+      "id": "B7",
+      "label": "author test",
+      "says": "N5 punctuation and the A-01 suffix stay on the pass03 parser object",
+      "status": "PASS",
+      "detail": {
+        "comma": true,
+        "semicolon": true,
+        "paren": true,
+        "suffix": true,
+        "double": true
+      }
+    },
+    {
+      "id": "B8",
+      "label": "author test",
+      "says": "LF and CRLF pointer blocks parse equally in N7",
+      "status": "PASS",
+      "detail": {
+        "equal": true
+      }
+    },
+    {
+      "id": "B9",
+      "label": "author test",
+      "says": "a blocked build resets kind and the block flag, and the sibling file is unbound",
+      "status": "PASS",
+      "detail": {
+        "measurement": "incomplete",
+        "codes": [
+          "unparsed-return-line",
+          "malformed-n7-declaration",
+          "custody-missing",
+          "return-missing"
+        ],
+        "roles": [
+          [
+            "assignment",
+            "0799.block-measure/05.01.pack.md"
+          ]
+        ],
+        "raised": true,
+        "kind": null
+      }
+    }
+  ]
+}

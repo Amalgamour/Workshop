@@ -1,0 +1,56 @@
+test_absent_trigger (__main__.Launch.test_absent_trigger) ... ok
+test_context_bytes_renamed (__main__.Launch.test_context_bytes_renamed) ... ok
+test_continuing_session (__main__.Launch.test_continuing_session) ... ok
+test_cut_mismatch (__main__.Launch.test_cut_mismatch) ... ok
+test_requirement_and_authority_must_travel (__main__.Launch.test_requirement_and_authority_must_travel) ... ok
+test_unready_cut (__main__.Launch.test_unready_cut) ... ok
+test_withhold_undeclared (__main__.Launch.test_withhold_undeclared) ... ok
+test_descriptor_in_ordinary_job_refuses (__main__.Mode.test_descriptor_in_ordinary_job_refuses) ... ok
+test_ordinary_job_stays_ordinary (__main__.Mode.test_ordinary_job_stays_ordinary) ... ok
+test_reserved_ready (__main__.Mode.test_reserved_ready) ... ok
+test_reserved_requested_without_descriptor_refuses (__main__.Mode.test_reserved_requested_without_descriptor_refuses) ... ok
+test_unknown_mode_refuses (__main__.Mode.test_unknown_mode_refuses) ... ok
+test_bom_recorded (__main__.ParseView.test_bom_recorded) ... ok
+test_lf_and_crlf_give_the_same_findings (__main__.ParseView.test_lf_and_crlf_give_the_same_findings) ... ok
+test_lone_cr_refused (__main__.ParseView.test_lone_cr_refused) ... ok
+test_missing_and_duplicate_blocks (__main__.ParseView.test_missing_and_duplicate_blocks) ... ok
+test_mixed_line_endings (__main__.ParseView.test_mixed_line_endings) ... ok
+test_not_utf8 (__main__.ParseView.test_not_utf8) ... ok
+test_strict_json (__main__.ParseView.test_strict_json) ... ok
+test_incomplete (__main__.Reconcile.test_incomplete) ... ok
+test_reason_required (__main__.Reconcile.test_reason_required) ... ok
+test_unknown_finding (__main__.Reconcile.test_unknown_finding) ... ok
+test_unresolved_and_unique_stay_visible (__main__.Reconcile.test_unresolved_and_unique_stay_visible) ... ok
+test_already_attached_informed (__main__.Stage.test_already_attached_informed) ... ok
+test_chain_tamper (__main__.Stage.test_chain_tamper) ... ok
+test_crlf_first_return_end_to_end (__main__.Stage.test_crlf_first_return_end_to_end) ... ok
+test_cut_changed (__main__.Stage.test_cut_changed) ... ok
+test_descriptor_names_other_seal (__main__.Stage.test_descriptor_names_other_seal) ... ok
+test_environment_difference_recorded (__main__.Stage.test_environment_difference_recorded) ... ok
+test_first_packet_digest_differs (__main__.Stage.test_first_packet_digest_differs) ... ok
+test_first_return_bytes_differ (__main__.Stage.test_first_return_bytes_differ) ... ok
+test_missing_first_findings (__main__.Stage.test_missing_first_findings) ... ok
+test_no_n1nn_member_anywhere (__main__.Stage.test_no_n1nn_member_anywhere) ... ok
+test_not_sealed (__main__.Stage.test_not_sealed) ... ok
+test_packet_lacks_first_return (__main__.Stage.test_packet_lacks_first_return) ... ok
+test_review_did_not_request_this_pass (__main__.Stage.test_review_did_not_request_this_pass) ... ok
+test_valid (__main__.Stage.test_valid) ... ok
+test_descriptor_field_fuzz (__main__.Types.test_descriptor_field_fuzz) ... ok
+test_findings_not_a_list (__main__.Types.test_findings_not_a_list) ... ok
+test_reconcile_finding_list_is_type_not_typeerror (__main__.Types.test_reconcile_finding_list_is_type_not_typeerror) ... ok
+test_reconcile_status_list_is_enum_not_typeerror (__main__.Types.test_reconcile_status_list_is_enum_not_typeerror) ... ok
+test_both_agree (__main__.Verifier.test_both_agree) ... ok
+test_handoff_mismatch (__main__.Verifier.test_handoff_mismatch) ... ok
+test_handoff_valid_alone_is_not_enough (__main__.Verifier.test_handoff_valid_alone_is_not_enough) ... ok
+test_identity_split (__main__.Verifier.test_identity_split) ... ok
+test_producer_digest_differs (__main__.Verifier.test_producer_digest_differs) ... ok
+test_wrong_report_kind (__main__.Verifier.test_wrong_report_kind) ... ok
+test_attach_unopened_pass (__main__.WorkflowModel.test_attach_unopened_pass) ... ok
+test_history_rewrite (__main__.WorkflowModel.test_history_rewrite) ... ok
+test_review_before_return (__main__.WorkflowModel.test_review_before_return) ... ok
+test_seal_replay_and_conflict (__main__.WorkflowModel.test_seal_replay_and_conflict) ... ok
+
+----------------------------------------------------------------------
+Ran 51 tests in 0.025s
+
+OK

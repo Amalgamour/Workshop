@@ -1,0 +1,41 @@
+{
+  "sources": {
+    "rows": 146,
+    "bad": []
+  },
+  "artifacts": {
+    "rows": 41,
+    "bad": []
+  },
+  "independent_probe": {
+    "exit": 0
+  },
+  "changed_task_precheck": {
+    "record_sha256": "134c65ef6f44565812be5be61c0c6a7576f36b6093f11cb859c8e99b2caeaddf",
+    "review_id": "05.01-r1",
+    "supplied_state": "verified-against-committed-record",
+    "not_established": [
+      "Director acceptance",
+      "release",
+      "authenticated identity"
+    ]
+  },
+  "absent_before_record_message": {
+    "state": "awaiting-review",
+    "blocker": "target-absent",
+    "route": "none-in-this-entry",
+    "text": "No mechanical route in this entry; the committed judgment is kept.",
+    "target": "absent",
+    "detail": "record hashes the target and refuses when it is absent (review_loop.py 337)"
+  },
+  "actual_envelope_bindings": {
+    "original": {
+      "exit": 0,
+      "binding": "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+    },
+    "changed-task": {
+      "exit": 0,
+      "binding": "8efef6532a60e45e3239fd2e17f52bda2f8576b364ac9ae0e96929853d199264"
+    }
+  }
+}

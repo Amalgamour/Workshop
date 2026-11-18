@@ -1,0 +1,12 @@
+pass         M0-N5  missing-intake  
+fail         M1-N7  missing-intake  after M1: read is not held/stale/refused (it reads current or crashed)
+fail         R0     pack-region     a permitted Review-only edit made the review non-current
+not-reached  F1     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+pass         F1b    pack-region     
+pass         E1     pack-region     
+pass         E2     pack-region     
+fail         C1     composition     the byte-copied book reads the foreign review current
+fail         C2     composition     a Review-only edit made the N7 review non-current
+blocked      C4     composition     candidate kind 'staged-g' is not the combined candidate; not executed
+NOT ALL REQUIRED PASS {'pass': 4, 'fail': 4, 'not-reached': 1, 'blocked': 1}
+identity: legacy-discovery labs/workbook-review-pass05/workbook.py | proof: {'workbook': 'executed'}

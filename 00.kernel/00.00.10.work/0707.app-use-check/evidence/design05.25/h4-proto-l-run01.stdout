@@ -1,0 +1,29 @@
+pass                         N5-1    n5-same-cut     N5 0512/05.06: candidate prepare equals the faithful pass03 baseline on the same root (int
+pass                         N5-2    n5-same-cut     N5 0522/05.13: same-state equality with the baseline; the declared selection-induced chang
+pass                         N5-3    n5-same-cut     N5 legitimate filename punctuation (return.md, / ; / ) ) binds as before (candidate == bas
+fail                         ST-1    strict-n7       trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,': reason
+fail                         ST-2    strict-n7       a refused declaration (hash in attribution) beside a valid alternative Returned line: reas
+fail                         ST-3    strict-n7       an incomplete recognized label ('Verification:' with no value): reason malformed-n7-declar
+pass                         ST-4    strict-n7       control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malforme
+pass                         PR-1    preservation    manual text present at the destination: publish held, bytes preserved, judgment retained
+pass                         PR-2    preservation    a destination file appearing between inspect and publish: held, bytes preserved
+pass                         PR-3    preservation    pack task-body change after record: stale; publication held
+pass                         PR-4    preservation    return change after record: stale; publication held
+pass                         PR-5    preservation    declared artifact changed or missing after record: stale; publication held
+pass                         PR-6    preservation    review-region-only pack edit after publish keeps the exchange current; a task edit does no
+pass                         PR-7    preservation    missing or altered pinned tool refuses before work (door pin)
+pass                         CTX-1   preservation    source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares
+fail                         DD-1    door-proposed   PROPOSED (not required): altered loop door refuses before import
+fail                         DD-2    door-proposed   PROPOSED (not required): missing loop door refuses cleanly
+blocked                      DD-3    door-proposed   PROPOSED (not required): altered report door refuses before import
+blocked                      DD-4    door-proposed   PROPOSED (not required): missing report door refuses cleanly
+pass                         RC-1    reconstruction  a NEW root rebuilt by the declared builder from frozen sources has the identical candidate
+NOT READY scope=subset {'pass': 13, 'fail': 5, 'blocked': 2}
+  - coverage incomplete: 21 required case(s) have no record: ['N7-1', 'N7-2', 'LR-1', 'LR-2', 'LR-3', 'LR-4', 'LR-5', 'LR-6', 'N7-3', 'LR-7', 'CAP-0', 'CAP-1', 'CAP-2', 'CAP-3', 'CAP-4', 'LC-1', 'RP-1', 'RP-2', 'IN-1', 'IN-2', 'RB-1']
+  - required case ST-1: fail
+  - required case ST-2: fail
+  - required case ST-3: fail
+  - dependency K is pending
+  - dependency I is pending
+  - dependency R is pending
+  - dependency W is pending

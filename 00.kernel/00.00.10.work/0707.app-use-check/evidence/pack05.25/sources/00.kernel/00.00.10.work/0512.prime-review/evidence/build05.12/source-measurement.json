@@ -1,0 +1,18 @@
+{
+  "gate_a": "refused: limit sources[24].content_bytes",
+  "gate_b": "fixture.bin: input exceeds 262144 bytes",
+  "json_input": "input: input exceeds 262144 bytes",
+  "over_document": {
+    "bind": true,
+    "content_bytes": 276423,
+    "content_sha256": "203565f92dace2f3474dadca0f054129e98d6abf1037dabdc0a069f50f1dc1ac",
+    "logical_path": "0512.prime-review/evidence/build05.10/hostile/over-document.json",
+    "record_null": true,
+    "transport_bytes": 276423,
+    "transport_sha256": "203565f92dace2f3474dadca0f054129e98d6abf1037dabdc0a069f50f1dc1ac"
+  },
+  "recorded": true,
+  "review_id": "wa7922b9b4f84d400",
+  "schema": "source-measurement/1",
+  "sources": 44
+}

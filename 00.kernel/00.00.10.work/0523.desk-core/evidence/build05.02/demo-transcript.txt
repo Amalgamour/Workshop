@@ -1,0 +1,482 @@
+$ pins
+exit 0
+{
+  "accepted": false,
+  "command": "pins",
+  "matched": 33,
+  "note": "pinned app and lab modules are not imported by desk_core",
+  "ok": true,
+  "runtime_dependencies": [
+    "python-stdlib"
+  ],
+  "runtime_imports": [],
+  "schema": "desk-core-result/1",
+  "sources": 33
+}
+$ init --book /tmp/tmpr7l_e_6f/book --label synthetic-demo
+exit 0
+{
+  "accepted": false,
+  "book": "/tmp/tmpr7l_e_6f/book",
+  "command": "init",
+  "contract": "desk-core/2",
+  "idempotent": false,
+  "label": "synthetic-demo",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "ok": true,
+  "schema": "desk-core-result/1"
+}
+$ record-task --book /tmp/tmpr7l_e_6f/book --input /tmp/tmpr7l_e_6f/task.json
+exit 0
+{
+  "accepted": false,
+  "check": "task-binding",
+  "command": "record-task",
+  "contract": "desk-core/2",
+  "face": "05.01.md",
+  "idempotent": false,
+  "input_sha256": "b6f1a54813cc1bac5ad2329f625663a829e64105f8813e22e9ef825c32b3d241",
+  "kind": "N5NN",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_route": "await release",
+  "ok": true,
+  "outcome": "recorded",
+  "page": "0523.demo",
+  "return_line": "0123.demo",
+  "schema": "desk-core-result/1",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "trace_path": "/tmp/tmpr7l_e_6f/book/0523.demo/05.01.trace/0001.json",
+  "trace_sha256": "2b353905e9452f7e6890ad4159f86d4af17cf2090fc2a839f9aee560cca843d3"
+}
+$ register --book /tmp/tmpr7l_e_6f/book --input /tmp/tmpr7l_e_6f/register.json
+exit 0
+{
+  "accepted": false,
+  "command": "register",
+  "contract": "desk-core/2",
+  "idempotent": false,
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "ok": true,
+  "schema": "desk-core-result/1",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "worker": "synthetic-worker"
+}
+$ show --book /tmp/tmpr7l_e_6f/book --page 0523 --subject demo --pass 01
+exit 0
+{
+  "accepted": false,
+  "agreement": "Synthetic demo agreement.\n",
+  "body": "Demonstrate the disposable N5NN loop.\n",
+  "bound_evidence": [
+    {
+      "bytes": 4,
+      "name": "pack",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "command": "show",
+  "complete": false,
+  "conflicts": [],
+  "contract": "desk-core/2",
+  "custody": "0123.demo",
+  "derived": true,
+  "expected_outputs": [
+    "return text"
+  ],
+  "kind": "N5NN",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_action": "submit the return on the matching custody line",
+  "next_actor": "synthetic-worker",
+  "ok": true,
+  "receipt_sha256": null,
+  "return_matches_task": null,
+  "review_fresh": false,
+  "revision_state": "original",
+  "schema": "desk-core-result/1",
+  "scope": {
+    "in": [
+      "disposable book"
+    ],
+    "out": [
+      "live work book"
+    ]
+  },
+  "state": "claimed",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "title": "Synthetic demo task",
+  "unresolved_questions": []
+}
+$ assert-done --book /tmp/tmpr7l_e_6f/book --page 0523 --subject demo --pass 01 --worker synthetic-worker
+exit 0
+{
+  "accepted": false,
+  "command": "assert-done",
+  "complete": false,
+  "contract": "desk-core/2",
+  "idempotent": false,
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "note": "saying done does not capture a return",
+  "ok": true,
+  "schema": "desk-core-result/1",
+  "state": "said-done-without-capture"
+}
+$ show --book /tmp/tmpr7l_e_6f/book --page 0523 --subject demo --pass 01
+exit 0
+{
+  "accepted": false,
+  "agreement": "Synthetic demo agreement.\n",
+  "body": "Demonstrate the disposable N5NN loop.\n",
+  "bound_evidence": [
+    {
+      "bytes": 4,
+      "name": "pack",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "command": "show",
+  "complete": false,
+  "conflicts": [],
+  "contract": "desk-core/2",
+  "custody": "0123.demo",
+  "derived": true,
+  "expected_outputs": [
+    "return text"
+  ],
+  "kind": "N5NN",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_action": "worker says done but no captured return is present",
+  "next_actor": "worker",
+  "ok": true,
+  "receipt_sha256": null,
+  "return_matches_task": null,
+  "review_fresh": false,
+  "revision_state": "original",
+  "schema": "desk-core-result/1",
+  "scope": {
+    "in": [
+      "disposable book"
+    ],
+    "out": [
+      "live work book"
+    ]
+  },
+  "state": "said-done-without-capture",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "title": "Synthetic demo task",
+  "unresolved_questions": []
+}
+$ submit-return --book /tmp/tmpr7l_e_6f/book --input /tmp/tmpr7l_e_6f/return.json --interrupt
+exit 3
+{
+  "accepted": false,
+  "command": "submit-return",
+  "complete": false,
+  "contract": "desk-core/2",
+  "derived_state": "partial",
+  "interrupted": true,
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "ok": false,
+  "schema": "desk-core-result/1",
+  "state": "partial"
+}
+$ show --book /tmp/tmpr7l_e_6f/book --page 0523 --subject demo --pass 01
+exit 0
+{
+  "accepted": false,
+  "agreement": "Synthetic demo agreement.\n",
+  "body": "Demonstrate the disposable N5NN loop.\n",
+  "bound_evidence": [
+    {
+      "bytes": 4,
+      "name": "pack",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "command": "show",
+  "complete": false,
+  "conflicts": [],
+  "contract": "desk-core/2",
+  "custody": "0123.demo",
+  "derived": true,
+  "expected_outputs": [
+    "return text"
+  ],
+  "kind": "N5NN",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_action": "interrupted or unverified write; not complete",
+  "next_actor": "worker",
+  "ok": true,
+  "receipt_sha256": null,
+  "return_matches_task": null,
+  "review_fresh": false,
+  "revision_state": "original",
+  "schema": "desk-core-result/1",
+  "scope": {
+    "in": [
+      "disposable book"
+    ],
+    "out": [
+      "live work book"
+    ]
+  },
+  "state": "partial",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "title": "Synthetic demo task",
+  "unresolved_questions": []
+}
+$ submit-return --book /tmp/tmpr7l_e_6f/book --input /tmp/tmpr7l_e_6f/return.json
+exit 0
+{
+  "accepted": false,
+  "check": "receipt",
+  "command": "submit-return",
+  "complete": true,
+  "contract": "desk-core/2",
+  "custody": "0123.demo",
+  "idempotent": false,
+  "input_sha256": "cd8e02e68af01886270e26b4785da1231fe884cd0e625751987e02d906928f16",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_route": "awaiting-review",
+  "ok": true,
+  "outcome": "captured",
+  "receipt_sha256": "b4760129b15dd61d1c73a0f77a5039050d02d571ed9a133f7372fce47728eac6",
+  "schema": "desk-core-result/1",
+  "state": "awaiting-review",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "trace_path": "/tmp/tmpr7l_e_6f/book/0523.demo/05.01.trace/0002.json",
+  "trace_sha256": "843f27f7c109327f1aeef687caffec24076fed9b234b5b9e4036c6d34776279d"
+}
+$ submit-return --book /tmp/tmpr7l_e_6f/book --input /tmp/tmpr7l_e_6f/return.json
+exit 0
+{
+  "accepted": false,
+  "check": "receipt",
+  "command": "submit-return",
+  "complete": true,
+  "contract": "desk-core/2",
+  "custody": "0123.demo",
+  "idempotent": true,
+  "input_sha256": "cd8e02e68af01886270e26b4785da1231fe884cd0e625751987e02d906928f16",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_route": "keep captured return",
+  "ok": true,
+  "outcome": "idempotent",
+  "receipt_sha256": "b4760129b15dd61d1c73a0f77a5039050d02d571ed9a133f7372fce47728eac6",
+  "schema": "desk-core-result/1",
+  "trace_path": "/tmp/tmpr7l_e_6f/book/0523.demo/05.01.trace/0003.json",
+  "trace_sha256": "ef0ce71e43eb1d4fb86a2f4e5b4877e360bdd05ab788dde3f405795ef6c0468a"
+}
+$ retrieve --book /tmp/tmpr7l_e_6f/book --page 0523 --subject demo --pass 01
+exit 0
+{
+  "accepted": false,
+  "artifacts": [
+    {
+      "bytes": 11,
+      "logical": "notes.md",
+      "sha256": "cc882aa8a1e0dc903b813ea39a527c68b391f4ce2e902a6c2d31bce9e53ccc5a"
+    }
+  ],
+  "command": "retrieve",
+  "complete": true,
+  "conflicts": [],
+  "contract": "desk-core/2",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "note": "retrieval is not a review and not acceptance",
+  "ok": true,
+  "receipt_sha256": "b4760129b15dd61d1c73a0f77a5039050d02d571ed9a133f7372fce47728eac6",
+  "return_text": "Synthetic demo return.\n",
+  "schema": "desk-core-result/1",
+  "state": "awaiting-review",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "unresolved_questions": [
+    "demo question"
+  ]
+}
+$ review --book /tmp/tmpr7l_e_6f/book --input /tmp/tmpr7l_e_6f/review.json
+exit 0
+{
+  "accepted": false,
+  "check": "review-binding",
+  "command": "review",
+  "complete": true,
+  "contract": "desk-core/2",
+  "derived": false,
+  "findings": [],
+  "idempotent": false,
+  "input_sha256": "69d6ac2a459d18fa141e9371165ba58f0b757a41ffa0f92a210946c0f98c4183",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_action": "Read the branch.\n",
+  "next_actor": "director",
+  "next_route": "reviewed",
+  "ok": true,
+  "outcome": "recorded",
+  "review_binding_sha256": "6970e110858e41a72ddaf8880b823e4ede1f7169c4fbe6544cc4dd619fea4f28",
+  "schema": "desk-core-result/1",
+  "state": "reviewed",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "trace_path": "/tmp/tmpr7l_e_6f/book/0523.demo/05.01.trace/0004.json",
+  "trace_sha256": "487472f5db2ef85b64a650896dead35d1ae069236e9d51af43afbccf8f507137",
+  "unresolved_questions": [
+    "demo question"
+  ]
+}
+$ recover --book /tmp/tmpr7l_e_6f/book --page 0523 --subject demo --pass 01
+exit 0
+{
+  "accepted": false,
+  "agreement": "Synthetic demo agreement.\n",
+  "body": "Demonstrate the disposable N5NN loop.\n",
+  "bound_evidence": [
+    {
+      "bytes": 4,
+      "name": "pack",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "command": "recover",
+  "complete": true,
+  "conflicts": [],
+  "contract": "desk-core/2",
+  "custody": "0123.demo",
+  "derived": false,
+  "expected_outputs": [
+    "return text"
+  ],
+  "kind": "N5NN",
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "next_action": "Read the branch.\n",
+  "next_actor": "director",
+  "ok": true,
+  "receipt_sha256": "b4760129b15dd61d1c73a0f77a5039050d02d571ed9a133f7372fce47728eac6",
+  "recovered_from": "records",
+  "return_matches_task": true,
+  "review_fresh": true,
+  "revision_state": "original",
+  "schema": "desk-core-result/1",
+  "scope": {
+    "in": [
+      "disposable book"
+    ],
+    "out": [
+      "live work book"
+    ]
+  },
+  "state": "reviewed",
+  "task_binding_sha256": "51a425c9ed1a4281c6125287f65fb0319791486addec70ed55d171617fca945f",
+  "title": "Synthetic demo task",
+  "unresolved_questions": [
+    "demo question"
+  ]
+}
+$ pending --book /tmp/tmpr7l_e_6f/book
+exit 0
+{
+  "accepted": false,
+  "command": "pending",
+  "contract": "desk-core/2",
+  "items": [
+    {
+      "accepted": false,
+      "complete": true,
+      "conflicts": [],
+      "derived": false,
+      "next_action": "Read the branch.\n",
+      "next_actor": "director",
+      "page": "0523.demo",
+      "pass": "01",
+      "state": "reviewed"
+    }
+  ],
+  "limitations": [
+    "no OS user isolation",
+    "actor labels are not authentication",
+    "file locks and rename are not a proof of race freedom",
+    "a receipt is not a review and a review is not acceptance",
+    "this tool does not launch a model or migrate the live book"
+  ],
+  "ok": true,
+  "scan": "book-root-and-source-page-only",
+  "schema": "desk-core-result/1",
+  "task_ledger": false
+}
+expected exits: register 0, show 0, assert-done 0, show 0, interrupt 3, partial show 0, submit 0, idempotent submit 0, retrieve 0, review 0, recover 0, pending 0
+actual exits: [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0]

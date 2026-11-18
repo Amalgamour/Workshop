@@ -1,0 +1,232 @@
+test_author_contract_and_active_app_stay_put (deployment_author_prime.DeploymentTests.test_author_contract_and_active_app_stay_put) ... ok
+test_author_direct_lab_dispatcher_is_not_an_install (deployment_author_prime.DeploymentTests.test_author_direct_lab_dispatcher_is_not_an_install) ... ok
+test_author_fixture_digest_held (deployment_author_prime.DeploymentTests.test_author_fixture_digest_held) ... ERROR
+test_author_fixture_missing_review (deployment_author_prime.DeploymentTests.test_author_fixture_missing_review) ... ERROR
+test_author_fixture_stale_note (deployment_author_prime.DeploymentTests.test_author_fixture_stale_note) ... ERROR
+test_author_historical_modules_and_helper_root_stay (deployment_author_prime.DeploymentTests.test_author_historical_modules_and_helper_root_stay) ... ok
+test_author_hostile_historical_chain_refuses_installed_dispatcher (deployment_author_prime.DeploymentTests.test_author_hostile_historical_chain_refuses_installed_dispatcher) ... ERROR
+test_author_hostile_swapped_runtime_stops_app_command (deployment_author_prime.DeploymentTests.test_author_hostile_swapped_runtime_stops_app_command) ... ERROR
+test_author_lifecycle_regions_accept_filing (deployment_author_prime.DeploymentTests.test_author_lifecycle_regions_accept_filing) ... ok
+test_author_linked_pin_when_available (deployment_author_prime.DeploymentTests.test_author_linked_pin_when_available) ... ERROR
+test_author_live_0512_05_06 (deployment_author_prime.DeploymentTests.test_author_live_0512_05_06) ... ERROR
+test_author_live_0521_05_13 (deployment_author_prime.DeploymentTests.test_author_live_0521_05_13) ... ERROR
+test_author_malformed_and_repeated_arguments (deployment_author_prime.DeploymentTests.test_author_malformed_and_repeated_arguments) ... ERROR
+test_author_prime_probes_are_not_this_suite (deployment_author_prime.DeploymentTests.test_author_prime_probes_are_not_this_suite) ... ok
+test_author_routes_do_not_mutate (deployment_author_prime.DeploymentTests.test_author_routes_do_not_mutate) ... ERROR
+test_author_unseated_connector_is_refused (deployment_author_prime.DeploymentTests.test_author_unseated_connector_is_refused) ... ok
+test_author_wrong_app_hash (deployment_author_prime.DeploymentTests.test_author_wrong_app_hash) ... ERROR
+test_author_wrong_transitive_hash (deployment_author_prime.DeploymentTests.test_author_wrong_transitive_hash) ... ERROR
+
+======================================================================
+ERROR: test_author_fixture_digest_held (deployment_author_prime.DeploymentTests.test_author_fixture_digest_held)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 559, in test_author_fixture_digest_held
+    base, inst = pair(str(book), source, pass_id)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 311, in pair
+    previous = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\app\\librarian.py'
+
+======================================================================
+ERROR: test_author_fixture_missing_review (deployment_author_prime.DeploymentTests.test_author_fixture_missing_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 526, in test_author_fixture_missing_review
+    base, inst = pair(str(book), source, pass_id)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 311, in pair
+    previous = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\app\\librarian.py'
+
+======================================================================
+ERROR: test_author_fixture_stale_note (deployment_author_prime.DeploymentTests.test_author_fixture_stale_note)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 541, in test_author_fixture_stale_note
+    base, inst = pair(str(book), source, pass_id)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 311, in pair
+    previous = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\app\\librarian.py'
+
+======================================================================
+ERROR: test_author_hostile_historical_chain_refuses_installed_dispatcher (deployment_author_prime.DeploymentTests.test_author_hostile_historical_chain_refuses_installed_dispatcher)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 665, in test_author_hostile_historical_chain_refuses_installed_dispatcher
+    direct = run_pass03(str(book), "0594.probe", "05.94")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 284, in run_pass03
+    return run(
+           ^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 122, in run
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [WinError 267] The directory name is invalid
+
+======================================================================
+ERROR: test_author_hostile_swapped_runtime_stops_app_command (deployment_author_prime.DeploymentTests.test_author_hostile_swapped_runtime_stops_app_command)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 695, in test_author_hostile_swapped_runtime_stops_app_command
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\labs\\review-report-deployment-pass01\\report.py'
+
+======================================================================
+ERROR: test_author_linked_pin_when_available (deployment_author_prime.DeploymentTests.test_author_linked_pin_when_available)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 773, in test_author_linked_pin_when_available
+    shutil.copytree(CANDIDATE, dest, ignore=ignore_cache)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate'
+
+======================================================================
+ERROR: test_author_live_0512_05_06 (deployment_author_prime.DeploymentTests.test_author_live_0512_05_06)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 503, in test_author_live_0512_05_06
+    base, inst = pair(str(BOOK), "0512.prime-review", "05.06")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 311, in pair
+    previous = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\app\\librarian.py'
+
+======================================================================
+ERROR: test_author_live_0521_05_13 (deployment_author_prime.DeploymentTests.test_author_live_0521_05_13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 513, in test_author_live_0521_05_13
+    base, inst = pair(str(BOOK), "0521.return-placement", "05.13")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 311, in pair
+    previous = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\app\\librarian.py'
+
+======================================================================
+ERROR: test_author_malformed_and_repeated_arguments (deployment_author_prime.DeploymentTests.test_author_malformed_and_repeated_arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 649, in test_author_malformed_and_repeated_arguments
+    proc = run(argv, CANDIDATE)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 122, in run
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [WinError 267] The directory name is invalid
+
+======================================================================
+ERROR: test_author_routes_do_not_mutate (deployment_author_prime.DeploymentTests.test_author_routes_do_not_mutate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 735, in test_author_routes_do_not_mutate
+    proc = run(argv, CANDIDATE)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 122, in run
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [WinError 267] The directory name is invalid
+
+======================================================================
+ERROR: test_author_wrong_app_hash (deployment_author_prime.DeploymentTests.test_author_wrong_app_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 568, in test_author_wrong_app_hash
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\app\\librarian.py'
+
+======================================================================
+ERROR: test_author_wrong_transitive_hash (deployment_author_prime.DeploymentTests.test_author_wrong_transitive_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-deployment-pass01\tests\test_deployment.py", line 593, in test_author_wrong_transitive_hash
+    original = path.read_bytes()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\prime-g1-0512-0508\\author\\candidate\\labs\\prime-cycle-pass03\\prime_cycle.py'
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.321s
+
+FAILED (errors=12)

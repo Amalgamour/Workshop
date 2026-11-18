@@ -1,0 +1,234 @@
+{
+  "aggregate": "REFUSED",
+  "cases": [
+    {
+      "id": "A01",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "pending: full path, supplied state shown, no approval implied"
+    },
+    {
+      "id": "A02",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "supplied-state tamper refused before writes"
+    },
+    {
+      "id": "A03",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope task_id changed: binding recomputed before apply"
+    },
+    {
+      "id": "A04",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope agreement changed"
+    },
+    {
+      "id": "A05",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope evidence label changed"
+    },
+    {
+      "id": "A06",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope receipt changed"
+    },
+    {
+      "id": "A07",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 source change after record"
+    },
+    {
+      "id": "A08",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "record.json bytes replaced"
+    },
+    {
+      "id": "A09",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "envelope review_identity changed"
+    },
+    {
+      "id": "A10",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "CRLF target preserved"
+    },
+    {
+      "id": "A11",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "B8 substantive target: judgment retained, render blocked"
+    },
+    {
+      "id": "A12",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "target changed after record"
+    },
+    {
+      "id": "A13",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "target changed between prepare and record"
+    },
+    {
+      "id": "A14a",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect pending"
+    },
+    {
+      "id": "A14b",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect substantive"
+    },
+    {
+      "id": "A14c",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect CRLF"
+    },
+    {
+      "id": "A14d",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect no heading"
+    },
+    {
+      "id": "A14e",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect duplicate heading"
+    },
+    {
+      "id": "A14f",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect absent"
+    },
+    {
+      "id": "A15",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "interrupted render then recover"
+    },
+    {
+      "id": "A16",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "idempotent replay re-verifies"
+    },
+    {
+      "id": "A17",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "rendered marker missing: recover refuses"
+    },
+    {
+      "id": "A18a",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "missing record.json"
+    },
+    {
+      "id": "A18b",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "missing COMMITTED.json"
+    },
+    {
+      "id": "A18c",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "missing envelope.json"
+    },
+    {
+      "id": "A18d",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "malformed record.json"
+    },
+    {
+      "id": "A19",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "supplied next action is not mechanical permission"
+    },
+    {
+      "id": "A20",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "genuine /1 record renders as legacy"
+    },
+    {
+      "id": "A21",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "new /2 record downgraded to /1 is refused"
+    },
+    {
+      "id": "A22",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "absent target: not recorded, decision kept, no false claim"
+    },
+    {
+      "id": "A23",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "no-record read makes no commitment claim"
+    },
+    {
+      "id": "A24",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "pin refusal on wrong construct bytes"
+    },
+    {
+      "id": "A26",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "authority flags false on every result"
+    }
+  ],
+  "code_sha256": {
+    "cases.py": "e7b63dc79b29566850c6f4664af20b50aecd2035a41866fb2480d4095674fdf4",
+    "fixtures.py": "698dbff979eb761f050a992d9525da03f2fafc4b7ca541e092f3f53ced44a08a",
+    "harness.py": "c890fe4c2cb174e46ff37d6ea9868f268d0dfad84297275520614823aa1fff5f",
+    "stub_cases.py": "ba6285d6488abc65b125127ae85be462f333ff114d8c70db8a9155ea78a141af",
+    "stubs/STUB_loop.py": "86e245ff034d23af2c8d17a52c49ad3bdd874e02559acd77294283845e29c604"
+  },
+  "command": [
+    "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass04\\harness.py",
+    "run",
+    "--matrix",
+    "real"
+  ],
+  "config_sha256": "f7d3736cfa3a207ed82bf2796ac25cfa1a7fb4853edd9f747ac47b27e72b191f",
+  "exit": 2,
+  "kind": "stub",
+  "launches": 0,
+  "loop_evidence": false,
+  "matrix": "real",
+  "preflight": {
+    "reasons": [
+      "the real matrix requires kind candidate; a stub can never produce loop evidence"
+    ],
+    "status": "REFUSED"
+  },
+  "run": "20261101T212720Z-44c2e3",
+  "schema": "acceptance-run/1",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

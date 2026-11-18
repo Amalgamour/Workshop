@@ -1,0 +1,109 @@
+{
+ "schema": "harness-inputs/1",
+ "made_for": "0707/05.21",
+ "candidate": "PENDING",
+ "dependencies": [
+  {
+   "id": "G",
+   "role": "strict N7 parser (pass05, v9 door)",
+   "status": "accepted",
+   "review": "0522.review-construction/06.33.md",
+   "files": [
+    {
+     "path": "labs/workbook-review-pass05/workbook.py",
+     "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991",
+     "bytes": 6994
+    },
+    {
+     "path": "app/review_loop_tools_v9.py",
+     "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47",
+     "bytes": 11765
+    },
+    {
+     "path": "app/review-loop-v9.json",
+     "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656",
+     "bytes": 4670
+    }
+   ]
+  },
+  {
+   "id": "L",
+   "role": "N7-local lifecycle (prototype over pass04)",
+   "status": "accepted",
+   "review": "0707.app-use-check/06.20.review.md",
+   "files": [
+    {
+     "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+     "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a",
+     "bytes": 9750
+    }
+   ],
+   "limits": "accepted as a bounded prototype; production labels and composition over G pending (06.20.review)"
+  },
+  {
+   "id": "K",
+   "role": "record source capacity (source-only bound 64)",
+   "status": "pending",
+   "review": "0512.prime-review/06.18.md (05.10 correction required); 0512/05.11 not reviewed",
+   "files": "PENDING"
+  },
+  {
+   "id": "I",
+   "role": "N5 copied-book instance binding",
+   "status": "pending",
+   "review": "0420.prime-desk/06.48.md; 0522/05.16 not reviewed",
+   "files": "PENDING"
+  },
+  {
+   "id": "R",
+   "role": "reporter observing the combined workbook chain",
+   "status": "pending",
+   "review": "06.19.review / 06.20.review obligations; not assigned",
+   "files": "PENDING"
+  },
+  {
+   "id": "W",
+   "role": "combined workbook + door + dispatcher",
+   "status": "pending",
+   "review": "not built; waits for K",
+   "files": "PENDING"
+  }
+ ],
+ "fixture_source": {
+  "path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/pack05.21/source-manifest.json",
+  "sha256": "ee502ce6150f62229fb76c2bee8953d79f8e5c05e6ee9dce006354d74f6b46dd",
+  "bytes": 200334
+ },
+ "judgments": [
+  {
+   "id": "j-0512-0509",
+   "page": "0512.prime-review",
+   "pass": "05.09",
+   "expected_sources": 29,
+   "review": "0512/06.16",
+   "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/prime-review05.09/core-review/judgment.json",
+   "sha256": "f6815ca48d8a67a23a3d1c46efb2b83eb7c7551b03974468f7a23605997d8efb",
+   "bytes": 2870
+  },
+  {
+   "id": "j-0522-0514",
+   "page": "0522.review-construction",
+   "pass": "05.14",
+   "expected_sources": 20,
+   "review": "0522/06.31",
+   "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/prime-review05.14/core-review/judgment.json",
+   "sha256": "b7249c75467989d0dafe2f39ba4933a35717144c89ce691c232aae141127fe4a",
+   "bytes": 3693
+  },
+  {
+   "id": "j-0512-0510",
+   "page": "0512.prime-review",
+   "pass": "05.10",
+   "expected_sources": 44,
+   "review": "0512/06.18; 0420/06.49 (use judgment-open.json)",
+   "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/prime-review05.10/core-review/judgment-open.json",
+   "sha256": "295de7c887692a4e95c1b492bca973c8b657af6b0277a9bb70ae2158e675ecd3",
+   "bytes": 4031
+  }
+ ]
+}

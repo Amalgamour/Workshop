@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+"""PROPOSAL ONLY (0707/05.17) - NOT INSTALLED, NOT SELECTED. Intended home: labs/workbook-review-pass04/workbook.py.
+Supersedes the 0707/05.16 proposal (which refused legal N5 filenames ending in , ; : ) - K1).
+
+Workbook review pass04: N7 return-pointer intake with N5 meaning preserved. A thin successor of the pinned
+pass03 (pass03, pass02 and pass01 stay byte-identical and pinned).
+- The pointer grammar is chosen by the source kind intake already measures (pass01 address_of: N5NN / N7NN),
+  held in a context variable for the duration of build_intake (the pattern pass03 uses for p2._resolve_page).
+- N5NN, or no kind context: the pass03 parser object itself (captured below), unchanged.
+- N7NN: the two observed N7 forms first, then the unchanged pass03 line forms.
+- Nothing is chosen by file existence; nothing is stripped; attribution text is descriptive only.
+Installed into the same three namespaces where pass03 installs parse_pointer and build_intake (pass03 lines 493-501).
+Lab evidence: labs/n7-intake-compat-pass02/n7compat2.py (same parser and wrapper bodies; the lab adds only --repo-root).
+"""
+
+from __future__ import annotations
+
+import contextvars
+import hashlib
+import importlib.util
+import os
+import re
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+
+REPO = Path(r"D:\Git\lib-build")
+PASS03_REL = "labs/workbook-review-pass03/workbook.py"
+PASS03_SHA = "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+PASS03_BYTES = 19533
+
+PATH = r"([A-Za-z0-9][A-Za-z0-9._/-]*)"
+RETURNED_RE = re.compile(r"^Returned: " + PATH + r" \(([^()]{1,160})\), sha256 ([0-9a-f]{64}), ([0-9]+) bytes\.$")
+N7_MANIFEST_RE = re.compile(r"^Artifact manifest: " + PATH + r", sha256 ([0-9a-f]{64}), ([0-9]+) bytes\.$")
+SHA_ANY = re.compile(r"[0-9a-f]{64}")
+LABEL_WORDS = ("Submission:", "Artifact manifest:", "Verification:", "Returned:")
+KIND = contextvars.ContextVar("pass04_source_kind", default=None)
+
+
+def load_pass03():
+    path = REPO / PASS03_REL
+    data = path.read_bytes()
+    if len(data) != PASS03_BYTES or hashlib.sha256(data).hexdigest() != PASS03_SHA:
+        print("refused: pass03 workbook pin mismatch", file=sys.stderr)
+        raise SystemExit(2)
+    spec = importlib.util.spec_from_file_location("workbook_review_pass03", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+p3 = load_pass03()
+PASS03_PARSE = p3.parse_pointer          # the selected pass03 parser, used unchanged for N5NN and no context
+PASS03_BUILD = p3.p2.build_intake        # pass03's installed build_intake
+
+
+def parse_n7(body):
+    findings = []
+    parsed = {"findings": findings, "manifest": None, "state": "absent", "submission": None, "verification": None}
+    if body is None:
+        findings.append({"code": "return-pointer-absent", "path": None})
+        return parsed
+    stripped = body.strip()
+    if stripped == "":
+        findings.append({"code": "return-pointer-empty", "path": None})
+        parsed["state"] = "empty"
+        return parsed
+    if stripped == "PENDING.":
+        findings.append({"code": "return-pending", "path": None})
+        parsed["state"] = "pending"
+        return parsed
+    fields = {"Submission": None, "Artifact manifest": None, "Verification": None}
+    ambiguous = set()
+    for raw_line in body.split("\n"):
+        line = raw_line.strip()
+        if line == "" or line.startswith("Invocation/claim:"):
+            continue
+        ret = RETURNED_RE.fullmatch(line)                       # N7: Returned: PATH (ATTRIBUTION), sha256 H, N bytes.
+        if ret:
+            attribution = ret.group(2)
+            if SHA_ANY.search(attribution) or any(w in attribution for w in LABEL_WORDS):
+                findings.append({"code": "attribution-not-descriptive", "path": None, "text": line[:180]})
+                continue
+            p3.accept_field(fields, ambiguous, findings, "Submission", {
+                "attribution_text": attribution, "bytes": int(ret.group(4)), "declared_form": "n7-returned",
+                "path": ret.group(1), "sha256": ret.group(3)})
+            continue
+        man = N7_MANIFEST_RE.fullmatch(line)                    # N7: Artifact manifest: PATH, sha256 H, N bytes.
+        if man:
+            p3.accept_field(fields, ambiguous, findings, "Artifact manifest", {
+                "bytes": int(man.group(3)), "declared_form": "n7-manifest", "path": man.group(1), "sha256": man.group(2)})
+            continue
+        counted = p3.COUNT_RE.fullmatch(line)                   # pass03 counted form (unchanged, no added refusal)
+        if counted and counted.group(6) in p3.COUNT_TAILS:
+            p3.accept_field(fields, ambiguous, findings, counted.group(1), {
+                "bytes": int(counted.group(4)), "file_count": int(counted.group(5)), "path": counted.group(2), "sha256": counted.group(3)})
+            continue
+        match = p3.FIELD_RE.fullmatch(line)                     # pass03 field forms (unchanged, no added refusal)
+        if match and p3.p2.suffix_ok(match.group(5)):
+            p3.accept_field(fields, ambiguous, findings, match.group(1), {
+                "bytes": int(match.group(4)), "path": match.group(2), "sha256": match.group(3)})
+            continue
+        findings.append({"code": "unparsed-return-line", "path": None, "text": line[:180]})
+    parsed["submission"] = fields["Submission"]
+    parsed["manifest"] = fields["Artifact manifest"]
+    parsed["verification"] = fields["Verification"]
+    parsed["state"] = "ambiguous" if ambiguous else "parsed"
+    if parsed["submission"] is None and "Submission" not in ambiguous:
+        findings.append({"code": "submission-not-declared", "path": None})
+    return parsed
+
+
+def parse_pointer(body):
+    return parse_n7(body) if KIND.get() == "N7NN" else PASS03_PARSE(body)
+
+
+def build_intake(book, source, pass_id):
+    token = KIND.set(p3.wb.address_of(source, pass_id).get("kind"))
+    try:
+        return PASS03_BUILD(book, source, pass_id)
+    finally:
+        KIND.reset(token)
+
+
+for _ns in (p3, p3.p2, p3.wb):
+    _ns.parse_pointer = parse_pointer
+    _ns.build_intake = build_intake
+
+
+def main(argv=None) -> int:
+    return p3.main(argv)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,155 @@
+{
+  "capability": "Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.",
+  "not_verified": [
+    "rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered",
+    "heading-section line ranges of targets",
+    "assembler completion receipt content and the custody checker result: bound bytes, not re-run",
+    "tool pins and v1 request rules beyond schema and binding shape",
+    "use the pinned full producer verify (colab_support.py verify) for these"
+  ],
+  "problems": [],
+  "result": "valid",
+  "schema": "colab-handoff-check/2",
+  "trusted": {
+    "binding_sha256": "41e694777770e9d302597050be158714052dc1356c58167d913ddf1d17d57d5c",
+    "digest": "058fed372869e9c47512a11addd27a88b7ffaf33433c4c1c964e88da9b9dd277",
+    "evaluator": [
+      {
+        "bytes": 330,
+        "path": "evaluator/source-manifest.json",
+        "sha256": "8aade5d196c8d3e115b199e0fd303adcb4a9c1210b2cc8086457f628902e4301"
+      },
+      {
+        "bytes": 1875,
+        "path": "evaluator/snapshots/0001.blob",
+        "sha256": "85c9a05f5b1d29d7b075f65a7f1ee98708589d11f689d61dbcdf6b8bd2dbdf83"
+      }
+    ],
+    "exchange": {
+      "nn": "01",
+      "notes": "06.01.notes.md",
+      "pack": "05.01.pack.md",
+      "pass": "05.01",
+      "primary_instruction": "05.01.pack.md",
+      "return_name": "05.01.return.md",
+      "return_template": "templates/05.01.return.TEMPLATE.md",
+      "review_name": "06.01.review.md",
+      "review_template": "templates/06.01.review.TEMPLATE.md"
+    },
+    "investigation": {
+      "book": "synthetic-book",
+      "page": "0708.synthetic-capability",
+      "pass": "05.01"
+    },
+    "layout": "colab-exchange-layout/2",
+    "not_created": [
+      "05.01.return.md",
+      "06.01.review.md"
+    ],
+    "source_map": [
+      {
+        "bytes": 10751,
+        "role": "target",
+        "sha256": "d27ffe0a4ced17803d671ee21aab6c496db5c5241e0d4e7f3cc3ba03980a215d",
+        "snapshot": "package/snapshots/0001.blob",
+        "source_path": "00.kernel/00.00.10.work/0411.colab/01.md",
+        "targets": [
+          "T01"
+        ]
+      }
+    ],
+    "support_projection": [
+      {
+        "assembler_name": "05.01.md",
+        "bytes": 2223,
+        "sha256": "da2b4801c4bcfaa9c47e629614b09b2226260af02c5b0c094c90765477cfafe5",
+        "support_path": "package/support/assembler/05.01.md"
+      },
+      {
+        "assembler_name": "request.snapshot",
+        "bytes": 2552,
+        "sha256": "1906186fabe3c201d08707b5e46855818cb1a08948ac029682b16ebf004efce7",
+        "support_path": "package/support/assembler/request.snapshot"
+      },
+      {
+        "assembler_name": "completion-receipt.json",
+        "bytes": 1466,
+        "sha256": "3e8e26796ebe7c88e6ea9fb0bed0ae556b8c56674f92b73e84776dfb6ee745ed",
+        "support_path": "package/support/assembler/completion-receipt.json"
+      }
+    ],
+    "zip": {
+      "bytes": 33452,
+      "members": [
+        "05.01.pack.md",
+        "06.01.notes.md",
+        "ENTRY.md",
+        "binding.json",
+        "colab-request.json",
+        "snapshots/0001.blob",
+        "source-manifest.json",
+        "support/SUPPORT.md",
+        "support/assembler/05.01.md",
+        "support/assembler/completion-receipt.json",
+        "support/assembler/request.snapshot",
+        "templates/05.01.return.TEMPLATE.md",
+        "templates/06.01.review.TEMPLATE.md"
+      ],
+      "path": "prepared-colab.zip",
+      "sha256": "76316153928df93fd4f003d0ec95aa2e204cc89ac5f811ea79d090c3b91fb8f6"
+    }
+  },
+  "unbound_informational": {
+    "digest_rule": "sha256 over parts in order; each part is an 8-byte big-endian length then its bytes; a 'text' part is its UTF-8 value, a 'file' part is the bytes of that OUT path",
+    "statements": [
+      "This package is a draft. Preparation is not a Director release.",
+      "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+      "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+      "A verified package or receipt is custody, not review or acceptance.",
+      "The investigation binding is supplied by Prime; it does not open a live investigation.",
+      "Labels and quoted Director text do not authenticate anyone."
+    ],
+    "verify": {
+      "argv": [
+        "python",
+        "-B",
+        "labs/colab-support-pass02/colab_support.py",
+        "verify",
+        "--output",
+        "<OUT>",
+        "--config",
+        "<CONFIG>",
+        "--json"
+      ],
+      "config_keys": [
+        "schema",
+        "repositories",
+        "python",
+        "assembler",
+        "checker",
+        "helper",
+        "inspector",
+        "producer_v1"
+      ],
+      "config_schema": "colab-config/2",
+      "pins": {
+        "assembler": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+        "checker": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+        "helper": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+        "inspector": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+        "producer_v1": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c"
+      },
+      "standalone": [
+        "python",
+        "-B",
+        "labs/colab-support-pass02/handoff_check.py",
+        "check",
+        "--output",
+        "<OUT>",
+        "--expected-digest",
+        "<DIGEST>",
+        "--json"
+      ]
+    }
+  }
+}

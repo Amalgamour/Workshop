@@ -1,0 +1,407 @@
+{
+  "commands": [
+    {
+      "artifact_count": 20,
+      "artifact_cut_count": 12,
+      "command": "prepare",
+      "correction_route": "labs/workbook-review-pass02/PRIME-USE.md",
+      "custody": "missing",
+      "cut_count": 14,
+      "director_text": null,
+      "exit": 0,
+      "findings": [
+        "verification-not-measured",
+        "index-context-bounded",
+        "artifact-hash-mismatch",
+        "artifact-hash-mismatch",
+        "custody-missing",
+        "return-missing"
+      ],
+      "form_id": "workbook-review-v1",
+      "intake_id": "3967e58683f55ad50f71ada8ecde4f6726c131069232e6237e09f00a5e072f3d",
+      "judgment": null,
+      "measurement": "incomplete",
+      "mismatches": [
+        {
+          "code": "artifact-hash-mismatch",
+          "measured_bytes": 39210,
+          "measured_sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6",
+          "path": "app/README.md"
+        },
+        {
+          "code": "artifact-hash-mismatch",
+          "measured_bytes": 12204,
+          "measured_sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea",
+          "path": "app/librarian.py"
+        }
+      ],
+      "rows_of_interest": [
+        {
+          "bytes": 11646,
+          "declared_path": "0522.review-construction/05.11.md",
+          "path": "0522.review-construction/05.11.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "531482b4b7a0c14cc2a6aba7014089972636a54e013cbc75ed3cedd786f32ef2"
+        },
+        {
+          "bytes": 16825,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/submission.md",
+          "path": "0522.review-construction/evidence/build05.11/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "409b983fd58f6432b356ebecb716f250cec4e2406c0c443d5a0fa3e91fe6c96c"
+        },
+        {
+          "bytes": 4637,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/artifact-manifest.json",
+          "path": "0522.review-construction/evidence/build05.11/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "ec7ff7fbc7cf1e2939439ff85c82e7a0f3ab46f0b2d4cf4649c870e5faa4ed3e"
+        },
+        {
+          "bytes": 39210,
+          "declared_path": "app/README.md",
+          "path": "app/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6"
+        },
+        {
+          "bytes": 12204,
+          "declared_path": "app/librarian.py",
+          "path": "app/librarian.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+        },
+        {
+          "bytes": 1964,
+          "declared_path": "app/review-loop-v5.json",
+          "path": "app/review-loop-v5.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3"
+        },
+        {
+          "bytes": 7875,
+          "declared_path": "app/review_loop_tools_v5.py",
+          "path": "app/review_loop_tools_v5.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9"
+        },
+        {
+          "bytes": 3937,
+          "declared_path": "labs/workbook-review-pass01/PRIME-USE.md",
+          "path": "labs/workbook-review-pass01/PRIME-USE.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "a3a55d0a69fe990d7632b237f82766070bbc963d3ee86433a0440f7ccd79ea98"
+        },
+        {
+          "bytes": 1183,
+          "declared_path": "labs/workbook-review-pass01/README.md",
+          "path": "labs/workbook-review-pass01/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "c39e7d87aadea372585680b2f1f878b3b63cece25ed526735a328b1773ceec1f"
+        },
+        {
+          "bytes": 4532,
+          "declared_path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+          "path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+        },
+        {
+          "bytes": 27581,
+          "declared_path": "labs/workbook-review-pass01/tests/test_workbook.py",
+          "path": "labs/workbook-review-pass01/tests/test_workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "3abdf099655ebc561f2f33826a518944e152966ee0ac348cbbc2928b8f103cc1"
+        },
+        {
+          "bytes": 79131,
+          "declared_path": "labs/workbook-review-pass01/workbook.py",
+          "path": "labs/workbook-review-pass01/workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+        }
+      ],
+      "stale": false,
+      "stderr_bytes": 0,
+      "stdout_bytes": 24222
+    },
+    {
+      "artifact_count": 20,
+      "artifact_cut_count": 0,
+      "command": "form",
+      "correction_route": "labs/workbook-review-pass02/PRIME-USE.md",
+      "custody": null,
+      "cut_count": 0,
+      "director_text": null,
+      "exit": 0,
+      "findings": [],
+      "form_id": "workbook-review-v1",
+      "intake_id": "3967e58683f55ad50f71ada8ecde4f6726c131069232e6237e09f00a5e072f3d",
+      "judgment": null,
+      "measurement": null,
+      "mismatches": [],
+      "rows_of_interest": [
+        {
+          "bytes": 11646,
+          "declared_path": "0522.review-construction/05.11.md",
+          "path": "0522.review-construction/05.11.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "531482b4b7a0c14cc2a6aba7014089972636a54e013cbc75ed3cedd786f32ef2"
+        },
+        {
+          "bytes": 16825,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/submission.md",
+          "path": "0522.review-construction/evidence/build05.11/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "409b983fd58f6432b356ebecb716f250cec4e2406c0c443d5a0fa3e91fe6c96c"
+        },
+        {
+          "bytes": 4637,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/artifact-manifest.json",
+          "path": "0522.review-construction/evidence/build05.11/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "ec7ff7fbc7cf1e2939439ff85c82e7a0f3ab46f0b2d4cf4649c870e5faa4ed3e"
+        },
+        {
+          "bytes": 39210,
+          "declared_path": "app/README.md",
+          "path": "app/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6"
+        },
+        {
+          "bytes": 12204,
+          "declared_path": "app/librarian.py",
+          "path": "app/librarian.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+        },
+        {
+          "bytes": 1964,
+          "declared_path": "app/review-loop-v5.json",
+          "path": "app/review-loop-v5.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3"
+        },
+        {
+          "bytes": 7875,
+          "declared_path": "app/review_loop_tools_v5.py",
+          "path": "app/review_loop_tools_v5.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9"
+        },
+        {
+          "bytes": 3937,
+          "declared_path": "labs/workbook-review-pass01/PRIME-USE.md",
+          "path": "labs/workbook-review-pass01/PRIME-USE.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "a3a55d0a69fe990d7632b237f82766070bbc963d3ee86433a0440f7ccd79ea98"
+        },
+        {
+          "bytes": 1183,
+          "declared_path": "labs/workbook-review-pass01/README.md",
+          "path": "labs/workbook-review-pass01/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "c39e7d87aadea372585680b2f1f878b3b63cece25ed526735a328b1773ceec1f"
+        },
+        {
+          "bytes": 4532,
+          "declared_path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+          "path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+        },
+        {
+          "bytes": 27581,
+          "declared_path": "labs/workbook-review-pass01/tests/test_workbook.py",
+          "path": "labs/workbook-review-pass01/tests/test_workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "3abdf099655ebc561f2f33826a518944e152966ee0ac348cbbc2928b8f103cc1"
+        },
+        {
+          "bytes": 79131,
+          "declared_path": "labs/workbook-review-pass01/workbook.py",
+          "path": "labs/workbook-review-pass01/workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+        }
+      ],
+      "stale": null,
+      "stderr_bytes": 0,
+      "stdout_bytes": 15285
+    },
+    {
+      "artifact_count": 20,
+      "artifact_cut_count": 0,
+      "command": "inspect",
+      "correction_route": "labs/workbook-review-pass02/PRIME-USE.md",
+      "custody": null,
+      "cut_count": 0,
+      "director_text": null,
+      "exit": 0,
+      "findings": [
+        "verification-not-measured",
+        "index-context-bounded",
+        "artifact-hash-mismatch",
+        "artifact-hash-mismatch",
+        "custody-missing",
+        "return-missing"
+      ],
+      "form_id": "workbook-review-v1",
+      "intake_id": "3967e58683f55ad50f71ada8ecde4f6726c131069232e6237e09f00a5e072f3d",
+      "judgment": null,
+      "measurement": "incomplete",
+      "mismatches": [
+        {
+          "code": "artifact-hash-mismatch",
+          "measured_bytes": 39210,
+          "measured_sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6",
+          "path": "app/README.md"
+        },
+        {
+          "code": "artifact-hash-mismatch",
+          "measured_bytes": 12204,
+          "measured_sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea",
+          "path": "app/librarian.py"
+        }
+      ],
+      "rows_of_interest": [
+        {
+          "bytes": 11646,
+          "declared_path": "0522.review-construction/05.11.md",
+          "path": "0522.review-construction/05.11.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "531482b4b7a0c14cc2a6aba7014089972636a54e013cbc75ed3cedd786f32ef2"
+        },
+        {
+          "bytes": 16825,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/submission.md",
+          "path": "0522.review-construction/evidence/build05.11/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "409b983fd58f6432b356ebecb716f250cec4e2406c0c443d5a0fa3e91fe6c96c"
+        },
+        {
+          "bytes": 4637,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/artifact-manifest.json",
+          "path": "0522.review-construction/evidence/build05.11/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "ec7ff7fbc7cf1e2939439ff85c82e7a0f3ab46f0b2d4cf4649c870e5faa4ed3e"
+        },
+        {
+          "bytes": 39210,
+          "declared_path": "app/README.md",
+          "path": "app/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6"
+        },
+        {
+          "bytes": 12204,
+          "declared_path": "app/librarian.py",
+          "path": "app/librarian.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+        },
+        {
+          "bytes": 1964,
+          "declared_path": "app/review-loop-v5.json",
+          "path": "app/review-loop-v5.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3"
+        },
+        {
+          "bytes": 7875,
+          "declared_path": "app/review_loop_tools_v5.py",
+          "path": "app/review_loop_tools_v5.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9"
+        },
+        {
+          "bytes": 3937,
+          "declared_path": "labs/workbook-review-pass01/PRIME-USE.md",
+          "path": "labs/workbook-review-pass01/PRIME-USE.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "a3a55d0a69fe990d7632b237f82766070bbc963d3ee86433a0440f7ccd79ea98"
+        },
+        {
+          "bytes": 1183,
+          "declared_path": "labs/workbook-review-pass01/README.md",
+          "path": "labs/workbook-review-pass01/README.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "c39e7d87aadea372585680b2f1f878b3b63cece25ed526735a328b1773ceec1f"
+        },
+        {
+          "bytes": 4532,
+          "declared_path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+          "path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+        },
+        {
+          "bytes": 27581,
+          "declared_path": "labs/workbook-review-pass01/tests/test_workbook.py",
+          "path": "labs/workbook-review-pass01/tests/test_workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "3abdf099655ebc561f2f33826a518944e152966ee0ac348cbbc2928b8f103cc1"
+        },
+        {
+          "bytes": 79131,
+          "declared_path": "labs/workbook-review-pass01/workbook.py",
+          "path": "labs/workbook-review-pass01/workbook.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+        }
+      ],
+      "stale": false,
+      "stderr_bytes": 0,
+      "stdout_bytes": 16601
+    }
+  ],
+  "live_store_exists": false,
+  "page_after": {
+    "bytes": 11646,
+    "sha256": "531482b4b7a0c14cc2a6aba7014089972636a54e013cbc75ed3cedd786f32ef2",
+    "unchanged": true
+  },
+  "page_before": {
+    "bytes": 11646,
+    "sha256": "531482b4b7a0c14cc2a6aba7014089972636a54e013cbc75ed3cedd786f32ef2"
+  },
+  "published": false,
+  "recorded": false
+}

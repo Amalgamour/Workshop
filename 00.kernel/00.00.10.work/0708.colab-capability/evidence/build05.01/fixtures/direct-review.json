@@ -1,0 +1,29 @@
+{
+  "adopted": {
+    "disposition": "adopted",
+    "extra": [],
+    "refused": null
+  },
+  "agreements_key": {
+    "disposition": "adopted",
+    "extra": [
+      "agreements"
+    ],
+    "refused": "malformed review"
+  },
+  "allowed_dispositions": [
+    "held",
+    "rejected",
+    "adopted",
+    "answered",
+    "deferred",
+    "escalated"
+  ],
+  "call": "labs/colab-workflow-pass02/colab_workflow.py require_review",
+  "confirmed": {
+    "disposition": "confirmed",
+    "extra": [],
+    "refused": "malformed review"
+  },
+  "reason": "The CLI record-review stops when no return is placed. place-return calls capture, which this audit does not run."
+}

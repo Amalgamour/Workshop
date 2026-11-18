@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/prima/run0502/workers/B/probes/probe1.py", line 4, in <module>
+    p1, p2, p3, hashes = load()
+                         ~~~~^^
+  File "/workspace/prima/run0502/workers/B/probes/extract.py", line 24, in load
+    p1 = types.SimpleNamespace(**{k: v for k, v in pick(P1, {"same", "word", "publication_class", "ENVELOPE", "apply_envelope"}, {}).items() if not k.startswith("__")})
+                                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/prima/run0502/workers/B/probes/extract.py", line 20, in pick
+    exec(compile(mod, path, "exec"), ns)
+         ~~~~~~~^^^^^^^^^^^^^^^^^^^
+TypeError: required field "lineno" missing from stmt

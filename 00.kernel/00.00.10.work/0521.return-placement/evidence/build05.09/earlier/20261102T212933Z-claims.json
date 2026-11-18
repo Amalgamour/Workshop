@@ -1,0 +1,93 @@
+{
+  "claims": [
+    {
+      "case": "static read",
+      "claim": "demo and rehearsal still select the old writer",
+      "kind": "author",
+      "limit": "they were not executed and were not edited",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery preflight",
+      "claim": "missing release refuses and writes nothing",
+      "kind": "author",
+      "limit": "fixture file was absent",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery init",
+      "claim": "operations list that omits init refuses init",
+      "kind": "author",
+      "limit": "synthetic fixture, copy evidence",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery preflight",
+      "claim": "fixture preflight is readiness only",
+      "kind": "reproduced",
+      "limit": "synthetic true, not a Director release",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "recovery",
+      "claim": "staged rebuild and retirement through the facade",
+      "kind": "reproduced",
+      "limit": "fixture authority on a copy",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "one-member copy",
+      "claim": "rollback-retire and rollback-publish restore the member bytes",
+      "kind": "reproduced",
+      "limit": "recovery case, not a second full migration",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "one-member copy",
+      "claim": "partial publish stays partial until resume",
+      "kind": "reproduced",
+      "limit": "interrupt exit 3 then resume exit 0",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary preflight",
+      "claim": "missing release refuses and writes nothing",
+      "kind": "author",
+      "limit": "fixture file was absent",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary init",
+      "claim": "operations list that omits init refuses init",
+      "kind": "author",
+      "limit": "synthetic fixture, copy evidence",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary preflight",
+      "claim": "fixture preflight is readiness only",
+      "kind": "reproduced",
+      "limit": "synthetic true, not a Director release",
+      "outcome": "passed",
+      "run": "ran"
+    },
+    {
+      "case": "primary",
+      "claim": "staged rebuild and retirement through the facade",
+      "kind": "reproduced",
+      "limit": "fixture authority on a copy",
+      "outcome": "passed",
+      "run": "ran"
+    }
+  ],
+  "schema": "return-access-handoff-claims/0509"
+}

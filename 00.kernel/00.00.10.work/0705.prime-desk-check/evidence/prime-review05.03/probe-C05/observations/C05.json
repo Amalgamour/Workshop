@@ -1,0 +1,96 @@
+{
+ "schema": "desk-observation/1",
+ "case_id": "C05",
+ "producer": {
+  "kind": "candidate",
+  "adapter": {
+   "id": "0705-pass03-adapter/1",
+   "sha256": "52553954f6657df07106849e88f7b21bc3eafc8990a1ada90906aa689c33717d",
+   "status": "connected"
+  },
+  "raw_outputs": [
+   {
+    "path": "view.stdout",
+    "sha256": "d745499a7ff0a15d849d0b08f85b364449e5a930eaa6da3dbfe98799ededc91a"
+   },
+   {
+    "path": "packet.stdout",
+    "sha256": "5ff0fdafe6c38f69baa92138827f936711a78246206f249a4d4ecaf8f6b9f3c6"
+   }
+  ],
+  "unmapped": [
+   "works",
+   "parallel",
+   "coverage",
+   "workers",
+   [
+    "selected",
+    "source"
+   ]
+  ]
+ },
+ "instance": {
+  "selected": "instance-A"
+ },
+ "selected": {
+  "work_ref": "0522.review-construction/05.04",
+  "basis": "observed",
+  "source": {
+   "path": null,
+   "sha256": null
+  }
+ },
+ "parallel": [],
+ "works": [],
+ "attention": {
+  "total": 2,
+  "shown": 2,
+  "overflow_route": null,
+  "items": [
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   }
+  ]
+ },
+ "holds": [],
+ "coverage": [],
+ "sources": [
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+   "instance": "instance-A",
+   "expected_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "observed_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "observed_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+   "observed_sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+   "status": "ok"
+  }
+ ],
+ "quotes": [
+  {
+   "kind": "verbatim",
+   "attributed_to": "Director",
+   "source_path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+   "quote_sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342"
+  }
+ ],
+ "workers": [],
+ "refusals": [],
+ "identity_fingerprint": "5189dce48f821b38089a5ddc2f2a422eb9d53b27fe27d2eaeb4e3a90ba7f1695"
+}

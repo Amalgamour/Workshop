@@ -1,0 +1,28 @@
+# 06.03.review - Codex Prime: naming, form repairs and lifecycle template
+date: 2026-11-02
+outcome: naming/form/attachment direction substantially aligned; lifecycle recovery needs bounded correction; no kernel seating released
+
+## Evidence
+Read the complete return, candidate, section map, human/machine lifecycle templates, update-pack draft, local pack-subject proposal, attachment lookup and repaired validator/simulator implementations, plus notes. All 164 artifacts and 65 frozen input snapshots/live files match. Independently reran 50 form cases, 8 attachment cases and 13 lifecycle cases into new external roots with Python 3.12.14; each exits 0. These repeated authored cases show reproducibility, not independent coverage. Added two independent lifecycle probes, below. Original evidence stays unchanged.
+
+## What is resolved
+The 02.NAME.VVV.TYPE payload naming is preserved and metadata explicitly attaches it to its controlling face 02. No companion file per payload or new naming scheme is imposed. Fixture lookup distinguishes equal filenames on different pages; SQLite row-store reconstruction returns the same attachment answer. This is storage/lookup evidence, not production runtime selection, dependency closure or permission to execute.
+
+The four earlier validator defects are addressed: shape checking applies to empty values, N/A reasons are checked, revision patches use editable fields and schema reports actually run checks. Field state choice and profile-as-explicit-form-selection now reflect Prime/Director direction. 0001's compactness fix stays unchanged; Director conflict routing and separate candidate/final identities remain. These changes are suitable as the design baseline for the next bounded tool work; exact candidate sign/approval is still future.
+
+The readable and machine-readable lifecycle contract is the right deliverable: staged/signed/approved/seated/retired identities, stage preconditions, held states, stamp-only transitions and qualified page folders in the warehouse. The two-page collision fixture is useful. Warehouse layout is still a proposal, not silently seated law.
+
+## Independent lifecycle findings
+L-P1: after successful seating and journal J5, append changed content to the seated fixture. restart(page) returns already-complete without verifying the seated or retired bytes. This contradicts the update draft's promise that restart checks hashes rather than labels. Completion must be revalidated, with mismatch held and no writes.
+
+L-P2: after successful seating, change seated content and call rollback(page). The simulator renames/restamps before checking current identities, restores the predecessor, then returns seat_restored:true and draft_restored_to_signed:false. It has already moved files before detecting failure; it does not refuse up front. The modified new content is still present in the returned draft, so this is NOT a finding of lost work. It is a missing rollback preflight and authority/identity hold. Verify current seated/retired hashes, destination availability and declared rollback authority before the first move; preserve raw before-images and journal each transition. Add wrong/changed/missing rollback inputs and interrupted rollback cases in a fixture successor. Existing 13/13 remains historical evidence.
+
+The simulator also only models restart from J3 and returns unchecked J5; other phases are held as unhandled. That is acceptable as an honestly bounded demonstration, not sufficient for an active seating tool. The lifecycle template/update draft must explicitly list the unproved interruption windows and mechanical stamp whitelist. Do not present the fixture as a supported production implementation.
+
+## Other review notes
+The local Pack subject proposal keeps subject-specific meaning outside universal 0002 and remains draft; it is a reasonable ownership proposal, not automatically a new governing source. 0018/010 history has on-disk support in Claude's evidence; the historical Git commit was not verified. Do not invent a new 0018 amendment or numbering reset from that uncertainty. The attachment fenced-block encoding and 09 ledger prose are representations to review with an actual bounded implementation; no new architecture question is needed from the Director now.
+
+The sentence no Director question is open means no new architectural fork in this Colab, not that exact candidate bytes, warehouse layout or a live release have been approved. Those approvals still must be obtained as concrete reviewable acts. No kernel, source law, production runtime, sign, approval, seat, lock or Git change by this review.
+
+## Next
+Keep the named law/form direction. Repair completed-restart verification and rollback preflight/journaling in a bounded nonproduction successor, then use the checked lifecycle contract to specify a seating tool. Do not rewrite the broader kernel or add a generic workflow framework. Prime can progress return integration separately. No automatic next assignment or seating release here.

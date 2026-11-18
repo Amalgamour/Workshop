@@ -1,0 +1,480 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "recover",
+  "committed_check": {
+    "measured_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+    "not_established": [
+      "Director acceptance",
+      "release",
+      "authenticated identity"
+    ],
+    "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+    "review_id": "05.01-w66bcc1522ee1efc8",
+    "supplied_state": "verified-against-committed-record",
+    "verified": true
+  },
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+  "current": {
+    "current": true,
+    "director_replies": [],
+    "interpretation": "task-binding",
+    "latest_review": {
+      "current": true,
+      "directory": "workbook-review/0721.connected-local/05.01/cycle-records/05.01-w66bcc1522ee1efc8",
+      "effective": "attention",
+      "prime_review_exit": 1,
+      "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+      "review_id": "05.01-w66bcc1522ee1efc8",
+      "schema": "prime-cycle-review/3",
+      "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+      "write_token": {
+        "bytes": null,
+        "path": "0721.connected-local/06.01.review.md",
+        "schema": "review-write-token/1",
+        "sha256": null,
+        "state": "absent-create"
+      }
+    },
+    "next_action": {
+      "action_id": "next",
+      "author": "Codex Prime (supplied)",
+      "authorized_in_grant": null,
+      "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+      "review_id": "05.01-w66bcc1522ee1efc8",
+      "text": "Prime remeasures the successor delta and decides whether to stage it into the shared cycle modules."
+    },
+    "next_action_label": "supplied",
+    "pass_state": "reviewed",
+    "questions": [
+      "agreement fields other than the measured goal were not in the source heading"
+    ],
+    "render_state": "rendered",
+    "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+    "write_token": {
+      "bytes": 4009,
+      "path": "0721.connected-local/06.01.review.md",
+      "schema": "review-write-token/1",
+      "sha256": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234"
+    }
+  },
+  "custody": "not-established",
+  "exit_code": 0,
+  "full_success": true,
+  "historical": null,
+  "mechanical": {
+    "blocker": null,
+    "route": "read",
+    "state": "rendered",
+    "target": "constructed-same-binding",
+    "text": "Read the rendered review."
+  },
+  "next": "Read the rendered review.",
+  "observation": {
+    "custody_member": "0721.connected-local",
+    "custody_verified": true,
+    "descriptor_state": "complete",
+    "filing_claimed": false,
+    "measured": {
+      "custody_present": true,
+      "manifest_bytes": 620,
+      "manifest_sha256": "bd0b74bea4233139dd4672e854b7b888c4cd5edbf15cecabdf60af84833a0b0e",
+      "receipt_bytes": 493,
+      "receipt_sha256": "3673cf6bbce434d7d1cb14f52c72ce6510b8e9b759d19ad7b52f9ef82f40334c",
+      "return_bytes": 35,
+      "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+      "verification_present": true
+    },
+    "member": null,
+    "placement_status": "final",
+    "reason": null,
+    "state": "complete",
+    "task_association": "not-established",
+    "task_association_reason": "custody records do not name the review task",
+    "validator": {
+      "check": "return-line-capture/1 receipt",
+      "exit": 0,
+      "problems": [],
+      "state": "complete",
+      "tool": "labs/return-lines-pass01/return_lines.py"
+    }
+  },
+  "pass_state": "reviewed",
+  "pins": {
+    "construct": {
+      "bytes": 42582,
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "prime_cycle_pass03": {
+      "bytes": 77501,
+      "path": "labs/n7-first-review-pass01/prime_cycle.py",
+      "sha256": "b664c2c989a132108aa236ea6885e2503cf0dca266a12538ebe0b26cf9dba81d"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_lines": {
+      "bytes": 100897,
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    },
+    "return_placement": {
+      "bytes": 66097,
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+    },
+    "review_loop": {
+      "bytes": 59229,
+      "path": "labs/n7-first-review-pass01/review_loop.py",
+      "sha256": "fb0e1e32a33e25b0f36013fbca6231094fccda5f65491b8596320c8594c89fe4"
+    }
+  },
+  "releases_action": false,
+  "render": {
+    "apply_called": false,
+    "committed_check": {
+      "measured_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+      "not_established": [
+        "Director acceptance",
+        "release",
+        "authenticated identity"
+      ],
+      "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+      "review_id": "05.01-w66bcc1522ee1efc8",
+      "supplied_state": "verified-against-committed-record",
+      "verified": true
+    },
+    "rendered": {
+      "constructor_result": "applied",
+      "prime_review_exit": 1,
+      "review_id": "05.01-w66bcc1522ee1efc8",
+      "schema": "review-loop-rendered/1",
+      "section_sha256": "f1ef1059cc7ce477fff57e6a6778c5112c50fbebdfb26af6572ed0916ea13cae",
+      "target_bytes": 4009,
+      "target_sha256": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234",
+      "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a"
+    },
+    "result": "already-rendered"
+  },
+  "request_sha256": "d1d76297beb58d99b661bf76e6b761fe40405d25219dd0fe8f6fc18ba1563949",
+  "schema": "review-loop-result/2",
+  "supplied_judgment": null,
+  "supplied_next_action": {
+    "action_id": "next",
+    "authorized_in_grant": null,
+    "text": "Prime remeasures the successor delta and decides whether to stage it into the shared cycle modules."
+  },
+  "target": {
+    "binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+    "rule": "a constructed review for this task binding is present; render is idempotent only if the body is identical",
+    "schema": "review-target-inspection/1",
+    "section_sha256": "f1ef1059cc7ce477fff57e6a6778c5112c50fbebdfb26af6572ed0916ea13cae",
+    "state": "constructed-same-binding",
+    "target_bytes": 4009,
+    "target_sha256": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234"
+  },
+  "view": {
+    "allocated": false,
+    "attention": [
+      "task association is not established by the custody records"
+    ],
+    "authenticates_actor": false,
+    "authority": "none",
+    "binding": {
+      "agreement_sha256": "dc3ee4634b863f872fc126ed3cfeb031b3df392bedf0e3fcecac0e030ee820de",
+      "direction": {
+        "agreement_sha256": "dc3ee4634b863f872fc126ed3cfeb031b3df392bedf0e3fcecac0e030ee820de",
+        "book": "00.00.10.work",
+        "fields": {
+          "director_required": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "finish_criteria": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "goal": "b4b2c8b1012ee6e23816f32cc41ecf25588b0338572b93305480c66c439a8f72",
+          "prime_discretion": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "recorded_decisions": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "scope": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+        },
+        "review_location": "workbook-review/0721.connected-local/05.01/cycle-records",
+        "schema": "prime-cycle-direction/1"
+      },
+      "expected_prior": {
+        "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+        "review_id": "05.01-w66bcc1522ee1efc8"
+      },
+      "fingerprint": "5b1aacf81589dd1d5502f2e8752caa640e2a2e0ac8561fbedb3f7e6b1214d736",
+      "goal": {
+        "goal_id": "g1",
+        "goal_sha256": "b6b4fa10b9a7a9712aa71952573d7f6b913426225442b751e7bba5cfa9d95d7d"
+      },
+      "manifest_sha256": "bd0b74bea4233139dd4672e854b7b888c4cd5edbf15cecabdf60af84833a0b0e",
+      "member": null,
+      "origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0721.connected-local"
+      },
+      "page": "0721.connected-local",
+      "pass": "05.01",
+      "receipt_sha256": "3673cf6bbce434d7d1cb14f52c72ce6510b8e9b759d19ad7b52f9ef82f40334c",
+      "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+      "schema": "prime-cycle-binding/3",
+      "source": {
+        "book": "00.00.10.work",
+        "page": "0721.connected-local",
+        "pass": "05.01"
+      },
+      "submission_id": "s0514n7",
+      "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+      "work_id": "0721.connected-local",
+      "write_token": {
+        "bytes": 4009,
+        "path": "0721.connected-local/06.01.review.md",
+        "schema": "review-write-token/1",
+        "sha256": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234"
+      }
+    },
+    "closes_work": false,
+    "current": true,
+    "custody": "not-established",
+    "director_replies": [],
+    "historical": null,
+    "interpretation": "task-binding",
+    "latest_review": {
+      "current": true,
+      "directory": "workbook-review/0721.connected-local/05.01/cycle-records/05.01-w66bcc1522ee1efc8",
+      "effective": "attention",
+      "prime_review_exit": 1,
+      "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+      "review_id": "05.01-w66bcc1522ee1efc8",
+      "schema": "prime-cycle-review/3",
+      "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+      "write_token": {
+        "bytes": null,
+        "path": "0721.connected-local/06.01.review.md",
+        "schema": "review-write-token/1",
+        "sha256": null,
+        "state": "absent-create"
+      }
+    },
+    "member": null,
+    "next_action": {
+      "action_id": "next",
+      "author": "Codex Prime (supplied)",
+      "authorized_in_grant": null,
+      "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+      "review_id": "05.01-w66bcc1522ee1efc8",
+      "text": "Prime remeasures the successor delta and decides whether to stage it into the shared cycle modules."
+    },
+    "observation": {
+      "custody_member": "0721.connected-local",
+      "custody_verified": true,
+      "descriptor_state": "complete",
+      "filing_claimed": false,
+      "measured": {
+        "custody_present": true,
+        "manifest_bytes": 620,
+        "manifest_sha256": "bd0b74bea4233139dd4672e854b7b888c4cd5edbf15cecabdf60af84833a0b0e",
+        "receipt_bytes": 493,
+        "receipt_sha256": "3673cf6bbce434d7d1cb14f52c72ce6510b8e9b759d19ad7b52f9ef82f40334c",
+        "return_bytes": 35,
+        "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+        "verification_present": true
+      },
+      "member": null,
+      "placement_status": "final",
+      "reason": null,
+      "state": "complete",
+      "task_association": "not-established",
+      "task_association_reason": "custody records do not name the review task",
+      "validator": {
+        "check": "return-line-capture/1 receipt",
+        "exit": 0,
+        "problems": [],
+        "state": "complete",
+        "tool": "labs/return-lines-pass01/return_lines.py"
+      }
+    },
+    "page": "0721.connected-local",
+    "pass": "05.01",
+    "pass_state": "reviewed",
+    "pins": {
+      "construct": {
+        "bytes": 36188,
+        "path": "labs/review-construction-pass02/construct.py",
+        "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+      },
+      "prime_cycle_pass03": {
+        "bytes": 77501,
+        "path": "labs/n7-first-review-pass01/prime_cycle.py",
+        "sha256": "b664c2c989a132108aa236ea6885e2503cf0dca266a12538ebe0b26cf9dba81d"
+      },
+      "prime_review_pass01": {
+        "bytes": 58324,
+        "path": "labs/prime-review-pass01/prime_review.py",
+        "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+      },
+      "prime_review_pass02": {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      },
+      "return_inspect": {
+        "bytes": 11402,
+        "path": "labs/return-capture-pass01/return_inspect.py",
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+      },
+      "return_lines": {
+        "bytes": 100897,
+        "path": "labs/return-lines-pass01/return_lines.py",
+        "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+      },
+      "return_placement": {
+        "bytes": 66097,
+        "path": "labs/return-placement-pass01/return_placement.py",
+        "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+      }
+    },
+    "questions": [
+      "agreement fields other than the measured goal were not in the source heading"
+    ],
+    "releases_action": false,
+    "render_state": "rendered",
+    "schema": "prime-cycle-view/4",
+    "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+    "template": {
+      "attribution": {
+        "actor_label": null,
+        "evidence": null,
+        "role": "prime"
+      },
+      "binding": {
+        "agreement_sha256": "dc3ee4634b863f872fc126ed3cfeb031b3df392bedf0e3fcecac0e030ee820de",
+        "direction": {
+          "agreement_sha256": "dc3ee4634b863f872fc126ed3cfeb031b3df392bedf0e3fcecac0e030ee820de",
+          "book": "00.00.10.work",
+          "fields": {
+            "director_required": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "finish_criteria": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "goal": "b4b2c8b1012ee6e23816f32cc41ecf25588b0338572b93305480c66c439a8f72",
+            "prime_discretion": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "recorded_decisions": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "scope": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+          },
+          "review_location": "workbook-review/0721.connected-local/05.01/cycle-records",
+          "schema": "prime-cycle-direction/1"
+        },
+        "expected_prior": {
+          "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+          "review_id": "05.01-w66bcc1522ee1efc8"
+        },
+        "fingerprint": "5b1aacf81589dd1d5502f2e8752caa640e2a2e0ac8561fbedb3f7e6b1214d736",
+        "goal": {
+          "goal_id": "g1",
+          "goal_sha256": "b6b4fa10b9a7a9712aa71952573d7f6b913426225442b751e7bba5cfa9d95d7d"
+        },
+        "manifest_sha256": "bd0b74bea4233139dd4672e854b7b888c4cd5edbf15cecabdf60af84833a0b0e",
+        "member": null,
+        "origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0721.connected-local"
+        },
+        "page": "0721.connected-local",
+        "pass": "05.01",
+        "receipt_sha256": "3673cf6bbce434d7d1cb14f52c72ce6510b8e9b759d19ad7b52f9ef82f40334c",
+        "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+        "schema": "prime-cycle-binding/3",
+        "source": {
+          "book": "00.00.10.work",
+          "page": "0721.connected-local",
+          "pass": "05.01"
+        },
+        "submission_id": "s0514n7",
+        "task_binding_sha256": "11492d65005f98caf8e00618d3cd0dd50f29188339f3750d2acf929b1c69346a",
+        "work_id": "0721.connected-local",
+        "write_token": {
+          "bytes": 4009,
+          "path": "0721.connected-local/06.01.review.md",
+          "schema": "review-write-token/1",
+          "sha256": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234"
+        }
+      },
+      "judgment": {
+        "answers": [],
+        "design_fork": null,
+        "disposition": null,
+        "finding": null,
+        "goal": {
+          "evidence": [],
+          "goal_id": "g1",
+          "goal_sha256": "b6b4fa10b9a7a9712aa71952573d7f6b913426225442b751e7bba5cfa9d95d7d",
+          "terminal": null
+        },
+        "holds": [],
+        "next_action": null,
+        "outcome": null,
+        "pass_terminal": null,
+        "reasons": [],
+        "sections": {
+          "affected": null,
+          "assumptions": null,
+          "consequences": null,
+          "exploration": null,
+          "findings_account": null,
+          "finish_assessments": null,
+          "for_model": null,
+          "issue": null,
+          "learning": null,
+          "limits": null,
+          "next_bounded_action": null,
+          "open_questions": null,
+          "options": null,
+          "outcome_evidence": null,
+          "preservation": null,
+          "prime_finding": null,
+          "proposed_plan": null,
+          "question": null,
+          "recommendation": null,
+          "remaining_choices": null,
+          "return_result": null,
+          "tests_note": null,
+          "tests_passed": null,
+          "within_direction": null
+        },
+        "semantic_conflict": null,
+        "source_refs": [],
+        "unresolved": []
+      },
+      "recovers": null,
+      "review_id": "05.01-r2",
+      "schema": "prime-cycle-decision/3",
+      "supersedes": {
+        "record_sha256": "75100ccd62216459ce37875f3b5c97adc8ba7910fb6bd880df52551dc4eac29a",
+        "review_id": "05.01-w66bcc1522ee1efc8"
+      },
+      "supplied_record": null
+    },
+    "work_id": "0721.connected-local",
+    "write_token": {
+      "bytes": 4009,
+      "path": "0721.connected-local/06.01.review.md",
+      "schema": "review-write-token/1",
+      "sha256": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234"
+    }
+  }
+}

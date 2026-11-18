@@ -1,0 +1,55 @@
+{
+  "r3_review": "wd8d1ad845807c24b",
+  "r4_review": "wb60bbc93f6ad4e75",
+  "return_changed_sha256": "50071197731bf76999d74c6984659be52d577b4b0449e753d0018b249c654c5d",
+  "r3": [
+    {
+      "label": "source-inspect",
+      "exit": 0,
+      "stale": true,
+      "published": null,
+      "finding": "Reviewer probe judgment ONE; preserve these exact words.",
+      "stderr": ""
+    },
+    {
+      "label": "source-recover",
+      "exit": 0,
+      "stale": false,
+      "published": null,
+      "finding": "Reviewer probe judgment ONE; preserve these exact words.",
+      "stderr": ""
+    },
+    {
+      "label": "source-read",
+      "exit": 0,
+      "stale": null,
+      "published": null,
+      "finding": "Reviewer probe judgment ONE; preserve these exact words.",
+      "stderr": ""
+    }
+  ],
+  "r4": [
+    {
+      "label": "tamper-publish",
+      "exit": 0,
+      "stale": null,
+      "published": true,
+      "finding": "Reviewer probe judgment ONE; preserve these exact words.",
+      "stderr": ""
+    },
+    {
+      "label": "target-bytes",
+      "unrecorded_in_target": true,
+      "target_sha256": "c701a5e8e9ee4ca59fb0fcf7bace10354a6b9091ebd968ff54b9b0d6628ac55c"
+    },
+    {
+      "label": "tamper-recover",
+      "exit": 1,
+      "stale": true,
+      "published": null,
+      "finding": "Reviewer probe judgment ONE; preserve these exact words.",
+      "stderr": ""
+    }
+  ],
+  "prime_book_untouched": true
+}

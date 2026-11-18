@@ -1,0 +1,53 @@
+# Commands — connected return review
+
+Proof stamp 20261103T174543190015Z. Driver exit 0.
+
+01-historical-reserve exit 0 stdout 155 stderr 0
+02-plan exit 0 stdout 629 stderr 0
+03-init exit 0 stdout 398 stderr 0
+04-reserve-0501 exit 1 stdout 1624 stderr 0
+05-capture-0501 exit 0 stdout 1607 stderr 0
+06-restart-verify-0501 exit 0 stdout 7126 stderr 0
+07-reserve-0502 exit 1 stdout 1624 stderr 0
+08-capture-0502 exit 0 stdout 1607 stderr 0
+09-reserve-n7 exit 1 stdout 1549 stderr 0
+10-capture-n7 exit 0 stdout 1532 stderr 0
+11-reserve-0503 exit 1 stdout 1624 stderr 0
+12-capture-0503 exit 0 stdout 1607 stderr 0
+13-status exit 0 stdout 4488 stderr 0
+14-lookup-0501 exit 0 stdout 5331 stderr 0
+15-verify-0501 exit 0 stdout 7126 stderr 0
+16-lookup-0502 exit 0 stdout 5331 stderr 0
+17-verify-0502 exit 0 stdout 7126 stderr 0
+18-lookup-n7 exit 0 stdout 5085 stderr 0
+19-verify-n7 exit 0 stdout 6805 stderr 0
+20-prepare exit 0 stdout 7830 stderr 0
+20-form exit 0 stdout 6733 stderr 0
+20-record exit 0 stdout 3030 stderr 0
+20-inspect exit 0 stdout 9890 stderr 0
+20-publish exit 0 stdout 2483 stderr 0
+20-read exit 0 stdout 2571 stderr 0
+20-recover exit 0 stdout 2574 stderr 0
+21-prepare exit 0 stdout 7670 stderr 0
+21-form exit 0 stdout 6668 stderr 0
+21-record exit 0 stdout 3018 stderr 0
+21-inspect exit 0 stdout 9861 stderr 0
+21-publish exit 0 stdout 2458 stderr 0
+21-read exit 0 stdout 2552 stderr 0
+21-recover exit 0 stdout 2555 stderr 0
+22-conflict-0502 exit 2 stdout 1754 stderr 0
+23-mismatch-verify exit 1 stdout 6686 stderr 0
+24-changed-artifact exit 2 stdout 7555 stderr 0
+25-clerk-queue exit 0 stdout 128 stderr 0
+26-clerk-claim exit 0 stdout 263 stderr 0
+27-clerk-return exit 0 stdout 480 stderr 0
+28-capture-return exit 2 stdout 593 stderr 0
+29-guard-reserve-refused exit 2 stdout 278 stderr 0
+30-historical-verify exit 2 stdout 35 stderr 0
+31-readiness-copy exit 0 stdout 12902 stderr 0
+32-readiness-live exit 0 stdout 12292 stderr 0
+33-live-preflight exit 2 stdout 635 stderr 0
+
+Earlier official runs stayed. Each first problem is 02-init: exit 2, expected [0]. Each problem count is 34.
+20261103T173827361432Z bare init refused by argparse.
+20261103T174140129061Z non-JSON authorization refused after the historical lock directory existed.

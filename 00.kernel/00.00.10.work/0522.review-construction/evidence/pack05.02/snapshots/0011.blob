@@ -1,0 +1,17 @@
+# review-construction-pass01
+
+Disposable constructor for a full Prime assessment on an N5NN `05.NN.md` review section. N7NN renders only the existing `06.NN.review.md` tail. Other source kinds are refused.
+
+From `D:\Git\lib-build`:
+
+```text
+python -B labs/review-construction-pass01/construct.py preview --fixture-root ABS --input REL
+python -B labs/review-construction-pass01/construct.py apply --fixture-root ABS --input REL
+python -B labs/review-construction-pass01/construct.py bind --fixture-root ABS --input REL
+python -B labs/review-construction-pass01/construct.py show --fixture-root ABS --target REL
+python -B labs/review-construction-pass01/test_construct.py
+```
+
+`preview` writes nothing. `apply` writes only inside the fixture root, which must sit outside this checkout. The tool calls pinned `labs/prime-review-pass01/prime_review.py report` and does not edit it. It does not call return capture, return inspection, prime cycle, or the placement lab.
+
+A task binding covers task identity, assignment bytes, evidence identities, the supplied receipt files, and the agreement. It does not cover the rendered review or the target file hash. A rendered review, a green check, and a byte match are not acceptance, release, closure, or custody. Compare-then-rename is not proof of race freedom.

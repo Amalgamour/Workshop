@@ -1,0 +1,224 @@
+{
+  "schema": "authoring-verification/1",
+  "pass": "0526.dev-authoring/05.01",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "custody": "pending",
+  "matching_line": "0126.dev-authoring",
+  "matching_status": "unfiled",
+  "slot_0126_occupant": "0126.boot-members-0509",
+  "readiness": "blocked",
+  "receipt": null,
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "index_at_close_check": "empty",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "pack_inputs_before_edit": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/pack05.01/source-manifest.json",
+    "sha256": "7b354d8123bea276a7547009d2191f1a87512c2e337f14c64ca35c41643c3b94",
+    "bytes": 17589,
+    "files": 53,
+    "bad": 0,
+    "missing": 0,
+    "live_bytes": 978050
+  },
+  "pack_inputs_after_edit": {
+    "files": 53,
+    "missing": 0,
+    "snapshot_mismatches": 0,
+    "repinned": false,
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "note": "The snapshot remains the before-edit freeze. Those two live files differ because this slice edited them. No other frozen row drifted. This close check hashed the live files and the snapshots."
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.01/CONTRACT.md",
+    "sha256": "a24620357c94be2a7f77057dc7926f41c53362c2e6148cb59de32c4db3e9b20b",
+    "bytes": 12012,
+    "schema": "authoring-contract/1",
+    "revised_after_commands": false
+  },
+  "schemas": {
+    "contract": "authoring-contract/1",
+    "pins": "authoring-pins/1",
+    "template": "authoring-template/1",
+    "template_id": "build-pack-v1",
+    "record": "authoring-record/1",
+    "result": "authoring-result/1",
+    "frozen_inputs": "authoring-frozen-inputs/1",
+    "before_pins": "authoring-before-pins/1",
+    "entry_run": "authoring-entry-run/1",
+    "verification": "authoring-verification/1",
+    "freeze_manifest_on_outside_book": "prime-pack-sources/1"
+  },
+  "authority": {
+    "compute": [
+      "pass reservation",
+      "item number",
+      "draft render",
+      "source and draft hashes",
+      "UTF-8 checks",
+      "dependency lookup through the pinned reader",
+      "pack check through the pinned checker at freeze",
+      "return-intent directory name"
+    ],
+    "caller": [
+      "goal",
+      "scope",
+      "finish",
+      "executor",
+      "reviewer",
+      "one item meaning at a time",
+      "note disposition",
+      "semantic review"
+    ],
+    "not_claimed": [
+      "approval",
+      "release",
+      "seating",
+      "return filing",
+      "N3NN address",
+      "complete_claim"
+    ]
+  },
+  "selected_door": {
+    "path": "app/authoring_tools.py",
+    "sha256": "13cbc91f880c13dfd5b07afe9284092d16bba01afe1a0d5c06b7b3ff35f3ab54",
+    "bytes": 7817,
+    "declaration": "app/authoring.json",
+    "declaration_sha256": "8a59bbd93086ac88c37e1e7a44f7db4b6f3d77fe1294aa67ce559d3550885816",
+    "declaration_bytes": 1864
+  },
+  "module": {
+    "path": "labs/pack-authoring-pass01/pack_author.py",
+    "sha256": "30908475162fe9b1a566018d217d26465151b1243bb3a8f391cb54254f3ba10c",
+    "bytes": 67547
+  },
+  "reused": {
+    "dependency_reader": {
+      "path": "labs/module-dependencies-pass02/depdecl.py",
+      "sha256": "a517b0ec3906589e16e2df9bcfb6b3e21a5dd0bd3ef1099d59bf95c0f15ff4e7",
+      "bytes": 53693,
+      "commands": ["validate", "requires"]
+    },
+    "dependency_set": {
+      "path": "labs/app-dependencies-pass02/set.json",
+      "sha256": "444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706",
+      "bytes": 7054,
+      "label": "measured-file",
+      "form": "working-tree"
+    },
+    "pack_checker": {
+      "path": "labs/pack-custody-pass01/pack_check.py",
+      "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+      "bytes": 21563,
+      "when": "freeze on an outside book only"
+    },
+    "assembler": {
+      "path": "labs/pack-assembly-pass01/pack_assembly.py",
+      "called": false
+    }
+  },
+  "review_loop_v4_unchanged": {
+    "declaration_sha256": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "declaration_bytes": 2519,
+    "door_sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "door_bytes": 13381,
+    "nine_pins_match_files": true,
+    "librarian_still_loads": "review_loop_tools_v4.py as librarian_review_loop_tools_v4"
+  },
+  "before": {
+    "librarian_sha256": "f3dc2108dfff2bade5db4e7354b31b94b5a53e423bbe4fff1071a4a9cd1d42a9",
+    "librarian_bytes": 11037,
+    "readme_sha256": "69584469c654f5d7fcd4993dc36b01afc87434be33a7c2ae60741473af6f7e86",
+    "readme_bytes": 31547
+  },
+  "after": {
+    "librarian_sha256": "dab9bba639da15ae264333f92503167da97a8608e46192092328ad1cc146e35d",
+    "librarian_bytes": 11566,
+    "readme_sha256": "5f1ee92125b7613823ea3ceffdab052537380b41b60f01199ba4f5dceeec31dd",
+    "readme_bytes": 34696
+  },
+  "pin_check_at_close": {
+    "pin_mismatches": 0,
+    "old_module_hash_hits_under_app": 0
+  },
+  "runs": [
+    {
+      "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.01/runs/20261102T173741Z",
+      "cases": 60,
+      "failed": 3,
+      "first_failure": "inspect shows source drift",
+      "first_failure_detail": "drift flag",
+      "other_failures": [
+        "typed start reserves nothing",
+        "stale claim labelled"
+      ],
+      "preserved": true,
+      "rerun_at_close": false
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/build05.01/runs/20261102T173920Z",
+      "cases": 60,
+      "failed": 0,
+      "first_failure": null,
+      "live_page_sha256": "ac80298989190fab6aebffcedf28e8dd7e49a98f639f8e6007df7c33daa25b78",
+      "cited": true,
+      "rerun_at_close": false
+    }
+  ],
+  "dispatcher": {
+    "command": "python -B app/librarian.py where",
+    "exit": 2,
+    "stdout_empty": true,
+    "stderr": "stop: missing --root"
+  },
+  "preview": {
+    "profile": "0423-to-0526",
+    "book": "D:\\Git\\lib-build",
+    "pass": "05.02",
+    "state": "drafting",
+    "approval": false,
+    "release": false,
+    "review": "absent",
+    "operations_exit_0": [
+      "prime-start-01",
+      "prime-item-01",
+      "prime-item-02",
+      "prime-intent-01",
+      "prime-disp-01",
+      "prime-disp-02",
+      "inspect"
+    ],
+    "record": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/authoring05.02/record.json",
+    "record_sha256": "35d5f90ca94dc4a864d1c9e3964301ab8b5c6d3235cd863dfef77ff8b2ff6a50",
+    "record_bytes": 36033,
+    "draft": "00.kernel/00.00.10.work/0526.dev-authoring/evidence/authoring05.02/draft.md",
+    "draft_sha256": "547c3ae566323d6f821abed79a004a08a143f0246f14d110476560e1eee98cf3",
+    "draft_bytes": 3431,
+    "page_05_02_written": false,
+    "page_05_01_unchanged_by_preview": true,
+    "frozen": false,
+    "prime_pilot": false,
+    "label": "supplied synthetic"
+  },
+  "gaps": [
+    "0126.dev-authoring is unfiled and slot 0126 is occupied",
+    "freeze on the live checkout is refused",
+    "the live draft has no semantic review",
+    "complete_claim stays false",
+    "environment and conditional findings are preserved and do not block an outside-book freeze",
+    "a new relationship stays unresolved-not-in-set and is not written into the declaration set",
+    "file symlink creation skipped with WinError 1314",
+    "the same-user gap between a hash read and the subprocess is not closed",
+    "coverage is the declared notes, not a reading of arbitrary prose",
+    "no N3NN address was created"
+  ]
+}

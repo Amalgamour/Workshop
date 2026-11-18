@@ -1,0 +1,37 @@
+{
+  "control": {
+    "state": "readable",
+    "judgment_present": true,
+    "identity": "agreed"
+  },
+  "unsupported_authority": {
+    "state": "noncurrent",
+    "judgment_present": false,
+    "identity": "read-unsupported-accepted"
+  },
+  "stale_recovery": {
+    "state": "noncurrent",
+    "judgment_present": false,
+    "identity": "recover-stale"
+  },
+  "missing_recover_id": {
+    "state": "noncurrent",
+    "judgment_present": false,
+    "identity": "recover-id"
+  },
+  "inspect_current_differs": {
+    "state": "readable",
+    "judgment_present": true,
+    "identity": "agreed"
+  },
+  "inspect_stale": {
+    "state": "readable",
+    "judgment_present": true,
+    "identity": "agreed"
+  },
+  "prepare_nonzero": {
+    "state": "readable",
+    "judgment_present": true,
+    "identity": "agreed"
+  }
+}

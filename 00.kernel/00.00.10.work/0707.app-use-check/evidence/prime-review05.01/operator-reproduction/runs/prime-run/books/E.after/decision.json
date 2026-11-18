@@ -1,0 +1,241 @@
+{
+  "attribution": {
+    "actor_label": "Claude (SUPPLIED sample, 0707 lab)",
+    "evidence": "SUPPLIED sample for 0707/05.01. The actor label is not authentication. The writer authored the reviewed return. This is not acceptance.",
+    "role": "prime"
+  },
+  "binding": {
+    "agreement_sha256": "c756a0337c0696fc8414ff5f4d946c4e02cf30a21b73e53822d3afa89a8ba904",
+    "direction": {
+      "agreement_sha256": "c756a0337c0696fc8414ff5f4d946c4e02cf30a21b73e53822d3afa89a8ba904",
+      "book": "00.00.10.work",
+      "fields": {
+        "director_required": "da55ac161ede2ba0f46ea3df94fecef3f2a1e4213184a309710ae8dbb83170c2",
+        "finish_criteria": "058b5c28653243230dbeb04210b8e9b0f8e67f548657f402924332d2b2e92ae0",
+        "goal": "0a47f275b196c8ad172ba4777a059ae5993ae91d3e79b1357fd8b8739ad95070",
+        "prime_discretion": "7ccd04a5ac265c78ef3cd8305d29b83100f698f1dcf8841e9b7016e64fe64f5f",
+        "recorded_decisions": "1a1e40bef075d581bb99ffda10f6d685ae76fb79e60233f35f2d435fa835ed51",
+        "scope": "e88021beac656856515fb9ec9ee2165756a7a9476a3fad512c594a753cfccab1"
+      },
+      "review_location": "cycle",
+      "schema": "prime-cycle-direction/1"
+    },
+    "expected_prior": null,
+    "fingerprint": "d38a77415bf9ae789e0bd2d3bddef2ae615f0461a4e4207b5d2374903f7aa8a3",
+    "goal": {
+      "goal_id": "g-pilot-0182",
+      "goal_sha256": "4755518f2572145b6bb63a939083e136c182b18320bf4044b7e25d5bb7379636"
+    },
+    "manifest_sha256": "637670d8c846cd633f0b0987fecbcc2e9699135267c33f9cc6c4fc0d78d85b30",
+    "member": "0119.desk-app",
+    "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0519.desk-app"
+    },
+    "page": "0519.desk-app",
+    "pass": "05.01",
+    "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+    "return_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+    "schema": "prime-cycle-binding/3",
+    "source": {
+      "book": "00.00.10.work",
+      "page": "0519.desk-app",
+      "pass": "05.01"
+    },
+    "submission_id": "claude-0519-0501",
+    "task_binding_sha256": "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c",
+    "work_id": "pilot-0182",
+    "write_token": {
+      "bytes": 16129,
+      "path": "0519.desk-app/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "b72c8aa0dcede36d72cb5d1ebcf3aadc7e6cf82798eb5f8db700df467e819104"
+    }
+  },
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "held",
+    "finding": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+    "goal": {
+      "evidence": [],
+      "goal_id": "g-pilot-0182",
+      "goal_sha256": "4755518f2572145b6bb63a939083e136c182b18320bf4044b7e25d5bb7379636",
+      "terminal": "open"
+    },
+    "holds": [],
+    "next_action": {
+      "action_id": "prime-real-judgment",
+      "authorized_in_grant": false,
+      "text": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    "outcome": "continue",
+    "pass_terminal": "open",
+    "reasons": [
+      "Custody of the disposable copy was verified by the pinned inspector (describe-legacy state complete); that is capture integrity only.",
+      "Task association is not-established: the custody records do not name this review task.",
+      "The writer of this sample authored the reviewed return, so it cannot stand as a review of it."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": "Self-review conflict: the sample writer authored the return. Task association not-established. Placement pending; derived line 0119.desk-app is intended, not filed. Disposition held, not accepted.",
+      "next_bounded_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "SAMPLE: return.md 73e92871... (3187 bytes) and receipt.json f4fd548f... are present in the disposable copy.",
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": "Inside the 0707/05.01 lab only: a disposable book, a synthetic PENDING target, SUPPLIED words."
+    },
+    "semantic_conflict": false,
+    "source_refs": [
+      "assignment.txt"
+    ],
+    "unresolved": []
+  },
+  "recovers": null,
+  "review_id": "05.01-r1",
+  "schema": "prime-cycle-decision/3",
+  "supersedes": null,
+  "supplied_record": {
+    "agreement": {
+      "director_required": "A live review is not in this demonstration.",
+      "finish_criteria": [
+        {
+          "id": "copy",
+          "text": "The copied return file stays the copied bytes."
+        }
+      ],
+      "goal": "Review the copied return in a disposable book.",
+      "prime_discretion": "Prime may replace this supplied judgment.",
+      "recorded_decisions": [
+        {
+          "id": "D1",
+          "source_sha256": "b8d5616247d8396fb733f447ab73028956cd4e39b1e5f0dbfe7860dee3c7e5de",
+          "text": "The disposable copy was supplied for this pilot."
+        }
+      ],
+      "scope": "The disposable copy only."
+    },
+    "answers": [],
+    "attribution": {
+      "actor_label": "Claude (SUPPLIED sample, 0707 lab)",
+      "evidence": "SUPPLIED sample for 0707/05.01. The actor label is not authentication. The writer authored the reviewed return. This is not acceptance.",
+      "role": "prime"
+    },
+    "gaps": [],
+    "holds": [],
+    "judgment": {
+      "design_fork": null,
+      "finding": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+      "next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "outcome": "continue",
+      "reasons": [
+        "Custody of the disposable copy was verified by the pinned inspector (describe-legacy state complete); that is capture integrity only.",
+        "Task association is not-established: the custody records do not name this review task.",
+        "The writer of this sample authored the reviewed return, so it cannot stand as a review of it."
+      ],
+      "sections": {
+        "affected": null,
+        "assumptions": null,
+        "consequences": null,
+        "exploration": null,
+        "findings_account": null,
+        "finish_assessments": null,
+        "for_model": null,
+        "issue": null,
+        "learning": null,
+        "limits": "Self-review conflict: the sample writer authored the return. Task association not-established. Placement pending; derived line 0119.desk-app is intended, not filed. Disposition held, not accepted.",
+        "next_bounded_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+        "open_questions": null,
+        "options": null,
+        "outcome_evidence": null,
+        "preservation": null,
+        "prime_finding": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+        "proposed_plan": null,
+        "question": null,
+        "recommendation": null,
+        "remaining_choices": null,
+        "return_result": "SAMPLE: return.md 73e92871... (3187 bytes) and receipt.json f4fd548f... are present in the disposable copy.",
+        "tests_note": null,
+        "tests_passed": null,
+        "within_direction": "Inside the 0707/05.01 lab only: a disposable book, a synthetic PENDING target, SUPPLIED words."
+      },
+      "semantic_conflict": false
+    },
+    "review_passes": [],
+    "schema": "prime-review-record/1",
+    "sources": [
+      {
+        "bind": false,
+        "content_bytes": 91,
+        "content_sha256": "ab87647a3c908dac5876aa124f82485bb4aa1f588f1f293af67d2fe3eb391239",
+        "identity": {
+          "schema": "page-bytes/1"
+        },
+        "kind": "page",
+        "logical_path": "assignment.txt",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "SYNTHETIC assignment for the 0707 lab: review the copied 0182 return in a disposable book.\n",
+        "transport_bytes": 91,
+        "transport_sha256": "ab87647a3c908dac5876aa124f82485bb4aa1f588f1f293af67d2fe3eb391239"
+      },
+      {
+        "bind": false,
+        "content_bytes": 80,
+        "content_sha256": "4e8cd3c669661c58cd1f26d1fb4c5cc81c455a1655b3b24b63618f2c8aa9fbce",
+        "identity": {
+          "label": "SUPPLIED",
+          "schema": "supplied-text/1"
+        },
+        "kind": "supplied-text",
+        "logical_path": "note.md",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "SYNTHETIC note for the 0707 lab: the copied return bytes are the evidence file.\n",
+        "transport_bytes": 80,
+        "transport_sha256": "4e8cd3c669661c58cd1f26d1fb4c5cc81c455a1655b3b24b63618f2c8aa9fbce"
+      },
+      {
+        "bind": false,
+        "content_bytes": 3187,
+        "content_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+        "identity": {
+          "member": "0119.desk-app",
+          "origin": {
+            "batch": "05.01",
+            "book": "00.00.10.work",
+            "page": "0519.desk-app"
+          },
+          "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+          "schema": "return-capture/1",
+          "submission_id": "claude-0519-0501"
+        },
+        "kind": "capture",
+        "logical_path": "0182.desk-app-integration-design-0501/return.md",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "# Submission claude-0519-0501 — desk app core integration design and lab\nFrom: claude-opus-5-5 (Claude), executor on 0519.desk-app/05.01. To: Codex Prime.\nMember: 0182.desk-app-integration-design-0501. Workspace D:/Git/lib-build, branch workshop, HEAD 960d20c (uncommitted pages).\n\n## Did\n- Verified pack05.01: 51 of 51 snapshots match their pins and equal live. 49 equal HEAD; the other two are uncommitted Prime records.\n- Recorded the release and the claim on 05.01.\n- Wrote notes first (06.01), and acknowledged both mid-assignment clarifications:\n  - 0519/06.02 with 0416/06.04: compute constructs the review loop's pages from structured inputs;\n  - 0519/06.03 with 0416/06.05: Grok-2 owns the broad execution and replay lab, and this lane narrows to design.\n- **integration-map.json:** a source-backed map of the ten loop steps, each with its real files and interfaces, what was demonstrated, what is unverified, the limits and what is missing.\n- **DESIGN.md:** authoritative records with no new store, CLI interfaces, module pins, minimum compute construction, derived states and next actor, release versus receipt, binding, restart and partial writes, trust assumptions, and findings F1–F8.\n- **BUILD-PLAN.md:**\n  - three contracts (C1 templates, C2 review binding, C3 page address);\n  - packs G0–G5 with file ownership, dependencies, tests and parallelism;\n  - a hostile self-review;\n  - Director choices D1–D6, each with a recommendation.\n- **Lab** labs/desk-app-integration-pass01:\n  - `desk_lab.py view`: read-only; reservations + pinned return_inspect + batch_observe (+ prime_cycle);\n  - `desk_lab.py construct`: batch-page/1, return-pointer/1 (release, claim, execution) and review-section/1; placeholder-only, compare-and-swap, refuses removals and the checkout;\n  - `demo.py`: 36 synthetic steps in a disposable repository, each a separate process.\n\n  Final run: 36 of 36 held, exit 0. Earlier failing and aborted runs are kept in evidence/build05.01/runs.\n- **Live read-only view** of the real book: 83 tasks, 27508 files identical before and after. One small probe of where reviews live.\n\n## Blocked\nNothing blocks this return. Boundaries found, not bypassed:\n- **F4.** prime_cycle binds a review to the whole page, so constructing the page's Review pointer makes that review stale (lab 8b). This needs a prime_cycle pass (G3) and is not patched here.\n- **F1.** `librarian.py where` and `validate` exit 2 on the live `assignment_state: prepared`. This is app code; reported only.\n\n## Need\n- **Prime:** review the design. Decide D1–D6 with the Director, starting with D3: the return band has 16 members left (0184–0199).\n- **Recommended next action:** release G1 (read-only `librarian.py desk`) and G0 to Grok, and agree contracts C1 and C2 so G2 and G3 can run in parallel.\n- Compare with Grok-2's independent 0520 evidence before implementation, as 0519/06.03 says. I did not read it.\n\nLimits:\n- SYNTHETIC data only; no model or session ran.\n- Labels are not authentication; same-user; no sandbox.\n- The live view misreads legacy review addresses (F3) and does not resolve versioned or 07NN page layouts (F7).\n- Not approved, not accepted, not published.\n",
+        "transport_bytes": 3187,
+        "transport_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464"
+      }
+    ]
+  }
+}

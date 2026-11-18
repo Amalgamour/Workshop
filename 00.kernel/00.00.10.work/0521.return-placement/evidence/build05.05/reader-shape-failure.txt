@@ -1,0 +1,17 @@
+Transcription of the second 05.05 suite stop. This is not raw stdout of the later run.
+
+Command:
+C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B -u D:\Git\lib-build\labs\return-lines-pass03\tests\run_suite.py
+
+Printed:
+live fingerprint 75061b0c183e299c36623e809be8518a0d6efd4482ff13ed3bb3d4865c5e2e6d
+unit exit 0
+copied primary members 83
+retired originals 65 occupants 18
+FAIL synthetic reader exit 2 stdout unexpected 05.01.custody / result refused
+
+Exit 1. The retained tree was left at
+D:\librarian\temp\0521-0505\20261102T184156980742Z-suite
+and was not deleted.
+
+Cause: the suite required return_capture.py verify --book the copy book --member 0121.synthetic-filing to exit 0. That member is a logical page. It contains 05.01.custody, 05.02.custody, and the two return files. The pinned reader refuses any directory other than payload, and its member argument cannot contain a slash. 05.01.custody is not a legal member name. The same tree shows the reader does verify a retained envelope when --book is the side directory: originals/0101.app-entry-0506 exit 0, and occupants/0104.app-entry-0508 exit 0, each ending not approved, not accepted, not published. The retired root reports member is missing for both. The reader was not patched. The assertion now records that gap.

@@ -1,0 +1,141 @@
+{
+  "accepted": false,
+  "activated": false,
+  "allocated_0184": false,
+  "allocator": "not-used",
+  "app_selected": false,
+  "app_selection_applied": false,
+  "approved": false,
+  "authority": "not-assessed",
+  "branch": "workshop",
+  "capture_slot": null,
+  "cited": {
+    "00.kernel/00.00.10.work/0521.return-placement/06.22.md": {
+      "bytes": 8325,
+      "sha256": "394698331af3bc36bcd7a67c5a08492e2d922e9af84ee8f1576b5ed2a9a6ec69"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/DELTA.md": {
+      "bytes": 4447,
+      "sha256": "f73e685fa35eeda98404c8148bcdca83063f56a8c5eb2e56dcc898d98abd5961"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/PRIME-USE.md": {
+      "bytes": 2934,
+      "sha256": "43fd254a8a405a7184850fe62eac51fc05f21301112f1bbda6c05268e961dcd8"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/claims.json": {
+      "bytes": 9277,
+      "sha256": "b087c972e9826952b5dc12d80c67fa58c1b5776143d2e697bccfe05503a0e2e1"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/commands.json": {
+      "bytes": 10014,
+      "sha256": "efeb5f9d40091a782fe2c9f43346b0f99e868c47362269bf0f527f241fd770ce"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/commands.txt": {
+      "bytes": 1965,
+      "sha256": "2f5a843a8de55be9406a3e2e4297e614eb9730314620fd3c90e90faec426c22d"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/earlier/20261102T230210Z-first-failure.txt": {
+      "bytes": 32,
+      "sha256": "3c431a8e314bfcccaa8613771744f97f0b437eaacdaefa250661790120c370cc"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/fixture-index.json": {
+      "bytes": 5768,
+      "sha256": "7fe7f78805573a383ed06401694ae8f2d96ff033b968b1fe1b6925357f560cef"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/live-stdout.txt": {
+      "bytes": 12292,
+      "sha256": "fc9de79773ccc43e1fde28ee3a962cf9020c1cc625411727304763104bac7cc4"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.11/live-summary.json": {
+      "bytes": 1008,
+      "sha256": "0a124a4833403facea6362b0ba7ea6cc07fffa5c62623f31242d2ca02a3c8483"
+    },
+    "labs/return-readiness-pass01/README.md": {
+      "bytes": 604,
+      "sha256": "150b1dbd48a27276c742014d3b4a721261e6933e07d5de3aa2a2e39282309324"
+    },
+    "labs/return-readiness-pass01/contracts.json": {
+      "bytes": 7723,
+      "sha256": "0bd74ada28e4828df9fe74feffdbb44af3eba4df9f57c64a9512f93373664cfc"
+    },
+    "labs/return-readiness-pass01/readiness.py": {
+      "bytes": 26998,
+      "sha256": "e9d59040920e06cc2edf0d5d2ebdec8954e83945fa2629b9eae08e5164cfcecf"
+    },
+    "labs/return-readiness-pass01/tests/run_suite.py": {
+      "bytes": 51657,
+      "sha256": "c2a99f77240c770fc3bf22bea587db35c745e185ffea6024e81a94c037644523"
+    },
+    "labs/return-readiness-pass02/README.md": {
+      "bytes": 632,
+      "sha256": "fa9731d87f46ffc4171b2a61a3d54f21b1f5b71f4f151e323c0d7521062a61d8"
+    },
+    "labs/return-readiness-pass02/readiness.py": {
+      "bytes": 14292,
+      "sha256": "b055c1ad67f0813e05c98beab5ebc2cd765281c1709b0d02940548eeec6f43af"
+    },
+    "labs/return-readiness-pass02/tests/run_suite.py": {
+      "bytes": 54221,
+      "sha256": "05c1cb3b3a7568db881993227309fffe5188286298f40d33d5dba80814956211"
+    }
+  },
+  "claims_failed": 0,
+  "claims_not_run": 6,
+  "claims_passed": 26,
+  "claims_skipped_environment": 0,
+  "committed": false,
+  "contract_revised_after_commands": false,
+  "custody": "pending",
+  "date": "2026-11-02",
+  "earlier_roots": [
+    {
+      "passed_before_stop": 9,
+      "path": "D:\\librarian\\temp\\0521-0511\\20261102T230210215665Z-suite",
+      "reason": "Stopped on wrong-type. A shared dependency changed between the two route measurements, and the final check compared only the later read."
+    }
+  ],
+  "executor": "Grok-2",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "known_failure_reproductions_passed": 2,
+  "limits": [
+    "Invalid UTF-8 leaves route selection unknown.",
+    "One final re-read is not a lock and is not retried.",
+    "A completed bounded observation is not a guarantee against changes after the final check.",
+    "Exit 0 is not Prime review, seating, or app selection.",
+    "Prime independent probes were not run."
+  ],
+  "live_dispatcher": {
+    "bytes": 12204,
+    "claim_time_bytes": 12204,
+    "claim_time_sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea",
+    "matches_predecessor_snapshot": false,
+    "predecessor_bytes": 12153,
+    "predecessor_sha256": "826167161000ac3eab78c466ae47e31b37ff435ea33f4104caf7651ecd21436e",
+    "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea",
+    "sha256_final": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+  },
+  "live_stdout": {
+    "bytes": 12292,
+    "sha256": "fc9de79773ccc43e1fde28ee3a962cf9020c1cc625411727304763104bac7cc4"
+  },
+  "matching_line": "0121.return-placement",
+  "published": false,
+  "readme_at_close": {
+    "bytes": 39210,
+    "note": "Hash only. The file was not opened and was not used as design.",
+    "sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6"
+  },
+  "receipt": null,
+  "repair_cases_passed": 10,
+  "reviewer": "Codex Prime",
+  "schema": "return-route-readiness-verification/0511",
+  "seated": false,
+  "source_manifest": {
+    "bytes": 7964,
+    "files": 20,
+    "mismatches": 0,
+    "schema": "prime-pack-inputs/1",
+    "sha256": "1ad40f3ea2ddbb112106fe03a500fc8d8d6e17f1843afa51f09aea6ffb99571c"
+  },
+  "work_root": "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite"
+}

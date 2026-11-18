@@ -1,0 +1,62 @@
+{
+ "build": {
+  "exit": 0,
+  "stdout_tail": "{\"root\": \"D:\\\\librarian\\\\temp\\\\fbt2-0524\\\\recon-01\\\\cand\", \"kind\": \"proto-l\", \"files\": 68, \"candidate_sha256\": \"172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af\"}\n",
+  "stderr_tail": ""
+ },
+ "fbt": {
+  "exit": 1,
+  "stdout_tail": "pass         R0     pack-region     \nfail         F1b    pack-region     a meaningful change kept the review current (freshness exemption granted)\nNOT ALL REQUIRED PASS {'pass': 1, 'fail': 1}\nidentity: legacy-discovery labs/n7-local-lifecycle-pass01/workbook.py | proof: {'workbook': 'executed', 'open': 'executed'}\n",
+  "stderr_tail": ""
+ },
+ "h3": {
+  "exit": 1,
+  "stdout_tail": "e recognized label ('Verification:' with no value): reason malformed-n7-declar\npass                         ST-4    strict-n7       control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malforme\nNOT READY scope=subset {'fail': 3, 'pass': 1}\n  - coverage incomplete: 33 required case(s) have no record: ['N5-1', 'N5-2', 'N5-3', 'N7-1', 'N7-2', 'LR-1', 'LR-2', 'LR-3', 'LR-4', 'LR-5', 'LR-6', 'N7-3', 'LR-7', 'CAP-0', 'CAP-1', 'CAP-2', 'CAP-3', 'CAP-4', 'LC-1', 'PR-1', 'PR-2', 'PR-3', 'PR-4', 'PR-5', 'PR-6', 'PR-7', 'CTX-1', 'RP-1', 'RP-2', 'IN-1', 'IN-2', 'RC-1', 'RB-1']\n  - required case ST-1: fail\n  - required case ST-2: fail\n  - required case ST-3: fail\n  - dependency K is pending\n  - dependency I is pending\n  - dependency R is pending\n  - dependency W is pending\n",
+  "stderr_tail": ""
+ },
+ "verdicts": {
+  "fbt": {
+   "R0": [
+    "pass",
+    "pass"
+   ],
+   "F1b": [
+    "fail",
+    "fail"
+   ]
+  },
+  "h3": {
+   "ST-1": [
+    "fail",
+    "fail"
+   ],
+   "ST-2": [
+    "fail",
+    "fail"
+   ],
+   "ST-3": [
+    "fail",
+    "fail"
+   ],
+   "ST-4": [
+    "pass",
+    "pass"
+   ]
+  }
+ },
+ "verdicts_equal": true,
+ "identity": {
+  "mode": "legacy-discovery",
+  "workbook": "labs/n7-local-lifecycle-pass01/workbook.py",
+  "proof": {
+   "workbook": "executed",
+   "open": "executed"
+  }
+ },
+ "preserved": {
+  "rows": 53,
+  "drift": [],
+  "app_modified_after_pack05.24": []
+ },
+ "ok": true
+}

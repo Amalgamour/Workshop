@@ -1,0 +1,60 @@
+{
+  "aggregate": "FAIL",
+  "canonical_paths": {
+    "evidence_root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\pass05-suite\\runs",
+    "fixture_root": "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\pass05-suite\\out\\20261101T221301Z-acc3f4",
+    "run_dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\pass05-suite\\runs\\20261101T221301Z-acc3f4"
+  },
+  "cases": [
+    {
+      "call_anomalies": [
+        "stub-flush-sleep"
+      ],
+      "error": null,
+      "failed_checks": [
+        "stub flush-sleep exit 0"
+      ],
+      "id": "S04",
+      "status": "ERROR",
+      "title": "STUB flushes then times out"
+    }
+  ],
+  "code_sha256": {
+    "guards6.py": "46c3dd34a483a3d024a98b5ff0345a5e8249f8dd18f616f8fcec7ae14acf1d2b",
+    "harness6.py": "33868898bb3407353cb01568b934ce7082dca9206de590f70a392ac695205967"
+  },
+  "command": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+    "run",
+    "--config",
+    "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\pass05-suite\\configs\\flush-sleep.json",
+    "--matrix",
+    "stub",
+    "--evidence",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\pass05-suite\\runs"
+  ],
+  "config_sha256": "9bc2b7212a333f94103df6f5d59aa0b77dd9ff15290f85fd8d50bd8f072e8abf",
+  "exit": 1,
+  "kind": "stub",
+  "launches": 1,
+  "loop_evidence": false,
+  "matrix": "stub",
+  "matrix_provenance": {},
+  "preflight": {
+    "candidate": "pinned",
+    "output_root_canonical": "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\pass05-suite\\out",
+    "reasons": [],
+    "status": "READY"
+  },
+  "reused_pass05": {
+    "colab/labs/0707.app-use-check/pass05/stub_cases5.py": "8023452f91fd07e32b73ff05a2f3c22b2e89b37f93a926dfeddd754b567b1164",
+    "colab/labs/0707.app-use-check/pass05/stubs/STUB5.py": "57bcbdc6b12753d644d8b5ec11d3c29de6087c108a9c234e30cf6e984bbac332",
+    "colab/labs/0707.app-use-check/pass05/winjob.py": "c03d63a1c4d954dd537e91b65e52086a1b1ca34b7bbf868bc9de63ca0171f264"
+  },
+  "run": "20261101T221301Z-acc3f4",
+  "schema": "acceptance-run/2",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

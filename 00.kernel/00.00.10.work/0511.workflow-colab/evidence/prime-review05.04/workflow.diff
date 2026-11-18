@@ -1,0 +1,684 @@
+--- 
+
++++ 
+
+@@ -1,7 +1,10 @@
+
+-"""N7NN exchange workflow. Pack, return, notes, and review stay separate.
+-
+-The fact store is investigation.json. Markdown files are projections.
++"""N7NN exchange workflow, pass03.
++
++The fact store is investigation.json at schema colab-exchange-investigation/2.
++Markdown files are projections. Page-local returns keep the supplied bytes.
++A later pass opens only from one recorded request-next review.
+ Attach calls the pinned v2 producer verify. This tool does not call the
+-standalone checker, prepare a package, reserve a capture, or write the live book.
++standalone checker, prepare a package, reserve a capture, migrate a pass02
++book, or write the live book.
+ """
+ 
+@@ -21,5 +24,6 @@
+
+ 
+ SCHEMA_NAME = "colab-exchange-result/1"
+-INVESTIGATION_SCHEMA = "colab-exchange-investigation/1"
++INVESTIGATION_SCHEMA = "colab-exchange-investigation/2"
++LOCAL_RETURN_SCHEMA = "colab-exchange-local-return/1"
+ OPEN_SCHEMA = "colab-exchange-open/1"
+ REVIEW_SCHEMA = "colab-exchange-review/1"
+@@ -52,4 +56,6 @@
+
+ LIST_LIMIT = 32
+ TARGET_LIMIT = 32
++RETURN_LIMIT = 1048576
++TRANSITION_LIMIT = 64
+ LIVE_BOOK = os.path.normcase(os.path.abspath(r"D:\Git\lib-build\00.kernel\00.00.10.work"))
+ LIVE_KERNEL = os.path.normcase(os.path.abspath(r"D:\Git\lib-build\00.kernel"))
+@@ -84,4 +90,54 @@
+
+ )
+ 
++TRANSITION_ACTIONS = (
++    "open",
++    "attach",
++    "append-note",
++    "place-return",
++    "seal-return",
++    "review",
++    "open-pass",
++)
++TRANSITION_KEYS = ("action", "facts", "pass", "prev", "seq", "sha256")
++FACT_KEYS = {
++    "open": {"page", "title", "targets_sha256"},
++    "attach": {"package_digest", "pack_sha256", "notes_sha256", "verification_sha256", "zip_sha256"},
++    "append-note": {"notes_count", "note_sha256"},
++    "place-return": {
++        "kind",
++        "manifest_sha256",
++        "member",
++        "origin_batch",
++        "origin_book",
++        "origin_page",
++        "receipt_sha256",
++        "return_sha256",
++        "return_bytes",
++    },
++    "seal-return": {"kind", "return_sha256", "return_bytes", "declared_transport", "package_digest"},
++    "review": {"route", "next_pass", "review_sha256"},
++    "open-pass": {"opened_pass", "requested_by", "review_sha256"},
++}
++LOCAL_RETURN_KEYS = {
++    "schema",
++    "kind",
++    "return_sha256",
++    "return_bytes",
++    "declared_transport",
++    "package_digest",
++    "pass",
++}
++N1_RETURN_KEYS = {
++    "kind",
++    "manifest_sha256",
++    "member",
++    "origin_batch",
++    "origin_book",
++    "origin_page",
++    "receipt_sha256",
++    "return_bytes",
++    "return_sha256",
++}
++
+ RUN_PROCESS = None
+ WRITE_HOOK = None
+@@ -537,15 +593,247 @@
+
+ 
+ 
++def empty_slot() -> dict:
++    return {"notes": [], "package": None, "return": None, "review": None}
++
++
++def pass_number(pass_id: str) -> int:
++    return int(pass_id.split(".")[1])
++
++
++def transition_core(item: dict) -> dict:
++    return {key: item[key] for key in ("action", "facts", "pass", "prev", "seq")}
++
++
++def transition_digest(core: dict) -> str:
++    return sha256(canonical(core))
++
++
++def make_transition(previous: list, action: str, pass_id: str, facts: dict) -> dict:
++    core = {
++        "action": action,
++        "facts": facts,
++        "pass": pass_id,
++        "prev": None if not previous else previous[-1]["sha256"],
++        "seq": len(previous) + 1,
++    }
++    core["sha256"] = transition_digest(core)
++    return core
++
++
++def append_transition(record: dict, action: str, pass_id: str, facts: dict) -> dict:
++    updated = copy.deepcopy(record)
++    new = make_transition(updated["transitions"], action, pass_id, facts)
++    updated["transitions"] = [*updated["transitions"], new]
++    if updated["transitions"][:-1] != record["transitions"]:
++        refuse("hash conflict")
++    check_chain(updated)
++    return updated
++
++
+ def fresh_record(request: dict) -> dict:
+-    return {
++    record = {
+         "book": request["book"],
+         "page": request["page"],
+-        "passes": {
+-            request["pass"]: {"notes": [], "package": None, "return": None, "review": None},
+-        },
++        "passes": {request["pass"]: empty_slot()},
+         "schema": INVESTIGATION_SCHEMA,
+         "targets": request["targets"],
+         "title": request["title"],
++        "transitions": [],
+     }
++    facts = {
++        "page": request["page"],
++        "targets_sha256": sha256(canonical(request["targets"])),
++        "title": request["title"],
++    }
++    record["transitions"] = [make_transition([], "open", request["pass"], facts)]
++    return record
++
++
++def read_plain(path: Path) -> bytes:
++    problem = plain_problem(path, "file")
++    if problem == "link":
++        refuse("unsafe path")
++    if problem:
++        refuse("hash conflict")
++    return path.read_bytes()
++
++
++def expect_bytes(path: Path, data: bytes) -> None:
++    if read_plain(path) != data:
++        refuse("hash conflict")
++
++
++def absent(path: Path) -> None:
++    if os.path.lexists(path):
++        refuse("hash conflict")
++
++
++def check_chain(record: dict) -> None:
++    rows = record.get("transitions")
++    passes = record.get("passes")
++    if not isinstance(rows, list) or not isinstance(passes, dict):
++        refuse("hash conflict")
++    if len(rows) > TRANSITION_LIMIT:
++        refuse("declared limit")
++    for index, item in enumerate(rows):
++        if not isinstance(item, dict) or set(item) != set(TRANSITION_KEYS):
++            refuse("hash conflict")
++        if item["action"] not in TRANSITION_ACTIONS or not isinstance(item["facts"], dict):
++            refuse("hash conflict")
++        if set(item["facts"]) != FACT_KEYS[item["action"]]:
++            refuse("hash conflict")
++        if item["seq"] != index + 1 or not isinstance(item["pass"], str) or PASS_RE.fullmatch(item["pass"]) is None:
++            refuse("hash conflict")
++        expected_prev = None if index == 0 else rows[index - 1]["sha256"]
++        if item["prev"] != expected_prev or item["sha256"] != transition_digest(transition_core(item)):
++            refuse("hash conflict")
++    if not rows or rows[0]["action"] != "open":
++        refuse("hash conflict")
++    opened = rows[0]
++    if opened["facts"]["page"] != record.get("page") or opened["facts"]["title"] != record.get("title"):
++        refuse("hash conflict")
++    if opened["facts"]["targets_sha256"] != sha256(canonical(record.get("targets"))):
++        refuse("hash conflict")
++    introduced: dict[str, str] = {}
++    for item in rows:
++        if item["action"] == "open":
++            if item["seq"] != 1 or item["pass"] in introduced:
++                refuse("hash conflict")
++            introduced[item["pass"]] = "open"
++        elif item["action"] == "open-pass":
++            named = item["facts"]["opened_pass"]
++            if named != item["pass"] or named in introduced:
++                refuse("hash conflict")
++            introduced[named] = "open-pass"
++    if set(introduced) != set(passes):
++        refuse("hash conflict")
++    for pass_id, slot in passes.items():
++        if not isinstance(slot, dict) or set(slot) != {"notes", "package", "return", "review"}:
++            refuse("hash conflict")
++        if not isinstance(slot["notes"], list):
++            refuse("hash conflict")
++        mine = [item for item in rows if item["pass"] == pass_id]
++        creators = [item for item in mine if item["action"] in ("open", "open-pass")]
++        attaches = [item for item in mine if item["action"] == "attach"]
++        notes = [item for item in mine if item["action"] == "append-note"]
++        returns = [item for item in mine if item["action"] in ("seal-return", "place-return")]
++        reviews = [item for item in mine if item["action"] == "review"]
++        if len(creators) != 1:
++            refuse("hash conflict")
++        package = slot["package"]
++        if package is None:
++            if attaches or notes or slot["notes"]:
++                refuse("hash conflict")
++        else:
++            if not isinstance(package, dict) or not attaches:
++                refuse("hash conflict")
++            last = attaches[-1]["facts"]
++            if last["package_digest"] != package.get("digest") or last["pack_sha256"] != package.get("pack_sha256"):
++                refuse("hash conflict")
++            if last["notes_sha256"] != package.get("notes_sha256") or last["verification_sha256"] != package.get("verification_sha256"):
++                refuse("hash conflict")
++            if last["zip_sha256"] != package.get("zip_sha256"):
++                refuse("hash conflict")
++        if len(notes) != len(slot["notes"]):
++            refuse("hash conflict")
++        for index, (item, line) in enumerate(zip(notes, slot["notes"]), start=1):
++            if not isinstance(line, str) or item["facts"]["notes_count"] != index:
++                refuse("hash conflict")
++            if item["facts"]["note_sha256"] != sha256(line.encode("utf-8")):
++                refuse("hash conflict")
++        placed = slot["return"]
++        if placed is None:
++            if returns:
++                refuse("hash conflict")
++        else:
++            if package is None or len(returns) != 1 or not isinstance(placed, dict):
++                refuse("hash conflict")
++            facts = returns[0]["facts"]
++            if returns[0]["action"] == "seal-return":
++                if set(placed) != LOCAL_RETURN_KEYS or placed["kind"] != "page-local" or placed["schema"] != LOCAL_RETURN_SCHEMA:
++                    refuse("hash conflict")
++                if placed["pass"] != pass_id or facts["kind"] != "page-local":
++                    refuse("hash conflict")
++                for key in ("return_sha256", "return_bytes", "declared_transport", "package_digest"):
++                    if facts[key] != placed[key]:
++                        refuse("hash conflict")
++            else:
++                if set(placed) != N1_RETURN_KEYS or placed["kind"] != "n1nn" or facts["kind"] != "n1nn":
++                    refuse("hash conflict")
++                for key in (
++                    "manifest_sha256",
++                    "member",
++                    "origin_batch",
++                    "origin_book",
++                    "origin_page",
++                    "receipt_sha256",
++                    "return_sha256",
++                    "return_bytes",
++                ):
++                    if facts[key] != placed[key]:
++                        refuse("hash conflict")
++        review = slot["review"]
++        if review is None:
++            if reviews:
++                refuse("hash conflict")
++        else:
++            if placed is None or len(reviews) != 1 or not isinstance(review, dict):
++                refuse("hash conflict")
++            facts = reviews[0]["facts"]
++            if facts["route"] != review.get("route") or facts["next_pass"] != review.get("next_pass"):
++                refuse("hash conflict")
++            if facts["review_sha256"] != sha256(canonical(review)):
++                refuse("hash conflict")
++    for item in rows:
++        if item["action"] != "open-pass":
++            continue
++        facts = item["facts"]
++        requester = facts["requested_by"]
++        if requester not in passes or pass_number(facts["opened_pass"]) <= pass_number(requester):
++            refuse("hash conflict")
++        req = passes[requester]
++        review = req["review"]
++        ret = req["return"]
++        if req["package"] is None or not isinstance(review, dict) or not isinstance(ret, dict):
++            refuse("hash conflict")
++        if review.get("route") != "request-next" or review.get("next_pass") != facts["opened_pass"]:
++            refuse("hash conflict")
++        if facts["review_sha256"] != sha256(canonical(review)) or ret.get("kind") != "page-local":
++            refuse("hash conflict")
++
++
++def check_files(page: Path, record: dict) -> None:
++    expect_bytes(page / "01.md", render_face(record))
++    expect_bytes(page / "08.md", render_pointer(record))
++    for pass_id, slot in record["passes"].items():
++        package = slot["package"]
++        artifact = page / "artifacts" / pass_id
++        if package is None:
++            absent(page / pack_name(pass_id))
++            absent(page / notes_name(pass_id))
++        else:
++            pack = read_plain(artifact / "package" / pack_name(pass_id))
++            notes = read_plain(artifact / "package" / notes_name(pass_id))
++            if sha256(pack) != package["pack_sha256"] or sha256(notes) != package["notes_sha256"]:
++                refuse("hash conflict")
++            expect_bytes(page / pack_name(pass_id), pack)
++            expect_bytes(page / notes_name(pass_id), project_notes(pass_id, notes, slot["notes"]))
++            if sha256(read_plain(artifact / "prepared-colab.zip")) != package["zip_sha256"]:
++                refuse("hash conflict")
++            if sha256(read_plain(artifact / "verification.json")) != package["verification_sha256"]:
++                refuse("hash conflict")
++        placed = slot["return"]
++        if placed is None:
++            absent(page / return_name(pass_id))
++            absent(artifact / "return.md")
++        else:
++            data = read_plain(artifact / "return.md")
++            if sha256(data) != placed["return_sha256"] or len(data) != placed["return_bytes"]:
++                refuse("hash conflict")
++            expect_bytes(page / return_name(pass_id), data)
++        if slot["review"] is None:
++            absent(page / review_name(pass_id))
++        else:
++            expect_bytes(page / review_name(pass_id), render_review(pass_id, slot["review"]))
+ 
+ 
+@@ -564,5 +852,50 @@
+
+     if not isinstance(record, dict) or record.get("schema") != INVESTIGATION_SCHEMA:
+         refuse("unknown schema")
++    check_chain(record)
++    check_files(page, record)
+     return record
++
++
++def open_pass_decision(record: dict, pass_id: str) -> tuple[str, dict | None]:
++    requests = []
++    for pid in sorted(record["passes"]):
++        review = record["passes"][pid]["review"]
++        if review and review["route"] == "request-next" and review["next_pass"] == pass_id:
++            requests.append(pid)
++    if len(requests) == 0:
++        return "next pass not requested", None
++    if len(requests) > 1:
++        return "conflicting requests", None
++    requester = requests[0]
++    if pass_number(pass_id) <= pass_number(requester):
++        return "earlier pass", None
++    req = record["passes"][requester]
++    if req["package"] is None:
++        return "missing investigation", None
++    placed = req["return"]
++    if placed is None:
++        return "sealed return missing", None
++    if placed.get("kind") != "page-local" or placed.get("schema") != LOCAL_RETURN_SCHEMA:
++        return "local return required", None
++    review_sha = sha256(canonical(req["review"]))
++    info = {"requested_by": requester, "review_sha256": review_sha}
++    slot = record["passes"].get(pass_id)
++    if slot is None:
++        return "create", info
++    creators = [
++        item
++        for item in record["transitions"]
++        if item["action"] == "open-pass" and item["facts"].get("opened_pass") == pass_id
++    ]
++    opens = [item for item in record["transitions"] if item["action"] == "open" and item["pass"] == pass_id]
++    if (
++        len(creators) == 1
++        and creators[0]["facts"].get("requested_by") == requester
++        and creators[0]["facts"].get("review_sha256") == review_sha
++    ):
++        return "repeat", info
++    if opens and not creators:
++        return "occupied pass", None
++    return "occupied different state", None
+ 
+ 
+@@ -627,5 +960,5 @@
+
+         "",
+         f"schema: {OPEN_SCHEMA}",
+-        f"pass: {next(iter(record['passes']))}",
++        f"passes: {' '.join(sorted(record['passes']))}",
+         f"title: {record['title']}",
+         "Return and review are not created by open.",
+@@ -641,4 +974,10 @@
+
+         if placed is None:
+             lines.append(f"{pass_id}: no return is placed.")
++        elif placed.get("kind") == "page-local":
++            lines.append(
++                f"{pass_id}: page-local return {placed['return_sha256']}. bytes {placed['return_bytes']}. "
++                f"transport {placed['declared_transport']}. package {placed['package_digest']}. "
++                f"file {return_name(pass_id)}."
++            )
+         else:
+             lines.append(
+@@ -734,4 +1073,125 @@
+
+ 
+ 
++def command_seal_return(book: Path, page_name: str, pass_id: str, return_file: Path, transport: str) -> dict:
++    require_pass(pass_id)
++    label = one_line(transport, "declared transport")
++    page = page_dir(book, page_name)
++    record = require_loaded(page)
++    slot = record["passes"].get(pass_id)
++    if slot is None or slot["package"] is None:
++        refuse("missing investigation")
++    info = os.lstat(return_file)
++    if info.st_size > RETURN_LIMIT:
++        refuse("declared limit")
++    data = return_file.read_bytes()
++    if len(data) > RETURN_LIMIT:
++        refuse("declared limit")
++    digest = sha256(data)
++    local = {
++        "declared_transport": label,
++        "kind": "page-local",
++        "package_digest": slot["package"]["digest"],
++        "pass": pass_id,
++        "return_bytes": len(data),
++        "return_sha256": digest,
++        "schema": LOCAL_RETURN_SCHEMA,
++    }
++    current = slot["return"]
++    if current is not None:
++        if current == local:
++            stored = page / "artifacts" / pass_id / "return.md"
++            projected = page / return_name(pass_id)
++            if read_plain(stored) == data and read_plain(projected) == data:
++                return result("seal-return-local", "repeat", False, return_sha256=digest)
++            refuse("hash conflict")
++        same_bytes = (
++            current.get("kind") == "page-local"
++            and current.get("return_sha256") == digest
++            and current.get("return_bytes") == len(data)
++            and current.get("package_digest") == local["package_digest"]
++        )
++        if same_bytes and current.get("declared_transport") != label:
++            refuse("declared transport differs")
++        refuse("occupied different content")
++    updated = copy.deepcopy(record)
++    updated["passes"][pass_id]["return"] = local
++    updated = append_transition(
++        updated,
++        "seal-return",
++        pass_id,
++        {
++            "declared_transport": label,
++            "kind": "page-local",
++            "package_digest": local["package_digest"],
++            "return_bytes": len(data),
++            "return_sha256": digest,
++        },
++    )
++    commit(page, updated, [(f"artifacts/{pass_id}/return.md", data)])
++    if read_plain(page / return_name(pass_id)) != data or read_plain(page / "artifacts" / pass_id / "return.md") != data:
++        refuse("hash conflict", True)
++    return result("seal-return-local", "complete", True, return_sha256=digest)
++
++
++def earlier_pass_bytes(page: Path, record: dict) -> dict[str, bytes]:
++    found = {}
++    for pass_id, slot in record["passes"].items():
++        if slot["package"] is not None:
++            for name in (pack_name(pass_id), notes_name(pass_id)):
++                path = page / name
++                found[name] = read_plain(path)
++            snapshot = page / "artifacts" / pass_id / "package" / notes_name(pass_id)
++            found[f"artifacts/{pass_id}/package/{notes_name(pass_id)}"] = read_plain(snapshot)
++        if slot["return"] is not None:
++            found[return_name(pass_id)] = read_plain(page / return_name(pass_id))
++            found[f"artifacts/{pass_id}/return.md"] = read_plain(page / "artifacts" / pass_id / "return.md")
++        if slot["review"] is not None:
++            found[review_name(pass_id)] = read_plain(page / review_name(pass_id))
++    return found
++
++
++def command_open_pass(book: Path, page_name: str, pass_id: str) -> dict:
++    require_pass(pass_id)
++    page = page_dir(book, page_name)
++    record = require_loaded(page)
++    if page_name != record["page"]:
++        refuse("missing investigation")
++    decision, info = open_pass_decision(record, pass_id)
++    if decision == "repeat":
++        return result("open-pass", "repeat", False, opened_pass=pass_id)
++    if decision != "create" or info is None:
++        refuse(decision)
++    updated = copy.deepcopy(record)
++    updated["passes"][pass_id] = empty_slot()
++    updated = append_transition(
++        updated,
++        "open-pass",
++        pass_id,
++        {
++            "opened_pass": pass_id,
++            "requested_by": info["requested_by"],
++            "review_sha256": info["review_sha256"],
++        },
++    )
++    before = earlier_pass_bytes(page, record)
++    before_count = len(record["transitions"])
++    commit(page, updated)
++    for rel, data in before.items():
++        if read_plain(page.joinpath(*rel.split("/"))) != data:
++            refuse("hash conflict", True)
++    for name in (pack_name(pass_id), notes_name(pass_id), return_name(pass_id), review_name(pass_id)):
++        if os.path.lexists(page / name):
++            refuse("hash conflict", True)
++    try:
++        loaded = require_loaded(page)
++    except Refuse as exc:
++        refuse(exc.reason, True)
++    if len(loaded["transitions"]) != before_count + 1 or pass_id not in loaded["passes"]:
++        refuse("hash conflict", True)
++    if loaded["passes"][pass_id] != empty_slot():
++        refuse("hash conflict", True)
++    return result("open-pass", "complete", True, opened_pass=pass_id)
++
++
+ def command_propose(book: Path) -> dict:
+     used = set()
+@@ -760,4 +1220,5 @@
+
+     page.mkdir()
+     record = fresh_record(request)
++    check_chain(record)
+     commit(page, record)
+     return result("open", "complete", True, page=request["page"])
+@@ -923,4 +1384,16 @@
+
+     updated = copy.deepcopy(record)
+     updated["passes"][pass_id]["package"] = package_info
++    updated = append_transition(
++        updated,
++        "attach",
++        pass_id,
++        {
++            "notes_sha256": package_info["notes_sha256"],
++            "package_digest": package_info["digest"],
++            "pack_sha256": package_info["pack_sha256"],
++            "verification_sha256": package_info["verification_sha256"],
++            "zip_sha256": package_info["zip_sha256"],
++        },
++    )
+     extra = [(f"artifacts/{pass_id}/" + rel, data) for rel, data in found]
+     extra.append((f"artifacts/{pass_id}/prepared-colab.zip", zip_bytes))
+@@ -943,4 +1416,10 @@
+
+     updated = copy.deepcopy(record)
+     updated["passes"][pass_id]["notes"] = [*slot["notes"], line]
++    updated = append_transition(
++        updated,
++        "append-note",
++        pass_id,
++        {"note_sha256": sha256(line.encode("utf-8")), "notes_count": len(slot["notes"]) + 1},
++    )
+     before = (page / "artifacts" / pass_id / "package" / notes_name(pass_id)).read_bytes()
+     commit(page, updated)
+@@ -1007,4 +1486,5 @@
+
+         refuse("hash conflict")
+     placed = {
++        "kind": "n1nn",
+         "manifest_sha256": capture.get("manifest_sha256"),
+         "member": member,
+@@ -1024,4 +1504,20 @@
+
+     updated = copy.deepcopy(record)
+     updated["passes"][pass_id]["return"] = placed
++    updated = append_transition(
++        updated,
++        "place-return",
++        pass_id,
++        {
++            "kind": "n1nn",
++            "manifest_sha256": placed["manifest_sha256"],
++            "member": member,
++            "origin_batch": placed["origin_batch"],
++            "origin_book": placed["origin_book"],
++            "origin_page": placed["origin_page"],
++            "receipt_sha256": receipt,
++            "return_bytes": len(data),
++            "return_sha256": digest,
++        },
++    )
+     commit(page, updated, [(f"artifacts/{pass_id}/return.md", data)])
+     written = (page / return_name(pass_id)).read_bytes()
+@@ -1102,4 +1598,14 @@
+
+     updated = copy.deepcopy(record)
+     updated["passes"][pass_id]["review"] = review
++    updated = append_transition(
++        updated,
++        "review",
++        pass_id,
++        {
++            "next_pass": review["next_pass"],
++            "review_sha256": sha256(canonical(review)),
++            "route": review["route"],
++        },
++    )
+     before = (page / return_name(pass_id)).read_bytes()
+     commit(page, updated)
+@@ -1126,4 +1632,5 @@
+
+         "held": held,
+         "request_next": review["next_pass"] if review and review["route"] == "request-next" else None,
++        "return_kind": None if slot["return"] is None else slot["return"].get("kind"),
+         "return_placed": slot["return"] is not None,
+         "review_pending": bool(review and (unresolved or review["route"] != "finish")),
+@@ -1140,5 +1647,5 @@
+
+             continue
+         if (child / "partial.json").exists():
+-            pages.append({"page": child.name, "partial": True, "passes": []})
++            pages.append({"page": child.name, "partial": True, "passes": [], "transitions": None})
+             continue
+         if not (child / "investigation.json").is_file():
+@@ -1150,5 +1657,7 @@
+
+             flags["pass"] = pass_id
+             passes.append(flags)
+-        pages.append({"page": child.name, "partial": False, "passes": passes})
++        pages.append(
++            {"page": child.name, "partial": False, "passes": passes, "transitions": record["transitions"]}
++        )
+     return result("show", "complete", False, pages=pages)
+ 
+@@ -1199,4 +1708,14 @@
+
+     review.add_argument("--pass", dest="pass_id", required=True)
+     review.add_argument("--review", required=True)
++    seal = add("seal-return-local")
++    seal.add_argument("--book", required=True)
++    seal.add_argument("--page", required=True)
++    seal.add_argument("--pass", dest="pass_id", required=True)
++    seal.add_argument("--return-file", required=True)
++    seal.add_argument("--declared-transport", required=True)
++    later = add("open-pass")
++    later.add_argument("--book", required=True)
++    later.add_argument("--page", required=True)
++    later.add_argument("--pass", dest="pass_id", required=True)
+     show = add("show")
+     show.add_argument("--book", required=True)
+@@ -1240,4 +1759,14 @@
+
+             require_input_file(args.review, "review"),
+         )
++    if args.command == "seal-return-local":
++        return command_seal_return(
++            book,
++            args.page,
++            args.pass_id,
++            require_input_file(args.return_file, "return file"),
++            args.declared_transport,
++        )
++    if args.command == "open-pass":
++        return command_open_pass(book, args.page, args.pass_id)
+     return command_show(book)
+ 

@@ -1,0 +1,588 @@
+{
+ "cases": {
+  "C10_rejected_manifest_dup_then_valid": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": {
+     "bytes": 5,
+     "path": "n.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": {
+     "bytes": 5,
+     "declared_form": "n7-manifest",
+     "path": "n.json",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": {
+     "bytes": 5,
+     "declared_form": "n7-manifest",
+     "path": "n.json",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": {
+     "bytes": 5,
+     "path": "n.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   }
+  },
+  "C1_rejected_returned_plus_submission": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "bytes": 20,
+     "path": "s.md",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [
+     "attribution-not-descriptive"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "bytes": 20,
+     "path": "s.md",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [
+     "attribution-not-descriptive"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "bytes": 20,
+     "path": "s.md",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "bytes": 20,
+     "path": "s.md",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "verification": null
+   }
+  },
+  "C2_uppercase_hex_attribution": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": "copy of AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "r.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": "copy of AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "r.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   }
+  },
+  "C3_lowercase_label_attribution": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": "see submission: other.md",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "r.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": "see submission: other.md",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "r.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   }
+  },
+  "C4_collision_with_suffix": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "path": "m.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "path": "m.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "path": "m.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "path": "m.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   }
+  },
+  "C5_collision_plain": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "path": "m.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "declared_form": "n7-manifest",
+     "path": "m.json",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "declared_form": "n7-manifest",
+     "path": "m.json",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [],
+    "manifest": {
+     "bytes": 5,
+     "path": "m.json,",
+     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   }
+  },
+  "C6_returned_plus_submission_same_target": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [
+     "ambiguous-submission"
+    ],
+    "manifest": null,
+    "state": "ambiguous",
+    "submission": null,
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [
+     "ambiguous-submission"
+    ],
+    "manifest": null,
+    "state": "ambiguous",
+    "submission": null,
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "bytes": 1,
+     "path": "s.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   }
+  },
+  "C7_whitespace_attribution": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": " ",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "r.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": " ",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "r.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   }
+  },
+  "C8_dotdot_path_returned": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": "x",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "a/../b.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+     "attribution_text": "x",
+     "bytes": 10,
+     "declared_form": "n7-returned",
+     "path": "a/../b.md",
+     "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   }
+  },
+  "C9_returned_with_suffix": {
+   "lab_eq_proposal": true,
+   "n5_eq_pass03": true,
+   "n5_lab": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "n7_lab": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "n7_proposal": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   },
+   "pass03": {
+    "codes": [
+     "unparsed-return-line",
+     "submission-not-declared"
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+   }
+  }
+ },
+ "functions_ran": {
+  "n7compat2": [
+   "KIND",
+   "LABEL_WORDS",
+   "N7_MANIFEST_RE",
+   "PATH",
+   "RETURNED_RE",
+   "SHA_ANY",
+   "make_parser"
+  ],
+  "pass02": [
+   "LABELS",
+   "SHA_RE",
+   "suffix_ok"
+  ],
+  "pass03": [
+   "COUNT_RE",
+   "COUNT_TAILS",
+   "FIELD_RE",
+   "LABEL_CODE",
+   "accept_field",
+   "parse_pointer"
+  ],
+  "proposal": [
+   "LABEL_WORDS",
+   "N7_MANIFEST_RE",
+   "PATH",
+   "RETURNED_RE",
+   "SHA_ANY",
+   "parse_n7"
+  ]
+ }
+}

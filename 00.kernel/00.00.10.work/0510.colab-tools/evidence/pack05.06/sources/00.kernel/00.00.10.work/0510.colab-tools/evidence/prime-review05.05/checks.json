@@ -1,0 +1,48 @@
+[
+  {
+    "name": "constructor",
+    "exit": 0,
+    "stderr_tail": [
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 11 tests in 2.612s",
+      "",
+      "OK (skipped=1)"
+    ]
+  },
+  {
+    "name": "reserved-rules",
+    "exit": 0,
+    "stderr_tail": [
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 31 tests in 0.034s",
+      "",
+      "OK"
+    ]
+  },
+  {
+    "name": "inspect-lf.md",
+    "state": "constructed-same-binding",
+    "binding": "abababababababababababababababababababababababababababababababab",
+    "unchanged": true
+  },
+  {
+    "name": "inspect-crlf.md",
+    "state": "existing-review",
+    "binding": null,
+    "unchanged": true
+  },
+  {
+    "name": "malformed-enum-list",
+    "observed": "TypeError: unhashable type: 'list'"
+  },
+  {
+    "name": "reserved-block-LF",
+    "observed": "accepted"
+  },
+  {
+    "name": "reserved-block-CRLF",
+    "observed": "Problem: missing-reserved-findings: first return has no ```reserved-findings``` block"
+  }
+]

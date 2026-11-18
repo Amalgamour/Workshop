@@ -1,0 +1,130 @@
+{
+  "schema": "prime-desk-verification/0505",
+  "batch": "0524.prime-desk/05.05",
+  "session": "01a17ded-90ba-79e3-8b8c-7e1f0005193e",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "suite": {
+    "command": "python -B -m unittest -v labs/prime-desk-pass04/tests/test_prime_desk.py",
+    "cwd": "D:\\Git\\lib-build",
+    "exit": 0,
+    "tests": 27,
+    "seconds": 3.75,
+    "result": "OK",
+    "evidence": "evidence/build05.05/tests.txt",
+    "first_captured_exit": 0,
+    "first_failure_preserved": false
+  },
+  "request": {
+    "path": "labs/prime-desk-use-pass02/request.json",
+    "sha256": "9b8a96ba5b576e8354b38b9a5ab2a6725b06e90bedcf47883f823b6a7e4545ca",
+    "bytes": 16032,
+    "catalog_sha256": "f5f07f1af1aa25b7a96f1326dc4aaf704c9525d50bc92d42eaff126d09b77d3b",
+    "catalog_bytes": 704,
+    "accept_used": false,
+    "index_exit": 0,
+    "index_stdout": "pinned"
+  },
+  "demo": {
+    "selected_id": "work-0524-0504",
+    "address": "0524.prime-desk/05.04",
+    "rule": "assignment-record/v1",
+    "view_schema": "prime-desk-view/4",
+    "packet_schema": "prime-desk-packet/4",
+    "view_exit": 1,
+    "view_state": "attention",
+    "review_path": "0524.prime-desk/05.04.md",
+    "review_file": "matched",
+    "review_judgment": "unknown",
+    "return_path": "0124.prime-desk/05.04.return.md",
+    "return_custody": "unknown",
+    "verified_basis": "observed",
+    "verified_status": "matched",
+    "next_path": "0420.prime-desk/06.08.md",
+    "next_status": "matched",
+    "workers": 0,
+    "supplied_without_worker": 8,
+    "supplied_block_visible": true,
+    "review_loop_status": "matched",
+    "review_loop_executed": false,
+    "pending_sentence_present": false,
+    "catalog_used_for_selection": false,
+    "declared": 30,
+    "matched": 30,
+    "missing": 0,
+    "stale": 0,
+    "changed": 0,
+    "fingerprint": "46054c0d470d55318b5d835e425e9eb9ee0a8c7209bf42efbf47d06647f9b802",
+    "observed_at": "2026-11-01T19:13:04Z",
+    "gap_kinds": ["return-undeclared", "catalog-not-chosen", "catalog-not-chosen"],
+    "opening_lines": 18,
+    "opening_words": 100,
+    "view_lines": 102,
+    "view_words": 1186,
+    "review_home_present": false
+  },
+  "inspection": {
+    "work_0522": {
+      "selected_id": "work-0524-0504",
+      "relation": "inspection",
+      "work_id": "work-0522-0505",
+      "return_path": "0122.review-construction/05.05.return.md",
+      "return_custody": "unknown",
+      "verification_bound": false
+    },
+    "work_0707": {
+      "selected_id": "work-0524-0504",
+      "relation": "inspection",
+      "work_id": "work-0707-0501",
+      "band": "N7NN",
+      "return_path": "0707.app-use-check/05.01.return.md",
+      "return_file": "matched",
+      "return_custody": "unknown",
+      "review_path": "0707.app-use-check/06.01.review.md",
+      "review_file": "matched"
+    }
+  },
+  "repeat": {
+    "selected_id": "work-0524-0504",
+    "fingerprint": "46054c0d470d55318b5d835e425e9eb9ee0a8c7209bf42efbf47d06647f9b802",
+    "gap_kinds": ["return-undeclared", "catalog-not-chosen", "catalog-not-chosen"],
+    "observed_at": "2026-11-01T19:13:09Z",
+    "same_identity": true
+  },
+  "old_profile": {
+    "path": "labs/prime-desk-use-pass01/request.json",
+    "sha256": "87f5d657304025ef6654688170226bcb921d9eca5cee11a0fc4bd8a898242e93",
+    "bytes": 7306,
+    "rewritten": false,
+    "view_exit": 1,
+    "state": "partial",
+    "selected": null,
+    "gap_kind": "stale"
+  },
+  "fingerprints": {
+    "evidence": "00.kernel/00.00.10.work/0524.prime-desk/evidence/build05.05/fingerprints.json",
+    "rehash_bad": 0,
+    "runner_digest_before": "8f6910a9ad912ad088719db29fdfb25d1a6fcff0e1b20d6b5fd361814c38ac5e",
+    "runner_digest_after": "8f6910a9ad912ad088719db29fdfb25d1a6fcff0e1b20d6b5fd361814c38ac5e",
+    "live_sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+    "live_bytes": 1160,
+    "live_unchanged": true
+  },
+  "pass03_prime_desk": {
+    "sha256": "cd1e74aa0a51b52dcedaa544b4fd1f2de90f84bf69a8c21234ef362ae2a5f812",
+    "bytes": 77622,
+    "edited": false
+  },
+  "not_claimed": [
+    "acceptance",
+    "readability score",
+    "30-60 second full overview",
+    "Prime adoption",
+    "live process activity",
+    "0124 custody filed",
+    "capture complete",
+    "desk activation",
+    "production review-loop activation"
+  ]
+}

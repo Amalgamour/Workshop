@@ -1,0 +1,35 @@
+{
+  "qualification": "serial exploratory unit probes: lock replaced by nullcontext AND low-level writes replaced by binary Python writes in memory; native submitted CLI remains failed; no platform/concurrency validation",
+  "book": "D:\\librarian\\temp\\cloud-core-review\\scratch\\logic-probe-book-02",
+  "prior_task_text_retained_in_book_files": [],
+  "revision": {
+    "schema": "desk-core-result/1",
+    "ok": true,
+    "command": "revise-task",
+    "accepted": false,
+    "limitations": [
+      "no OS user isolation",
+      "actor labels are not authentication",
+      "file locks and rename are not a proof of race freedom",
+      "a receipt is not a review and a review is not acceptance",
+      "this tool does not launch a model or migrate the live book"
+    ],
+    "idempotent": false,
+    "task_binding_sha256": "8da1f1f2dea159a17bee0e2a7dc8cf62e1f683bb21674263c43274fa80a845e2",
+    "previous_task_binding_sha256": "5c25103004c6b72d3112cabce80d0472b11f532176921a884e05655854b2c9d9",
+    "stale": true
+  },
+  "review_changed_task_old_return": {
+    "review_refused": false,
+    "review_binding": "4dc28a18b47a63cdf56165797b719f4b2fe9b666ac21d283aad1aa740a30e0b8",
+    "state": "reviewed",
+    "review_fresh": true,
+    "complete": true,
+    "conflicts": [
+      "release-stale",
+      "claim-stale"
+    ],
+    "next_action": "Inspect the task"
+  },
+  "same_text_different_origins_same_task_binding": true
+}

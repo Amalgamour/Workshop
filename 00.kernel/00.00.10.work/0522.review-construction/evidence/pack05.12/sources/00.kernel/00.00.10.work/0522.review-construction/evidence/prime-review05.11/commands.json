@@ -1,0 +1,276 @@
+[
+  {
+    "label": "actual-prepare",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "prepare",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+      "--source",
+      "0522.review-construction",
+      "--pass",
+      "05.11"
+    ],
+    "exit": 0,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "actual-read",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "read",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+      "--source",
+      "0522.review-construction",
+      "--pass",
+      "05.11"
+    ],
+    "exit": 2,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-prepare",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "probe-form",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "form",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-record",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "record",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01",
+      "--intake",
+      "0d06eb178f729dbbaacff897196276c8da3c2ab3cde302a06ebce054972d7cd3",
+      "--judgment",
+      "D:\\librarian\\temp\\0522-0511-prime\\supplied-judgment.json"
+    ],
+    "exit": 0,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-inspect",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "inspect",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "probe-publish",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "publish",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01",
+      "--review",
+      "w41579268cf513658"
+    ],
+    "exit": 0,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-clean-recover",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "probe-new-process-read",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "read",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-source-change-inspect",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "inspect",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": true,
+    "correction": null
+  },
+  {
+    "label": "probe-source-change-recover",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "probe-source-change-read",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "read",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-tampered-render-publish",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "publish",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01",
+      "--review",
+      "w41579268cf513658"
+    ],
+    "exit": 0,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "probe-tampered-render-recover",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\0522-0511-prime\\book",
+      "--source",
+      "0796.prime-probe",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 1,
+    "stale": true,
+    "correction": null
+  }
+]

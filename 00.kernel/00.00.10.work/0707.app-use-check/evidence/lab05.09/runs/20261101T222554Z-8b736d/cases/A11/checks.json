@@ -1,0 +1,98 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare target existing-review",
+      "expected": null,
+      "observed": "existing-review",
+      "ok": true
+    },
+    {
+      "check": "prepare route record-then-blocked",
+      "expected": null,
+      "observed": {
+        "blocker": "target-existing-review",
+        "route": "record-then-blocked",
+        "state": "awaiting-review",
+        "target": "existing-review",
+        "text": "Recording preserves the judgment; rendering into this target will be refused."
+      },
+      "ok": true
+    },
+    {
+      "check": "record exit 0 (B8: judgment committed)",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record.json matches COMMITTED.json",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "render exit 2 render-conflict",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "page unchanged",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "exactly one partial",
+      "expected": null,
+      "observed": [
+        "r1-c8441fc88820.md"
+      ],
+      "ok": true
+    },
+    {
+      "check": "recover exit 2, apply not called",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "still exactly one partial",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "read mechanical existing-review-conflict",
+      "expected": null,
+      "observed": {
+        "blocker": "existing-review",
+        "route": "none-in-this-entry",
+        "state": "existing-review-conflict",
+        "target": "existing-review",
+        "text": "The judgment is retained. The existing review was not overwritten."
+      },
+      "ok": true
+    },
+    {
+      "check": "R02 wording: judgment retained (heuristic)",
+      "expected": null,
+      "observed": "The judgment is retained. The existing review was not overwritten.",
+      "ok": true
+    }
+  ],
+  "error": null
+}

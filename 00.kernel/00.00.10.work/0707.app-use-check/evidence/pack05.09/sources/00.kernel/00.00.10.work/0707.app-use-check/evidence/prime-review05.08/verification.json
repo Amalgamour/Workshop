@@ -1,0 +1,39 @@
+{
+  "integrity": [
+    {
+      "manifest": "sources",
+      "rows": 121,
+      "mismatches": []
+    },
+    {
+      "manifest": "artifacts",
+      "rows": 51,
+      "mismatches": []
+    }
+  ],
+  "cases": [
+    {
+      "call_anomalies": [],
+      "error": null,
+      "failed_checks": [],
+      "id": "A22a",
+      "status": "PASS",
+      "title": "absent before prepare: no template, truthful no-record guidance, no commitment"
+    },
+    {
+      "call_anomalies": [],
+      "error": null,
+      "failed_checks": [],
+      "id": "A22b",
+      "status": "PASS",
+      "title": "present at prepare, target removed before record: record refuses, decision unchanged"
+    }
+  ],
+  "raw_calls": 7,
+  "raw_output_mismatches": [],
+  "decision_same_at_all_stages": true,
+  "no_committed_reviews": true,
+  "target_removed_at_record": true,
+  "config_changes_only_allowed": true,
+  "new_execution_by_prime": false
+}

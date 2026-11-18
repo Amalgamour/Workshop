@@ -1,0 +1,3427 @@
+{
+ "command": "explain",
+ "coverage": [
+  {
+   "complete_claim": false,
+   "declaration": "librarian-review-loop v1",
+   "entry_points": [
+    "review-loop"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:app/librarian.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "review-loop-door v1",
+   "entry_points": [
+    "describe-legacy",
+    "prepare",
+    "record",
+    "render",
+    "read",
+    "recover"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:app/review_loop_tools_v2.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "review-loop-declaration v1",
+   "entry_points": [
+    "tools"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:app/review-loop-v2.json"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "review-loop-pass02 v1",
+   "entry_points": [
+    "describe-legacy",
+    "prepare",
+    "record",
+    "render",
+    "read",
+    "recover"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/review-loop-pass02/review_loop.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "review-construct-pass02 v1",
+   "entry_points": [
+    "show",
+    "apply",
+    "bind"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/review-construction-pass02/construct.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "prime-cycle-pass03 v1",
+   "entry_points": [
+    "read",
+    "record"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "prime-review-pass01 v1",
+   "entry_points": [
+    "report"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/prime-review-pass01/prime_review.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "prime-review-pass02 v1",
+   "entry_points": [
+    "report"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/prime-review-pass02/prime_review.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "return-inspect-pass01 v1",
+   "entry_points": [
+    "inspect"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/return-capture-pass01/return_inspect.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "return-lines-pass01 v1",
+   "entry_points": [
+    "verify"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/return-lines-pass01/return_lines.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "return-placement-pass01 v1",
+   "entry_points": [
+    "route"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/return-placement-pass01/return_placement.py"
+  },
+  {
+   "complete_claim": false,
+   "declaration": "return-capture-pass01 v1",
+   "entry_points": [
+    "verify_member"
+   ],
+   "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+   "module": "lib-build:labs/return-capture-pass01/return_capture.py"
+  }
+ ],
+ "explain_note": "every declared edge into the target found in the bounded walk; none means no declared path, not proof of independence",
+ "finding_counts": {
+  "condition-inapplicable": 1,
+  "environment-unverified": 21,
+  "shared": 33
+ },
+ "note": "Prototype declarations: answers cover only the declared edges and listed records; not proof of runtime closure.",
+ "paths": [
+  {
+   "condition": "applicable",
+   "from_declaration": "return-inspect-pass01 v1",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:labs/return-capture-pass01/return_capture.py"
+   ],
+   "resolution": "selected",
+   "via_requirement": "return-capture"
+  },
+  {
+   "condition": "applicable",
+   "from_declaration": "return-lines-pass01 v1",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/return-capture-pass01/return_capture.py"
+   ],
+   "resolution": "resolved",
+   "via_requirement": "return-capture"
+  },
+  {
+   "condition": "inapplicable",
+   "from_declaration": "return-placement-pass01 v1",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:labs/return-capture-pass01/return_capture.py"
+   ],
+   "resolution": "resolved",
+   "via_requirement": "return-capture"
+  }
+ ],
+ "query": {
+  "caller_conditions": {},
+  "max_depth": 16,
+  "module": "lib-build:app/librarian.py",
+  "to": "lib-build:labs/return-capture-pass01/return_capture.py",
+  "transitive": true
+ },
+ "record_findings": [],
+ "requirements": [
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 1,
+   "findings": [],
+   "from": "lib-build:app/librarian.py",
+   "from_declaration": "librarian-review-loop v1",
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py"
+   ],
+   "pin": null,
+   "reason": "load_module reads app/review_loop_tools_v2.py by path and executes it. librarian.py does not hash that file. Observed bytes at this cut: sha256 e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408, 11126 bytes. Observation only.",
+   "requirement_id": "review-loop-door",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v1.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "a18f6686ae82ad7a92d66557bac1a8ce04f1e4ca097eab81b2625fbc8aaa4450",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "34-40, 98-101",
+    "path": "app/librarian.py"
+   },
+   "target": {
+    "module": {
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 1,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:app/librarian.py",
+   "from_declaration": "librarian-review-loop v1",
+   "kind": "environment",
+   "mechanism": "import",
+   "path": [
+    "lib-build:app/librarian.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "30-31, 98-106",
+    "path": "app/librarian.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": null,
+   "reason": "load_declaration reads review-loop-v2.json and compares parsed fields with TOOLS. It does not hash the file bytes. Whitespace that still parses to the same fields would pass. Observed file bytes at this cut: sha256 1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3, 1892 bytes. Observation only.",
+   "requirement_id": "declaration",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "review-loop-declaration",
+    "file": "declarations/review-loop-declaration.v1.json",
+    "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "record_sha256": "fb648a3cde429d5c2e832fb61b8d603a6b75a3baf5529a6fb707c7e78716b09d",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "20-22, 129-164",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "app/review-loop-v2.json",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 47189,
+    "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+   },
+   "reason": "pin_tools hash-checks review_loop, then perform launches it with sys.executable -B and the forwarded arguments. shell is false.",
+   "requirement_id": "review-loop",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v1.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "c6534e08ee24c471ee26eb043fa77661309d9839fa267509627b6aab3193f387",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "64-68, 167-187, 280-292",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 36188,
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+   },
+   "reason": "pin_tools refuses before launch if construct bytes differ. The door does not launch construct.",
+   "requirement_id": "construct",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "review-construct-pass02",
+    "file": "declarations/review-construct-pass02.v1.json",
+    "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "29-33, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-construction-pass02/construct.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 76045,
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   },
+   "reason": "pin_tools refuses before launch if the pass03 cycle bytes differ. The door does not launch the cycle.",
+   "requirement_id": "prime-cycle",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v1.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "e001ea21196fb2bcacce8f9d5f39a87f9590abe3f4bca585c633fa3960a31da9",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "34-38, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 58324,
+    "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+   },
+   "reason": "pin_tools refuses before launch if prime_review pass01 bytes differ. The door does not launch it.",
+   "requirement_id": "prime-review-01",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass01",
+    "file": "declarations/prime-review-pass01.v1.json",
+    "implementation_sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "record_sha256": "b4e51edebd8945b91aadf9efec1109859e43c84774df5bf32b3da88b2e060f1a",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "39-43, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass01/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 58560,
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+   },
+   "reason": "pin_tools refuses before launch if prime_review pass02 bytes differ. The door does not launch it.",
+   "requirement_id": "prime-review-02",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass02",
+    "file": "declarations/prime-review-pass02.v1.json",
+    "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "44-48, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass02/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "reason": "pin_tools refuses before launch if return_inspect bytes differ. The door does not launch it.",
+   "requirement_id": "return-inspect",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "49-53, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "reason": "pin_tools refuses before launch if return_lines bytes differ. The door does not launch it.",
+   "requirement_id": "return-lines",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v1.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "54-58, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "reason": "pin_tools refuses before launch if return_placement bytes differ. The door does not launch it.",
+   "requirement_id": "return-placement",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "59-63, 185-187",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "environment",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "286-292",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "checkout-root"
+    }
+   ],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "environment",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": null,
+   "reason": "a fixed checkout path in source; not probed",
+   "requirement_id": "checkout-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "24-25, 206-210",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The source binds the checkout to the literal path D:\\Git\\lib-build. A matching file digest does not show that this path is present or correct on another machine.",
+     "name": "checkout-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "fixture-mutation",
+    "stated_by": "record",
+    "statement": "prepare, record, render, read, or recover",
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "fixture-root"
+    }
+   ],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "environment",
+   "mechanism": "read",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": null,
+   "reason": "mutation commands refuse a fixture root inside the checkout or the live work book",
+   "requirement_id": "fixture-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "205-211, 271-277",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "prepare, record, render, read, and recover take an absolute disposable fixture root outside D:\\Git\\lib-build and outside the live work book. The root is caller-chosen. Its bytes are not a module pin.",
+     "name": "fixture-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "describe-legacy",
+    "stated_by": "record",
+    "statement": "describe-legacy reads the caller book and writes nothing",
+    "status": "applicable"
+   },
+   "depth": 2,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "caller-book"
+    }
+   ],
+   "from": "lib-build:app/review_loop_tools_v2.py",
+   "from_declaration": "review-loop-door v1",
+   "kind": "environment",
+   "mechanism": "read",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": null,
+   "reason": "the book path is an argument, not a pinned module",
+   "requirement_id": "caller-book",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "267-270",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "describe-legacy takes an absolute --book directory and reads it. The book is caller-chosen. The live work book is one possible input. It is not pinned by this command.",
+     "name": "caller-book"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/review-construction-pass02/construct.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.construct stores a path and a hash. This file does not open that path.",
+   "requirement_id": "construct",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "review-construct-pass02",
+    "file": "declarations/review-construct-pass02.v1.json",
+    "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "6-9",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-construction-pass02/construct.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.prime_cycle_pass03 stores a path and a hash. This file does not open that path.",
+   "requirement_id": "prime-cycle",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v1.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "e001ea21196fb2bcacce8f9d5f39a87f9590abe3f4bca585c633fa3960a31da9",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "11-15",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass01/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.prime_review_pass01 stores a path and a hash. This file does not open that path.",
+   "requirement_id": "prime-review-01",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass01",
+    "file": "declarations/prime-review-pass01.v1.json",
+    "implementation_sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "record_sha256": "b4e51edebd8945b91aadf9efec1109859e43c84774df5bf32b3da88b2e060f1a",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "16-20",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass01/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass02/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.prime_review_pass02 stores a path and a hash. This file does not open that path.",
+   "requirement_id": "prime-review-02",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass02",
+    "file": "declarations/prime-review-pass02.v1.json",
+    "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "21-25",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass02/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.return_inspect stores a path and a hash. This file does not open that path.",
+   "requirement_id": "return-inspect",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "26-30",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-lines-pass01/return_lines.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.return_lines stores a path and a hash. This file does not open that path.",
+   "requirement_id": "return-lines",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v1.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "31-35",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.return_placement stores a path and a hash. This file does not open that path.",
+   "requirement_id": "return-placement",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "36-40",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/review-loop-pass02/review_loop.py"
+     ]
+    }
+   ],
+   "from": "lib-build:app/review-loop-v2.json",
+   "from_declaration": "review-loop-declaration v1",
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "reason": "tools.review_loop stores a path and a hash. This file does not open that path.",
+   "requirement_id": "review-loop",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v1.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "c6534e08ee24c471ee26eb043fa77661309d9839fa267509627b6aab3193f387",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "41-45",
+    "path": "app/review-loop-v2.json"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/review-construction-pass02/construct.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 36188,
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+   },
+   "reason": "main calls pin_set before every command, including the six app commands. The check compares sha256 and length.",
+   "requirement_id": "construct-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "review-construct-pass02",
+    "file": "declarations/review-construct-pass02.v1.json",
+    "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "29-31, 142-151, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-construction-pass02/construct.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass01/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 58324,
+    "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+   },
+   "reason": "pin_set checks prime_review pass01. These six commands do not launch it.",
+   "requirement_id": "prime-review-01-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass01",
+    "file": "declarations/prime-review-pass01.v1.json",
+    "implementation_sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "record_sha256": "b4e51edebd8945b91aadf9efec1109859e43c84774df5bf32b3da88b2e060f1a",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "32-34, 152, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass01/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass02/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 58560,
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+   },
+   "reason": "pin_set checks prime_review pass02. These six commands do not launch it. The cycle record command does.",
+   "requirement_id": "prime-review-02-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass02",
+    "file": "declarations/prime-review-pass02.v1.json",
+    "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "35-37, 153, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass02/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 76045,
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   },
+   "reason": "pin_set checks the pass03 cycle before dispatch.",
+   "requirement_id": "prime-cycle-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v1.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "e001ea21196fb2bcacce8f9d5f39a87f9590abe3f4bca585c633fa3960a31da9",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "38-40, 154, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-lines-pass01/return_lines.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "reason": "pin_set checks return_lines. describe-legacy pins it again and does not launch it. The app door does not forward reproduce, which is the loop command that launches return_lines.",
+   "requirement_id": "return-lines-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v1.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "41-44, 155, 628-630, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "reason": "pin_set checks return_placement before dispatch.",
+   "requirement_id": "return-placement-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "45-47, 156, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "reason": "pin_set checks return_inspect before dispatch.",
+   "requirement_id": "return-inspect-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "48-51, 157, 1021",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "cycle-commands",
+    "stated_by": "record",
+    "statement": "prepare, record, render, read, and recover call the cycle",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 76045,
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   },
+   "reason": "cycle_call launches prime_cycle.py with sys.executable -B after the pin_set check.",
+   "requirement_id": "prime-cycle",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v1.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "e001ea21196fb2bcacce8f9d5f39a87f9590abe3f4bca585c633fa3960a31da9",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "166-174, 190-191, 310-315, 323-343, 470-472, 1034-1043",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "render-or-recover",
+    "stated_by": "record",
+    "statement": "render and recover call construct show and maybe apply",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/review-construction-pass02/construct.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 36188,
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+   },
+   "reason": "construct_call launches construct.py for show and apply.",
+   "requirement_id": "construct",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "review-construct-pass02",
+    "file": "declarations/review-construct-pass02.v1.json",
+    "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "201-202, 356-357, 466",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-construction-pass02/construct.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "describe-legacy",
+    "stated_by": "record",
+    "statement": "describe-legacy launches return_inspect inspect",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "reason": "describe-legacy launches the inspector on the caller book and member.",
+   "requirement_id": "return-inspect",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "611-612, 627-633",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "legacy-origin",
+    "stated_by": "record",
+    "statement": "describe-legacy launches return_placement route when reservation origin has book, page, and batch",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "reason": "the route launch is skipped when origin is absent",
+   "requirement_id": "return-placement",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "644-650",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "environment",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "166-174",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "checkout-root"
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "environment",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": null,
+   "reason": "a fixed checkout path in source; not probed",
+   "requirement_id": "checkout-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "27, 101-103",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The source binds the checkout to the literal path D:\\Git\\lib-build. A matching file digest does not show that this path is present or correct on another machine.",
+     "name": "checkout-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "fixture-mutation",
+    "stated_by": "record",
+    "statement": "prepare, record, render, read, or recover",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "fixture-root"
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "environment",
+   "mechanism": "read",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": null,
+   "reason": "mutation commands refuse a fixture root inside the checkout or the live work book",
+   "requirement_id": "fixture-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "94-103, 1033",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "prepare, record, render, read, and recover take an absolute disposable fixture root outside D:\\Git\\lib-build and outside the live work book. The root is caller-chosen. Its bytes are not a module pin.",
+     "name": "fixture-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "describe-legacy",
+    "stated_by": "record",
+    "statement": "describe-legacy reads the caller book and writes nothing",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "caller-book"
+    }
+   ],
+   "from": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "from_declaration": "review-loop-pass02 v1",
+   "kind": "environment",
+   "mechanism": "read",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": null,
+   "reason": "the book path is an argument, not a pinned module",
+   "requirement_id": "caller-book",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "582-589, 1022-1023",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "describe-legacy takes an absolute --book directory and reads it. The book is caller-chosen. The live work book is one possible input. It is not pinned by this command.",
+     "name": "caller-book"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "call-report",
+    "stated_by": "record",
+    "statement": "call_prime_review checks the pass02 pin and launches report",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass02/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/review-construction-pass02/construct.py",
+   "from_declaration": "review-construct-pass02 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-construction-pass02/construct.py"
+   ],
+   "pin": {
+    "bytes": 58560,
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+   },
+   "reason": "pin_tool compares sha256 and length, then the subprocess runs prime_review.py report. Pass01 is not this tool.",
+   "requirement_id": "prime-review-02",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass02",
+    "file": "declarations/prime-review-pass02.v1.json",
+    "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "27-30, 372-374, 470-481",
+    "path": "labs/review-construction-pass02/construct.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass02/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/review-construction-pass02/construct.py",
+   "from_declaration": "review-construct-pass02 v1",
+   "kind": "environment",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-construction-pass02/construct.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "478-485",
+    "path": "labs/review-construction-pass02/construct.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "checkout-root"
+    }
+   ],
+   "from": "lib-build:labs/review-construction-pass02/construct.py",
+   "from_declaration": "review-construct-pass02 v1",
+   "kind": "environment",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-construction-pass02/construct.py"
+   ],
+   "pin": null,
+   "reason": "a fixed checkout path in source; not probed",
+   "requirement_id": "checkout-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "27",
+    "path": "labs/review-construction-pass02/construct.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The source binds the checkout to the literal path D:\\Git\\lib-build. A matching file digest does not show that this path is present or correct on another machine.",
+     "name": "checkout-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "fixture-mutation",
+    "stated_by": "record",
+    "statement": "prepare, record, render, read, or recover",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "fixture-root"
+    }
+   ],
+   "from": "lib-build:labs/review-construction-pass02/construct.py",
+   "from_declaration": "review-construct-pass02 v1",
+   "kind": "environment",
+   "mechanism": "read",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/review-construction-pass02/construct.py"
+   ],
+   "pin": null,
+   "reason": "mutation commands refuse a fixture root inside the checkout or the live work book",
+   "requirement_id": "fixture-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "8-10",
+    "path": "labs/review-construction-pass02/construct.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "prepare, record, render, read, and recover take an absolute disposable fixture root outside D:\\Git\\lib-build and outside the live work book. The root is caller-chosen. Its bytes are not a module pin.",
+     "name": "fixture-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/review-construction-pass02/construct.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 36188,
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+   },
+   "reason": "main calls pins before read and record. The check compares sha256 and length.",
+   "requirement_id": "construct-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "review-construct-pass02",
+    "file": "declarations/review-construct-pass02.v1.json",
+    "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "29-31, 296-303, 1646",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-construction-pass02/construct.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass01/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 58324,
+    "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+   },
+   "reason": "pins checks prime_review pass01. read and record do not launch it.",
+   "requirement_id": "prime-review-01-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass01",
+    "file": "declarations/prime-review-pass01.v1.json",
+    "implementation_sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "record_sha256": "b4e51edebd8945b91aadf9efec1109859e43c84774df5bf32b3da88b2e060f1a",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "43-45, 304, 1646",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass01/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass02/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 58560,
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+   },
+   "reason": "pins checks prime_review pass02 before dispatch.",
+   "requirement_id": "prime-review-02-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass02",
+    "file": "declarations/prime-review-pass02.v1.json",
+    "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "46-48, 305, 1646",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass02/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-lines-pass01/return_lines.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "reason": "pins checks return_lines before dispatch.",
+   "requirement_id": "return-lines-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v1.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "32-35, 306, 1646",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "reason": "pins checks return_placement before dispatch.",
+   "requirement_id": "return-placement-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "36-38, 307, 1646",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "reason": "pins checks return_inspect before dispatch.",
+   "requirement_id": "return-inspect-pin",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "39-42, 308, 1646",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "new-format-verify",
+    "stated_by": "record",
+    "statement": "observe_descriptor launches return_lines verify for a non-legacy custody format",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-lines-pass01/return_lines.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "reason": "a legacy-in-place descriptor takes the inspector path instead",
+   "requirement_id": "return-lines",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v1.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "337-344, 506-507, 711-722",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "legacy-in-place",
+    "stated_by": "record",
+    "statement": "observe_legacy_in_place launches return_inspect inspect",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "reason": "used when the descriptor is legacy-in-place/1",
+   "requirement_id": "return-inspect",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v1.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "759-786",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "legacy-route",
+    "stated_by": "record",
+    "statement": "observe_legacy_in_place launches return_placement route after an origin is present",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "reason": "the route command does not load return_capture.py",
+   "requirement_id": "return-placement",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "808-811",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "bind-digest",
+    "stated_by": "record",
+    "statement": "read and record call bind_digest, which launches construct bind",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/review-construction-pass02/construct.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 36188,
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+   },
+   "reason": "bind writes a scratch input inside the fixture and checks review-task-binding/2",
+   "requirement_id": "construct",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "review-construct-pass02",
+    "file": "declarations/review-construct-pass02.v1.json",
+    "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "895-919, 1129, 1283-1285, 1513",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/review-construction-pass02/construct.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "record-report",
+    "stated_by": "record",
+    "statement": "record launches prime_review pass02 report",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/prime-review-pass02/prime_review.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 58560,
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+   },
+   "reason": "read does not launch prime_review",
+   "requirement_id": "prime-review-02",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "prime-review-pass02",
+    "file": "declarations/prime-review-pass02.v1.json",
+    "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "1525-1528",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/prime-review-pass02/prime_review.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "environment",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "337-344",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "checkout-root"
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "environment",
+   "mechanism": "document",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": null,
+   "reason": "a fixed checkout path in source; not probed",
+   "requirement_id": "checkout-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "28",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The source binds the checkout to the literal path D:\\Git\\lib-build. A matching file digest does not show that this path is present or correct on another machine.",
+     "name": "checkout-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "fixture-mutation",
+    "stated_by": "record",
+    "statement": "prepare, record, render, read, or recover",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "fixture-root"
+    }
+   ],
+   "from": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "from_declaration": "prime-cycle-pass03 v1",
+   "kind": "environment",
+   "mechanism": "read",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": null,
+   "reason": "mutation commands refuse a fixture root inside the checkout or the live work book",
+   "requirement_id": "fixture-root",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "1647",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "prepare, record, render, read, and recover take an absolute disposable fixture root outside D:\\Git\\lib-build and outside the live work book. The root is caller-chosen. Its bytes are not a module pin.",
+     "name": "fixture-root"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/prime-review-pass01/prime_review.py",
+   "from_declaration": "prime-review-pass01 v1",
+   "kind": "environment",
+   "mechanism": "import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-review-pass01/prime_review.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "19-28",
+    "path": "labs/prime-review-pass01/prime_review.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/prime-review-pass02/prime_review.py",
+   "from_declaration": "prime-review-pass02 v1",
+   "kind": "environment",
+   "mechanism": "import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/prime-review-pass02/prime_review.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "19-28",
+    "path": "labs/prime-review-pass02/prime_review.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [],
+   "from": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "from_declaration": "return-inspect-pass01 v1",
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py"
+   ],
+   "pin": null,
+   "reason": "pin_bytes hashes the sibling and compares HELPER_SHA256 only. Length is not compared, so this is not a {sha256, bytes} pin. The sibling is then exec'd. Observed bytes at this cut: sha256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac, 45767 bytes. Observation only.",
+   "requirement_id": "return-capture",
+   "resolution": "selected",
+   "resolved_to": {
+    "declaration_id": "return-capture-pass01",
+    "file": "declarations/return-capture-pass01.v1.json",
+    "implementation_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "record_sha256": "55bc7932a370f67afa625df017891113a16e562dc016fd91f4d19e7c278ec7ff",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "19-20, 49-81, 277-278",
+    "path": "labs/return-capture-pass01/return_inspect.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_capture.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "from_declaration": "return-inspect-pass01 v1",
+   "kind": "environment",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "74-81",
+    "path": "labs/return-capture-pass01/return_inspect.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 4,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "from_declaration": "return-capture-pass01 v1",
+   "kind": "environment",
+   "mechanism": "import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:labs/return-capture-pass01/return_capture.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "10-24",
+    "path": "labs/return-capture-pass01/return_capture.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "route-for",
+    "stated_by": "record",
+    "statement": "verify calls route_for, which loads return_placement and calls compute_route",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-placement-pass01/return_placement.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "from_declaration": "return-lines-pass01 v1",
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "reason": "load_module compares sha256 and length, then importlib loads the file. compute_route does not load return_capture.py.",
+   "requirement_id": "return-placement",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v1.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "42-43, 254-277, 290-293, 1563-1565",
+    "path": "labs/return-lines-pass01/return_lines.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "applicable",
+    "id": "reader-reason",
+    "stated_by": "record",
+    "statement": "verify's legacy relocation branch calls reader_reason, which loads return_capture",
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "shared",
+     "first_reached_by": [
+      "lib-build:app/librarian.py",
+      "lib-build:app/review_loop_tools_v2.py",
+      "lib-build:labs/return-capture-pass01/return_inspect.py",
+      "lib-build:labs/return-capture-pass01/return_capture.py"
+     ]
+    }
+   ],
+   "from": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "from_declaration": "return-lines-pass01 v1",
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ],
+   "pin": {
+    "bytes": 45767,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "reason": "the same load_module pin checks sha256 and length. A verify with no relocation returns before this call.",
+   "requirement_id": "return-capture",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-capture-pass01",
+    "file": "declarations/return-capture-pass01.v1.json",
+    "implementation_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "record_sha256": "55bc7932a370f67afa625df017891113a16e562dc016fd91f4d19e7c278ec7ff",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "44-45, 254-267, 280-286, 940-941, 1581-1585",
+    "path": "labs/return-lines-pass01/return_lines.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_capture.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "from_declaration": "return-lines-pass01 v1",
+   "kind": "environment",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "262",
+    "path": "labs/return-lines-pass01/return_lines.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "conditional",
+    "effective": "inapplicable",
+    "id": "custody-reader",
+    "stated_by": "record",
+    "statement": "_assess_custody calls _reader; the route command used by describe-legacy and the cycle does not",
+    "status": "inapplicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "condition": "custody-reader",
+     "finding": "condition-inapplicable"
+    }
+   ],
+   "from": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "from_declaration": "return-placement-pass01 v1",
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py"
+   ],
+   "pin": {
+    "bytes": 45767,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "reason": "the pin compares sha256 and length. It is outside the route entry point, so this record marks it inapplicable for the review-loop route command and still lists it.",
+   "requirement_id": "return-capture",
+   "resolution": "resolved",
+   "resolved_to": {
+    "declaration_id": "return-capture-pass01",
+    "file": "declarations/return-capture-pass01.v1.json",
+    "implementation_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "record_sha256": "55bc7932a370f67afa625df017891113a16e562dc016fd91f4d19e7c278ec7ff",
+    "status": "prototype",
+    "version": 1
+   },
+   "source_ref": {
+    "lines": "34-35, 141, 201-218, 222-233",
+    "path": "labs/return-placement-pass01/return_placement.py"
+   },
+   "target": {
+    "module": {
+     "path": "labs/return-capture-pass01/return_capture.py",
+     "repository": "lib-build"
+    }
+   }
+  },
+  {
+   "condition": {
+    "applies": "always",
+    "effective": "applicable",
+    "id": null,
+    "stated_by": "record",
+    "statement": null,
+    "status": "applicable"
+   },
+   "depth": 3,
+   "findings": [
+    {
+     "finding": "environment-unverified",
+     "name": "python"
+    }
+   ],
+   "from": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "from_declaration": "return-placement-pass01 v1",
+   "kind": "environment",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:app/librarian.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py"
+   ],
+   "pin": null,
+   "reason": "the interpreter that runs this file",
+   "requirement_id": "python",
+   "resolution": "not-a-module",
+   "resolved_to": null,
+   "source_ref": {
+    "lines": "213-217",
+    "path": "labs/return-placement-pass01/return_placement.py"
+   },
+   "target": {
+    "environment": {
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness.",
+     "name": "python"
+    }
+   }
+  }
+ ],
+ "root": {
+  "declaration": {
+   "declaration_id": "librarian-review-loop",
+   "file": "declarations/librarian-review-loop.v1.json",
+   "implementation_sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b",
+   "record_sha256": "5e37b4a19b7e682386fef23620b255a24a4ad25bd101f94456fc11bbd103bd4a",
+   "status": "prototype",
+   "version": 1
+  },
+  "provenance": {
+   "links": [
+    {
+     "address": {
+      "book": "00.00.10.work",
+      "face_or_pass": "05.05",
+      "file": "05.05.md",
+      "page": "0522.review-construction",
+      "repository": "lib-build"
+     },
+     "commit": null,
+     "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+     "role": "assignment",
+     "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+     "status": "pinned"
+    },
+    {
+     "address": {
+      "book": "00.00.10.work",
+      "face_or_pass": "05.05",
+      "file": "evidence/prime-review05.05/REVIEW.md",
+      "page": "0522.review-construction",
+      "repository": "lib-build"
+     },
+     "commit": null,
+     "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+     "role": "review",
+     "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+     "status": "pinned"
+    }
+   ],
+   "unknown": [
+    "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/librarian.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+    "The old facade app/review_loop_tools.py is not loaded for review-loop."
+   ]
+  },
+  "state": "declared"
+ },
+ "schema": "module-dependency-result/1",
+ "selection": "selected",
+ "set": {
+  "coverage": "app/librarian.py command review-loop, its v2 door and declaration, and the reviewed modules those commands reach. Not every app namespace.",
+  "path": "D:\\Git\\lib-build\\labs\\app-dependencies-pass01\\set.json",
+  "records": 12,
+  "set_id": "review-loop-entry-1",
+  "sha256": "0a2ae9b028e974a20c15c3c5904ff654f7fa91f01a0380fbd6b5e9dfcf6e6af6"
+ },
+ "set_findings": [],
+ "status": "complete-for-declared-coverage"
+}

@@ -1,0 +1,127 @@
+{
+  "accepted": false,
+  "activated": false,
+  "allocated_0184": false,
+  "allocator": "not-used",
+  "app_selected": false,
+  "app_selection_applied": false,
+  "approved": false,
+  "authority": "not-assessed",
+  "branch": "workshop",
+  "capture_slot": null,
+  "cited": {
+    "00.kernel/00.00.10.work/0521.return-placement/06.20.md": {
+      "bytes": 7192,
+      "sha256": "ca0a7e3b47361442320c43cb55e4ce4718bd5b6c7debbeeeda8cf9594ff023fc"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/CONTRACT.md": {
+      "bytes": 7942,
+      "sha256": "c905e9f11bab8d892f3a5c47d3eb2e950c649b587d700cff208fb2a759657353"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/PRIME-USE.md": {
+      "bytes": 2964,
+      "sha256": "d0bd782b5e86d9ab48032528d823ee41a72cbe111cb9e839ff48ee27bcc66502"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/claims.json": {
+      "bytes": 8841,
+      "sha256": "115fc6313729819dabf5c90f8e8934b73896c21dcde49d4d645abacd8d8dda18"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/commands.json": {
+      "bytes": 7175,
+      "sha256": "a0c0111d344b9edd49a989c50fe19e4103d9c51186f01ad54105fcd9f27e5a3a"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/commands.txt": {
+      "bytes": 1724,
+      "sha256": "456e1c15e30f60ef4371d40918ce1a16eb3fcdcb4e33bb14f02e6cf390853f28"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/earlier/20261102T222110Z-first-failure.txt": {
+      "bytes": 33,
+      "sha256": "abb731bb76b364d7806202e863e8003ece153dbe93c9c3c2dc3f071f1b9ed236"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/earlier/20261102T222205Z-first-failure.txt": {
+      "bytes": 48,
+      "sha256": "89fde0627b3bf5452b585eeff5a55aa826f2e9cecb54d3364a5b5a86b167fd4c"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/fixture-index.json": {
+      "bytes": 6785,
+      "sha256": "ab7ca10600b0567eac448c1115e6bbf508f4bc9a0b6ad71813eaf9f337e3e735"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.10/live-stdout.txt": {
+      "bytes": 11848,
+      "sha256": "c82a46ccb324ed3af8905a2f30d3e02b2229f87904ff75b860310d85b5aa4d06"
+    },
+    "labs/return-readiness-pass01/README.md": {
+      "bytes": 604,
+      "sha256": "150b1dbd48a27276c742014d3b4a721261e6933e07d5de3aa2a2e39282309324"
+    },
+    "labs/return-readiness-pass01/contracts.json": {
+      "bytes": 7723,
+      "sha256": "0bd74ada28e4828df9fe74feffdbb44af3eba4df9f57c64a9512f93373664cfc"
+    },
+    "labs/return-readiness-pass01/readiness.py": {
+      "bytes": 26998,
+      "sha256": "e9d59040920e06cc2edf0d5d2ebdec8954e83945fa2629b9eae08e5164cfcecf"
+    },
+    "labs/return-readiness-pass01/tests/run_suite.py": {
+      "bytes": 51657,
+      "sha256": "c2a99f77240c770fc3bf22bea587db35c745e185ffea6024e81a94c037644523"
+    }
+  },
+  "claims_failed": 0,
+  "claims_not_run": 5,
+  "claims_passed": 27,
+  "committed": false,
+  "contract_revised_after_commands": false,
+  "custody": "pending",
+  "date": "2026-11-02",
+  "earlier_roots": [
+    {
+      "path": "D:\\librarian\\temp\\0521-0510\\20261102T222110293501Z-suite",
+      "reason": "Stopped before cases. The dispatcher hash had already moved from the opening measurement."
+    },
+    {
+      "path": "D:\\librarian\\temp\\0521-0510\\20261102T222205536715Z-suite",
+      "reason": "Passed 25 claims. Public stdout byte compare failed because Windows text mode inserted CR."
+    }
+  ],
+  "executor": "Grok-2",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "limits": [
+    "The static pattern does not prove Python runtime behavior.",
+    "Other dispatch branches are not classified.",
+    "The whole dispatcher hash is provenance, not a pin.",
+    "Authority is not assessed and no release file is sought.",
+    "Exit 0 is not Prime review, seating, or app selection.",
+    "Prime independent probes were not run."
+  ],
+  "live_dispatcher": {
+    "bytes": 12204,
+    "claim_time_bytes": 12204,
+    "claim_time_sha256": "e2d85b1b641d8a1113b0afaa67a9b8203eb58e9f1028308be922a806fffa5f90",
+    "matches_predecessor_snapshot": false,
+    "predecessor_bytes": 12153,
+    "predecessor_sha256": "826167161000ac3eab78c466ae47e31b37ff435ea33f4104caf7651ecd21436e",
+    "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+  },
+  "live_stdout": {
+    "bytes": 11848,
+    "sha256": "c82a46ccb324ed3af8905a2f30d3e02b2229f87904ff75b860310d85b5aa4d06"
+  },
+  "matching_line": "0121.return-placement",
+  "readme_at_close": {
+    "bytes": 39210,
+    "note": "Hash only. The file was not opened and was not used as design.",
+    "sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6"
+  },
+  "receipt": null,
+  "reviewer": "Codex Prime",
+  "schema": "return-route-readiness-verification/0510",
+  "seated": false,
+  "source_manifest": {
+    "bytes": 9597,
+    "files": 29,
+    "mismatches": 0,
+    "sha256": "fb437e679e32bf3567b9cdce841255aed3b24ac2b1156d30ca6d0619bd3400cc"
+  },
+  "work_root": "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite"
+}

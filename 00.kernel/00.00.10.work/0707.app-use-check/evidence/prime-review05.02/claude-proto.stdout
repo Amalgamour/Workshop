@@ -1,0 +1,14 @@
+OK  classify_target pending (05.01 A before render) pending
+OK  classify_target substantive 0519 snapshot (05.01 E) existing-review
+OK  classify_target rendered A, same binding constructed-same-binding
+OK  classify_target rendered A, other binding existing-review
+OK  classify_target no heading unsupported
+OK  classify_target duplicate heading unsupported
+OK  classify_target absent absent
+OK  classify_target PENDING without dot, CRLF pending
+OK  mechanical_state 05.01 B before recover ['render-interrupted', 'recover']
+OK  mechanical_state 05.01 D after stale refusal ['target-changed-since-record', 'none-in-this-entry']
+OK  mechanical_state 05.01 E conflict ['existing-review-conflict', 'none-in-this-entry']
+OK  mechanical_state 05.01 A reviewed [None, None]
+OK  mechanical_state 05.02 P2 pending prepare [None, 'record']
+all_ok True

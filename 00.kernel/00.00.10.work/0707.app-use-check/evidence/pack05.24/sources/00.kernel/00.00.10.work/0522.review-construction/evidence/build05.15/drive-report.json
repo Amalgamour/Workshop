@@ -1,0 +1,950 @@
+{
+  "block_record": {
+    "accepted": false,
+    "correction": "The artifact measurement is incomplete. The judgment was not recorded.",
+    "form_codes": [
+      "unparsed-return-line",
+      "malformed-n7-declaration",
+      "custody-missing",
+      "return-missing"
+    ],
+    "form_exit": 0,
+    "form_intake_matches": true,
+    "measurement": "incomplete",
+    "ok": true,
+    "prepare_exit": 0,
+    "published": null,
+    "record_exit": 2,
+    "recorded": false,
+    "review_absent": true,
+    "source_unchanged": true
+  },
+  "canonical": {
+    "custody_after": {
+      "0112.prime-review": {
+        "present": false
+      },
+      "0112.prime-review/05.06.return.md": {
+        "present": false
+      },
+      "0122.review-construction": {
+        "present": false
+      },
+      "0122.review-construction/05.13.return.md": {
+        "present": false
+      },
+      "0122.review-construction/05.14.return.md": {
+        "present": false
+      },
+      "0122.review-construction/05.15.return.md": {
+        "present": false
+      }
+    },
+    "frozen_unchanged": true,
+    "pages_unchanged": true,
+    "sources": [
+      {
+        "artifact_count": 29,
+        "command": "prepare",
+        "exit": 0,
+        "finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "return-missing",
+          "verification-not-measured"
+        ],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "return-missing",
+          "verification-not-measured"
+        ],
+        "intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+        "json": true,
+        "kind": "N5",
+        "matches_v7": true,
+        "measurement": "complete",
+        "notes_diagnostic": false,
+        "pass": "05.13",
+        "source": "0522.review-construction",
+        "stderr_tail": "",
+        "v7_exit": 0,
+        "v7_intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f"
+      },
+      {
+        "artifact_count": 29,
+        "command": "form",
+        "exit": 0,
+        "finding_codes": [],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "return-missing",
+          "verification-not-measured"
+        ],
+        "intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f",
+        "json": true,
+        "kind": "N5",
+        "matches_v7": true,
+        "measurement": null,
+        "notes_diagnostic": false,
+        "pass": "05.13",
+        "source": "0522.review-construction",
+        "stderr_tail": "",
+        "v7_exit": 0,
+        "v7_intake_id": "789fa14ef8991856ec863bc04987b95c9a2ccd2387e289b5435eae0e41d5ec7f"
+      },
+      {
+        "artifact_count": 14,
+        "command": "prepare",
+        "exit": 0,
+        "finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "return-missing"
+        ],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "return-missing"
+        ],
+        "intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588",
+        "json": true,
+        "kind": "N5",
+        "matches_v7": true,
+        "measurement": "complete",
+        "notes_diagnostic": false,
+        "pass": "05.06",
+        "source": "0512.prime-review",
+        "stderr_tail": "",
+        "v7_exit": 0,
+        "v7_intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588"
+      },
+      {
+        "artifact_count": 14,
+        "command": "form",
+        "exit": 0,
+        "finding_codes": [],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "return-missing"
+        ],
+        "intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588",
+        "json": true,
+        "kind": "N5",
+        "matches_v7": true,
+        "measurement": null,
+        "notes_diagnostic": false,
+        "pass": "05.06",
+        "source": "0512.prime-review",
+        "stderr_tail": "",
+        "v7_exit": 0,
+        "v7_intake_id": "b8cfc5375f8cf9c6df776da19fefc11114fb57d33dbd3426f08de392ab8a4588"
+      },
+      {
+        "artifact_count": 26,
+        "command": "prepare",
+        "exit": 0,
+        "expect_artifacts": 26,
+        "finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ],
+        "intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+        "json": true,
+        "kind": "N7",
+        "measurement": "complete",
+        "notes_diagnostic": true,
+        "pass": "05.15",
+        "source": "0707.app-use-check",
+        "stderr_tail": ""
+      },
+      {
+        "artifact_count": 26,
+        "command": "form",
+        "exit": 0,
+        "finding_codes": [],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ],
+        "intake_id": "01e6712e07dd94c3b0f748cb5c7a228b10041d0fcce0b0b63e562f28089bc981",
+        "json": true,
+        "kind": "N7",
+        "measurement": null,
+        "notes_diagnostic": false,
+        "pass": "05.15",
+        "source": "0707.app-use-check",
+        "stderr_tail": ""
+      },
+      {
+        "artifact_count": 33,
+        "command": "prepare",
+        "exit": 0,
+        "expect_artifacts": 33,
+        "finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ],
+        "intake_id": "a0d7da38c5307423b31abf3fd33f9107a72aec4a406e14f7fde42f939c660e9f",
+        "json": true,
+        "kind": "N7",
+        "measurement": "complete",
+        "notes_diagnostic": true,
+        "pass": "05.17",
+        "source": "0707.app-use-check",
+        "stderr_tail": ""
+      },
+      {
+        "artifact_count": 33,
+        "command": "form",
+        "exit": 0,
+        "finding_codes": [],
+        "form_finding_codes": [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ],
+        "intake_id": "a0d7da38c5307423b31abf3fd33f9107a72aec4a406e14f7fde42f939c660e9f",
+        "json": true,
+        "kind": "N7",
+        "measurement": null,
+        "notes_diagnostic": false,
+        "pass": "05.17",
+        "source": "0707.app-use-check",
+        "stderr_tail": ""
+      }
+    ]
+  },
+  "cases_17": {
+    "aggregate": {
+      "ERROR": 0,
+      "FAIL": 4,
+      "PASS": 13
+    },
+    "exit": 1,
+    "failures": [
+      {
+        "detail": {
+          "double-comma": [
+            "malformed-n7-declaration",
+            "unparsed-return-line"
+          ],
+          "n5-trailing-comma": [],
+          "semicolon": [
+            "malformed-n7-declaration",
+            "unparsed-return-line"
+          ]
+        },
+        "id": "G7",
+        "status": "FAIL"
+      },
+      {
+        "detail": {
+          "codes": [
+            "ambiguous-declared-root",
+            "custody-missing",
+            "index-context-bounded",
+            "unparsed-return-line",
+            "verification-not-measured"
+          ],
+          "exit": 0,
+          "measurement": "incomplete"
+        },
+        "id": "I4",
+        "status": "FAIL"
+      },
+      {
+        "detail": {
+          "patched": {
+            "codes": [
+              "ambiguous-declared-root",
+              "custody-missing",
+              "index-context-bounded",
+              "unparsed-return-line",
+              "verification-not-measured"
+            ],
+            "measurement": "incomplete"
+          },
+          "unpatched": {
+            "codes": [
+              "custody-missing",
+              "declared-hash-mismatch",
+              "submission-not-declared",
+              "unparsed-return-line"
+            ],
+            "measurement": "incomplete"
+          }
+        },
+        "id": "H2",
+        "status": "FAIL"
+      },
+      {
+        "detail": {
+          "patched_measurement": "incomplete",
+          "unpatched_codes": [
+            "custody-missing",
+            "index-context-bounded",
+            "submission-not-declared",
+            "unparsed-return-line"
+          ]
+        },
+        "id": "I6",
+        "status": "FAIL"
+      }
+    ],
+    "first_failure": "G7",
+    "known_historical": [
+      "G7",
+      "H2",
+      "I4",
+      "I6"
+    ],
+    "stderr_tail": "",
+    "unexpected": []
+  },
+  "cases_block": {
+    "aggregate": {
+      "ERROR": 0,
+      "FAIL": 0,
+      "PASS": 11
+    },
+    "exit": 0,
+    "failures": [],
+    "first_failure": null,
+    "stderr_tail": ""
+  },
+  "cases_v2": {
+    "aggregate": {
+      "ERROR": 0,
+      "FAIL": 0,
+      "PASS": 12
+    },
+    "exit": 0,
+    "failures": [],
+    "first_failure": null,
+    "stderr_tail": ""
+  },
+  "custody_before": {
+    "0112.prime-review": {
+      "present": false
+    },
+    "0112.prime-review/05.06.return.md": {
+      "present": false
+    },
+    "0122.review-construction": {
+      "present": false
+    },
+    "0122.review-construction/05.13.return.md": {
+      "present": false
+    },
+    "0122.review-construction/05.14.return.md": {
+      "present": false
+    },
+    "0122.review-construction/05.15.return.md": {
+      "present": false
+    }
+  },
+  "custody_end": {
+    "0112.prime-review": {
+      "present": false
+    },
+    "0112.prime-review/05.06.return.md": {
+      "present": false
+    },
+    "0122.review-construction": {
+      "present": false
+    },
+    "0122.review-construction/05.13.return.md": {
+      "present": false
+    },
+    "0122.review-construction/05.14.return.md": {
+      "present": false
+    },
+    "0122.review-construction/05.15.return.md": {
+      "present": false
+    }
+  },
+  "first": {
+    "message": "live page bytes differ at the end",
+    "step": "manifest"
+  },
+  "frozen_end": {
+    "README.md": {
+      "bytes": 6877,
+      "sha256": "7a5b94ff6732e0a49fd712ea447608d7407e85dfa5eeb5d290f12fbeb736fd54"
+    },
+    "app/README.md": {
+      "bytes": 39687,
+      "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+    },
+    "app/librarian.py": {
+      "bytes": 12204,
+      "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+    },
+    "app/review-loop-v4.json": {
+      "bytes": 2519,
+      "sha256": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723"
+    },
+    "app/review-loop-v5.json": {
+      "bytes": 1964,
+      "sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3"
+    },
+    "app/review-loop-v6.json": {
+      "bytes": 2743,
+      "sha256": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa"
+    },
+    "app/review-loop-v7.json": {
+      "bytes": 3515,
+      "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+    },
+    "app/review-loop-v8.json": {
+      "bytes": 4100,
+      "sha256": "92a718d300e20a52b765c4f1ed795051013e32a86597522edffb9ff49255872e"
+    },
+    "app/review_loop_tools_v4.py": {
+      "bytes": 13381,
+      "sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296"
+    },
+    "app/review_loop_tools_v5.py": {
+      "bytes": 7875,
+      "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9"
+    },
+    "app/review_loop_tools_v6.py": {
+      "bytes": 9175,
+      "sha256": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94"
+    },
+    "app/review_loop_tools_v7.py": {
+      "bytes": 10291,
+      "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+    },
+    "app/review_loop_tools_v8.py": {
+      "bytes": 11054,
+      "sha256": "0335da325abf0f0292807ddbcf6f96cc107e8224732ee4afcf3f35470a0f9fc3"
+    },
+    "labs/prime-cycle-pass03/prime_cycle.py": {
+      "bytes": 76045,
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    "labs/prime-review-pass02/prime_review.py": {
+      "bytes": 58560,
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "labs/return-access-pass01/return_access.py": {
+      "bytes": 26561,
+      "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5"
+    },
+    "labs/review-construction-pass04/construct.py": {
+      "bytes": 42582,
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "labs/review-loop-pass03/review_loop.py": {
+      "bytes": 55474,
+      "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+    },
+    "labs/workbook-review-pass01/forms/workbook-review-v1.json": {
+      "bytes": 4532,
+      "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+    },
+    "labs/workbook-review-pass01/workbook.py": {
+      "bytes": 79131,
+      "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+    },
+    "labs/workbook-review-pass02/forms/workbook-review-v1.json": {
+      "bytes": 4532,
+      "sha256": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645"
+    },
+    "labs/workbook-review-pass02/workbook.py": {
+      "bytes": 52574,
+      "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+    },
+    "labs/workbook-review-pass03/forms/workbook-review-v1.json": {
+      "bytes": 4532,
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "labs/workbook-review-pass03/workbook.py": {
+      "bytes": 19533,
+      "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+    },
+    "labs/workbook-review-pass04/workbook.py": {
+      "bytes": 6508,
+      "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2"
+    }
+  },
+  "frozen_end_unchanged": true,
+  "hostile": {
+    "changed-source": {
+      "altered_bytes_kept": true,
+      "correction": "The artifact measurement is incomplete. The judgment was not recorded.",
+      "ok": true,
+      "pack_bytes_kept": true,
+      "prepare_exit": 0,
+      "prepare_measurement": "complete",
+      "record_exit": 2,
+      "review_absent": true
+    },
+    "copied-workbook": {
+      "exit": 2,
+      "ok": true,
+      "sentinel_unchanged": true,
+      "stderr_tail": "refused: workbook pass05 is not at its canonical root\r\n"
+    }
+  },
+  "lifecycle": {
+    "n5": {
+      "assignment_sha_after": "8c99969c125b3a3b6588b14775a58e54f6dc1c8cde1a236aa7dd56b3fc9d0854",
+      "assignment_sha_before": "ddf6c1aa58c1b84f93652bf2ce43a74d419c0f42619c4bc72f872f9ff78cc5c0",
+      "assignment_unchanged": false,
+      "judgment_preserved": true,
+      "measurement": "complete",
+      "steps": {
+        "form": {
+          "accepted": false,
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "inspect": {
+          "accepted": false,
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "prepare": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "publish": {
+          "accepted": false,
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": true,
+          "recorded": null,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "read": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "read-after": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "read-again": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "record": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": {
+            "called": false,
+            "committed": false,
+            "error": null
+          },
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": true,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "recover": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "recover-again": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w67874b32e6936c87",
+          "stderr_tail": ""
+        },
+        "stored_cycle": {
+          "called": false,
+          "committed": false,
+          "mode": "preliminary"
+        }
+      },
+      "target_existed_before": false,
+      "target_exists_after": false,
+      "target_unchanged": true
+    },
+    "n7": {
+      "judgment_preserved": true,
+      "measurement": "complete",
+      "steps": {
+        "form": {
+          "accepted": false,
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "inspect": {
+          "accepted": false,
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "prepare": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "publish": {
+          "accepted": false,
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": true,
+          "recorded": null,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "read": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "read-after": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "read-again": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "record": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": {
+            "called": false,
+            "committed": false,
+            "error": null
+          },
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": true,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "recover": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "recover-again": {
+          "accepted": false,
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.15 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v9 declaration block. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wa875a016e7880434",
+          "stderr_tail": ""
+        },
+        "stored_cycle": {
+          "called": false,
+          "committed": false,
+          "mode": "preliminary"
+        }
+      },
+      "target_existed_before": false,
+      "target_exists_after": true,
+      "target_unchanged": false
+    }
+  },
+  "manual": {
+    "bytes_unchanged": true,
+    "correction": "manual-review",
+    "ok": true,
+    "publish_exit": 1,
+    "published": false
+  },
+  "pages_end_unchanged": false,
+  "pins": {
+    "missing-declaration": {
+      "exit": 2,
+      "expect": "review loop declaration is missing",
+      "ok": true,
+      "stderr_tail": "refused: review loop declaration is missing\r\n"
+    },
+    "missing-prime-cycle": {
+      "exit": 2,
+      "expect": "pinned tool is missing: labs/prime-cycle-pass03/prime_cycle.py",
+      "ok": true,
+      "stderr_tail": "refused: pinned tool is missing: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+    },
+    "pass03-tamper": {
+      "exit": 2,
+      "expect": "pass03 pin mismatch",
+      "ok": true,
+      "stderr_tail": "refused: pass03 pin mismatch\r\n"
+    },
+    "pass04-tamper": {
+      "exit": 2,
+      "expect": "pass04 pin mismatch",
+      "ok": true,
+      "stderr_tail": "refused: pass04 pin mismatch\r\n"
+    },
+    "schema": {
+      "exit": 2,
+      "expect": "schema is not review-loop-pins/7",
+      "ok": true,
+      "stderr_tail": "refused: review loop declaration schema is not review-loop-pins/7\r\n"
+    },
+    "workbook-bytes": {
+      "exit": 2,
+      "expect": "pinned tool hash does not match: labs/workbook-review-pass05/workbook.py",
+      "ok": true,
+      "stderr_tail": "refused: pinned tool hash does not match: labs/workbook-review-pass05/workbook.py\r\n"
+    }
+  },
+  "problems": [
+    "manifest: live page bytes differ at the end"
+  ],
+  "schema": "v9-n7-declaration-block-drive/0515",
+  "source_manifest_end": {
+    "files": 253,
+    "manifest_bytes": 77912,
+    "manifest_cr": 0,
+    "manifest_sha256": "4fc6743611c8ba8f6e33c3d5245b288351828b17d2564c845c6917a52918bd47",
+    "mismatches": [],
+    "missing": [],
+    "schema": "prime-pack-inputs/1"
+  },
+  "staged_end": {
+    "app/review-loop-v9.json": {
+      "bytes": 4670,
+      "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656"
+    },
+    "app/review_loop_tools_v9.py": {
+      "bytes": 11765,
+      "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47"
+    },
+    "labs/workbook-review-pass05/workbook.py": {
+      "bytes": 6994,
+      "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+    }
+  },
+  "staged_end_unchanged": true,
+  "stamp": "D:\\librarian\\temp\\0522-0515\\20261104T151500Z",
+  "started": "2026-11-04T16:48:25Z"
+}

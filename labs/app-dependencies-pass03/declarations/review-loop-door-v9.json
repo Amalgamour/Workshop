@@ -1,0 +1,209 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-loop"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "review-loop-door-v9",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "app/review_loop_tools_v9.py",
+      "repository": "lib-build"
+    },
+    "bytes": 11765,
+    "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-loop"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "unselected door"
+    ],
+    "name": "review_loop_tools_v9",
+    "path": "app/review_loop_tools_v9.py",
+    "purpose": "Unselected G door. The selected dispatcher stays on v7.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.33",
+          "file": "06.33.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "Prime accepted the v9 staging and did not select it",
+        "role": "review",
+        "sha256": "debbb40515843cd37ffa11e6da8ef75d0159793fa337c0dcd14a3f939464453b",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "declaration-json",
+      "kind": "runtime-code",
+      "mechanism": "read",
+      "pin": null,
+      "pin_required": false,
+      "reason": "load_declaration reads app/review-loop-v9.json by path. The file bytes are not pinned.",
+      "source_ref": {
+        "lines": "149-176",
+        "path": "app/review_loop_tools_v9.py"
+      },
+      "target": {
+        "module": {
+          "path": "app/review-loop-v9.json",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "pass05-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 6994,
+        "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+      },
+      "pin_required": true,
+      "reason": "resolve_tool pair-pins the workbook row inside review-loop-v9.json.",
+      "source_ref": {
+        "lines": "179-190",
+        "path": "app/review_loop_tools_v9.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass05/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "179-179",
+        "path": "app/review_loop_tools_v9.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-w",
+        "statement": "Combined workbook W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-w",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "Combined workbook W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-reporter",
+        "statement": "reporter-on-W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-reporter",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "reporter-on-W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "pin_named checks for v4 through v8 and pass01 through pass04 are outside this subset",
+      "what": "historical door pins"
+    }
+  ]
+}

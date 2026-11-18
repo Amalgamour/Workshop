@@ -1,0 +1,97 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "return-capture-pass01",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/return-capture-pass01/return_capture.py",
+  "name": "return_capture",
+  "purpose": "Local return capture and verify. Readers load it. The review-loop entry does not launch it as its own process.",
+  "interface": [
+   "verify_member"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "this record does not cover reserve or capture commands as entry points of the app door"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "bytes": 45767,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "labs/return-capture-pass01/return_capture.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "verify_member"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "labs/return-capture-pass01/return_capture.py",
+    "lines": "10-24"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0508.return-capture",
+     "face_or_pass": "05.01",
+     "file": "05.01.md"
+    },
+    "sha256": "9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that names reserve, capture, and verify in return_capture.py"
+   }
+  ],
+  "unknown": [
+   "Measured bytes match the git blob of HEAD 960d20c5290656095df8457b1740d2d5e586b111 at this path.",
+   "Later capture repairs exist, including pages that name this path again. This link is the assignment that says to implement the file. The bytes match HEAD. A full later-edit chain was not built."
+  ]
+ },
+ "supersedes": null
+}

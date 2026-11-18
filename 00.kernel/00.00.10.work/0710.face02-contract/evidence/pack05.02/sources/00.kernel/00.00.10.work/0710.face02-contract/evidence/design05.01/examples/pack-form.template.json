@@ -1,0 +1,41 @@
+{
+  "format_note": "PROPOSED example format for 0710/05.01. Not an approved kernel language and not Grok-1's template.",
+  "form": {
+    "page": "PPPP-unidentified",
+    "face": "02",
+    "section": "Pack",
+    "kind": "template",
+    "version": "001",
+    "encoding": "utf-8",
+    "source_section": {"face": "01", "heading": "Pack"}
+  },
+  "output": {"kind": "work-pass-document", "path_rule": "derived:registered-source-work-relation"},
+  "fields": [
+    {"name": "identity", "job": "page, pass, template identity", "shape": "object", "presence": "required", "supplier": "compute", "ground": "structure"},
+    {"name": "source", "job": "N4NN source page and pass", "shape": "address", "presence": "required", "supplier": "source", "from": "registered-source-work-relation", "ground": "structure"},
+    {"name": "notes", "job": "declared note inventory", "shape": "list", "presence": "required", "supplier": "source", "from": "declared-note-sources", "ground": "structure"},
+    {"name": "goal", "job": "what the pass achieves", "shape": "text", "presence": "required", "supplier": "intelligence", "ground": "condition", "ground_ref": "UNRESOLVED: governing 01 sentence not identified"},
+    {"name": "scope", "job": "included, excluded, allowed writes", "shape": {"included": "text-list", "excluded": "text-list", "allowed_writes": "text-list"}, "presence": "required", "supplier": "intelligence", "ground": "condition", "ground_ref": "UNRESOLVED"},
+    {"name": "finish", "job": "finish criteria", "shape": "text-list", "presence": "required", "supplier": "intelligence", "ground": "condition", "ground_ref": "UNRESOLVED"},
+    {"name": "executor", "job": "who builds", "shape": "text", "presence": "required", "supplier": "source-or-intelligence", "ground": "structure"},
+    {"name": "reviewer", "job": "who reviews", "shape": "text", "presence": "required", "supplier": "source-or-intelligence", "ground": "structure"},
+    {"name": "note_dispositions", "job": "disposition of each declared note", "shape": {"note": "ref", "disposition": ["integrated", "deferred", "rejected", "unresolved"], "item": "item-id|absent", "why": "text|absent"}, "presence": "required-per-declared-note", "supplier": "intelligence", "ground": "structure"}
+  ],
+  "repeat": {
+    "name": "item",
+    "identity": {"scheme": "#NN", "assigned_by": "compute", "order": "append", "renumber": "never-silent"},
+    "fields": [
+      {"name": "title", "shape": "text", "presence": "required", "supplier": "intelligence", "ground": "structure"},
+      {"name": "purpose", "shape": "text", "presence": "required", "supplier": "intelligence", "ground": "structure"},
+      {"name": "requirements", "shape": "text", "presence": "required", "supplier": "intelligence", "ground": "structure"},
+      {"name": "dependencies", "shape": "ref-list", "presence": "optional", "supplier": "intelligence", "ground": "structure"},
+      {"name": "acceptance", "shape": "text", "presence": "required", "supplier": "intelligence", "ground": "condition", "ground_ref": "UNRESOLVED"},
+      {"name": "note_refs", "shape": "ref-list", "presence": "optional", "supplier": "intelligence", "ground": "structure"},
+      {"name": "open_choices", "shape": "text-list", "presence": "optional-or-not-applicable", "supplier": "intelligence", "ground": "structure"},
+      {"name": "resolved", "shape": "object", "presence": "required", "supplier": "compute", "ground": "structure"}
+    ]
+  },
+  "dependencies": {"resolver": "declared-dependency-reader", "states": ["resolved", "missing", "stale", "conditional", "ambiguous"]},
+  "review": {"binds": ["form-bytes", "source-bytes", "dependency-results", "draft-bytes"], "supplier": "intelligence", "stale_on": ["form", "source", "dependency", "supplied-value"]},
+  "derived_by_compute": ["identity", "item #NN", "output path", "dates of record", "hashes", "encoding", "layout", "return intent"]
+}

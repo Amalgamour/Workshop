@@ -1,0 +1,296 @@
+{
+  "commands": [
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 155,
+      "step": "01-historical-reserve"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 629,
+      "step": "02-plan"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 398,
+      "step": "03-init"
+    },
+    {
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1624,
+      "step": "04-reserve-0501"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1607,
+      "step": "05-capture-0501"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7126,
+      "step": "06-restart-verify-0501"
+    },
+    {
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1624,
+      "step": "07-reserve-0502"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1607,
+      "step": "08-capture-0502"
+    },
+    {
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1549,
+      "step": "09-reserve-n7"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1532,
+      "step": "10-capture-n7"
+    },
+    {
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1624,
+      "step": "11-reserve-0503"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1607,
+      "step": "12-capture-0503"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 4488,
+      "step": "13-status"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 5331,
+      "step": "14-lookup-0501"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7126,
+      "step": "15-verify-0501"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 5331,
+      "step": "16-lookup-0502"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7126,
+      "step": "17-verify-0502"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 5085,
+      "step": "18-lookup-n7"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6805,
+      "step": "19-verify-n7"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7830,
+      "step": "20-prepare"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6733,
+      "step": "20-form"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 3030,
+      "step": "20-record"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 9890,
+      "step": "20-inspect"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2483,
+      "step": "20-publish"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2571,
+      "step": "20-read"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2574,
+      "step": "20-recover"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7670,
+      "step": "21-prepare"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6668,
+      "step": "21-form"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 3018,
+      "step": "21-record"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 9861,
+      "step": "21-inspect"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2458,
+      "step": "21-publish"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2552,
+      "step": "21-read"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2555,
+      "step": "21-recover"
+    },
+    {
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1754,
+      "step": "22-conflict-0502"
+    },
+    {
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6686,
+      "step": "23-mismatch-verify"
+    },
+    {
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7555,
+      "step": "24-changed-artifact"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 128,
+      "step": "25-clerk-queue"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 263,
+      "step": "26-clerk-claim"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 480,
+      "step": "27-clerk-return"
+    },
+    {
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 593,
+      "step": "28-capture-return"
+    },
+    {
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 278,
+      "step": "29-guard-reserve-refused"
+    },
+    {
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 35,
+      "step": "30-historical-verify"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 12902,
+      "step": "31-readiness-copy"
+    },
+    {
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 12292,
+      "step": "32-readiness-live"
+    },
+    {
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 635,
+      "step": "33-live-preflight"
+    }
+  ],
+  "driver": "labs/connected-return-review-pass01/drive.py",
+  "earlier_official_runs": [
+    {
+      "bytes": 52586,
+      "first_problem": "02-init: exit 2, expected [0]",
+      "init_exit": 2,
+      "problem_count": 34,
+      "sha256": "8203929b8049f0a68684a8e9349d445ac5f4f6041cbd53f74010be1761bc3130",
+      "stamp": "20261103T173827361432Z"
+    },
+    {
+      "bytes": 53195,
+      "first_problem": "02-init: exit 2, expected [0]",
+      "init_exit": 2,
+      "problem_count": 34,
+      "sha256": "631bc700a5c657c47cc198ecd45ed203ee7a921a6d5b6693cf04bf4f544dab7e",
+      "stamp": "20261103T174140129061Z"
+    }
+  ],
+  "proof_stamp": "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z",
+  "python": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "schema": "connected-return-review-commands/0512"
+}

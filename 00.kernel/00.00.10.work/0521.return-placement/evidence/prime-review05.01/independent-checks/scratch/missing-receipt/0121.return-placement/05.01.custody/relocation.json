@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "bytes": 269,
+      "path": "05.01.custody/reservation.json",
+      "sha256": "7a1ca79ae995e371b5fb1dcd1a945c6b288bcce7fe1ff59427b2cd94c9fe366e"
+    },
+    {
+      "bytes": 45,
+      "path": "05.01.custody/return.md",
+      "sha256": "7c3675afb49fa07ead952d2a56e857e6c3cfb91bbc3185a8699d924eb13ba7eb"
+    },
+    {
+      "bytes": 45,
+      "path": "05.01.return.md",
+      "sha256": "7c3675afb49fa07ead952d2a56e857e6c3cfb91bbc3185a8699d924eb13ba7eb"
+    }
+  ],
+  "old_member_path": "0101.synthetic",
+  "origin": {
+    "batch": "05.01",
+    "book": "00.00.10.work",
+    "page": "0521.return-placement"
+  },
+  "reservation_destination_rewritten": false,
+  "return_tail": {
+    "action": "copied",
+    "path": "0121.return-placement/05.01.return.md"
+  },
+  "route": {
+    "band": "5",
+    "custody_dir": "0121.return-placement/05.01.custody",
+    "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0521.return-placement"
+    },
+    "pack_path": null,
+    "page_number": "0521",
+    "pass": "05.01",
+    "return_path": "0121.return-placement/05.01.return.md",
+    "review_path": null,
+    "route": "matched-workflow-return-line",
+    "schema": "return-placement-route/1",
+    "sequential_allocation": false,
+    "subject": "return-placement",
+    "target_number": "0121",
+    "target_page": "0121.return-placement"
+  },
+  "schema": "return-placement-relocation/1",
+  "statement": "The sealed reservation destination was not rewritten.",
+  "submission_id": "synthetic-missing-receipt"
+}

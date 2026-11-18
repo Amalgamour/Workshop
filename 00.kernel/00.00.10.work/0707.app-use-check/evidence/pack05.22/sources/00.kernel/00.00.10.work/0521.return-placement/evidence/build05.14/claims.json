@@ -1,0 +1,138 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "activated": false,
+  "allocated_0184": false,
+  "allocator": "not-used",
+  "app_selected": false,
+  "app_selection_applied": false,
+  "approved": false,
+  "authority": "not-assessed",
+  "capture_slot": null,
+  "claims": [
+    {
+      "case": "evidence/pack05.14/source-manifest.json rechecked after the proof. Live cycle, loop, constructor, workbook base, prime review, app, and README remeasured.",
+      "claim": "The frozen inputs and the active core stayed at their start hashes.",
+      "id": "pins",
+      "limit": "The source manifest keeps its 155 CR characters. It was not refreshed. 05.14.md is edited only at the Return pointer after the artifact manifest.",
+      "result": "Manifest sha256 4a7dedbec67151fd2c0b0ba2c7405ea51d86588560974082729d7213fbc0fd19, 6385 bytes, 0 mismatches at the opening check. Live prime_cycle pass03 496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c, 76045 bytes. Live review_loop pass03 47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b, 55474 bytes. App librarian.py c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9, 12204 bytes. Live layout absent."
+    },
+    {
+      "case": "D:\\librarian\\temp\\0521-0514\\known-failure, live review_loop pass03 prepare, exit 0.",
+      "claim": "The pinned core returns a null template and a null write token for the absent N7 review.",
+      "id": "known-failure",
+      "limit": "This reproduction is the known failure. The successor rows begin with the proof stamp.",
+      "result": "known-failure.json 338 bytes, sha256 45df6e729be89fe76a6e4f6621bfe56ff9f1daa7f48765a7c62cd256d5001970. View prime-cycle-view/4. Source kind N7NN. Target 0721.connected-local/06.01.review.md. Observation complete. Template null. Write token null. Stderr 0 bytes."
+    },
+    {
+      "case": "Proof stamp 20261103T230047760921Z steps 08-n7-prepare through 11-n7-cycle-read.",
+      "claim": "The successor completes one first N7 review and creates the derived file only at authorized render.",
+      "id": "absent-target",
+      "limit": "The creation is one derived review on a disposable book. Report action_released stays false. A second review on the same page stays untested.",
+      "result": "Review w66bcc1522ee1efc8. Mode cycle-committed. Token before render absent-create, sha256 null. Rendered body 864 bytes, sha256 d969d9a9364cefa20aa2068fc9da127c11ec16c6e06bc040e5d255fa5ac1933d. Page 4009 bytes, sha256 66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234. Later render already-rendered. Live token equals that page hash and has no state key. Authority none. closes_work false. releases_action false."
+    },
+    {
+      "case": "13-n5-replay exit 0 on the same proof stamp.",
+      "claim": "N5 replay stays cycle-committed on the existing file hash.",
+      "id": "n5-replay",
+      "limit": "cycle-committed is the tool mode. The receipt stays the capture receipt.",
+      "result": "Review wd05e6026273335bf. Mode cycle-committed. n5_token_has_state false. Receipt sha256 741c0b97290e880cc54180b641ed48708c085bcc73ffacb5ede628040b20606c, 492 bytes."
+    },
+    {
+      "case": "14-manual-publish exit 1.",
+      "claim": "Existing Director text stays in place.",
+      "id": "manual-director",
+      "limit": "The kept sentence is fixture Director text. Report approved stays false.",
+      "result": "Correction: Existing manual review text was kept. published false."
+    },
+    {
+      "case": "15-after-record exit 2.",
+      "claim": "A file created after prepare is refused and left in place.",
+      "id": "created-after-prepare",
+      "limit": "The planted bytes stay on that copy.",
+      "result": "Rule: target appeared after read."
+    },
+    {
+      "case": "16-foreign-reread exit 2.",
+      "claim": "A foreign registration target is refused.",
+      "id": "foreign-target",
+      "limit": "The derived N7 review path is the only accepted destination.",
+      "result": "Rule: target is not the derived review destination."
+    },
+    {
+      "case": "17-malformed-reread exit 2.",
+      "claim": "A malformed target path is refused.",
+      "id": "malformed-target",
+      "limit": "The refusal is the existing unsafe-path check.",
+      "result": "Rule: unsafe path target."
+    },
+    {
+      "case": "18-token-record exit 2.",
+      "claim": "A decision token for another path is refused.",
+      "id": "decision-token-path",
+      "limit": "The bound path must equal the registration's derived destination.",
+      "result": "Rule: absent-create token path is not the derived destination. Neither the review file nor 99.foreign.md was created."
+    },
+    {
+      "case": "19-n5-forge-reread and 19-n5-forge-record, both exit 2.",
+      "claim": "N5 absence stays a missing source file and creates nothing.",
+      "id": "forged-n5-absent-create",
+      "limit": "Deleting the N5 page removes the assignment. The successor gives that page no absent-create state.",
+      "result": "Rule: refused: missing file assignment. The N5 page stayed absent."
+    },
+    {
+      "case": "20-directory-publish exit 1.",
+      "claim": "A directory at the destination is left in place.",
+      "id": "directory-target",
+      "limit": "The directory was kept.",
+      "result": "Correction: target is not a regular file and was not replaced."
+    },
+    {
+      "case": "Link attempt on the proof stamp.",
+      "claim": "The link case records the Windows privilege skip.",
+      "id": "link-target",
+      "limit": "The skip is the missing privilege. This row records that skip.",
+      "result": "symlink skipped: WinError 1314. Case ok as a skip."
+    },
+    {
+      "case": "22-temp-publish exit 1. Temporary kept under copies/temp.",
+      "claim": "An interrupted constructor temporary is kept and stays unmarked complete.",
+      "id": "interrupted-create",
+      "limit": "O_EXCL plus rename is the exclusive create. Power loss beyond this temporary, multiwriter races, and AR-01 stay outside the claim.",
+      "result": "Correction names 06.01.review.md.review-construct.tmp. The file remains 18 bytes, partial construct. No rendered.json marks it complete."
+    },
+    {
+      "case": "23-return-changed exit 1.",
+      "claim": "A return changed after record blocks publication.",
+      "id": "return-changed",
+      "limit": "The changed return stays on that copy. The review file on that copy stays absent.",
+      "result": "Correction: Publication is blocked because the selected source changed after intake."
+    },
+    {
+      "case": "Driver preflight on the proof process, before any product tool of that process.",
+      "claim": "writer_started is the exact child line.",
+      "id": "writer-started",
+      "limit": "The sealed 05.13 report still stores the sentence-presence field. This claim covers the new driver only.",
+      "result": "The sample line writer_started: false is stored as false. Report field writer_started is false."
+    },
+    {
+      "case": "Stamps 20261103T225239321284Z and 20261103T225847465645Z, retained beside the proof.",
+      "claim": "The first official failure and the measurement miss stay on disk.",
+      "id": "retained-stamps",
+      "limit": "CONTRACT.md was not revised after the first successor driver started.",
+      "result": "First report 10310 bytes, sha256 3823bf1e68f223424d03dce0be46c88420b500cbe88dfe86d9dc4b80fc1503e8, nine problems, first step 08-n7-record. Second report 11542 bytes, sha256 873e77ad6e30496c26e8c3e310e459df12b2bb2771e5a5965efb83f13cab2f15, two problems, both at 08-n7-rendered."
+    }
+  ],
+  "committed": false,
+  "contract_revised_after_commands": false,
+  "custody": "pending",
+  "date": "2026-11-03",
+  "executor": "Grok-2",
+  "matching_line": "0121.return-placement",
+  "published": false,
+  "receipt": null,
+  "reviewer": "Codex Prime",
+  "schema": "n7-first-review-claims/0514",
+  "seated": false,
+  "work_complete": false
+}

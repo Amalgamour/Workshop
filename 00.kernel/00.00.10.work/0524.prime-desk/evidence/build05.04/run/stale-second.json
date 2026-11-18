@@ -1,0 +1,181 @@
+{
+  "attention": [],
+  "catalog": {
+    "items": [
+      {
+        "address": "0524.prime-desk/05.03",
+        "basis": "observed",
+        "label": "disposable copy",
+        "provenance": "disposable index; not a selection",
+        "provenance_basis": "supplied",
+        "work_id": "work-0524-0503"
+      }
+    ],
+    "source": {
+      "basis": "observed",
+      "bytes": 236,
+      "path": "catalog.json",
+      "sha256": "b55ecfa314f1a0e8f756b298a3eae41f9c108e9396c461cb904fe2bb8574a72a",
+      "status": "matched"
+    },
+    "used_for_selection": false
+  },
+  "check": "prime-desk-request/2",
+  "command": "view",
+  "correction": "Read the gaps and open attention. Keep the canonical assignment. Do not treat a supplied label or a legacy selector as the current work. Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+  "coverage": {
+    "changed": 0,
+    "declared": 6,
+    "matched": 5,
+    "missing": 0,
+    "outside": 0,
+    "stale": 1,
+    "statement": "Declared request paths only. Unregistered sources were not searched.",
+    "unreadable": 0
+  },
+  "exit": 1,
+  "foreign": [],
+  "gaps": [
+    {
+      "basis": "stale",
+      "check": "work:work-0524-0503",
+      "kind": "stale",
+      "message": "bytes differ from the request. Update the request hash in a new request. This run does not use the new bytes.",
+      "path": "0524.prime-desk/05.03.md"
+    },
+    {
+      "basis": "stale",
+      "check": "work",
+      "kind": "selector",
+      "message": "canonical work work-0524-0503 bytes were not accepted",
+      "path": "0524.prime-desk/05.03.md"
+    },
+    {
+      "basis": "observed",
+      "check": "prime-desk-catalog/2",
+      "kind": "catalog-not-chosen",
+      "message": "catalog names work-0524-0503; canonical assignment names absent. The catalog was not used to choose the work.",
+      "path": "catalog.json"
+    }
+  ],
+  "inspectability": {
+    "basis_legend": "observed = declared bytes matched; supplied = caller label; unknown = not present; stale = different bytes withheld; changed = bytes moved during the read and were withheld",
+    "escalation": "Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+    "fingerprint": "f2b74e12432b865f82daf5cb4f5c9073677af9d340b54501a2e0158e5c1dc663",
+    "request_sha256": "45bd63a4421041818f974a6290356aa4b35b4b9f59b11892ed6d5200b596cad9"
+  },
+  "instance": {
+    "basis": "observed",
+    "book": "00.00.10.work",
+    "role": "prime",
+    "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0524.prime-desk\\evidence\\build05.04\\run\\stale-book",
+    "tools_root": "D:\\Git\\lib-build"
+  },
+  "legacy": [],
+  "not_selected": [
+    {
+      "address": "0524.prime-desk/05.03",
+      "basis": "observed",
+      "executable": true,
+      "id": "work-0524-0503",
+      "kind": "work",
+      "reason": "not the canonical assignment record",
+      "source": {
+        "basis": "stale",
+        "bytes": 8353,
+        "path": "0524.prime-desk/05.03.md",
+        "sha256": "a5fd067354b9a085b49ce70b35547bbc6093829329e088bcd20d564a21e3962c",
+        "status": "stale"
+      }
+    }
+  ],
+  "observed_at": "2026-11-01T18:40:13Z",
+  "operations": [
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "review-loop-integration",
+      "limitation": "Pending. Successor modules were not imported.",
+      "limitation_basis": "tool",
+      "name": "review-loop",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": null
+    }
+  ],
+  "packet": null,
+  "record": {
+    "assignment_reader": [
+      {
+        "fields": {
+          "assignment_state": "returned",
+          "basis": "observed",
+          "current_work": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "next": "review",
+          "next_limit": "the record next field is not a command and is not the selected next route",
+          "pack": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "updated": "2026-11-01",
+          "waits_on": "none"
+        },
+        "limit": "assignment_state is a record field, not a live process check. validate_context was not called.",
+        "reader": "app-context.parse_assignment",
+        "source": {
+          "basis": "observed",
+          "bytes": 353,
+          "path": "0401.goal/06.01.md",
+          "sha256": "15ab8321f8a33982e8b5eff811664a8e53e7be8c78b34370994882d27ccb9172",
+          "status": "matched"
+        }
+      }
+    ],
+    "attribution": [],
+    "history": [],
+    "history_inlined": false,
+    "references": [
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "goal",
+        "label": "disposable goal",
+        "label_basis": "supplied",
+        "role": "goal",
+        "source": {
+          "basis": "observed",
+          "bytes": 16,
+          "path": "goal.md",
+          "sha256": "832a18ef8941160d58ce82e78141db0701506d0e0a518e875a6ba83ff9c55d88",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0524-0503"
+        },
+        "for_selected": false,
+        "id": "ver",
+        "label": "disposable verification",
+        "label_basis": "supplied",
+        "role": "verification",
+        "source": {
+          "basis": "observed",
+          "bytes": 20,
+          "path": "verified.md",
+          "sha256": "3a633402509f71eb9592f42669f19c19ca8365c66df5701f35af823f765c9f58",
+          "status": "matched"
+        }
+      }
+    ],
+    "supplied_without_worker": [],
+    "talk_parsed": false
+  },
+  "schema": "prime-desk-view/3",
+  "selected": null,
+  "state": "partial",
+  "workers": []
+}

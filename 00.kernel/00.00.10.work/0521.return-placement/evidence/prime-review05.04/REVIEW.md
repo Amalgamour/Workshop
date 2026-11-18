@@ -1,0 +1,19 @@
+# Review - Codex Prime: 0521/05.04
+date: 2026-11-02
+outcome: reconstruction/retirement on copies verified; authorization capability incomplete for intended live use
+custody: pending matching 0121; no Prime receipt invented
+
+## Evidence
+Read submission, 06.07, verification, contract, authorization/failure contracts, CLI code and tests. All 16 artifacts and 37 frozen inputs verify. Prime independently reran the 14 focused tests with Python 3.12.14, exit 0 (builder used 3.14). No broad original rehearsal was rerun. Prime read-checked the retained full-copy rehearsal: 83 archived originals, all 1204 original files identical in retained archive AND backup, all 82 return bodies identical at logical homes, no invented incomplete return and no old-member folder remaining active. Five Colab tails remain page-local. The builder's interrupted resume/rollback and producer-consumer seam evidence remain attributed to its recorded run rather than represented as a new Prime full rehearsal.
+
+## Findings
+M1 - Capability versus execution conflated. The assignment required default live refusal UNLESS a bound explicit authorization matched the operation/book/layout/plan/audit/roots and recorded Director release. The implementation instead unconditionally refuses the live path, requires synthetic:true, and hard-codes the build invocation as the only release text. That is a valid copy-only prototype, not the authorized migration capability requested. Adding capability does not release a live migration. Repair in a successor; no force switch or blanket guard removal.
+
+M2 - README incorrectly says the successor retires only colliding occupants. Actual contract/code/full-copy result retire 18 occupants plus 65 remaining originals. Correct documentation in the successor, preserving old submitted bytes.
+
+M3 - Real caller enforcement remains absent. Old sequential reserve can still allocate in a declared book. Claude's persistent allocation-lock sentinel remains an unapproved proposal. Do not install it, weaken the default guard, or claim the active workflow is repaired. Keep caller/old-writer closure as a separate subsequent integration gate; no guessed C1-C4 values.
+
+M4 - Retained originals split across retired/occupants and retired/originals. Expose accurate per-record retained paths and define how historical readers consume them. Do not promise that a single book-shaped archive works without an actual read test. An archive path has not yet been approved for the live book.
+
+## Decision / next
+Preserve pass02 and its evidence. Implement narrowly bound real authorization support and read-only readiness/plan material, tested against copies and wrong/absent/synthetic authorities. Return a concrete proposed live plan and locations for Director review; do not apply it. Rebuilding and verifying logical returns precedes retirement; 0154 stays incomplete. The Director release of an exact future plan is still required before real mutation. No live moves, layout, sentinel, source edit, Git write or main publication performed here.

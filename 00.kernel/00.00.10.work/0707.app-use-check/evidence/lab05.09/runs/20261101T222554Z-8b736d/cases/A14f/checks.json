@@ -1,0 +1,42 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "target bytes unchanged",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "no partial",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "trace written by prepare (prepare is not read-only)",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "target.state absent",
+      "expected": null,
+      "observed": "absent",
+      "ok": true
+    }
+  ],
+  "error": null
+}

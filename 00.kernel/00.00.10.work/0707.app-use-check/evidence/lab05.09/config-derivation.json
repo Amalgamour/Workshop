@@ -1,0 +1,16 @@
+{
+  "template_sha256": "1f2c292c8a2174af8b8d5f84d4d757be28c46e6548c3da04aacb75a33ceaa223",
+  "template_bytes": 2689,
+  "config_sha256": "b6996a27e933b3ebb03372ccf3d9b68a1ff1dea63d3f8716498f959198d2c6ce",
+  "config_bytes": 3164,
+  "changed_fields": [
+    "release.invocation",
+    "release.note"
+  ],
+  "first_derivation": {
+    "file": "candidate.config.derivation1-corrupt.json",
+    "sha256": "f7ce332b8e6f5042e2630cccdc26d7660699c6e26187928a501a3c10a94ef368",
+    "bytes": 3166,
+    "defect": "shell heredoc + Python string escapes turned \\0 sequences in the quoted path into control characters; never used"
+  }
+}

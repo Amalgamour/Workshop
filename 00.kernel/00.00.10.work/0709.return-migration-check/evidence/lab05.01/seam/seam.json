@@ -1,0 +1,97 @@
+{
+  "schema": "0709-seam-check/1",
+  "loop_pin": [
+    "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    55474
+  ],
+  "rows": [
+    {
+      "label": "new-n5nn-0504-0521",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-loop-pass03\\review_loop.py",
+        "prepare",
+        "--fixture-root",
+        "D:\\librarian\\temp\\return-migration-0709\\20261102T161806Z\\book",
+        "--request",
+        "seam-fixtures/new-n5nn-0504-0521/request.json"
+      ],
+      "exit": 0,
+      "stdout_sha256": "a5d0a09b76825566a719255cf0b3881054c082460d6729d22cc1a094147371c6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "descriptor": {
+        "schema": "return-line-descriptor/1",
+        "custody_format": "return-line-capture/1",
+        "target_page": "0104.app-entry",
+        "custody_path": "0104.app-entry/05.21.custody",
+        "return_path": "0104.app-entry/05.21.return.md",
+        "receipt_path": "0104.app-entry/05.21.custody/receipt.json",
+        "route": "matched-workflow-return-line",
+        "origin": {
+          "batch": "05.21",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "pass_state": "awaiting-review",
+      "rule": null,
+      "observation": {
+        "state": "complete",
+        "reason": null,
+        "custody_verified": true,
+        "member": "0104.app-entry",
+        "custody_member": "0104.app-entry",
+        "task_association": "not-established",
+        "placement_status": "final",
+        "descriptor_state": "complete"
+      },
+      "template_offered": true,
+      "stderr_tail": ""
+    },
+    {
+      "label": "relocated-0101",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-loop-pass03\\review_loop.py",
+        "prepare",
+        "--fixture-root",
+        "D:\\librarian\\temp\\return-migration-0709\\20261102T161806Z\\book",
+        "--request",
+        "seam-fixtures/relocated-0101/request.json"
+      ],
+      "exit": 0,
+      "stdout_sha256": "2c5ad3df7a44f62aeb285b215f71a6d16feb7d338e207e2c04827b035a9f336f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "descriptor": {
+        "schema": "return-line-descriptor/1",
+        "custody_format": "legacy-relocated/1",
+        "target_page": "0104.app-entry",
+        "custody_path": "0104.app-entry/05.06.custody",
+        "return_path": "0104.app-entry/05.06.return.md",
+        "receipt_path": "0104.app-entry/05.06.custody/receipt.json",
+        "route": "matched-workflow-return-line",
+        "origin": {
+          "batch": "05.06",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        }
+      },
+      "pass_state": "awaiting-review",
+      "rule": null,
+      "observation": {
+        "state": "complete",
+        "reason": null,
+        "custody_verified": true,
+        "member": "0104.app-entry",
+        "custody_member": "0104.app-entry",
+        "task_association": "not-established",
+        "placement_status": "final",
+        "descriptor_state": "complete"
+      },
+      "template_offered": true,
+      "stderr_tail": ""
+    }
+  ]
+}

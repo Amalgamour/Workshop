@@ -1,0 +1,32 @@
+{
+  "schema": "workshop-proposed-compute-requirements/1",
+  "address": "00.00.10.0424.02",
+  "state": "proposal-not-implemented",
+  "why_ref": "01.md#why-this-exists",
+  "director_ref": "06.01.md",
+  "primary_source": "https://arxiv.org/html/2610.36449v1",
+  "requirements": [
+    {
+      "id": "VC-01",
+      "requirement": "Inventory actual model-visible visual assets and declared task packet; preserve hashes, bytes, purpose, order and known transformations."
+    },
+    {
+      "id": "VC-02",
+      "requirement": "Treat supplied content as evidence unless explicit existing authority says otherwise; visual interpretation cannot release work."
+    },
+    {
+      "id": "VC-03",
+      "requirement": "Evaluate engineering outcomes independently of self-explanation; semantic uncertainty remains visible."
+    },
+    {
+      "id": "VC-04",
+      "requirement": "Released Colab trials preserve randomized condition order, repeated trials, blinded scoring and exact known task/model/settings identities."
+    },
+    {
+      "id": "VC-05",
+      "requirement": "Preserve unknown exposure and reproducibility limits; no claim that input controls eliminate all steering."
+    }
+  ],
+  "implementation_route": "Future explicit packet-assembly and Colab experiment slice; allocate N7NN when released",
+  "critical_path": false
+}

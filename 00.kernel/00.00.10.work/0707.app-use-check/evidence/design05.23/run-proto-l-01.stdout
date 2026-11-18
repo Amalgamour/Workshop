@@ -1,0 +1,35 @@
+pass         M0-N5  missing-intake  
+fail         M1-N5  missing-intake  after M1: read is not held/stale/refused (it reads current or crashed)
+fail         M2-N5  missing-intake  after M2: read is not held/stale/refused (it reads current or crashed)
+fail         M3-N5  missing-intake  after M3: read is not held/stale/refused (it reads current or crashed)
+pass         M4-N5  missing-intake  
+pass         M5-N5  missing-intake  
+pass         M0-N7  missing-intake  
+fail         M1-N7  missing-intake  after M1: read is not held/stale/refused (it reads current or crashed)
+fail         M2-N7  missing-intake  after M2: read is not held/stale/refused (it reads current or crashed)
+fail         M3-N7  missing-intake  after M3: read is not held/stale/refused (it reads current or crashed)
+pass         M4-N7  missing-intake  
+pass         M5-N7  missing-intake  
+pass         R0     pack-region     
+pass         R1     pack-region     
+pass         R2     pack-region     
+pass         R3     pack-region     
+pass         R4     pack-region     
+not-reached  F1     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+fail         F1b    pack-region     a meaningful change kept the review current (freshness exemption granted)
+fail         F2     pack-region     a meaningful change kept the review current (freshness exemption granted)
+fail         F3     pack-region     a meaningful change kept the review current (freshness exemption granted)
+not-reached  F4     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+fail         F5     pack-region     a meaningful change kept the review current (freshness exemption granted)
+pass         F6     pack-region     
+pass         F7a    pack-region     
+pass         F7b    pack-region     
+not-reached  E1     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+fail         E2     pack-region     a meaningful change kept the review current (freshness exemption granted)
+pass         E3     pack-region     
+fail         C1     composition     the byte-copied book reads the foreign review current
+pass         C2     composition     
+pass         C3     composition     
+blocked      C4     composition     candidate kind 'proto-l' is not the combined candidate; not executed
+deferred     D1     identity-limit  not tested by design
+NOT ALL REQUIRED PASS {'pass': 17, 'fail': 12, 'not-reached': 3, 'blocked': 1, 'deferred': 1}

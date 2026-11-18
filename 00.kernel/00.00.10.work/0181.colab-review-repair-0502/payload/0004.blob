@@ -1,0 +1,74 @@
+{
+ "schema": "colab-review-artifact-manifest/1",
+ "batch": "0518.colab-review/05.02",
+ "note": "Binds the repaired adapter, its tests, the lab guide, the unchanged demo and fixture, the 05.02 notes, the delta contract, the Prime guide, and the verification. This manifest does not include its own hash. submission.md is the return file and is not a row. The 05.01 evidence and member 0179 are preserved and are not rows.",
+ "artifacts": [
+  {
+   "path": "labs/colab-review-pass01/colab_review.py",
+   "role": "code",
+   "changed": true,
+   "bytes": 39597,
+   "sha256": "cd21a51cfdeee7e1ea4db0ec07425511026c2bc0956a7dc075e83e8737bbab57"
+  },
+  {
+   "path": "labs/colab-review-pass01/tests/test_colab_review.py",
+   "role": "test",
+   "changed": true,
+   "bytes": 27201,
+   "sha256": "2410c6252b9529123b46060ba1a0cc96640e600cf7281463ee6f9c4dbdb6f84c"
+  },
+  {
+   "path": "labs/colab-review-pass01/README.md",
+   "role": "doc",
+   "changed": true,
+   "bytes": 3106,
+   "sha256": "6313fa3989c5ca31450f0114ae02cac33e1662f9598f0e31b00ae359fc95b2cd"
+  },
+  {
+   "path": "labs/colab-review-pass01/demo.py",
+   "role": "code",
+   "changed": false,
+   "bytes": 13383,
+   "sha256": "813687d2fcd62a082c9df0a10c510c5d4238202d71de03d5a4fbcf7172a0f25b"
+  },
+  {
+   "path": "labs/colab-review-pass01/tests/fixture.py",
+   "role": "test",
+   "changed": false,
+   "bytes": 12143,
+   "sha256": "721adbfa0fc81b1e41752c77f5e32cab28844d3a58d98ceecfef7f6a64091983"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0518.colab-review/06.03.md",
+   "role": "evidence",
+   "changed": true,
+   "bytes": 5787,
+   "sha256": "2246b5830ab148bc1fd892186d2112d8864b69a1caf11f8b476eea36e5efb656"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0518.colab-review/evidence/build05.02/CONTRACT.md",
+   "role": "evidence",
+   "changed": true,
+   "bytes": 6115,
+   "sha256": "e831ef42e227cb748c8778d0d3889a89956b08f99976c9b509af9b4a50f4207e"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0518.colab-review/evidence/build05.02/PRIME-USE.md",
+   "role": "evidence",
+   "changed": true,
+   "bytes": 4406,
+   "sha256": "8ce37d20296ec5ae1e67e2a6530b7832d39d1b16c6599c8ecacf784b117ffdfc"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0518.colab-review/evidence/build05.02/verification.json",
+   "role": "evidence",
+   "changed": true,
+   "bytes": 2270,
+   "sha256": "b21e81e4eeee5dcb5fdbf13927147d31816972ce1b03ac2a691961a914c7797d"
+  }
+ ],
+ "not_bound_here": [
+  "this manifest (self)",
+  "submission.md (the return file)"
+ ]
+}

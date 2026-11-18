@@ -1,0 +1,139 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "return-placement-pass01",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/return-placement-pass01/return_placement.py",
+  "name": "return_placement",
+  "purpose": "Computes a return route. The review-loop entry calls route. Custody assessment is a different command in the same file.",
+  "interface": [
+   "route"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "the route command does not call the capture allocator"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+  "bytes": 66097,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "labs/return-placement-pass01/return_placement.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "route"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "return-capture",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_capture.py"
+    }
+   },
+   "pin": {
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": 45767
+   },
+   "pin_required": true,
+   "mechanism": "dynamic-import",
+   "condition": {
+    "applies": "conditional",
+    "id": "custody-reader",
+    "statement": "_assess_custody calls _reader; the route command used by describe-legacy and the cycle does not",
+    "status": "inapplicable"
+   },
+   "availability": "not-applicable",
+   "reason": "the pin compares sha256 and length. It is outside the route entry point, so this record marks it inapplicable for the review-loop route command and still lists it.",
+   "source_ref": {
+    "path": "labs/return-placement-pass01/return_placement.py",
+    "lines": "34-35, 141, 201-218, 222-233"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "dynamic-import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "labs/return-placement-pass01/return_placement.py",
+    "lines": "213-217"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0521.return-placement",
+     "face_or_pass": "05.01",
+     "file": "05.01.md"
+    },
+    "sha256": "05b2eab7cddff21601eceabfeb02c223b0c7b2319bb81c0942751b90fe3bbec6",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that names building labs/return-placement-pass01"
+   },
+   {
+    "role": "design",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0417.return-placement",
+     "face_or_pass": "01",
+     "file": "01.md"
+    },
+    "sha256": "dede7330a822c9dde172b7a355ed8d4dfb8b06d9e5e5fa55d042f1a3d66d2b04",
+    "commit": null,
+    "status": "pinned",
+    "note": "routing design for matching N5NN lines; current placement bytes are a later working tree"
+   }
+  ],
+  "unknown": [
+   "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/return-placement-pass01/return_placement.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+   "05.02 of 0521 also names edits in this lab. The current working-tree bytes were not tied to one of those passes alone."
+  ]
+ },
+ "supersedes": null
+}

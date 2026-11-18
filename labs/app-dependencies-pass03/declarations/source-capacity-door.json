@@ -1,0 +1,209 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-loop"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "source-capacity-door",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+      "repository": "lib-build"
+    },
+    "bytes": 11744,
+    "sha256": "8df0253100fe0b5bd68a5e4f645322a44d3870b5f583af35e0e0aee75bc280eb"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-loop"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "unselected door"
+    ],
+    "name": "capacity_door",
+    "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+    "purpose": "Unselected K door. It pair-pins the capacity workbook through its declaration.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.22",
+          "file": "06.22.md",
+          "page": "0512.prime-review",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "K door is part of the accepted lab and is not the selected app",
+        "role": "review",
+        "sha256": "b3bf76d560457f438d78243c0cff8d2ac90d115ac3a6fa53ec71956547be5e2a",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "declaration-json",
+      "kind": "runtime-code",
+      "mechanism": "read",
+      "pin": null,
+      "pin_required": false,
+      "reason": "load_declaration reads the capacity JSON by path. The file bytes are not pinned.",
+      "source_ref": {
+        "lines": "149-176",
+        "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/review-source-capacity-pass03/review-loop-source-capacity-v3.json",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "capacity-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 3126,
+        "sha256": "fe887c0f378fc1da3f5e778ac4642c907f713614040d5ebf3b74272b02512b1f"
+      },
+      "pin_required": true,
+      "reason": "resolve_tool pair-pins the workbook row inside the capacity declaration.",
+      "source_ref": {
+        "lines": "179-190",
+        "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/review-source-capacity-pass03/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "179-179",
+        "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-w",
+        "statement": "Combined workbook W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-w",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "Combined workbook W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-reporter",
+        "statement": "reporter-on-W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-reporter",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "reporter-on-W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "pin_named checks for v4 through v7, pass01, pass02, and earlier capacity prime_review files are outside this subset",
+      "what": "historical door pins"
+    }
+  ]
+}

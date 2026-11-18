@@ -1,0 +1,290 @@
+{
+ "schema": "module-declaration/2",
+ "declaration_id": "review-loop-declaration",
+ "version": 2,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "app/review-loop-v2.json",
+  "name": "review-loop-v2",
+  "purpose": "Declaration data for review-loop-pins/2. The file stores tool identities. It does not check them.",
+  "interface": [
+   "review-loop-pins/2"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "stored hashes are data until the door compares them"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+  "bytes": 1892,
+  "basis": {
+   "kind": "observed-file",
+   "repository": "lib-build",
+   "path": "app/review-loop-v2.json",
+   "form": "working-tree",
+   "context_head": "960d20c5290656095df8457b1740d2d5e586b111"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "tools"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery. Representation corrected for 0525.app-dependencies 05.02. The file was not imported and not executed.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "construct",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-construction-pass02/construct.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.construct stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "6-9"
+   }
+  },
+  {
+   "id": "prime-cycle",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.prime_cycle_pass03 stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "11-15"
+   }
+  },
+  {
+   "id": "prime-review-01",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass01/prime_review.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.prime_review_pass01 stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "16-20"
+   }
+  },
+  {
+   "id": "prime-review-02",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass02/prime_review.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.prime_review_pass02 stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "21-25"
+   }
+  },
+  {
+   "id": "return-inspect",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_inspect.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.return_inspect stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "26-30"
+   }
+  },
+  {
+   "id": "return-lines",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-lines-pass01/return_lines.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.return_lines stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "31-35"
+   }
+  },
+  {
+   "id": "return-placement",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-placement-pass01/return_placement.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.return_placement stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "36-40"
+   }
+  },
+  {
+   "id": "review-loop",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-loop-pass02/review_loop.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "tools.review_loop stores a path and a hash. This file does not open that path.",
+   "source_ref": {
+    "path": "app/review-loop-v2.json",
+    "lines": "41-45"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.05",
+     "file": "05.05.md"
+    },
+    "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.05",
+     "file": "evidence/prime-review05.05/REVIEW.md"
+    },
+    "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+    "commit": null,
+    "status": "pinned",
+    "note": "Prime review of the app entry; bounded development use, not acceptance of this graph"
+   }
+  ],
+  "unknown": [
+   "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review-loop-v2.json, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+   "return_capture.py is absent from this declaration. Absence here is not absence of a dependency."
+  ]
+ },
+ "supersedes": {
+  "declaration_id": "review-loop-declaration",
+  "version": 1
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "prime-review-pass02",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/prime-review-pass02/prime_review.py",
+  "name": "prime_review_pass02",
+  "purpose": "Standard-library review report used by the pass02 constructor and by cycle record.",
+  "interface": [
+   "report",
+   "guard",
+   "check-next"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "draft is outside the review-loop entry"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+  "bytes": 58560,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "labs/prime-review-pass02/prime_review.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "report"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "labs/prime-review-pass02/prime_review.py",
+    "lines": "19-28"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "source-stated",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.03",
+     "file": "05.03.md"
+    },
+    "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+    "commit": null,
+    "status": "pinned",
+    "note": "allows a prime-review-pass02 successor if required; this pass did not separate that permission from the current bytes"
+   },
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.04",
+     "file": "05.04.md"
+    },
+    "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor"
+   }
+  ],
+  "unknown": [
+   "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-review-pass02/prime_review.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+   "No single page was found that both creates these bytes and is only about them. 05.03 allows a successor. 05.04 says to reuse the pinned file."
+  ]
+ },
+ "supersedes": null
+}

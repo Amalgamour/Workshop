@@ -1,0 +1,72 @@
+{
+  "finding": "Accepted bounded reporter deployment successor; activation held for a separate known report-hardening followup.",
+  "reasons": [
+    "The new runtime/connector validates the intended candidate bytes instead of the frozen old dispatcher hash.",
+    "The actual candidate entry runs and retains output parity on a fresh Prime-created book.",
+    "All 18 author cases pass after return filing.",
+    "Prima robustness findings still affect inherited report functions and require their own successor before activation."
+  ],
+  "operation": "continue",
+  "disposition": "accepted",
+  "pass_terminal": "finished",
+  "goal_terminal": "open",
+  "next_action": "Harden the staged reporter against Prima B-05/B-01 and related mechanical validation cases before activation. Preserve this accepted deployment proof and all old modules; coordinate the final dispatcher only after the v8 lane is reviewed.",
+  "semantic_conflict": false,
+  "design_fork": null,
+  "findings": [
+    {
+      "finding_id": "R1#deployment-pins",
+      "disposition": "fixed",
+      "text": "Actual on-disk candidate app succeeds with a versioned coherent pin set."
+    },
+    {
+      "finding_id": "R2#filed-test",
+      "disposition": "fixed",
+      "text": "Successor tests pass after the legitimate return pointer is filed; historical failure remains preserved."
+    }
+  ],
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": [
+      {
+        "finding_id": "R1#deployment-pins",
+        "status": "accepted"
+      },
+      {
+        "finding_id": "R2#filed-test",
+        "status": "accepted"
+      }
+    ],
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Harden the staged reporter against Prima B-05/B-01 and related mechanical validation cases before activation. Preserve this accepted deployment proof and all old modules; coordinate the final dispatcher only after the v8 lane is reviewed.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "R1 and R2 resolved for the deployment slice. Actual candidate app executes on disk with a coherent successor pin chain; post-filing tests pass. Activation remains held for newly confirmed Prima findings.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "30/30 artifacts and 55 frozen sources verify. Eighteen author cases pass on Prime rerun; fresh independent book report equals accepted standalone output except the explicit code_root.",
+    "tests_note": "18 author tests rerun successfully after filing. Fresh independent candidate-book comparison passed. Prima B-05 was additionally reproduced in the inherited candidate reader; no actual release was demonstrated. First Prime test harness omitted sys.modules registration/setUpModule, causing setup errors; corrected harness passes, both logs kept.",
+    "tests_passed": true,
+    "within_direction": "Accept the assigned deployment repair without retroactively adding new audit findings to its acceptance. No active selection, migration, custody or authority change."
+  },
+  "holds": [],
+  "answers": [],
+  "review_passes": [],
+  "gaps": [
+    "No active dispatcher selection.",
+    "Canonical helper root remains a disclosed dependency; no portable full-copy claim.",
+    "Report envelope/invalid-row hardening tracked from Prima; not an actual authority grant.",
+    "Matching custody missing; this core review is preliminary."
+  ]
+}

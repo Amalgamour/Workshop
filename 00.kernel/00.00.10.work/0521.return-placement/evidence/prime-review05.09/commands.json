@@ -1,0 +1,125 @@
+[
+  {
+    "label": "status-copy",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "status",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book"
+    ],
+    "exit": 0,
+    "state": "reported",
+    "check": "return-access-status/1",
+    "task_association": "not-established"
+  },
+  {
+    "label": "native-pass01",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "lookup",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book",
+      "--source",
+      "0521.synthetic-filing",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "check": "return-line-capture/1 receipt",
+    "task_association": "not-established"
+  },
+  {
+    "label": "native-pass02",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book",
+      "--source",
+      "0521.synthetic-filing",
+      "--pass",
+      "05.02"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "check": "return-line-capture/1 receipt",
+    "task_association": "not-established"
+  },
+  {
+    "label": "n7-local",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "lookup",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book",
+      "--source",
+      "0721.synthetic-local",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "check": "return-line-capture/1 receipt",
+    "task_association": "not-established"
+  },
+  {
+    "label": "historical-original",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "lookup",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book",
+      "--member",
+      "0101.app-entry-0506"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "check": "return-line-relocation/1",
+    "task_association": "not-established"
+  },
+  {
+    "label": "historical-occupant",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "lookup",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book",
+      "--member",
+      "0104.app-entry-0508"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "check": "return-line-relocation/1",
+    "task_association": "not-established"
+  },
+  {
+    "label": "incomplete",
+    "command": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\return_line_tools_v3.py",
+      "lookup",
+      "--book",
+      "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\book",
+      "--member",
+      "0154"
+    ],
+    "exit": 2,
+    "state": "refused",
+    "check": "return-line-index/1",
+    "task_association": "not-established"
+  }
+]

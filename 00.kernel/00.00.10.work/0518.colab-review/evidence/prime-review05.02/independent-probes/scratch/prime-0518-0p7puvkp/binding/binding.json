@@ -1,0 +1,54 @@
+{
+ "covered_by": {
+  "adapter": "presence of the review files in the package and byte equality with the supplied plan and its re-rendered prompts",
+  "producer-verify": "every package file, the source manifest and snapshots, the ZIP and the digest preimage"
+ },
+ "findings": [],
+ "investigation": {
+  "book": "00.00.10.work",
+  "page": "0702.colab-review-fixture",
+  "pass": "05.01"
+ },
+ "plan": {
+  "plan_id": "plan-1",
+  "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d"
+ },
+ "producer_digest": "0d6b6b379a6ae5ee5aa80fc4e80956a0526297b328a69e26223b1aad171bc82f",
+ "producer_verify": {
+  "exit": 0,
+  "result": "intact",
+  "stdout_sha256": "14e86f18279ad7b90b9a4b54ef33c34b04c78d7d973afd1968aecd1c530f0b02"
+ },
+ "review_files": [
+  {
+   "bytes": 1453,
+   "equal": true,
+   "path": "reviews/plan-1/review-plan.json",
+   "sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+   "snapshot": "snapshots/0002.blob"
+  },
+  {
+   "bytes": 786,
+   "equal": true,
+   "path": "reviews/plan-1/COMPREHENSION.md",
+   "sha256": "a2d730aad622c925be4906fbf86053ee69503a59454d4987e054894e65aa000f",
+   "snapshot": "snapshots/0003.blob"
+  },
+  {
+   "bytes": 352,
+   "equal": true,
+   "path": "reviews/plan-1/SIMPLICITY.md",
+   "sha256": "859bf877f4b08738fc2492a1edc3751eeb46fa70e31ac3e0040b3b463e9559d1",
+   "snapshot": "snapshots/0004.blob"
+  },
+  {
+   "bytes": 498,
+   "equal": true,
+   "path": "reviews/plan-1/RESULT-TEMPLATE.json",
+   "sha256": "819c39fa1e83f068a1f7a231a6fcf752a0b56496f25b55038a40b12bcfb30f66",
+   "snapshot": "snapshots/0005.blob"
+  }
+ ],
+ "schema": "colab-review-binding/1",
+ "status": "bound"
+}

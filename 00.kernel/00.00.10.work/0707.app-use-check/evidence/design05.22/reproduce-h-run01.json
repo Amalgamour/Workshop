@@ -1,0 +1,116 @@
+{
+ "schema": "reproduce-h/1",
+ "pass01_pins": {
+  "demo_hostile.py": "913667c1d0fbd3106c2348dc4ba39060194203af7512c548e0749083fc954489",
+  "harness.py": "404a0233e095a88571140745ea9ecc7b060917848ebaa943dd7fb4a36d822f36",
+  "make_candidate.py": "6e802f12cc29cc532c77e25b259b950510f14464e6dcf1c47dbfb76c316ffb98",
+  "make_inputs.py": "9d69f636acd3390a41d2889926737dd06d8cebc38abee7360257259aba8bb350",
+  "test_verdict.py": "e5abbaa68c751204aa201e03b30d9efecd24b686e50e26d30684bb354af638ac",
+  "verdict.py": "dac957a201c83bfc453230fe42e1fdba24014f8f17c42526ae1af7cd65db2595"
+ },
+ "H1": {
+  "kind": "helper probe (direct call)",
+  "results": {
+   "CAP-4": [
+    "64 record; 65 refused",
+    "not executed: K pending",
+    "not-run"
+   ],
+   "RP-1": [
+    "current/stale/held parity",
+    "not executed: R pending",
+    "not-run"
+   ],
+   "RP-2": [
+    "refusal",
+    "not executed: R pending",
+    "not-run"
+   ],
+   "IN-2": [
+    "held in the copy",
+    "not executed: I pending",
+    "not-run"
+   ]
+  },
+  "reproduced": true
+ },
+ "H2": {
+  "kind": "helper probe (direct call)",
+  "results": {
+   "None": {
+    "ready": true,
+    "reasons": [],
+    "counts": {
+     "pass": 1
+    },
+    "required": 1
+   },
+   "dict": {
+    "ready": true,
+    "reasons": [],
+    "counts": {
+     "pass": 1
+    },
+    "required": 1
+   },
+   "string": {
+    "ready": true,
+    "reasons": [],
+    "counts": {
+     "pass": 1
+    },
+    "required": 1
+   }
+  },
+  "reproduced": true
+ },
+ "H4": {
+  "kind": "helper probe (direct call); not a CLI release",
+  "full_required": 35,
+  "subset_required": [
+   "N5-1",
+   "N5-2",
+   "N5-3"
+  ],
+  "result": {
+   "ready": true,
+   "reasons": [],
+   "counts": {
+    "pass": 3
+   },
+   "required": 3
+  },
+  "reproduced": true
+ },
+ "H3": {
+  "kind": "full CLI (pass01 harness.py --suite strict-n7)",
+  "exit": 1,
+  "ST-2": {
+   "verdict": "pass",
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "attribution-not-descriptive",
+     "index-context-bounded",
+     "n1-not-applicable",
+     "n7-exchange-return-not-local",
+     "unparsed-return-line"
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true
+   }
+  },
+  "reproduced": true,
+  "note": "pass01 exit is 1 only because K/I/R/W are pending; ST-2 itself is recorded pass for a non-grammar reason"
+ },
+ "pass01_pins_after": {
+  "demo_hostile.py": "913667c1d0fbd3106c2348dc4ba39060194203af7512c548e0749083fc954489",
+  "harness.py": "404a0233e095a88571140745ea9ecc7b060917848ebaa943dd7fb4a36d822f36",
+  "make_candidate.py": "6e802f12cc29cc532c77e25b259b950510f14464e6dcf1c47dbfb76c316ffb98",
+  "make_inputs.py": "9d69f636acd3390a41d2889926737dd06d8cebc38abee7360257259aba8bb350",
+  "test_verdict.py": "e5abbaa68c751204aa201e03b30d9efecd24b686e50e26d30684bb354af638ac",
+  "verdict.py": "dac957a201c83bfc453230fe42e1fdba24014f8f17c42526ae1af7cd65db2595"
+ },
+ "pass01_unchanged": true
+}

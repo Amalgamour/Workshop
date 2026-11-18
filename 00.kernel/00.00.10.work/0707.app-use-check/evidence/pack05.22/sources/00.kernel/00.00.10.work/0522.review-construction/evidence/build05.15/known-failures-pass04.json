@@ -1,0 +1,72 @@
+{
+  "exact": {
+    "findings": [
+      {
+        "code": "submission-not-declared",
+        "path": null
+      }
+    ],
+    "manifest": {
+      "bytes": 5,
+      "declared_form": "n7-manifest",
+      "path": "m.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+  },
+  "frozen_probe": "00.kernel/00.00.10.work/0522.review-construction/evidence/prime-review05.14/g2-independent-parser.json",
+  "inputs": {
+    "exact": "Artifact manifest: m.json, sha256 <64 a>, 5 bytes.",
+    "refused_plus_valid": "Returned: bad.md (Submission: injected), sha256 <64 a>, 5 bytes. then Submission: good.md sha256 <64 a>, 5 bytes.",
+    "suffix": "the exact line plus a trailing space and the word note"
+  },
+  "matched": {
+    "exact": true,
+    "refused_plus_valid": true,
+    "suffix": true
+  },
+  "n5_author_five_equal_pass03": [
+    "comma-file",
+    "semicolon-file",
+    "paren-file",
+    "collision-manifest",
+    "double-comma"
+  ],
+  "note": "The frozen probe stores five n5_equal booleans and does not store those five strings. The author five above matched the pass03 parser object under N5NN and under an empty kind.",
+  "pass04": "labs/workbook-review-pass04/workbook.py",
+  "refused_plus_valid": {
+    "findings": [
+      {
+        "code": "attribution-not-descriptive",
+        "path": null,
+        "text": "Returned: bad.md (Submission: injected), sha256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 5 bytes."
+      }
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+      "bytes": 5,
+      "path": "good.md",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+  },
+  "suffix": {
+    "findings": [
+      {
+        "code": "submission-not-declared",
+        "path": null
+      }
+    ],
+    "manifest": {
+      "bytes": 5,
+      "path": "m.json,",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+  }
+}

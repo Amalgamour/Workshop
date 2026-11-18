@@ -1,0 +1,121 @@
+{
+  "accepted": false,
+  "candidate_librarian": {
+    "bytes": 12804,
+    "sha256": "f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983"
+  },
+  "candidate_root": "D:\\librarian\\temp\\0512-0509-report\\candidate",
+  "code_root_on_live_reports": "D:\\librarian\\temp\\0512-0509-report\\candidate",
+  "proof_command": "python -B app/librarian.py review-report --book ABS --source PAGE --pass 05.NN",
+  "runs": [
+    {
+      "baseline": {
+        "exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 22113,
+        "stdout_sha256": "207fef4235d4f2b2484692618c39cb5910ce0487cac2300ed381440ca7ef4f91"
+      },
+      "installed": {
+        "exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 22113,
+        "stdout_sha256": "207fef4235d4f2b2484692618c39cb5910ce0487cac2300ed381440ca7ef4f91"
+      },
+      "name": "live-0512-05-06",
+      "same_bytes": true
+    },
+    {
+      "baseline": {
+        "exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 19924,
+        "stdout_sha256": "59910e74d971c85ebe93bc5f4741a19365afa0f0f0abf35c61289ae63965796c"
+      },
+      "installed": {
+        "exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 19924,
+        "stdout_sha256": "59910e74d971c85ebe93bc5f4741a19365afa0f0f0abf35c61289ae63965796c"
+      },
+      "name": "live-0521-05-13",
+      "same_bytes": true
+    },
+    {
+      "baseline": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 11032,
+        "stdout_sha256": "69d3b70d4ffdfac4abf766df1978706ffb776b0bb9a1e3fe5e1ea888e50fb57d"
+      },
+      "installed": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 11032,
+        "stdout_sha256": "69d3b70d4ffdfac4abf766df1978706ffb776b0bb9a1e3fe5e1ea888e50fb57d"
+      },
+      "name": "fixture-missing",
+      "same_bytes": true
+    },
+    {
+      "baseline": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 15701,
+        "stdout_sha256": "40868cedd95b411c0331a8c7d0696da83ce53286ad1620d1ea0b958f0ad256ad"
+      },
+      "installed": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 15701,
+        "stdout_sha256": "40868cedd95b411c0331a8c7d0696da83ce53286ad1620d1ea0b958f0ad256ad"
+      },
+      "name": "fixture-stale",
+      "same_bytes": true
+    },
+    {
+      "baseline": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 13788,
+        "stdout_sha256": "61cf3e8de0bd2d832508a1d5853a424685acf9cd663a36d357ad8411427652e2"
+      },
+      "installed": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 14164,
+        "stdout_sha256": "3ab24c4f7b6f621bb49d41893aac79a756d62dba3e2453b82b7b1d980ecfde8e"
+      },
+      "name": "fixture-held",
+      "same_bytes": false
+    },
+    {
+      "baseline": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 11054,
+        "stdout_sha256": "d100158f5fbcbf73fb38f22c704a08ef428efd9fa7a94a489102c92aeaa5f14e"
+      },
+      "installed": {
+        "exit": 1,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 11054,
+        "stdout_sha256": "d100158f5fbcbf73fb38f22c704a08ef428efd9fa7a94a489102c92aeaa5f14e"
+      },
+      "name": "fixture-unreadable",
+      "same_bytes": true
+    }
+  ],
+  "schema": "review-report-command-log/1"
+}

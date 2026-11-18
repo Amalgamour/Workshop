@@ -1,0 +1,129 @@
+{
+  "agreement": {
+    "director_required": "A design change is not in this grant.",
+    "finish_criteria": [
+      {
+        "id": "piece",
+        "text": "The disposable note stays one file."
+      }
+    ],
+    "goal": "Review one disposable capture.",
+    "prime_discretion": "Prime may record a judgment inside that grant.",
+    "recorded_decisions": [
+      {
+        "id": "D1",
+        "source_sha256": "86ae35d58a6aa3b5742df94ef9d7162219f0106a911ae1954c1f0604aaec805d",
+        "text": "The disposable pack was supplied for this lab."
+      }
+    ],
+    "scope": "The disposable fixture only."
+  },
+  "answers": [],
+  "assignment_text": "Synthetic assignment. Write one piece.\n",
+  "attribution": {
+    "actor_label": "Codex Prime (SUPPLIED)",
+    "evidence": "SUPPLIED demonstration judgment. The label is not authentication and this is not acceptance.",
+    "role": "prime"
+  },
+  "goal": {
+    "evidence": [],
+    "goal_id": "g-synth",
+    "statement": "Review one disposable capture.",
+    "terminal": "open"
+  },
+  "holds": [],
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "accepted",
+    "finding": "The disposable note is present.",
+    "goal": {
+      "evidence": [],
+      "goal_id": "g-synth",
+      "goal_sha256": "dbbe5df95873589b782ca70581f4c1b2e49d826d5a3fd0a24ea3a3e78d9134ff",
+      "terminal": "open"
+    },
+    "holds": [],
+    "next_action": {
+      "action_id": "pack-correction",
+      "authorized_in_grant": false,
+      "text": "Pack one bounded correction for the disposable capture."
+    },
+    "outcome": "continue",
+    "pass_terminal": "open",
+    "reasons": [
+      "The captured return names the note."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Hand back one correction pack.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "The disposable note is present.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "The builder returned the disposable note.",
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": "This stays inside the supplied grant."
+    },
+    "semantic_conflict": false,
+    "source_refs": [
+      "assignment.txt"
+    ],
+    "unresolved": []
+  },
+  "note_text": "NOTE\n",
+  "record_judgment": {
+    "design_fork": null,
+    "finding": "The disposable note is present.",
+    "next_action": "Pack one bounded correction for the disposable capture.",
+    "outcome": "continue",
+    "reasons": [
+      "The captured return names the note."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Hand back one correction pack.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "The disposable note is present.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "The builder returned the disposable note.",
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": "This stays inside the supplied grant."
+    },
+    "semantic_conflict": false
+  },
+  "return_text": "Did.\nThe disposable capture returned one note.\n",
+  "schema": "review-loop-reproduce-decision/1",
+  "task_id": "repro-task"
+}

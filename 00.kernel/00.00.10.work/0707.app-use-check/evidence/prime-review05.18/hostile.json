@@ -1,0 +1,88 @@
+{
+ "schema": "rie-hostile/1",
+ "rooms": "D:\\librarian\\temp\\prime-claude-0718\\hostile",
+ "aggregate": {
+  "PASS": 5,
+  "FAIL": 0,
+  "ERROR": 0,
+  "SEE": 0
+ },
+ "rows": [
+  {
+   "id": "P01",
+   "label": "PACK",
+   "says": "wrong v8 tool hash: a pinned tool (review_loop pass03) altered in the root -> the door refuses before the workbook runs",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: pinned tool hash does not match: labs/review-loop-pass03/review_loop.py\r\n"
+   }
+  },
+  {
+   "id": "P02",
+   "label": "PACK",
+   "says": "wrong transitive dependency: pass02 / pass03 altered in the root -> refused (door predecessor pins)",
+   "status": "PASS",
+   "detail": {
+    "pass02": {
+     "exit": 2,
+     "stderr": "stop: pass02 pin mismatch\r\n",
+     "ok": true
+    },
+    "pass03": {
+     "exit": 2,
+     "stderr": "stop: pass03 pin mismatch\r\n",
+     "ok": true
+    }
+   }
+  },
+  {
+   "id": "P03",
+   "label": "PACK",
+   "says": "wrong schema / unknown key / wrong length in review-loop-v8.json -> refused",
+   "status": "PASS",
+   "detail": {
+    "schema": {
+     "exit": 2,
+     "stderr": "stop: review loop declaration schema is not review-loop-pins/6\r\n",
+     "ok": true
+    },
+    "extra-key": {
+     "exit": 2,
+     "stderr": "stop: review loop declaration does not match the pinned tools\r\n",
+     "ok": true
+    },
+    "length": {
+     "exit": 2,
+     "stderr": "stop: pinned tool hash does not match: labs/workbook-review-pass04/workbook.py\r\n",
+     "ok": true
+    },
+    "v7-declaration-name": {
+     "exit": 2,
+     "stderr": "stop: review loop declaration does not match the pinned tools\r\n",
+     "ok": true
+    }
+   }
+  },
+  {
+   "id": "P04",
+   "label": "PACK",
+   "says": "missing dependency: prime_cycle pass03 removed from the root -> refused as missing",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: pinned tool is missing: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+   }
+  },
+  {
+   "id": "N01",
+   "label": "NEW",
+   "says": "PRODUCTION pass04 bytes + PRODUCTION v8 declaration in a copied root: the door accepts the pins, the workbook REFUSES (canonical-root guard) instead of silently mixing roots",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stderr": "refused: workbook pass04 is not at its canonical root\r\n"
+   }
+  }
+ ]
+}

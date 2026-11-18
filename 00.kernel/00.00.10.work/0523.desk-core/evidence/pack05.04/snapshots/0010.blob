@@ -1,0 +1,261 @@
+[
+  {
+    "boundary": "after-prior-task",
+    "qualification": "serial second-revision probe using unmodified returned code; process exit, not power loss",
+    "crash_exit": 91,
+    "show": {
+      "accepted": false,
+      "agreement": "Synthetic agreement v1.\n",
+      "body": "B selected wording.\n",
+      "bound_evidence": [
+        {
+          "bytes": 4,
+          "name": "pack",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "command": "show",
+      "complete": false,
+      "conflicts": [
+        "release-stale",
+        "claim-stale",
+        "return-stale"
+      ],
+      "contract": "desk-core/2",
+      "custody": "0123.sample",
+      "derived": true,
+      "expected_outputs": [
+        "return text",
+        "notes artifact"
+      ],
+      "kind": "N5NN",
+      "limitations": [
+        "no OS user isolation",
+        "actor labels are not authentication",
+        "file locks and rename are not a proof of race freedom",
+        "a receipt is not a review and a review is not acceptance",
+        "this tool does not launch a model or migrate the live book"
+      ],
+      "next_action": "historical return remains readable and is not fresh for the current task",
+      "next_actor": "prime",
+      "ok": true,
+      "receipt_sha256": "b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791",
+      "return_matches_task": false,
+      "review_fresh": false,
+      "revision_state": "selected",
+      "schema": "desk-core-result/1",
+      "scope": {
+        "in": [
+          "disposable book"
+        ],
+        "out": [
+          "live work book"
+        ]
+      },
+      "state": "return-stale",
+      "task_binding_sha256": "2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2",
+      "title": "Synthetic task",
+      "unresolved_questions": []
+    },
+    "recover": {
+      "accepted": false,
+      "agreement": "Synthetic agreement v1.\n",
+      "body": "B selected wording.\n",
+      "bound_evidence": [
+        {
+          "bytes": 4,
+          "name": "pack",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "command": "recover",
+      "complete": false,
+      "conflicts": [
+        "release-stale",
+        "claim-stale",
+        "return-stale"
+      ],
+      "contract": "desk-core/2",
+      "custody": "0123.sample",
+      "derived": true,
+      "expected_outputs": [
+        "return text",
+        "notes artifact"
+      ],
+      "kind": "N5NN",
+      "limitations": [
+        "no OS user isolation",
+        "actor labels are not authentication",
+        "file locks and rename are not a proof of race freedom",
+        "a receipt is not a review and a review is not acceptance",
+        "this tool does not launch a model or migrate the live book"
+      ],
+      "next_action": "historical return remains readable and is not fresh for the current task",
+      "next_actor": "prime",
+      "next_route": "keep selected pair",
+      "ok": true,
+      "receipt_sha256": "b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791",
+      "recovered_from": "records",
+      "recovery": "idempotent",
+      "recovery_mutated": false,
+      "return_matches_task": false,
+      "review_fresh": false,
+      "revision_state": "selected",
+      "schema": "desk-core-result/1",
+      "scope": {
+        "in": [
+          "disposable book"
+        ],
+        "out": [
+          "live work book"
+        ]
+      },
+      "state": "return-stale",
+      "task_binding_sha256": "2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2",
+      "title": "Synthetic task",
+      "unresolved_questions": []
+    },
+    "history": {
+      "0001/face.md": "# Synthetic task\n\nschema: desk-core-face/1\npage: 0523.sample\npass: 01\nkind: N5NN\nsynthetic: true\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnote: constructed face; not acceptance and not a release\n\n## Assignment\n    Build the disposable return.\n\n## Expected outputs\n- return text\n- notes artifact\n\n## Scope\nin:\n- disposable book\nout:\n- live work book\n\n## Agreement\n    Synthetic agreement v1.\n\n## Bound evidence\n- pack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4\n\n## Release\nwho: Director\ndate: 2026-11-01\nfabricated: false\ntext:\n    Synthetic release.\n\n## Claim\nworker: synthetic-worker\ndate: 2026-11-01\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnot-authentication: true\ntext:\n    Synthetic claim.\n\n## Return pointer\nplacement: 0123.sample\ncustody: 0123.sample\nreturn-file: 05.01.return.md\nreceipt-sha256: b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791\nreturn-sha256: 432ba13930bfaf38f0ab0169b1e5ada06efc83ecfe98ecfd8037d3e43156eb72\nnote: a pointer is not a review and not acceptance\n\n## Review - Codex Prime\nPENDING.\n\n## Record note\nConstructed by desk-core/2. A receipt, a passing check, and a review are different.\nNone of them is Director approval, seating, migration completion, or permission to launch a model.\nTAIL-SENTINEL\n\n",
+      "0001/intent.json": "{\n  \"after_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"after_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"after_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"6a41070c7cda7ffd09bc7542484a7a15a1dfc3fcbb63c5fb74345077cde4d236\",\n  \"before_task_binding_sha256\": \"5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\",\n  \"before_task_sha256\": \"4786d55a7f010051f50050a5d1e1c45d9cb8cc37da4e02208472d7af81fecc9a\",\n  \"reason\": \"selected-B\",\n  \"request_sha256\": \"bec463679dff06ecea65a2e32e886cb1b283c24cca358f6732fe9e932ebed36d\",\n  \"revision\": \"0001\",\n  \"schema\": \"desk-core-revision-intent/1\",\n  \"sealed\": false\n}\n",
+      "0001/proposed-face.md": "# Synthetic task\n\nschema: desk-core-face/1\npage: 0523.sample\npass: 01\nkind: N5NN\nsynthetic: true\ntask-binding: 2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\nnote: constructed face; not acceptance and not a release\n\n## Assignment\n    B selected wording.\n\n## Expected outputs\n- return text\n- notes artifact\n\n## Scope\nin:\n- disposable book\nout:\n- live work book\n\n## Agreement\n    Synthetic agreement v1.\n\n## Bound evidence\n- pack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4\n\n## Release\nwho: Director\ndate: 2026-11-01\nfabricated: false\ntext:\n    Synthetic release.\n\n## Claim\nworker: synthetic-worker\ndate: 2026-11-01\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnot-authentication: true\ntext:\n    Synthetic claim.\n\n## Return pointer\nplacement: 0123.sample\ncustody: 0123.sample\nreturn-file: 05.01.return.md\nreceipt-sha256: b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791\nreturn-sha256: 432ba13930bfaf38f0ab0169b1e5ada06efc83ecfe98ecfd8037d3e43156eb72\nnote: a pointer is not a review and not acceptance\n\n## Review - Codex Prime\nPENDING.\n\n## Record note\nConstructed by desk-core/2. A receipt, a passing check, and a review are different.\nNone of them is Director approval, seating, migration completion, or permission to launch a model.\nTAIL-SENTINEL\n\n",
+      "0001/proposed-task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"B selected wording.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"title\": \"Synthetic task\"\n}\n",
+      "0001/revision.json": "{\n  \"after_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"after_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"after_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"6a41070c7cda7ffd09bc7542484a7a15a1dfc3fcbb63c5fb74345077cde4d236\",\n  \"before_task_binding_sha256\": \"5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\",\n  \"before_task_sha256\": \"4786d55a7f010051f50050a5d1e1c45d9cb8cc37da4e02208472d7af81fecc9a\",\n  \"reason\": \"selected-B\",\n  \"request_sha256\": \"bec463679dff06ecea65a2e32e886cb1b283c24cca358f6732fe9e932ebed36d\",\n  \"revision\": \"0001\",\n  \"schema\": \"desk-core-revision/1\",\n  \"selected\": false,\n  \"state\": \"staged\"\n}\n",
+      "0001/task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"Build the disposable return.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\",\n  \"title\": \"Synthetic task\"\n}\n",
+      "0002/intent.json": "{\n  \"after_face_sha256\": \"0dfc8301c23b5b95c4b5d575a3a4667d8f0ee362e1d7f3575c423799a192fc59\",\n  \"after_task_binding_sha256\": \"c00c9b4fff6b68261bffd48c3ad2506c53451d4b57171892ac02987c7483d406\",\n  \"after_task_sha256\": \"a84b91d65f85320824f573af1b0db370957dd7e0ad0dfa8c7ff1f8481376031a\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"before_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"before_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"reason\": \"pending-C\",\n  \"request_sha256\": \"e719c65122bff751a6b50a2c00684ee8bcc80e4b825124dff01d082c5abe65cb\",\n  \"revision\": \"0002\",\n  \"schema\": \"desk-core-revision-intent/1\",\n  \"sealed\": false\n}\n",
+      "0002/task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"B selected wording.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"title\": \"Synthetic task\"\n}\n"
+    }
+  },
+  {
+    "boundary": "after-task-replacement",
+    "qualification": "serial second-revision probe using unmodified returned code; process exit, not power loss",
+    "crash_exit": 91,
+    "show": {
+      "accepted": false,
+      "agreement": "Synthetic agreement v1.\n",
+      "body": "C pending wording.\n",
+      "bound_evidence": [
+        {
+          "bytes": 4,
+          "name": "pack",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "command": "show",
+      "complete": false,
+      "conflicts": [
+        "assignment-projection-conflict",
+        "release-stale",
+        "claim-stale",
+        "return-stale"
+      ],
+      "contract": "desk-core/2",
+      "custody": "0123.sample",
+      "derived": true,
+      "expected_outputs": [
+        "return text",
+        "notes artifact"
+      ],
+      "kind": "N5NN",
+      "limitations": [
+        "no OS user isolation",
+        "actor labels are not authentication",
+        "file locks and rename are not a proof of race freedom",
+        "a receipt is not a review and a review is not acceptance",
+        "this tool does not launch a model or migrate the live book"
+      ],
+      "next_action": "projection disagrees with the task record; neither is accepted",
+      "next_actor": "prime",
+      "ok": true,
+      "receipt_sha256": "b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791",
+      "return_matches_task": false,
+      "review_fresh": false,
+      "revision_state": "conflict",
+      "schema": "desk-core-result/1",
+      "scope": {
+        "in": [
+          "disposable book"
+        ],
+        "out": [
+          "live work book"
+        ]
+      },
+      "state": "assignment-conflict",
+      "task_binding_sha256": "c00c9b4fff6b68261bffd48c3ad2506c53451d4b57171892ac02987c7483d406",
+      "title": "Synthetic task",
+      "unresolved_questions": []
+    },
+    "recover": {
+      "accepted": false,
+      "agreement": "Synthetic agreement v1.\n",
+      "body": "B selected wording.\n",
+      "bound_evidence": [
+        {
+          "bytes": 4,
+          "name": "pack",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "command": "recover",
+      "complete": false,
+      "conflicts": [
+        "release-stale",
+        "claim-stale",
+        "return-stale"
+      ],
+      "contract": "desk-core/2",
+      "custody": "0123.sample",
+      "derived": true,
+      "expected_outputs": [
+        "return text",
+        "notes artifact"
+      ],
+      "kind": "N5NN",
+      "limitations": [
+        "no OS user isolation",
+        "actor labels are not authentication",
+        "file locks and rename are not a proof of race freedom",
+        "a receipt is not a review and a review is not acceptance",
+        "this tool does not launch a model or migrate the live book"
+      ],
+      "next_action": "historical return remains readable and is not fresh for the current task",
+      "next_actor": "prime",
+      "next_route": "restored the selected pair",
+      "ok": true,
+      "receipt_sha256": "b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791",
+      "recovered_from": "records",
+      "recovery": "restored-selected",
+      "recovery_mutated": true,
+      "return_matches_task": false,
+      "review_fresh": false,
+      "revision_state": "selected",
+      "schema": "desk-core-result/1",
+      "scope": {
+        "in": [
+          "disposable book"
+        ],
+        "out": [
+          "live work book"
+        ]
+      },
+      "state": "return-stale",
+      "task_binding_sha256": "2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2",
+      "title": "Synthetic task",
+      "unresolved_questions": []
+    },
+    "history": {
+      "0001/face.md": "# Synthetic task\n\nschema: desk-core-face/1\npage: 0523.sample\npass: 01\nkind: N5NN\nsynthetic: true\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnote: constructed face; not acceptance and not a release\n\n## Assignment\n    Build the disposable return.\n\n## Expected outputs\n- return text\n- notes artifact\n\n## Scope\nin:\n- disposable book\nout:\n- live work book\n\n## Agreement\n    Synthetic agreement v1.\n\n## Bound evidence\n- pack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4\n\n## Release\nwho: Director\ndate: 2026-11-01\nfabricated: false\ntext:\n    Synthetic release.\n\n## Claim\nworker: synthetic-worker\ndate: 2026-11-01\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnot-authentication: true\ntext:\n    Synthetic claim.\n\n## Return pointer\nplacement: 0123.sample\ncustody: 0123.sample\nreturn-file: 05.01.return.md\nreceipt-sha256: b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791\nreturn-sha256: 432ba13930bfaf38f0ab0169b1e5ada06efc83ecfe98ecfd8037d3e43156eb72\nnote: a pointer is not a review and not acceptance\n\n## Review - Codex Prime\nPENDING.\n\n## Record note\nConstructed by desk-core/2. A receipt, a passing check, and a review are different.\nNone of them is Director approval, seating, migration completion, or permission to launch a model.\nTAIL-SENTINEL\n\n",
+      "0001/intent.json": "{\n  \"after_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"after_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"after_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"6a41070c7cda7ffd09bc7542484a7a15a1dfc3fcbb63c5fb74345077cde4d236\",\n  \"before_task_binding_sha256\": \"5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\",\n  \"before_task_sha256\": \"4786d55a7f010051f50050a5d1e1c45d9cb8cc37da4e02208472d7af81fecc9a\",\n  \"reason\": \"selected-B\",\n  \"request_sha256\": \"bec463679dff06ecea65a2e32e886cb1b283c24cca358f6732fe9e932ebed36d\",\n  \"revision\": \"0001\",\n  \"schema\": \"desk-core-revision-intent/1\",\n  \"sealed\": false\n}\n",
+      "0001/proposed-face.md": "# Synthetic task\n\nschema: desk-core-face/1\npage: 0523.sample\npass: 01\nkind: N5NN\nsynthetic: true\ntask-binding: 2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\nnote: constructed face; not acceptance and not a release\n\n## Assignment\n    B selected wording.\n\n## Expected outputs\n- return text\n- notes artifact\n\n## Scope\nin:\n- disposable book\nout:\n- live work book\n\n## Agreement\n    Synthetic agreement v1.\n\n## Bound evidence\n- pack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4\n\n## Release\nwho: Director\ndate: 2026-11-01\nfabricated: false\ntext:\n    Synthetic release.\n\n## Claim\nworker: synthetic-worker\ndate: 2026-11-01\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnot-authentication: true\ntext:\n    Synthetic claim.\n\n## Return pointer\nplacement: 0123.sample\ncustody: 0123.sample\nreturn-file: 05.01.return.md\nreceipt-sha256: b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791\nreturn-sha256: 432ba13930bfaf38f0ab0169b1e5ada06efc83ecfe98ecfd8037d3e43156eb72\nnote: a pointer is not a review and not acceptance\n\n## Review - Codex Prime\nPENDING.\n\n## Record note\nConstructed by desk-core/2. A receipt, a passing check, and a review are different.\nNone of them is Director approval, seating, migration completion, or permission to launch a model.\nTAIL-SENTINEL\n\n",
+      "0001/proposed-task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"B selected wording.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"title\": \"Synthetic task\"\n}\n",
+      "0001/revision.json": "{\n  \"after_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"after_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"after_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"6a41070c7cda7ffd09bc7542484a7a15a1dfc3fcbb63c5fb74345077cde4d236\",\n  \"before_task_binding_sha256\": \"5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\",\n  \"before_task_sha256\": \"4786d55a7f010051f50050a5d1e1c45d9cb8cc37da4e02208472d7af81fecc9a\",\n  \"reason\": \"selected-B\",\n  \"request_sha256\": \"bec463679dff06ecea65a2e32e886cb1b283c24cca358f6732fe9e932ebed36d\",\n  \"revision\": \"0001\",\n  \"schema\": \"desk-core-revision/1\",\n  \"selected\": false,\n  \"state\": \"staged\"\n}\n",
+      "0001/task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"Build the disposable return.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\",\n  \"title\": \"Synthetic task\"\n}\n",
+      "0002/face.md": "# Synthetic task\n\nschema: desk-core-face/1\npage: 0523.sample\npass: 01\nkind: N5NN\nsynthetic: true\ntask-binding: 2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\nnote: constructed face; not acceptance and not a release\n\n## Assignment\n    B selected wording.\n\n## Expected outputs\n- return text\n- notes artifact\n\n## Scope\nin:\n- disposable book\nout:\n- live work book\n\n## Agreement\n    Synthetic agreement v1.\n\n## Bound evidence\n- pack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4\n\n## Release\nwho: Director\ndate: 2026-11-01\nfabricated: false\ntext:\n    Synthetic release.\n\n## Claim\nworker: synthetic-worker\ndate: 2026-11-01\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnot-authentication: true\ntext:\n    Synthetic claim.\n\n## Return pointer\nplacement: 0123.sample\ncustody: 0123.sample\nreturn-file: 05.01.return.md\nreceipt-sha256: b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791\nreturn-sha256: 432ba13930bfaf38f0ab0169b1e5ada06efc83ecfe98ecfd8037d3e43156eb72\nnote: a pointer is not a review and not acceptance\n\n## Review - Codex Prime\nPENDING.\n\n## Record note\nConstructed by desk-core/2. A receipt, a passing check, and a review are different.\nNone of them is Director approval, seating, migration completion, or permission to launch a model.\nTAIL-SENTINEL\n\n",
+      "0002/intent.json": "{\n  \"after_face_sha256\": \"0dfc8301c23b5b95c4b5d575a3a4667d8f0ee362e1d7f3575c423799a192fc59\",\n  \"after_task_binding_sha256\": \"c00c9b4fff6b68261bffd48c3ad2506c53451d4b57171892ac02987c7483d406\",\n  \"after_task_sha256\": \"a84b91d65f85320824f573af1b0db370957dd7e0ad0dfa8c7ff1f8481376031a\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"before_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"before_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"reason\": \"pending-C\",\n  \"request_sha256\": \"e719c65122bff751a6b50a2c00684ee8bcc80e4b825124dff01d082c5abe65cb\",\n  \"revision\": \"0002\",\n  \"schema\": \"desk-core-revision-intent/1\",\n  \"sealed\": false\n}\n",
+      "0002/proposed-face.md": "# Synthetic task\n\nschema: desk-core-face/1\npage: 0523.sample\npass: 01\nkind: N5NN\nsynthetic: true\ntask-binding: c00c9b4fff6b68261bffd48c3ad2506c53451d4b57171892ac02987c7483d406\nnote: constructed face; not acceptance and not a release\n\n## Assignment\n    C pending wording.\n\n## Expected outputs\n- return text\n- notes artifact\n\n## Scope\nin:\n- disposable book\nout:\n- live work book\n\n## Agreement\n    Synthetic agreement v1.\n\n## Bound evidence\n- pack aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4\n\n## Release\nwho: Director\ndate: 2026-11-01\nfabricated: false\ntext:\n    Synthetic release.\n\n## Claim\nworker: synthetic-worker\ndate: 2026-11-01\ntask-binding: 5425819dffecf25033ac4c16966dde1cce5cf72eebbb90f4f5de9405b69fa123\nnot-authentication: true\ntext:\n    Synthetic claim.\n\n## Return pointer\nplacement: 0123.sample\ncustody: 0123.sample\nreturn-file: 05.01.return.md\nreceipt-sha256: b55560549ed94c089ea23054aa9769013f628378587b191200127e807b90d791\nreturn-sha256: 432ba13930bfaf38f0ab0169b1e5ada06efc83ecfe98ecfd8037d3e43156eb72\nnote: a pointer is not a review and not acceptance\n\n## Review - Codex Prime\nPENDING.\n\n## Record note\nConstructed by desk-core/2. A receipt, a passing check, and a review are different.\nNone of them is Director approval, seating, migration completion, or permission to launch a model.\nTAIL-SENTINEL\n\n",
+      "0002/proposed-task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"C pending wording.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"c00c9b4fff6b68261bffd48c3ad2506c53451d4b57171892ac02987c7483d406\",\n  \"title\": \"Synthetic task\"\n}\n",
+      "0002/revision.json": "{\n  \"after_face_sha256\": \"0dfc8301c23b5b95c4b5d575a3a4667d8f0ee362e1d7f3575c423799a192fc59\",\n  \"after_task_binding_sha256\": \"c00c9b4fff6b68261bffd48c3ad2506c53451d4b57171892ac02987c7483d406\",\n  \"after_task_sha256\": \"a84b91d65f85320824f573af1b0db370957dd7e0ad0dfa8c7ff1f8481376031a\",\n  \"authorizing_reference\": \"0523.sample/revision-request\",\n  \"before_face_sha256\": \"b9825764248b1e71d83a52d13432a5ee6cd47ebfa405aebe24d2c334e84a3e90\",\n  \"before_task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"before_task_sha256\": \"dd6dfa1e783346565dd5899bc59c9847525d22dcbcb542fd837ae31ab949a805\",\n  \"reason\": \"pending-C\",\n  \"request_sha256\": \"e719c65122bff751a6b50a2c00684ee8bcc80e4b825124dff01d082c5abe65cb\",\n  \"revision\": \"0002\",\n  \"schema\": \"desk-core-revision/1\",\n  \"selected\": false,\n  \"state\": \"staged\"\n}\n",
+      "0002/task.json": "{\n  \"agreement\": \"Synthetic agreement v1.\\n\",\n  \"agreement_sha256\": \"a4c741fda3916ea78ff23af589d2203f39f89311a367bb7a638f5158a58a70c5\",\n  \"binding_schema\": \"desk-core-task-binding/2\",\n  \"body\": \"B selected wording.\\n\",\n  \"bound_evidence\": [\n    {\n      \"bytes\": 4,\n      \"name\": \"pack\",\n      \"sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n    }\n  ],\n  \"evidence_sha256\": \"82547f14c2627d72e93fec1ef920809d0ed8cb28c0f4c49c55ef2abb1876fca1\",\n  \"expected_outputs\": [\n    \"return text\",\n    \"notes artifact\"\n  ],\n  \"kind\": \"N5NN\",\n  \"page\": \"0523\",\n  \"pass\": \"01\",\n  \"schema\": \"desk-core-task/2\",\n  \"scope\": {\n    \"in\": [\n      \"disposable book\"\n    ],\n    \"out\": [\n      \"live work book\"\n    ]\n  },\n  \"subject\": \"sample\",\n  \"synthetic\": true,\n  \"task_binding_sha256\": \"2138c08667005eb8ed235f4a29b0541cbb23954e3855fe82a6de918b38fc39e2\",\n  \"title\": \"Synthetic task\"\n}\n"
+    }
+  }
+]

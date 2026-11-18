@@ -1,0 +1,99 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "prime-review-pass01",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/prime-review-pass01/prime_review.py",
+  "name": "prime_review_pass01",
+  "purpose": "Standard-library review report and hold checks. The review-loop entry hash-checks these bytes and does not launch them.",
+  "interface": [
+   "report",
+   "guard",
+   "check-next"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "launched by older callers; not by the six app commands in this record"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+  "bytes": 58324,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "labs/prime-review-pass01/prime_review.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "report"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "labs/prime-review-pass01/prime_review.py",
+    "lines": "19-28"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0512.prime-review",
+     "face_or_pass": "05.01",
+     "file": "05.01.md"
+    },
+    "sha256": "30c33f6817098e9afe0f89ba663e8d49422ed3d39fad17aacbf10eee0943a51f",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that names building labs/prime-review-pass01/prime_review.py"
+   }
+  ],
+  "unknown": [
+   "Measured bytes match the git blob of HEAD 960d20c5290656095df8457b1740d2d5e586b111 at this path.",
+   "0512.prime-review/05.01.002 exists. Its face does not fit the prototype address form, so it is not linked. This pass did not prove the current bytes are only the 05.01 assignment."
+  ]
+ },
+ "supersedes": null
+}

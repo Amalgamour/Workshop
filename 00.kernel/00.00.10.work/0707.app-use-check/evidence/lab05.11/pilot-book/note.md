@@ -1,0 +1,1 @@
+The copied return and payload retain their original bytes/identities. This is an informed historical-material operator replay. Custody labels do not authenticate Prime or establish the review task. All source originals remain untouched.

@@ -1,0 +1,66 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record.result recorded",
+      "expected": null,
+      "observed": "recorded",
+      "ok": true
+    },
+    {
+      "check": "supplied_next_action.text is the supplied text",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "current.next_action.text is the supplied text",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "next does not carry supplied text",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "mechanical text does not carry supplied text",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "mechanical route is not recover",
+      "expected": null,
+      "observed": {
+        "blocker": "write-token-changed",
+        "route": "none-in-this-entry",
+        "state": "target-changed-since-record",
+        "target": "pending",
+        "text": "The judgment is retained. The target changed after record, so this entry does not write."
+      },
+      "ok": true
+    }
+  ],
+  "error": null
+}

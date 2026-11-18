@@ -1,0 +1,88 @@
+{
+  "all_cases_ok": true,
+  "calls": 26,
+  "cases": [
+    {
+      "case": "A",
+      "criterion": "describe/prepare/record/render exit 0; new-process read reviewed+rendered; recovered judgment equals supplied; flags false/not-established",
+      "evidence": [
+        "calls 01-05",
+        "recovery-comparison.json"
+      ],
+      "ok": true
+    },
+    {
+      "case": "B",
+      "criterion": "after record-only stop: read shows render-pending; recover renders; read reviewed; judgment and section equal A",
+      "evidence": [
+        "calls 06-11",
+        "recovery-comparison.json B checks"
+      ],
+      "ok": true
+    },
+    {
+      "case": "C",
+      "criterion": "recover and render again on A are already-rendered; page bytes unchanged",
+      "evidence": [
+        "calls 12-14",
+        "C-page-check.json"
+      ],
+      "ok": true
+    },
+    {
+      "case": "D",
+      "criterion": "render after a target change is refused (write token changed), exit 2; page keeps the changed bytes, nothing rendered",
+      "evidence": [
+        "calls 15-19",
+        "D-page-check.json"
+      ],
+      "ok": true
+    },
+    {
+      "case": "E",
+      "criterion": "substantive page: render and recover are render-conflict exit 2, full_success false; page bytes = snapshot; one partial; read not full_success",
+      "evidence": [
+        "calls 20-25",
+        "E-page-check.json"
+      ],
+      "ok": true
+    },
+    {
+      "case": "F",
+      "criterion": "fixture root inside the checkout: stop: on stderr, exit 2, no loop output",
+      "evidence": [
+        "call 26"
+      ],
+      "ok": true
+    }
+  ],
+  "checkout_new_lines_disposition": "Not app writes. Neither path is referenced by the 11 pinned files; every cycle/loop write site is fixture-root relative. labs/prime-desk-use-pass01 files are stamped 12:36:42-12:36:44 (inside call 03's window, 12:36:38-12:36:45); 0401.goal/06.03.md 12:39:51, after the last call. Names and times only; contents not read.",
+  "checkout_status_new_lines": [
+    "?? 00.kernel/00.00.10.work/0401.goal/06.03.md",
+    "?? labs/prime-desk-use-pass01/"
+  ],
+  "checkout_status_removed_lines": [],
+  "every_call_guarded_before_and_after": true,
+  "first_failures": "none in run1; no case was rerun",
+  "guard_end": true,
+  "guard_start": true,
+  "live_layout_created": false,
+  "observations_not_criteria": [
+    {
+      "check": "A page in-section states disposition (expected by an operator; observed?)",
+      "left": null,
+      "ok": false,
+      "right": null
+    },
+    {
+      "check": "A page in-section states pass_terminal (observed?)",
+      "left": null,
+      "ok": false,
+      "right": null
+    }
+  ],
+  "python": "3.14.0",
+  "run": "run1",
+  "schema": "0707-verification/1",
+  "watched_live_unchanged": true
+}

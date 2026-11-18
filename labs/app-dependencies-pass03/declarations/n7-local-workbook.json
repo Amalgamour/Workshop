@@ -1,0 +1,209 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "workbook"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "n7-local-workbook",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+      "repository": "lib-build"
+    },
+    "bytes": 9750,
+    "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "workbook"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "accepted L overlay"
+    ],
+    "name": "n7_local_workbook",
+    "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+    "purpose": "Accepted L overlay. It pair-pins pass04 and does not pair-pin pass05.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.20",
+          "file": "06.20.review.md",
+          "page": "0707.app-use-check",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "Prime accepted this local lifecycle prototype",
+        "role": "review",
+        "sha256": "0f547990906bcf6cceef86f2f62db9906b572fde237588615c72141caf1d884e",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "pass04-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 6508,
+        "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2"
+      },
+      "pin_required": true,
+      "reason": "load_pass04 compares sha256 and byte length.",
+      "source_ref": {
+        "lines": "49-55",
+        "path": "labs/n7-local-lifecycle-pass01/workbook.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass04/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "49-49",
+        "path": "labs/n7-local-lifecycle-pass01/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "35-51",
+        "path": "labs/n7-local-lifecycle-pass01/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "parents[2] is compared with D:\\Git\\lib-build. This preflight did not execute the overlay.",
+          "name": "canonical-helper-root"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-w",
+        "statement": "Combined workbook W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-w",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "Combined workbook W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-reporter",
+        "statement": "reporter-on-W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-reporter",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "reporter-on-W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "This overlay does not pair-pin pass05. Later composition is a separate workbook.",
+      "what": "pass05"
+    }
+  ]
+}

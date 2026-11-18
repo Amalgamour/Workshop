@@ -1,0 +1,18 @@
+PASS  G1   author test                        old N5 Submission / Artifact manifest / Verification / counted forms parse exact
+PASS  G2   known-failure reproduction + autho the real frozen 05.15 pointer: pass03 loses Returned and keeps the comma; the la
+PASS  G3   author test                        the same pointer from a CRLF copy of the pack parses identically
+PASS  G4   author test                        two Returned lines -> ambiguous-submission; nothing bound
+PASS  G5   author test                        Returned plus an N5 Submission line conflict -> ambiguous-submission
+PASS  G6   author test                        N7 and N5 manifest lines together -> ambiguous-manifest
+FAIL  G7   author test                        unrecognized punctuation is refused, never stripped: ';' after a path, double co
+PASS  G8   author test                        a path starting with '.' or '/' does not match the grammar
+PASS  H1   author hostile                     attribution text that smuggles a hash or a label is refused as not descriptive
+FAIL  D2   author test (hypothesis)           pass03's counted-manifest form is NOT used by intake: pass02's module-level pars
+PASS  I1   author test                        wrong hash on the Returned line -> declared-hash-mismatch, incomplete
+PASS  I2   author test                        wrong length on the manifest line -> declared-hash-mismatch, incomplete
+PASS  I3   author test                        manifest file missing -> declared-file-missing
+PASS  I4   author test                        one manifest payload missing -> artifact-missing
+PASS  I5   author test                        traversal inside an accepted path shape (a/../../x.md) -> malformed-declared-pat
+PASS  H2   author hostile                     a decoy file literally named 'artifact-manifest.json,' exists: unpatched intake 
+FAIL  I6   author test                        D2 end to end: a counted manifest line through UNPATCHED intake is unparsed (pas
+aggregate {'PASS': 14, 'FAIL': 3, 'ERROR': 0} first failure G7

@@ -1,0 +1,34 @@
+{
+  "schema": "0707-disposition-fixtures/1",
+  "note": "SYNTHETIC fixtures. Not anyone's judgment and not approval. They show the current cycle couplings an operator must satisfy, and the values a rendered disposition line must preserve.",
+  "registration_goal": {
+    "goal": {"goal_id": "g-synthetic", "statement": "SYNTHETIC goal for disposition fixtures.", "evidence": [], "terminal": "open"}
+  },
+  "base_judgment": {
+    "outcome": "continue",
+    "disposition": "held",
+    "pass_terminal": "open",
+    "goal": {"terminal": "open", "goal_id": "g-synthetic", "goal_sha256": null, "evidence": []},
+    "finding": "SYNTHETIC finding.",
+    "reasons": ["SYNTHETIC reason."],
+    "source_refs": ["assignment.txt"],
+    "next_action": {"action_id": "synthetic-next", "text": "SYNTHETIC next action.", "authorized_in_grant": false},
+    "unresolved": [],
+    "semantic_conflict": false,
+    "design_fork": null,
+    "holds": [],
+    "answers": [],
+    "sections": {}
+  },
+  "cases": [
+    {"id": "V1-held", "expect": "accepted-by-cycle", "set": {"disposition": "held"}},
+    {"id": "V2-correction-required", "expect": "accepted-by-cycle", "set": {"disposition": "correction-required"}},
+    {"id": "V3-accepted-open", "expect": "accepted-by-cycle", "set": {"disposition": "accepted"}},
+    {"id": "V4-accepted-complete", "expect": "accepted-by-cycle", "set": {"disposition": "accepted", "outcome": "complete", "pass_terminal": "finished", "goal.terminal": "completed", "goal.evidence": ["SYNTHETIC evidence ref"]}},
+    {"id": "V5-held-director-input", "expect": "accepted-by-cycle", "set": {"disposition": "held", "outcome": "director-input"}},
+    {"id": "N1-held-finished", "expect": "refused-by-cycle", "set": {"disposition": "held", "pass_terminal": "finished"}},
+    {"id": "N2-director-input-accepted", "expect": "refused-by-cycle", "set": {"disposition": "accepted", "outcome": "director-input"}},
+    {"id": "N3-complete-without-evidence", "expect": "refused-by-cycle", "set": {"disposition": "accepted", "outcome": "complete", "pass_terminal": "finished", "goal.terminal": "completed"}},
+    {"id": "N4-unknown-disposition", "expect": "refused-by-cycle", "set": {"disposition": "approved"}}
+  ]
+}

@@ -1,0 +1,294 @@
+[
+  {
+    "label": "actual-g2-prepare",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "prepare",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+      "--source",
+      "0521.return-placement",
+      "--pass",
+      "05.10"
+    ],
+    "exit": 0,
+    "measurement": "incomplete",
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "readiness-actual",
+    "args": [
+      "D:\\Git\\lib-build\\labs\\return-readiness-pass01\\readiness.py",
+      "--code-root",
+      "D:\\Git\\lib-build",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work"
+    ],
+    "exit": 0,
+    "measurement": null,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "case-prepare",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "measurement": "complete",
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "case-form",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "form",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "measurement": null,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "case-record",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "record",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01",
+      "--intake",
+      "98c3afd201fbe1604a2a0e72f490f5588b41b7bf6547ad5c087c32133b9eeca3",
+      "--judgment",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\judgment.json"
+    ],
+    "exit": 2,
+    "measurement": null,
+    "stale": null,
+    "correction": "refused: duplicate id at sources"
+  },
+  {
+    "label": "diag-prepare",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "measurement": "complete",
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "diag-record",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "record",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01",
+      "--intake",
+      "04893f9a353ce47995864df8df7ce8bad3ba5db6e2b11a70dd6b7cc1255d12ec",
+      "--judgment",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\judgment.json"
+    ],
+    "exit": 0,
+    "measurement": null,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "diag-inspect",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "inspect",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "measurement": "complete",
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "diag-publish",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "publish",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01",
+      "--review",
+      "w5d426e35460e562f"
+    ],
+    "exit": 0,
+    "measurement": null,
+    "stale": null,
+    "correction": null
+  },
+  {
+    "label": "diag-clean-recover",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "measurement": null,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "diag-render-publish",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "publish",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01",
+      "--review",
+      "w5d426e35460e562f"
+    ],
+    "exit": 1,
+    "measurement": null,
+    "stale": null,
+    "correction": "rendered text does not match the durable judgment"
+  },
+  {
+    "label": "diag-render-recover",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 1,
+    "measurement": null,
+    "stale": true,
+    "correction": null
+  },
+  {
+    "label": "diag-evidence-inspect",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "inspect",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "measurement": "incomplete",
+    "stale": true,
+    "correction": null
+  },
+  {
+    "label": "diag-evidence-read",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "read",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 1,
+    "measurement": null,
+    "stale": true,
+    "correction": null
+  },
+  {
+    "label": "diag-evidence-recover",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book",
+      "--source",
+      "0599.fixture-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 1,
+    "measurement": null,
+    "stale": true,
+    "correction": null
+  },
+  {
+    "label": "readiness-invalid-encoding",
+    "args": [
+      "D:\\Git\\lib-build\\labs\\return-readiness-pass01\\readiness.py",
+      "--code-root",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\code",
+      "--book",
+      "D:\\librarian\\temp\\prime-two-returns-0512-0510\\reduced-diagnostic-book"
+    ],
+    "exit": 1,
+    "measurement": null,
+    "stale": null,
+    "correction": null
+  }
+]

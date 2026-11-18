@@ -1,0 +1,63 @@
+pass                         N5-1    n5-same-cut     N5 0512/05.06: candidate prepare equals the faithful pass03 baseline on the same root (int
+pass                         N5-2    n5-same-cut     N5 0522/05.13: same-state equality with the baseline; the declared selection-induced chang
+pass                         N5-3    n5-same-cut     N5 legitimate filename punctuation (return.md, / ; / ) ) binds as before (candidate == bas
+fail                         N7-1    n7-valid        N7 0707/05.15: complete, 26/26 artifacts, local pair matched, N1 not applicable
+fail                         N7-2    n7-valid        N7 0707/05.17: complete, 33/33 artifacts, local pair matched, N1 not applicable
+pass                         ST-1    strict-n7       trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,': reason
+pass                         ST-2    strict-n7       a refused declaration (hash in attribution) beside a valid alternative Returned line: reas
+pass                         ST-3    strict-n7       an incomplete recognized label ('Verification:' with no value): reason malformed-n7-declar
+pass                         ST-4    strict-n7       control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malforme
+fail                         LR-1    n7-local        orphan return (no pack): not matched; record refused; return bytes kept
+fail                         LR-2    n7-local        wrong pass: pack 05.02 pointing at the 05.01 return is not a local match
+fail                         LR-3    n7-local        wrong page: a return copied to another N7 page with no pack does not borrow a nearby pack
+fail                         LR-4    n7-local        foreign book: an N7 record copied into another book instance is not current there
+fail                         LR-5    n7-local        existing history (0707/05.15): matched with chronology 'unverified' (Director 06.20)
+fail                         LR-6    n7-local        new work: pack observed before return -> chronology 'recorded-before-return'; same .NN thr
+fail                         N7-3    n7-valid        N7 not-applicable on record and render: a recorded local N7 pair stores and renders custod
+fail                         LR-7    n7-local        second pass binds only itself; the first pass's files and record stay byte-equal and curre
+pass                         CAP-0   capacity        harness self-check: independently counted emitted sources equal Prime's measured 29 / 20 /
+blocked                      CAP-1   capacity        retained 29-source judgment (0512/05.09) records and reads back canonically equal
+blocked                      CAP-2   capacity        retained 20-source judgment (0522/05.14) records and reads back canonically equal
+blocked                      CAP-3   capacity        retained 44-source judgment (0512/05.10, judgment-open) records and reads back canonically
+blocked                      CAP-4   capacity        declared bound: 64 harness-counted sources record and read back equal; 65 refuse with an e
+known-failure-reproduced     KF-CAP  capacity        KNOWN FAILURE (baseline): the 29- and 44-source retained judgments are refused 'limit sour
+pass                         LC-1    lifecycle       prepare/form -> record (supplied judgment) -> inspect checkpoint (full rendered output) ->
+pass                         PR-1    preservation    manual text present at the destination: publish held, bytes preserved, judgment retained
+pass                         PR-2    preservation    a destination file appearing between inspect and publish: held, bytes preserved
+pass                         PR-3    preservation    pack task-body change after record: stale; publication held
+pass                         PR-4    preservation    return change after record: stale; publication held
+pass                         PR-5    preservation    declared artifact changed or missing after record: stale; publication held
+fail                         PR-6    preservation    review-region-only pack edit after publish keeps the exchange current; a task edit does no
+pass                         PR-7    preservation    missing or altered pinned tool refuses before work (door pin)
+pass                         CTX-1   preservation    source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares
+blocked                      RP-1    reporter        review-report (candidate route) agrees with the core: published N7 current -> readable/sta
+blocked                      RP-2    reporter        review-report refuses (nonzero, no traceback) a wrong dispatcher pin, a wrong chain (workb
+known-failure-reproduced     KF-RP   reporter        KNOWN FAILURE (baseline): the frozen reporter v3 refuses this candidate's dispatcher (pins
+pass                         IN-1    instance        N5 same book: record then read is current (exit 0, not stale)
+blocked                      IN-2    instance        N5 foreign copied book: the copy's current applicability is held (positive evidence: nonze
+known-failure-reproduced     KF-IN   instance        KNOWN FAILURE (baseline): an N5 record in a byte-copied book reads current in the copy
+pass                         RC-1    reconstruction  a NEW root rebuilt by the declared builder from frozen sources has the identical candidate
+pass                         RB-1    rollback        restore the v7 dispatcher on a copy: new N7 records are kept byte-equal and reported non-c
+NOT READY scope=full {'pass': 19, 'fail': 11, 'blocked': 7, 'known-failure-reproduced': 3}
+  - required case N7-1: fail
+  - required case N7-2: fail
+  - required case LR-1: fail
+  - required case LR-2: fail
+  - required case LR-3: fail
+  - required case LR-4: fail
+  - required case LR-5: fail
+  - required case LR-6: fail
+  - required case N7-3: fail
+  - required case LR-7: fail
+  - required case CAP-1: blocked
+  - required case CAP-2: blocked
+  - required case CAP-3: blocked
+  - required case CAP-4: blocked
+  - required case PR-6: fail
+  - required case RP-1: blocked
+  - required case RP-2: blocked
+  - required case IN-2: blocked
+  - dependency K is pending
+  - dependency I is pending
+  - dependency R is pending
+  - dependency W is pending

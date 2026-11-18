@@ -1,0 +1,431 @@
+{
+ "schema": "colab-review-verification/1",
+ "batch": "0518.colab-review/05.01",
+ "branch": "workshop",
+ "head": "960d20c5290656095df8457b1740d2d5e586b111",
+ "pack": {
+  "sources": 65,
+  "committed_objects_equal_pins": 65,
+  "base_commit": "92b3fd5b5b9eef5ffd00f327c94ea76471bd1aee"
+ },
+ "reused_modules_byte_identical": {
+  "labs/colab-support-pass01/colab_support.py": {
+   "sha256": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/colab-support-pass02/colab_support.py": {
+   "sha256": "2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/colab-workflow-pass02/colab_workflow.py": {
+   "sha256": "4a2ece9e646224468b36ce63947c739d8ecd73155fbb62fb34f0442cbd2dceec",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/return-capture-pass01/return_inspect.py": {
+   "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/colab-readiness-pass01/colab_readiness.py": {
+   "sha256": "d33938c59621ec090516513cbbef646504519f935b9aa79b75554c6b7cf9852a",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/pack-assembly-pass01/pack_assembly.py": {
+   "sha256": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  },
+  "labs/pack-custody-pass01/pack_check.py": {
+   "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+   "equals_pack_pin": true,
+   "clean_vs_HEAD": true
+  }
+ },
+ "runs": [
+  {
+   "log": "run1-dev.txt",
+   "log_sha256": "2b4f781f5b13ff50cb487d73213a65ec8d463eb576b4bd8d0c3f1fe8b1a0c594",
+   "tail": [
+    "",
+    "FAILED (failures=8)",
+    "exit 1"
+   ],
+   "id": "run1",
+   "argv": "python -B -X dev labs/colab-review-pass01/tests/test_colab_review.py -v",
+   "exit": 1,
+   "result": "FAILED (failures=8) of 11",
+   "first_failures": [
+    "one fixture cause: my generated member names (e.g. 01_p-01) break the producer's 01NN.slug rule; the producer refused correctly; test names fixed"
+   ]
+  },
+  {
+   "log": "run2-dev.txt",
+   "log_sha256": "91ca3e8e84901225999307c0b1b9d6e677e91b3793a02b746e626e8fcedebf8e",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run2",
+   "argv": "python -B -X dev labs/colab-review-pass01/tests/test_colab_review.py -v",
+   "exit": 0,
+   "result": "OK, 11"
+  },
+  {
+   "log": "demo1-stdout.txt",
+   "log_sha256": "abf85a3e975a14a8d86905ce362e33215631d079948d17167c25b8585862b06b",
+   "tail": [
+    "accepted readiness checker on the exact package (declared-record capability only): exit 0 (expected 0)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo1",
+   "argv": "python -B -X dev labs/colab-review-pass01/demo.py --out <scratch>/demo1",
+   "exit": 0
+  },
+  {
+   "id": "mut0",
+   "argv": "python -B <scratch>/mutate.py (first form)",
+   "exit": 1,
+   "result": "the script did not start: a newline-escaping slip of mine broke a string literal; no mutation ran (an earlier draft that would have written a sibling folder inside the workshop labs/ was caught before running and moved to scratch)"
+  },
+  {
+   "log": "mutations.txt",
+   "log_sha256": "39d0089c2c8915ba3913bfa6df33748f1a39a713c1c9776adb2354e5257d9beb",
+   "tail": [
+    "plan-identity-unchecked ['TestResults.test_07_altered_source_identity_in_result_and_in_binding']: exit 1; failing ['test_07_altered_source_identity_in_result_and_in_binding']",
+    "bind-without-compare ['TestResults.test_07_altered_source_identity_in_result_and_in_binding']: exit 1; failing ['test_07_altered_source_identity_in_result_and_in_binding']",
+    "pin-skipped ['TestPins.test_11_pin_mismatch_launches_nothing']: exit 1; failing ['test_11_pin_mismatch_launches_nothing']"
+   ],
+   "id": "mutations",
+   "argv": "python -B <scratch>/mutate.py (copies in scratch; only WS/WORKSHOP constants re-pointed in each copy)",
+   "exit": 0,
+   "lines": [
+    "cold-context-allowed ['TestPlanChecks.test_03_mode_context_and_isolation_rules']: exit 1; failing ['test_03_mode_context_and_isolation_rules']",
+    "failed-counted-as-done ['TestResults.test_05_missing_comprehension_absent_and_failed_reviewers_are_incomplete']: exit 1; failing ['test_05_missing_comprehension_absent_and_failed_reviewers_are_incomplete']",
+    "comprehension-unchecked ['TestResults.test_05_missing_comprehension_absent_and_failed_reviewers_are_incomplete']: exit 1; failing ['test_05_missing_comprehension_absent_and_failed_reviewers_are_incomplete']",
+    "sequence-unchecked ['TestResults.test_06_sequence_violation_and_duplicate_or_bad_ids']: exit 1; failing ['test_06_sequence_violation_and_duplicate_or_bad_ids']",
+    "lost-finding-unchecked ['TestSynthesis.test_08_every_original_finding_is_mapped_and_dissent_is_kept']: exit 1; failing ['test_08_every_original_finding_is_mapped_and_dissent_is_kept']",
+    "acceptance-allowed ['TestSynthesis.test_09_cap_never_creates_acceptance']: exit 1; failing ['test_09_cap_never_creates_acceptance']",
+    "plan-identity-unchecked ['TestResults.test_07_altered_source_identity_in_result_and_in_binding']: exit 1; failing ['test_07_altered_source_identity_in_result_and_in_binding']",
+    "bind-without-compare ['TestResults.test_07_altered_source_identity_in_result_and_in_binding']: exit 1; failing ['test_07_altered_source_identity_in_result_and_in_binding']",
+    "pin-skipped ['TestPins.test_11_pin_mismatch_launches_nothing']: exit 1; failing ['test_11_pin_mismatch_launches_nothing']"
+   ],
+   "result": "9 of 9 caught"
+  },
+  {
+   "log": "final-dev.txt",
+   "log_sha256": "8ac224820d02db92dc919e54b56ac8e79ba53c2d134110ce81fed8b44078366d",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-dev",
+   "argv": "python -B -X dev labs/colab-review-pass01/tests/test_colab_review.py -v",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-default.txt",
+   "log_sha256": "dd974b7edcfdfd82ccf18e2010215a7a8f3ffac6453ca059cc931d48ad74c640",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-default",
+   "argv": "python -B labs/colab-review-pass01/tests/test_colab_review.py",
+   "exit": 0,
+   "result": "final bytes, default mode"
+  },
+  {
+   "log": "demo-final-stdout.txt",
+   "log_sha256": "abf85a3e975a14a8d86905ce362e33215631d079948d17167c25b8585862b06b",
+   "tail": [
+    "accepted readiness checker on the exact package (declared-record capability only): exit 0 (expected 0)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo-final",
+   "argv": "python -B -X dev labs/colab-review-pass01/demo.py --out <scratch>/demo-final",
+   "exit": 0,
+   "steps": [
+    {
+     "step": "stage review sources and compose colab-request/2",
+     "tool": "colab_review.py",
+     "argv": [
+      "stage",
+      "--plan",
+      "<desk>\\plan.json",
+      "--request",
+      "<desk>\\base-request.json",
+      "--repo",
+      "<desk>\\src",
+      "--out-request",
+      "<desk>\\request.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "01.json",
+     "stderr": ""
+    },
+    {
+     "step": "producer v2 preview",
+     "tool": "colab_support.py",
+     "argv": [
+      "preview",
+      "--request",
+      "<desk>\\request.json",
+      "--config",
+      "<desk>\\config.json",
+      "--json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "02.json",
+     "stderr": ""
+    },
+    {
+     "step": "producer v2 prepare",
+     "tool": "colab_support.py",
+     "argv": [
+      "prepare",
+      "--request",
+      "<desk>\\request.json",
+      "--config",
+      "<desk>\\config.json",
+      "--output",
+      "<desk>\\producer-out",
+      "--digest",
+      "c3159538fbf00702423ab6ba9b8d8002c73885608585bee4d1bfab7606a4f998",
+      "--json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "03.json",
+     "stderr": ""
+    },
+    {
+     "step": "bind: review files inside the verified package",
+     "tool": "colab_review.py",
+     "argv": [
+      "bind",
+      "--output",
+      "<desk>\\producer-out",
+      "--config",
+      "<desk>\\config.json",
+      "--producer",
+      "D:\\Git\\lib-build\\labs\\colab-support-pass02\\colab_support.py",
+      "--expect-digest",
+      "c3159538fbf00702423ab6ba9b8d8002c73885608585bee4d1bfab7606a4f998",
+      "--out",
+      "<desk>\\binding",
+      "--plan",
+      "<desk>\\plan.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "04.json",
+     "stderr": ""
+    },
+    {
+     "step": "workflow v2 open",
+     "tool": "colab_workflow.py",
+     "argv": [
+      "open",
+      "--book",
+      "<desk>\\book",
+      "--request",
+      "<desk>\\open.json",
+      "--closure",
+      "<desk>\\producer-out"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "05.json",
+     "stderr": ""
+    },
+    {
+     "step": "workflow v2 attach",
+     "tool": "colab_workflow.py",
+     "argv": [
+      "attach",
+      "--book",
+      "<desk>\\book",
+      "--page",
+      "0702.colab-review-fixture",
+      "--pass",
+      "05.01",
+      "--output",
+      "<desk>\\producer-out",
+      "--config",
+      "<desk>\\config.json",
+      "--expect-digest",
+      "c3159538fbf00702423ab6ba9b8d8002c73885608585bee4d1bfab7606a4f998"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "06.json",
+     "stderr": ""
+    },
+    {
+     "step": "reserve and capture four SYNTHETIC results (helper reserve, producer intake)",
+     "members": [
+      "0101.r01-s01",
+      "0102.r02-s01",
+      "0103.r01-s02",
+      "0104.r02-s02"
+     ],
+     "result_sha256": {
+      "0101.r01-s01": "719501cd14555e30e067b0401b58549312c138da85f65a2a472e22a265894235",
+      "0102.r02-s01": "5014f1066579e8f907439a6778c1f8a81c631881de7d75cc2183282cc53f5671",
+      "0103.r01-s02": "0d7dbf9f384c5cbfedea6efa3282f233066bdb00370ce355b6820a6a6bd930f7",
+      "0104.r02-s02": "611934eeb1e139b0f09bade70e9715a07865b733e2dbaef24f6c3ff2b659d80a"
+     }
+    },
+    {
+     "step": "workflow v2 place-return (R01 S01)",
+     "tool": "colab_workflow.py",
+     "argv": [
+      "place-return",
+      "--book",
+      "<desk>\\book",
+      "--page",
+      "0702.colab-review-fixture",
+      "--pass",
+      "05.01",
+      "--member",
+      "0101.r01-s01",
+      "--config",
+      "<desk>\\config.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "08.json",
+     "stderr": ""
+    },
+    {
+     "step": "adapter intake (S03 optional, not run)",
+     "tool": "colab_review.py",
+     "argv": [
+      "intake",
+      "--binding",
+      "<desk>\\binding\\binding.json",
+      "--plan",
+      "<desk>\\plan.json",
+      "--book",
+      "<desk>\\book",
+      "--config",
+      "<desk>\\config.json",
+      "--out",
+      "<desk>\\intake",
+      "--member",
+      "0101.r01-s01",
+      "--member",
+      "0102.r02-s01",
+      "--member",
+      "0103.r01-s02",
+      "--member",
+      "0104.r02-s02"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "09.json",
+     "stderr": ""
+    },
+    {
+     "step": "adapter synthesize",
+     "tool": "colab_review.py",
+     "argv": [
+      "synthesize",
+      "--intake",
+      "<desk>\\intake\\intake.json",
+      "--synthesis",
+      "<desk>\\synthesis.json",
+      "--out",
+      "<desk>\\report"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "10.json",
+     "stderr": ""
+    },
+    {
+     "step": "adapter synthesize: a lost original finding is refused as inconsistent",
+     "tool": "colab_review.py",
+     "argv": [
+      "synthesize",
+      "--intake",
+      "<desk>\\intake\\intake.json",
+      "--synthesis",
+      "<desk>\\synthesis-lost.json",
+      "--out",
+      "<desk>\\report-lost"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout": "11.json",
+     "stderr": ""
+    },
+    {
+     "step": "workflow v2 record-review (Prime-supplied SYNTHETIC record)",
+     "tool": "colab_workflow.py",
+     "argv": [
+      "record-review",
+      "--book",
+      "<desk>\\book",
+      "--page",
+      "0702.colab-review-fixture",
+      "--pass",
+      "05.01",
+      "--review",
+      "<desk>\\review.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "12.json",
+     "stderr": ""
+    },
+    {
+     "step": "accepted readiness checker on the exact package (declared-record capability only)",
+     "tool": "colab_readiness.py",
+     "argv": [
+      "check",
+      "--request",
+      "<desk>\\readiness-request.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout": "13.json",
+     "stderr": ""
+    }
+   ]
+  }
+ ],
+ "demo_all_exits_as_expected": true,
+ "skips": [],
+ "not_exercised": [
+  "symlink paths (privilege on this host)",
+  "a real reviewer or model (forbidden; all results SYNTHETIC)"
+ ],
+ "final_hashes": [
+  "4a95a9719f6a83b7eeb59f2957cd982f70656204ddcce91c4402e101cc7b0f60 *labs/colab-review-pass01/colab_review.py",
+  "813687d2fcd62a082c9df0a10c510c5d4238202d71de03d5a4fbcf7172a0f25b *labs/colab-review-pass01/demo.py",
+  "ec32ed150903b0b9f92efdba34a59c9cc6830cf7db5836a82fe274fad8a62d12 *labs/colab-review-pass01/README.md",
+  "721adbfa0fc81b1e41752c77f5e32cab28844d3a58d98ceecfef7f6a64091983 *labs/colab-review-pass01/tests/fixture.py",
+  "c27e76fde6986f5c6f0ad9ec675839fcba173e06e27389ea5edb36fe1a5b149f *labs/colab-review-pass01/tests/test_colab_review.py"
+ ],
+ "workshop_status_outside_allowlist": [],
+ "staged": [],
+ "label": "SYNTHETIC reviewer results only; mechanical checks, not semantic quality; no model run"
+}

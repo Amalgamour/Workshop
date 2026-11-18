@@ -1,0 +1,536 @@
+{
+ "schema": "n7-intake-runs/1",
+ "steps": [
+  {
+   "step": "A-app-prepare",
+   "argv": [
+    "D:\\Git\\lib-build\\app\\librarian.py",
+    "review-loop",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "prepare",
+    "exit": 0,
+    "measurement": "incomplete",
+    "custody": "missing",
+    "stale": false,
+    "intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+    "live_intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "declared-file-missing",
+     "submission-not-declared",
+     "unparsed-return-line"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "B-faithful-prepare",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "prepare",
+    "exit": 0,
+    "measurement": "incomplete",
+    "custody": "missing",
+    "stale": false,
+    "intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+    "live_intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "declared-file-missing",
+     "submission-not-declared",
+     "unparsed-return-line"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-prepare",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "prepare",
+    "exit": 0,
+    "measurement": "complete",
+    "custody": "missing",
+    "stale": false,
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "live_intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-form",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "form",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "form",
+    "exit": 0,
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-prepare2",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "prepare",
+    "exit": 0,
+    "measurement": "complete",
+    "custody": "missing",
+    "stale": false,
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "live_intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-record",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "record",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15",
+    "--intake",
+    "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "--judgment",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\design05.16\\runs01\\judgment-faithful.json"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "record",
+    "exit": 0,
+    "custody": "missing",
+    "review_id": "w1a15b7a2fad09c12",
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-inspect",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "inspect",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "inspect",
+    "exit": 0,
+    "measurement": "complete",
+    "stale": false,
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-publish",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "publish",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15",
+    "--review",
+    "w1a15b7a2fad09c12"
+   ],
+   "exit": 1,
+   "summary": {
+    "command": "publish",
+    "exit": 1,
+    "review_id": "w1a15b7a2fad09c12",
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-read",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "read",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "read",
+    "exit": 0,
+    "custody": "missing",
+    "stale": false,
+    "review_id": "w1a15b7a2fad09c12",
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-faithful-recover",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo",
+    "recover",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\faithful\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "recover",
+    "exit": 0,
+    "custody": "missing",
+    "stale": false,
+    "review_id": "w1a15b7a2fad09c12",
+    "intake_id": "a67ae05c49a88e61483cf289ef1e86f61b4a92e3d8f68b49a329981b8427ddbe",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-noreview-prepare2",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "prepare",
+    "exit": 0,
+    "measurement": "complete",
+    "custody": "missing",
+    "stale": false,
+    "intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "live_intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-noreview-record",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo",
+    "record",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15",
+    "--intake",
+    "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "--judgment",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\design05.16\\runs01\\judgment-noreview.json"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "record",
+    "exit": 0,
+    "custody": "missing",
+    "review_id": "w4c9b9af106c571f5",
+    "intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-noreview-inspect",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo",
+    "inspect",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "inspect",
+    "exit": 0,
+    "measurement": "complete",
+    "stale": false,
+    "intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "destination": "0707.app-use-check/06.15.review.md",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "unknowns": [
+     "agreement.goal",
+     "agreement.scope",
+     "recorded_decisions",
+     "receipt"
+    ],
+    "finding_codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-noreview-publish",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo",
+    "publish",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15",
+    "--review",
+    "w4c9b9af106c571f5"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "publish",
+    "exit": 0,
+    "review_id": "w4c9b9af106c571f5",
+    "intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-noreview-read",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo",
+    "read",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "read",
+    "exit": 0,
+    "custody": "missing",
+    "stale": false,
+    "review_id": "w4c9b9af106c571f5",
+    "intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  },
+  {
+   "step": "R-noreview-recover",
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass01\\n7compat.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo",
+    "recover",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0716\\noreview\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0707.app-use-check",
+    "--pass",
+    "05.15"
+   ],
+   "exit": 0,
+   "summary": {
+    "command": "recover",
+    "exit": 0,
+    "custody": "missing",
+    "stale": false,
+    "review_id": "w4c9b9af106c571f5",
+    "intake_id": "c6de0be23a6f3ad5f5b9de110a61caf34d6d0fa4c5d49e00db5f3783b11d5607",
+    "next_action": "LAB-ONLY: no real action; Prime reviews the intake repair proposal.",
+    "finding_codes": []
+   },
+   "stderr_tail": ""
+  }
+ ],
+ "production_unchanged": true,
+ "production_files_checked": 50
+}

@@ -1,0 +1,89 @@
+{
+ "schema": "desk-observation/1",
+ "case_id": "C03",
+ "producer": {
+  "kind": "candidate",
+  "adapter": {
+   "id": "0705-pass03-adapter/1",
+   "sha256": "1f22e141dafb66580088fc1b9d9bba491a6f6d1ddf3ddfe838b1a8ac635e9fc1",
+   "status": "connected"
+  },
+  "raw_outputs": [
+   {
+    "path": "view.stdout",
+    "sha256": "d1b7074c6eba49c87f35726ecab81fd612143866b32282e1c801e224311c76f7"
+   },
+   {
+    "path": "packet.stdout",
+    "sha256": "732cd78f6684bb83200486e40598edb117dbaabd06ba7a89bcffc633f9a1c509"
+   }
+  ],
+  "unmapped": [
+   "works",
+   "parallel",
+   "coverage",
+   "workers",
+   [
+    "selected",
+    "source"
+   ]
+  ]
+ },
+ "instance": {
+  "selected": "instance-A"
+ },
+ "selected": {
+  "work_ref": "0522.review-construction/05.04",
+  "basis": "observed",
+  "source": {
+   "path": null,
+   "sha256": null
+  }
+ },
+ "parallel": [],
+ "works": [],
+ "attention": {
+  "total": 2,
+  "shown": 2,
+  "overflow_route": null,
+  "items": [
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   }
+  ]
+ },
+ "holds": [],
+ "coverage": [],
+ "sources": [
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+   "instance": "instance-A",
+   "expected_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "observed_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "observed_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "status": "ok"
+  },
+  {
+   "path": null,
+   "instance": "instance-B",
+   "expected_sha256": null,
+   "observed_sha256": null,
+   "status": "outside-instance"
+  }
+ ],
+ "quotes": [],
+ "workers": [],
+ "refusals": [],
+ "identity_fingerprint": "2d8517c21aeb3644a8ef9ec11048a82f14a12996ac7ba8f70e41c950195b6c1c"
+}

@@ -1,0 +1,18 @@
+{
+  "capability": "Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.",
+  "not_verified": [
+    "rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered",
+    "heading-section line ranges of targets",
+    "assembler completion receipt content and the custody checker result: bound bytes, not re-run",
+    "tool pins and v1 request rules beyond schema and binding shape",
+    "use the pinned full producer verify (colab_support.py verify) for these"
+  ],
+  "problems": [
+    {
+      "code": "handoff-claim",
+      "detail": "handoff.investigation differs from the value derived from bound bytes"
+    }
+  ],
+  "result": "mismatch",
+  "schema": "colab-handoff-check/2"
+}

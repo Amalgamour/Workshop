@@ -1,0 +1,138 @@
+{
+  "schema": "workbook-review-verification/1",
+  "pass": "0522.review-construction/05.11",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "custody": "pending",
+  "matching_line": "0122.review-construction",
+  "matching_status": "unfiled",
+  "receipt": null,
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "index_at_close_check": "empty",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "pack_inputs_before_edit": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/pack05.11/source-manifest.json",
+    "sha256": "f8df756c6c35d74ced7473038b424fe01d1352aabda831dcb7bc7b0074bbf1b5",
+    "bytes": 14782,
+    "files": 44,
+    "bad": 0,
+    "missing_live": 0,
+    "missing_snapshot": 0,
+    "live_drift": 0,
+    "snapshot_mismatch": 0,
+    "extra_snapshots": 0
+  },
+  "pack_inputs_at_close_before_pointer": {
+    "files": 44,
+    "snapshot_mismatches": 0,
+    "repinned": false,
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "note": "The snapshot remains the before-edit freeze. app/librarian.py and app/README.md differ because this slice edited them. No other frozen row drifted. 05.11.md was still the pending page at this check."
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.11/CONTRACT.md",
+    "sha256": "34bbaa25bcfa35bcf1b6ad43d2dccbc070c83cd8848d8aa740e6a184228d405c",
+    "bytes": 9944,
+    "revised_after_tests": false
+  },
+  "workbook": {
+    "path": "labs/workbook-review-pass01/workbook.py",
+    "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "bytes": 79131
+  },
+  "form": {
+    "path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f",
+    "bytes": 4532
+  },
+  "door": {
+    "path": "app/review_loop_tools_v5.py",
+    "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9",
+    "bytes": 7875,
+    "declaration": "app/review-loop-v5.json",
+    "declaration_sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3",
+    "declaration_bytes": 1964
+  },
+  "librarian": {
+    "path": "app/librarian.py",
+    "sha256": "e2d85b1b641d8a1113b0afaa67a9b8203eb58e9f1028308be922a806fffa5f90",
+    "bytes": 12204,
+    "before_sha256": "826167161000ac3eab78c466ae47e31b37ff435ea33f4104caf7651ecd21436e",
+    "before_bytes": 12153
+  },
+  "readme": {
+    "path": "app/README.md",
+    "sha256": "d30d68d47cf90475f7f4b7abe9215c3ad2b323535494e2000bfc306f302f6c16",
+    "bytes": 38352,
+    "before_sha256": "2886188717bc62008397754f8ab3155dc2188e30b69344ef6b70d70d8f0ab9db",
+    "before_bytes": 38242
+  },
+  "suite": {
+    "command": "python -B labs/workbook-review-pass01/tests/test_workbook.py",
+    "tests": 6,
+    "failed": 0,
+    "seconds": 100.902,
+    "result": "OK",
+    "exit": 0,
+    "rerun_at_close": false,
+    "note": "This is the operator run after the cycle re-read. README was not pinned by that run. The later return-lines sentence does not change a door pin."
+  },
+  "current_book": {
+    "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "source": "0522.review-construction",
+    "pass": "05.11",
+    "commands": [
+      "prepare",
+      "form",
+      "inspect"
+    ],
+    "exits": [
+      0,
+      0,
+      0
+    ],
+    "stderr_bytes": [
+      0,
+      0,
+      0
+    ],
+    "stdout_bytes": [
+      7708,
+      6504,
+      7079
+    ],
+    "custody": "missing",
+    "findings": [
+      "return-pending",
+      "custody-missing",
+      "return-missing"
+    ],
+    "return_path": null,
+    "intake_id": "90208e4640ae12ef7966b319323d90391ce4c83139d478b1cbb90c6990e7ee13",
+    "judgment": null,
+    "page_sha256": "22c7cdde7e847b6e15e7c31e621e4e49fc0466539496abaa80814d6e6cb10ed6",
+    "page_bytes": 10286,
+    "page_unchanged": true,
+    "recorded": false,
+    "published": false
+  },
+  "retained_books": {
+    "root": "D:\\librarian\\temp\\0522-0511",
+    "clean_filed": "wb0511-filed-__vwjn9s",
+    "clean_preliminary": "wb0511-n5-q2d1x6l4",
+    "clean_hold": "wb0511-hold-qgwtnfev",
+    "clean_blocked": "wb0511-bad-0bss24pl",
+    "clean_n7": "wb0511-n7-dsx9d62x",
+    "early_bind_refusal": "wb0511-filed-386u0mgi",
+    "deleted": false
+  }
+}

@@ -1,0 +1,54 @@
+# 06.01 notes — Prime desk independent check (0705/05.01)
+date: 2026-11-01
+who: claude-opus-5-5 (Claude), contextual Colab and labs; reviewer Codex Prime
+state: written before the fixtures and the return.
+
+## Context: not a cold session
+- **Same continuing session** that wrote prime_support (snapshots 0029–0036; it is one of the readers 0524 is told to reuse), the 0519 design and lab, prime_cycle, and the 0704 returns.
+- **Not written by me** as far as this session shows: desk_state, prime_brief, state_projection, app/context.py, prime_intake.py.
+- **What this is not.** This check proves nothing about what a cold model would recover. It is a contextual reader attacking the design with frozen records.
+- **Not read:** Grok-1's 0524 lab, Grok-2's 0522/05.04 work, and any live output after the snapshots.
+- **Verified:** 40 of 40 inputs match their pins and equal live (evidence/return05.01/source-check.json).
+
+## What the desk must tell a Prime (0420/01.md, in my words)
+Opening the desk must answer, without chat:
+1. Which book instance and role this is, the goal, the finish criteria and the authority references.
+2. Which page/pass is selected **by the selector**, never by newest; its last checkpoint and verified result; and the recorded next action.
+3. What needs attention: Director questions, returns awaiting review, Observer findings, conflicts, missing evidence, interruptions. Each comes with its declared coverage, because unregistered does not mean none.
+4. What each worker was assigned and the last *evidenced* state. Chat assertions are attributed and supplied.
+5. Which operations exist, with exact identities and limits. A pin is not activation.
+6. Recent decisions in exact wording, kept apart from interpretation, and discussion kept apart from released commands.
+7. For each fact, its source, hash and time, the basis of the claim, its freshness limit and the drill-down.
+
+There are three layers, which stay separate: the overview, the packet (one selected work) and the book and history. The packet expands exact sources and never generates judgment.
+
+## Which record owns which fact (from frozen sources)
+| Fact | Owner | Note |
+|---|---|---|
+| Selected primary work, its state label, waits_on and next | 0401.goal/06.01.md (assignment-record v1, 0410/01.md schema) | one `current_work`; parallel work exists only as `waits_on` prose |
+| Goal and finish lines | 0401.goal/01.md | contains 3 real mojibake sequences (`â€”`) in its bytes |
+| Deliverable and contract | 0420.prime-desk/01.md; approval 06.01 (verbatim plus interpretation) | |
+| Task text and criteria | the work page `05.NN.md` (or `05.NN.pack.md` for N7NN) | |
+| Release, claim and return pointer | that page's Return pointer lines | text, not authentication |
+| Prime review and disposition | that page's `## Review - Codex Prime` section, plus Prime evidence folders | prose; no typed record on real pages yet |
+| Custody | an N1NN line (pending migration), a legacy `01NN.slug` member, or page-local evidence | 0521/0522/0524 pointers all say custody pending |
+| Worker activity | supplied words, e.g. 0420/06.02 "Director reported Grok-2 working" | not a process check |
+| Operations | app/README.md and the app pins (app/*.json) | |
+
+## What would still force reconstruction from chat (early list; verify while writing)
+- **Parallel lanes have no structured record.** The selector names one `current_work`. 0524 and 0705 are "parallel scoped work" only in `waits_on` prose. A catalog listing them is an index, and nothing records their assignment except each page's own pointer (PENDING until invoked).
+- **The release and the Director's chat words** reach a page only when the worker copies them into the pointer.
+- **Joint-tool findings span pages.** RL-01 sits on both 0521/05.03 and 0522/05.03. A packet for one must show the cross-reference.
+- **The reason a selection changed** (0420/06.02: the previous selector was "stale") lives in a preserved evidence file that is not in this packet.
+
+## Serious-gap candidates (to test with cases)
+- **G1.** The readers 0524 is told to reuse accept only old sequential members: state_projection and prime_brief use `MEMBER = ^01\d\d\.…`. prime_support (mine) reads only root `05.NN.md` files, so N7NN `05.NN.pack.md` pages, including this one, are invisible to it.
+- **G2.** desk_state's `desk-state/1` record holds lanes, blockers, handoff and review dispositions. Reused as a store, it is a second hand-kept status authority, which 0420 forbids ("index, not a duplicate authority store").
+- **G3.** Parallel assignments: see above.
+- **G4.** Reviewed is not the same as custody complete is not the same as accepted. On real pages a full Prime review coexists with "custody pending" (0521/05.03, 0522/05.03).
+- **G5.** Selector state `running` rests on a supplied report (0420/06.02). The desk must show that basis rather than present the work as observed running.
+
+## Plan
+- **Fixtures:** under colab/labs/0705.prime-desk-check/pass01/. Declarative JSON cases, plus a small standard-library checker that validates their shape and their source pins against this pack's manifest. No product code.
+- **Rehearsal:** on 0521/05.03, a completed workflow batch with a Prime review. Additional sources are named explicitly.
+- **Return:** 05.01.return.md, then the hashes on the pointer.

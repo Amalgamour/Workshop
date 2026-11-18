@@ -1,0 +1,12 @@
+pass         M0-N5  missing-intake  
+fail         M1-N7  missing-intake  after M1: read is not held/stale/refused (it reads current or crashed)
+pass         R0     pack-region     
+not-reached  F1     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+fail         F1b    pack-region     a meaningful change kept the review current (freshness exemption granted)
+not-reached  E1     pack-region     fixture did not reach record/publish; kept as not-reached, never credited
+fail         E2     pack-region     a meaningful change kept the review current (freshness exemption granted)
+fail         C1     composition     the byte-copied book reads the foreign review current
+pass         C2     composition     
+blocked      C4     composition     candidate kind 'proto-l' is not the combined candidate; not executed
+NOT ALL REQUIRED PASS {'pass': 3, 'fail': 4, 'not-reached': 2, 'blocked': 1}
+identity: legacy-discovery labs/n7-local-lifecycle-pass01/workbook.py | proof: {'workbook': 'executed', 'open': 'executed'}

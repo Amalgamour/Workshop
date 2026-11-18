@@ -1,0 +1,200 @@
+[
+  {
+    "fixture": "n5-0522",
+    "verdict": {
+      "n5_unchanged_B_vs_C": false,
+      "n5_parity_same_state": true,
+      "selection_changed_measurement": true,
+      "c_complete": false,
+      "all_declared_covered": false,
+      "book_bytes_unchanged": true,
+      "baseline_stable": false
+    },
+    "B_vs_D": {},
+    "B2_vs_C": {}
+  },
+  {
+    "fixture": "n5-0512",
+    "verdict": {
+      "n5_unchanged_B_vs_C": true,
+      "n5_parity_same_state": true,
+      "selection_changed_measurement": false,
+      "c_complete": true,
+      "all_declared_covered": true,
+      "book_bytes_unchanged": true,
+      "baseline_stable": true
+    },
+    "B_vs_D": {},
+    "B2_vs_C": {}
+  },
+  {
+    "fixture": "n7-0515",
+    "verdict": {
+      "n7_identity_changed": true,
+      "n7_lost_rows": [],
+      "c_complete": true,
+      "all_declared_covered": true,
+      "book_bytes_unchanged": true,
+      "baseline_stable": true
+    },
+    "B_vs_D": {
+      "intake_id": [
+        "3a1b965dc740394bb29943e4fa82e82eb38d0b48b773f381b04238796af4cb44",
+        "c3493839e1fb8863d7b7858b2aa1e670031710b1a9f11b5c965f02a4cc3c9456"
+      ],
+      "measurement": [
+        "incomplete",
+        "complete"
+      ],
+      "finding_codes": [
+        [
+          "custody-missing",
+          "declared-file-missing",
+          "submission-not-declared",
+          "unparsed-return-line",
+          "unparsed-return-line"
+        ],
+        [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ]
+      ],
+      "rows_sha": [
+        "e546c595f0ce27caf5aefa87704600eb61c4b5342b0b29c15077e1fce826afae",
+        "c0855eec5c957195fb10a8d69038ec58a3d54a496ae4b6a3d9adc7e8549d08de"
+      ],
+      "cuts_sha": [
+        "9c365413adedf44a55635ff0fae83c4041093559ded9d30a94c9714fd7b0141a",
+        "d7759a3f3ca8170b2935ef36864d3a4a8a1d8aa8023f086223e110889eaf2d48"
+      ],
+      "row_count": [
+        2,
+        30
+      ]
+    },
+    "B2_vs_C": {
+      "intake_id": [
+        "3a1b965dc740394bb29943e4fa82e82eb38d0b48b773f381b04238796af4cb44",
+        "c3493839e1fb8863d7b7858b2aa1e670031710b1a9f11b5c965f02a4cc3c9456"
+      ],
+      "measurement": [
+        "incomplete",
+        "complete"
+      ],
+      "finding_codes": [
+        [
+          "custody-missing",
+          "declared-file-missing",
+          "submission-not-declared",
+          "unparsed-return-line",
+          "unparsed-return-line"
+        ],
+        [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ]
+      ],
+      "rows_sha": [
+        "e546c595f0ce27caf5aefa87704600eb61c4b5342b0b29c15077e1fce826afae",
+        "c0855eec5c957195fb10a8d69038ec58a3d54a496ae4b6a3d9adc7e8549d08de"
+      ],
+      "cuts_sha": [
+        "9c365413adedf44a55635ff0fae83c4041093559ded9d30a94c9714fd7b0141a",
+        "d7759a3f3ca8170b2935ef36864d3a4a8a1d8aa8023f086223e110889eaf2d48"
+      ],
+      "row_count": [
+        2,
+        30
+      ]
+    }
+  },
+  {
+    "fixture": "n7-0517",
+    "verdict": {
+      "n7_identity_changed": true,
+      "n7_lost_rows": [],
+      "c_complete": true,
+      "all_declared_covered": true,
+      "book_bytes_unchanged": true,
+      "baseline_stable": true
+    },
+    "B_vs_D": {
+      "intake_id": [
+        "1c03bee25456caf72da5433acdc4f1b305eff40381d3186361cc4545a1973660",
+        "c76a08d4b05d3b78d78b2a3e39912a00de758fd2f7ac24a318c4cef74deb5d32"
+      ],
+      "measurement": [
+        "incomplete",
+        "complete"
+      ],
+      "finding_codes": [
+        [
+          "custody-missing",
+          "declared-file-missing",
+          "submission-not-declared",
+          "unparsed-return-line",
+          "unparsed-return-line"
+        ],
+        [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ]
+      ],
+      "rows_sha": [
+        "fe2481ded3bd2081f18e7f876e93e9aa89c44580a0346ac40bf71c5a6cda9089",
+        "9eb6fcb28821aeab129aef891ddf56a8b027038db1f12ece05864a8d10ae29a9"
+      ],
+      "cuts_sha": [
+        "459c4c961b3dcbc9042f42990849718c26ad5a4c8d7670b93263e7ab045fd5f5",
+        "7bf57f44c1359d12ca94df4adc0751fcf77a740179fc47f38608a342af4138bb"
+      ],
+      "row_count": [
+        2,
+        37
+      ]
+    },
+    "B2_vs_C": {
+      "intake_id": [
+        "1c03bee25456caf72da5433acdc4f1b305eff40381d3186361cc4545a1973660",
+        "c76a08d4b05d3b78d78b2a3e39912a00de758fd2f7ac24a318c4cef74deb5d32"
+      ],
+      "measurement": [
+        "incomplete",
+        "complete"
+      ],
+      "finding_codes": [
+        [
+          "custody-missing",
+          "declared-file-missing",
+          "submission-not-declared",
+          "unparsed-return-line",
+          "unparsed-return-line"
+        ],
+        [
+          "custody-missing",
+          "index-context-bounded",
+          "unparsed-return-line",
+          "verification-not-measured"
+        ]
+      ],
+      "rows_sha": [
+        "fe2481ded3bd2081f18e7f876e93e9aa89c44580a0346ac40bf71c5a6cda9089",
+        "9eb6fcb28821aeab129aef891ddf56a8b027038db1f12ece05864a8d10ae29a9"
+      ],
+      "cuts_sha": [
+        "459c4c961b3dcbc9042f42990849718c26ad5a4c8d7670b93263e7ab045fd5f5",
+        "7bf57f44c1359d12ca94df4adc0751fcf77a740179fc47f38608a342af4138bb"
+      ],
+      "row_count": [
+        2,
+        37
+      ]
+    }
+  }
+]

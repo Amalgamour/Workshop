@@ -1,0 +1,580 @@
+{
+ "schema": "0710-lifecycle-sim/2",
+ "cases": [
+  {
+   "id": "L1",
+   "says": "pair seats; no collision; completed restart re-verifies",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "warehouse": [
+      "00.retire.09/0001.law/01.004.09.md",
+      "00.retire.09/0002.schema/01.004.09.md",
+      "00.retire.09/09.md"
+     ],
+     "ledger": [
+      "planned: 0001.law/01.md (version 004) \u00b7 to 00.retire.09/0001.law/01.004.09.md \u00b7 before c3ae3cd6298c \u00b7 retired 2a42998e0867 \u00b7 2026-11-02",
+      "retired: 0001.law/01.md (version 004) \u00b7 at 00.retire.09/0001.law/01.004.09.md \u00b7 retired 2a42998e0867 \u00b7 seated 76200bce8df6 \u00b7 2026-11-02",
+      "planned: 0002.schema/01.md (version 004) \u00b7 to 00.retire.09/0002.schema/01.004.09.md \u00b7 before 8a1a09a131b5 \u00b7 retired 9c442cf7f4cb \u00b7 2026-11-02",
+      "retired: 0002.schema/01.md (version 004) \u00b7 at 00.retire.09/0002.schema/01.004.09.md \u00b7 retired 9c442cf7f4cb \u00b7 seated 16f949aa5187 \u00b7 2026-11-02"
+     ],
+     "restart": [
+      "verified-complete",
+      "verified-complete"
+     ]
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "L2",
+   "says": "content changed after signing: approval refused",
+   "expect": [
+    "refused",
+    "draft-bytes-equal-signed"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "draft-bytes-equal-signed",
+    "detail": "approve 0001.law: precondition draft-bytes-equal-signed failed"
+   },
+   "match": true
+  },
+  {
+   "id": "L2b",
+   "says": "content changed after approval: half-seated, held",
+   "expect": [
+    "held",
+    "half-seated"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "half-seated",
+    "detail": "seated ['0001.law']; 0002.schema stopped at draft-bytes-equal-approved; Director decides finish or rollback"
+   },
+   "match": true
+  },
+  {
+   "id": "L3",
+   "says": "missing approval: held, nothing written",
+   "expect": [
+    "held",
+    "approval-missing"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "approval-missing",
+    "detail": "the release has a face without an approval; nothing renamed",
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "L5",
+   "says": "second seat changed after approval: half-seated",
+   "expect": [
+    "held",
+    "half-seated"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "half-seated",
+    "detail": "seated ['0001.law']; 0002.schema stopped at seat-unchanged; Director decides finish or rollback"
+   },
+   "match": true
+  },
+  {
+   "id": "L7",
+   "says": "seat before sign/approve: held",
+   "expect": [
+    "held",
+    "approval-missing"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "approval-missing",
+    "detail": "the release has a face without an approval; nothing renamed"
+   },
+   "match": true
+  },
+  {
+   "id": "L7b",
+   "says": "sign before stage: refused",
+   "expect": [
+    "refused",
+    "staged"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "staged",
+    "detail": "sign 0001.law: precondition staged failed"
+   },
+   "match": true
+  },
+  {
+   "id": "L8",
+   "says": "approval names the pre-sign bytes: refused",
+   "expect": [
+    "refused",
+    "approval-names-signed-sha"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "approval-names-signed-sha",
+    "detail": "approve 0001.law: precondition approval-names-signed-sha failed"
+   },
+   "match": true
+  },
+  {
+   "id": "L9",
+   "says": "lock or promote requested",
+   "expect": [
+    "refused",
+    "not-in-template"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "not-in-template",
+    "detail": "lock and promote are separate (0023)"
+   },
+   "match": true
+  },
+  {
+   "id": "L10",
+   "says": "flat warehouse: collision; half-seated",
+   "expect": [
+    "held",
+    "half-seated"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "half-seated",
+    "detail": "seated ['0001.law']; 0002.schema stopped at warehouse-name-free; Director decides finish or rollback"
+   },
+   "match": true
+  },
+  {
+   "id": "PP1",
+   "says": "Prime L-P1: completed restart after changed seated bytes",
+   "expect": [
+    "held",
+    "completed-drift"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "completed-drift",
+    "detail": "observed hashes match no planned state; no write",
+    "observed": [
+     "f24dcc0ceef3",
+     "2a42998e0867",
+     null
+    ],
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "PP2",
+   "says": "Prime L-P2: rollback after changed seated bytes",
+   "expect": [
+    "held",
+    "rollback-current-changed"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "rollback-current-changed",
+    "detail": "current bytes or destinations differ from the plan; Director review; no write",
+    "observed": [
+     "f24dcc0ceef3",
+     "2a42998e0867",
+     null
+    ],
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "W1",
+   "says": "stop at J1 after; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W2",
+   "says": "stop at J2 after; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W3",
+   "says": "stop at J3 action; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W4",
+   "says": "stop at J4 mid; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W5",
+   "says": "stop at J4 action; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W6",
+   "says": "stop at J5 action; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W7",
+   "says": "stop at J6 mid; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "W8",
+   "says": "stop at J6 action; restart completes to the same bytes; ledger planned+retired once",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "LG1",
+   "says": "stop after J2: ledger says planned, never retired",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": [
+     "planned: 0001.law/01.md (version 004) \u00b7 to 00.retire.09/0001.law/01.004.09.md \u00b7 before c3ae3cd6298c \u00b7 retired 2a42998e0867 \u00b7 2026-11-02"
+    ]
+   },
+   "match": true
+  },
+  {
+   "id": "M1",
+   "says": "malformed journal entry: held, no write",
+   "expect": [
+    "held",
+    "journal-malformed"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "journal-malformed",
+    "detail": "unknown journal entry {'step': 'J9', 'status': 'done'}; no write",
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "M2",
+   "says": "draft removed during interruption: unknown state held",
+   "expect": [
+    "held",
+    "restart-state-unknown"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "restart-state-unknown",
+    "detail": "observed hashes match no planned state; no write",
+    "observed": [
+     null,
+     "c3ae3cd6298c",
+     null
+    ],
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "RB0",
+   "says": "rollback with a bound decision restores both versions",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seat_restored": true,
+     "draft_restored": true,
+     "seated_image_kept": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "RB1",
+   "says": "retired file changed: held, no write",
+   "expect": [
+    "held",
+    "rollback-retired-changed"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "rollback-retired-changed",
+    "detail": "current bytes or destinations differ from the plan; Director review; no write",
+    "observed": [
+     "76200bce8df6",
+     "299a221b879d",
+     null
+    ],
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "RB2",
+   "says": "before-image missing: held, no write",
+   "expect": [
+    "held",
+    "before-image-missing"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "before-image-missing",
+    "detail": "raw image c3ae3cd6298c is missing or damaged; no write",
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "RB3",
+   "says": "no rollback decision: held, no write",
+   "expect": [
+    "held",
+    "rollback-decision-missing"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "rollback-decision-missing",
+    "detail": "no Director rollback decision; no write",
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "RB4",
+   "says": "decision names other identities: held, no write",
+   "expect": [
+    "held",
+    "rollback-decision-mismatch"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "rollback-decision-mismatch",
+    "detail": "the decision names other identities; no write",
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "RB5",
+   "says": "draft name occupied by new work: held, no write",
+   "expect": [
+    "held",
+    "destination-occupied"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "destination-occupied",
+    "detail": "current bytes or destinations differ from the plan; Director review; no write",
+    "observed": [
+     "76200bce8df6",
+     "2a42998e0867",
+     "e9de85f11a73"
+    ],
+    "no_write": true
+   },
+   "match": true
+  },
+  {
+   "id": "RW1",
+   "says": "rollback stopped at R1 after; restart restores both versions",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seat_restored": true,
+     "draft_restored": true,
+     "seated_image_kept": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "RW2",
+   "says": "rollback stopped at R2 action; restart restores both versions",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seat_restored": true,
+     "draft_restored": true,
+     "seated_image_kept": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "RW3",
+   "says": "rollback stopped at R3 action; restart restores both versions",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seat_restored": true,
+     "draft_restored": true,
+     "seated_image_kept": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "RW4",
+   "says": "rollback stopped at R4 action; restart restores both versions",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seat_restored": true,
+     "draft_restored": true,
+     "seated_image_kept": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "RW5",
+   "says": "rollback stopped at R5 action; restart restores both versions",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seat_restored": true,
+     "draft_restored": true,
+     "seated_image_kept": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "RW6",
+   "says": "rollback interrupted, then the moved file changed: held, no write",
+   "expect": [
+    "held",
+    "rollback-state-unknown"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "rollback-state-unknown",
+    "detail": "observed hashes match no rollback state; no write",
+    "observed": [
+     null,
+     "2a42998e0867",
+     "83fcd2c655d2"
+    ],
+    "no_write": true
+   },
+   "match": true
+  }
+ ],
+ "mismatches": 0,
+ "first_failure": null
+}

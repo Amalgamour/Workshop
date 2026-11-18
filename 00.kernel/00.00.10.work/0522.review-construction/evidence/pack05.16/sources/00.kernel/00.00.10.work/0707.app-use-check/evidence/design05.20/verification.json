@@ -1,0 +1,54 @@
+{
+ "schema": "design05.20-verification/1",
+ "pack05_20_inputs": 453,
+ "live_equal": 451,
+ "snapshot_equal": 453,
+ "app_librarian_py": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+ "no_live_writes": {
+  "0799 page absent": true,
+  "0798 page absent": true,
+  "0599 page absent": true,
+  "no live store for 0707/05.20": true
+ },
+ "external_rooms": {
+  "root": "D:\\librarian\\temp\\n7l-0720",
+  "note": "local disposable retention only; digest = sha256 over sorted (relative path, file sha256)",
+  "rooms": {
+   "replay01": {
+    "files": 295,
+    "tree_digest": "ab997e43740af88ff830cb027c8c86e2f79a1d2c7925490c26dccae6a37a9901"
+   },
+   "run01": {
+    "files": 907,
+    "tree_digest": "4bc7931c79fcb1d43139f9128054392162ddc9386e1d7743c00ab0d64b0dd1e9"
+   },
+   "run02": {
+    "files": 907,
+    "tree_digest": "5db16e1999b86916d74d02fccd392cca43f1e2b8cdb1435182c56ce2b153e8db"
+   },
+   "run03": {
+    "files": 917,
+    "tree_digest": "082b64fccd6336a4fb0d47da54456fa50abbfa1fc78ca2a3e5484f3e31209b0c"
+   },
+   "run04": {
+    "files": 917,
+    "tree_digest": "1b3d018433163addb8c901122c7c5f30efc1ed1808a28e07d10b7d4605cfcc47"
+   }
+  }
+ },
+ "live_drift_by_other_lanes": [
+  {
+   "path": "00.kernel/00.00.10.work/0512.prime-review/05.10.md",
+   "frozen_bytes": 5954,
+   "live_bytes_at_end": 6357,
+   "lane": "Grok-1 capacity pack page"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.15.md",
+   "frozen_bytes": 5301,
+   "live_bytes_at_end": 8028,
+   "lane": "Grok-2 strict-parser pack page"
+  }
+ ],
+ "drift_note": "Not written by this pass; content not read (unfinished lane output). Snapshots verify 453/453; start-of-pass check was 453/453 live. Reported, not repinned."
+}

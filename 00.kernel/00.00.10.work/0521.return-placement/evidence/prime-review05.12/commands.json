@@ -1,0 +1,162 @@
+[
+  {
+    "label": "actual-intake",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "review-loop",
+      "prepare",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+      "--source",
+      "0521.return-placement",
+      "--pass",
+      "05.12"
+    ],
+    "exit": 0,
+    "state": null,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "native-first-read",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\book",
+      "--source",
+      "0521.connected-return-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "stale": null,
+    "correction": "Observed checks passed. This is not acceptance, seating, or publication."
+  },
+  {
+    "label": "filed-review-read",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "review-loop",
+      "read",
+      "--book",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\book",
+      "--source",
+      "0521.connected-return-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": null,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "filed-review-recover",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "review-loop",
+      "recover",
+      "--book",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\book",
+      "--source",
+      "0521.connected-return-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": null,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "n7-review-inspect",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "review-loop",
+      "inspect",
+      "--book",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\book",
+      "--source",
+      "0721.connected-local",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": null,
+    "stale": false,
+    "correction": null
+  },
+  {
+    "label": "negative-copy-baseline",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\connected-0521-0512-prime\\negative-book",
+      "--source",
+      "0521.connected-return-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0,
+    "state": "complete",
+    "stale": null,
+    "correction": "Observed checks passed. This is not acceptance, seating, or publication."
+  },
+  {
+    "label": "swapped-pass-receipt",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\connected-0521-0512-prime\\negative-book",
+      "--source",
+      "0521.connected-return-review",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 2,
+    "state": "conflict",
+    "stale": null,
+    "correction": "The recorded bytes do not verify. Keep them and correct the mismatch. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority."
+  },
+  {
+    "label": "nonexistent-pass",
+    "args": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z\\code\\app\\librarian.py",
+      "return-lines",
+      "lookup",
+      "--book",
+      "D:\\librarian\\temp\\connected-0521-0512-prime\\negative-book",
+      "--source",
+      "0521.connected-return-review",
+      "--pass",
+      "05.99"
+    ],
+    "exit": 1,
+    "state": "incomplete",
+    "stale": null,
+    "correction": "Evidence is incomplete. Keep the record visible and do not invent the missing return. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority."
+  }
+]

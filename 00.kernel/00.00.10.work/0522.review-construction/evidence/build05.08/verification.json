@@ -1,0 +1,111 @@
+{
+  "schema": "review-loop-verification/1",
+  "pass": "0522.review-construction/05.08",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "pack_inputs": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/pack05.08/source-manifest.json",
+    "files": 192,
+    "bad": 0,
+    "missing": 0,
+    "live_bytes": 2116343,
+    "manifest_sha256": "c4c2a6dc0a648f02d1a7c109520e3f47c1204cb3bda7accee304971e88f89f80",
+    "manifest_bytes": 74631,
+    "rechecked_immediately_before_verification": true
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+    "sha256": "53979375983195762d3aef36e3e40762dd642084f06239fbae982c13c60a4990",
+    "bytes": 10045,
+    "contract_revised_after_commands": false
+  },
+  "predecessor": {
+    "path": "labs/review-loop-pass02/review_loop.py",
+    "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "bytes": 47189,
+    "edited": false
+  },
+  "loop": {
+    "path": "labs/review-loop-pass03/review_loop.py",
+    "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "bytes": 55474,
+    "newlines": "lf"
+  },
+  "constructor_pass04": {
+    "path": "labs/review-construction-pass04/construct.py",
+    "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "bytes": 42582,
+    "edited": false,
+    "selected_by_cycle": false
+  },
+  "cycle_edited": false,
+  "app_edited": false,
+  "git_write": false,
+  "candidate_tests": {
+    "command": "python -B labs/review-loop-pass03/tests/test_review_loop.py",
+    "cwd": "D:/Git/lib-build",
+    "env": "PYTHONDONTWRITEBYTECODE=1",
+    "cited_run": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/runs/20261101T214515Z-95ad56b3",
+    "ran": 19,
+    "passed": 19,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": "70.741",
+    "exit": 0,
+    "log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/runs/20261101T214515Z-95ad56b3/suite.txt",
+    "calls": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/runs/20261101T214515Z-95ad56b3/calls.jsonl",
+    "call_count": 109,
+    "call_exits": {"0": 80, "1": 8, "2": 21}
+  },
+  "preserved_runs": [
+    {
+      "run": "20261101T213617Z-2d1cc7f5",
+      "exit": 1,
+      "ran": 19,
+      "failed": 2,
+      "reason": "mixed-newline CRLF fixture reported unsupported; whole-JSON bait assertion saw the cycle view"
+    },
+    {
+      "run": "20261101T213811Z-8f153411",
+      "exit": 0,
+      "ran": 19,
+      "failed": 0,
+      "seconds": "68.882",
+      "reason": "same assertions, before the runner wrote suite.txt; not the cited log"
+    },
+    {
+      "run": "20261101T214031Z-f88fb427",
+      "exit": 0,
+      "ran": 19,
+      "failed": 0,
+      "seconds": "69.268",
+      "loop_sha256": "1634c85afa7dd806d0f2f446183492960a7ce709348769e932386fd9fff5f8ab",
+      "loop_bytes": 56756,
+      "loop_newlines": "crlf",
+      "reason": "green on the CRLF loop file; newlines were then normalized to LF; not the cited log"
+    }
+  ],
+  "source_change_negative": "in-process mock returning 64 zeros; a real assignment change expects code binding",
+  "not_run": [
+    "v2 app entry test",
+    "constructor pass04 suite",
+    "cycle pass03 suite",
+    "pass02 evidence writer",
+    "reproduce",
+    "describe-legacy"
+  ],
+  "custody": "pending",
+  "matching_line": "0122.review-construction",
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "receipt": null,
+  "note": "Exit 0 is not Prime review, seating, or app activation. Pass03 is not selected."
+}

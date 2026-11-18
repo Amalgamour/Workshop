@@ -1,0 +1,30 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": false
+    },
+    {
+      "check": "prepare target absent",
+      "expected": null,
+      "observed": "absent",
+      "ok": true
+    },
+    {
+      "check": "prepare text does not claim a commitment",
+      "expected": null,
+      "observed": "No judgment is recorded. The target is absent, so this entry does not commit one.",
+      "ok": true
+    }
+  ],
+  "error": null
+}

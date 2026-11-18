@@ -1,0 +1,99 @@
+test_changed_bytes_wrong_line_and_hash (app.desk_core.test_loop.DeskCoreLoop.test_changed_bytes_wrong_line_and_hash) ... FAIL
+test_claim_conflict_visible (app.desk_core.test_loop.DeskCoreLoop.test_claim_conflict_visible) ... FAIL
+test_each_binding_field_and_interrupt (app.desk_core.test_loop.DeskCoreLoop.test_each_binding_field_and_interrupt) ... FAIL
+test_full_loop_restart_and_binding (app.desk_core.test_loop.DeskCoreLoop.test_full_loop_restart_and_binding) ... FAIL
+test_pins_and_live_book_and_undeclared (app.desk_core.test_loop.DeskCoreLoop.test_pins_and_live_book_and_undeclared) ... ok
+test_review_without_return_duplicate_key_and_projection (app.desk_core.test_loop.DeskCoreLoop.test_review_without_return_duplicate_key_and_projection) ... FAIL
+test_said_done_without_capture (app.desk_core.test_loop.DeskCoreLoop.test_said_done_without_capture) ... FAIL
+test_stale_claim_and_review_binding (app.desk_core.test_loop.DeskCoreLoop.test_stale_claim_and_review_binding) ... FAIL
+test_two_passes_one_line_and_colab_and_occupant (app.desk_core.test_loop.DeskCoreLoop.test_two_passes_one_line_and_colab_and_occupant) ... FAIL
+
+======================================================================
+FAIL: test_changed_bytes_wrong_line_and_hash (app.desk_core.test_loop.DeskCoreLoop.test_changed_bytes_wrong_line_and_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 251, in test_changed_bytes_wrong_line_and_hash
+    binding = self.seed()
+              ^^^^^^^^^^^
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_claim_conflict_visible (app.desk_core.test_loop.DeskCoreLoop.test_claim_conflict_visible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 462, in test_claim_conflict_visible
+    self.seed()
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_each_binding_field_and_interrupt (app.desk_core.test_loop.DeskCoreLoop.test_each_binding_field_and_interrupt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 342, in test_each_binding_field_and_interrupt
+    binding = self.seed()
+              ^^^^^^^^^^^
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_full_loop_restart_and_binding (app.desk_core.test_loop.DeskCoreLoop.test_full_loop_restart_and_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 169, in test_full_loop_restart_and_binding
+    binding = self.seed()
+              ^^^^^^^^^^^
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_review_without_return_duplicate_key_and_projection (app.desk_core.test_loop.DeskCoreLoop.test_review_without_return_duplicate_key_and_projection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 438, in test_review_without_return_duplicate_key_and_projection
+    self.seed()
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_said_done_without_capture (app.desk_core.test_loop.DeskCoreLoop.test_said_done_without_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 226, in test_said_done_without_capture
+    self.seed()
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_stale_claim_and_review_binding (app.desk_core.test_loop.DeskCoreLoop.test_stale_claim_and_review_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 283, in test_stale_claim_and_review_binding
+    binding = self.seed()
+              ^^^^^^^^^^^
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+======================================================================
+FAIL: test_two_passes_one_line_and_colab_and_occupant (app.desk_core.test_loop.DeskCoreLoop.test_two_passes_one_line_and_colab_and_occupant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 361, in test_two_passes_one_line_and_colab_and_occupant
+    binding = self.seed()
+              ^^^^^^^^^^^
+  File "D:\librarian\temp\cloud-core-review\source\app\desk_core\test_loop.py", line 81, in seed
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "ModuleNotFoundError: No module named 'fcntl'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.024s
+
+FAILED (failures=8)

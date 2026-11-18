@@ -1,0 +1,257 @@
+{
+ "schema": "n7-local-matrix/0",
+ "rooms": "D:\\librarian\\temp\\n7l-0720\\run01",
+ "aggregate": {
+  "PASS": 4,
+  "FAIL": 5
+ },
+ "cases": {
+  "T1": {
+   "says": "valid N7 pack opened first, matching return, no N1: prepare/form complete, record retains judgment, inspect, SEPARATE publish creates 06.01.review.md, read/recover x2 equal, no writes, no approval/release",
+   "status": "FAIL",
+   "detail": {
+    "open": "",
+    "exchange": {},
+    "codes": [
+     "n1-not-applicable",
+     "thin-submission"
+    ],
+    "record": {
+     "exit": 0,
+     "review_id": "w3eb2dfcd4a47fa8a",
+     "mode": "preliminary"
+    },
+    "publish": {
+     "exit": 0,
+     "target": "0799.n7-local-lab/06.01.review.md",
+     "flags": {
+      "accepted": false,
+      "approved": false,
+      "authority": "none",
+      "closes_work": false,
+      "releases_action": false,
+      "published_work": false
+     }
+    },
+    "target_sha256": "121553a21073452a247ab14c7df76d5ff0373d7f5628a3b25c4f135b54659454",
+    "reads_exit": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "no_writes_on_read": true,
+    "rendered_custody_line": [
+     "custody: missing"
+    ]
+   }
+  },
+  "H1": {
+   "says": "Prime's page-local Review summary in the pack after publish: overlay stays fresh (bound region unchanged); task-body edit still stale; staged pass04 baseline goes stale (known)",
+   "status": "PASS",
+   "detail": {
+    "overlay_after_review_summary": {
+     "exit": 0,
+     "stale": false
+    },
+    "pass04_after_review_summary": {
+     "exit": 0,
+     "stale": false,
+     "codes": []
+    },
+    "overlay_after_task_body_edit": {
+     "exit": 1,
+     "stale": true
+    }
+   }
+  },
+  "T5": {
+   "says": "second pass 05.02: binds only 05.02 (its own pack/return/destination); pass-1 pack, return, review and record untouched and still fresh",
+   "status": "FAIL",
+   "detail": {
+    "exchange_05_02": {
+     "state": null,
+     "chronology": null,
+     "declared_submission": null,
+     "destination": null
+    },
+    "pass1_bytes_kept": true,
+    "pass1_read": {
+     "exit": 0,
+     "review_id": "w3eb2dfcd4a47fa8a",
+     "stale": false
+    }
+   }
+  },
+  "T2": {
+   "says": "orphan return, pointer pending, missing pack, wrong pass (pass04 baseline binds it), wrong page: no local match, record refused, return bytes kept, no nearby pack chosen",
+   "status": "FAIL",
+   "detail": {
+    "orphan-return": {
+     "state": null,
+     "measurement": "incomplete",
+     "record_exit": 2,
+     "return_preserved": true,
+     "unfiled": null
+    },
+    "pointer-pending": {
+     "state": null,
+     "measurement": "incomplete",
+     "codes": [
+      "n1-not-applicable",
+      "n7-exchange-pointer-pending",
+      "return-pending"
+     ]
+    },
+    "pack-missing": {
+     "state": null,
+     "measurement": "incomplete"
+    },
+    "wrong-pass": {
+     "state": null,
+     "measurement": "incomplete",
+     "pass04_submission": [
+      "0799.n7-local-lab/05.01.return.md"
+     ],
+     "pass04_measurement": "complete"
+    },
+    "wrong-page": {
+     "state": null,
+     "assignment": null,
+     "measurement": "incomplete"
+    }
+   }
+  },
+  "T2f": {
+   "says": "same page/pass copied (with records) into another book instance: the copied record is not accepted as this book's current exchange",
+   "status": "FAIL",
+   "detail": {
+    "read": {
+     "exit": 0,
+     "stale": false,
+     "review_id": "w3eb2dfcd4a47fa8a",
+     "correction": null
+    },
+    "prepare_exchange_book": null,
+    "prepare_stale": false,
+    "intake_book": null
+   }
+  },
+  "H2": {
+   "says": "pointer names evidence/05.01.return.md (same basename, other folder): overlay return-not-local; pass04 baseline binds it (known)",
+   "status": "FAIL",
+   "detail": {
+    "overlay": {
+     "state": null,
+     "measurement": "incomplete"
+    },
+    "pass04": {
+     "submission": [
+      "0799.n7-local-lab/evidence/05.01.return.md"
+     ],
+     "measurement": "complete"
+    }
+   }
+  },
+  "T3": {
+   "says": "pack body / return / artifact changed or missing after record: read stale, publish held, no target created, fresh prepare shows the mismatch",
+   "status": "PASS",
+   "detail": {
+    "pack-body": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "publish_correction": "Publication is blocked because the selected source changed after intake.",
+     "target_created": false,
+     "fresh_prepare_codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "fresh_measurement": "complete"
+    },
+    "return": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "publish_correction": "Publication is blocked because the selected source changed after intake.",
+     "target_created": false,
+     "fresh_prepare_codes": [
+      "artifact-hash-mismatch",
+      "declared-hash-mismatch",
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "fresh_measurement": "incomplete"
+    },
+    "artifact": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "publish_correction": "Publication is blocked because the selected source changed after intake.",
+     "target_created": false,
+     "fresh_prepare_codes": [
+      "artifact-hash-mismatch",
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "fresh_measurement": "incomplete"
+    },
+    "artifact-missing": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "publish_correction": "Publication is blocked because the selected source changed after intake.",
+     "target_created": false,
+     "fresh_prepare_codes": [
+      "artifact-missing",
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "fresh_measurement": "incomplete"
+    }
+   }
+  },
+  "T4": {
+   "says": "manual Director text at the destination, and a file appearing between inspect and publish: publish held, bytes preserved, supplied judgment retained",
+   "status": "PASS",
+   "detail": {
+    "manual-present": {
+     "record_exit": 0,
+     "judgment_kept": true,
+     "publish_exit": 1,
+     "correction": "manual-review",
+     "manual_bytes_preserved": true,
+     "read_judgment_equal": true
+    },
+    "appears": {
+     "record_exit": 0,
+     "judgment_kept": true,
+     "publish_exit": 1,
+     "correction": "manual-review",
+     "manual_bytes_preserved": true,
+     "read_judgment_equal": true
+    }
+   }
+  },
+  "T6": {
+   "says": "N5 control: overlay and pass04 give byte-identical prepare/form stdout; no exchange object; custody-missing still reported; record mode/custody unchanged (preliminary/missing)",
+   "status": "PASS",
+   "detail": {
+    "stdout_identical": {
+     "prepare": true,
+     "form": true
+    },
+    "codes": [
+     "custody-missing",
+     "return-missing",
+     "thin-submission"
+    ],
+    "record": {
+     "exit": 0,
+     "mode": "preliminary",
+     "custody": "missing"
+    }
+   }
+  }
+ }
+}

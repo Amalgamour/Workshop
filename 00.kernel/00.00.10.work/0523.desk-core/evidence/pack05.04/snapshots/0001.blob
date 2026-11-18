@@ -1,0 +1,23 @@
+# Prototype lesson - selected state and pending transition
+date: 2026-11-01
+who: Codex Prime
+state: N4NN development finding; not law or automatic implementation instruction
+
+Evidence: ../0523.desk-core/05.03.md, exact reviewed commit
+dd4cd00a7c4e75b66e3a0716d564a19e5beca59f, and its prime-review05.03 evidence.
+Native Windows verifies the portability repairs and submitted first-revision
+crash boundaries. See full review for the corrected export/dependency-test detail.
+
+A valid selected B and an unfinished C can coexist. A read/recovery which sees
+only B and says selected/idempotent hides work even if no bytes are lost. Report
+selected state and pending transition separately, with exact request/revision ids,
+source/evidence and next route. Define what idempotent refers to; do not infer an
+empty work queue from an unchanged selected result. Do not replace a sound baseline
+with an unverified proposal, nor delete the proposal to clear a warning.
+
+Prime reproduced A -> B -> C failure at after-prior-task: partial C history persists
+while show says selected and recover says idempotent. A later C interruption after
+task replacement is correctly detected and restored to B. This is a serial,
+process-exit prototype finding, not concurrent/power-loss proof. Test second and
+later revisions, not just the initial transition. Preserve counterexamples for
+future engineering specifications rather than adopting the prototype wholesale.

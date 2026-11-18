@@ -1,0 +1,107 @@
+{
+ "schema": "harness-result/1",
+ "inputs": "D:\\librarian\\temp\\prime-claude-0721\\inputs-staged-g.json",
+ "inputs_sha256": "e34663154b9ab7b4f2651563ecfee804bee52354e4ba1ed42d358ad2dea303a1",
+ "candidate": "D:\\librarian\\temp\\prime-claude-0721\\candidate-staged-g",
+ "ready": false,
+ "aggregate": {
+  "ready": false,
+  "reasons": [
+   "dependency K is pending",
+   "dependency I is pending",
+   "dependency R is pending",
+   "dependency W is pending"
+  ],
+  "counts": {
+   "pass": 3
+  },
+  "required": 3
+ },
+ "records": [
+  {
+   "id": "ST-1",
+   "group": "strict-n7",
+   "requirement": "trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,' blocks intake/record/publication",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "intake incomplete; record refused; nothing published",
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "malformed-n7-declaration",
+     "unparsed-return-line"
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\prime-claude-0721\\strict-rooms\\ST-1"
+  },
+  {
+   "id": "ST-2",
+   "group": "strict-n7",
+   "requirement": "a refused declaration (hash in attribution) beside a valid alternative Returned line blocks",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "intake incomplete; record refused; nothing published",
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "attribution-not-descriptive",
+     "custody-missing",
+     "malformed-n7-declaration",
+     "unparsed-return-line"
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\prime-claude-0721\\strict-rooms\\ST-2"
+  },
+  {
+   "id": "ST-3",
+   "group": "strict-n7",
+   "requirement": "an incomplete recognized label ('Verification:' with no value) blocks",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "intake incomplete; record refused; nothing published",
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "malformed-n7-declaration",
+     "unparsed-return-line"
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\prime-claude-0721\\strict-rooms\\ST-3"
+  }
+ ]
+}

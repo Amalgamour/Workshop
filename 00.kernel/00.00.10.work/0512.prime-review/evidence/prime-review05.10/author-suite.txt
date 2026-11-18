@@ -1,0 +1,31 @@
+test_author_active_surface_stays (capacity_prime_0510.CapacityAuthor.test_author_active_surface_stays) ... FAIL
+test_author_changed_and_missing (capacity_prime_0510.CapacityAuthor.test_author_changed_and_missing) ... ok
+test_author_code_root_is_excluded (capacity_prime_0510.CapacityAuthor.test_author_code_root_is_excluded) ... ok
+test_author_cycle_0509 (capacity_prime_0510.CapacityAuthor.test_author_cycle_0509) ... ok
+test_author_cycle_0514 (capacity_prime_0510.CapacityAuthor.test_author_cycle_0514) ... ok
+test_author_document_bound (capacity_prime_0510.CapacityAuthor.test_author_document_bound) ... ok
+test_author_duplicate_and_conflict (capacity_prime_0510.CapacityAuthor.test_author_duplicate_and_conflict) ... ok
+test_author_generated_bounds (capacity_prime_0510.CapacityAuthor.test_author_generated_bounds) ... ok
+test_author_historical_modules_stay (capacity_prime_0510.CapacityAuthor.test_author_historical_modules_stay) ... ok
+test_author_historical_replay_refuses_0509 (capacity_prime_0510.CapacityAuthor.test_author_historical_replay_refuses_0509) ... ok
+test_author_holds_stay_24 (capacity_prime_0510.CapacityAuthor.test_author_holds_stay_24) ... ok
+test_author_hostile_count_is_not_trimmed (capacity_prime_0510.CapacityAuthor.test_author_hostile_count_is_not_trimmed) ... ok
+test_author_hostile_document_bound_stays (capacity_prime_0510.CapacityAuthor.test_author_hostile_document_bound_stays) ... ok
+test_author_lab_door_is_not_an_install (capacity_prime_0510.CapacityAuthor.test_author_lab_door_is_not_an_install) ... ok
+test_author_linked_candidate_pin (capacity_prime_0510.CapacityAuthor.test_author_linked_candidate_pin) ... ok
+test_author_malformed_row_and_unknown_size (capacity_prime_0510.CapacityAuthor.test_author_malformed_row_and_unknown_size) ... ok
+test_author_naive_external_copy_is_ambiguous (capacity_prime_0510.CapacityAuthor.test_author_naive_external_copy_is_ambiguous) ... ok
+test_author_wrong_pins (capacity_prime_0510.CapacityAuthor.test_author_wrong_pins) ... ok
+
+======================================================================
+FAIL: test_author_active_surface_stays (capacity_prime_0510.CapacityAuthor.test_author_active_surface_stays)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-source-capacity-pass01\tests\test_capacity.py", line 177, in test_author_active_surface_stays
+    self.assertTrue(rest.startswith(b"PENDING.\n"))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 18 tests in 43.148s
+
+FAILED (failures=1)

@@ -1,0 +1,78 @@
+{
+  "input_rows": 4,
+  "output_artifacts": {
+    "bytes": 10,
+    "bytes_state": "declared",
+    "count": 1,
+    "count_state": "declared",
+    "hash_match": 1,
+    "hash_mismatch": 0,
+    "intake_roles": {
+      "bytes": 10,
+      "bytes_state": "measured",
+      "count": 1,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "full-intake-role-rows",
+      "hash_match": 1,
+      "hash_mismatch": 0,
+      "label": "intake role rows; not a declared artifact total",
+      "not_verified": 0
+    },
+    "integrity_provenance": "current-measured",
+    "integrity_scope": "current-measured-artifact-role-rows",
+    "measured_artifact_rows": {
+      "bytes": 10,
+      "bytes_state": "measured",
+      "count": 1,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "current-measured-artifact-role-rows"
+    },
+    "measured_by": "accepted-intake",
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 0,
+    "provenance": "declared",
+    "rows": [
+      {
+        "bytes": 10,
+        "declared_bytes": 10,
+        "declared_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "a.txt",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "scope": "manifest-declared-artifact-entries",
+    "addressed_sources": {
+      "bytes": 10,
+      "bytes_state": "measured",
+      "count": 1,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "addressed-source-paths",
+      "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution"
+    },
+    "content_blobs": {
+      "bytes": 10,
+      "bytes_state": "measured",
+      "count": 1,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "content-sha256",
+      "assumption": "a 64-character lowercase sha256 proves content equality only"
+    },
+    "physical_files": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "not-established",
+      "reason": "accepted intake metadata has no physical-file identity; a path and a content hash do not establish one",
+      "scope": "verified-physical-files"
+    }
+  },
+  "scope": "malformed synthetic core rows, robustness test; no claim current validated core emits these rows"
+}

@@ -1,0 +1,301 @@
+{
+  "schema": "prime-desk-request/2",
+  "instance": {
+    "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0524.prime-desk\\evidence\\build05.03\\demo-output\\book",
+    "book": "00.00.10.work",
+    "role": "prime",
+    "tools_root": "D:\\Git\\lib-build"
+  },
+  "workspace": {
+    "path": "app/development-workspace.json",
+    "sha256": "b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018",
+    "bytes": 538
+  },
+  "assignment": {
+    "path": "0401.goal/06.01.md",
+    "sha256": "8e1242b90a9f9c417cf60db9c1fbd48956e2036785aea9aa0a940d6e4006fd02",
+    "bytes": 365
+  },
+  "legacy_selector": {
+    "path": "selector.json",
+    "sha256": "abccc07e95392d6e21e60d88546b59f7da62321b6299ef14df3e164909722a24",
+    "bytes": 151
+  },
+  "coverage": "declared-paths",
+  "references": [
+    {
+      "id": "goal",
+      "role": "goal",
+      "label": "goal page",
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "0401.goal/01.md",
+      "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf",
+      "bytes": 5914
+    },
+    {
+      "id": "scope",
+      "role": "scope",
+      "label": "seats page",
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "0408.seats/01.md",
+      "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4",
+      "bytes": 2031
+    },
+    {
+      "id": "authority",
+      "role": "authority",
+      "label": "desk-app direction",
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "0416.desk-app/01.003.md",
+      "sha256": "d432c796404feaa738c445891f0375afaa17a5b73133b1ae3b4aeb4fc79a38ce",
+      "bytes": 4617
+    },
+    {
+      "id": "policy",
+      "role": "dependency",
+      "label": "reporting policy",
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "0412.prime-review/06.02.md",
+      "sha256": "28e9afeb62638d17ce2bbba15cf7e13bb05074a8bf655bdcefd6cc546fdfbeac",
+      "bytes": 2044
+    },
+    {
+      "id": "crit-0521",
+      "role": "criteria",
+      "label": "0521 task",
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0521-0503"
+      },
+      "path": "0521.return-placement/05.03.md",
+      "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "bytes": 9801
+    },
+    {
+      "id": "crit-0522",
+      "role": "criteria",
+      "label": "0522 task",
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0522-0504"
+      },
+      "path": "0522.review-construction/05.04.md",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "bytes": 10802
+    },
+    {
+      "id": "ret-0522",
+      "role": "return",
+      "label": "0522 return",
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0522-0504"
+      },
+      "path": "0522.review-construction/05.04.md",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "bytes": 10802
+    },
+    {
+      "id": "check",
+      "role": "checkpoint",
+      "label": "checkpoint",
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0521-0503"
+      },
+      "path": "checkpoint.md",
+      "sha256": "a252f87b9c2c34a647b34d77d08f3ce2491f24e3fe1df75bfe607d70d374803a",
+      "bytes": 11
+    },
+    {
+      "id": "ver",
+      "role": "verification",
+      "label": "verification",
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0521-0503"
+      },
+      "path": "verified.md",
+      "sha256": "8f5a1374b3eb9532a67c0de915a0810ea089fc304c33a44642a7f4878984803e",
+      "bytes": 9
+    },
+    {
+      "id": "talk",
+      "role": "talk",
+      "label": "quoted command",
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "talk.md",
+      "sha256": "0185bd2253517ec1c247652c50e972ada7411e248a031906e1f5413b2400a312",
+      "bytes": 26
+    },
+    {
+      "id": "ret-line",
+      "role": "return",
+      "label": "declared return line absent",
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0521-0503"
+      },
+      "path": "0121.return-placement/05.03.return.md",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "bytes": 0
+    }
+  ],
+  "work": [
+    {
+      "id": "work-0521-0503",
+      "address": "0521.return-placement/05.03",
+      "path": "0521.return-placement/05.03.md",
+      "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "bytes": 9801
+    },
+    {
+      "id": "work-0522-0504",
+      "address": "0522.review-construction/05.04",
+      "path": "0522.review-construction/05.04.md",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "bytes": 10802
+    },
+    {
+      "id": "work-0522-0503",
+      "address": "0522.review-construction/05.03",
+      "path": "0522.review-construction/05.03.md",
+      "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+      "bytes": 11318
+    },
+    {
+      "id": "work-1599-0501",
+      "address": "1599.synth-lab/05.01",
+      "path": "1599.synth-lab/05.01.md",
+      "sha256": "3e658fee12461727b222c819efc38e4e98ec4ebb9a95ee84eeb7451cc589c527",
+      "bytes": 80
+    },
+    {
+      "id": "work-1705-0501",
+      "address": "1705.prime-desk-check/05.01.pack",
+      "path": "1705.prime-desk-check/05.01.pack.md",
+      "sha256": "3c87606956225a678f2a749093faf73f9cae3b78faf635a954a79c0bf52769e2",
+      "bytes": 81
+    }
+  ],
+  "workers": [
+    {
+      "id": "grok-2",
+      "work_id": "work-0521-0503",
+      "evidence": null
+    }
+  ],
+  "supplied": [
+    {
+      "id": "sup-grok-2",
+      "speaker": "codex-prime",
+      "about": "grok-2",
+      "text": "Director says the worker is running",
+      "limit": "supplied label, not a live process check"
+    }
+  ],
+  "attention": [
+    {
+      "id": "hold-live",
+      "kind": "hold",
+      "open": true,
+      "label": "live desk activation is not approved",
+      "path": "0420.prime-desk/01.md",
+      "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989",
+      "bytes": 4153
+    }
+  ],
+  "history": [
+    {
+      "id": "hist-0419",
+      "path": "0419.work-history/01.md",
+      "sha256": "51a55a7ad8f402360b3fcb79abf8a32ab6ae8132326d7d0218127399043fdbc4",
+      "bytes": 4405
+    }
+  ],
+  "catalog": {
+    "path": "catalog.json",
+    "sha256": "2b9e592b6d735d8b485ac4ee2d9c65acb82d9693ab4bf8e6ecc14544cb24f82f",
+    "bytes": 243
+  },
+  "operations": [
+    {
+      "id": "desk-state",
+      "name": "desk-state",
+      "limitation": "view launches subprocesses; this desk does not call it",
+      "past_tests": "unknown",
+      "activation": "unknown",
+      "path": "labs/desk-state-pass01/desk_state.py",
+      "sha256": "4d924bf6549fe37b229962d4f3a81924109a879a8206ea95066f4bfde11701b4",
+      "bytes": 55144
+    },
+    {
+      "id": "prime-brief",
+      "name": "prime-brief",
+      "limitation": "build was not called",
+      "past_tests": "unknown",
+      "activation": "unknown",
+      "path": "labs/prime-brief-pass01/prime_brief.py",
+      "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+      "bytes": 22747
+    },
+    {
+      "id": "state-projection",
+      "name": "state-projection",
+      "limitation": "project and inspect were not called",
+      "past_tests": "unknown",
+      "activation": "unknown",
+      "path": "labs/state-projection-pass01/state_projection.py",
+      "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+      "bytes": 20338
+    },
+    {
+      "id": "prime-support",
+      "name": "prime-support",
+      "limitation": "status uses Git; this desk does not call it",
+      "past_tests": "unknown",
+      "activation": "unknown",
+      "path": "labs/prime-support-pass01/prime_support.py",
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "bytes": 59791
+    }
+  ],
+  "legacy": [],
+  "foreign": [],
+  "attribution": [
+    {
+      "id": "dir",
+      "author": "director",
+      "start": 111,
+      "end": 403,
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "0420.prime-desk/06.01.md",
+      "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+      "bytes": 834
+    },
+    {
+      "id": "mod",
+      "author": "model",
+      "start": 430,
+      "end": 834,
+      "binding": {
+        "scope": "desk"
+      },
+      "path": "0420.prime-desk/06.01.md",
+      "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+      "bytes": 834
+    }
+  ]
+}

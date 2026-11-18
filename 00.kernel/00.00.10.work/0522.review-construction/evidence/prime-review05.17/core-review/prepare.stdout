@@ -1,0 +1,498 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/05.17.md",
+      "role": "assignment",
+      "root": "book",
+      "text": "# 05.17 - Compose one review-loop candidate and its reporter\n\ndate: 2026-11-04\nwho: Codex Prime\nexecutor: Grok-1\nreviewer: Codex Prime\nstate: PREPARED; execute on Director handoff; candidate only\nmatching_return_line: 0122.review-construction (custody pending)\nsource_design: 0420.prime-desk/06.53.md; 0707.app-use-check/06.19.review.md; 06.20.review.md; 06.22.review.md\n\n## Outcome and scope\nOne act",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/submission.md",
+      "role": "submission",
+      "root": "book",
+      "text": "# Submission — 0522.review-construction/05.17\n\nSchema: `convergence-candidate-submission/0517`\nDate: 2026-11-04\nExecutor: Grok-1\nReviewer: Codex Prime\nSource pack: `0522.review-construction/05.17.md`\nAdditional input: `0522.review-construction/06.37.md` sha256 `08a55533d8ce0cb62f75de516fae19f32ddd9272b80842d16791ea41ede734b3`, 2521 bytes\nNotes: `0522.review-construction/06.36.md` sha256 `33bf87afb",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/CONTRACT.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Contract record for 0522/05.17\n\nThe pack remains `state: PREPARED; execute on Director handoff; candidate only` until Prime reviews the return. This evidence does not select the app.\n\nThe candidate composes G, then I's hold, K's capacity pin, and a re-expression of L's N7 exchange on that chain. It does not import the N7 prototype. 06.37 is an additional input and is not a row in pack05.17.\n\nThe",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/FAILURES.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# First failures retained\n\nThese are the author-suite failures observed before the final passing run. The historical modules were not edited to remove them.\n\n1. `n7-cycle` stopped with an empty `declared_submission`. The historical pointer cutter treated the fenced sample heading as the declaration. The candidate now reads the pointer between the one unfenced return-pointer heading and the one unf",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/INDEX.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Evidence index\n\nHashes below exclude the submission, the verification file, and the artifact manifest.\n\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/CONTRACT.md` sha256 `829ba5e47359647d84f74e11e0206d0eb32050269e1ee87c6bb51f80ce419ef7`, 555 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/FAILURES.md` sha256 `e636ee80e40b9dfe7d14f2e76ed5982",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/INTEGRATION.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Code path\n\n`candidate/app/librarian.py` loads two doors.\n\n- `review-loop` sets the code root to `D:\\Git\\lib-build` and calls `labs/review-loop-convergence-pass01/review_loop_tools.py`. Workbook commands run `labs/review-loop-convergence-pass01/workbook.py`.\n- `review-report` sets the code root to the candidate root and calls `labs/review-loop-convergence-pass01/review_report_tools.py`, which pin",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/lab-files.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"files\": [\n    {\n      \"bytes\": 12936,\n      \"path\": \"labs/review-loop-convergence-pass01/candidate/app/librarian.py\",\n      \"sha256\": \"bb9ee7363e88da77f088e7e1c9a57f2a1ab94436defec25b6a50cbe9e5a48efc\"\n    },\n    {\n      \"bytes\": 624,\n      \"path\": \"labs/review-loop-convergence-pass01/candidate/CANDIDATE.json\",\n      \"sha256\": \"02198675adf7fc2ebd955e2f07b51392336536cc89df51142b9d9ae114f75414\"\n",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/PINS.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Pins for the unselected convergence candidate\n\nHelper root is `D:\\Git\\lib-build`. The candidate is unselected. R and W stay pending.\n\n## Active surface, unchanged\n\n- `app/librarian.py` sha256 `c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9`, 12204 bytes\n- `app/README.md` sha256 `3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920`, 39687 bytes\n\n## This lab\n\n- `labs",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/PRIME-USE.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# PRIME-USE\n\nRerun the author suite with Python 3.14, `python -B`, and `PYTHONDONTWRITEBYTECODE=1`:\n\n`python -B labs/review-loop-convergence-pass01/tests/test_convergence.py`\n\nThe passing log in this directory is the builder's run, not an independent Prime run. The external root `D:\\librarian\\temp\\0522-0517-report` may be recreated by that command.\n\nThe candidate librarian is `labs/review-loop-con",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/RECONSTRUCTION.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Reconstruction\n\nFrom `D:\\Git\\lib-build`, with `PYTHONDONTWRITEBYTECODE=1`:\n\n1. `python -B labs/review-loop-convergence-pass01/make_candidate.py` rewrites only `labs/review-loop-convergence-pass01/candidate/`. It refuses unless `app/librarian.py` is still sha256 `c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9`, 12204 bytes.\n2. `python -B labs/review-loop-convergence-pass01/make_",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/SELECTION.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Selection delta and rollback\n\nNo app file changes in this return. A later selection would be a Prime decision to load `labs/review-loop-convergence-pass01/review_loop_tools.py` and `labs/review-loop-convergence-pass01/review_report_tools.py` from a new app declaration. That decision is not made here.\n\nRollback of the active surface is the current pair:\n\n- `app/librarian.py` sha256 `c3a5be3b612c0",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/submission.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Submission — 0522.review-construction/05.17\n\nSchema: `convergence-candidate-submission/0517`\nDate: 2026-11-04\nExecutor: Grok-1\nReviewer: Codex Prime\nSource pack: `0522.review-construction/05.17.md`\nAdditional input: `0522.review-construction/06.37.md` sha256 `08a55533d8ce0cb62f75de516fae19f32ddd9272b80842d16791ea41ede734b3`, 2521 bytes\nNotes: `0522.review-construction/06.36.md` sha256 `33bf87afb",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/suite.log",
+      "role": "artifact",
+      "root": "book",
+      "text": "PASS n7-cycle w37240ba270d791e0\nPASS region-and-rows review current; reviewer, pointer, and artifact stale\nPASS hostile-fenced-boundary hostile-fenced-boundary\nPASS hostile-missing-intake hostile-missing-intake\nPASS malformed-and-mismatch malformed refused; mismatch refused; historical unverified recorded\nPASS target-guards manual and appeared targets kept\nPASS n5-instance N5 same current; copy he",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0522.review-construction/evidence/build05.17/verification.json",
+      "role": "artifact",
+      "root": "book",
+      "text": "{\n  \"accepted\": false,\n  \"activated\": false,\n  \"allocated\": \"not used\",\n  \"author_suite\": {\n    \"command\": \"python -B labs/review-loop-convergence-pass01/tests/test_convergence.py\",\n    \"exit\": 0,\n    \"failed\": 0,\n    \"first_failures\": \"00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/FAILURES.md\",\n    \"independent\": false,\n    \"passed\": 12,\n    \"passing_log\": \"00.kernel/00.00.",
+      "truncated": true
+    }
+  ],
+  "destination": "0522.review-construction/05.17.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "custody-missing",
+      "path": "0122.review-construction"
+    },
+    {
+      "code": "return-missing",
+      "path": "0122.review-construction/05.17.return.md"
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0522.review-construction/05.17.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "custody-missing",
+          "path": "0122.review-construction"
+        },
+        {
+          "code": "return-missing",
+          "path": "0122.review-construction/05.17.return.md"
+        }
+      ],
+      "instance_id": "3a90f1a00d89707ecfda37c5f952027d830deac865f9c1c08485fcc6555e9198",
+      "intake_id": "8f6d7ff6ce198a489857ebb76a81d9a7f571b938308c68cb2e5abab2d8d380d3",
+      "kind": "N5NN",
+      "member": "0122.review-construction",
+      "return_path": null,
+      "rows": [
+        {
+          "bytes": 7395,
+          "declared_path": "0522.review-construction/05.17.md",
+          "path": "0522.review-construction/05.17.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "31b688fdcdcabeb58744deca09ceaff17a8ef8b0db88b6df5c4a4f68010d3c72"
+        },
+        {
+          "bytes": 5299,
+          "declared_bytes": 5299,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/submission.md",
+          "declared_sha256": "74015ef210f3ba7dd3ef8d3c4b27c2d7f9e4e06ab9c1536e70fe88ae0b967d20",
+          "path": "0522.review-construction/evidence/build05.17/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "74015ef210f3ba7dd3ef8d3c4b27c2d7f9e4e06ab9c1536e70fe88ae0b967d20"
+        },
+        {
+          "bytes": 2705,
+          "declared_bytes": 2705,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/artifact-manifest.json",
+          "declared_sha256": "597a05827f8c06839ad006fd8b8e19ecbb51d76e76d9b9807800b3703481d903",
+          "path": "0522.review-construction/evidence/build05.17/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "597a05827f8c06839ad006fd8b8e19ecbb51d76e76d9b9807800b3703481d903"
+        },
+        {
+          "bytes": 555,
+          "declared_bytes": 555,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/CONTRACT.md",
+          "declared_sha256": "829ba5e47359647d84f74e11e0206d0eb32050269e1ee87c6bb51f80ce419ef7",
+          "path": "0522.review-construction/evidence/build05.17/CONTRACT.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "829ba5e47359647d84f74e11e0206d0eb32050269e1ee87c6bb51f80ce419ef7"
+        },
+        {
+          "bytes": 1596,
+          "declared_bytes": 1596,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/FAILURES.md",
+          "declared_sha256": "e636ee80e40b9dfe7d14f2e76ed59827eaadfd28394393e5d1dd25e7b1f19837",
+          "path": "0522.review-construction/evidence/build05.17/FAILURES.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e636ee80e40b9dfe7d14f2e76ed59827eaadfd28394393e5d1dd25e7b1f19837"
+        },
+        {
+          "bytes": 2077,
+          "declared_bytes": 2077,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/INDEX.md",
+          "declared_sha256": "0c7a4162e362aa0d4bba01f424e220d03cc1bbc55f3b80e7f646908599b3da25",
+          "path": "0522.review-construction/evidence/build05.17/INDEX.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0c7a4162e362aa0d4bba01f424e220d03cc1bbc55f3b80e7f646908599b3da25"
+        },
+        {
+          "bytes": 1850,
+          "declared_bytes": 1850,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/INTEGRATION.md",
+          "declared_sha256": "1ea62f65ae9ef8946d80812b6ecc3f9f93eab5ba579674859ee311fca5a0778c",
+          "path": "0522.review-construction/evidence/build05.17/INTEGRATION.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1ea62f65ae9ef8946d80812b6ecc3f9f93eab5ba579674859ee311fca5a0778c"
+        },
+        {
+          "bytes": 2145,
+          "declared_bytes": 2145,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/lab-files.json",
+          "declared_sha256": "c7ce617a1c457dfe161f9af9973c2ff8f6c2795a874166258ad8e8fca6eabac0",
+          "path": "0522.review-construction/evidence/build05.17/lab-files.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "c7ce617a1c457dfe161f9af9973c2ff8f6c2795a874166258ad8e8fca6eabac0"
+        },
+        {
+          "bytes": 2324,
+          "declared_bytes": 2324,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/PINS.md",
+          "declared_sha256": "0febde82334991536df8075d67f6be5ec577f5dc799194f7608f3f5f84bf4d8a",
+          "path": "0522.review-construction/evidence/build05.17/PINS.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0febde82334991536df8075d67f6be5ec577f5dc799194f7608f3f5f84bf4d8a"
+        },
+        {
+          "bytes": 1020,
+          "declared_bytes": 1020,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/PRIME-USE.md",
+          "declared_sha256": "454c2cb7b29ba3cc968cd0e04f7cadd133bcfe738d61684c29c0e04f1dc3441b",
+          "path": "0522.review-construction/evidence/build05.17/PRIME-USE.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "454c2cb7b29ba3cc968cd0e04f7cadd133bcfe738d61684c29c0e04f1dc3441b"
+        },
+        {
+          "bytes": 1290,
+          "declared_bytes": 1290,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/RECONSTRUCTION.md",
+          "declared_sha256": "55023d70b43acd3c3550e095d258f8aa0ab3c44d1b242ed9b4d3b097f82a0081",
+          "path": "0522.review-construction/evidence/build05.17/RECONSTRUCTION.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "55023d70b43acd3c3550e095d258f8aa0ab3c44d1b242ed9b4d3b097f82a0081"
+        },
+        {
+          "bytes": 1079,
+          "declared_bytes": 1079,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/SELECTION.md",
+          "declared_sha256": "8287a711d06ad0fb1473a626c51b3e56c99963acbdaaf75a5b345bf561fac5af",
+          "path": "0522.review-construction/evidence/build05.17/SELECTION.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "8287a711d06ad0fb1473a626c51b3e56c99963acbdaaf75a5b345bf561fac5af"
+        },
+        {
+          "bytes": 5299,
+          "declared_bytes": 5299,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/submission.md",
+          "declared_sha256": "74015ef210f3ba7dd3ef8d3c4b27c2d7f9e4e06ab9c1536e70fe88ae0b967d20",
+          "path": "0522.review-construction/evidence/build05.17/submission.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "74015ef210f3ba7dd3ef8d3c4b27c2d7f9e4e06ab9c1536e70fe88ae0b967d20"
+        },
+        {
+          "bytes": 818,
+          "declared_bytes": 818,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/suite.log",
+          "declared_sha256": "e8a7f34df6f0a71c632a546575eefef42e1a647b35569a7e4ad52b7a3e9aafb0",
+          "path": "0522.review-construction/evidence/build05.17/suite.log",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e8a7f34df6f0a71c632a546575eefef42e1a647b35569a7e4ad52b7a3e9aafb0"
+        },
+        {
+          "bytes": 1337,
+          "declared_bytes": 1337,
+          "declared_path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.17/verification.json",
+          "declared_sha256": "b381e805509e85309570479dcab5f46c36515f19cd2daa2e0a012bd508495b81",
+          "path": "0522.review-construction/evidence/build05.17/verification.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "b381e805509e85309570479dcab5f46c36515f19cd2daa2e0a012bd508495b81"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "3a90f1a00d89707ecfda37c5f952027d830deac865f9c1c08485fcc6555e9198",
+  "intake_id": "8f6d7ff6ce198a489857ebb76a81d9a7f571b938308c68cb2e5abab2d8d380d3",
+  "kind": "N5NN",
+  "live_intake_id": "8f6d7ff6ce198a489857ebb76a81d9a7f571b938308c68cb2e5abab2d8d380d3",
+  "measurement": "complete",
+  "missing": [],
+  "page": "0522.review-construction",
+  "pass": "05.17",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": null,
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

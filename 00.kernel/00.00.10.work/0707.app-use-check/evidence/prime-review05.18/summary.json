@@ -1,0 +1,23 @@
+{
+  "source_checks": [
+    {
+      "name": "artifacts",
+      "count": 74,
+      "bad": []
+    },
+    {
+      "name": "frozen",
+      "count": 131,
+      "bad": []
+    }
+  ],
+  "matrix_fixture_assertions": 4,
+  "hostile": {
+    "PASS": 5,
+    "FAIL": 0,
+    "ERROR": 0,
+    "SEE": 0
+  },
+  "reviewer_first_attempt": "hostile --only takes repeated flags, not multiple values; first argument-error transcript preserved",
+  "production_installed": false
+}

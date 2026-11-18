@@ -1,0 +1,35 @@
+{
+  "schema": "return-lines-pins/1",
+  "version": 1,
+  "_note": "Pinned declaration for the 0521/05.07 return-lines door. librarian.py loads app/return_line_tools_v2.py for the return-lines command. Read-only status, lookup, and verify launch labs/return-access-pass01/return_access.py. Reserve and capture launch labs/return-lines-pass03/return_lines.py. The caller cannot select another backend. This is not acceptance, release, or a live migration. Legacy writer closure is not established. No sentinel is declared.",
+  "adapter": {
+    "path": "labs/return-access-pass01/return_access.py",
+    "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+    "bytes": 26561
+  },
+  "backend": {
+    "path": "labs/return-lines-pass03/return_lines.py",
+    "sha256": "78cc4d8679bb6e54b3f2456ce777643da7a9a650ef5c79c216abd38a4c209c63",
+    "bytes": 33349
+  },
+  "pass02": {
+    "path": "labs/return-lines-pass02/return_lines.py",
+    "sha256": "6691d0587ab97ba24a1709c9950b506961152939e2d112ee608f9dbd23e92908",
+    "bytes": 82908
+  },
+  "pass01": {
+    "path": "labs/return-lines-pass01/return_lines.py",
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "bytes": 100897
+  },
+  "placement": {
+    "path": "labs/return-placement-pass01/return_placement.py",
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "bytes": 66097
+  },
+  "reader": {
+    "path": "labs/return-capture-pass01/return_capture.py",
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": 45767
+  }
+}

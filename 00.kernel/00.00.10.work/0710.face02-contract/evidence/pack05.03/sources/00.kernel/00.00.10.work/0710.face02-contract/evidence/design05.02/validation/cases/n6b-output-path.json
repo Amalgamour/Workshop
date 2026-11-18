@@ -1,0 +1,52 @@
+{
+  "source": "0423.dev-authoring",
+  "goal": "Reduce manual pack and review setup.",
+  "scope": {
+    "included": [
+      "source-linked start",
+      "per-item input"
+    ],
+    "excluded": [],
+    "allowed_writes": [
+      "new authoring draft on the linked work page"
+    ]
+  },
+  "finish": [
+    "Prime authors one real next pack with the tool."
+  ],
+  "executor": "Grok-1",
+  "reviewer": "Codex Prime",
+  "note_dispositions": [
+    {
+      "note": "0423/06.01",
+      "disposition": "integrated",
+      "item": "#01"
+    },
+    {
+      "note": "0423/06.02",
+      "disposition": "deferred",
+      "why": "kernel registration later"
+    }
+  ],
+  "items": [
+    {
+      "title": "Derive registration and source hashes",
+      "purpose": "Derive hashes from explicit work and authority references.",
+      "requirements": "Preserve missing or ambiguous data; never invent it.",
+      "acceptance": "Prime starts from the source page and gets a usable form.",
+      "breaking_change": false,
+      "interfaces": [],
+      "open_choices": {
+        "not_applicable": "nothing to choose"
+      }
+    },
+    {
+      "title": "Typed fields and UTF-8 — café",
+      "purpose": "Serialize typed fields and UTF-8 consistently.",
+      "requirements": "Prose meaning never needs a hand-computed hash.",
+      "acceptance": "A boolean given prose is refused at that field.",
+      "breaking_change": null
+    }
+  ],
+  "output_path": "0526.dev-authoring/05.09.md"
+}

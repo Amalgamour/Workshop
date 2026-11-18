@@ -1,0 +1,79 @@
+{
+ "schema": "old-combined-identity-demo/1",
+ "copy": "D:\\librarian\\temp\\prime-night-0517-0723\\combined-copy",
+ "copy_identity": {
+  "CANDIDATE.json": "02198675adf7fc2ebd955e2f07b51392336536cc89df51142b9d9ae114f75414",
+  "app/librarian.py": "bb9ee7363e88da77f088e7e1c9a57f2a1ab94436defec25b6a50cbe9e5a48efc"
+ },
+ "A": {
+  "refused": "harness-inputs/2 is read only for the two frozen baselines; this candidate needs an explicit harness-inputs/3 identity; open_entry labs/review-loop-convergence-pass01/workbook.py is not a declared file; no workbook_entry is declared",
+  "ok": true
+ },
+ "B": {
+  "refused": "declared file absent: labs/review-loop-convergence-pass01/workbook.py",
+  "ok": true
+ },
+ "C": {
+  "identity": "verified",
+  "mode": "explicit",
+  "proof": {
+   "workbook": {
+    "target": "labs/review-loop-convergence-pass01/workbook.py",
+    "nonce": "40fef6068514",
+    "evidence": "none: probe output identical to the control",
+    "control": {
+     "exit": 0,
+     "stdout_sha256": "b15d0fbb7cc7efe63f2bd56c33ab94a10e2330e2b42941c0f65be832c171882c",
+     "normalized_stdout_sha256": "b15d0fbb7cc7efe63f2bd56c33ab94a10e2330e2b42941c0f65be832c171882c",
+     "stderr_tail": ""
+    },
+    "tampered": {
+     "exit": 0,
+     "stdout_sha256": "b15d0fbb7cc7efe63f2bd56c33ab94a10e2330e2b42941c0f65be832c171882c",
+     "normalized_stdout_sha256": "b15d0fbb7cc7efe63f2bd56c33ab94a10e2330e2b42941c0f65be832c171882c",
+     "nonce_in_stderr": false,
+     "stderr_tail": ""
+    },
+    "deterministic_control": true,
+    "executed": false,
+    "verdict": "DECOY (declared target not executed)",
+    "rooms": [
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\workbook-control-1",
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\workbook-control-2",
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\workbook-tamper"
+    ],
+    "stable_path": "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\workbook-run"
+   },
+   "open": {
+    "target": "labs/review-loop-convergence-pass01/workbook.py",
+    "nonce": "186a8a7a83ce",
+    "evidence": "loaded: the target was compiled by the chain (prepended line broke its __future__ import)",
+    "control": {
+     "exit": 2,
+     "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "normalized_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "stderr_tail": "refused: convergence workbook is not at its canonical root\r\n"
+    },
+    "tampered": {
+     "exit": 1,
+     "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "normalized_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "nonce_in_stderr": false,
+     "stderr_tail": "convergence-pass01\\workbook.py\", line 13\r\n    from __future__ import annotations\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nSyntaxError: from __future__ imports must occur at the beginning of the file\r\n"
+    },
+    "deterministic_control": true,
+    "executed": true,
+    "verdict": "executed",
+    "rooms": [
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\open-control-1",
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\open-control-2",
+     "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\open-tamper"
+    ],
+    "stable_path": "D:\\librarian\\temp\\fbt2-0524\\old-combined-03\\C-proof\\open-run"
+   }
+  },
+  "gate": "refused: declared workbook labs/review-loop-convergence-pass01/workbook.py: DECOY (declared target not executed) - none: probe output identical to the control",
+  "ok": true
+ },
+ "copy_unchanged": true
+}

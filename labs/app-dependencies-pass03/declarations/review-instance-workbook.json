@@ -1,0 +1,148 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "workbook"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "review-instance-workbook",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-instance-binding-pass01/workbook.py",
+      "repository": "lib-build"
+    },
+    "bytes": 5916,
+    "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "workbook"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "accepted I workbook"
+    ],
+    "name": "review_instance_workbook",
+    "path": "labs/review-instance-binding-pass01/workbook.py",
+    "purpose": "Accepted N5 instance-applicability workbook. It pair-pins pass05.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.35",
+          "file": "06.35.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "Prime accepted this instance guard",
+        "role": "review",
+        "sha256": "507b9c101c2b165ac6e7cc92e2c7909a98c2d80fed15c44bbde7b027efd2f0f2",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "pass05-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 6994,
+        "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+      },
+      "pin_required": true,
+      "reason": "load_pass05 compares sha256 and byte length.",
+      "source_ref": {
+        "lines": "32-40",
+        "path": "labs/review-instance-binding-pass01/workbook.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass05/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "32-32",
+        "path": "labs/review-instance-binding-pass01/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "24-35",
+        "path": "labs/review-instance-binding-pass01/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The resolved file must equal D:\\Git\\lib-build\\labs\\review-instance-binding-pass01\\workbook.py. This preflight did not execute that compare.",
+          "name": "canonical-helper-root"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": []
+}

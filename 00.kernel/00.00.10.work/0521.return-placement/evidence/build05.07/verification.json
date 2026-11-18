@@ -1,0 +1,95 @@
+{
+  "schema": "return-access-verification/1",
+  "pass": "0521.return-placement/05.07",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "custody": "pending",
+  "matching_line": "0121.return-placement",
+  "matching_status": "unfiled",
+  "slot_0121_occupant": "0121.archive-resolution-0508",
+  "readiness": "blocked",
+  "receipt": null,
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "index_at_close_check": "empty",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "pack_inputs_before_edit": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0521.return-placement/evidence/pack05.07/source-manifest.json",
+    "sha256": "87f10acee10c646ea14f25342fa2e4c877cfa64c34e14ba38a6221cce86e0fdc",
+    "bytes": 10956,
+    "files": 33,
+    "bad": 0,
+    "missing": 0,
+    "snapshot_mismatches": 0,
+    "live_bytes": 949414
+  },
+  "pack_inputs_after_edit": {
+    "files": 33,
+    "missing": 0,
+    "snapshot_mismatches": 0,
+    "repinned": false,
+    "live_bytes": 952602,
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "note": "The snapshot remains the before-edit freeze. Those two live files differ because this slice edited them. No other frozen row drifted."
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.07/CONTRACT.md",
+    "sha256": "3c6c0079892171ba9121fe85781db0fbe08211da1c047838b3241f455247d5c9",
+    "bytes": 9751,
+    "revised_after_tests": false
+  },
+  "adapter": {
+    "path": "labs/return-access-pass01/return_access.py",
+    "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+    "bytes": 26561
+  },
+  "door": {
+    "path": "app/return_line_tools_v2.py",
+    "sha256": "b8e850ba5bb3b21d7532590817779f317daa01da3ced6e15245c6185eaa69eaf",
+    "bytes": 8977
+  },
+  "declaration": {
+    "path": "app/return-lines-v2.json",
+    "sha256": "9fc16cc49d87c7455cc56aebb87897252807a426654dbe45d7e575df5f081e52",
+    "bytes": 1598
+  },
+  "suite": {
+    "schema": "return-access-entry-run/1",
+    "root": "D:\\librarian\\temp\\0521-0507\\20261102T193704Z",
+    "cases": 91,
+    "failed": 0,
+    "first_failure": null,
+    "live_layout_written": false,
+    "evidence": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.07/runs/20261102T193704Z"
+  },
+  "earlier_runs_retained": [
+    {
+      "root": "D:\\librarian\\temp\\0521-0507\\20261102T193328Z",
+      "first_failure": "producer-plan",
+      "cause": "The suite required plan state complete. pass03 plan returns incomplete at exit 0."
+    },
+    {
+      "root": "D:\\librarian\\temp\\0521-0507\\20261102T193354Z",
+      "first_failure": "occupied",
+      "cause": "The suite looked for 0198.blocker in the correction. The product evidence field is 0198.blocker, state conflict, exit 2."
+    },
+    {
+      "root": "D:\\librarian\\temp\\0521-0507\\20261102T193526Z",
+      "first_failure": "pass04-present",
+      "cause": "The suite treated labs/return-lines-pass04 as a failure. The directory is present and was not imported."
+    }
+  ],
+  "successor_consumed": false,
+  "pass04_directory_present": true,
+  "sentinel_policy": "not-adopted",
+  "legacy_writer_closure": "not-established",
+  "task_association": "not-established"
+}

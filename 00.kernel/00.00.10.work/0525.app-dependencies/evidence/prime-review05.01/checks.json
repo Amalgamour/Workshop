@@ -1,0 +1,37 @@
+{
+  "inputs": 30,
+  "artifacts": 72,
+  "independent_commands": [
+    {
+      "name": "validate",
+      "exit": 0,
+      "status": "valid"
+    },
+    {
+      "name": "requires",
+      "exit": 0,
+      "status": "complete-for-declared-coverage"
+    },
+    {
+      "name": "identity",
+      "exit": 0,
+      "status": "complete-for-declared-coverage"
+    },
+    {
+      "name": "impact",
+      "exit": 0,
+      "status": "candidates-for-review"
+    },
+    {
+      "name": "truncated",
+      "exit": 1,
+      "status": "truncated"
+    },
+    {
+      "name": "missing",
+      "exit": 1,
+      "status": "incomplete"
+    }
+  ],
+  "disposition": "versioned representation repair needed"
+}

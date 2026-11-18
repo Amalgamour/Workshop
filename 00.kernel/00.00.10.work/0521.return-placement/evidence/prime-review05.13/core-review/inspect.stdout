@@ -1,0 +1,405 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "inspect",
+  "current": "webe8f0a86f3de800",
+  "destination": "0521.return-placement/05.13.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "custody-missing",
+      "path": "0121.return-placement"
+    },
+    {
+      "code": "return-missing",
+      "path": "0121.return-placement/05.13.return.md"
+    },
+    {
+      "code": "verification-declared",
+      "hash_match": true,
+      "limit": "The lines are a declaration, not a successful verification run.",
+      "measured": true,
+      "path": "evidence/build05.13/verification.json",
+      "schema": "connected-return-review-verification/0513",
+      "sources": [
+        "submission-lines",
+        "artifact-index"
+      ],
+      "successful_run": false
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0521.return-placement/05.13.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "custody-missing",
+          "path": "0121.return-placement"
+        },
+        {
+          "code": "return-missing",
+          "path": "0121.return-placement/05.13.return.md"
+        },
+        {
+          "code": "verification-declared",
+          "hash_match": true,
+          "limit": "The lines are a declaration, not a successful verification run.",
+          "measured": true,
+          "path": "evidence/build05.13/verification.json",
+          "schema": "connected-return-review-verification/0513",
+          "sources": [
+            "submission-lines",
+            "artifact-index"
+          ],
+          "successful_run": false
+        }
+      ],
+      "instance_id": "51d281c730e42dcf75b1776ba62e256e066f3c050272dc938cb6dcf1edc0b744",
+      "intake_id": "387718bfe4ca9302d4b1c4a2f3614dec7b1bb615ebecf01bc7ee04b921fc9f6b",
+      "kind": "N5NN",
+      "member": "0121.return-placement",
+      "return_path": null,
+      "rows": [
+        {
+          "bytes": 6246,
+          "declared_path": "0521.return-placement/05.13.md",
+          "path": "0521.return-placement/05.13.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "cc7a8c204221343b6afa597d75b8fdc06817576cfdf7d9bf7d4093cfc4c74dae"
+        },
+        {
+          "bytes": 1049,
+          "declared_bytes": 1049,
+          "declared_path": "evidence/build05.13/submission.md",
+          "declared_sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50",
+          "path": "0521.return-placement/evidence/build05.13/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50"
+        },
+        {
+          "bytes": 1790,
+          "declared_bytes": 1790,
+          "declared_path": "evidence/build05.13/artifact-manifest.json",
+          "declared_sha256": "0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019",
+          "path": "0521.return-placement/evidence/build05.13/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019"
+        },
+        {
+          "bytes": 16802,
+          "declared_bytes": 16802,
+          "declared_path": "00.kernel/00.00.10.work/0521.return-placement/06.26.md",
+          "declared_sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5",
+          "path": "0521.return-placement/06.26.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5"
+        },
+        {
+          "bytes": 14200,
+          "declared_bytes": 14200,
+          "declared_path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/CONTRACT.md",
+          "declared_sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14",
+          "path": "0521.return-placement/evidence/build05.13/CONTRACT.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14"
+        },
+        {
+          "bytes": 1049,
+          "declared_bytes": 1049,
+          "declared_path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/submission.md",
+          "declared_sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50",
+          "path": "0521.return-placement/evidence/build05.13/submission.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50"
+        },
+        {
+          "bytes": 3730,
+          "declared_bytes": 3730,
+          "declared_path": "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/verification.json",
+          "declared_sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6",
+          "path": "0521.return-placement/evidence/build05.13/verification.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6"
+        },
+        {
+          "bytes": 45890,
+          "declared_bytes": 45890,
+          "declared_path": "labs/connected-return-review-pass02/drive.py",
+          "declared_sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc",
+          "path": "labs/connected-return-review-pass02/drive.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc"
+        },
+        {
+          "bytes": 3730,
+          "declared_bytes": 3730,
+          "declared_path": "evidence/build05.13/verification.json",
+          "declared_sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6",
+          "path": "0521.return-placement/evidence/build05.13/verification.json",
+          "role": "verification",
+          "root": "book",
+          "sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "holds": [],
+  "instance_id": "51d281c730e42dcf75b1776ba62e256e066f3c050272dc938cb6dcf1edc0b744",
+  "intake_id": "387718bfe4ca9302d4b1c4a2f3614dec7b1bb615ebecf01bc7ee04b921fc9f6b",
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "accepted",
+    "finding": "Accepted as a bounded connected proof and diagnosis: historical witness and guarded handoff are established; N7 cycle creation remains unsupported.",
+    "findings": [],
+    "gaps": [
+      "No fresh whole-driver run or active selection. Read-only probes and retained guard logs establish this scoped result. Fix the misleading report field in a future successor; do not rewrite sealed evidence.",
+      "Actual review is preliminary; matching-line custody remains missing. Acceptance here is Prime technical assessment, not tool approval or execution release."
+    ],
+    "goal_terminal": "open",
+    "holds": [],
+    "next_action": "Plan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.",
+    "operation": "continue",
+    "pass_terminal": "finished",
+    "reasons": [
+      "Historical complete custody survives declaration and still verifies unapproved.",
+      "The retained child capture record says attempted true and writer_started false; the eligible member has no receipt.",
+      "N5 recovery succeeds; N7 stays preliminary because its derived review target is absent.",
+      "The misleading door_result.writer_started boolean is disclosed as sentence presence, not trusted as evidence that a writer ran."
+    ],
+    "review_passes": [],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Plan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "Accepted as a bounded connected proof and diagnosis: historical witness and guarded handoff are established; N7 cycle creation remains unsupported.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "5/5 artifacts match. Retained run-report digest matches. Prime independently reran positive guard/reader verification, the missing-return negative and N5/N7 read/recover; witness hashes match.",
+      "tests_note": "No fresh whole-driver run or active selection. Read-only probes and retained guard logs establish this scoped result. Fix the misleading report field in a future successor; do not rewrite sealed evidence.",
+      "tests_passed": true,
+      "within_direction": "Bounded technical review. No kernel, authority, custody, migration or release decision."
+    },
+    "semantic_conflict": false
+  },
+  "kind": "N5NN",
+  "measurement": "complete",
+  "mode": "preliminary",
+  "next_action": "Plan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.",
+  "page": "0521.return-placement",
+  "pass": "05.13",
+  "publication": {
+    "review_id": "webe8f0a86f3de800",
+    "status": "recorded"
+  },
+  "published_work": false,
+  "releases_action": false,
+  "rendered": "authority: none\ncloses_work: false\nreleases_action: false\nauthenticates_actor: false\nworkbook-review-id: webe8f0a86f3de800\nmode: preliminary\ncustody: missing\ntask_association: not-established\nThis record is not approval, filing, or release.\n\n### Judgment\noperation: continue\ndisposition: accepted\nfinding: Accepted as a bounded connected proof and diagnosis: historical witness and guarded handoff are established; N7 cycle creation remains unsupported.\n\n### Reasons\n- Historical complete custody survives declaration and still verifies unapproved.\n- The retained child capture record says attempted true and writer_started false; the eligible member has no receipt.\n- N5 recovery succeeds; N7 stays preliminary because its derived review target is absent.\n- The misleading door_result.writer_started boolean is disclosed as sentence presence, not trusted as evidence that a writer ran.\n\n### Findings\nnone supplied\n\n### Director text\nnone measured\n\n### Answers\nnone supplied\n\n### Next action\nPlan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.\nThis line is not a release.\n\ntests_passed: true\nprime_review_effective: attention\neligible_for_custody_completion: false\n",
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

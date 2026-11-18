@@ -1,0 +1,146 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-loop"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "review-instance-candidate-librarian",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py",
+      "repository": "lib-build"
+    },
+    "bytes": 12397,
+    "sha256": "a0de0b4fbd935e65d061836794d1d11bb19c22932d080bb9ca06a56edd947561"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-loop"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "inert candidate",
+      "not the selected app/librarian.py"
+    ],
+    "name": "instance_candidate_librarian",
+    "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py",
+    "purpose": "Inert candidate dispatcher. review-loop loads the instance door from D:\\Git\\lib-build.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.35",
+          "file": "06.35.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "The candidate librarian is unselected",
+        "role": "review",
+        "sha256": "507b9c101c2b165ac6e7cc92e2c7909a98c2d80fed15c44bbde7b027efd2f0f2",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "candidate-door",
+      "kind": "runtime-code",
+      "mechanism": "dynamic-import",
+      "pin": null,
+      "pin_required": false,
+      "reason": "review-loop sets code_root to D:\\Git\\lib-build and loads the instance door by path. The load has no digest and no length.",
+      "source_ref": {
+        "lines": "102-106",
+        "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/review-instance-binding-pass01/review_loop_tools.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "102-102",
+        "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "103-103",
+        "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The review-loop branch assigns code_root D:\\Git\\lib-build. This preflight did not execute the candidate.",
+          "name": "canonical-helper-root"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": []
+}

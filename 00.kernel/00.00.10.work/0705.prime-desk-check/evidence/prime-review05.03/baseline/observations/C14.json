@@ -1,0 +1,97 @@
+{
+ "schema": "desk-observation/1",
+ "case_id": "C14",
+ "producer": {
+  "kind": "candidate",
+  "adapter": {
+   "id": "0705-pass03-adapter/1",
+   "sha256": "52553954f6657df07106849e88f7b21bc3eafc8990a1ada90906aa689c33717d",
+   "status": "connected"
+  },
+  "raw_outputs": [
+   {
+    "path": "view.stdout",
+    "sha256": "660a55f770064d45fb2a8badd2a98815508e83d51493bc5265f0d98aa19af729"
+   },
+   {
+    "path": "packet.stdout",
+    "sha256": "2d96644debd7d01347cc33853771d6c3ae1de54a1d7b9278baab00856581ac8a"
+   },
+   {
+    "path": "view-second.stdout",
+    "sha256": "3241d69da1acac675dcac86d54f0f09cdc8dce2aeb7bf6c27ef39eb1b30edd78"
+   }
+  ],
+  "unmapped": [
+   "works",
+   "parallel",
+   "coverage",
+   "workers",
+   [
+    "selected",
+    "source"
+   ]
+  ]
+ },
+ "instance": {
+  "selected": "instance-A"
+ },
+ "selected": {
+  "work_ref": "0522.review-construction/05.04",
+  "basis": "observed",
+  "source": {
+   "path": null,
+   "sha256": null
+  }
+ },
+ "parallel": [],
+ "works": [],
+ "attention": {
+  "total": 3,
+  "shown": 3,
+  "overflow_route": null,
+  "items": [
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "conflict",
+    "ref": null
+   }
+  ]
+ },
+ "holds": [],
+ "coverage": [],
+ "sources": [
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+   "instance": "instance-A",
+   "expected_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "observed_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11",
+   "observed_sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "observed_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "status": "ok"
+  }
+ ],
+ "quotes": [],
+ "workers": [],
+ "refusals": [],
+ "identity_fingerprint": "183cac1a0d79bfad019fbaece849e5983436053617d2ec148b706f2b354ebca1"
+}

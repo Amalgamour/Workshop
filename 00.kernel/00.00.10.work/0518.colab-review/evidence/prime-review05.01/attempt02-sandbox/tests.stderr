@@ -1,0 +1,89 @@
+setUpClass (__main__.TestCompatibility) ... ERROR
+setUpClass (__main__.TestIntegration) ... ERROR
+test_11_pin_mismatch_launches_nothing (__main__.TestPins.test_11_pin_mismatch_launches_nothing) ... ERROR
+setUpClass (__main__.TestPlanChecks) ... ERROR
+setUpClass (__main__.TestResults) ... ERROR
+setUpClass (__main__.TestSynthesis) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.TestCompatibility)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\test_colab_review.py", line 27, in setUpClass
+    cls.d = F.Desk(prefix="crv-" + cls.__name__[:10] + "-")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\fixture.py", line 47, in __init__
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\review0518-results\\scratch\\crv-TestCompat-wsvu8sdq\\src'
+
+======================================================================
+ERROR: setUpClass (__main__.TestIntegration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\test_colab_review.py", line 27, in setUpClass
+    cls.d = F.Desk(prefix="crv-" + cls.__name__[:10] + "-")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\fixture.py", line 47, in __init__
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\review0518-results\\scratch\\crv-TestIntegr-5zdmvqax\\src'
+
+======================================================================
+ERROR: test_11_pin_mismatch_launches_nothing (__main__.TestPins.test_11_pin_mismatch_launches_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\test_colab_review.py", line 253, in test_11_pin_mismatch_launches_nothing
+    d = F.Desk(prefix="crv-pin-")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\fixture.py", line 47, in __init__
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\review0518-results\\scratch\\crv-pin-uli0p8tp\\src'
+
+======================================================================
+ERROR: setUpClass (__main__.TestPlanChecks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\test_colab_review.py", line 27, in setUpClass
+    cls.d = F.Desk(prefix="crv-" + cls.__name__[:10] + "-")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\fixture.py", line 47, in __init__
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\review0518-results\\scratch\\crv-TestPlanCh-qhn51ubg\\src'
+
+======================================================================
+ERROR: setUpClass (__main__.TestResults)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\test_colab_review.py", line 27, in setUpClass
+    cls.d = F.Desk(prefix="crv-" + cls.__name__[:10] + "-")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\fixture.py", line 47, in __init__
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\review0518-results\\scratch\\crv-TestResult-l8j_1zim\\src'
+
+======================================================================
+ERROR: setUpClass (__main__.TestSynthesis)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\test_colab_review.py", line 27, in setUpClass
+    cls.d = F.Desk(prefix="crv-" + cls.__name__[:10] + "-")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\colab-review-pass01\tests\fixture.py", line 47, in __init__
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\review0518-results\\scratch\\crv-TestSynthe-4huhayzw\\src'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (errors=6)

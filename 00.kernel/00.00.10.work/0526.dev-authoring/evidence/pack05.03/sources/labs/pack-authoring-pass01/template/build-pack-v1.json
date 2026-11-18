@@ -1,0 +1,55 @@
+{
+  "schema": "authoring-template/1",
+  "template_id": "build-pack-v1",
+  "source_contract": "00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md",
+  "compute_owns": [
+    "identity",
+    "pass",
+    "item_number",
+    "source_hash",
+    "draft_hash",
+    "dependency_lookup",
+    "utf8",
+    "return_intent"
+  ],
+  "intelligence_owns": [
+    "goal",
+    "scope",
+    "finish",
+    "executor",
+    "reviewer",
+    "item_meaning",
+    "note_disposition",
+    "review_assessment"
+  ],
+  "intent_fields": [
+    "goal",
+    "scope.included",
+    "scope.excluded",
+    "scope.allowed_writes",
+    "finish",
+    "executor",
+    "reviewer"
+  ],
+  "item_fields": [
+    "title",
+    "purpose",
+    "requirements",
+    "interfaces",
+    "acceptance",
+    "note_refs",
+    "open_choices",
+    "dependency_refs"
+  ],
+  "note_dispositions": [
+    "integrated",
+    "deferred",
+    "rejected",
+    "unresolved"
+  ],
+  "note_marks": [
+    "discussion",
+    "proposal",
+    "recorded-decision"
+  ]
+}

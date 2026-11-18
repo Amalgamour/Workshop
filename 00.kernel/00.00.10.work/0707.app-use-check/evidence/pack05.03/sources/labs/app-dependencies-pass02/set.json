@@ -1,0 +1,257 @@
+{
+ "schema": "module-declaration-set/2",
+ "set_id": "review-loop-entry-2",
+ "coverage": "app/librarian.py command review-loop. module-declaration/2 corrects source basis and the inspector digest-only pin. Not every app namespace. Not closure.",
+ "declarations": [
+  {
+   "file": "declarations/librarian-review-loop.v2.json",
+   "sha256": "be5d79af6faf14ac18560faeaf42ae7481e384b24f58168e114189fba29a9a9f"
+  },
+  {
+   "file": "declarations/review-loop-door.v2.json",
+   "sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66"
+  },
+  {
+   "file": "declarations/review-loop-declaration.v2.json",
+   "sha256": "c10cc473ab4103d8edb0913e95f6eb338e0948712310e4e29928f29071ec237c"
+  },
+  {
+   "file": "declarations/review-loop-pass02.v2.json",
+   "sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91"
+  },
+  {
+   "file": "declarations/prime-cycle-pass03.v2.json",
+   "sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964"
+  },
+  {
+   "file": "declarations/review-construct-pass02.v2.json",
+   "sha256": "26262f20889f447e7682f662d86adbc4745db2fb5dc275d2bb1dec4325b4fef1"
+  },
+  {
+   "file": "declarations/prime-review-pass01.v2.json",
+   "sha256": "9be8603c6b1875807ec65760afd4de9e8e30161edef3c911e8e550f0bc3e3445"
+  },
+  {
+   "file": "declarations/prime-review-pass02.v2.json",
+   "sha256": "6f551c417ef0313c3a3317df4cb383a2de836f386b0ea19569abd1ea3f95d70c"
+  },
+  {
+   "file": "declarations/return-lines-pass01.v2.json",
+   "sha256": "647d15b65b9c65b283bc591606fc578a4de3dd2367716c87d05ea87ee5f52440"
+  },
+  {
+   "file": "declarations/return-placement-pass01.v2.json",
+   "sha256": "487a679935696f39f229035afa8575a8de5a4cf5a80a9985e781a3dad7716737"
+  },
+  {
+   "file": "declarations/return-inspect-pass01.v2.json",
+   "sha256": "8f9e8cf286e0e71a2719f99d5376deb88854f8e910018b2d65437986f9fd457d"
+  },
+  {
+   "file": "declarations/return-capture-pass01.v2.json",
+   "sha256": "21270610b7b8b72c10e8d953bf2f91745815ccd0312974de7f928ca4c3f9e045"
+  }
+ ],
+ "fixtures": [
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "app/librarian.py"
+   },
+   "file": "fixtures/librarian.py",
+   "sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "file": "fixtures/review_loop_tools_v2.py",
+   "sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "app/review-loop-v2.json"
+   },
+   "file": "fixtures/review-loop-v2.json",
+   "sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "file": "fixtures/review_loop.py",
+   "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "file": "fixtures/prime_cycle.py",
+   "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/review-construction-pass02/construct.py"
+   },
+   "file": "fixtures/construct.py",
+   "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/prime-review-pass01/prime_review.py"
+   },
+   "file": "fixtures/prime_review_pass01.py",
+   "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/prime-review-pass02/prime_review.py"
+   },
+   "file": "fixtures/prime_review_pass02.py",
+   "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-lines-pass01/return_lines.py"
+   },
+   "file": "fixtures/return_lines.py",
+   "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-placement-pass01/return_placement.py"
+   },
+   "file": "fixtures/return_placement.py",
+   "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-capture-pass01/return_inspect.py"
+   },
+   "file": "fixtures/return_inspect.py",
+   "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-capture-pass01/return_capture.py"
+   },
+   "file": "fixtures/return_capture.py",
+   "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+  }
+ ],
+ "select": [
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "app/librarian.py"
+   },
+   "declaration_id": "librarian-review-loop",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "app/review_loop_tools_v2.py"
+   },
+   "declaration_id": "review-loop-door",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "app/review-loop-v2.json"
+   },
+   "declaration_id": "review-loop-declaration",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/review-loop-pass02/review_loop.py"
+   },
+   "declaration_id": "review-loop-pass02",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/prime-cycle-pass03/prime_cycle.py"
+   },
+   "declaration_id": "prime-cycle-pass03",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/review-construction-pass02/construct.py"
+   },
+   "declaration_id": "review-construct-pass02",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/prime-review-pass01/prime_review.py"
+   },
+   "declaration_id": "prime-review-pass01",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/prime-review-pass02/prime_review.py"
+   },
+   "declaration_id": "prime-review-pass02",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-lines-pass01/return_lines.py"
+   },
+   "declaration_id": "return-lines-pass01",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-placement-pass01/return_placement.py"
+   },
+   "declaration_id": "return-placement-pass01",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-capture-pass01/return_inspect.py"
+   },
+   "declaration_id": "return-inspect-pass01",
+   "version": 2
+  },
+  {
+   "module": {
+    "repository": "lib-build",
+    "path": "labs/return-capture-pass01/return_capture.py"
+   },
+   "declaration_id": "return-capture-pass01",
+   "version": 2
+  }
+ ],
+ "bounds": {
+  "max_records": 50,
+  "max_file_bytes": 1048576,
+  "max_depth": 16,
+  "max_output_bytes": 2097152
+ }
+}

@@ -1,0 +1,31 @@
+[01] ok   exit 0 (want 0)  1a Prime: construct batch page A from a structured spec
+[02] ok   exit 0 (want 0)  1b Prime: reserve member A (existing helper)
+[03] ok   exit 0 (want (0, 1))  2  worker view: assigned, not released  -- 0101.demo-a-0501: awaiting-release, actor director, next: record the Director's release on the page
+[04] ok   exit 2 (want 2)  2b construct batch page A again (exists) is refused
+[05] ok   exit 0 (want 0)  3a record the Director release (constructed line)
+[06] ok   exit 0 (want (0, 1))  3b worker view: released  -- 0101.demo-a-0501: released, actor Builder-X (SYNTHETIC), next: claim on the page, then do the work
+[07] ok   exit 2 (want 2)  3c stale compare-and-swap: claim with an old page hash is refused
+[08] ok   exit 0 (want 0)  3d worker claims (compute binds the assignment hash)
+[09] ok   exit 0 (want (0, 1))  4a worker view: claimed, no return (not done)  -- 0101.demo-a-0501: claimed, actor Builder-X (SYNTHETIC), next: capture and verify the return into this member
+[10] FAIL exit 1 (want (0, 1))  4b prime_cycle read: no-return  -- FAIL custody-unresolved
+[11] ok   exit 0 (want 0)  5a worker captures the return (existing helper)
+[12] ok   exit 0 (want 0)  5b verify in a fresh process
+[13] ok   exit 0 (want 0)  5c compute writes the Execution line from the inspected receipt
+[14] ok   exit 0 (want 0)  6a identical handback: already-captured, nothing written
+[15] ok   exit 2 (want 2)  6b changed handback under the same submission: conflict, nothing written
+[16] ok   exit 0 (want (0, 1))  7a Prime view: awaiting review  -- 0101.demo-a-0501: awaiting-review, actor Codex Prime (SYNTHETIC), next: verify the member, review the return, record the judgment
+[17] FAIL exit 2 (want (0, 1))  7b prime_cycle read writes the decision template
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\desk-app-integration-pass01\demo.py", line 320, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "D:\Git\lib-build\labs\desk-app-integration-pass01\demo.py", line 233, in main
+    t = json.loads((tdir / "template-A.json").read_text(encoding="utf-8"))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 792, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 776, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\desk-lab-xn7lh4qy\\templates\\template-A.json'

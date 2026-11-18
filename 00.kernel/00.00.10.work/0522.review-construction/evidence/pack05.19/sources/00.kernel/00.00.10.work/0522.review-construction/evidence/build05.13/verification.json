@@ -1,0 +1,154 @@
+{
+  "accepted": false,
+  "allocated_0184": false,
+  "allocator": "not-used",
+  "branch": "workshop",
+  "committed_by_this_builder": false,
+  "contract": {
+    "bytes": 14580,
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/CONTRACT.md",
+    "revised_after_tests": false,
+    "sha256": "685b1e86e4a8fb321251c61fa0e65df398ef0c0acddf495f03f00d77ae26a057"
+  },
+  "current_book": {
+    "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "commands": [
+      "prepare",
+      "form",
+      "inspect"
+    ],
+    "custody": "missing",
+    "exits": [
+      0,
+      0,
+      0
+    ],
+    "findings": [
+      "index-context-bounded",
+      "custody-missing",
+      "return-missing",
+      "verification-declared"
+    ],
+    "intake_id": "9d5c5d898b3c75233d285a6823856073d4d30c6a61c6689f125f3a5b78993a48",
+    "judgment": null,
+    "measurement": "complete",
+    "mismatches": [],
+    "page_bytes": 8076,
+    "page_sha256": "af56727c4a29007d9a78b0a746af4c949774daf01632bf7c1b7258ce471963c5",
+    "page_unchanged": true,
+    "pass": "05.10",
+    "published": false,
+    "recorded": false,
+    "source": "0521.return-placement",
+    "stderr_bytes": [
+      0,
+      0,
+      0
+    ],
+    "stdout_bytes": [
+      26418,
+      16510,
+      17604
+    ],
+    "successful_run": false,
+    "verification_sources": [
+      "submission-lines",
+      "artifact-index"
+    ]
+  },
+  "custody": "pending",
+  "door": {
+    "bytes": 10291,
+    "declaration": "app/review-loop-v7.json",
+    "declaration_bytes": 3515,
+    "declaration_sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8",
+    "path": "app/review_loop_tools_v7.py",
+    "schema": "review-loop-pins/5",
+    "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+  },
+  "form": {
+    "bytes": 4532,
+    "form_id": "workbook-review-v1",
+    "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+    "route": "labs/workbook-review-pass03/PRIME-USE.md",
+    "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+  },
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "index_at_close_check": "empty",
+  "k1": {
+    "disposition": "repaired for the page-relative pointer and the known count suffix",
+    "first_intake_id": "6ae3839653bc8a3d1148cd647cade813d64997960a51f8e5322e54f09dbd1742",
+    "known_reproduction": "evidence/build05.13/reproduce/k1-prepare.stdout"
+  },
+  "k2": {
+    "disposition": "repaired by one validator id per resolved file; roles stay in the intake",
+    "failed_input": "workbook-review/0599.fixture-review/05.01/failed/6429cac0f00012d9.json",
+    "first_intake_id": "86f92dbb4a21e74e0eb40c248317b523bcb7239e685320b9425fa6fca92a1cc4",
+    "known_reproduction": "evidence/build05.13/reproduce/k2-record.stdout"
+  },
+  "librarian": {
+    "before_bytes": 12204,
+    "before_sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea",
+    "bytes": 12204,
+    "path": "app/librarian.py",
+    "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "matching_line": "0122.review-construction",
+  "matching_status": "unfiled",
+  "notes": {
+    "bytes": 9600,
+    "path": "00.kernel/00.00.10.work/0522.review-construction/06.25.md",
+    "sha256": "0480da3242a46b30cf04cc5456c345b2a766e4e5f28ad8c5b85cc4115e438c87"
+  },
+  "pack_inputs_at_close_before_pointer": {
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "files": 74,
+    "missing_live": 0,
+    "missing_snapshot": 0,
+    "repinned": false,
+    "snapshot_mismatches": 0
+  },
+  "pack_inputs_before_edit": {
+    "bad": 0,
+    "bytes": 29400,
+    "extra_snapshots": 0,
+    "files": 74,
+    "live_drift": 0,
+    "missing_live": 0,
+    "missing_snapshot": 0,
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/pack05.13/source-manifest.json",
+    "schema": "prime-pack-inputs/1",
+    "sha256": "8671da3bc8344119466628f88a505937f4b9386269d158891bccc5dc7b3e0ed7",
+    "snapshot_mismatch": 0
+  },
+  "pass": "0522.review-construction/05.13",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "readme": {
+    "before_bytes": 39210,
+    "before_sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6",
+    "bytes": 39687,
+    "path": "app/README.md",
+    "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "receipt": null,
+  "schema": "workbook-review-verification/1",
+  "seated": false,
+  "suite": {
+    "command": "python -B labs/workbook-review-pass03/tests/test_workbook.py",
+    "exit": 0,
+    "failed": 0,
+    "first_failure": "The cited suite passed on the first run. The known failures are the pre-repair K1 and K2 reproductions.",
+    "result": "OK",
+    "seconds": 192.541,
+    "tests": 6
+  },
+  "workbook": {
+    "bytes": 19533,
+    "path": "labs/workbook-review-pass03/workbook.py",
+    "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "python": "3.14.0",
+  "before_fingerprint": "1498e3d5d5bf9637dad2f93bddb3ec1196a7e5b2b4944a1bd3e7feb6c039e96a",
+  "after_fingerprint": "1498e3d5d5bf9637dad2f93bddb3ec1196a7e5b2b4944a1bd3e7feb6c039e96a",
+  "fingerprints_equal": true,
+  "live_before": [
+    "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+    1160
+  ],
+  "live_after": [
+    "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+    1160
+  ],
+  "live_unchanged": true,
+  "real_page_unchanged": true,
+  "real_page": [
+    "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+    8326
+  ],
+  "codes": {
+    "view.md": 1,
+    "view.json": 1,
+    "packet.md": 1,
+    "packet.json": 1,
+    "packet-0522.md": 1,
+    "packet-0522.json": 1,
+    "view-repeat.json": 1
+  },
+  "stale_index_exit": 0,
+  "stale_first_exit": 1,
+  "stale_second_exit": 1,
+  "selected": "work-0524-0503",
+  "repeat_selected": "work-0524-0503",
+  "packet_selected": "work-0524-0503",
+  "inspect_selected": "work-0524-0503",
+  "inspect_relation": "inspection",
+  "inspect_work": "work-0522-0505",
+  "fingerprint": "3956f4ca6b90469c666d3624f24dd2a7e8cf9fb2b754f05e0e3457a56023f644",
+  "repeat_fingerprint": "3956f4ca6b90469c666d3624f24dd2a7e8cf9fb2b754f05e0e3457a56023f644",
+  "request_sha256": "87f5d657304025ef6654688170226bcb921d9eca5cee11a0fc4bd8a898242e93",
+  "observed_at": "2026-11-01T18:40:07Z",
+  "repeat_observed_at": "2026-11-01T18:40:10Z",
+  "exit": 1,
+  "state": "attention",
+  "schema": "prime-desk-view/3",
+  "packet_schema": "prime-desk-packet/3",
+  "route": {
+    "band": "N5NN",
+    "limit": "Review identity is this source page. The review section was not parsed. The return line is a separate path.",
+    "return_line": {
+      "address": "0124.prime-desk/05.03.return",
+      "basis": "unknown",
+      "custody": "unknown",
+      "file": "undeclared",
+      "judgment": "unknown",
+      "kind": "return",
+      "limit": "The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.",
+      "path": "0124.prime-desk/05.03.return.md",
+      "source": null
+    },
+    "review": {
+      "address": "0524.prime-desk/05.03",
+      "basis": "observed",
+      "custody": null,
+      "file": "matched",
+      "judgment": "unknown",
+      "kind": "review",
+      "limit": "The review identity is this source page. Its review section was not parsed. A pending return does not hide this page.",
+      "path": "0524.prime-desk/05.03.md",
+      "source": {
+        "basis": "observed",
+        "bytes": 8326,
+        "path": "0524.prime-desk/05.03.md",
+        "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+        "status": "matched"
+      }
+    },
+    "source_kind": "work",
+    "source_path": "0524.prime-desk/05.03.md"
+  },
+  "gap_kinds": [
+    "return-undeclared",
+    "catalog-not-chosen",
+    "verification"
+  ],
+  "repeat_gap_kinds": [
+    "return-undeclared",
+    "catalog-not-chosen",
+    "verification"
+  ],
+  "attention": [],
+  "repeat_attention": [],
+  "view_lines": 65,
+  "packet_overview_lines": 66,
+  "coverage": {
+    "changed": 0,
+    "declared": 16,
+    "matched": 16,
+    "missing": 0,
+    "outside": 0,
+    "stale": 0,
+    "statement": "Declared request paths only. Unregistered sources were not searched.",
+    "unreadable": 0
+  },
+  "catalog_used": false,
+  "stale_first_selected": "work-0524-0503",
+  "stale_second_selected": null,
+  "stale_second_kinds": [
+    "stale",
+    "selector",
+    "catalog-not-chosen"
+  ],
+  "marker_absent": true,
+  "director_head": "> I like it.",
+  "model_head": "The proposed",
+  "criteria": [
+    "crit-0524"
+  ],
+  "inspect_criteria": [
+    "crit-0522"
+  ]
+}

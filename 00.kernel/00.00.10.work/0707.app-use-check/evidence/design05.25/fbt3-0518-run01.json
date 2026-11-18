@@ -1,0 +1,5535 @@
+{
+ "schema": "freshness-boundary-result/1",
+ "candidate": "D:/librarian/temp/fbt3-0525/cand-0518",
+ "identity": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.25/fixtures/identity-0518-with-doors.json",
+ "identity_sha256": "5ce1e4c0ae92fb7ab9db1582d129a1e0bc97b546749294be30e647f016ca5163",
+ "provenance": "Claude 0707/05.23 author cases; independent of Grok-1's combined implementation; not Prime review",
+ "candidate_kind": "combined",
+ "records": [
+  {
+   "id": "M0-N5",
+   "group": "missing-intake",
+   "requirement": "N5: control: artifact changed, comparison intake intact -> stale; publish refused",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the selected source changed after intake.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M1-N5",
+   "group": "missing-intake",
+   "requirement": "N5: artifact changed, comparison intake.json moved away -> not current; publish refused; history kept; restore recovers",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the comparison intake is missing or is not an object.\" ",
+     "stderr": ""
+    },
+    "destination_created": false,
+    "restored_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "M2-N5",
+   "group": "missing-intake",
+   "requirement": "N5: no source change, comparison intake.json moved away (review exists) -> not current",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the comparison intake is missing or is not an object.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M3-N5",
+   "group": "missing-intake",
+   "requirement": "N5: artifact changed, intake.json is valid JSON but not an object -> not current; publish refused",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the comparison intake is missing or is not an object.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M4-N5",
+   "group": "missing-intake",
+   "requirement": "N5: artifact changed, intake.json is malformed JSON -> not current (refusal allowed); publish refused",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": " refused: stored intake is not strict json\r\n",
+     "stderr": "refused: stored intake is not strict json\r\n"
+    },
+    "after_recover": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": " refused: stored intake is not strict json\r\n",
+     "stderr": "refused: stored intake is not strict json\r\n"
+    },
+    "publish": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": " refused: stored intake is not strict json\r\n",
+     "stderr": "refused: stored intake is not strict json\r\n"
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M5-N5",
+   "group": "missing-intake",
+   "requirement": "N5: a new, never-recorded book -> read not current; publish refused",
+   "required": true,
+   "expected": {
+    "read": "not current",
+    "publish": "refused"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "prepare_measurement": "complete",
+    "after_read": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": "\"No recorded judgment.\" ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": "\"No judgment is recorded.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M0-N7",
+   "group": "missing-intake",
+   "requirement": "N7: control: artifact changed, comparison intake intact -> stale; publish refused",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the selected source changed after intake.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M1-N7",
+   "group": "missing-intake",
+   "requirement": "N7: artifact changed, comparison intake.json moved away -> not current; publish refused; history kept; restore recovers",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the comparison intake is missing or is not an object.\" ",
+     "stderr": ""
+    },
+    "destination_created": false,
+    "restored_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "M2-N7",
+   "group": "missing-intake",
+   "requirement": "N7: no source change, comparison intake.json moved away (review exists) -> not current",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the comparison intake is missing or is not an object.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M3-N7",
+   "group": "missing-intake",
+   "requirement": "N7: artifact changed, intake.json is valid JSON but not an object -> not current; publish refused",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_recover": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": "\"Publication is blocked because the comparison intake is missing or is not an object.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M4-N7",
+   "group": "missing-intake",
+   "requirement": "N7: artifact changed, intake.json is malformed JSON -> not current (refusal allowed); publish refused",
+   "required": true,
+   "expected": {
+    "control": "current",
+    "after": "not current",
+    "publish": "refused",
+    "history": "kept or clean refusal"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "control_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "after_read": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": " refused: stored intake is not strict json\r\n",
+     "stderr": "refused: stored intake is not strict json\r\n"
+    },
+    "after_recover": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": " refused: stored intake is not strict json\r\n",
+     "stderr": "refused: stored intake is not strict json\r\n"
+    },
+    "publish": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": " refused: stored intake is not strict json\r\n",
+     "stderr": "refused: stored intake is not strict json\r\n"
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "M5-N7",
+   "group": "missing-intake",
+   "requirement": "N7: a new, never-recorded book -> read not current; publish refused",
+   "required": true,
+   "expected": {
+    "read": "not current",
+    "publish": "refused"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "prepare_measurement": "complete",
+    "after_read": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": "\"No recorded judgment.\" ",
+     "stderr": ""
+    },
+    "publish": {
+     "exit": 2,
+     "stale": null,
+     "judgment": null,
+     "measurement": null,
+     "codes": [],
+     "message": "\"No judgment is recorded.\" ",
+     "stderr": ""
+    },
+    "destination_created": false
+   }
+  },
+  {
+   "id": "R0",
+   "group": "pack-region",
+   "requirement": "normal headings: a Review-only edit stays current (permitted)",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "R1",
+   "group": "pack-region",
+   "requirement": "normal headings: a task-text edit is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "R2",
+   "group": "pack-region",
+   "requirement": "normal headings: a pointer edit (attribution text) is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "R3",
+   "group": "pack-region",
+   "requirement": "normal headings: a changed return is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "R4",
+   "group": "pack-region",
+   "requirement": "normal headings: a changed artifact is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F1",
+   "group": "pack-region",
+   "requirement": "a ``` fenced example with pointer/Review headings in the task: a task edit AFTER the fence is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F1b",
+   "group": "pack-region",
+   "requirement": "the fenced example repeats the REAL pointer lines (so the pair records): a task edit AFTER the fence is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F2",
+   "group": "pack-region",
+   "requirement": "a '## Reviewer checklist' section after the pointer: an edit inside it is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F3",
+   "group": "pack-region",
+   "requirement": "the only review-like heading is '## Reviews - Codex Prime': an edit under it is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F4",
+   "group": "pack-region",
+   "requirement": "duplicate '## Return pointer' headings: a task edit between them is not current (strict refusal kept as not-reached)",
+   "required": false,
+   "expected": {
+    "expect": "not-current"
+   },
+   "verdict": "not-reached",
+   "reasons": [
+    "fixture did not reach record/publish; kept as not-reached, never credited"
+   ],
+   "observed": {
+    "reached": false,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "incomplete",
+     "codes": [
+      "n1-not-applicable",
+      "n7-exchange-return-not-local",
+      "submission-not-declared",
+      "unparsed-return-line"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 2,
+    "publish_exit": 2
+   }
+  },
+  {
+   "id": "F5",
+   "group": "pack-region",
+   "requirement": "duplicate '## Review - Codex Prime' headings: an edit between them is not current (ambiguity grants no exemption)",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F6",
+   "group": "pack-region",
+   "requirement": "no Review heading: appended text is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F7a",
+   "group": "pack-region",
+   "requirement": "a fenced example inside the real Review region: a real Review-only edit stays current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "F7b",
+   "group": "pack-region",
+   "requirement": "a fenced example inside the real Review region: a task edit is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "E1",
+   "group": "pack-region",
+   "requirement": "NEW: a ~~~ tilde-fenced example with headings in the task: a task edit after it is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "E2",
+   "group": "pack-region",
+   "requirement": "NEW: an unclosed ``` before the real headings (missing boundary): a Review-text edit is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "E3",
+   "group": "pack-region",
+   "requirement": "NEW: a task heading '## Return pointer example' (prefix lookalike): a task edit after it is not current",
+   "required": true,
+   "expected": {
+    "pre": "current",
+    "post": "not-current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "reached": true,
+    "prepare": {
+     "exit": 0,
+     "stale": false,
+     "judgment": null,
+     "measurement": "complete",
+     "codes": [
+      "n1-not-applicable",
+      "thin-submission"
+     ],
+     "message": " ",
+     "stderr": ""
+    },
+    "record_exit": 0,
+    "publish_exit": 0,
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "C1",
+   "group": "composition",
+   "requirement": "N5 foreign instance: a byte-copied book does not read the source review current; the original stays current",
+   "required": true,
+   "expected": {
+    "copy": "not current",
+    "original": "current, unchanged"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "record_exit": 0,
+    "a_read_before": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "b_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "a_read_after": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "a_unchanged": true
+   }
+  },
+  {
+   "id": "C2",
+   "group": "composition",
+   "requirement": "N7 local exchange/body: a Review-only edit stays current and a task-body edit is not current (same entry)",
+   "required": true,
+   "expected": {
+    "review_edit": "current",
+    "task_edit": "not current"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "review_edit_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "task_edit_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "C3",
+   "group": "composition",
+   "requirement": "ordinary source-row change: an N5 artifact change after record is stale",
+   "required": true,
+   "expected": {
+    "post": "stale"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "pre_read": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "post_read": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "C4",
+   "group": "composition",
+   "requirement": "one chain: in ONE root through ONE entry, the N5 instance, N7 region/exchange and row-change guards all hold",
+   "required": true,
+   "expected": {
+    "all three guards": "hold in one chain"
+   },
+   "verdict": "pass",
+   "reasons": [],
+   "observed": {
+    "n5_record": 0,
+    "pre5": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "pre7": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "copy5": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "review7": {
+     "exit": 0,
+     "stale": false,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "task7": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    },
+    "row5": {
+     "exit": 1,
+     "stale": true,
+     "judgment": {
+      "answers": [],
+      "design_fork": null,
+      "disposition": "held",
+      "finding": "LAB-ONLY SYNTHETIC judgment for the 0707/05.23 freshness-boundary lab; not a review of any real pass.",
+      "findings": [],
+      "gaps": [
+       "LAB-ONLY: synthetic judgment"
+      ],
+      "goal_terminal": "open",
+      "holds": [],
+      "next_action": "LAB-ONLY: no real action.",
+      "operation": "continue",
+      "pass_terminal": "open",
+      "reasons": [
+       "LAB-ONLY: exercises record, inspect, read, recover and publish refusal on a disposable copy."
+      ],
+      "review_passes": [],
+      "sections": {
+       "affected": null,
+       "assumptions": null,
+       "consequences": null,
+       "exploration": null,
+       "findings_account": [],
+       "finish_assessments": null,
+       "for_model": null,
+       "issue": null,
+       "learning": null,
+       "limits": null,
+       "next_bounded_action": "LAB-ONLY: none.",
+       "open_questions": null,
+       "options": null,
+       "outcome_evidence": null,
+       "preservation": null,
+       "prime_finding": "LAB-ONLY synthetic.",
+       "proposed_plan": null,
+       "question": null,
+       "recommendation": null,
+       "remaining_choices": null,
+       "return_result": "LAB-ONLY synthetic.",
+       "tests_note": "LAB-ONLY: no tests judged.",
+       "tests_passed": null,
+       "within_direction": null
+      },
+      "semantic_conflict": null
+     },
+     "measurement": null,
+     "codes": [],
+     "message": " ",
+     "stderr": ""
+    }
+   }
+  },
+  {
+   "id": "D1",
+   "group": "identity-limit",
+   "requirement": "DEFERRED (06.37 \u00a74): a same-path byte-identical replacement clone is not distinguishable by path/page/pass-derived ids; policy deferred to a Director-reviewed design. Never executed, never credited.",
+   "required": false,
+   "expected": {
+    "policy": "deferred"
+   },
+   "verdict": "deferred",
+   "reasons": [
+    "not tested by design"
+   ],
+   "observed": {}
+  }
+ ],
+ "counts": {
+  "pass": 32,
+  "not-reached": 1,
+  "deferred": 1
+ },
+ "scope": "full",
+ "all_required_pass": true,
+ "note": "test evidence only; never approval, selection, release or global readiness",
+ "adapter": "freshness-boundary-tests-pass03 (0707/05.25): cases/judges/expectations = pinned pass01; proof v2",
+ "identity_mode": "explicit",
+ "workbook_entry": "labs/review-loop-convergence-pass02/workbook.py",
+ "execution_proof": {
+  "workbook": {
+   "target": "labs/review-loop-convergence-pass02/workbook.py",
+   "nonce": "47b8db0fac19",
+   "probe_argv": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run\\app\\librarian.py",
+    "review-loop",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run\\00.kernel\\00.00.10.work",
+    "--source",
+    "0587.fbt-probe",
+    "--pass",
+    "05.01"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-control-1",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-control-2",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-tamper"
+   ],
+   "audit_logs": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-control-1.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-control-2.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-tamper.audit.jsonl"
+   ],
+   "class": "executed",
+   "executed": true,
+   "deterministic_controls": true,
+   "control": {
+    "exit": 0,
+    "normalized_stdout_sha256": "1013d6fb475dbecad118b2869297352f93e187c1221d3e0468144f038aef8da2",
+    "stderr_tail": "",
+    "target_events": {
+     "exec": 2,
+     "open": 3,
+     "compile": 1
+    }
+   },
+   "control_2_target_events": {
+    "exec": 2,
+    "open": 3,
+    "compile": 1
+   },
+   "tamper": {
+    "exit": 2,
+    "changed": true,
+    "corroboration": "output changed",
+    "stderr_tail": "stop: workbook pin mismatch got 6657 bytes sha256 16c60f875b669a968e7ea48a856981845b71af804b85ecfeb67fb386951ef9df want 6613 bytes sha256 a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f\r\n"
+   },
+   "binding": [
+    {
+     "pid": 17040,
+     "event": "run_file",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0587.fbt-probe"
+     ]
+    },
+    {
+     "pid": 17040,
+     "event": "exec",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\workbook-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0587.fbt-probe"
+     ]
+    }
+   ]
+  },
+  "open": {
+   "target": "labs/review-loop-convergence-pass02/workbook.py",
+   "nonce": "b3a11038be25",
+   "probe_argv": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+    "open",
+    "--book",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\00.kernel\\00.00.10.work",
+    "--source",
+    "0787.fbt-probe",
+    "--pass",
+    "05.01"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-control-1",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-control-2",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-tamper"
+   ],
+   "audit_logs": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-control-1.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-control-2.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-tamper.audit.jsonl"
+   ],
+   "class": "executed",
+   "executed": true,
+   "deterministic_controls": true,
+   "control": {
+    "exit": 0,
+    "normalized_stdout_sha256": "c80f75fce1eab7e6bf61c27dd48367fa716486998b77e2cb7d687a52528373c9",
+    "stderr_tail": "",
+    "target_events": {
+     "exec": 2,
+     "open": 2,
+     "compile": 1
+    }
+   },
+   "control_2_target_events": {
+    "exec": 2,
+    "open": 2,
+    "compile": 1
+   },
+   "tamper": {
+    "exit": 1,
+    "changed": true,
+    "corroboration": "compile of the tampered target failed",
+    "stderr_tail": "  File \"D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py\", line 11\r\n    from __future__ import annotations\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nSyntaxError: from __future__ imports must occur at the beginning of the file\r\n"
+   },
+   "binding": [
+    {
+     "pid": 33464,
+     "event": "run_file",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "open",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0787.fbt-probe"
+     ]
+    },
+    {
+     "pid": 33464,
+     "event": "exec",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "open",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\open-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0787.fbt-probe"
+     ]
+    }
+   ]
+  },
+  "reporter": {
+   "target": "labs/review-loop-convergence-pass02/report.py",
+   "nonce": "11809fae2b62",
+   "probe_argv": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-run\\app\\librarian.py",
+    "review-report",
+    "--book",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-run\\00.kernel\\00.00.10.work",
+    "--source",
+    "0587.fbt-probe",
+    "--pass",
+    "05.01"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-run",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-control-1",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-control-2",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-tamper"
+   ],
+   "audit_logs": [
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-control-1.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-control-2.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-tamper.audit.jsonl"
+   ],
+   "class": "executed",
+   "executed": true,
+   "deterministic_controls": true,
+   "control": {
+    "exit": 0,
+    "normalized_stdout_sha256": "95417d7569a7a589847fb238a6849b7fe627739e0715d49776b03b8b3b029079",
+    "stderr_tail": "",
+    "target_events": {
+     "exec": 1,
+     "open": 2,
+     "compile": 1
+    }
+   },
+   "control_2_target_events": {
+    "exec": 1,
+    "open": 2,
+    "compile": 1
+   },
+   "tamper": {
+    "exit": 2,
+    "changed": true,
+    "corroboration": "output changed",
+    "stderr_tail": "stop: reporter pin mismatch got 11478 bytes sha256 6eb047360aa3696d32006db3fd09dcc0ae78ce810ba1570d187591199716eef6 want 11434 bytes sha256 d17da33c4ea7a8b3ab65c16b0b339b4485010b3e938dfb8c42e2408652f6bc38\r\n"
+   },
+   "binding": [
+    {
+     "pid": 11212,
+     "event": "exec",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-run\\app\\librarian.py",
+      "review-report",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\fbt3-0518-01-proof\\reporter-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0587.fbt-probe"
+     ]
+    }
+   ]
+  }
+ },
+ "identity_refusal": null
+}

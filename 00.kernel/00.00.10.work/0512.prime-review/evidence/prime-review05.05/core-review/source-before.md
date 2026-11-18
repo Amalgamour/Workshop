@@ -1,0 +1,37 @@
+# 05.05 - Coherent report reads and accurately scoped artifact totals
+date: 2026-11-03
+who: Codex Prime
+executor: Grok-1
+reviewer: Codex Prime
+state: PREPARED; execute on named Director invocation; staged successor only
+
+## Goal / method
+Repair P1/P2 on 06.06 without changing the live core or historical renders. Verify evidence/pack05.05/source-manifest.json. Claim/notes in NEW 06.07.md; delta/contract before code. NEW labs/review-report-pass02 only; preserve pass01, its tests, active app/README/core/declarations and live records. Reproduce the two disclosed probes before repair and retain them as known failures, not independent new coverage. Reread and integrate notes after cases.
+
+## #01 - Selected observation coherence
+checked_record must reject a missing/wrong-type/different digest against the independently selected expected digest BEFORE exposing metadata, even when judgment and custody are unchanged. Do not merely validate a new record against a later journal and drop the original expected cut. Bind journal current id/digest/publication identity around the core inspect/read/recover sequence and checked metadata read. If any changes, preserve recoverable history but report unstable/held and withhold unverified fields; no automatic rebaseline, new-current selection, or retry loop.
+
+Keep book/source/pass instance identity, selected review id, record contents/hash and core observation consistent. A coherent change BEFORE a new observation can form a new explicitly measured cut; a change DURING one observation cannot be merged into the old result. Recheck before emitting the projection. Do not invent a lock/concurrency/power-loss guarantee; describe the bounded observation and its final-check limit. No core edit or new approval ledger to make this check easier. If the reviewed interface truly lacks enough evidence, expose the exact source-bound gap and propose the minimum later core change rather than assert proof you cannot establish.
+
+## #02 - Totals with explicit scope/provenance
+Stop calling every intake role an artifact. Distinguish, where the accepted source data actually supports them: manifest-declared artifact entries, current measured artifact-role rows, unique physical files/bytes, and full intake role rows/bytes. Include scope and measured/declared/historical/current provenance. If the total declared count cannot be derived from verified metadata, report unknown; do not estimate it from mixed missing-reference findings. A missing submission/verification is not automatically a missing payload. Same physical file in several roles is one unique file, but role accounting remains visible.
+
+Counters and displayed integrity results must refer to the same source cut as the report. Keep the selected historical judgment and current stale/intake state distinct. Changed/missing evidence remains visible, not regenerated. tests_passed is the supplied bounded assessment, with tests_note/limits adjacent; lack of structured claim/run provenance is not-recorded, never inferred from prose. Do not change judgment words, attention, Director quotations, holds or action authority to simplify the output.
+
+## #03 - Keep the reader view useful and bounded
+Preserve all pass01 substantive fields, exact Director attribution and separate J/P/C/W/R states. Provide a concise ordinary projection with complete attention/next action and clear drill-down to detailed fields, rather than calling one concatenated unbounded report a brief. Full details stay available from the SAME observation; no silent drop or artificial padding. Keep historical renders untouched and their selected formatter identities/pins intact. Proposed later integration remains a narrow staged delta only.
+
+## #04 - Focused regression and actual use
+Use retained external fixtures. Required: exact expected-digest mismatch with matching judgment/custody; changed journal current during read; changed publication identity while current id remains; changed record metadata during observation; the four-role/one-artifact counterexample; overlapping roles/aliases; missing submission versus missing artifact; null/unknown counts; selected historical review with stale current evidence. Add two NEW author hostile cases beyond these known reproductions and label provenance honestly. Preserve first failures and no-write checks. Do not rerun broad unrelated core suites.
+
+One real read-only report on 0522/05.13 must retain the bounded tests_note, six actual attention lines, accepted judgment, missing custody and unresolved authority. Demonstrate two new processes give the same result on unchanged inputs. Actual output may be stale if a legitimately changed source is detected; report that truthfully, never repin an old review. Also observe 0512/05.04's correction-required core record without treating it as a successful product test. No record/publish/approval call by this reporter. Verify all read source bytes unchanged.
+
+## Outputs / return
+Only NEW labs/review-report-pass02, NEW 06.07.md/evidence/build05.05, retained external fixtures and this pack Return pointer. No active core/app/README/renderer/declaration edits, sibling builder output reads, live review/record/custody/migration/archive/layout/root/authority, kernel/00.live/N3NN/current assignment, Git/network/install/model/bot/AR-01 or cleanup. Return Did/Blocked/Need, P1/P2 dispositions, exact CLI/pins/boundary, counters/provenance semantics, selected-state and historical-render integration delta, claim -> case/result/limit, raw first failures, Factfind/Hostile/Overflow/Unprompted and manifest excluding itself. Matching 0112 custody remains pending. Stop for Prime review; no activation.
+
+## Return pointer
+Submission: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.05/submission.md sha256 95c5cc4239a1698711f9f75d367a65018cc4961f60a6777855a2c80d51d57d2f, 10694 bytes.
+Artifact manifest: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.05/artifact-manifest.json sha256 7e52850f97f89f942b8478293e153ec1922687d5c32d38d1642be6dcafa053af, 4864 bytes. The manifest lists 21 files and excludes itself.
+
+## Review - Codex Prime
+PENDING.

@@ -1,0 +1,396 @@
+{
+ "cases": [
+  {
+   "id": "V1",
+   "says": "valid pack create: N/A tagged, empty list, null bool, non-ASCII; compute assigns #NN and path",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "v1-pack-create.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "V2",
+   "says": "valid pack revise names an item (semantic ref)",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-revise"
+   },
+   "input": "v2-pack-revise.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "V3",
+   "says": "valid person create: address resolves, empty description, null death date",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "v3-person-create.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "V4",
+   "says": "person not-applicable is distinct from null",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "v4-person-not-applicable.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "V5",
+   "says": "card read by name",
+   "op": "read",
+   "set": "pack",
+   "select": {
+    "name": "pack-card"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "V6",
+   "says": "schema checks the V1 artifact",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   },
+   "artifact_of": "V1"
+  },
+  {
+   "id": "V7",
+   "says": "selected revision 001 stays bound although a newer draft 002 exists",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "v1-pack-create.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   },
+   "bind": {
+    "revision": "001"
+   }
+  },
+  {
+   "id": "V8",
+   "says": "review binds the inspected candidate; the final artifact has its own identity",
+   "op": "review",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "r-review.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   },
+   "artifact_of": "V1"
+  },
+  {
+   "id": "N1",
+   "says": "typed field: prose for a boolean (0707/05.09 attempt 1)",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n1-typed.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "shape"
+   }
+  },
+  {
+   "id": "N2",
+   "says": "null where the field does not accept null",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n2-null.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "answer-not-accepted"
+   }
+  },
+  {
+   "id": "N3",
+   "says": "not applicable where not accepted",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n3-na-not-accepted.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "answer-not-accepted"
+   }
+  },
+  {
+   "id": "N4",
+   "says": "the 05.01 example bug: not-applicable written as a plain string",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n4-na-as-string.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "shape"
+   }
+  },
+  {
+   "id": "N5",
+   "says": "required field not supplied",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n5-required-missing.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "required-missing"
+   }
+  },
+  {
+   "id": "N6",
+   "says": "model supplies #NN",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n6-compute-owned.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "compute-owned"
+   }
+  },
+  {
+   "id": "N6b",
+   "says": "model supplies an output path",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n6b-output-path.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "compute-owned"
+   }
+  },
+  {
+   "id": "N7",
+   "says": "semantic reference that does not resolve",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "n7-unresolved.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "unresolved-reference"
+   }
+  },
+  {
+   "id": "N8",
+   "says": "unknown field (tests_passed)",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n8-unknown.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "unknown-field"
+   }
+  },
+  {
+   "id": "N9",
+   "says": "selection by kind with two templates",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "kind": "template"
+   },
+   "input": "v1-pack-create.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "select-ambiguous"
+   }
+  },
+  {
+   "id": "N10",
+   "says": "card selected to build",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-card"
+   },
+   "input": "v1-pack-create.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "kind"
+   }
+  },
+  {
+   "id": "N11",
+   "says": "bound form bytes changed",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "v1-pack-create.json",
+   "expect": {
+    "outcome": "stale",
+    "code": "binding-stale"
+   },
+   "bind": {
+    "revision": "001",
+    "form_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+   }
+  },
+  {
+   "id": "N12",
+   "says": "template adds a gate the source does not state",
+   "op": "build",
+   "set": "hostile",
+   "select": {
+    "name": "pack-create-gated"
+   },
+   "input": "n12-gated.json",
+   "expect": {
+    "outcome": "held",
+    "code": "form-adds-condition"
+   }
+  },
+  {
+   "id": "N13",
+   "says": "required meaning with no ground",
+   "op": "build",
+   "set": "hostile",
+   "select": {
+    "name": "pack-create-ungrounded"
+   },
+   "input": "n13-ungrounded.json",
+   "expect": {
+    "outcome": "held",
+    "code": "no-ground"
+   }
+  },
+  {
+   "id": "N14",
+   "says": "input in platform encoding cp1252 (0707/05.09 attempt 2)",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "n14-cp1252.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "encoding"
+   }
+  },
+  {
+   "id": "N15",
+   "says": "person input copies the pack #NN habit",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "n15-person-nn.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "unknown-field"
+   }
+  },
+  {
+   "id": "N16",
+   "says": "review after the candidate changed",
+   "op": "review",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "r-review.json",
+   "expect": {
+    "outcome": "stale",
+    "code": "review-target-changed"
+   },
+   "artifact_of": "V1",
+   "change_before_review": true
+  },
+  {
+   "id": "N17",
+   "says": "selected revision that does not exist",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "v1-pack-create.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "binding-missing"
+   },
+   "bind": {
+    "revision": "009"
+   }
+  },
+  {
+   "id": "N18",
+   "says": "selection names no form",
+   "op": "read",
+   "set": "pack",
+   "select": {
+    "name": "pack-template"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "select-none"
+   }
+  }
+ ]
+}

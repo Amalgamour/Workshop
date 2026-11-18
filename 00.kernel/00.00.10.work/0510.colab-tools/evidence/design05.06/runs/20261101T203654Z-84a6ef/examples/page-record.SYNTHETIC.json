@@ -1,0 +1,72 @@
+{
+  "book": "00.00.10.work",
+  "page": "0799.synthetic-reserved",
+  "passes": {
+    "05.01": {
+      "package": {
+        "digest": "7cc0d34b82534f4addd1b07692bf6fc6f985e41f1887efe438abcbaf7ef818cb"
+      },
+      "return": {
+        "declared_transport": "SYNTHETIC: pasted by Prime from the reviewer's chat",
+        "package_digest": "7cc0d34b82534f4addd1b07692bf6fc6f985e41f1887efe438abcbaf7ef818cb",
+        "return_bytes": 539,
+        "return_sha256": "a52e3ab9cca9ccd41749c6a7182bf5aca6e635d4aafbfb80c670de2bdda4988f",
+        "schema": "colab-exchange-local-return/1"
+      },
+      "review": {
+        "next_pass": "05.02",
+        "route": "request-next",
+        "sha256": "9919564aa611b33f28b175e396635e3d8a83aa2c64d8a91083ccb9ad459b50b2"
+      }
+    },
+    "05.02": {
+      "package": null,
+      "return": null,
+      "review": null
+    }
+  },
+  "transitions": [
+    {
+      "action": "open",
+      "pass": "05.01",
+      "prev": null,
+      "seq": 1,
+      "sha256": "fbd7b979ffcead462ae8829d90b2772cb3231fa9353b72523cd421e79f82530c"
+    },
+    {
+      "action": "attach",
+      "digest": "7cc0d34b82534f4addd1b07692bf6fc6f985e41f1887efe438abcbaf7ef818cb",
+      "pass": "05.01",
+      "prev": "fbd7b979ffcead462ae8829d90b2772cb3231fa9353b72523cd421e79f82530c",
+      "seq": 2,
+      "sha256": "5f49d5cb525c9e662bb77371693ff709e5ee8bd1876472f116cedc2e6f682340"
+    },
+    {
+      "action": "seal-return",
+      "pass": "05.01",
+      "prev": "5f49d5cb525c9e662bb77371693ff709e5ee8bd1876472f116cedc2e6f682340",
+      "return_bytes": 539,
+      "return_sha256": "a52e3ab9cca9ccd41749c6a7182bf5aca6e635d4aafbfb80c670de2bdda4988f",
+      "seq": 3,
+      "sha256": "49d61d59314f2d32d2c899c977409e56025d85099ba9b4dd8fc5cb84749e8905"
+    },
+    {
+      "action": "review",
+      "next_pass": "05.02",
+      "pass": "05.01",
+      "prev": "49d61d59314f2d32d2c899c977409e56025d85099ba9b4dd8fc5cb84749e8905",
+      "review_sha256": "9919564aa611b33f28b175e396635e3d8a83aa2c64d8a91083ccb9ad459b50b2",
+      "route": "request-next",
+      "seq": 4,
+      "sha256": "7e5f98196022748ea15ffe6e3fd852f3f9c6f884c9efdcf37533ff59590c7a02"
+    },
+    {
+      "action": "open-pass",
+      "pass": "05.02",
+      "prev": "7e5f98196022748ea15ffe6e3fd852f3f9c6f884c9efdcf37533ff59590c7a02",
+      "requested_by_seq": 4,
+      "seq": 5,
+      "sha256": "f12da906a4a1aad5cc7bb67c43baa68e039c40defb195c84156f8877571eddfd"
+    }
+  ]
+}

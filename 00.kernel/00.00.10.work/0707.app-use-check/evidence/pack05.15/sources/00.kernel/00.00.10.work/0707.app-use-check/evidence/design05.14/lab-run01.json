@@ -1,0 +1,247 @@
+{
+ "schema": "task-agreement-lab-results/1",
+ "root": "D:\\librarian\\temp\\task-agreement-0714\\20261103T-run01",
+ "cases": 16,
+ "failed": 4,
+ "first_failure": "T01",
+ "rows": [
+  {
+   "id": "T06",
+   "says": "H1 hostile: a heading that appears only inside a code fence is not a target; a real one beside a fenced twin resolves once",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "fenced_only_exit": 2,
+    "fenced_only_stderr": "stop: scope: heading 'Hidden' occurs 0 times outside code fences in 0599.fixture-task/06.03.notes.md (count 0); it must occur exactly once",
+    "real_twin_exit": 0
+   }
+  },
+  {
+   "id": "T10",
+   "says": "H2 hostile: cited cut unchanged but a revocation added elsewhere in the same record -> context-changed, not current",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "bind_exit": 0,
+    "compare_exit": 1,
+    "verbatim_status": [
+     "context-changed"
+    ],
+    "no_write": true
+   }
+  },
+  {
+   "id": "T01",
+   "says": "ordinary task: construct -> assemble -> bind -> inspect -> new-process compare; late Return-pointer write keeps the pack cut; CRLF bytes kept",
+   "label": "author lab test",
+   "status": "ERROR",
+   "check_ran": false,
+   "detail": {
+    "exception": "KeyError: 'refs'"
+   }
+  },
+  {
+   "id": "T02",
+   "says": "hold/reply/successor: the decision answers only the cited question; no release field exists in the binding",
+   "label": "author lab test",
+   "status": "ERROR",
+   "check_ran": false,
+   "detail": {
+    "exception": "KeyError: 'decisions'"
+   }
+  },
+  {
+   "id": "T03",
+   "says": "block absent -> block-absent and all unknown; with an explicitly selected exact-heading profile -> profile provenance",
+   "label": "author lab test",
+   "status": "FAIL",
+   "check_ran": true,
+   "detail": {
+    "no_profile": {
+     "goal": "unknown",
+     "scope": "unknown",
+     "finish_criteria": "unknown",
+     "prime_discretion": "unknown",
+     "director_required": "unknown",
+     "recorded_decisions": "unknown"
+    },
+    "profile": {
+     "goal": [
+      "cited",
+      null
+     ],
+     "scope": [
+      "cited",
+      null
+     ],
+     "finish_criteria": [
+      "cited",
+      null
+     ],
+     "prime_discretion": [
+      "unknown",
+      null
+     ],
+     "director_required": [
+      "unknown",
+      null
+     ],
+     "recorded_decisions": [
+      "unknown",
+      null
+     ]
+    }
+   }
+  },
+  {
+   "id": "T04",
+   "says": "old record missing: that decision is unresolved with help; other fields still bind",
+   "label": "author lab test",
+   "status": "FAIL",
+   "check_ran": true,
+   "detail": {
+    "exit": 1,
+    "decisions_status": "unresolved",
+    "goal": "resolved"
+   }
+  },
+  {
+   "id": "T05",
+   "says": "duplicate heading in a cited record -> refused at construct with the count",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: prime_discretion: heading 'Local work agreement' occurs 2 times outside code fences in 0412x.standing/01.md (count 2); it must occur exactly once"
+   }
+  },
+  {
+   "id": "T07",
+   "says": "invalid shape (not-applicable without reason; sha256 key in choices) and invalid UTF-8 pack are refused",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "na_without_reason": 2,
+    "hash_in_choices": 2,
+    "bad_utf8": 2
+   }
+  },
+  {
+   "id": "T08",
+   "says": "path escape refused; link refused where the OS allows creating one (otherwise SKIP declared)",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "escape_exit": 2,
+    "link": "SKIP: cannot create symlink here (OSError)",
+    "note": "contains a declared environment skip"
+   }
+  },
+  {
+   "id": "T09",
+   "says": "changed selected cut -> cut-changed for that field only",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 1,
+    "statuses": {
+     "goal": "current",
+     "scope": "current",
+     "finish_criteria": "current",
+     "prime_discretion": "cut-changed",
+     "director_required": "current",
+     "recorded_decisions": "current"
+    }
+   }
+  },
+  {
+   "id": "T11",
+   "says": "equal short address in another book instance -> instance-mismatch refusal",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: book instance differs from the binding's; the same short address in another book is a different source (instance-mismatch)"
+   }
+  },
+  {
+   "id": "T12",
+   "says": "declared identity conflict (block 'for' names another pass) is structural; a supplied semantic conflict is stored attributed, not computed",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "identity_conflict_exit": 2,
+    "semantic_findings": [
+     {
+      "between": [
+       "scope",
+       "recorded_decisions[0]"
+      ],
+      "finding": "SYNTHETIC: scope excludes app edits; decision mentions none",
+      "by": "Codex Prime (SYNTHETIC)",
+      "source": "supplied",
+      "computed": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "T13",
+   "says": "a new revision (05.03) does not replace the selected 05.02 binding; there is no 'latest' selection",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "compare_exit": 0,
+    "bound_pass": "05.02",
+    "latest_exit": 2
+   }
+  },
+  {
+   "id": "T14",
+   "says": "verbatim == interpretation pairing refused; unresolvable answers cut refused",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "same_pairing_exit": 2,
+    "bad_answers_exit": 2
+   }
+  },
+  {
+   "id": "T15",
+   "says": "occupied output -> refusal, the existing file unchanged",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "exit": 2
+   }
+  },
+  {
+   "id": "T16",
+   "says": "inspect and compare write nothing; none-recorded needs a reason and is reported as declared, not as proof",
+   "label": "author lab test",
+   "status": "PASS",
+   "check_ran": true,
+   "detail": {
+    "no_write": true,
+    "none_recorded": {
+     "state": "none-recorded",
+     "provenance": "block",
+     "reason": "SYNTHETIC: no Director decision applies to this routine pass",
+     "status": "declared",
+     "limit": "Prime declares that no recorded Director decision applies; not proof that none exists anywhere"
+    }
+   }
+  }
+ ]
+}

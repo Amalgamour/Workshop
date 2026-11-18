@@ -1,0 +1,446 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "review-loop-door",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "app/review_loop_tools_v2.py",
+  "name": "review_loop_tools_v2",
+  "purpose": "Pinned front door for describe-legacy, prepare, record, render, read, and recover.",
+  "interface": [
+   "describe-legacy",
+   "prepare",
+   "record",
+   "render",
+   "read",
+   "recover"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "reproduce and run are refused before the loop starts",
+   "the door launches only review_loop.py"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+  "bytes": 11126,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "app/review_loop_tools_v2.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "describe-legacy",
+   "prepare",
+   "record",
+   "render",
+   "read",
+   "recover"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "declaration",
+   "kind": "runtime-resource",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "app/review-loop-v2.json"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "load_declaration reads review-loop-v2.json and compares parsed fields with TOOLS. It does not hash the file bytes. Whitespace that still parses to the same fields would pass. Observed file bytes at this cut: sha256 1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3, 1892 bytes. Observation only.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "20-22, 129-164"
+   }
+  },
+  {
+   "id": "review-loop",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-loop-pass02/review_loop.py"
+    }
+   },
+   "pin": {
+    "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "bytes": 47189
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools hash-checks review_loop, then perform launches it with sys.executable -B and the forwarded arguments. shell is false.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "64-68, 167-187, 280-292"
+   }
+  },
+  {
+   "id": "construct",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-construction-pass02/construct.py"
+    }
+   },
+   "pin": {
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "bytes": 36188
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if construct bytes differ. The door does not launch construct.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "29-33, 185-187"
+   }
+  },
+  {
+   "id": "prime-cycle",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py"
+    }
+   },
+   "pin": {
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "bytes": 76045
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if the pass03 cycle bytes differ. The door does not launch the cycle.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "34-38, 185-187"
+   }
+  },
+  {
+   "id": "prime-review-01",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass01/prime_review.py"
+    }
+   },
+   "pin": {
+    "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "bytes": 58324
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if prime_review pass01 bytes differ. The door does not launch it.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "39-43, 185-187"
+   }
+  },
+  {
+   "id": "prime-review-02",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass02/prime_review.py"
+    }
+   },
+   "pin": {
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "bytes": 58560
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if prime_review pass02 bytes differ. The door does not launch it.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "44-48, 185-187"
+   }
+  },
+  {
+   "id": "return-inspect",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_inspect.py"
+    }
+   },
+   "pin": {
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "bytes": 11402
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if return_inspect bytes differ. The door does not launch it.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "49-53, 185-187"
+   }
+  },
+  {
+   "id": "return-lines",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-lines-pass01/return_lines.py"
+    }
+   },
+   "pin": {
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "bytes": 100897
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if return_lines bytes differ. The door does not launch it.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "54-58, 185-187"
+   }
+  },
+  {
+   "id": "return-placement",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-placement-pass01/return_placement.py"
+    }
+   },
+   "pin": {
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "bytes": 66097
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_tools refuses before launch if return_placement bytes differ. The door does not launch it.",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "59-63, 185-187"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "286-292"
+   }
+  },
+  {
+   "id": "checkout-root",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "checkout-root",
+     "detail": "The source binds the checkout to the literal path D:\\Git\\lib-build. A matching file digest does not show that this path is present or correct on another machine."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "a fixed checkout path in source; not probed",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "24-25, 206-210"
+   }
+  },
+  {
+   "id": "fixture-root",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "fixture-root",
+     "detail": "prepare, record, render, read, and recover take an absolute disposable fixture root outside D:\\Git\\lib-build and outside the live work book. The root is caller-chosen. Its bytes are not a module pin."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "read",
+   "condition": {
+    "applies": "conditional",
+    "id": "fixture-mutation",
+    "statement": "prepare, record, render, read, or recover",
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "mutation commands refuse a fixture root inside the checkout or the live work book",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "205-211, 271-277"
+   }
+  },
+  {
+   "id": "caller-book",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "caller-book",
+     "detail": "describe-legacy takes an absolute --book directory and reads it. The book is caller-chosen. The live work book is one possible input. It is not pinned by this command."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "read",
+   "condition": {
+    "applies": "conditional",
+    "id": "describe-legacy",
+    "statement": "describe-legacy reads the caller book and writes nothing",
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the book path is an argument, not a pinned module",
+   "source_ref": {
+    "path": "app/review_loop_tools_v2.py",
+    "lines": "267-270"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.05",
+     "file": "05.05.md"
+    },
+    "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.05",
+     "file": "evidence/prime-review05.05/REVIEW.md"
+    },
+    "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+    "commit": null,
+    "status": "pinned",
+    "note": "Prime review of the app entry; bounded development use, not acceptance of this graph"
+   }
+  ],
+  "unknown": [
+   "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+   "return_capture.py is not a door pin. The reachable readers name it themselves."
+  ]
+ },
+ "supersedes": null
+}

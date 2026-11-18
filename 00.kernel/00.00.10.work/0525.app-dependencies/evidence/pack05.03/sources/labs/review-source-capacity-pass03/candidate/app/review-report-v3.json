@@ -1,0 +1,107 @@
+{
+  "_note": "Versioned hardening connector for the guarded pass03 observation. Pins the candidate dispatcher, the historical dependency cut, and the hardening runtime. Exit 0 is not a release. A hash validates these bytes and does not select the app command.",
+  "schema": "review-report-command/2",
+  "tools": {
+    "app/librarian.py": {
+      "bytes": 12804,
+      "sha256": "f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983"
+    },
+    "app/review-loop-v4.json": {
+      "bytes": 2519,
+      "sha256": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723"
+    },
+    "app/review-loop-v5.json": {
+      "bytes": 1964,
+      "sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3"
+    },
+    "app/review-loop-v6.json": {
+      "bytes": 2743,
+      "sha256": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa"
+    },
+    "app/review-loop-v7.json": {
+      "bytes": 3515,
+      "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+    },
+    "app/review_loop_tools_v4.py": {
+      "bytes": 13381,
+      "sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296"
+    },
+    "app/review_loop_tools_v5.py": {
+      "bytes": 7875,
+      "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9"
+    },
+    "app/review_loop_tools_v6.py": {
+      "bytes": 9175,
+      "sha256": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94"
+    },
+    "app/review_loop_tools_v7.py": {
+      "bytes": 10291,
+      "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+    },
+    "labs/prime-cycle-pass03/prime_cycle.py": {
+      "bytes": 76045,
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    "labs/prime-review-pass02/prime_review.py": {
+      "bytes": 58560,
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "labs/return-access-pass01/return_access.py": {
+      "bytes": 26561,
+      "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5"
+    },
+    "labs/review-construction-pass04/construct.py": {
+      "bytes": 42582,
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "labs/review-loop-pass03/review_loop.py": {
+      "bytes": 55474,
+      "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+    },
+    "labs/review-report-deployment-pass01/report.py": {
+      "bytes": 6294,
+      "sha256": "0f7def8d353506b93c71d130d740cd1262717ce493a868fc356e09ab925f7506"
+    },
+    "labs/review-report-hardening-pass01/report.py": {
+      "bytes": 18139,
+      "sha256": "27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b"
+    },
+    "labs/review-report-pass01/report.py": {
+      "bytes": 42127,
+      "sha256": "72e9bda15c5f3ca844350be5dae2fcfcf4e7c609c262b8f7e702d64467eb94cc"
+    },
+    "labs/review-report-pass02/report.py": {
+      "bytes": 38323,
+      "sha256": "d13d8d4f54d79cbdb22e1a40fdffb89bd26b85a611bf8620dc36854be9eb852e"
+    },
+    "labs/review-report-pass03/report.py": {
+      "bytes": 8091,
+      "sha256": "70028dfe97bc6178a3497c814cf585476bb0b41650ce67fc79dd3d5b118dfade"
+    },
+    "labs/workbook-review-pass01/forms/workbook-review-v1.json": {
+      "bytes": 4532,
+      "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+    },
+    "labs/workbook-review-pass01/workbook.py": {
+      "bytes": 79131,
+      "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+    },
+    "labs/workbook-review-pass02/forms/workbook-review-v1.json": {
+      "bytes": 4532,
+      "sha256": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645"
+    },
+    "labs/workbook-review-pass02/workbook.py": {
+      "bytes": 52574,
+      "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+    },
+    "labs/workbook-review-pass03/forms/workbook-review-v1.json": {
+      "bytes": 4532,
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "labs/workbook-review-pass03/workbook.py": {
+      "bytes": 19533,
+      "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+    }
+  },
+  "version": 3
+}

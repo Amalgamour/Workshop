@@ -1,0 +1,151 @@
+{
+  "all_ok": true,
+  "nonproduction": true,
+  "rows": [
+    {
+      "case": "pending (05.01 A before render)",
+      "expect": "pending",
+      "fn": "classify_target",
+      "observed": "pending",
+      "ok": true,
+      "rule": null
+    },
+    {
+      "case": "substantive 0519 snapshot (05.01 E)",
+      "expect": "existing-review",
+      "fn": "classify_target",
+      "observed": "existing-review",
+      "ok": true,
+      "rule": "existing review conflicts; a successor process is required and this review was not overwritten"
+    },
+    {
+      "case": "rendered A, same binding",
+      "expect": "constructed-same-binding",
+      "fn": "classify_target",
+      "observed": "constructed-same-binding",
+      "ok": true,
+      "rule": "a constructed review for this task binding is present; render is idempotent only if the body is identical"
+    },
+    {
+      "case": "rendered A, other binding",
+      "expect": "existing-review",
+      "fn": "classify_target",
+      "observed": "existing-review",
+      "ok": true,
+      "rule": "existing review conflicts; a successor process is required and this review was not overwritten"
+    },
+    {
+      "case": "no heading",
+      "expect": "unsupported",
+      "fn": "classify_target",
+      "observed": "unsupported",
+      "ok": true,
+      "rule": "missing review heading"
+    },
+    {
+      "case": "duplicate heading",
+      "expect": "unsupported",
+      "fn": "classify_target",
+      "observed": "unsupported",
+      "ok": true,
+      "rule": "duplicate review heading"
+    },
+    {
+      "case": "absent",
+      "expect": "absent",
+      "fn": "classify_target",
+      "observed": "absent",
+      "ok": true,
+      "rule": "target file is absent; this entry does not create targets (permit_create false)"
+    },
+    {
+      "case": "PENDING without dot, CRLF",
+      "expect": "pending",
+      "fn": "classify_target",
+      "observed": "pending",
+      "ok": true,
+      "rule": null
+    },
+    {
+      "case": "05.01 B before recover",
+      "current_next_field": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "expect": [
+        "render-interrupted",
+        "recover"
+      ],
+      "fn": "mechanical_state",
+      "mechanical_text_differs_from_supplied": true,
+      "observed": [
+        "render-interrupted",
+        "recover"
+      ],
+      "ok": true,
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    {
+      "case": "05.01 D after stale refusal",
+      "current_next_field": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "expect": [
+        "target-changed-since-record",
+        "none-in-this-entry"
+      ],
+      "fn": "mechanical_state",
+      "mechanical_text_differs_from_supplied": true,
+      "observed": [
+        "target-changed-since-record",
+        "none-in-this-entry"
+      ],
+      "ok": true,
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    {
+      "case": "05.01 E conflict",
+      "current_next_field": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "expect": [
+        "existing-review-conflict",
+        "none-in-this-entry"
+      ],
+      "fn": "mechanical_state",
+      "mechanical_text_differs_from_supplied": true,
+      "observed": [
+        "existing-review-conflict",
+        "none-in-this-entry"
+      ],
+      "ok": true,
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    {
+      "case": "05.01 A reviewed",
+      "current_next_field": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "expect": [
+        null,
+        null
+      ],
+      "fn": "mechanical_state",
+      "mechanical_text_differs_from_supplied": true,
+      "observed": [
+        null,
+        null
+      ],
+      "ok": true,
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    {
+      "case": "05.02 P2 pending prepare",
+      "current_next_field": "supply a typed judgment and supplied_record, then record",
+      "expect": [
+        null,
+        "record"
+      ],
+      "fn": "mechanical_state",
+      "mechanical_text_differs_from_supplied": true,
+      "observed": [
+        null,
+        "record"
+      ],
+      "ok": true,
+      "supplied_next_action": null
+    }
+  ],
+  "schema": "0707-proto-check/1"
+}

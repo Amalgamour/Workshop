@@ -1,0 +1,2409 @@
+{
+ "command": "impacted",
+ "consumers": [
+  {
+   "against_implementation": "pin-matches",
+   "condition": {
+    "applies": "conditional",
+    "id": "reader-reason",
+    "statement": "verify's legacy relocation branch calls reader_reason, which loads return_capture",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v2.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "647d15b65b9c65b283bc591606fc578a4de3dd2367716c87d05ea87ee5f52440",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 1,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ],
+   "pin": {
+    "bytes": 45767,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "05.03.md",
+       "page": "0521.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names building labs/return-lines-pass01",
+      "role": "assignment",
+      "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "06.01",
+       "file": "06.01.md",
+       "page": "0417.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "return_lines.py tells the caller to read this note and not invent a route",
+      "role": "source-stated",
+      "sha256": "6c6d2272b692dc983f16f93f5491349bc4f99d4c14b3efbdfd583846b9f5e6ce",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/return-lines-pass01/return_lines.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "The current bytes are not the HEAD blob. 05.03 is the assignment that names this lab. Later edits were not given their own page here."
+    ]
+   },
+   "requirement_id": "return-capture",
+   "requires": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "pin-matches",
+   "condition": {
+    "applies": "conditional",
+    "id": "custody-reader",
+    "statement": "_assess_custody calls _reader; the route command used by describe-legacy and the cycle does not",
+    "status": "inapplicable"
+   },
+   "consumer": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/return-placement-pass01/return_placement.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "return-placement-pass01",
+    "file": "declarations/return-placement-pass01.v2.json",
+    "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "record_sha256": "487a679935696f39f229035afa8575a8de5a4cf5a80a9985e781a3dad7716737",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 1,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py"
+   ],
+   "pin": {
+    "bytes": 45767,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.01",
+       "file": "05.01.md",
+       "page": "0521.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names building labs/return-placement-pass01",
+      "role": "assignment",
+      "sha256": "05b2eab7cddff21601eceabfeb02c223b0c7b2319bb81c0942751b90fe3bbec6",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "01",
+       "file": "01.md",
+       "page": "0417.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "routing design for matching N5NN lines; current placement bytes are a later working tree",
+      "role": "design",
+      "sha256": "dede7330a822c9dde172b7a355ed8d4dfb8b06d9e5e5fa55d042f1a3d66d2b04",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/return-placement-pass01/return_placement.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "05.02 of 0521 also names edits in this lab. The current working-tree bytes were not tied to one of those passes alone."
+    ]
+   },
+   "requirement_id": "return-capture",
+   "requires": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "pin-matches",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "consumer_declaration": {
+    "basis": {
+     "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+     "kind": "git-blob",
+     "path": "labs/return-capture-pass01/return_inspect.py",
+     "repository": "lib-build",
+     "verification": "supplied-unverified"
+    },
+    "declaration_id": "return-inspect-pass01",
+    "file": "declarations/return-inspect-pass01.v2.json",
+    "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "record_sha256": "8f9e8cf286e0e71a2719f99d5376deb88854f8e910018b2d65437986f9fd457d",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 1,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py"
+   ],
+   "pin": {
+    "bytes": null,
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   },
+   "pin_form": "digest-only",
+   "pin_vs_declarations": "digest-matches",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0508.return-capture",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names the new return_inspect.py",
+      "role": "assignment",
+      "sha256": "fc7047576589c56332fa0765159a4c575b081eaeb4f5e9a9fbbfe0acdaf3c5af",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Builder measurement on 2026-11-01: git hash-object of the working tree equals HEAD:labs/return-capture-pass01/return_inspect.py. The blob is at HEAD 960d20c5290656095df8457b1740d2d5e586b111. module-declaration/2 records that commit as a supplied reference with verification supplied-unverified. This reader does not fetch Git and does not authenticate the blob.",
+     "0508/05.05 is a later correction on the same page family. It was not re-derived against these bytes. The bytes do match HEAD."
+    ]
+   },
+   "requirement_id": "return-capture",
+   "requires": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-lines-pass01/return_lines.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review_loop_tools_v2.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v2.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is not a door pin. The reachable readers name it themselves."
+    ]
+   },
+   "requirement_id": "return-lines",
+   "requires": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-lines-pass01/return_lines.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review-loop-v2.json",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review-loop-v2.json",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-declaration",
+    "file": "declarations/review-loop-declaration.v2.json",
+    "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "record_sha256": "c10cc473ab4103d8edb0913e95f6eb338e0948712310e4e29928f29071ec237c",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review-loop-v2.json, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is absent from this declaration. Absence here is not absence of a dependency."
+    ]
+   },
+   "requirement_id": "return-lines",
+   "requires": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-lines-pass01/return_lines.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "return-lines-pin",
+   "requires": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-lines-pass01/return_lines.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v2.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "This record does not follow cycle commands the review-loop entry does not call."
+    ]
+   },
+   "requirement_id": "return-lines-pin",
+   "requires": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-lines-pass01/return_lines.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "new-format-verify",
+    "statement": "observe_descriptor launches return_lines verify for a non-legacy custody format",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v2.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 100897,
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "This record does not follow cycle commands the review-loop entry does not call."
+    ]
+   },
+   "requirement_id": "return-lines",
+   "requires": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review_loop_tools_v2.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v2.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is not a door pin. The reachable readers name it themselves."
+    ]
+   },
+   "requirement_id": "return-placement",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review-loop-v2.json",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review-loop-v2.json",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-declaration",
+    "file": "declarations/review-loop-declaration.v2.json",
+    "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "record_sha256": "c10cc473ab4103d8edb0913e95f6eb338e0948712310e4e29928f29071ec237c",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review-loop-v2.json, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is absent from this declaration. Absence here is not absence of a dependency."
+    ]
+   },
+   "requirement_id": "return-placement",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "return-placement-pin",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "legacy-origin",
+    "statement": "describe-legacy launches return_placement route when reservation origin has book, page, and batch",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "return-placement",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v2.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "This record does not follow cycle commands the review-loop entry does not call."
+    ]
+   },
+   "requirement_id": "return-placement-pin",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "legacy-route",
+    "statement": "observe_legacy_in_place launches return_placement route after an origin is present",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v2.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "This record does not follow cycle commands the review-loop entry does not call."
+    ]
+   },
+   "requirement_id": "return-placement",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-placement-pass01/return_placement.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "route-for",
+    "statement": "verify calls route_for, which loads return_placement and calls compute_route",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/return-lines-pass01/return_lines.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "return-lines-pass01",
+    "file": "declarations/return-lines-pass01.v2.json",
+    "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "record_sha256": "647d15b65b9c65b283bc591606fc578a4de3dd2367716c87d05ea87ee5f52440",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-placement-pass01/return_placement.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py"
+   ],
+   "pin": {
+    "bytes": 66097,
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "05.03.md",
+       "page": "0521.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that names building labs/return-lines-pass01",
+      "role": "assignment",
+      "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "06.01",
+       "file": "06.01.md",
+       "page": "0417.return-placement",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "return_lines.py tells the caller to read this note and not invent a route",
+      "role": "source-stated",
+      "sha256": "6c6d2272b692dc983f16f93f5491349bc4f99d4c14b3efbdfd583846b9f5e6ce",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/return-lines-pass01/return_lines.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "The current bytes are not the HEAD blob. 05.03 is the assignment that names this lab. Later edits were not given their own page here."
+    ]
+   },
+   "requirement_id": "return-placement",
+   "requires": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-capture-pass01/return_inspect.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review_loop_tools_v2.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v2.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is not a door pin. The reachable readers name it themselves."
+    ]
+   },
+   "requirement_id": "return-inspect",
+   "requires": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-capture-pass01/return_inspect.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review-loop-v2.json",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review-loop-v2.json",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-declaration",
+    "file": "declarations/review-loop-declaration.v2.json",
+    "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "record_sha256": "c10cc473ab4103d8edb0913e95f6eb338e0948712310e4e29928f29071ec237c",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review-loop-v2.json, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is absent from this declaration. Absence here is not absence of a dependency."
+    ]
+   },
+   "requirement_id": "return-inspect",
+   "requires": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-capture-pass01/return_inspect.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "return-inspect-pin",
+   "requires": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-capture-pass01/return_inspect.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "describe-legacy",
+    "statement": "describe-legacy launches return_inspect inspect",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "return-inspect",
+   "requires": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-capture-pass01/return_inspect.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v2.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "This record does not follow cycle commands the review-loop entry does not call."
+    ]
+   },
+   "requirement_id": "return-inspect-pin",
+   "requires": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/return-capture-pass01/return_inspect.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "legacy-in-place",
+    "statement": "observe_legacy_in_place launches return_inspect inspect",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/prime-cycle-pass03/prime_cycle.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "prime-cycle-pass03",
+    "file": "declarations/prime-cycle-pass03.v2.json",
+    "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "record_sha256": "450245d0776908153c4b8f294bd0662601a0bae2d9379ff24ca2e98f52b33964",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 2,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-capture-pass01/return_inspect.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py"
+   ],
+   "pin": {
+    "bytes": 11402,
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "This record does not follow cycle commands the review-loop entry does not call."
+    ]
+   },
+   "requirement_id": "return-inspect",
+   "requires": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:app/review_loop_tools_v2.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/librarian.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/librarian.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "librarian-review-loop",
+    "file": "declarations/librarian-review-loop.v2.json",
+    "implementation_sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b",
+    "record_sha256": "be5d79af6faf14ac18560faeaf42ae7481e384b24f58168e114189fba29a9a9f",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-code",
+   "mechanism": "dynamic-import",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:app/review_loop_tools_v2.py",
+    "lib-build:app/librarian.py"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/librarian.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "The old facade app/review_loop_tools.py is not loaded for review-loop."
+    ]
+   },
+   "requirement_id": "review-loop-door",
+   "requires": "lib-build:app/review_loop_tools_v2.py",
+   "revisit": null
+  },
+  {
+   "against_implementation": "transitive: via lib-build:app/review-loop-v2.json",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review_loop_tools_v2.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v2.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:app/review-loop-v2.json",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is not a door pin. The reachable readers name it themselves."
+    ]
+   },
+   "requirement_id": "declaration",
+   "requires": "lib-build:app/review-loop-v2.json",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/review-loop-pass02/review_loop.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review_loop_tools_v2.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v2.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 47189,
+    "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is not a door pin. The reachable readers name it themselves."
+    ]
+   },
+   "requirement_id": "review-loop",
+   "requires": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/review-loop-pass02/review_loop.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review-loop-v2.json",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review-loop-v2.json",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-declaration",
+    "file": "declarations/review-loop-declaration.v2.json",
+    "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "record_sha256": "c10cc473ab4103d8edb0913e95f6eb338e0948712310e4e29928f29071ec237c",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review-loop-v2.json, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is absent from this declaration. Absence here is not absence of a dependency."
+    ]
+   },
+   "requirement_id": "review-loop",
+   "requires": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review_loop_tools_v2.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review_loop_tools_v2.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-door",
+    "file": "declarations/review-loop-door.v2.json",
+    "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "record_sha256": "c04c4a75bb606b2807ef0131bcb163b80113b98510503f1e5503111f4560ef66",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+    "lib-build:app/review_loop_tools_v2.py"
+   ],
+   "pin": {
+    "bytes": 76045,
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review_loop_tools_v2.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is not a door pin. The reachable readers name it themselves."
+    ]
+   },
+   "requirement_id": "prime-cycle",
+   "requires": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:app/review-loop-v2.json",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "app/review-loop-v2.json",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-declaration",
+    "file": "declarations/review-loop-declaration.v2.json",
+    "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "record_sha256": "c10cc473ab4103d8edb0913e95f6eb338e0948712310e4e29928f29071ec237c",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-resource",
+   "mechanism": "document",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+    "lib-build:app/review-loop-v2.json"
+   ],
+   "pin": null,
+   "pin_form": "unpinned",
+   "pin_vs_declarations": "unpinned",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "05.05.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration",
+      "role": "assignment",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.05",
+       "file": "evidence/prime-review05.05/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the app entry; bounded development use, not acceptance of this graph",
+      "role": "review",
+      "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/review-loop-v2.json, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "return_capture.py is absent from this declaration. Absence here is not absence of a dependency."
+    ]
+   },
+   "requirement_id": "prime-cycle",
+   "requires": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-code",
+   "mechanism": "hash-check",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 76045,
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "prime-cycle-pin",
+   "requires": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "revisit": "shared"
+  },
+  {
+   "against_implementation": "transitive: via lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "condition": {
+    "applies": "conditional",
+    "id": "cycle-commands",
+    "statement": "prepare, record, render, read, and recover call the cycle",
+    "status": "applicable"
+   },
+   "consumer": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "consumer_declaration": {
+    "basis": {
+     "context_head": "960d20c5290656095df8457b1740d2d5e586b111",
+     "form": "working-tree",
+     "kind": "observed-file",
+     "path": "labs/review-loop-pass02/review_loop.py",
+     "repository": "lib-build"
+    },
+    "declaration_id": "review-loop-pass02",
+    "file": "declarations/review-loop-pass02.v2.json",
+    "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "record_sha256": "144a8b84b0e2308476917cfb3ecc35e97ff5193047ea5a3978c25e9c57918e91",
+    "schema": "module-declaration/2",
+    "status": "prototype",
+    "version": 2
+   },
+   "depth": 3,
+   "kind": "runtime-code",
+   "mechanism": "subprocess",
+   "path": [
+    "lib-build:labs/return-capture-pass01/return_capture.py",
+    "lib-build:labs/return-lines-pass01/return_lines.py",
+    "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+    "lib-build:labs/review-loop-pass02/review_loop.py"
+   ],
+   "pin": {
+    "bytes": 76045,
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   },
+   "pin_form": "pair",
+   "pin_vs_declarations": "matches-declared",
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "05.04.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor",
+      "role": "assignment",
+      "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/prime-review05.04/REVIEW.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "Prime review of the real-custody loop repair; app entry was still pending on that page",
+      "role": "review",
+      "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.04",
+       "file": "evidence/build05.04/CONTRACT.md",
+       "page": "0522.review-construction",
+       "repository": "lib-build"
+      },
+      "commit": null,
+      "note": "named by review_loop.py as CONTRACT; the loop does not hash this file before use",
+      "role": "source-stated",
+      "sha256": "233aa17bd83964f02981ed5babc089e657d0befe2799f15b1cde9c998afad800",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/review-loop-pass02/review_loop.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+     "reproduce and run stay outside this record. reproduce launches return_lines and is not an app command.",
+     "The CONTRACT string is a provenance link, not an address requirement. See coverage.md."
+    ]
+   },
+   "requirement_id": "prime-cycle",
+   "requires": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "revisit": "shared"
+  }
+ ],
+ "finding_counts": {},
+ "findings": [],
+ "implementation_compared": "sha256 only",
+ "note": "Derived from declared edges in this set only. These are candidates for Prime review; nothing is upgraded, invalidated, retested or edited.",
+ "query": {
+  "implementation": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "max_depth": 8,
+  "module": "lib-build:labs/return-capture-pass01/return_capture.py"
+ },
+ "schema": "module-dependency-result/1",
+ "set": {
+  "coverage": "app/librarian.py command review-loop. module-declaration/2 corrects source basis and the inspector digest-only pin. Not every app namespace. Not closure.",
+  "path": "D:\\Git\\lib-build\\labs\\app-dependencies-pass02\\set.json",
+  "records": 12,
+  "set_id": "review-loop-entry-2",
+  "sha256": "444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706"
+ },
+ "set_findings": [],
+ "status": "candidates-for-review",
+ "target_declarations": [
+  {
+   "basis": {
+    "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+    "kind": "git-blob",
+    "path": "labs/return-capture-pass01/return_capture.py",
+    "repository": "lib-build",
+    "verification": "supplied-unverified"
+   },
+   "declaration_id": "return-capture-pass01",
+   "file": "declarations/return-capture-pass01.v2.json",
+   "implementation_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "record_sha256": "21270610b7b8b72c10e8d953bf2f91745815ccd0312974de7f928ca4c3f9e045",
+   "schema": "module-declaration/2",
+   "status": "prototype",
+   "version": 2
+  }
+ ],
+ "unexpanded": []
+}

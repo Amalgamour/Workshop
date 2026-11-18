@@ -1,0 +1,26 @@
+{
+  "format_note": "PROPOSED example format for 0710/05.01; synthetic subject book. Not an approved kernel language.",
+  "form": {
+    "page": "0201",
+    "face": "02",
+    "section": "Person",
+    "kind": "template",
+    "version": "001",
+    "encoding": "utf-8",
+    "source_section": {"face": "01", "heading": "Person"}
+  },
+  "output": {"kind": "subject-section", "path_rule": "derived:this-page-new-section-heading-from-name"},
+  "fields": [
+    {"name": "identity", "shape": "object", "presence": "required", "supplier": "compute", "ground": "structure"},
+    {"name": "name", "shape": "text", "presence": "required", "supplier": "intelligence", "ground": "condition", "ground_ref": "01 Person: names one person"},
+    {"name": "first_appearance", "shape": "address", "presence": "required", "supplier": "intelligence", "check": "compute resolves the address and refuses a missing page", "ground": "condition", "ground_ref": "01 Person: page where first appears"},
+    {"name": "role", "shape": "text", "presence": "optional", "supplier": "intelligence", "ground": "structure"},
+    {"name": "description", "shape": "text", "presence": "optional", "supplier": "intelligence", "ground": "structure"},
+    {"name": "aliases", "shape": "text-list", "presence": "optional", "supplier": "intelligence", "ground": "structure"},
+    {"name": "relations", "shape": [{"relation": "text", "other": "record-address"}], "presence": "optional", "supplier": "intelligence", "check": "other resolves", "ground": "structure"}
+  ],
+  "repeat": null,
+  "dependencies": {"resolver": "address-resolution", "states": ["resolved", "missing", "ambiguous"]},
+  "review": {"binds": ["form-bytes", "draft-bytes"], "supplier": "intelligence", "stale_on": ["form", "source", "supplied-value"]},
+  "derived_by_compute": ["identity", "section heading", "dates of record", "hashes", "encoding", "layout"]
+}

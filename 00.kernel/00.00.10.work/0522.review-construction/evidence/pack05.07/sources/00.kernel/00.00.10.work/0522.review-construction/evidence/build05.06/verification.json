@@ -1,0 +1,101 @@
+{
+  "schema": "review-construction-verification/1",
+  "pass": "0522.review-construction/05.06",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "pack_inputs": {
+    "schema": "prime-pack-inputs/1",
+    "files": 78,
+    "bad": 0,
+    "manifest_sha256": "c317cafe269ccff8dce2778e03278c6ea5b1a16a801b5779ebea0a6c0e9ba1da",
+    "manifest_bytes": 27356,
+    "rechecked_immediately_before_verification": true
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.06/CONTRACT.md",
+    "sha256": "f655576c7310ff0cfa08a8eb131b1ba72f04695bb94593209ee3c722830d7531",
+    "bytes": 7102,
+    "contract_revised_after_commands": false
+  },
+  "predecessor": {
+    "path": "labs/review-construction-pass02/construct.py",
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "bytes": 36188,
+    "edited": false
+  },
+  "constructor": {
+    "path": "labs/review-construction-pass03/construct.py",
+    "sha256": "6eec5653c6818cfdeb98ffcd929cdf26f0ddf15c3121c703ce795abea6eb755d",
+    "bytes": 42216
+  },
+  "cycle": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "bytes": 76045,
+    "patched": false
+  },
+  "app_edited": false,
+  "loop_edited": false,
+  "candidate_tests": {
+    "command": "python -B labs/review-construction-pass03/tests/test_pass03.py",
+    "cwd": "D:/Git/lib-build",
+    "ran": 11,
+    "passed": 10,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "seconds": "2.621",
+    "exit": 0,
+    "log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.06/tests/suite.stderr",
+    "log_newlines": "lf",
+    "runner_wrote": "crlf",
+    "text_and_exit_unchanged": true
+  },
+  "skipped": [
+    {
+      "name": "test_symlink_is_refused",
+      "reason": "WinError 1314, privilege not held; no symlink was created"
+    }
+  ],
+  "cycle_experiment": {
+    "command": "python -B 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.06/experiment/run.py",
+    "separate_from_candidate_tests": true,
+    "read_before_exit": 0,
+    "record_exit": 0,
+    "read_after_exit": 0,
+    "bind_exit": 0,
+    "task_binding_sha256": "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c",
+    "bindings_equal": true,
+    "page_sha256": "a3fc3872adc62fe0a1503a8fd326faabbae6dd042e132797a0da62b4be513220",
+    "page_bytes": 212,
+    "page_bytes_unchanged": true,
+    "finding": null,
+    "cycle_patched": false,
+    "schema": "prime-cycle-record-result/1",
+    "result": "recorded",
+    "review_id": "05.01-r1",
+    "record_sha256": "74deb8408acfb4b4e8aaa5e505c0acb86deb79b8d5426b106eebbcee0501eb30",
+    "effective": "continue",
+    "prime_review_exit": 0,
+    "authority": "none",
+    "custody": "not-established",
+    "render_state": "pending",
+    "allocated": false,
+    "already_recorded": false,
+    "authenticates_actor": false,
+    "closes_work": false,
+    "releases_action": false
+  },
+  "custody": "pending",
+  "matching_line": "0122.review-construction",
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "receipt": null,
+  "note": "Exit 0 is not Prime review, seating, or app activation. This constructor does not compare supplied state with hash-verified record.json."
+}

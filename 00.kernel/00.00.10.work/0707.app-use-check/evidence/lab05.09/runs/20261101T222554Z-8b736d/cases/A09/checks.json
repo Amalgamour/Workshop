@@ -1,0 +1,67 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record.result recorded",
+      "expected": null,
+      "observed": "recorded",
+      "ok": true
+    },
+    {
+      "check": "render exit 2",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "render no traceback",
+      "expected": null,
+      "observed": "refused: review-identity: envelope review_identity differs from the registration\r\n",
+      "ok": true
+    },
+    {
+      "check": "render names review-identity",
+      "expected": null,
+      "observed": "256\": \"d8a4115c1e5ec3d72a9f052b6eead6c5250a805080cce1249b6e037f49d2792d\", \"rule\": \"review-identity: envelope review_identity differs from the registration\", \"schema\": \"review-loop-refusal/1\", \"supplied_judgment\": null}refused: review-identity: envelope review_identity differs from the registration\r\n",
+      "ok": true
+    },
+    {
+      "check": "no writes: render after tamper",
+      "expected": null,
+      "observed": {
+        "after": {
+          "partial": [],
+          "rendered_markers": {},
+          "support": {},
+          "target": "f341411fc9207d73adfa9f37f67890b53f47e82b61147807ddc52d91781bb09b"
+        },
+        "before": {
+          "partial": [],
+          "rendered_markers": {},
+          "support": {},
+          "target": "f341411fc9207d73adfa9f37f67890b53f47e82b61147807ddc52d91781bb09b"
+        }
+      },
+      "ok": true
+    }
+  ],
+  "error": null
+}

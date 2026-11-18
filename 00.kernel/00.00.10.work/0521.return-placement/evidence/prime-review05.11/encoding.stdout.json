@@ -1,0 +1,134 @@
+{
+  "app_selection_applied": false,
+  "approval": "not-established",
+  "authority": "not-assessed",
+  "authorization": false,
+  "book": "D:\\librarian\\temp\\morning-20261103-check\\book",
+  "book_declaration": {
+    "declared": false,
+    "door": {
+      "page": null,
+      "state": "missing"
+    },
+    "layout": {
+      "book": null,
+      "bytes": null,
+      "path": "return-line-layout.json",
+      "sha256": null,
+      "state": "missing"
+    }
+  },
+  "changed_paths": [],
+  "code_root": "D:\\librarian\\temp\\morning-20261103-check\\invalid-code",
+  "coherent": true,
+  "completion": "not-established",
+  "decode": {
+    "encoding": "utf-8",
+    "position": 0,
+    "reason": "invalid start byte"
+  },
+  "dispatcher": {
+    "bytes": 12,
+    "matches_predecessor_snapshot": false,
+    "path": "app/librarian.py",
+    "predecessor_bytes": 12153,
+    "predecessor_sha256": "826167161000ac3eab78c466ae47e31b37ff435ea33f4104caf7651ecd21436e",
+    "sha256": "8ce0f3e76cd3d78b8e4df37aa279adec445cabdd2dfa04a10f578434ae3f056b",
+    "sha256_final": "8ce0f3e76cd3d78b8e4df37aa279adec445cabdd2dfa04a10f578434ae3f056b",
+    "sha256_reread": "8ce0f3e76cd3d78b8e4df37aa279adec445cabdd2dfa04a10f578434ae3f056b",
+    "state": "malformed",
+    "whole_file_hash_is_provenance": true
+  },
+  "final_check": "matched",
+  "historical_status_note": "A static app_selected field in predecessor status is a historical tool claim. It is not this dispatch measurement.",
+  "limits": [
+    "The static pattern does not prove Python runtime behavior.",
+    "Other dispatch branches are not classified.",
+    "The whole dispatcher hash is provenance, not a pin.",
+    "Authority is not assessed and no release file is sought.",
+    "A declared book and a selected facade do not confine historical scripts.",
+    "Predecessor status app_selected is not read as dispatch evidence.",
+    "Unreachable duplicate branches count as ambiguous.",
+    "Invalid UTF-8 leaves route selection unknown.",
+    "One final re-read is not a lock and is not retried.",
+    "A completed bounded observation is not a guarantee against changes after the final check."
+  ],
+  "migration_assessed": false,
+  "missing_prerequisites": [
+    "the book has no valid line-pass declaration",
+    "the reviewed successor is not selected on both routes",
+    "migration and release authority were not assessed",
+    "no Director release is recorded by this tool"
+  ],
+  "next_checks": [
+    "Prime reviews this observation before any app selection.",
+    "After the review-loop repair is reviewed, measure the then-current dispatcher and apply only the two branch substitutions in build05.09/SELECTION.md.",
+    "A separate Director release is required before roots or a physical migration.",
+    "Remeasure dependency bytes at selection time. A mismatch stops selection.",
+    "Historical direct scripts stay runnable until a reviewed route is actually selected."
+  ],
+  "provenance": [
+    "0521.return-placement/05.09",
+    "0521.return-placement/06.18.md",
+    "0521.return-placement/evidence/prime-review05.09/OPERATOR-ADDENDUM.md",
+    "0521.return-placement/evidence/build05.09/SELECTION.md"
+  ],
+  "read_error": null,
+  "reads": [
+    {
+      "bytes": null,
+      "path": "return-line-layout.json",
+      "root": "book",
+      "sha256": null,
+      "state": "missing"
+    },
+    {
+      "bytes": 12,
+      "path": "app/librarian.py",
+      "root": "code",
+      "sha256": "8ce0f3e76cd3d78b8e4df37aa279adec445cabdd2dfa04a10f578434ae3f056b",
+      "state": "file"
+    }
+  ],
+  "recognizer": "static-ast-pattern",
+  "routes": {
+    "capture-return": {
+      "declaration_matches_contract": null,
+      "dependencies": [],
+      "facade_matches_contract": null,
+      "mismatches": [],
+      "predecessor_matches_contract": null,
+      "predecessor_present": false,
+      "selected_facade": null,
+      "selector": "unknown",
+      "staged_notes": [],
+      "state": "unknown",
+      "successor_matches_contract": null,
+      "successor_path": null,
+      "successor_staged": false
+    },
+    "return-lines": {
+      "declaration_matches_contract": null,
+      "dependencies": [],
+      "facade_matches_contract": null,
+      "mismatches": [],
+      "predecessor_matches_contract": null,
+      "predecessor_present": false,
+      "selected_facade": null,
+      "selector": "unknown",
+      "staged_notes": [],
+      "state": "unknown",
+      "successor_matches_contract": null,
+      "successor_path": null,
+      "successor_staged": false
+    }
+  },
+  "schema": "return-route-readiness/2",
+  "selection_is_authorization": false,
+  "task_association": "not-established",
+  "warnings": [
+    "An unselected successor does not protect the app.",
+    "A guard on an undeclared book delegates to the historical writer.",
+    "Historical direct scripts remain runnable."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "0707-discrepancy-classification/1",
+  "run": "20261101T222554Z-8b736d",
+  "aggregate": "FAIL",
+  "discrepancies": [
+    {
+      "case": "A22",
+      "failed_check": "prepare offers a template",
+      "observed": {
+        "prepare_exit": 0,
+        "target.state": "absent",
+        "mechanical": {
+          "state": "awaiting-review",
+          "blocker": "target-absent",
+          "route": "none-in-this-entry",
+          "text": "No judgment is recorded. The target is absent, so this entry does not commit one."
+        },
+        "view.template": null
+      },
+      "checks_passed_before_stop": [
+        "describe exit 0",
+        "prepare target absent",
+        "prepare text does not claim a commitment"
+      ],
+      "not_reached": [
+        "record refusal",
+        "decision.json unchanged",
+        "no cycle directory",
+        "read does not claim a commitment",
+        "R02 not recorded wording on read"
+      ],
+      "classification": "harness/case defect (case assumption), rooted in the lab author's own 05.02 misreading; not a candidate defect",
+      "evidence": [
+        "cases/A22/calls/02-prepare.stdout",
+        "labs/prime-cycle-pass03/prime_cycle.py 1177 (template only when a write token exists)",
+        "0707 evidence/build05.02/probes/run1/13-P2-absent.stdout (template null under loop pass02 too)"
+      ],
+      "candidate_behaviour": "consistent with D3.3 and the unchanged cycle: no template without a target page, so no judgment work can start; reported before judgment work with truthful wording",
+      "proposed_next": "a NEW case-file version (not this run): target present at prepare, removed before record, then expect record refusal, decision.json unchanged, no cycle directory, truthful read; keep A22 as history"
+    }
+  ],
+  "manual": [
+    {
+      "case": "A24",
+      "status": "MANUAL (unchanged row)",
+      "account": "see 05.07.return.md A24"
+    }
+  ]
+}

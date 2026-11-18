@@ -1,0 +1,627 @@
+"""Colab review adapter (0518.colab-review 05.01). Standard library only.
+
+  python -B colab_review.py stage      --plan ABS --request ABS --repo ABS --out-request ABS
+  python -B colab_review.py bind       --output ABS --config ABS --producer ABS --expect-digest HEX --out ABS [--plan ABS]
+  python -B colab_review.py intake     --binding ABS --plan ABS --book ABS --member NAME [--member ...] --config ABS --out ABS
+  python -B colab_review.py synthesize --intake ABS --synthesis ABS --out ABS
+
+Contract: 00.kernel/00.00.10.work/0518.colab-review/evidence/build05.01/CONTRACT.md. Review plans, prompts and result
+templates travel as declared required_sources of a Prime-supplied colab-request/2, so the pinned v2 producer snapshots and
+verifies them unchanged; reviewer results travel as captured N1 artifacts. This adapter validates declared plans, links and
+results and derives reports in its own new folders. It never launches a model or reviewer, never authenticates isolation
+and never judges meaning: comprehension, findings and synthesis are supplied; compute checks shape, identity and mapping.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import stat
+import subprocess
+import sys
+from pathlib import Path
+
+LAB = Path(__file__).resolve().parent
+WORKSHOP = LAB.parent.parent
+PINS = {  # each re-hashed immediately before launch; the paths come from the caller's config
+    "producer": ("2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b", 53892),
+    "helper": ("8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac", 45767),
+    "inspector": ("947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b", 11402),
+}
+LABEL = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
+HEX64 = re.compile(r"^[0-9a-f]{64}$")
+MODES = ("cold-comprehension", "contextual-critique", "implementation-check", "combination")
+STAGE_KINDS = ("comprehension", "critique", "simplicity", "implementation")
+CONVERSATION = ("none", "summary", "full")
+ISOLATION = ("unknown", "host-declared", "unverified")
+STATUSES = ("completed", "partial", "failed", "not-run")
+RETAINED = ("dissent", "minority", "rejected-with-reason", "duplicate-of")
+PARAPHRASE = ("proposed", "current_system", "task_authority", "handback_route")
+MAX_IN, MAX_OUT, MAX_REVIEWERS, MAX_STAGES, MAX_FINDINGS = 262144, 2097152, 32, 16, 256
+REVIEW_DIR = "reviews"
+GIT_ID = ["-c", "user.name=colab-review adapter (disposable fixture)", "-c", "user.email=fixture@localhost", "-c", "commit.gpgsign=false"]
+
+
+class Refusal(Exception):
+    pass
+
+
+class PartialWrite(Exception):
+    pass
+
+
+def need(cond, msg):
+    if not cond:
+        raise Refusal(msg)
+
+
+def sha(b: bytes) -> str:
+    return hashlib.sha256(b).hexdigest()
+
+
+def canonical(v) -> bytes:
+    return (json.dumps(v, sort_keys=True, indent=1, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8")
+
+
+def strict_json(data: bytes, where: str):
+    def pairs(seq):
+        out = {}
+        for k, v in seq:
+            need(k not in out, f"{where}: duplicate key {k}")
+            out[k] = v
+        return out
+
+    def nonfinite(name):
+        raise Refusal(f"{where}: non-finite number {name}")
+    try:
+        return json.loads(data.decode("utf-8"), object_pairs_hook=pairs, parse_constant=nonfinite)
+    except UnicodeDecodeError:
+        raise Refusal(f"{where}: not UTF-8") from None
+    except json.JSONDecodeError as exc:
+        raise Refusal(f"{where}: invalid JSON ({exc.msg})") from None
+
+
+def exact(obj, keys, where):
+    need(isinstance(obj, dict) and set(obj) == set(keys), f"{where} must have exactly {sorted(keys)}")
+    return obj
+
+
+def text(v, where):
+    need(isinstance(v, str) and v.strip() and len(v) <= 20000 and "\0" not in v, f"{where} must be non-empty text")
+    return v
+
+
+def texts(v, where, lo=0, hi=64):
+    need(isinstance(v, list) and lo <= len(v) <= hi, f"{where} must be a list of {lo}..{hi} items")
+    for i, x in enumerate(v):
+        text(x, f"{where}[{i}]")
+    return v
+
+
+def is_link(p: Path) -> bool:
+    try:
+        st = os.lstat(p)
+    except OSError:
+        return False
+    return stat.S_ISLNK(st.st_mode) or bool((getattr(st, "st_file_attributes", 0) or 0) & 0x400)
+
+
+def abs_path(t, where) -> Path:
+    need(isinstance(t, str) and os.path.isabs(t) and not t.startswith(("\\\\", "//")), f"{where} must be an absolute local path")
+    p = Path(os.path.abspath(t))
+    for a in [p, *p.parents]:
+        need(not is_link(a), f"{where} passes through a link: {a}")
+    return p
+
+
+def inside(child: Path, parent: Path) -> bool:
+    try:
+        return os.path.commonpath([os.path.normcase(str(child)), os.path.normcase(str(parent))]) == os.path.normcase(str(parent))
+    except ValueError:
+        return False
+
+
+def read_input(t, where) -> bytes:
+    p = abs_path(t, where)
+    need(p.is_file(), f"{where} must be a regular file: {p}")
+    need(p.stat().st_size <= MAX_IN, f"{where} is over {MAX_IN} bytes")
+    return p.read_bytes()
+
+
+def new_dir(t, where) -> Path:
+    p = abs_path(t, where)
+    need(not os.path.lexists(p), f"{where} {p} already exists; nothing was written")
+    need(p.parent.is_dir(), f"{where} parent must be an existing directory")
+    return p
+
+
+def write_file(p: Path, data: bytes) -> None:
+    """Exclusive create; the hook point for partial-write tests."""
+    with open(p, "xb") as h:
+        h.write(data)
+
+
+def write_outputs(out: Path, files: list[tuple[str, bytes]]) -> None:
+    need(sum(len(d) for _, d in files) <= MAX_OUT, "output is over the 2 MiB bound")
+    os.mkdir(out)
+    try:
+        for name, data in files:
+            write_file(out / name, data)
+    except OSError as exc:
+        raise PartialWrite(f"write failed in {out}: {type(exc).__name__}: {exc}; files so far are kept") from None
+
+
+# ---------- pinned launches ----------
+
+def load_config(t) -> dict:
+    cfg = strict_json(read_input(t, "--config"), "config")
+    need(isinstance(cfg, dict) and cfg.get("schema") == "colab-config/2", "config must be colab-config/2")
+    for k in ("python", "helper", "inspector"):
+        need(isinstance(cfg.get(k), str) and os.path.isabs(cfg[k]), f"config {k} must be an absolute path")
+    return cfg
+
+
+def pinned(path: str, name: str) -> Path:
+    p = abs_path(path, name)
+    data = p.read_bytes() if p.is_file() else b""
+    digest, size = PINS[name]
+    need(sha(data) == digest and len(data) == size, f"{name} at {p} is not the pinned code (sha256 {sha(data)}); nothing was launched")
+    return p
+
+
+def launch(cfg, name, path, args, timeout=600):
+    tool = pinned(path, name)
+    p = subprocess.run([cfg["python"], "-B", str(tool), *args], capture_output=True, timeout=timeout,
+                       env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+    return p.returncode, p.stdout, p.stderr
+
+
+# ---------- plan ----------
+
+def check_plan(p) -> dict:
+    exact(p, {"schema", "plan_id", "investigation", "mode", "reviewers", "stages", "ordered", "read_scope", "withheld",
+              "finish_boundary", "simplicity", "round"}, "plan")
+    need(p["schema"] == "colab-review-plan/1", "plan: unsupported schema")
+    need(isinstance(p["plan_id"], str) and LABEL.fullmatch(p["plan_id"]), "plan_id must be a label")
+    exact(p["investigation"], {"book", "page", "pass"}, "plan.investigation")
+    need(p["mode"] in MODES, f"plan.mode must be one of {MODES}")
+    revs = p["reviewers"]
+    need(isinstance(revs, list) and 1 <= len(revs) <= MAX_REVIEWERS, "plan.reviewers must list 1..32 reviewers")
+    for i, r in enumerate(revs, 1):
+        exact(r, {"id", "label", "context"}, f"plan.reviewers[{i}]")
+        need(r["id"] == f"R{i:02d}", "reviewer ids must be R01..RNN in order")
+        text(r["label"], f"{r['id']}.label")
+        check_context(r["context"], f"{r['id']}.context")
+        if p["mode"] == "cold-comprehension":
+            need(r["context"]["conversation_supplied"] == "none", f"{r['id']}: a cold plan supplies no prior conversation")
+    rids = {r["id"] for r in revs}
+    st = p["stages"]
+    need(isinstance(st, list) and 1 <= len(st) <= MAX_STAGES, "plan.stages must list 1..16 stages")
+    for i, s in enumerate(st, 1):
+        exact(s, {"id", "kind", "reviewers", "required"}, f"plan.stages[{i}]")
+        need(s["id"] == f"S{i:02d}", "stage ids must be S01..SNN in order")
+        need(s["kind"] in STAGE_KINDS, f"{s['id']}.kind must be one of {STAGE_KINDS}")
+        need(isinstance(s["reviewers"], list) and s["reviewers"], f"{s['id']}: a review stage needs at least one reviewer")
+        need(len(set(s["reviewers"])) == len(s["reviewers"]) and set(s["reviewers"]) <= rids, f"{s['id']}: reviewers must be distinct declared ids")
+        need(type(s["required"]) is bool, f"{s['id']}.required must be boolean")
+    need(type(p["ordered"]) is bool, "plan.ordered must be boolean")
+    texts(p["read_scope"], "plan.read_scope", 1)
+    need(isinstance(p["withheld"], list), "plan.withheld must be a list")
+    for i, w in enumerate(p["withheld"]):
+        exact(w, {"item", "reason"}, f"plan.withheld[{i}]")
+        text(w["item"], "withheld item")
+        text(w["reason"], "withheld reason")
+    text(p["finish_boundary"], "plan.finish_boundary")
+    has_simp = any(s["kind"] == "simplicity" for s in st)
+    if p["simplicity"] is None:
+        need(not has_simp, "a simplicity stage needs plan.simplicity (before, after, fixes under review)")
+    else:
+        need(has_simp, "plan.simplicity is set but no simplicity stage is declared")
+        exact(p["simplicity"], {"before", "after", "fixes_under_review"}, "plan.simplicity")
+        text(p["simplicity"]["before"], "simplicity.before")
+        text(p["simplicity"]["after"], "simplicity.after")
+        texts(p["simplicity"]["fixes_under_review"], "simplicity.fixes_under_review", 1)
+    exact(p["round"], {"number", "cap"}, "plan.round")
+    need(type(p["round"]["number"]) is int and p["round"]["number"] >= 1, "round.number must be an integer >= 1")
+    need(p["round"]["cap"] is None or (type(p["round"]["cap"]) is int and p["round"]["cap"] >= p["round"]["number"]),
+         "round.cap must be null or an integer >= round.number")
+    return p
+
+
+def check_context(c, where):
+    exact(c, {"conversation_supplied", "host_context", "familiarity", "isolation"}, where)
+    need(c["conversation_supplied"] in CONVERSATION, f"{where}.conversation_supplied must be one of {CONVERSATION}")
+    need(c["isolation"] in ISOLATION, f"{where}.isolation must be one of {ISOLATION} (isolation is never verified here)")
+    text(c["host_context"], f"{where}.host_context")
+    text(c["familiarity"], f"{where}.familiarity")
+
+
+def render_files(plan_bytes: bytes, p: dict) -> list[tuple[str, bytes]]:
+    """Deterministic review sources for one plan; bind re-renders them to prove the package carries them unchanged."""
+    base = f"{REVIEW_DIR}/{p['plan_id']}"
+    comp = "\n".join([
+        f"# COMPREHENSION — review plan {p['plan_id']} (colab-review-plan/1)", "",
+        "Before any finding, explain in your own words, and keep this answer even if you find nothing wrong:",
+        "1. proposed: what is being proposed or built, and what it changes;",
+        "2. current_system: how the current system works where this lands;",
+        "3. task_authority: the task, its finish boundary, and who decides what (you decide nothing for the Director);",
+        "4. handback_route: where and how your return goes back.", "",
+        f"Finish boundary declared by the plan: {p['finish_boundary']}",
+        "Read scope declared by the plan: " + "; ".join(p["read_scope"]),
+        "Withheld: " + ("; ".join(f"{w['item']} ({w['reason']})" for w in p["withheld"]) or "none"),
+        "Write these four answers into the comprehension block of RESULT-TEMPLATE.json, then your findings, if any.", ""])
+    files = [(f"{base}/review-plan.json", plan_bytes), (f"{base}/COMPREHENSION.md", comp.encode("utf-8"))]
+    if p["simplicity"]:
+        s = p["simplicity"]
+        simp = "\n".join([
+            f"# SIMPLICITY — review plan {p['plan_id']} (post-fix stage)", "",
+            f"Before: {s['before']}", f"After: {s['after']}", "Fixes under review: " + "; ".join(s["fixes_under_review"]), "",
+            "Record: what complexity the fixes added; which demonstrated failure each addresses; reuse or duplication;",
+            "and what can remain a stated limitation. Useful complexity is not a defect, and no defect needs to be invented.", ""])
+        files.append((f"{base}/SIMPLICITY.md", simp.encode("utf-8")))
+    template = {"schema": "colab-review-result/1", "plan_id": p["plan_id"], "plan_sha256": sha(plan_bytes), "reviewer": "R01",
+                "stage": "S01", "status": "completed",
+                "context": {"conversation_supplied": "none", "host_context": "", "familiarity": "", "isolation": "unknown"},
+                "comprehension": {k: "" for k in PARAPHRASE}, "findings": [], "simplicity": None, "label": "ACTUAL"}
+    files.append((f"{base}/RESULT-TEMPLATE.json", canonical(template)))
+    return files
+
+
+# ---------- stage ----------
+
+def git(repo: Path, *args) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "-C", str(repo), *GIT_ID, *args], capture_output=True, timeout=120)
+
+
+def cmd_stage(plan_t, request_t, repo_t, out_t) -> dict:
+    plan_bytes = read_input(plan_t, "--plan")
+    p = check_plan(strict_json(plan_bytes, "plan"))
+    req = strict_json(read_input(request_t, "--request"), "request")
+    need(isinstance(req, dict) and req.get("schema") == "colab-request/2", "--request must be colab-request/2")
+    need(req["binding"]["investigation"] == p["investigation"], "the plan's investigation must equal the request's")
+    repo = abs_path(repo_t, "--repo")
+    need((repo / ".git").exists(), "--repo must be a git work tree")
+    need(not inside(repo, WORKSHOP) and not inside(WORKSHOP, repo), "--repo must be a disposable repository outside the workshop tree")
+    out = abs_path(out_t, "--out-request")
+    need(not os.path.lexists(out) and out.parent.is_dir(), "--out-request must be a new file under an existing folder")
+    targets = req["binding"]["targets"]
+    old_commit = targets[0]["source"]["commit"]
+    files = render_files(plan_bytes, p)
+    for rel, _ in files:
+        need(not os.path.lexists(repo / rel), f"{rel} already exists in --repo; nothing was written")
+    for rel, data in files:
+        (repo / rel).parent.mkdir(parents=True, exist_ok=True)
+        write_file(repo / rel, data)
+    r = git(repo, "add", "--", *[rel for rel, _ in files])
+    need(r.returncode == 0, "git add failed: " + r.stderr.decode("utf-8", "replace")[:300])
+    r = git(repo, "commit", "-q", "-m", f"colab-review plan {p['plan_id']} (disposable fixture)", "--", *[rel for rel, _ in files])
+    need(r.returncode == 0, "git commit failed: " + r.stderr.decode("utf-8", "replace")[:300])
+    commit = git(repo, "rev-parse", "HEAD").stdout.decode().strip()
+    for t in targets:
+        b = git(repo, "cat-file", "blob", f"{commit}:{t['source']['path']}").stdout
+        need(sha(b) == t["source"]["sha256"], f"{t['id']} bytes differ at the new commit; nothing is re-pinned")
+        t["source"]["commit"] = commit
+    req["required_sources"] = list(req["required_sources"]) + [
+        {"path": rel, "role": f"review {('plan (colab-review-plan/1)' if rel.endswith('review-plan.json') else rel.split('/')[-1])} for plan {p['plan_id']}"}
+        for rel, _ in files]
+    write_file(out, canonical(req))
+    return {"schema": "colab-review-stage/1", "plan_id": p["plan_id"], "plan_sha256": sha(plan_bytes), "repo": str(repo),
+            "previous_commit": old_commit, "commit": commit, "review_files": [{"path": rel, "sha256": sha(d), "bytes": len(d)} for rel, d in files],
+            "request": str(out), "request_sha256": sha(out.read_bytes()), "status": "staged",
+            "next": "run the pinned producer preview and prepare on this request; this adapter does not prepare packages"}
+
+
+# ---------- bind ----------
+
+def cmd_bind(output_t, config_t, digest, out_t, plan_t, producer_t) -> tuple[int, dict]:
+    need(isinstance(digest, str) and HEX64.fullmatch(digest), "--expect-digest must be 64 lowercase hex")
+    cfg = load_config(config_t)
+    out = new_dir(out_t, "--out")
+    output = abs_path(output_t, "--output")
+    need(not inside(out, output), "--out must not lie inside the producer output")
+    code, stdout, stderr = launch(cfg, "producer", producer_t, ["verify", "--output", str(output), "--config", str(abs_path(config_t, "--config")), "--json"])
+    v = strict_json(stdout, "producer verify") if stdout.startswith(b"{") else {}
+    need(code == 0 and v.get("result") == "intact", f"producer verify did not report intact (exit {code}); nothing is bound")
+    need(v.get("digest") == digest, f"producer verify digest {v.get('digest')} is not the expected {digest}")
+    man = strict_json((output / "package" / "source-manifest.json").read_bytes(), "package source-manifest")
+    rows = {s["path"]: s for s in (man.get("sources") or []) if isinstance(s, dict) and "path" in s}
+    review_rows = {p: s for p, s in rows.items() if p.startswith(REVIEW_DIR + "/")}
+    findings, files = [], []
+    base = {"schema": "colab-review-binding/1", "producer_digest": digest, "investigation": v.get("investigation"),
+            "producer_verify": {"exit": code, "result": v.get("result"), "stdout_sha256": sha(stdout)},
+            "covered_by": {"producer-verify": "every package file, the source manifest and snapshots, the ZIP and the digest preimage",
+                           "adapter": "presence of the review files in the package and byte equality with the supplied plan and its re-rendered prompts"}}
+    if plan_t is None:
+        need(not review_rows, "the package carries review files; pass --plan to bind them")
+        rec = dict(base, status="legacy-no-review-plan", plan=None, review_files=[], findings=[])
+        write_outputs(out, [("binding.json", canonical(rec))])
+        return 0, rec
+    plan_bytes = read_input(plan_t, "--plan")
+    p = check_plan(strict_json(plan_bytes, "plan"))
+    if v.get("investigation") != p["investigation"]:
+        findings.append({"finding": "investigation-mismatch", "package": v.get("investigation"), "plan": p["investigation"]})
+    for rel, data in render_files(plan_bytes, p):
+        row = rows.get(rel)
+        if row is None:
+            findings.append({"finding": "review-file-missing", "path": rel})
+            continue
+        snap = output / "package" / row.get("snapshot", "")
+        got = snap.read_bytes() if snap.is_file() else None
+        ok = got == data and row.get("sha256") == sha(data)
+        files.append({"path": rel, "snapshot": row.get("snapshot"), "sha256": sha(data), "bytes": len(data), "equal": ok})
+        if not ok:
+            findings.append({"finding": "review-file-differs", "path": rel})
+    rec = dict(base, status="bound" if not findings else "mismatch", plan={"plan_id": p["plan_id"], "plan_sha256": sha(plan_bytes)},
+               review_files=files, findings=findings)
+    write_outputs(out, [("binding.json", canonical(rec))])
+    return (0 if not findings else 1), rec
+
+
+# ---------- intake ----------
+
+def check_result(r, where):
+    exact(r, {"schema", "plan_id", "plan_sha256", "reviewer", "stage", "status", "context", "comprehension", "findings", "simplicity", "label"}, where)
+    need(r["schema"] == "colab-review-result/1", f"{where}: unsupported schema")
+    need(r["status"] in STATUSES, f"{where}.status must be one of {STATUSES}")
+    need(r["label"] in ("SYNTHETIC", "ACTUAL"), f"{where}.label must be SYNTHETIC or ACTUAL")
+    check_context(r["context"], f"{where}.context")
+    if r["comprehension"] is not None:
+        exact(r["comprehension"], set(PARAPHRASE), f"{where}.comprehension")
+    need(isinstance(r["findings"], list) and len(r["findings"]) <= MAX_FINDINGS, f"{where}.findings must be a list within {MAX_FINDINGS}")
+    for i, f in enumerate(r["findings"]):
+        exact(f, {"id", "target", "location", "text"}, f"{where}.findings[{i}]")
+        for k in ("target", "location", "text"):
+            text(f[k], f"{where}.findings[{i}].{k}")
+    if r["simplicity"] is not None:
+        exact(r["simplicity"], {"added_complexity", "addresses_failure", "reuse_or_duplication", "accepted_limitations"}, f"{where}.simplicity")
+        for k in ("added_complexity", "addresses_failure", "reuse_or_duplication"):
+            text(r["simplicity"][k], f"{where}.simplicity.{k}")
+        texts(r["simplicity"]["accepted_limitations"], f"{where}.simplicity.accepted_limitations")
+
+
+def cmd_intake(binding_t, plan_t, book_t, members, config_t, out_t) -> tuple[int, dict]:
+    binding_bytes = read_input(binding_t, "--binding")
+    b = strict_json(binding_bytes, "binding")
+    need(isinstance(b, dict) and b.get("schema") == "colab-review-binding/1" and b.get("status") == "bound", "--binding must be a bound colab-review-binding/1")
+    plan_bytes = read_input(plan_t, "--plan")
+    p = check_plan(strict_json(plan_bytes, "plan"))
+    need(b["plan"]["plan_sha256"] == sha(plan_bytes), "--plan is not the plan this binding bound")
+    cfg = load_config(config_t)
+    book = abs_path(book_t, "--book")
+    out = new_dir(out_t, "--out")
+    need(members and len(members) == len(set(members)), "--member must name distinct members")
+    stage = {s["id"]: s for s in p["stages"]}
+    rev = {r["id"]: r for r in p["reviewers"]}
+    findings, results, seen, ids = [], [], {}, set()
+    for mname in members:
+        need(isinstance(mname, str) and re.fullmatch(r"\d{4}\.[A-Za-z0-9][A-Za-z0-9._-]*", mname), f"member {mname!r} is not a member name")
+        code, so, se = launch(cfg, "inspector", cfg["inspector"], ["inspect", "--book", str(book), "--member", mname, "--json"])
+        o = strict_json(so, f"inspect {mname}") if so.startswith(b"{") else {}
+        row = {"member": mname, "inspect_exit": code, "custody": o.get("status"), "result": None}
+        if code != 0 or o.get("status") != "complete":
+            findings.append({"finding": "custody-not-complete", "member": mname, "status": o.get("status"), "exit": code})
+            results.append(row)
+            continue
+        cap = o["capture"]
+        row.update(receipt_sha256=cap.get("receipt_sha256"), captured_at=cap.get("captured_at"), origin=cap.get("origin"))
+        if cap.get("origin") != {"book": p["investigation"]["book"], "page": p["investigation"]["page"], "batch": p["investigation"]["pass"]}:
+            findings.append({"finding": "wrong-origin", "member": mname, "origin": cap.get("origin")})
+        pay = next((x for x in cap.get("payloads") or [] if x.get("logical") == "review-result.json"), None)
+        if pay is None:
+            row["result"] = "legacy-no-result"
+            results.append(row)
+            continue
+        data = (book / mname / "payload" / pay["payload"]).read_bytes()
+        need(sha(data) == pay["sha256"], f"{mname}: review-result.json payload does not match its captured identity")
+        r = strict_json(data, f"{mname} review-result.json")
+        check_result(r, f"{mname} review-result.json")
+        row.update(result=r, result_sha256=pay["sha256"])
+        results.append(row)
+        key = (r["reviewer"], r["stage"])
+        if r["plan_id"] != p["plan_id"] or r["plan_sha256"] != sha(plan_bytes):
+            findings.append({"finding": "source-identity-altered", "member": mname, "plan_sha256": r["plan_sha256"]})
+        if r["reviewer"] not in rev or r["stage"] not in stage or r["reviewer"] not in stage[r["stage"]]["reviewers"]:
+            findings.append({"finding": "undeclared-reviewer-or-stage", "member": mname, "reviewer": r["reviewer"], "stage": r["stage"]})
+            continue
+        if key in seen:
+            findings.append({"finding": "duplicate-result", "reviewer": r["reviewer"], "stage": r["stage"], "members": [seen[key]["member"], mname]})
+            continue
+        seen[key] = row
+        if r["context"] != rev[r["reviewer"]]["context"]:
+            findings.append({"finding": "context-mismatch", "member": mname, "declared_in_plan": rev[r["reviewer"]]["context"], "declared_in_result": r["context"]})
+        kind = stage[r["stage"]]["kind"]
+        if kind == "comprehension" and r["status"] == "completed":
+            c = r["comprehension"]
+            if c is None or any(not (isinstance(c[k], str) and c[k].strip()) for k in PARAPHRASE):
+                findings.append({"finding": "missing-comprehension", "member": mname, "reviewer": r["reviewer"], "stage": r["stage"]})
+        if kind == "simplicity" and r["status"] == "completed" and r["simplicity"] is None:
+            findings.append({"finding": "missing-simplicity-record", "member": mname})
+        for f in r["findings"]:
+            want = f"{r['reviewer']}-{r['stage']}-F"
+            if not re.fullmatch(re.escape(want) + r"\d{2}", f["id"]):
+                findings.append({"finding": "bad-finding-id", "member": mname, "id": f["id"]})
+            elif f["id"] in ids:
+                findings.append({"finding": "duplicate-finding-id", "id": f["id"]})
+            ids.add(f["id"])
+    incomplete = []
+    for s in p["stages"]:
+        if not s["required"]:
+            continue
+        for rid in s["reviewers"]:
+            row = seen.get((rid, s["id"]))
+            status = "absent" if row is None else row["result"]["status"]
+            if status != "completed":
+                incomplete.append({"reviewer": rid, "stage": s["id"], "status": status})
+    if p["ordered"]:
+        for i in range(1, len(p["stages"])):
+            prev = [seen[(rid, p["stages"][j]["id"])]["captured_at"] for j in range(i) for rid in p["stages"][j]["reviewers"] if (rid, p["stages"][j]["id"]) in seen]
+            cur = [seen[(rid, p["stages"][i]["id"])]["captured_at"] for rid in p["stages"][i]["reviewers"] if (rid, p["stages"][i]["id"]) in seen]
+            if prev and cur and min(cur) <= max(prev):
+                findings.append({"finding": "sequence-violation", "stage": p["stages"][i]["id"], "earliest": min(cur), "after_latest": max(prev)})
+    rec = {"schema": "colab-review-intake/1", "plan_id": p["plan_id"], "plan_sha256": sha(plan_bytes), "binding_sha256": sha(binding_bytes),
+           "producer_digest": b["producer_digest"], "mode": p["mode"], "round": p["round"],
+           "results": [dict(x, result=(x["result"] if isinstance(x["result"], (dict, str)) else None)) for x in results],
+           "findings_index": sorted(ids), "incomplete": incomplete, "findings": findings,
+           "status": "complete" if not findings and not incomplete else "incomplete",
+           "covered_by": {"return_inspect": "custody status, receipt, origin and payload identities of each member",
+                          "adapter": "plan identity, declared reviewer/stage, context equality, required fields, ids, sequence by captured_at"},
+           "note": "Comprehension and findings are supplied text, kept verbatim; compute checked shape and links, not correctness. Isolation is as declared, never verified."}
+    write_outputs(out, [("intake.json", canonical(rec))])
+    return (0 if rec["status"] == "complete" else 1), rec
+
+
+# ---------- synthesize ----------
+
+def cmd_synthesize(intake_t, synth_t, out_t) -> tuple[int, dict]:
+    intake_bytes = read_input(intake_t, "--intake")
+    i = strict_json(intake_bytes, "intake")
+    need(isinstance(i, dict) and i.get("schema") == "colab-review-intake/1", "--intake must be colab-review-intake/1")
+    s = strict_json(read_input(synth_t, "--synthesis"), "synthesis")
+    exact(s, {"schema", "plan_id", "intake_sha256", "by", "label", "items", "retained", "disagreements", "incomplete",
+              "residual_uncertainty", "acceptance"}, "synthesis")
+    need(s["schema"] == "colab-review-synthesis/1", "synthesis: unsupported schema")
+    need(s["acceptance"] is None, "synthesis.acceptance must be null: synthesis records no acceptance or Director approval")
+    need(s["label"] in ("SYNTHETIC", "ACTUAL"), "synthesis.label must be SYNTHETIC or ACTUAL")
+    text(s["by"], "synthesis.by")
+    out = new_dir(out_t, "--out")
+    findings = []
+    if s["plan_id"] != i["plan_id"]:
+        findings.append({"finding": "plan-mismatch"})
+    if s["intake_sha256"] != sha(intake_bytes):
+        findings.append({"finding": "intake-identity-differs", "submitted": s["intake_sha256"], "actual": sha(intake_bytes)})
+    known = set(i["findings_index"])
+    count = {}
+    for k, item in enumerate(s["items"], 1):
+        exact(item, {"id", "title", "findings", "recommendation"}, f"synthesis.items[{k}]")
+        need(item["id"] == f"X{k:02d}", "item ids must be X01..XNN in order")
+        text(item["title"], f"{item['id']}.title")
+        text(item["recommendation"], f"{item['id']}.recommendation")
+        need(isinstance(item["findings"], list) and item["findings"], f"{item['id']} must name at least one original finding")
+        for f in item["findings"]:
+            count[f] = count.get(f, 0) + 1
+    for k, r in enumerate(s["retained"]):
+        exact(r, {"finding", "disposition", "reason", "of"}, f"synthesis.retained[{k}]")
+        need(r["disposition"] in RETAINED, f"retained disposition must be one of {RETAINED}")
+        text(r["reason"], "retained reason")
+        need((r["disposition"] == "duplicate-of") == (r["of"] is not None), "duplicate-of needs 'of'; other dispositions have of null")
+        if r["of"] is not None and r["of"] not in known:
+            findings.append({"finding": "unknown-finding", "id": r["of"], "where": "retained.of"})
+        count[r["finding"]] = count.get(r["finding"], 0) + 1
+    for f, n in count.items():
+        if f not in known:
+            findings.append({"finding": "unknown-finding", "id": f})
+        elif n > 1:
+            findings.append({"finding": "double-mapped", "id": f, "times": n})
+    for f in sorted(known - set(count)):
+        findings.append({"finding": "lost-finding", "id": f})
+    for k, d in enumerate(s["disagreements"]):
+        exact(d, {"findings", "text"}, f"synthesis.disagreements[{k}]")
+        text(d["text"], "disagreement text")
+        for f in d["findings"]:
+            if f not in known:
+                findings.append({"finding": "unknown-finding", "id": f, "where": "disagreements"})
+    inc = sorted((x["reviewer"], x["stage"], x["status"]) for x in s["incomplete"])
+    if inc != sorted((x["reviewer"], x["stage"], x["status"]) for x in i["incomplete"]):
+        findings.append({"finding": "incomplete-mismatch", "synthesis": s["incomplete"], "intake": i["incomplete"]})
+    texts(s["residual_uncertainty"], "synthesis.residual_uncertainty")
+    originals = {}
+    paraphrases = []
+    for row in i["results"]:
+        r = row.get("result")
+        if isinstance(r, dict):
+            for f in r["findings"]:
+                originals[f["id"]] = {"text": f["text"], "target": f["target"], "location": f["location"], "member": row["member"],
+                                      "receipt_sha256": row.get("receipt_sha256")}
+            if r["comprehension"] is not None:
+                paraphrases.append({"reviewer": r["reviewer"], "stage": r["stage"], "member": row["member"], "comprehension": r["comprehension"],
+                                    "findings": len(r["findings"])})
+    cap = i["round"]["cap"]
+    report = {"schema": "colab-review-report/1", "plan_id": i["plan_id"], "intake_sha256": sha(intake_bytes), "by": s["by"], "label": s["label"],
+              "items": [dict(it, originals=[dict(originals.get(f, {}), id=f) for f in it["findings"]]) for it in s["items"]],
+              "retained": [dict(r, original=originals.get(r["finding"])) for r in s["retained"]],
+              "disagreements": s["disagreements"], "incomplete": i["incomplete"], "residual_uncertainty": s["residual_uncertainty"],
+              "comprehension": paraphrases, "intake_status": i["status"],
+              "round": {"number": i["round"]["number"], "cap": cap, "cap_reached": cap is not None and i["round"]["number"] >= cap},
+              "findings": findings, "status": "consistent" if not findings else "inconsistent",
+              "statement": "derived; originals are in N1 custody and the workflow page; not a review, not acceptance, not Director approval"}
+    if report["round"]["cap_reached"]:
+        report["round"]["meaning"] = "cap-reached: not acceptance; open items stay open for Prime and the Director"
+    report["report_digest"] = sha(canonical(report))
+    md = render_report(report)
+    write_outputs(out, [("report.json", canonical(report)), ("REPORT.md", md)])
+    return (0 if not findings else 1), report
+
+
+def render_report(r) -> bytes:
+    L = [f"# Review synthesis — plan {r['plan_id']} ({r['label']})", "",
+         f"By: {r['by']}. Status: {r['status']}. Intake: {r['intake_status']}. Report digest (colab-review-report/1): {r['report_digest']}.",
+         r["statement"] + ".", ""]
+    if r["round"]["cap_reached"]:
+        L += [f"Round {r['round']['number']} of cap {r['round']['cap']}: {r['round']['meaning']}.", ""]
+    L += ["## Comprehension (verbatim)"]
+    for c in r["comprehension"]:
+        L += [f"- {c['reviewer']} {c['stage']} (member {c['member']}, {c['findings']} findings):"]
+        L += [f"  - {k}: {c['comprehension'][k]}" for k in PARAPHRASE]
+    L += ["", "## Consolidated items"]
+    for it in r["items"]:
+        L += [f"- {it['id']} {it['title']}: {it['recommendation']}"] + [f"  - {o['id']} (member {o.get('member')}): {o.get('text')}" for o in it["originals"]]
+    L += ["", "## Retained (dissent, minority, rejected, duplicate)"] + \
+         [f"- {x['finding']}: {x['disposition']}{' of ' + x['of'] if x['of'] else ''}: {x['reason']}" for x in r["retained"]] or ["- none"]
+    L += ["", "## Disagreements"] + ([f"- {', '.join(d['findings'])}: {d['text']}" for d in r["disagreements"]] or ["- none"])
+    L += ["", "## Incomplete reviewers"] + ([f"- {x['reviewer']} {x['stage']}: {x['status']}" for x in r["incomplete"]] or ["- none"])
+    L += ["", "## Residual uncertainty"] + ([f"- {u}" for u in r["residual_uncertainty"]] or ["- none"])
+    if r["findings"]:
+        L += ["", "## Mechanical findings"] + [f"- {json.dumps(f, sort_keys=True)}" for f in r["findings"]]
+    return ("\n".join(L) + "\n").encode("utf-8")
+
+
+# ---------- CLI ----------
+
+def main(argv=None) -> int:
+    for s_ in (sys.stdout, sys.stderr):
+        if hasattr(s_, "reconfigure"):
+            s_.reconfigure(encoding="utf-8", errors="backslashreplace", newline="\n")
+    ap = argparse.ArgumentParser(prog="colab_review.py")
+    sub = ap.add_subparsers(dest="command", required=True)
+    st = sub.add_parser("stage")
+    for k in ("--plan", "--request", "--repo", "--out-request"):
+        st.add_argument(k, required=True)
+    bd = sub.add_parser("bind")
+    for k in ("--output", "--config", "--expect-digest", "--out", "--producer"):
+        bd.add_argument(k, required=True)
+    bd.add_argument("--plan")
+    it = sub.add_parser("intake")
+    for k in ("--binding", "--plan", "--book", "--config", "--out"):
+        it.add_argument(k, required=True)
+    it.add_argument("--member", action="append", required=True)
+    sy = sub.add_parser("synthesize")
+    for k in ("--intake", "--synthesis", "--out"):
+        sy.add_argument(k, required=True)
+    a = ap.parse_args(argv)
+    try:
+        if a.command == "stage":
+            code, r = 0, cmd_stage(a.plan, a.request, a.repo, a.out_request)
+        elif a.command == "bind":
+            code, r = cmd_bind(a.output, a.config, a.expect_digest, a.out, a.plan, a.producer)
+        elif a.command == "intake":
+            code, r = cmd_intake(a.binding, a.plan, a.book, a.member, a.config, a.out)
+        else:
+            code, r = cmd_synthesize(a.intake, a.synthesis, a.out)
+    except PartialWrite as exc:
+        sys.stdout.write(f"partial: {exc}\n")
+        return 3
+    except Refusal as exc:
+        sys.stdout.write(f"refused: {exc}\n")
+        return 2
+    except (OSError, subprocess.SubprocessError) as exc:
+        sys.stdout.write(f"refused: {type(exc).__name__}: {exc}\n")
+        return 2
+    sys.stdout.write(canonical(r).decode("utf-8"))
+    return code
+
+
+if __name__ == "__main__":
+    sys.exit(main())

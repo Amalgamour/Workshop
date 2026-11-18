@@ -1,0 +1,68 @@
+EEE.EE
+======================================================================
+ERROR: test_declared_reserve_does_not_load_the_writer (__main__.GuardTests.test_declared_reserve_does_not_load_the_writer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-capture-guard-pass01\tests\test_guard.py", line 75, in test_declared_reserve_does_not_load_the_writer
+    book.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\0521-0508-unit-uvu6l53t\\declared'
+
+======================================================================
+ERROR: test_folder_name_is_not_a_declaration (__main__.GuardTests.test_folder_name_is_not_a_declaration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\0521-0508-unit-uvu6l53t\\named-only\\0121.synthetic-filing'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-capture-guard-pass01\tests\test_guard.py", line 68, in test_folder_name_is_not_a_declaration
+    (book / "0121.synthetic-filing").mkdir(parents=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\0521-0508-unit-uvu6l53t\\named-only'
+
+======================================================================
+ERROR: test_malformed_and_conflict_do_not_allocate (__main__.GuardTests.test_malformed_and_conflict_do_not_allocate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-capture-guard-pass01\tests\test_guard.py", line 100, in test_malformed_and_conflict_do_not_allocate
+    malformed.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\0521-0508-unit-uvu6l53t\\malformed'
+
+======================================================================
+ERROR: test_tampered_writer_is_not_executed (__main__.GuardTests.test_tampered_writer_is_not_executed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-capture-guard-pass01\tests\test_guard.py", line 61, in test_tampered_writer_is_not_executed
+    bad.write_bytes(b"open(r'%s', 'w', encoding='utf-8').write('started')\n" % str(marker).encode())
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1036, in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'D:\\librarian\\temp\\0521-0508-unit-uvu6l53t\\tampered.py'
+
+======================================================================
+ERROR: test_undeclared_states_the_missing_protection (__main__.GuardTests.test_undeclared_states_the_missing_protection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-capture-guard-pass01\tests\test_guard.py", line 89, in test_undeclared_states_the_missing_protection
+    book.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\0521-0508-unit-uvu6l53t\\undeclared'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.029s
+
+FAILED (errors=5)

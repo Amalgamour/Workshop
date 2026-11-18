@@ -1,0 +1,98 @@
+{
+  "accepted": false,
+  "active_librarian": {
+    "bytes": 12204,
+    "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "candidate_librarian": {
+    "bytes": 12237,
+    "sha256": "d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4"
+  },
+  "changed_or_added": [
+    {
+      "key": "prime_review_capacity",
+      "new": {
+        "bytes": 2031,
+        "path": "labs/review-source-capacity-pass01/prime_review.py",
+        "sha256": "a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87"
+      },
+      "old": null
+    },
+    {
+      "key": "review_loop_v7",
+      "new": {
+        "bytes": 10291,
+        "path": "app/review_loop_tools_v7.py",
+        "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+      },
+      "old": null
+    },
+    {
+      "key": "review_loop_v7_json",
+      "new": {
+        "bytes": 3515,
+        "path": "app/review-loop-v7.json",
+        "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+      },
+      "old": null
+    },
+    {
+      "key": "workbook",
+      "new": {
+        "bytes": 3055,
+        "path": "labs/review-source-capacity-pass01/workbook.py",
+        "sha256": "7383e6ec4e5bf7909f069796a7fe6c71e23b6f241edec64fc3805656174a742e"
+      },
+      "old": {
+        "bytes": 19533,
+        "path": "labs/workbook-review-pass03/workbook.py",
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      }
+    },
+    {
+      "key": "workbook_pass03",
+      "new": {
+        "bytes": 19533,
+        "path": "labs/workbook-review-pass03/workbook.py",
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      },
+      "old": null
+    }
+  ],
+  "declaration": {
+    "bytes": 4319,
+    "sha256": "3a47008e03bae8f8b580fb903514fc98d4683a5e48401f44b2c454d63aa094b5"
+  },
+  "librarian_substitutions": [
+    "to the pinned v7 door. -> to the pinned source-capacity door.",
+    "review_loop_tools_v7.py / librarian_review_loop_tools_v7 -> review_loop_tools_source_capacity.py / librarian_review_loop_source_capacity"
+  ],
+  "new_schema": "review-loop-source-capacity/1",
+  "old_schema": "review-loop-pins/5",
+  "successor": {
+    "bytes": 2031,
+    "sha256": "a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87"
+  },
+  "unchanged_tool_keys": [
+    "construct_pass04",
+    "form",
+    "form_pass01",
+    "form_pass02",
+    "prime_cycle_pass03",
+    "prime_review_pass02",
+    "return_access",
+    "review_loop",
+    "review_loop_v4",
+    "review_loop_v4_json",
+    "review_loop_v5",
+    "review_loop_v5_json",
+    "review_loop_v6",
+    "review_loop_v6_json",
+    "workbook_pass01",
+    "workbook_pass02"
+  ],
+  "v7_declaration": {
+    "bytes": 3515,
+    "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+  }
+}

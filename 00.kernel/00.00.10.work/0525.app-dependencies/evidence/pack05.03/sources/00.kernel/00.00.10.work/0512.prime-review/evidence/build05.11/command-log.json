@@ -1,0 +1,23 @@
+{
+  "accepted": false,
+  "commands": [
+    {
+      "command": "python -B labs/review-source-capacity-pass02/build_candidate.py",
+      "exit": 0,
+      "result": "candidate built"
+    },
+    {
+      "command": "python -B labs/review-source-capacity-pass02/tests/test_capacity.py",
+      "exit": 1,
+      "log": "author-suite-first.txt",
+      "result": "25 tests, 2 failures"
+    },
+    {
+      "command": "python -B labs/review-source-capacity-pass02/tests/test_capacity.py",
+      "exit": 0,
+      "log": "author-suite.txt",
+      "result": "25 tests, 201.252s, OK"
+    }
+  ],
+  "python": "3.14.0"
+}

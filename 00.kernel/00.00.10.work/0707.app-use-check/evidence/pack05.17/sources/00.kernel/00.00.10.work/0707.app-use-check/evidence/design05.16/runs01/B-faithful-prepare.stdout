@@ -1,0 +1,298 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/05.15.pack.md",
+      "role": "assignment",
+      "root": "book",
+      "text": "# 05.15.pack - Finish the task-agreement reference lab and compatibility contract\ndate: 2026-11-03\nwho: Codex Prime\nexecutor: Claude, Colab design/labs\nreviewer: Codex Prime\nstate: PREPARED; execute on named Director invocation; nonproduction successor only\n\n## Goal / method\nComplete the coherent task-agreement lab/spec slice by repairing J1-J3 in 06.14.review and confirming compatibility against ",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0707.app-use-check/05.15.return.md",
+      "role": "return",
+      "root": "book",
+      "text": "# 05.15 return — task-agreement reference lab completed (J1–J3 plus core compatibility)\ndate: 2026-11-03 · who: claude-opus-5-5 (Claude), Colab design/labs · reviewer: Codex Prime\npack: `05.15.pack.md` · notes: `06.15.notes.md` · design: `evidence/design05.15/` · lab: `labs/task-agreement-reference-pass02/` · route: page-local N7NN\nstate: **returned; stopped for Prime review.**\n- Nonproduction; no",
+      "truncated": true
+    }
+  ],
+  "destination": "0707.app-use-check/06.15.review.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "unparsed-return-line",
+      "path": null,
+      "text": "Returned: 05.15.return.md (claude-opus-5-5, 2026-11-03), sha256 bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008, 7929 bytes."
+    },
+    {
+      "code": "unparsed-return-line",
+      "path": null,
+      "text": "Notes: 06.15.notes.md. Lab: labs/task-agreement-reference-pass02 (new-run02 21/21; compat16 16/16; first failures and test defects kept). Nonproduction."
+    },
+    {
+      "code": "submission-not-declared",
+      "path": null
+    },
+    {
+      "code": "declared-file-missing",
+      "path": "evidence/design05.15/artifact-manifest.json,"
+    },
+    {
+      "code": "custody-missing",
+      "path": null
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0707.app-use-check/06.15.review.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "unparsed-return-line",
+          "path": null,
+          "text": "Returned: 05.15.return.md (claude-opus-5-5, 2026-11-03), sha256 bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008, 7929 bytes."
+        },
+        {
+          "code": "unparsed-return-line",
+          "path": null,
+          "text": "Notes: 06.15.notes.md. Lab: labs/task-agreement-reference-pass02 (new-run02 21/21; compat16 16/16; first failures and test defects kept). Nonproduction."
+        },
+        {
+          "code": "submission-not-declared",
+          "path": null
+        },
+        {
+          "code": "declared-file-missing",
+          "path": "evidence/design05.15/artifact-manifest.json,"
+        },
+        {
+          "code": "custody-missing",
+          "path": null
+        }
+      ],
+      "instance_id": "d9117b4a69f08a4b141ed0bd748bde5bd70a2a12dfc0762dd1b3f860520d7c8d",
+      "intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+      "kind": "N7NN",
+      "member": null,
+      "return_path": "0707.app-use-check/05.15.return.md",
+      "rows": [
+        {
+          "bytes": 7178,
+          "declared_path": "0707.app-use-check/05.15.pack.md",
+          "path": "0707.app-use-check/05.15.pack.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "6e7668dd94c587f80383d7fe152b74eeebbe68cf5d45db39cfa6e456e240868f"
+        },
+        {
+          "bytes": 7929,
+          "declared_path": "0707.app-use-check/05.15.return.md",
+          "path": "0707.app-use-check/05.15.return.md",
+          "role": "return",
+          "root": "book",
+          "sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "d9117b4a69f08a4b141ed0bd748bde5bd70a2a12dfc0762dd1b3f860520d7c8d",
+  "intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+  "kind": "N7NN",
+  "live_intake_id": "c9298b86c3fdec7b15d7c81a9b95f460b370ac323dde17c875fc3c3546633579",
+  "measurement": "incomplete",
+  "missing": [],
+  "page": "0707.app-use-check",
+  "pass": "05.15",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": null,
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

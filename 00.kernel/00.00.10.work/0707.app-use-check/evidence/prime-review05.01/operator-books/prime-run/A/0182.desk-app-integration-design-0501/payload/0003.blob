@@ -1,0 +1,130 @@
+{
+ "schema": "desk-integration-map/1",
+ "batch": "00.kernel/00.00.10.work/0519.desk-app/05.01.md",
+ "who": "claude-opus-5-5 (Claude), 2026-10-31",
+ "authority": "none: a source-backed map, not a seating or a decision",
+ "basis": "Code read from pack05.01 sources (51 pins verified), plus read-only runs and the disposable lab in labs/desk-app-integration-pass01. README prose is cited only where the code agrees.",
+ "steps": [
+  {
+   "step": "session and role registration",
+   "real_interfaces": [
+    {"file": "00.kernel/00.00.10.work/0408.seats/01.md", "interface": "hand-written seat table (Director, Prime, Colab, Builder)"},
+    {"file": "app/librarian.py boot-prepare/boot-check/boot-judge/boot-show -> labs/prime-boot-pass01/prime_boot.py (pinned in app/prime-boot.json)", "interface": "recorded orientation attempt: request, answers, judgement"}
+   ],
+   "demonstrated": "Not exercised in this lab. The boot wrappers are accepted with pins (app/README.md); the seat page names who sits where.",
+   "unverified": "That any session registers before working. No command records 'this session is Grok-2 working 0520'.",
+   "limitations": "Labels are text. --as and submitter are not authentication (Clerk README, return_capture README, prime_review README). Same-user, no OS sandbox.",
+   "missing": "A session/claim record tied to a seat id. Reservation submitter labels drift for one model: 18 distinct labels over 83 members (live view 2026-10-31), e.g. 'Claude', 'Claude Builder', 'Claude Colab/Builder'."
+  },
+  {
+   "step": "orientation (where am I, what is current)",
+   "real_interfaces": [
+    {"file": "app/librarian.py where|validate -> app/context.py validate_context/parse_assignment", "interface": "reads app/development-workspace.json, then 0401.goal/06.01.md (assignment-record v1)"}
+   ],
+   "demonstrated": "Read-only run on live 2026-10-31: 'stop: assignment_state is not a known state', exit 2, for both where and validate. Prime's record says 'prepared'; context.py STATES = waiting, released, running, returned, accepted, stopped.",
+   "unverified": "Whether a model actually boots from 'where'. AGENTS.004 boot reads 0401/06.01 by hand.",
+   "limitations": "One current_work for the whole desk. Two lanes run in parallel today (0519 Claude, 0518/05.02 Grok-1, 0520 Grok-2); the record can name only one.",
+   "missing": "A per-worker answer. The selector is hand-edited and its state vocabulary has drifted from the parser."
+  },
+  {
+   "step": "assignment (Prime records a bounded task)",
+   "real_interfaces": [
+    {"file": "00.kernel/00.00.10.work/<lane>/05.NN.md", "interface": "batch page written by Prime: Assignment (Executor, Reviewer), steps, allowed writes, Local capture command, Return pointer, Review"},
+    {"file": "<lane>/evidence/pack05.NN/source-manifest.json + snapshots", "interface": "prime-pack-sources/1 pins; checkable by app/librarian.py pack-check (pinned labs/pack-custody-pass01/pack_check.py)"},
+    {"file": "labs/return-capture-pass01/return_capture.py reserve", "interface": "01NN.<slug>/reservation.json: submission_id, origin page/batch, expected_outputs, submitter, reviewer, release text, supersedes"}
+   ],
+   "demonstrated": "Lab steps 1a-1b and 10a-10b (demo 36/36): a page built from a structured spec by desk_lab construct batch-page/1, then a real reserve. Live: 83 members, each reservation names its origin page and batch.",
+   "unverified": "That the reservation's expected_outputs always equal the page's capture command. Prime keeps both by hand.",
+   "limitations": "reservation.release is 'Reservation only…'; the real release is elsewhere. Return band 0101-0199: 16 free after 0183; return_capture refuses past 0199 and does not create 0200.",
+   "missing": "One structured assignment input that produces the page, the reservation and the review registration together. Today Prime writes all three by hand."
+  },
+  {
+   "step": "release and claim",
+   "real_interfaces": [
+    {"file": "<lane>/05.NN.md ## Return pointer", "interface": "'Release:' line quoting the Director's chat, then 'Claim:' line, both typed by the worker"},
+    {"file": "labs/batch-observation-pass01/batch_observe.py", "interface": "release_lines / claim_lines from header, Assignment or a return pointer"}
+   ],
+   "demonstrated": "Live 0519 observation: release_raw null and ambiguous, because the pack template line 'Release and claim: recorded in the Return pointer…' also matches the Release prefix. Tasks on pages with at least one reader ambiguity in the live view: 78 of 83 (cause verified on 0519 only). Lab 3a-3d: constructed Release and Claim lines; a stale compare-and-swap claim is refused; the claim binds assignment-sha256.",
+   "unverified": "Release authenticity. A Release line is copied text from chat.",
+   "limitations": "Release and Claim belong to the page, not the member. A superseding member inherits the page's claim (lab 10h: successor 0103 shows 'claimed').",
+   "missing": "Any binding of a claim to the bytes it claims. Live claims cite a HEAD commit, while the page itself is often uncommitted (0519 claim at 960d20c; 0519 pages untracked)."
+  },
+  {
+   "step": "status (what is open, who acts)",
+   "real_interfaces": [
+    {"file": "labs/prime-support-pass01/prime_support.py status (app: prime-status)", "interface": "registry of lanes and files; Git revisions; Clerk jobs v2"},
+    {"file": "labs/prime-cycle-pass01/prime_cycle.py read", "interface": "per registered work: pass state no-return/custody-unresolved/awaiting-review/reviewed/review-stale"},
+    {"file": "labs/desk-app-integration-pass01/desk_lab.py view (lab)", "interface": "derived from reservations + return_inspect + batch_observe (+ prime_cycle)"}
+   ],
+   "demonstrated": "Live read-only view (exit 1, 27508 files identical before and after): 83 tasks: 58 reviewed-untyped, 14 awaiting-review, 8 historical-capture, 2 awaiting-release (0154, 0183), 1 claimed (0182). A small probe showed that 10 of the 14 'awaiting-review' already have evidence/prime-review05.NN; 0181 is genuinely waiting.",
+   "unverified": "Whether 0152, 0153 and 0172 were reviewed somewhere else.",
+   "limitations": "prime_support and prime_cycle need a hand-maintained registry or registration. Neither enumerates reservations. The lab view does not resolve versioned pages (05.04.002.md) or the 07NN layout (05.01.pack.md / 05.01.return.md: 'page file is missing' on 5 members).",
+   "missing": "A fixed review address. Reviews live in three places: the page Review section, evidence/prime-review05.NN/REVIEW.md, or 06.NN.review.md."
+  },
+  {
+   "step": "result submission",
+   "real_interfaces": [
+    {"file": "labs/return-capture-pass01/return_capture.py capture/verify", "interface": "return.md + payload/NNNN.blob + manifest.json + receipt.json, exclusive and verified"},
+    {"file": "app/librarian.py capture-return -> labs/capture-handoff-pass01/handoff.py perform", "interface": "returned Clerk job -> reserved member"},
+    {"file": "labs/clerk-handoff-pass02/clerk.py", "interface": "queue/claim/return; store refused inside any Git working tree"}
+   ],
+   "demonstrated": "Lab 5a-5b and 6a-6b: capture, fresh verify, identical repeat 'already-captured' with the member bytes unchanged, changed bytes under the same submission refused with the member bytes unchanged. 10e: interrupted before-receipt keeps a partial and the view reports custody-problem, not a return.",
+   "unverified": "Clerk on a real task: every live return used return_capture directly.",
+   "limitations": "Clerk's store cannot sit in the work book (Git tree refusal), so Clerk cannot be the durable work-book record without a separate publication step.",
+   "missing": "Nothing for slice 1. return_capture already gives durable local custody."
+  },
+  {
+   "step": "immutable local capture",
+   "real_interfaces": [
+    {"file": "labs/return-capture-pass01/return_inspect.py inspect", "interface": "return-capture-inspection/1: complete/reserved/missing/incomplete/refused"}
+   ],
+   "demonstrated": "Live inspect of 0182 (reserved, exit 1) and 0179 (complete, exit 0); 83 inspections in the live view.",
+   "unverified": "Resistance to a same-user rewrite (documented as not covered).",
+   "limitations": "Receipt is custody, not review or acceptance. Allocation lock needs manual cleanup after a crash.",
+   "missing": "Band successor policy."
+  },
+  {
+   "step": "Prime review",
+   "real_interfaces": [
+    {"file": "labs/prime-cycle-pass01/prime_cycle.py read --templates / record", "interface": "typed prime-cycle-review/2 record.json + REVIEW.md + COMMITTED.json at the work's review_location"},
+    {"file": "labs/prime-review-pass01/prime_review.py (app: prime-review/guard/check-next)", "interface": "report shape, holds, check-next"},
+    {"file": "hand-written evidence/prime-review05.NN/REVIEW.md", "interface": "what Prime actually does on almost every pass"}
+   ],
+   "demonstrated": "Lab 7b-7d: template, typed record, view reports 'reviewed' with next action 'Pack 05.02…'. Lab 8a-8b: constructing the page Review section from record.json makes the same review 'review-stale', because prime_cycle binds the whole page sha256 (prime_cycle.py derive: hb.source.page_sha256 != binding.page_sha256).",
+   "unverified": "Prime's routine use of prime_cycle: one live work (0515 actual-use, deskstate-0520).",
+   "limitations": "Registration needs a per-work agreement (Prime judgment), so it cannot be generated blind. Templates must sit under output_root (lab run1, kept).",
+   "missing": "Binding to the assignment region plus the receipt, not the whole page. A review address the view can find."
+  },
+  {
+   "step": "next action",
+   "real_interfaces": [
+    {"file": "0401.goal/06.01.md next:", "interface": "one hand-written line for the whole desk"},
+    {"file": "prime_cycle record judgment.next_action", "interface": "typed {action_id, text, authorized_in_grant}, with author and source in the read view"}
+   ],
+   "demonstrated": "Lab 7d and 9a-9b: next action recovered by fresh processes; state digests are equal.",
+   "unverified": "Live: next actions are in prose on REVIEW.md pages.",
+   "limitations": "A typed next action is current only while its binding holds (it disappears into 'historical' on review-stale).",
+   "missing": "A typed next action on routine reviews."
+  },
+  {
+   "step": "restart recovery",
+   "real_interfaces": [
+    {"file": "all of the above are files", "interface": "reservation, capture, page, typed review; prime_cycle journal (--journal-root); prime_cycle inspect"}
+   ],
+   "demonstrated": "Lab 9a-9b: two fresh-process views give the same state digest. 10e-10f: a partial capture stays visible as custody-problem.",
+   "unverified": "A real process kill mid-write (Grok-2's 0520 lab owns broad execution and replay).",
+   "limitations": "No cross-file transaction; markers (receipt.json, COMMITTED.json, Clerk witness) define completeness.",
+   "missing": "Nothing structural for slice 1: no state lives only in memory."
+  }
+ ],
+ "live_observations_2026_10_31": {
+  "where_validate_exit": 2,
+  "members": 83,
+  "return_band_free_after_0183": 16,
+  "submitter_labels_distinct": 18,
+  "tasks_on_ambiguous_pages": 78,
+  "review_addresses_in_use": ["page ## Review section", "evidence/prime-review05.NN/REVIEW.md", "06.NN.review.md (07NN Colab pages)"],
+  "batch_layouts_in_use": ["05.NN.md", "05.NN.002.md text versions", "05.NN.pack.md + 05.NN.return.md (07NN)"],
+  "concurrent_writers_seen": "Between two read-only live views, other lanes added 70 files (0181 capture, 0183 reservation, 0520 pack, 0416/06.05, 0519/06.03) and changed 0518/05.02.md. The final view run saw no change."
+ }
+}

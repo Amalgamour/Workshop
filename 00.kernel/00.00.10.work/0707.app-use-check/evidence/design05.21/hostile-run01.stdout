@@ -1,0 +1,7 @@
+OK  HX-1 exit 1, not ready, all blocked | exit 1
+OK  HX-2 exit 2, refused, no rooms | exit 2
+OK  HX-3 exit 2 (pending row with a guessed pin) | exit 2
+OK  HX-4 exit 2 (accepted row does not match frozen bytes) | exit 2
+OK  HX-5 16 unit tests pass, exit 0 | exit 0
+OK  HX-6 capacity-only suite: exit 1, not ready | exit 1
+aggregate {'ok': 6, 'total': 6}

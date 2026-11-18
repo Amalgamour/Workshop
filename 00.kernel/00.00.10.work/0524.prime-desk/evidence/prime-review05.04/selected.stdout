@@ -1,0 +1,840 @@
+{
+  "attention": [],
+  "catalog": {
+    "items": [
+      {
+        "address": "0524.prime-desk/05.03",
+        "basis": "observed",
+        "label": "reviewed desk route repair",
+        "provenance": "index of the assignment record current_work; not a selection",
+        "provenance_basis": "supplied",
+        "work_id": "work-0524-0503"
+      },
+      {
+        "address": "0522.review-construction/05.05",
+        "basis": "observed",
+        "label": "reviewed app entry",
+        "provenance": "index of a second registered page; not a selection",
+        "provenance_basis": "supplied",
+        "work_id": "work-0522-0505"
+      }
+    ],
+    "source": {
+      "basis": "observed",
+      "bytes": 483,
+      "path": "0524.prime-desk/evidence/build05.04/catalog.json",
+      "sha256": "1aa9c1463ab3cad1445a58d4041fb16f57f2359db66458b839b1f5b908b869ea",
+      "status": "matched"
+    },
+    "used_for_selection": false
+  },
+  "check": "prime-desk-request/2",
+  "command": "packet",
+  "correction": "Read the gaps and open attention. Keep the canonical assignment. Do not treat a supplied label or a legacy selector as the current work. Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+  "coverage": {
+    "changed": 0,
+    "declared": 16,
+    "matched": 16,
+    "missing": 0,
+    "outside": 0,
+    "stale": 0,
+    "statement": "Declared request paths only. Unregistered sources were not searched.",
+    "unreadable": 0
+  },
+  "exit": 1,
+  "foreign": [],
+  "gaps": [
+    {
+      "basis": "unknown",
+      "check": "0124.prime-desk/05.03.return.md",
+      "kind": "return-undeclared",
+      "message": "The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.",
+      "path": "0124.prime-desk/05.03.return.md"
+    },
+    {
+      "basis": "observed",
+      "check": "prime-desk-catalog/2",
+      "kind": "catalog-not-chosen",
+      "message": "catalog names work-0522-0505; canonical assignment names work-0524-0503. The catalog was not used to choose the work.",
+      "path": "0524.prime-desk/evidence/build05.04/catalog.json"
+    },
+    {
+      "basis": "unknown",
+      "check": "verification",
+      "kind": "verification",
+      "message": "no matched verification is bound to the canonical work",
+      "path": null
+    }
+  ],
+  "inspectability": {
+    "basis_legend": "observed = declared bytes matched; supplied = caller label; unknown = not present; stale = different bytes withheld; changed = bytes moved during the read and were withheld",
+    "escalation": "Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+    "fingerprint": "3956f4ca6b90469c666d3624f24dd2a7e8cf9fb2b754f05e0e3457a56023f644",
+    "request_sha256": "87f5d657304025ef6654688170226bcb921d9eca5cee11a0fc4bd8a898242e93"
+  },
+  "instance": {
+    "basis": "observed",
+    "book": "00.00.10.work",
+    "role": "prime",
+    "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "tools_root": "D:\\Git\\lib-build"
+  },
+  "legacy": [],
+  "not_selected": [
+    {
+      "address": "0522.review-construction/05.05",
+      "basis": "observed",
+      "executable": true,
+      "id": "work-0522-0505",
+      "kind": "work",
+      "reason": "not the canonical assignment record",
+      "source": {
+        "basis": "observed",
+        "bytes": 8532,
+        "path": "0522.review-construction/05.05.md",
+        "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+        "status": "matched"
+      }
+    }
+  ],
+  "observed_at": "2026-11-01T18:53:03Z",
+  "operations": [
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "prime-desk",
+      "limitation": "view and packet are separate commands; this request does not import or launch the module",
+      "limitation_basis": "supplied",
+      "name": "prime-desk-pass03",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 77622,
+        "path": "labs/prime-desk-pass03/prime_desk.py",
+        "sha256": "cd1e74aa0a51b52dcedaa544b4fd1f2de90f84bf69a8c21234ef362ae2a5f812",
+        "status": "matched"
+      }
+    },
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "request-index",
+      "limitation": "hash check and request write only; it does not choose current work",
+      "limitation_basis": "supplied",
+      "name": "request-index",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 3838,
+        "path": "labs/prime-desk-pass03/request_index.py",
+        "sha256": "d6dacbe94e0797d72354483991ec4066ab7ac013a705bee40b836c1859391c2f",
+        "status": "matched"
+      }
+    },
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "review-loop-integration",
+      "limitation": "Pending. Successor modules were not imported.",
+      "limitation_basis": "tool",
+      "name": "review-loop",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": null
+    }
+  ],
+  "packet": {
+    "assignment": {
+      "basis": "observed",
+      "bytes": 8326,
+      "path": "0524.prime-desk/05.03.md",
+      "quoted": true,
+      "reason": null,
+      "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "status": "matched",
+      "text": "# 05 - Repair Prime desk work, return and review identities\ndate: 2026-11-01\nwho: Codex Prime\nstate: prepared; awaiting named Director invocation; not claimed\n\nDo not execute on discovery. This is an existing-contract repair, not a new law.\n\n## Assignment\nExecutor Grok-1; reviewer Codex Prime. Work in D:/Git/lib-build on workshop.\nRead the full Prime review on 05.02.md and evidence/pack05.03/source-manifest.json.\nVerify live inputs and frozen copies. Record invocation and claim here only when\nreleased. Write 06.05.md notes and the proposed CONTRACT before implementation.\nBuild NEW labs/prime-desk-pass03. Preserve pass01/pass02 and all prior evidence.\n\n## #01 - separate identities and destinations, PD-05\nThe source work, captured return and Prime review are different identities.\nFor an N5NN source, the full Prime review remains in that source 05.NN.md's\nreview section. The matching N1NN line holds the return at 05.NN.return.md.\nDo not call an N1NN path the review home. Preserve N, NN, subject and pass.\nFor N7NN Colab, the source is 05.NN.pack.md, return 05.NN.return.md, review\n06.NN.review.md, all on the SAME page. Never allocate an N1NN line for Colab.\nAn absent return/custody record cannot imply that an existing review is absent.\nReport each evidence state independently, with unknown where not established.\nRead-only tools must not create any destination, receipt or status transition.\n\n## #02 - positive route table and declared prefix, PD-06\nUse declared book/band identity, not absolute 0500-0599 or 0700-0799 limits.\nInclude independent exact expectations for at least these source-work examples:\n\n| Source | Return | Review |\n| --- | --- | --- |\n| 0521.return-placement/05.03.md | 0121.return-placement/05.03.return.md | 0521.return-placement/05.03.md |\n| 1599.synth-lab/05.01.md | 1199.synth-lab/05.01.return.md | 1599.synth-lab/05.01.md |\n| 0705.prime-desk-check/05.01.pack.md | 0705.prime-desk-check/05.01.return.md | 0705.prime-desk-check/06.01.review.md |\n| 1705.prime-desk-check/05.01.pack.md | 1705.prime-desk-check/05.01.return.md | 1705.prime-desk-check/06.01.review.md |\n\nRecognizing an already-existing review artifact is not a substitute for recognizing\nits source pack. Expose artifact kind separately; do not silently treat a return\nor review as executable work. Unknown kinds remain unsupported. Validate malformed\npaths, foreign instances and mismatched subjects/passes without guessing an alias.\nDo not change live book layout, renumber pages or migrate existing captures.\n\n## #03 - keep the useful repairs and demonstrate the combined contract\nPreserve canonical assignment selection, explicit source hashes and Director/model\nattribution spans, structured malformed-selector refusal, explicit coverage and\nread-only view/packet connectors. Requests/catalogs remain indexes, not selection\nauthority. Two work-bound packets must retain their own task and evidence. If a\nnonselected registered work packet can be inspected, keep its inspected identity\ndistinct from canonical current work; inspection must never change selection.\nUse disposable real-shaped fixtures. Include a case with existing N5NN review but\npending N1NN custody; the review must remain discoverable and custody stay pending.\nRun route-table tests, prior selection/attribution/refusal regressions and a new\nprocess demo. Compare before/after output with explicit versioned interface deltas.\nDo not edit Claude's checker, expected observations or historical test results to\nmake a new implementation pass. No semantic approval or production readiness claim.\n\n## Scope and return\nAllowed writes: NEW labs/prime-desk-pass03, 0524/06.05.md,\n0524/evidence/build05.03 and this pack's return pointer on release only.\nNo app facade, live selector, law/kernel, prior lab/evidence, unrelated pages,\nGit writes, model launches, installs, paid work, migration or allocation.\nReturn submission.md starting Did, Blocked, Need; CONTRACT.md, PRIME-USE.md,\ninterface-delta.md, verification.json, artifact-manifest.json, raw commands/exits,\ntests and demo evidence. Preserve first failures. Manifest excludes itself and\nnames every produced artifact by bytes/hash. Record final submission/manifest\nhashes here. Matching 0124 custody remains pending: do not fabricate a receipt.\nReread the complete deliverable and integrate notes before returning. Stop for\nfull Prime review on this source batch. No seating or live activation.\n\n## Return pointer\n\nRun this pack:\n00.kernel/00.00.10.work/0524.prime-desk/05.03.md\n\nClaim: Grok-1 claims 0524.prime-desk/05.03. Session 01a17ded-90ba-79e3-8b8c-7e1f0005193e. Reviewer Codex Prime. One bounded pass, then stop. No Git stage, commit, or push.\n\nSubmission sha256: f1f8c781b0ba9611f42e1a675e6aaa5c4b6fc981dd9abcd6f01afa9bfe6df5c3\nManifest sha256: 7b449ce41080d9e8403dc1d4d99387f16a5489aa836230dfafe8a97ef9de284e\nManifest schema: prime-desk-artifact-manifest/1. self_hashed false. 78 files, 17523 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.\n\n## Review - Codex Prime\n# Prime review - 0524.prime-desk/05.03\ndate: 2026-11-01\nwho: Codex Prime\n\nDisposition: bounded read-only routing repair verified. No further repair pack\nis justified by this review. Live desk integration and operational use remain next.\n\nAll 13 frozen input snapshots, 78 artifact rows and submission/manifest pointer\nhashes match. The original 05.02/pass02 code and evidence remain preserved. The\nnew pass is separate and has not edited the app or a live book record.\n\nPrime's independent native Windows Python 3.12.14 run: 21 tests passed, no skips,\n3.396s suite time (3.609s command time). Two prior sandboxed attempts failed in\ntemporary-directory setup before assertions; those are environment failures, not\n21 demonstrated product defects. The first raw stream is in the tool transcript;\nthe redirected attempt's raw output is retained. The successful third attempt\nchanged native fixture permissions only, not product or test code. Builder's\nPython 3.14 results remain separate.\n\nPrime independently ran a fresh demo, exit 0, and seven direct identity probes.\nPD-05 is repaired: N5NN review points to its source 05.NN page; matching N1NN is\nthe distinct 05.NN.return path. The demo exposes a matched review file while return\ncustody stays pending and no return is created. A matched file is not proof of\nreview meaning or approval; judgment remains unknown. Undeclared return is unknown,\nnot absent. Pending custody no longer substitutes for review availability.\n\nPD-06 is repaired: exact required 0521, 1599, 0705 and 1705 source routes match.\nN7NN source packs map to local return/review tails, preserving prefix/subject/pass.\nReview and return artifacts are explicitly non-executable; no source is invented\nfrom an artifact identity. Canonical assignment still controls selected work.\nIndependent demo inspection of 0522, 1599 and 1705 keeps canonical 0521 selected\nwhile each inspected packet has its own route/material and relation=inspection.\n\nSelection conflict, malformed input, attribution spans, source drift and other\nregressions pass. Demo tool exits remain attention (1), distinct from wrapper\nsuccess; the open hold and unknown process activity remain visible. A supplied\nworker-running label has not become a live process observation. Prior oracle and\nhistorical tests were not rewritten. View/packet output advances to version 3;\nfuture independent adapters must pin that version explicitly.\n\nLimits: this is a disposable-fixture review, not proof of actual day-to-day Prime\nuse. The overview is still 76 lines before packet text; short-view usability needs\nreal use rather than a claim that a test suite proves readability. No app facade\nregistration, source-capture relocation, runtime seating, Director acceptance,\nfresh-model recovery or OS sandbox claim follows. The stale live canonical work\nrecord is an operational maintenance issue to resolve before trusting a daily\nbrief; do not silently choose the newest pack as a substitute. Matching 0124\ncustody remains pending. No further Grok-1 build released by this review.\n\nNext: Prime builds a deliberately current source request and uses the read-only\nview/packet on real work; independent operator/dependency work can proceed in\nseparate lanes. Keep the reviewed desk bytes stable while collecting that evidence.\n"
+    },
+    "assignment_reader": [
+      {
+        "fields": {
+          "assignment_state": "returned",
+          "basis": "observed",
+          "current_work": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "next": "inspect reviewed desk on real workbook; parallel lanes 0525/05.01 and 0707/05.01.pack; see 0420/06.07",
+          "next_limit": "the record next field is not a command and is not the selected next route",
+          "pack": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "updated": "2026-11-01",
+          "waits_on": "Prime actual desk use; request preparation assigned separately on 0524/05.04"
+        },
+        "limit": "assignment_state is a record field, not a live process check. validate_context was not called.",
+        "reader": "app-context.parse_assignment",
+        "source": {
+          "basis": "observed",
+          "bytes": 520,
+          "path": "0401.goal/06.01.md",
+          "sha256": "28d69375eaccd04dcea9d39133c8052dd68b770e20608e9ebc33ec1dc13375e2",
+          "status": "matched"
+        }
+      }
+    ],
+    "canonical_id": "work-0524-0503",
+    "checkpoint": [
+      {
+        "basis": "observed",
+        "bytes": 1444,
+        "id": "checkpoint",
+        "label": "Prime operating checkpoint",
+        "path": "0420.prime-desk/06.07.md",
+        "quoted": true,
+        "reason": null,
+        "role": "checkpoint",
+        "sha256": "5be6a36ed86f860090e54390abe683468f18fae8786b2c841b3e9297a394a2b6",
+        "status": "matched",
+        "text": "# Prime operating checkpoint and next bounded lanes\ndate: 2026-11-01\nwho: Codex Prime\n\nThe Director asked to check Prima and get Claude, Grok-1 and Grok-2 back to work.\nVerified local technical review: 0524/05.03 has 21 independently passing tests and\na fresh demo. PD-05/PD-06 are addressed. Actual daily Prime use remains unproven.\n0522/05.05 app entry is independently reviewed within read-only/disposable limits.\nThe prior canonical assignment still named 0522/05.04 and an already-completed\nrelease decision. Its exact bytes are retained in evidence/selection-update-2026-11-01/.\nPrime explicitly selects the last reviewed 0524/05.03 as the current desk focus,\nstate returned (technical review is not Director acceptance). This is not newest-\nfile selection. A single current focus does not claim it is the only worker job.\nNext outgoing lanes: 0524/05.04 Grok-1 real-book request preparation;\n0525/05.01 Grok-2 declarations; 0707/05.01.pack Claude operator-path Colab.\nThese are prepared assignments, not proof that a worker has received or started.\nPrima's remote claim 9798895846006c8fa4c026143aad9ee57df71fed names the initial\n0706 pilot. It reports input verification, Linux environment and a routine; no\nworker results were published at this observation. Those claims aren't completed\ntest evidence, nor observed routine firings. Usage/Gameatron notice adoption is\nnot established by that claim. No local 00.live seating is implied.\n"
+      }
+    ],
+    "criteria": [
+      {
+        "basis": "observed",
+        "bytes": 8326,
+        "id": "crit-0524",
+        "label": "0524/05.03 task",
+        "path": "0524.prime-desk/05.03.md",
+        "quoted": true,
+        "reason": null,
+        "role": "criteria",
+        "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+        "status": "matched",
+        "text": "# 05 - Repair Prime desk work, return and review identities\ndate: 2026-11-01\nwho: Codex Prime\nstate: prepared; awaiting named Director invocation; not claimed\n\nDo not execute on discovery. This is an existing-contract repair, not a new law.\n\n## Assignment\nExecutor Grok-1; reviewer Codex Prime. Work in D:/Git/lib-build on workshop.\nRead the full Prime review on 05.02.md and evidence/pack05.03/source-manifest.json.\nVerify live inputs and frozen copies. Record invocation and claim here only when\nreleased. Write 06.05.md notes and the proposed CONTRACT before implementation.\nBuild NEW labs/prime-desk-pass03. Preserve pass01/pass02 and all prior evidence.\n\n## #01 - separate identities and destinations, PD-05\nThe source work, captured return and Prime review are different identities.\nFor an N5NN source, the full Prime review remains in that source 05.NN.md's\nreview section. The matching N1NN line holds the return at 05.NN.return.md.\nDo not call an N1NN path the review home. Preserve N, NN, subject and pass.\nFor N7NN Colab, the source is 05.NN.pack.md, return 05.NN.return.md, review\n06.NN.review.md, all on the SAME page. Never allocate an N1NN line for Colab.\nAn absent return/custody record cannot imply that an existing review is absent.\nReport each evidence state independently, with unknown where not established.\nRead-only tools must not create any destination, receipt or status transition.\n\n## #02 - positive route table and declared prefix, PD-06\nUse declared book/band identity, not absolute 0500-0599 or 0700-0799 limits.\nInclude independent exact expectations for at least these source-work examples:\n\n| Source | Return | Review |\n| --- | --- | --- |\n| 0521.return-placement/05.03.md | 0121.return-placement/05.03.return.md | 0521.return-placement/05.03.md |\n| 1599.synth-lab/05.01.md | 1199.synth-lab/05.01.return.md | 1599.synth-lab/05.01.md |\n| 0705.prime-desk-check/05.01.pack.md | 0705.prime-desk-check/05.01.return.md | 0705.prime-desk-check/06.01.review.md |\n| 1705.prime-desk-check/05.01.pack.md | 1705.prime-desk-check/05.01.return.md | 1705.prime-desk-check/06.01.review.md |\n\nRecognizing an already-existing review artifact is not a substitute for recognizing\nits source pack. Expose artifact kind separately; do not silently treat a return\nor review as executable work. Unknown kinds remain unsupported. Validate malformed\npaths, foreign instances and mismatched subjects/passes without guessing an alias.\nDo not change live book layout, renumber pages or migrate existing captures.\n\n## #03 - keep the useful repairs and demonstrate the combined contract\nPreserve canonical assignment selection, explicit source hashes and Director/model\nattribution spans, structured malformed-selector refusal, explicit coverage and\nread-only view/packet connectors. Requests/catalogs remain indexes, not selection\nauthority. Two work-bound packets must retain their own task and evidence. If a\nnonselected registered work packet can be inspected, keep its inspected identity\ndistinct from canonical current work; inspection must never change selection.\nUse disposable real-shaped fixtures. Include a case with existing N5NN review but\npending N1NN custody; the review must remain discoverable and custody stay pending.\nRun route-table tests, prior selection/attribution/refusal regressions and a new\nprocess demo. Compare before/after output with explicit versioned interface deltas.\nDo not edit Claude's checker, expected observations or historical test results to\nmake a new implementation pass. No semantic approval or production readiness claim.\n\n## Scope and return\nAllowed writes: NEW labs/prime-desk-pass03, 0524/06.05.md,\n0524/evidence/build05.03 and this pack's return pointer on release only.\nNo app facade, live selector, law/kernel, prior lab/evidence, unrelated pages,\nGit writes, model launches, installs, paid work, migration or allocation.\nReturn submission.md starting Did, Blocked, Need; CONTRACT.md, PRIME-USE.md,\ninterface-delta.md, verification.json, artifact-manifest.json, raw commands/exits,\ntests and demo evidence. Preserve first failures. Manifest excludes itself and\nnames every produced artifact by bytes/hash. Record final submission/manifest\nhashes here. Matching 0124 custody remains pending: do not fabricate a receipt.\nReread the complete deliverable and integrate notes before returning. Stop for\nfull Prime review on this source batch. No seating or live activation.\n\n## Return pointer\n\nRun this pack:\n00.kernel/00.00.10.work/0524.prime-desk/05.03.md\n\nClaim: Grok-1 claims 0524.prime-desk/05.03. Session 01a17ded-90ba-79e3-8b8c-7e1f0005193e. Reviewer Codex Prime. One bounded pass, then stop. No Git stage, commit, or push.\n\nSubmission sha256: f1f8c781b0ba9611f42e1a675e6aaa5c4b6fc981dd9abcd6f01afa9bfe6df5c3\nManifest sha256: 7b449ce41080d9e8403dc1d4d99387f16a5489aa836230dfafe8a97ef9de284e\nManifest schema: prime-desk-artifact-manifest/1. self_hashed false. 78 files, 17523 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.\n\n## Review - Codex Prime\n# Prime review - 0524.prime-desk/05.03\ndate: 2026-11-01\nwho: Codex Prime\n\nDisposition: bounded read-only routing repair verified. No further repair pack\nis justified by this review. Live desk integration and operational use remain next.\n\nAll 13 frozen input snapshots, 78 artifact rows and submission/manifest pointer\nhashes match. The original 05.02/pass02 code and evidence remain preserved. The\nnew pass is separate and has not edited the app or a live book record.\n\nPrime's independent native Windows Python 3.12.14 run: 21 tests passed, no skips,\n3.396s suite time (3.609s command time). Two prior sandboxed attempts failed in\ntemporary-directory setup before assertions; those are environment failures, not\n21 demonstrated product defects. The first raw stream is in the tool transcript;\nthe redirected attempt's raw output is retained. The successful third attempt\nchanged native fixture permissions only, not product or test code. Builder's\nPython 3.14 results remain separate.\n\nPrime independently ran a fresh demo, exit 0, and seven direct identity probes.\nPD-05 is repaired: N5NN review points to its source 05.NN page; matching N1NN is\nthe distinct 05.NN.return path. The demo exposes a matched review file while return\ncustody stays pending and no return is created. A matched file is not proof of\nreview meaning or approval; judgment remains unknown. Undeclared return is unknown,\nnot absent. Pending custody no longer substitutes for review availability.\n\nPD-06 is repaired: exact required 0521, 1599, 0705 and 1705 source routes match.\nN7NN source packs map to local return/review tails, preserving prefix/subject/pass.\nReview and return artifacts are explicitly non-executable; no source is invented\nfrom an artifact identity. Canonical assignment still controls selected work.\nIndependent demo inspection of 0522, 1599 and 1705 keeps canonical 0521 selected\nwhile each inspected packet has its own route/material and relation=inspection.\n\nSelection conflict, malformed input, attribution spans, source drift and other\nregressions pass. Demo tool exits remain attention (1), distinct from wrapper\nsuccess; the open hold and unknown process activity remain visible. A supplied\nworker-running label has not become a live process observation. Prior oracle and\nhistorical tests were not rewritten. View/packet output advances to version 3;\nfuture independent adapters must pin that version explicitly.\n\nLimits: this is a disposable-fixture review, not proof of actual day-to-day Prime\nuse. The overview is still 76 lines before packet text; short-view usability needs\nreal use rather than a claim that a test suite proves readability. No app facade\nregistration, source-capture relocation, runtime seating, Director acceptance,\nfresh-model recovery or OS sandbox claim follows. The stale live canonical work\nrecord is an operational maintenance issue to resolve before trusting a daily\nbrief; do not silently choose the newest pack as a substitute. Matching 0124\ncustody remains pending. No further Grok-1 build released by this review.\n\nNext: Prime builds a deliberately current source request and uses the read-only\nview/packet on real work; independent operator/dependency work can proceed in\nseparate lanes. Keep the reviewed desk bytes stable while collecting that evidence.\n"
+      }
+    ],
+    "dependencies": [
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "policy",
+        "label": "reporting policy",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 2044,
+          "path": "0412.prime-review/06.02.md",
+          "sha256": "28e9afeb62638d17ce2bbba15cf7e13bb05074a8bf655bdcefd6cc546fdfbeac",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "prior-record",
+        "label": "prior assignment bytes retained on 0420",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 595,
+          "path": "0420.prime-desk/evidence/selection-update-2026-11-01/prior-current-assignment.md",
+          "sha256": "a340b2cd72ed1c1ec3bc8f22b88319f171a3f270a8f31eb3b4cac1084b218806",
+          "status": "matched"
+        }
+      }
+    ],
+    "desk_policy": [
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "goal",
+        "label": "desk goal",
+        "label_basis": "supplied",
+        "role": "goal",
+        "source": {
+          "basis": "observed",
+          "bytes": 5914,
+          "path": "0401.goal/01.md",
+          "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "seats",
+        "label": "seats page",
+        "label_basis": "supplied",
+        "role": "scope",
+        "source": {
+          "basis": "observed",
+          "bytes": 2031,
+          "path": "0408.seats/01.md",
+          "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "desk-scope",
+        "label": "approved desk deliverable",
+        "label_basis": "supplied",
+        "role": "scope",
+        "source": {
+          "basis": "observed",
+          "bytes": 4153,
+          "path": "0420.prime-desk/01.md",
+          "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "authority",
+        "label": "Director decision",
+        "label_basis": "supplied",
+        "role": "authority",
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "policy",
+        "label": "reporting policy",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 2044,
+          "path": "0412.prime-review/06.02.md",
+          "sha256": "28e9afeb62638d17ce2bbba15cf7e13bb05074a8bf655bdcefd6cc546fdfbeac",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "prior-record",
+        "label": "prior assignment bytes retained on 0420",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 595,
+          "path": "0420.prime-desk/evidence/selection-update-2026-11-01/prior-current-assignment.md",
+          "sha256": "a340b2cd72ed1c1ec3bc8f22b88319f171a3f270a8f31eb3b4cac1084b218806",
+          "status": "matched"
+        }
+      }
+    ],
+    "director": [
+      {
+        "ambiguous": false,
+        "author": "director",
+        "binding": {
+          "scope": "desk"
+        },
+        "end": 403,
+        "id": "dir",
+        "quoted": true,
+        "reason": null,
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        },
+        "start": 111,
+        "text": "> I like it.  I can't think of anything to change so lets go with it.  Add to our deliverables so we are moving this forward I think we can start to get the core working for you today.\n>\n> Then if you are good pack it for work to be done.\n>\n> We have claude and grok-1 sitting at the moment.\n"
+      }
+    ],
+    "findings": [
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0524-0503"
+        },
+        "for_selected": true,
+        "id": "review-0524",
+        "label": "Prime review of 0524/05.03",
+        "label_basis": "supplied",
+        "role": "finding",
+        "source": {
+          "basis": "observed",
+          "bytes": 3293,
+          "path": "0524.prime-desk/evidence/prime-review05.03/REVIEW.md",
+          "sha256": "128bb2ed6dd72d79af730fee8b2ab0193f112a69929649e84f2bfe594a607400",
+          "status": "matched"
+        }
+      }
+    ],
+    "model": [
+      {
+        "ambiguous": false,
+        "author": "model",
+        "binding": {
+          "scope": "desk"
+        },
+        "end": 834,
+        "id": "mod",
+        "quoted": true,
+        "reason": null,
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        },
+        "start": 430,
+        "text": "The proposed Prime desk overview and selected-task working packet are approved\nas deliverables. Prepare Grok-1 implementation and Claude independent Colab. This\nis not permission to migrate live returns, seat kernel, activate workers, replace\nan authority record, or claim today's finish before measured use. Director/model\nwording stays separate. Scope below is the first read-only text implementation.\n"
+      }
+    ],
+    "next_routes": [],
+    "receipts": [],
+    "relation": "current",
+    "returns": [],
+    "route": {
+      "band": "N5NN",
+      "limit": "Review identity is this source page. The review section was not parsed. The return line is a separate path.",
+      "return_line": {
+        "address": "0124.prime-desk/05.03.return",
+        "basis": "unknown",
+        "custody": "unknown",
+        "file": "undeclared",
+        "judgment": "unknown",
+        "kind": "return",
+        "limit": "The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.",
+        "path": "0124.prime-desk/05.03.return.md",
+        "source": null
+      },
+      "review": {
+        "address": "0524.prime-desk/05.03",
+        "basis": "observed",
+        "custody": null,
+        "file": "matched",
+        "judgment": "unknown",
+        "kind": "review",
+        "limit": "The review identity is this source page. Its review section was not parsed. A pending return does not hide this page.",
+        "path": "0524.prime-desk/05.03.md",
+        "source": {
+          "basis": "observed",
+          "bytes": 8326,
+          "path": "0524.prime-desk/05.03.md",
+          "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+          "status": "matched"
+        }
+      },
+      "source_kind": "work",
+      "source_path": "0524.prime-desk/05.03.md"
+    },
+    "verification": [],
+    "verification_limit": "missing verification is unknown, not a clean bill of health",
+    "work_id": "work-0524-0503"
+  },
+  "record": {
+    "assignment_reader": [
+      {
+        "fields": {
+          "assignment_state": "returned",
+          "basis": "observed",
+          "current_work": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "next": "inspect reviewed desk on real workbook; parallel lanes 0525/05.01 and 0707/05.01.pack; see 0420/06.07",
+          "next_limit": "the record next field is not a command and is not the selected next route",
+          "pack": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "updated": "2026-11-01",
+          "waits_on": "Prime actual desk use; request preparation assigned separately on 0524/05.04"
+        },
+        "limit": "assignment_state is a record field, not a live process check. validate_context was not called.",
+        "reader": "app-context.parse_assignment",
+        "source": {
+          "basis": "observed",
+          "bytes": 520,
+          "path": "0401.goal/06.01.md",
+          "sha256": "28d69375eaccd04dcea9d39133c8052dd68b770e20608e9ebc33ec1dc13375e2",
+          "status": "matched"
+        }
+      }
+    ],
+    "attribution": [
+      {
+        "ambiguous": false,
+        "author": "director",
+        "binding": {
+          "scope": "desk"
+        },
+        "end": 403,
+        "id": "dir",
+        "quoted": true,
+        "reason": null,
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        },
+        "start": 111,
+        "text": "> I like it.  I can't think of anything to change so lets go with it.  Add to our deliverables so we are moving this forward I think we can start to get the core working for you today.\n>\n> Then if you are good pack it for work to be done.\n>\n> We have claude and grok-1 sitting at the moment.\n"
+      },
+      {
+        "ambiguous": false,
+        "author": "model",
+        "binding": {
+          "scope": "desk"
+        },
+        "end": 834,
+        "id": "mod",
+        "quoted": true,
+        "reason": null,
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        },
+        "start": 430,
+        "text": "The proposed Prime desk overview and selected-task working packet are approved\nas deliverables. Prepare Grok-1 implementation and Claude independent Colab. This\nis not permission to migrate live returns, seat kernel, activate workers, replace\nan authority record, or claim today's finish before measured use. Director/model\nwording stays separate. Scope below is the first read-only text implementation.\n"
+      }
+    ],
+    "history": [],
+    "history_inlined": false,
+    "references": [
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "goal",
+        "label": "desk goal",
+        "label_basis": "supplied",
+        "role": "goal",
+        "source": {
+          "basis": "observed",
+          "bytes": 5914,
+          "path": "0401.goal/01.md",
+          "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "seats",
+        "label": "seats page",
+        "label_basis": "supplied",
+        "role": "scope",
+        "source": {
+          "basis": "observed",
+          "bytes": 2031,
+          "path": "0408.seats/01.md",
+          "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "desk-scope",
+        "label": "approved desk deliverable",
+        "label_basis": "supplied",
+        "role": "scope",
+        "source": {
+          "basis": "observed",
+          "bytes": 4153,
+          "path": "0420.prime-desk/01.md",
+          "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "authority",
+        "label": "Director decision",
+        "label_basis": "supplied",
+        "role": "authority",
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "policy",
+        "label": "reporting policy",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 2044,
+          "path": "0412.prime-review/06.02.md",
+          "sha256": "28e9afeb62638d17ce2bbba15cf7e13bb05074a8bf655bdcefd6cc546fdfbeac",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "prior-record",
+        "label": "prior assignment bytes retained on 0420",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 595,
+          "path": "0420.prime-desk/evidence/selection-update-2026-11-01/prior-current-assignment.md",
+          "sha256": "a340b2cd72ed1c1ec3bc8f22b88319f171a3f270a8f31eb3b4cac1084b218806",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0524-0503"
+        },
+        "for_selected": true,
+        "id": "checkpoint",
+        "label": "Prime operating checkpoint",
+        "label_basis": "supplied",
+        "role": "checkpoint",
+        "source": {
+          "basis": "observed",
+          "bytes": 1444,
+          "path": "0420.prime-desk/06.07.md",
+          "sha256": "5be6a36ed86f860090e54390abe683468f18fae8786b2c841b3e9297a394a2b6",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0524-0503"
+        },
+        "for_selected": true,
+        "id": "crit-0524",
+        "label": "0524/05.03 task",
+        "label_basis": "supplied",
+        "role": "criteria",
+        "source": {
+          "basis": "observed",
+          "bytes": 8326,
+          "path": "0524.prime-desk/05.03.md",
+          "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0522-0505"
+        },
+        "for_selected": false,
+        "id": "crit-0522",
+        "label": "0522/05.05 task",
+        "label_basis": "supplied",
+        "role": "criteria",
+        "source": {
+          "basis": "observed",
+          "bytes": 8532,
+          "path": "0522.review-construction/05.05.md",
+          "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0524-0503"
+        },
+        "for_selected": true,
+        "id": "review-0524",
+        "label": "Prime review of 0524/05.03",
+        "label_basis": "supplied",
+        "role": "finding",
+        "source": {
+          "basis": "observed",
+          "bytes": 3293,
+          "path": "0524.prime-desk/evidence/prime-review05.03/REVIEW.md",
+          "sha256": "128bb2ed6dd72d79af730fee8b2ab0193f112a69929649e84f2bfe594a607400",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0522-0505"
+        },
+        "for_selected": false,
+        "id": "review-0522",
+        "label": "Prime review of 0522/05.05",
+        "label_basis": "supplied",
+        "role": "finding",
+        "source": {
+          "basis": "observed",
+          "bytes": 2669,
+          "path": "0522.review-construction/evidence/prime-review05.05/REVIEW.md",
+          "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+          "status": "matched"
+        }
+      }
+    ],
+    "supplied_without_worker": [
+      {
+        "basis": "supplied",
+        "id": "sup-lanes",
+        "limit": "Quoted from 0420.prime-desk/06.07.md. Prime-supplied context. Not evidence a worker is running.",
+        "speaker": "codex-prime",
+        "text": "Next outgoing lanes: 0524/05.04 Grok-1 real-book request preparation; 0525/05.01 Grok-2 declarations; 0707/05.01.pack Claude operator-path Colab. These are prepared assignments, not proof that a worker has received or started."
+      },
+      {
+        "basis": "supplied",
+        "id": "sup-prima",
+        "limit": "Quoted from 0420.prime-desk/06.07.md. Not completed test evidence and not an observed routine firing.",
+        "speaker": "codex-prime",
+        "text": "Prima's remote claim 9798895846006c8fa4c026143aad9ee57df71fed names the initial 0706 pilot. It reports input verification, Linux environment and a routine; no worker results were published at this observation."
+      }
+    ],
+    "talk_parsed": false
+  },
+  "schema": "prime-desk-packet/3",
+  "selected": {
+    "address": "0524.prime-desk/05.03",
+    "basis": "observed",
+    "checkpoint": {
+      "basis": "observed",
+      "source": {
+        "basis": "observed",
+        "bytes": 1444,
+        "path": "0420.prime-desk/06.07.md",
+        "sha256": "5be6a36ed86f860090e54390abe683468f18fae8786b2c841b3e9297a394a2b6",
+        "status": "matched"
+      }
+    },
+    "current_work": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+    "id": "work-0524-0503",
+    "legacy_selector": {
+      "agrees": null,
+      "basis": "unknown",
+      "limit": "no legacy selector was declared. hint only. prime-desk-selector/1 does not choose current work. This tool does not write a selector.",
+      "present": false,
+      "selected_work_id": null,
+      "source": null,
+      "unused_fields": []
+    },
+    "next_route": {
+      "basis": "unknown",
+      "limit": "no work-bound next route is declared",
+      "source": null
+    },
+    "record_path": "0401.goal/06.01.md",
+    "route": {
+      "band": "N5NN",
+      "limit": "Review identity is this source page. The review section was not parsed. The return line is a separate path.",
+      "return_line": {
+        "address": "0124.prime-desk/05.03.return",
+        "basis": "unknown",
+        "custody": "unknown",
+        "file": "undeclared",
+        "judgment": "unknown",
+        "kind": "return",
+        "limit": "The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.",
+        "path": "0124.prime-desk/05.03.return.md",
+        "source": null
+      },
+      "review": {
+        "address": "0524.prime-desk/05.03",
+        "basis": "observed",
+        "custody": null,
+        "file": "matched",
+        "judgment": "unknown",
+        "kind": "review",
+        "limit": "The review identity is this source page. Its review section was not parsed. A pending return does not hide this page.",
+        "path": "0524.prime-desk/05.03.md",
+        "source": {
+          "basis": "observed",
+          "bytes": 8326,
+          "path": "0524.prime-desk/05.03.md",
+          "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+          "status": "matched"
+        }
+      },
+      "source_kind": "work",
+      "source_path": "0524.prime-desk/05.03.md"
+    },
+    "rule": "assignment-record/v1",
+    "source": {
+      "basis": "observed",
+      "bytes": 8326,
+      "path": "0524.prime-desk/05.03.md",
+      "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "status": "matched"
+    },
+    "verified_result": {
+      "basis": "unknown",
+      "limit": "missing verification is unknown, not a clean bill of health",
+      "source": null
+    }
+  },
+  "state": "attention",
+  "workers": []
+}

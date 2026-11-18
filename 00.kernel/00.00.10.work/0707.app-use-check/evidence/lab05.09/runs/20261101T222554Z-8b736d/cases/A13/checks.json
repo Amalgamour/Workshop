@@ -1,0 +1,54 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record exit 2",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "record no traceback",
+      "expected": null,
+      "observed": "refused: write token changed since read\r\n",
+      "ok": true
+    },
+    {
+      "check": "record names write token changed since read",
+      "expected": null,
+      "observed": "ved\": [\"request.json\", \"scratch\", \"trace\"], \"releases_action\": false, \"request_sha256\": \"d8a4115c1e5ec3d72a9f052b6eead6c5250a805080cce1249b6e037f49d2792d\", \"rule\": \"write token changed since read\", \"schema\": \"review-loop-refusal/1\", \"supplied_judgment\": null}refused: write token changed since read\r\n",
+      "ok": true
+    },
+    {
+      "check": "decision.json unchanged",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "no cycle directory",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "new prepare exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    }
+  ],
+  "error": null
+}

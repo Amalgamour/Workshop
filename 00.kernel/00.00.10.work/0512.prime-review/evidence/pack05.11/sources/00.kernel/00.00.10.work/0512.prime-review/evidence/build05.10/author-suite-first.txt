@@ -1,0 +1,44 @@
+test_author_active_surface_stays (__main__.CapacityAuthor.test_author_active_surface_stays) ... ok
+test_author_changed_and_missing (__main__.CapacityAuthor.test_author_changed_and_missing) ... FAIL
+test_author_code_root_is_excluded (__main__.CapacityAuthor.test_author_code_root_is_excluded) ... ok
+test_author_cycle_0509 (__main__.CapacityAuthor.test_author_cycle_0509) ... ok
+test_author_cycle_0514 (__main__.CapacityAuthor.test_author_cycle_0514) ... FAIL
+test_author_document_bound (__main__.CapacityAuthor.test_author_document_bound) ... ok
+test_author_duplicate_and_conflict (__main__.CapacityAuthor.test_author_duplicate_and_conflict) ... ok
+test_author_generated_bounds (__main__.CapacityAuthor.test_author_generated_bounds) ... ok
+test_author_historical_modules_stay (__main__.CapacityAuthor.test_author_historical_modules_stay) ... ok
+test_author_historical_replay_refuses_0509 (__main__.CapacityAuthor.test_author_historical_replay_refuses_0509) ... ok
+test_author_holds_stay_24 (__main__.CapacityAuthor.test_author_holds_stay_24) ... ok
+test_author_hostile_count_is_not_trimmed (__main__.CapacityAuthor.test_author_hostile_count_is_not_trimmed) ... ok
+test_author_hostile_document_bound_stays (__main__.CapacityAuthor.test_author_hostile_document_bound_stays) ... ok
+test_author_lab_door_is_not_an_install (__main__.CapacityAuthor.test_author_lab_door_is_not_an_install) ... ok
+test_author_linked_candidate_pin (__main__.CapacityAuthor.test_author_linked_candidate_pin) ... ok
+test_author_malformed_row_and_unknown_size (__main__.CapacityAuthor.test_author_malformed_row_and_unknown_size) ... ok
+test_author_naive_external_copy_is_ambiguous (__main__.CapacityAuthor.test_author_naive_external_copy_is_ambiguous) ... ok
+test_author_wrong_pins (__main__.CapacityAuthor.test_author_wrong_pins) ... ok
+
+======================================================================
+FAIL: test_author_changed_and_missing (__main__.CapacityAuthor.test_author_changed_and_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-source-capacity-pass01\tests\test_capacity.py", line 482, in test_author_changed_and_missing
+    self.assertTrue(payload.get("stale"))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None is not true
+
+======================================================================
+FAIL: test_author_cycle_0514 (__main__.CapacityAuthor.test_author_cycle_0514)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-source-capacity-pass01\tests\test_capacity.py", line 317, in test_author_cycle_0514
+    self.assert_cycle("cycle-0514", "0522.review-construction", "05.14", JUDGMENT_0514, 20, 62200)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-source-capacity-pass01\tests\test_capacity.py", line 256, in assert_cycle
+    self.assertTrue(suffix.startswith(b"PENDING.\n") or suffix.startswith(b"PENDING."))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 18 tests in 89.820s
+
+FAILED (failures=2)

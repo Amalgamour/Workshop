@@ -1,0 +1,108 @@
+{
+ "schema": "prima-commands/1",
+ "note": "Consolidated. Prima's two verify_inputs attempts (phase 01) and each worker's single invocation. Timestamps verbatim from each recorder (worker A used `date --iso-8601=ns`, comma decimal). Hashes re-computed by Prima.",
+ "commands": [
+  {
+   "label": "verify-inputs-1-python",
+   "argv": [
+    "bash",
+    "-c",
+    "python -B prima/verify_inputs.py"
+   ],
+   "command_as_written_in_BOOT": "python -B prima/verify_inputs.py",
+   "cwd": "/workspace/prima/run05.01/source",
+   "shell": "bash (non-interactive) to resolve `python` via PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games",
+   "started_at": "2026-11-01T12:21:12,156919352-06:00",
+   "finished_at": "2026-11-01T12:21:12,159523223-06:00",
+   "exit": 127,
+   "stdout_file": "evidence/run05.01/verify-inputs-1-python.stdout",
+   "stderr_file": "evidence/run05.01/verify-inputs-1-python.stderr",
+   "stdout_bytes": 0,
+   "stderr_bytes": 40,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_sha256": "9a09aa2b820a5dea9b1eb80a0982abaa348b527946d0fb6ea98c9bc9c8ec61b2",
+   "first_failure": true,
+   "note": "Exact BOOT command. `python` is not on PATH on this box; bash exit 127. Preserved as first failure.",
+   "actor": "Prima"
+  },
+  {
+   "label": "verify-inputs-2-python3",
+   "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "prima/verify_inputs.py"
+   ],
+   "cwd": "/workspace/prima/run05.01/source",
+   "shell": false,
+   "started_at": "2026-11-01T12:21:12.198-06:00",
+   "exit": 0,
+   "stdout_bytes": 171,
+   "stderr_bytes": 0,
+   "spawn_error": null,
+   "finished_at": "2026-11-01T12:21:12.222-06:00",
+   "stdout_file": "evidence/run05.01/verify-inputs-2-python3.stdout",
+   "stderr_file": "evidence/run05.01/verify-inputs-2-python3.stderr",
+   "stdout_sha256": "55e7d642eb61ff5b9d1fe564df7e64f0948bc44f6726a64f0394ea049701ea75",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "note": "Separately recorded second attempt: chose the existing interpreter /usr/bin/python3 (no install, no alias/symlink, no pin change). Not a repair of attempt 1, which remains the first failure.",
+   "actor": "Prima"
+  },
+  {
+   "label": "workerA-return-inspect",
+   "actor": "Prima Worker A (3d63faf3-e852-462b-a55c-10c8550b3b0e)",
+   "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "labs/return-capture-pass01/return_inspect.py",
+    "inspect",
+    "--book",
+    "/workspace/prima/run05.01/source/00.kernel/00.00.10.work",
+    "--member",
+    "0182.desk-app-integration-design-0501",
+    "--json"
+   ],
+   "cwd": "/workspace/prima/run05.01/source",
+   "shell": false,
+   "started_at": "2026-11-01T12:26:30,453374543-06:00",
+   "finished_at": "2026-11-01T12:26:30,493472216-06:00",
+   "exit": 0,
+   "stdout_file": "evidence/run05.01/workers/workerA/inspect.stdout",
+   "stdout_sha256": "286d13e5a1631f578bbb647392eb0aaba9a9c69a15822621d9fd95d19608ccaf",
+   "stdout_bytes": 2958,
+   "stderr_file": "evidence/run05.01/workers/workerA/inspect.stderr",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr_bytes": 0,
+   "recorder": "workers/workerA/run_wrapper.py -> run.json",
+   "invocations": 1
+  },
+  {
+   "label": "workerB-librarian-describe-legacy",
+   "actor": "Prima Worker B (f4a829e6-5083-44e1-90e6-01e60d562f1a)",
+   "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "app/librarian.py",
+    "review-loop",
+    "describe-legacy",
+    "--book",
+    "/workspace/prima/run05.01/source/00.kernel/00.00.10.work",
+    "--member",
+    "0182.desk-app-integration-design-0501"
+   ],
+   "cwd": "/workspace/prima/run05.01/source",
+   "shell": false,
+   "started_at": "2026-11-01T12:27:01.424019-06:00",
+   "finished_at": "2026-11-01T12:27:01.507428-06:00",
+   "exit": 1,
+   "stdout_file": "evidence/run05.01/workers/workerB/describe.stdout",
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stdout_bytes": 0,
+   "stderr_file": "evidence/run05.01/workers/workerB/describe.stderr",
+   "stderr_sha256": "e18db17d218a3d789accb5fb962315e48a87df6b6fffdadd427efe692e0e5e16",
+   "stderr_bytes": 1173,
+   "recorder": "workers/workerB/run_wrapper.py -> invocation.json",
+   "invocations": 1,
+   "first_failure": true
+  }
+ ]
+}

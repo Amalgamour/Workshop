@@ -1,0 +1,357 @@
+{
+  "bounds": {
+    "max_depth": 16,
+    "max_file_bytes": 1048576,
+    "max_output_bytes": 2097152,
+    "max_records": 50
+  },
+  "coverage": "Accepted K, G, I, and L pieces, their direct predecessor edges, the selected app, the inert instance candidate, and the existing reporter reference. Not closure. Not activation. W and reporter-on-W stay pending.",
+  "declarations": [
+    {
+      "file": "declarations/n7-local-workbook.json",
+      "sha256": "78fff54170d6017a9205e1062c16d5cacec53a180cb9d5fc53af3342e8da0040"
+    },
+    {
+      "file": "declarations/review-instance-candidate-librarian.json",
+      "sha256": "6432960a695e2f19307bd06e1ff32685e735b27eb7c091480b6ad960f5baf7f1"
+    },
+    {
+      "file": "declarations/review-instance-declaration.json",
+      "sha256": "bd0b070ff38744927317102ceec949924a7296f9b9679bdbbcdbe16834be3eee"
+    },
+    {
+      "file": "declarations/review-instance-door.json",
+      "sha256": "65a682a172c5c1bc63a05ea537a87864812710c68e827f2f7b6cfb347fd4dd4c"
+    },
+    {
+      "file": "declarations/review-instance-workbook.json",
+      "sha256": "c7b08863309ef04943fb9ebc4e87b333bafc2bf5735b6b2d71e9429a7a86025d"
+    },
+    {
+      "file": "declarations/review-loop-declaration-v9.json",
+      "sha256": "b01a77daf71f3a0f6a8d2c113ea155b64e804c39577f823d6eaebdcead4b30a9"
+    },
+    {
+      "file": "declarations/review-loop-door-v9.json",
+      "sha256": "0b9f24663bab9c63077975aa904e51b7a99a84360693f3b2648edc24140b1ea6"
+    },
+    {
+      "file": "declarations/review-report-hardening.json",
+      "sha256": "709d641ff577e600a913a3e81a4cd7bcc6378abde61224e5081952c319fc0e95"
+    },
+    {
+      "file": "declarations/selected-app-librarian.json",
+      "sha256": "d6f43da665e2053fd12f0da237afee859de43205f216c1876e54125203252c85"
+    },
+    {
+      "file": "declarations/selected-review-loop-v7.json",
+      "sha256": "086236ae0643b5b383b8fe3ec0716f5d74e16b3fa1f1ce34e1624382652e3ee3"
+    },
+    {
+      "file": "declarations/source-capacity-declaration.json",
+      "sha256": "b8ba0a8d6fd2b519d9c08c60a40a87d51a9b4e86d14f26aec99dc66960a5707f"
+    },
+    {
+      "file": "declarations/source-capacity-door.json",
+      "sha256": "420f367397d2527f43d6bf334bcb81bd3b8df85f8ddb7a0ddb49867bfff31069"
+    },
+    {
+      "file": "declarations/source-capacity-prime-review.json",
+      "sha256": "75bb965bc02b5868cd70ebabd0317bb7805510d1db3bffa8f42cfd7817c32ed7"
+    },
+    {
+      "file": "declarations/source-capacity-workbook.json",
+      "sha256": "7ec9629e8d73c53f80097b0057fe115e222121f8aefa73fa9a4aceb3c2117c0f"
+    },
+    {
+      "file": "declarations/workbook-review-pass03.json",
+      "sha256": "31718e9133f728dcce19d6bc499d7a4582e163707115bbfbe5891e280a03d365"
+    },
+    {
+      "file": "declarations/workbook-review-pass04.json",
+      "sha256": "da31aa2a10e00b26ba7c4aea88a1f5ca590a397ca5d1328229dbbe2cc37d7c57"
+    },
+    {
+      "file": "declarations/workbook-review-pass05.json",
+      "sha256": "09d074acb4c659c073c3548e2f796eea9bfa007c63f224eb92423c803c185a60"
+    }
+  ],
+  "fixtures": [
+    {
+      "file": "fixtures/app__librarian.py",
+      "module": {
+        "path": "app/librarian.py",
+        "repository": "lib-build"
+      },
+      "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+    },
+    {
+      "file": "fixtures/app__review-loop-v9.json",
+      "module": {
+        "path": "app/review-loop-v9.json",
+        "repository": "lib-build"
+      },
+      "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656"
+    },
+    {
+      "file": "fixtures/app__review_loop_tools_v7.py",
+      "module": {
+        "path": "app/review_loop_tools_v7.py",
+        "repository": "lib-build"
+      },
+      "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+    },
+    {
+      "file": "fixtures/app__review_loop_tools_v9.py",
+      "module": {
+        "path": "app/review_loop_tools_v9.py",
+        "repository": "lib-build"
+      },
+      "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47"
+    },
+    {
+      "file": "fixtures/labs__n7-local-lifecycle-pass01__workbook.py",
+      "module": {
+        "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+        "repository": "lib-build"
+      },
+      "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a"
+    },
+    {
+      "file": "fixtures/labs__review-instance-binding-pass01__candidate__app__librarian.py",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py",
+        "repository": "lib-build"
+      },
+      "sha256": "a0de0b4fbd935e65d061836794d1d11bb19c22932d080bb9ca06a56edd947561"
+    },
+    {
+      "file": "fixtures/labs__review-instance-binding-pass01__review-loop.json",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/review-loop.json",
+        "repository": "lib-build"
+      },
+      "sha256": "e15856d136e4721856b530a552d9115ecb1b90a62cc9905eb80d79709d2dd26f"
+    },
+    {
+      "file": "fixtures/labs__review-instance-binding-pass01__review_loop_tools.py",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py",
+        "repository": "lib-build"
+      },
+      "sha256": "134221019b9854bc44529ff6a909c99c464bc3515a3e39da5536b2524d00cb22"
+    },
+    {
+      "file": "fixtures/labs__review-instance-binding-pass01__workbook.py",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/workbook.py",
+        "repository": "lib-build"
+      },
+      "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"
+    },
+    {
+      "file": "fixtures/labs__review-report-hardening-pass01__report.py",
+      "module": {
+        "path": "labs/review-report-hardening-pass01/report.py",
+        "repository": "lib-build"
+      },
+      "sha256": "27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b"
+    },
+    {
+      "file": "fixtures/labs__review-source-capacity-pass03__prime_review.py",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/prime_review.py",
+        "repository": "lib-build"
+      },
+      "sha256": "c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab"
+    },
+    {
+      "file": "fixtures/labs__review-source-capacity-pass03__review-loop-source-capacity-v3.json",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/review-loop-source-capacity-v3.json",
+        "repository": "lib-build"
+      },
+      "sha256": "e79c93ef29b04ed810b4fa31efeaf6c9a28dd9957f3bb5d4a4e6ed74b3f90b9c"
+    },
+    {
+      "file": "fixtures/labs__review-source-capacity-pass03__review_loop_tools_source_capacity_v3.py",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+        "repository": "lib-build"
+      },
+      "sha256": "8df0253100fe0b5bd68a5e4f645322a44d3870b5f583af35e0e0aee75bc280eb"
+    },
+    {
+      "file": "fixtures/labs__review-source-capacity-pass03__workbook.py",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/workbook.py",
+        "repository": "lib-build"
+      },
+      "sha256": "fe887c0f378fc1da3f5e778ac4642c907f713614040d5ebf3b74272b02512b1f"
+    },
+    {
+      "file": "fixtures/labs__workbook-review-pass03__workbook.py",
+      "module": {
+        "path": "labs/workbook-review-pass03/workbook.py",
+        "repository": "lib-build"
+      },
+      "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+    },
+    {
+      "file": "fixtures/labs__workbook-review-pass04__workbook.py",
+      "module": {
+        "path": "labs/workbook-review-pass04/workbook.py",
+        "repository": "lib-build"
+      },
+      "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2"
+    },
+    {
+      "file": "fixtures/labs__workbook-review-pass05__workbook.py",
+      "module": {
+        "path": "labs/workbook-review-pass05/workbook.py",
+        "repository": "lib-build"
+      },
+      "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+    }
+  ],
+  "schema": "module-declaration-set/2",
+  "select": [
+    {
+      "declaration_id": "selected-app-librarian",
+      "module": {
+        "path": "app/librarian.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-loop-declaration-v9",
+      "module": {
+        "path": "app/review-loop-v9.json",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "selected-review-loop-v7",
+      "module": {
+        "path": "app/review_loop_tools_v7.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-loop-door-v9",
+      "module": {
+        "path": "app/review_loop_tools_v9.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "n7-local-workbook",
+      "module": {
+        "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-instance-candidate-librarian",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/candidate/app/librarian.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-instance-declaration",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/review-loop.json",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-instance-door",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-instance-workbook",
+      "module": {
+        "path": "labs/review-instance-binding-pass01/workbook.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "review-report-hardening",
+      "module": {
+        "path": "labs/review-report-hardening-pass01/report.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "source-capacity-prime-review",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/prime_review.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "source-capacity-declaration",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/review-loop-source-capacity-v3.json",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "source-capacity-door",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "source-capacity-workbook",
+      "module": {
+        "path": "labs/review-source-capacity-pass03/workbook.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "workbook-review-pass03",
+      "module": {
+        "path": "labs/workbook-review-pass03/workbook.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "workbook-review-pass04",
+      "module": {
+        "path": "labs/workbook-review-pass04/workbook.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    },
+    {
+      "declaration_id": "workbook-review-pass05",
+      "module": {
+        "path": "labs/workbook-review-pass05/workbook.py",
+        "repository": "lib-build"
+      },
+      "version": 1
+    }
+  ],
+  "set_id": "accepted-loop-preflight-1"
+}

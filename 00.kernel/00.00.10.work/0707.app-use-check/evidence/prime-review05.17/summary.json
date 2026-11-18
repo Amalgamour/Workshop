@@ -1,0 +1,17 @@
+{
+  "manifest_count": 33,
+  "bad": [],
+  "author_suite": {
+    "exit": 0,
+    "tail": "fina\r\nPASS  P7            author test                              LF and CRLF pointer blocks give identical parses in both contexts\r\nPASS  I-N5-comma    author test                              N5 page with REAL legal files return.md, and artifact-manifest.json,: \r\nPASS  I-N5-paren    author test                              N5 page with REAL legal files return.md) and artifact-manifest.json): \r\nPASS  I-N5-semicolon author test                              N5 page with REAL legal files return.md; and artifact-manifest.json;: \r\naggregate {'PASS': 12, 'FAIL': 0, 'ERROR': 0} first failure None\r\n"
+  },
+  "n5_replay": {
+    "exit": 0,
+    "tail": "t-measured\"]}\r\nP-patched {\"exit\": 0, \"intake_id\": \"a06b5ca6203ad6483c6f4539aa03e1b43a2376a8a6a97116dc7032229b1d60ab\", \"measurement\": \"complete\", \"row_count\": 32, \"finding_codes\": [\"custody-missing\", \"index-context-bounded\", \"return-missing\", \"verification-not-measured\"]}\r\nU2-unpatched {\"exit\": 0, \"intake_id\": \"a06b5ca6203ad6483c6f4539aa03e1b43a2376a8a6a97116dc7032229b1d60ab\", \"measurement\": \"complete\", \"row_count\": 32, \"finding_codes\": [\"custody-missing\", \"index-context-bounded\", \"return-missing\", \"verification-not-measured\"]}\r\nidentical: True app==U1 id: False bytes unchanged: True added: 0\r\n"
+  },
+  "independent_equivalence_inputs": 18,
+  "alternating_context": "passed",
+  "fresh_N7_baseline": "incomplete",
+  "fresh_N7_patched": "complete",
+  "fixture_exit": 0
+}

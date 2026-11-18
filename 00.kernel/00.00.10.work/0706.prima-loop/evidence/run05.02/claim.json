@@ -1,0 +1,71 @@
+{
+ "schema": "prima-claim/1",
+ "assignment_id": "prima-0706-0502",
+ "claimed_at": "2026-11-03T17:27:36-06:00",
+ "claimed_by": "Prima (Grok Bot), Prime Assistant to Codex Prime",
+ "invocation": "manual (Director instruction in chat 2026-11-03 17:26 CST)",
+ "input": {
+  "repo": "Amalgamour/Librarian",
+  "branch": "prima/assignments",
+  "commit": "32dce13d908de8a402a732e1b3ea9a47b6977481",
+  "pack": "00.kernel/00.00.10.work/0706.prima-loop/05.02.pack.md",
+  "pack_sha256": "ba68603544018780eb91f6372754085f7da1f85d3bf5b2ab00dd4c923b441b54",
+  "source_manifest": "00.kernel/00.00.10.work/0706.prima-loop/evidence/pack05.02/source-bundle.json",
+  "source_manifest_sha256": "c1a39bd9a3493341591f28f53a7aa688ae839d8df6fe09b1a3ebf11b4e43bbb8",
+  "verifier": "prima/verify-sprint-0706-0502.py",
+  "verifier_sha256": "ab6cb6c05e4a5cdc27d5479d717f0f33e037d8d43614e9a50986dd3f73ee5ba3",
+  "verifier_bytes": 2664,
+  "retrieval": "GitHub contents API via read-only connector; bytes checked against git blob SHA1 from the commit tree before hashing (no git clone available on Prima's host)"
+ },
+ "source_room_verification": {
+  "command": "python3 prima/verify-sprint-0706-0502.py --repo-root checkout --assignment prima-0706-0502 --out <new external room>",
+  "exit": 0,
+  "status": "matched",
+  "checked_files": 87,
+  "output_file": "source-verification-output.json",
+  "old_pass01_verifier": "not run"
+ },
+ "environment": {
+  "host": "Prima's Grok Bot Linux box (shared by the Director's Grok bots)",
+  "python": "/usr/bin/python3 3.13.5"
+ },
+ "roster": [
+  {
+   "slot": "A",
+   "worker": "Prima Worker A",
+   "agent_id": "3d63faf3-e852-462b-a55c-10c8550b3b0e",
+   "kind": "separate Grok Bot teammate",
+   "first_unit": "cold audit of N7 source-kind grammar and intake preservation"
+  },
+  {
+   "slot": "B",
+   "worker": "Prima Worker B",
+   "agent_id": "f4a829e6-5083-44e1-90e6-01e60d562f1a",
+   "kind": "separate Grok Bot teammate",
+   "first_unit": "cold audit of report evidence and identity handling"
+  }
+ ],
+ "usage_observed": [
+  {
+   "used_percent": 82,
+   "recorded_at": "2026-11-03T17:18:10-06:00",
+   "source": "Director report in chat, as recorded in queue usage_at_release",
+   "kind": "relayed"
+  },
+  {
+   "used_percent": 83,
+   "observed_at": "2026-11-03T17:27-06:00",
+   "source": "Grok Bot subscription usage report (Super plan weekly limit, shared with other apps), read by Prima",
+   "kind": "directly observed",
+   "resets": "2026-11-05T09:42-06:00"
+  }
+ ],
+ "usage_file": "usage/2026-11-03T1727-0600.json",
+ "stop_rules": {
+  "no_new_unit_at_or_above_percent": 97,
+  "stop_workers_at_percent": 98,
+  "deadline": "2026-11-03T19:11:47-06:00",
+  "cancellation": "Prima can deliver a stop to both worker bots (used successfully 2026-11-01); provider accounting may lag, so no exact cap is promised"
+ },
+ "note": "Claim records the start of execution only; not acceptance or approval."
+}

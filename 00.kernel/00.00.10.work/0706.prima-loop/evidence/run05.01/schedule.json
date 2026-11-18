@@ -1,0 +1,25 @@
+{
+ "recorded_at": "2026-11-01T12:30:22-06:00",
+ "routine_id": "prima-assignment-check",
+ "enabled": true,
+ "timezone": "America/Chicago",
+ "schedule": "CRON_TZ=America/Chicago 0 */2 * * *",
+ "flexibility": "+-15 minutes",
+ "server_picked_fire_time": "minute 52 of odd hours (CST)",
+ "next_run": "2026-11-01T13:52:00-06:00",
+ "next_run_observed": false,
+ "fired_checks_observed": 0,
+ "history": [
+  {
+   "at": "2026-11-01 ~12:14-12:20 -06:00 (exact time not captured)",
+   "event": "routine created by Prima; enabled; schedule as above; next run 13:52 CST per tool result"
+  },
+  {
+   "at": "2026-11-01T12:25-06:00 (approx.)",
+   "event": "routine prompt edited to also check prima/notices.json, the usage meter and the Gameatron SoF branch head; still enabled, same schedule"
+  }
+ ],
+ "scope": "discovery of prima/assignments (assignments.json), prima/notices.json, usage meter, Gameatron SoF branch head; quiet when nothing actionable changes",
+ "source": "routine tool results relayed by Prima; not independently re-read in this phase",
+ "claim": "configured and enabled; scheduled operation NOT yet demonstrated - no fired check observed as of recorded_at"
+}

@@ -1,0 +1,1244 @@
+{
+  "book": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+  "code": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+  "commands": [
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--submission",
+        "hist-witness",
+        "--name",
+        "historical-witness",
+        "--origin-book",
+        "00.00.10.work",
+        "--origin-page",
+        "0504.app-entry",
+        "--origin-batch",
+        "05.08",
+        "--submitter",
+        "Grok-2",
+        "--reviewer",
+        "Codex Prime",
+        "--release",
+        "historical-witness",
+        "--expected-output",
+        "witness.txt"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 161,
+      "step": "01-witness-reserve"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "capture",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--submission",
+        "hist-witness",
+        "--return-file",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\witness-return.md",
+        "--source-root",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\witness-source",
+        "--artifact",
+        "witness.txt|witness.txt"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 286,
+      "step": "02-witness-capture"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0101.historical-witness"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 371,
+      "step": "03-guard-verify"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-pass01\\return_capture.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0101.historical-witness"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 371,
+      "step": "03-reader-verify"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-pass01\\return_inspect.py",
+        "inspect",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0101.historical-witness",
+        "--json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1393,
+      "step": "03-inspect"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--submission",
+        "hist-missing",
+        "--name",
+        "historical-missing",
+        "--origin-book",
+        "00.00.10.work",
+        "--origin-page",
+        "0504.app-entry",
+        "--origin-batch",
+        "05.08",
+        "--submitter",
+        "Grok-2",
+        "--reviewer",
+        "Codex Prime",
+        "--release",
+        "historical-missing",
+        "--expected-output",
+        "missing.txt"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 161,
+      "step": "04-negative-reserve"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--submission",
+        "hist-eligible",
+        "--name",
+        "historical-eligible",
+        "--origin-book",
+        "00.00.10.work",
+        "--origin-page",
+        "0504.app-entry",
+        "--origin-batch",
+        "05.08",
+        "--submitter",
+        "Grok-2",
+        "--reviewer",
+        "Codex Prime",
+        "--release",
+        "historical-eligible",
+        "--expected-output",
+        "return.md",
+        "--expected-output",
+        "piece.txt"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 163,
+      "step": "05-eligible-reserve"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\clerk-handoff-pass02\\clerk.py",
+        "queue",
+        "--store",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\store",
+        "--job",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\job.json",
+        "--instructions-base",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\instructions"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 128,
+      "step": "06-clerk-queue"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\clerk-handoff-pass02\\clerk.py",
+        "claim",
+        "--store",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\store",
+        "--job",
+        "fixture-0513",
+        "--as",
+        "fixture-builder",
+        "--instructions-base",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\instructions"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 263,
+      "step": "07-clerk-claim"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\clerk-handoff-pass02\\clerk.py",
+        "return",
+        "--store",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\store",
+        "--job",
+        "fixture-0513",
+        "--as",
+        "fixture-builder",
+        "--claim",
+        "c8754b0a2eced6a8015d7f190e1a42ae",
+        "--delivery",
+        "fixture-delivery",
+        "--evidence",
+        "transport line only"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 474,
+      "step": "08-clerk-return"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "plan",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--out",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 629,
+      "step": "09-plan"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-lines-pass04\\return_lines.py",
+        "init",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--name",
+        "00.00.10.work",
+        "--authorization",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\auth\\authorization.json",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--plan",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json",
+        "--backup",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\backup",
+        "--staging",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\staging",
+        "--retired",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\retired"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 398,
+      "step": "10-init"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0101.historical-witness"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 371,
+      "step": "11-guard-verify"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-pass01\\return_capture.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0101.historical-witness"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 371,
+      "step": "11-reader-verify"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-pass01\\return_inspect.py",
+        "inspect",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0101.historical-witness",
+        "--json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1393,
+      "step": "11-inspect"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-capture-guard-pass01\\return_capture_guard.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--member",
+        "0102.historical-missing"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 35,
+      "step": "12-negative-verify"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "capture-return",
+        "--binding",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\binding.json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 597,
+      "step": "13-capture-return"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "capture-return",
+        "--binding",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\binding.json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 311,
+      "step": "14-capture-return-repeat"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--page",
+        "0521.connected-return-review",
+        "--batch",
+        "05.01",
+        "--submission",
+        "s0513a",
+        "--output",
+        "note.txt",
+        "--submitter",
+        "Grok-2",
+        "--reviewer",
+        "Codex Prime",
+        "--release",
+        "synthetic fixture filing; not a Director release",
+        "--authorization",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\auth\\authorization.json",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--plan",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json",
+        "--backup",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\backup",
+        "--staging",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\staging",
+        "--retired",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\retired"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1624,
+      "step": "15-reserve-0501"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "capture",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--page",
+        "0521.connected-return-review",
+        "--batch",
+        "05.01",
+        "--submission",
+        "s0513a",
+        "--return-file",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\05.01.return.md",
+        "--artifact",
+        "note.txt",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\05.01.note.txt",
+        "--authorization",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\auth\\authorization.json",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--plan",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json",
+        "--backup",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\backup",
+        "--staging",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\staging",
+        "--retired",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\retired"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1607,
+      "step": "16-capture-0501"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "lookup",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 5331,
+      "step": "17-lookup-0501"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7126,
+      "step": "18-verify-0501"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "prepare",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7830,
+      "step": "19-prepare"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "form",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6733,
+      "step": "19-form"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "record",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01",
+        "--intake",
+        "c29d716f043ec21f169631678a3ec9e73613865666d7e9f67bdcfa7f8bfafb21",
+        "--judgment",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\judgment-0501.json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 3030,
+      "step": "19-record"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "inspect",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 9890,
+      "step": "19-inspect"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "publish",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01",
+        "--review",
+        "w1c320856d66b3528"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2483,
+      "step": "19-publish"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "read",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2571,
+      "step": "19-read"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "recover",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0521.connected-return-review",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2574,
+      "step": "19-recover"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--page",
+        "0721.connected-local",
+        "--batch",
+        "05.01",
+        "--submission",
+        "s0513n7",
+        "--output",
+        "note.txt",
+        "--submitter",
+        "Grok-2",
+        "--reviewer",
+        "Codex Prime",
+        "--release",
+        "synthetic fixture filing; not a Director release",
+        "--authorization",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\auth\\authorization.json",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--plan",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json",
+        "--backup",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\backup",
+        "--staging",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\staging",
+        "--retired",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\retired"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 1,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1549,
+      "step": "20-reserve-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "capture",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--page",
+        "0721.connected-local",
+        "--batch",
+        "05.01",
+        "--submission",
+        "s0513n7",
+        "--return-file",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\n7.return.md",
+        "--artifact",
+        "note.txt",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\n7.note.txt",
+        "--authorization",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\auth\\authorization.json",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--plan",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json",
+        "--backup",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\backup",
+        "--staging",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\staging",
+        "--retired",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\retired"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 1532,
+      "step": "21-capture-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "return-lines",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6805,
+      "step": "22-verify-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "prepare",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 7670,
+      "step": "23-prepare-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "form",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 6668,
+      "step": "23-form-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "record",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01",
+        "--intake",
+        "1f5a5c2a93ed1900ede168fb98dad2b16ea036d031fc9da5861c8b5efff008a0",
+        "--judgment",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\inputs\\judgment-n7.json"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 3018,
+      "step": "23-record-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "inspect",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 9861,
+      "step": "23-inspect-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-loop-pass03\\review_loop.py",
+        "prepare",
+        "--fixture-root",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--request",
+        "workbook-review/0721.connected-local/05.01/w8fd4cbf791e32f26/cycle/request.json"
+      ],
+      "cwd": "D:\\Git\\lib-build",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 9802,
+      "step": "24-cycle-prepare"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "publish",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01",
+        "--review",
+        "w8fd4cbf791e32f26"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2458,
+      "step": "25-publish-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "read",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2552,
+      "step": "25-read-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\app\\librarian.py",
+        "review-loop",
+        "recover",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--source",
+        "0721.connected-local",
+        "--pass",
+        "05.01"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 2555,
+      "step": "25-recover-n7"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code\\labs\\return-readiness-pass02\\readiness.py",
+        "--code-root",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+        "--book",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "--text"
+      ],
+      "cwd": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\code",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 12902,
+      "step": "26-readiness-copy"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-readiness-pass02\\readiness.py",
+        "--code-root",
+        "D:\\Git\\lib-build",
+        "--book",
+        "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+        "--text"
+      ],
+      "cwd": "D:\\Git\\lib-build",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_bytes": 12292,
+      "step": "27-readiness-live"
+    },
+    {
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass04\\return_lines.py",
+        "preflight",
+        "--book",
+        "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+        "--authorization",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\auth\\live-book-authorization.json",
+        "--audit",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\audit\\audit.json",
+        "--plan",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\plan\\plan.json",
+        "--backup",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\backup",
+        "--staging",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\staging",
+        "--retired",
+        "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\retired"
+      ],
+      "cwd": "D:\\Git\\lib-build",
+      "exit": 2,
+      "stderr_bytes": 0,
+      "stdout_bytes": 635,
+      "step": "28-live-preflight"
+    }
+  ],
+  "copy_live_path_created": false,
+  "dispatcher": {
+    "after_bytes": 12207,
+    "after_sha256": "b0dc477f268494a16388914a1300a4c0ee2044dae0883a5ec934165604a77de6",
+    "before_bytes": 12204,
+    "before_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "door_result": {
+    "attempted": true,
+    "child_has_line_pass_refusal": true,
+    "exit": 2,
+    "failure_sha256": "3361ed1c8005ddcb0a99a2ee8f730142ff8abe76ac8709c0a9e07012a1a0d65a",
+    "guard_invoked": true,
+    "intent_sha256": "13fc7c48e64698dba5b6dc0e7fab15fad70e88c5895cc424433acd972bf01bc5",
+    "repeat_exit": 2,
+    "writer_started": true
+  },
+  "eligible_precondition": {
+    "eligible_member": "0103.historical-eligible",
+    "expected_outputs": [
+      "return.md",
+      "piece.txt"
+    ],
+    "outbox_piece_matches": true,
+    "outbox_return_matches": true,
+    "piece_sha256": "2f3286acef494dda557d3e481738eecc57fc5fee2e73f7cd4c25300bfc2b3c71",
+    "return_sha256": "04fb0577b5b7289369f922e07c6aa80f72b378db702aca41d8bcc57cbe3e0857",
+    "source_piece_matches": true,
+    "source_return_matches": true
+  },
+  "first_failure": null,
+  "fixed_repo_references": [
+    {
+      "bytes": 13381,
+      "path": "app/review_loop_tools_v4.py",
+      "sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296"
+    },
+    {
+      "bytes": 35754,
+      "path": "labs/connected-return-review-pass01/drive.py",
+      "sha256": "3914cd8ebaf635bf0059d8bb49c53da85a29b9c83ee5a6b55209ae126602b54a"
+    },
+    {
+      "bytes": 76045,
+      "path": "labs/prime-cycle-pass03/prime_cycle.py",
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    {
+      "bytes": 42582,
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    {
+      "bytes": 55474,
+      "path": "labs/review-loop-pass03/review_loop.py",
+      "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+    },
+    {
+      "bytes": 79131,
+      "path": "labs/workbook-review-pass01/workbook.py",
+      "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+    },
+    {
+      "bytes": 52574,
+      "path": "labs/workbook-review-pass02/workbook.py",
+      "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+    },
+    {
+      "bytes": 4178,
+      "path": "labs/workbook-review-pass03/PRIME-USE.md",
+      "sha256": "8a280550deb366e08c0b595f92ef87db1b2044da403a40cb2c4f22ea6640fe6d"
+    },
+    {
+      "bytes": 19533,
+      "path": "labs/workbook-review-pass03/workbook.py",
+      "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+    }
+  ],
+  "historical_members": {
+    "eligible": "0103.historical-eligible",
+    "negative": "0102.historical-missing",
+    "witness": "0101.historical-witness"
+  },
+  "init_exit": 0,
+  "layout_sha256": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804",
+  "live_after": {
+    "dispatcher": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "door": "c9ff0949c09268451a8e2a2113c1612047b374b3ecc0b3c177b6c5fd22b6842d",
+    "layout_exists": false,
+    "readme": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "live_before": {
+    "dispatcher": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "door": "c9ff0949c09268451a8e2a2113c1612047b374b3ecc0b3c177b6c5fd22b6842d",
+    "layout_exists": false,
+    "readme": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "n7_diagnosis": {
+    "binding_present": true,
+    "caller_correction_demonstrated": false,
+    "classification": "implementation-seam",
+    "cycle_error": "cycle prepare did not return a template",
+    "dependencies": {
+      "construct": {
+        "bytes": 42582,
+        "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+      },
+      "prime_cycle": {
+        "bytes": 76045,
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      "review_loop": {
+        "bytes": 55474,
+        "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+      },
+      "workbook_pass02": {
+        "bytes": 52574,
+        "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+      }
+    },
+    "expected_schema": "prime-cycle-view/4",
+    "functions": {
+      "derive": "labs/prime-cycle-pass03/prime_cycle.py",
+      "prepare": "labs/review-loop-pass03/review_loop.py",
+      "write_cycle_inputs": "labs/workbook-review-pass02/workbook.py",
+      "write_token_of": "labs/prime-cycle-pass03/prime_cycle.py"
+    },
+    "kernel_page": "00.kernel/00.00.10.work/0721.connected-local/05.01.pack.md",
+    "n7_cycle_success_claimed": false,
+    "prepare_exit": 0,
+    "prepare_stderr_bytes": 0,
+    "request": "workbook-review/0721.connected-local/05.01/w8fd4cbf791e32f26/cycle/request.json",
+    "review_target_exists_after_prepare": false,
+    "source_kind": "N7NN",
+    "target": "0721.connected-local/06.01.review.md",
+    "template": null,
+    "view_schema": "prime-cycle-view/4",
+    "write_token": null
+  },
+  "n7_review_destination_exists": true,
+  "positive_witness": {
+    "after_declaration": {
+      "manifest.json": {
+        "bytes": 569,
+        "sha256": "a5f4be7630eac402514037ed8bbc37cb8bae6f7bca7c603dd7f1f4009cb4817f"
+      },
+      "payload/0001.blob": {
+        "bytes": 21,
+        "sha256": "518e59e7215812511b4c8947eb43dc5678d51fb292eed81a4f1e88d273272642"
+      },
+      "receipt.json": {
+        "bytes": 295,
+        "sha256": "6f1db71da7ae97823b87a27e97cb2f1ba2bfbde7a45aa5d617f0c7bca568065a"
+      },
+      "return.md": {
+        "bytes": 32,
+        "sha256": "6a00ac722fd4bdfb39a076d9b044c84b694d1c5ba9e5c86d65b6292861dd3414"
+      }
+    },
+    "before_declaration": {
+      "manifest.json": {
+        "bytes": 569,
+        "sha256": "a5f4be7630eac402514037ed8bbc37cb8bae6f7bca7c603dd7f1f4009cb4817f"
+      },
+      "payload/0001.blob": {
+        "bytes": 21,
+        "sha256": "518e59e7215812511b4c8947eb43dc5678d51fb292eed81a4f1e88d273272642"
+      },
+      "receipt.json": {
+        "bytes": 295,
+        "sha256": "6f1db71da7ae97823b87a27e97cb2f1ba2bfbde7a45aa5d617f0c7bca568065a"
+      },
+      "return.md": {
+        "bytes": 32,
+        "sha256": "6a00ac722fd4bdfb39a076d9b044c84b694d1c5ba9e5c86d65b6292861dd3414"
+      }
+    }
+  },
+  "prior_failure_record": [
+    "D:\\librarian\\temp\\0521-0512\\20261103T173827361432Z",
+    "D:\\librarian\\temp\\0521-0512\\20261103T174140129061Z"
+  ],
+  "prior_failure_reproduced": false,
+  "problems": [],
+  "queued_exit": 0,
+  "readiness_copy": {
+    "app_selection_applied": false,
+    "authority": "not-assessed",
+    "coherent": true,
+    "declared": true,
+    "final_check": "matched",
+    "layout_sha256": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804",
+    "layout_state": "valid",
+    "routes": {
+      "capture-return": {
+        "selected_facade": "app/handoff_tools_v2.py",
+        "selector": "new",
+        "state": "selected-valid",
+        "successor_path": "app/handoff_tools_v2.py",
+        "successor_staged": false
+      },
+      "return-lines": {
+        "selected_facade": "app/return_line_tools_v3.py",
+        "selector": "new",
+        "state": "selected-valid",
+        "successor_path": "app/return_line_tools_v3.py",
+        "successor_staged": false
+      }
+    },
+    "schema": "return-route-readiness/2"
+  },
+  "readiness_live": {
+    "app_selection_applied": false,
+    "authority": "not-assessed",
+    "coherent": true,
+    "declared": false,
+    "final_check": "matched",
+    "layout_sha256": null,
+    "layout_state": "missing",
+    "routes": {
+      "capture-return": {
+        "selected_facade": "app/handoff_tools.py",
+        "selector": "old",
+        "state": "selected-valid",
+        "successor_path": "app/handoff_tools_v2.py",
+        "successor_staged": true
+      },
+      "return-lines": {
+        "selected_facade": "app/return_line_tools_v2.py",
+        "selector": "old",
+        "state": "selected-valid",
+        "successor_path": "app/return_line_tools_v3.py",
+        "successor_staged": true
+      }
+    },
+    "schema": "return-route-readiness/2"
+  },
+  "receipt_0501_sha256": "18ee206d73d204cbc42971a4dfcb33f01c976604490b79b6686f2b068b86b1b1",
+  "review_n5": {
+    "intake_id": "c29d716f043ec21f169631678a3ec9e73613865666d7e9f67bdcfa7f8bfafb21",
+    "mode": "cycle-committed",
+    "prepare_exit": 0,
+    "publish_exit": 0,
+    "record_exit": 0,
+    "review_id": "w1c320856d66b3528"
+  },
+  "review_n7": {
+    "intake_id": "1f5a5c2a93ed1900ede168fb98dad2b16ea036d031fc9da5861c8b5efff008a0",
+    "mode": "preliminary",
+    "prepare_exit": 0,
+    "publish_exit": 0,
+    "record_exit": 0,
+    "review_destination_exists": true
+  },
+  "schema": "connected-return-review-run/0513",
+  "stamp": "20261103T214834952429Z",
+  "witness_identity_unchanged": true
+}

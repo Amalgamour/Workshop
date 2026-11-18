@@ -1,0 +1,376 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "prime-cycle",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/prime-cycle-pass01/prime_cycle.py",
+  "name": "prime_cycle",
+  "purpose": "Prime read-record-read cycle over one registered work book, with an optional operation journal.",
+  "interface": [
+   "read",
+   "record",
+   "inspect",
+   "packet",
+   "day"
+  ],
+  "limits": [
+   "experimental lab adapter; not seated app runtime",
+   "labels are not authentication"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+  "bytes": 77846,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+   "path": "labs/prime-cycle-pass01/prime_cycle.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "read",
+   "record",
+   "inspect",
+   "packet",
+   "day"
+  ],
+  "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery; lines cited per requirement",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "batch-observe",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    }
+   },
+   "pin": {
+    "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+    "bytes": 40516
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "cmd-observe",
+    "statement": "read, record or day --registration observes a registered page",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "the pinned page and custody reader; launched as python -B after a hash check",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass01/prime_cycle.py",
+    "lines": "36-42, 162-166, 247-256"
+   }
+  },
+  {
+   "id": "prime-review",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass01/prime_review.py"
+    }
+   },
+   "pin": {
+    "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "bytes": 58324
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "cmd-record-or-holds",
+    "statement": "record runs report; read runs check-next only when a recorded review has holds",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "checks the supplied judgment (report) and holds against next actions (check-next)",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass01/prime_cycle.py",
+    "lines": "36-42, 162-166"
+   }
+  },
+  {
+   "id": "review-packet",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-packet-pass01/review_packet.py"
+    }
+   },
+   "pin": {
+    "sha256": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+    "bytes": 42694
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "cmd-packet",
+    "statement": "the packet command",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "assembles the accepted review packet",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass01/prime_cycle.py",
+    "lines": "36-42, 844-860"
+   }
+  },
+  {
+   "id": "return-inspect",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_inspect.py"
+    }
+   },
+   "pin": {
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "bytes": 11402
+   },
+   "pin_required": true,
+   "mechanism": "path-reference",
+   "condition": {
+    "applies": "conditional",
+    "id": "cmd-packet",
+    "statement": "the packet command",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "named as the inspector in the review_packet request; review_packet runs it",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass01/prime_cycle.py",
+    "lines": "848-851"
+   }
+  },
+  {
+   "id": "return-capture",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_capture.py"
+    }
+   },
+   "pin": {
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": 45767
+   },
+   "pin_required": true,
+   "mechanism": "path-reference",
+   "condition": {
+    "applies": "conditional",
+    "id": "cmd-packet",
+    "statement": "the packet command",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "named as the helper in the review_packet request; review_packet runs its verify",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass01/prime_cycle.py",
+    "lines": "848-851"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "runs itself and launches pinned tools with sys.executable",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass01/prime_cycle.py",
+    "lines": "166"
+   }
+  },
+  {
+   "id": "contract-05-03",
+   "kind": "evidence",
+   "target": {
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.03",
+     "file": "evidence/build05.03/CONTRACT.md"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "the current contract delta that defines the states this build exposes",
+   "source_ref": null
+  },
+  {
+   "id": "assignment-05-03",
+   "kind": "task-context",
+   "target": {
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.03",
+     "file": "05.03.md"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "the bounded assignment for the current bytes",
+   "source_ref": null
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "design",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0415.prime-cycle",
+     "face_or_pass": "01",
+     "file": "01.md"
+    },
+    "sha256": "23b1afede8b6dc3e7f5092a738456b7d35c8e603b1ed2ead903fa29c77220c33",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "design of the cycle"
+   },
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.01",
+     "file": "05.01.md"
+    },
+    "sha256": "0d498f03ba082c3c64468e3950d7c80495b75ecbaaba64195f2a42787c2292a2",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "first build assignment"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.01",
+     "file": "evidence/prime-review05.01/REVIEW.md"
+    },
+    "sha256": "5f500ed14c7a17205f9822f3b401533cb163a1dcea6256356df45ba02834577a",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "first build retained; correction required"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.02",
+     "file": "evidence/prime-review05.02/REVIEW.md"
+    },
+    "sha256": "57525d6fcbee2beef6a03041a2c266e06b53cfd698869aa720769ca86de78886",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "accepted for bounded current-Prime use"
+   },
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.03",
+     "file": "05.03.md"
+    },
+    "sha256": "5c1e9fe5f03bd730f45863a21823edfa3204b45cebdc6a3aab1c9f779b3aa727",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "assignment for the current bytes 19ede9c2"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0515.prime-cycle",
+     "face_or_pass": "05.03",
+     "file": "evidence/prime-review05.03/REVIEW.md"
+    },
+    "sha256": "585682ccaac77aa5079c6b47820647d469d2cd900842b9dd01d0a981f8ddb559",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "accepted for bounded experimental Prime use; not seated"
+   },
+   {
+    "role": "return",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0175.prime-reader-diagnostics-0503",
+     "face_or_pass": "01",
+     "file": "receipt.json"
+    },
+    "sha256": "187ca5172bb678a834782e1f9c98c5eea77a52217cbdb6aa2aef057ed494a30b",
+    "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+    "status": "pinned",
+    "note": "captured return of the current bytes"
+   }
+  ],
+  "unknown": [
+   "the 05.01 and 05.02 return members (0170, 0171) and the 05.02 assignment are not in the supplied references, so they are not linked"
+  ]
+ },
+ "supersedes": null
+}

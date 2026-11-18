@@ -1,0 +1,147 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "workbook"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "workbook-review-pass04",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/workbook-review-pass04/workbook.py",
+      "repository": "lib-build"
+    },
+    "bytes": 6508,
+    "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "workbook"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false"
+    ],
+    "name": "workbook_pass04",
+    "path": "labs/workbook-review-pass04/workbook.py",
+    "purpose": "Predecessor workbook pair-pinned by pass05 and by the n7-local overlay.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.33",
+          "file": "06.33.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "G builds on this predecessor",
+        "role": "review",
+        "sha256": "debbb40515843cd37ffa11e6da8ef75d0159793fa337c0dcd14a3f939464453b",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "pass03-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 19533,
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      },
+      "pin_required": true,
+      "reason": "load_pass03 compares sha256 and byte length at the helper root D:\\Git\\lib-build.",
+      "source_ref": {
+        "lines": "42-49",
+        "path": "labs/workbook-review-pass04/workbook.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass03/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "42-42",
+        "path": "labs/workbook-review-pass04/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "29-44",
+        "path": "labs/workbook-review-pass04/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "parents[2] is compared with D:\\Git\\lib-build before the pin read. This preflight did not execute that compare.",
+          "name": "canonical-helper-root"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": []
+}

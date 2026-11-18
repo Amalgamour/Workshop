@@ -1,0 +1,47 @@
+[
+  {
+    "case": "valid",
+    "measurement": "complete",
+    "findings": [
+      "thin-submission",
+      "custody-missing"
+    ],
+    "artifacts": 2
+  },
+  {
+    "case": "suffix-decoy",
+    "measurement": "incomplete",
+    "findings": [
+      "unparsed-return-line",
+      "malformed-n7-declaration",
+      "custody-missing"
+    ],
+    "record_exit": 2,
+    "recorded": false,
+    "correction": "The artifact measurement is incomplete. The judgment was not recorded."
+  },
+  {
+    "case": "bad-attribution-with-valid",
+    "measurement": "incomplete",
+    "findings": [
+      "attribution-not-descriptive",
+      "malformed-n7-declaration",
+      "custody-missing"
+    ],
+    "record_exit": 2,
+    "recorded": false,
+    "correction": "The artifact measurement is incomplete. The judgment was not recorded."
+  },
+  {
+    "case": "empty-verification",
+    "measurement": "incomplete",
+    "findings": [
+      "unparsed-return-line",
+      "malformed-n7-declaration",
+      "custody-missing"
+    ],
+    "record_exit": 2,
+    "recorded": false,
+    "correction": "The artifact measurement is incomplete. The judgment was not recorded."
+  }
+]

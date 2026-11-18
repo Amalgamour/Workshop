@@ -1,0 +1,38 @@
+{
+  "schema": "authoring-profile/1",
+  "profile_id": "fixture-authoring",
+  "book_policy": "outside-only",
+  "source_home": "00.kernel/00.00.10.work/0491.fixture-source",
+  "work_home": "00.kernel/00.00.10.work/0591.fixture-authoring",
+  "source_page": "00.kernel/00.00.10.work/0491.fixture-source/01.md",
+  "work_page_note": "00.kernel/00.00.10.work/0591.fixture-authoring/01.md",
+  "template": "00.kernel/00.00.10.work/0491.fixture-source/templates/build-pack-v1.draft.md",
+  "declared_notes": [
+    "00.kernel/00.00.10.work/0491.fixture-source/06.01.md"
+  ],
+  "raw_sources": [
+    "00.kernel/00.00.10.work/0491.fixture-source/raw/blob.bin"
+  ],
+  "dependency_set": {
+    "root": "book",
+    "path": "dependency/set.json"
+  },
+  "queries": [
+    {
+      "command": "validate"
+    },
+    {
+      "command": "requires",
+      "module": "lib-build:app/librarian.py",
+      "depth": 1
+    },
+    {
+      "command": "requires",
+      "module": "lib-build:labs/review-loop-pass02/review_loop.py",
+      "depth": 1,
+      "condition": [
+        "render-or-recover=inapplicable"
+      ]
+    }
+  ]
+}

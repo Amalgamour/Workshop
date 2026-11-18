@@ -1,0 +1,29 @@
+# Commands — 0521.return-placement/05.11
+
+This file is a summary. It is not raw stdout.
+Raw demonstration stdout: evidence/build05.11/live-stdout.txt
+Official suite root: D:\librarian\temp\0521-0511\20261102T230437660010Z-suite
+Suite exit: 0. Claims passed: 26. Failed: 0. Not run: 6. Environment skips: 0.
+Known-failure reproductions passed: 2. Repair cases passed: 10. Other author cases passed: 14.
+
+Python: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+Invocation: python -B labs/return-readiness-pass02/tests/run_suite.py
+Working directory of each CLI sample: D:\Git\lib-build
+Environment: PYTHONDONTWRITEBYTECODE=1
+
+Live demonstration, exit 0, stderr empty:
+python -B labs/return-readiness-pass02/readiness.py --code-root D:\Git\lib-build --book D:\Git\lib-build\00.kernel\00.00.10.work --text
+
+The suite log records 19 CLI invocations and the in-process cases. Detail: evidence/build05.11/commands.json
+Claim map: evidence/build05.11/claims.json
+Fixture paths: evidence/build05.11/fixture-index.json
+
+Known-failure reproductions in the suite used fresh copies. The official saved reproduction root remains D:\librarian\temp\0521-0511\20261102T224423676416Z-repro. Pass01 still crashes on the encoding fixture and still reports selected-valid for the late dispatcher change. The successor observations are the repair cases.
+
+Earlier suite root, kept:
+D:\librarian\temp\0521-0511\20261102T230210215665Z-suite
+Passed 9 claims. Stopped on wrong-type because a shared dependency changed between the two route measurements and the final check compared only the later read. The successor now also compares a selected-valid route with the contract bytes. DELTA.md was not revised. The green suite is the official run.
+
+Not run: Prime probes, app selection, live migration, review-loop classification, custody filing, and historical demo.py / rehearse.py.
+HEAD at this summary: 960d20c5290656095df8457b1740d2d5e586b111 on workshop.
+No Git write.

@@ -1,0 +1,588 @@
+{
+ "schema": "desk-check-report/1",
+ "run_class": "candidate",
+ "desk_verdict": "not-passed",
+ "blocking": [
+  "cases not observed: C18",
+  "wrong: A-C01-01,A-C01-06,A-C03-02,A-C03-03,A-C05-01,A-C05-02,A-C07-01,A-C07-03,A-C10-01",
+  "unsupported: A-C01-03,A-C01-04,A-C01-05,A-C02-02,A-C02-03,A-C02-04,A-C02-05,A-C04-01,A-C04-02,A-C04-03,A-C04-04,A-C04-05,A-C04-06,A-C04-07,A-C04-08,A-C04-09,A-C04-10,A-C06-01,A-C06-02,A-C07-02,A-C08-01,A-C09-01,A-C09-02,A-C09-03,A-C16-01,A-C16-02,A-C16-03,A-C17-01,A-C17-02",
+  "not-run: A-C18-01,A-C18-02,A-C18-03,A-C18-04",
+  "manual: M-01=needs-human-assessment,M-02=needs-human-assessment,M-03=needs-human-assessment,M-04=needs-human-assessment,M-05=needs-human-assessment,M-06=needs-human-assessment,F-C12=needs-human-assessment,F-C15=needs-human-assessment,F-C01=needs-human-assessment,F-C02=needs-human-assessment,F-C03=needs-human-assessment,F-C04=needs-human-assessment,F-C05=needs-human-assessment,F-C06=needs-human-assessment,F-C07=needs-human-assessment,F-C08=needs-human-assessment,F-C09=needs-human-assessment,F-C10=needs-human-assessment,F-C11=needs-human-assessment,F-C13=needs-human-assessment,F-C14=needs-human-assessment,F-C16=needs-human-assessment,F-C17=needs-human-assessment,F-C18=needs-human-assessment"
+ ],
+ "expected_sha256": "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+ "cases": {
+  "executable_defined": 16,
+  "manual_defined": 2,
+  "observed": 15,
+  "observation_state": {
+   "C01": "observed",
+   "C02": "observed",
+   "C03": "observed",
+   "C04": "observed",
+   "C05": "observed",
+   "C06": "observed",
+   "C07": "observed",
+   "C08": "observed",
+   "C09": "observed",
+   "C10": "observed",
+   "C11": "observed",
+   "C13": "observed",
+   "C14": "observed",
+   "C16": "observed",
+   "C17": "observed",
+   "C18": "absent"
+  }
+ },
+ "assertions": {
+  "defined": 54,
+  "evaluated": 54,
+  "by_status": {
+   "pass": 12,
+   "wrong": 9,
+   "missing": 0,
+   "unsupported": 29,
+   "needs-human-assessment": 0,
+   "not-run": 4,
+   "checker-error": 0
+  }
+ },
+ "manual": {
+  "defined": 24,
+  "by_status": {
+   "pass": 0,
+   "wrong": 0,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 24,
+   "not-run": 0,
+   "checker-error": 0
+  }
+ },
+ "rows": [
+  {
+   "id": "A-C01-01",
+   "case": "C01",
+   "status": "wrong",
+   "detail": "got '0522.review-construction/05.04', want '0522.review-construction/05.03'",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-02",
+   "case": "C01",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-03",
+   "case": "C01",
+   "status": "unsupported",
+   "detail": "path ['selected', 'source', 'path'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-04",
+   "case": "C01",
+   "status": "unsupported",
+   "detail": "path ['selected', 'source', 'sha256'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-05",
+   "case": "C01",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.03'}, 'review', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-06",
+   "case": "C01",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'conflict', 'ref': '0522.review-construction/05.03'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-01",
+   "case": "C02",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-02",
+   "case": "C02",
+   "status": "unsupported",
+   "detail": "path ['parallel'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-03",
+   "case": "C02",
+   "status": "unsupported",
+   "detail": "path ['parallel'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-04",
+   "case": "C02",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0524.prime-desk/05.01'}, 'claim', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-05",
+   "case": "C02",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0524.prime-desk/05.01'}, 'claim', 'basis'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-01",
+   "case": "C03",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-02",
+   "case": "C03",
+   "status": "wrong",
+   "detail": "no item matching {'target_instance': 'instance-B'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-03",
+   "case": "C03",
+   "status": "wrong",
+   "detail": "no item matching {'path': '00.kernel/00.00.10.work/0524.prime-desk/05.01.md', 'instance': 'instance-B', 'status': 'outside-instance'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-01",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0521.return-placement/05.03'}, 'custody', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-02",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0521.return-placement/05.03'}, 'review', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-03",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0521.return-placement/05.03'}, 'disposition', 'value'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-04",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0521.return-placement/05.03'}, 'disposition', 'attributed_to'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-05",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0521.return-placement/05.03'}, 'director_approval', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-06",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.03'}, 'review', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-07",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.03'}, 'disposition', 'value'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-08",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.03'}, 'custody', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-09",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.04'}, 'return', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-10",
+   "case": "C04",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.04'}, 'review', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-01",
+   "case": "C05",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'verbatim', 'attributed_to': 'Director', 'source_path': '00.kernel/00.00.10.work/0420.prime-desk/06.01.md', 'quote_sha256': 'cefa10fdb3572b1a32c91118b668b71cdb3f86a302a87aad6fd0e0ea71fcba0f'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-02",
+   "case": "C05",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'interpretation', 'attributed_to': 'Codex Prime', 'source_path': '00.kernel/00.00.10.work/0420.prime-desk/06.01.md'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-01",
+   "case": "C06",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.03'}, 'custody', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-02",
+   "case": "C06",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.03'}, 'return', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-01",
+   "case": "C07",
+   "status": "wrong",
+   "detail": "no item matching {'id': 'H1', 'work_ref': '0522.review-construction/05.03', 'visible': True}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-02",
+   "case": "C07",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0524.prime-desk/05.01'}, 'blocked'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-03",
+   "case": "C07",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'hold', 'ref': '0522.review-construction/05.03'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C08-01",
+   "case": "C08",
+   "status": "unsupported",
+   "detail": "path ['coverage'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-01",
+   "case": "C09",
+   "status": "unsupported",
+   "detail": "path ['workers'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-02",
+   "case": "C09",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.04'}, 'claim', 'state'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-03",
+   "case": "C09",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0522.review-construction/05.04'}, 'claim', 'basis'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-01",
+   "case": "C10",
+   "status": "wrong",
+   "detail": "no item matching {'id': 'H9', 'visible': True}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-02",
+   "case": "C10",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-03",
+   "case": "C10",
+   "status": "pass",
+   "detail": "hidden 0",
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-01",
+   "case": "C11",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-02",
+   "case": "C11",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C13-01",
+   "case": "C13",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-01",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-02",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-03",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-04",
+   "case": "C14",
+   "status": "pass",
+   "detail": "",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-01",
+   "case": "C16",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0705.prime-desk-check/05.01'}, 'tails'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-02",
+   "case": "C16",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0705.prime-desk-check/05.01'}, 'tails'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-03",
+   "case": "C16",
+   "status": "unsupported",
+   "detail": "path ['works', {'work_ref': '0705.prime-desk-check/05.01'}, 'tails'] is declared unmapped by the adapter",
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-01",
+   "case": "C17",
+   "status": "unsupported",
+   "detail": "all branches unmapped",
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-02",
+   "case": "C17",
+   "status": "unsupported",
+   "detail": "all branches unmapped",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-01",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-02",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-03",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-04",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  }
+ ],
+ "manual_rows": [
+  {
+   "id": "M-01",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-02",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-03",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-04",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-05",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "M-06",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C12",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C15",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C01",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C02",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C03",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C04",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C05",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C06",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C07",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C08",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C09",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C10",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C11",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C13",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C14",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C16",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C17",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  },
+  {
+   "id": "F-C18",
+   "status": "needs-human-assessment",
+   "by": null,
+   "answer": null
+  }
+ ],
+ "limits": "checks normalized facts only; forbidden inferences and readability are manual items; not a semantic judge"
+}

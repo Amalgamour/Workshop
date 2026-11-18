@@ -1,0 +1,32 @@
+{
+  "0524.prime-desk": {
+    "frozen_inputs": 19,
+    "artifacts": 39
+  },
+  "0707.app-use-check": {
+    "frozen_inputs": 35,
+    "artifacts": 305
+  },
+  "actual_prime_use": {
+    "commands": 5,
+    "selected": "work-0524-0503",
+    "repeat_fingerprint_equal": true,
+    "inspection_relation": "inspection",
+    "coverage": {
+      "changed": 0,
+      "declared": 16,
+      "matched": 16,
+      "missing": 0,
+      "outside": 0,
+      "stale": 0,
+      "statement": "Declared request paths only. Unregistered sources were not searched.",
+      "unreadable": 0
+    },
+    "gap_kinds": [
+      "return-undeclared",
+      "catalog-not-chosen",
+      "verification"
+    ],
+    "limits": "Declared historical cut; no running-worker or all-project-current-state inference."
+  }
+}

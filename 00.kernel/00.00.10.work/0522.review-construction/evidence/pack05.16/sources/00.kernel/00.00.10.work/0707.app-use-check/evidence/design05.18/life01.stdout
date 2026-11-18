@@ -1,0 +1,60 @@
+L1 prepare          exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "measurement": "complete", "stale": false}
+L1 form             exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172"}
+L1 record           exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "review_id": "wad953063d2e932cb"}
+L1 inspect          exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "measurement": "complete", "stale": false}
+L1 publish          exit 1 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "review_id": "wad953063d2e932cb", "correction": "stale-own-review"}
+L1 read             exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "review_id": "wad953063d2e932cb", "stale": false}
+L1 recover          exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "review_id": "wad953063d2e932cb", "stale": false}
+L1 read-again       exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "review_id": "wad953063d2e932cb", "stale": false}
+L1 recover-again    exit 0 {"intake_id": "eb3aab2838692a549bfb0889f9c80d9448ef5ed9814666d8f26cce5195d26172", "review_id": "wad953063d2e932cb", "stale": false}
+L1 stale-read       exit 1 {"intake_id": "89d6696e3497fd6d53c2c460df5e9c16a337e948621b9955c748d8a949ce2a6e", "review_id": "wad953063d2e932cb", "stale": true}
+L1 stale-recover    exit 1 {"intake_id": "89d6696e3497fd6d53c2c460df5e9c16a337e948621b9955c748d8a949ce2a6e", "review_id": "wad953063d2e932cb", "stale": true}
+L1 stale-publish    exit 1 {"intake_id": "89d6696e3497fd6d53c2c460df5e9c16a337e948621b9955c748d8a949ce2a6e", "review_id": "wad953063d2e932cb", "stale": true, "correction": "Publication is blocked because the selected source changed after intake."}
+L1 rerecord-prepare exit 0 {"intake_id": "89d6696e3497fd6d53c2c460df5e9c16a337e948621b9955c748d8a949ce2a6e", "measurement": "incomplete", "stale": true}
+L1 rerecord         exit 2 {"intake_id": "89d6696e3497fd6d53c2c460df5e9c16a337e948621b9955c748d8a949ce2a6e", "correction": "The artifact measurement is incomplete. The judgment was not recorded."}
+L1 {"idempotent": {"read_equal": true, "recover_equal": true, "no_writes": true}, "protected_review_preserved": {}, "pointer_page_changed_by_publish": false, "earlier_records_preserved_after_rerecord": true, "second_review_id": null}
+L2 prepare          exit 0 {"intake_id": "424b1442e0dd644cbdac0f072c7812283a24a1e2d1eafd4ee990e6933b2cff49", "measurement": "complete", "stale": false}
+L2 form             exit 0 {"intake_id": "424b1442e0dd644cbdac0f072c7812283a24a1e2d1eafd4ee990e6933b2cff49"}
+L2 record           exit 0 {"intake_id": "424b1442e0dd644cbdac0f072c7812283a24a1e2d1eafd4ee990e6933b2cff49", "review_id": "w37e3f44a99a3834f"}
+L2 inspect          exit 0 {"intake_id": "424b1442e0dd644cbdac0f072c7812283a24a1e2d1eafd4ee990e6933b2cff49", "measurement": "complete", "stale": false}
+L2 publish          exit 0 {"intake_id": "424b1442e0dd644cbdac0f072c7812283a24a1e2d1eafd4ee990e6933b2cff49", "review_id": "w37e3f44a99a3834f"}
+L2 read             exit 0 {"intake_id": "fa2d114dacb303a8795735ab3d19a4610054ea7d185495e303f16a7fe1a75940", "review_id": "w37e3f44a99a3834f", "stale": false}
+L2 recover          exit 0 {"intake_id": "fa2d114dacb303a8795735ab3d19a4610054ea7d185495e303f16a7fe1a75940", "review_id": "w37e3f44a99a3834f", "stale": false}
+L2 read-again       exit 0 {"intake_id": "fa2d114dacb303a8795735ab3d19a4610054ea7d185495e303f16a7fe1a75940", "review_id": "w37e3f44a99a3834f", "stale": false}
+L2 recover-again    exit 0 {"intake_id": "fa2d114dacb303a8795735ab3d19a4610054ea7d185495e303f16a7fe1a75940", "review_id": "w37e3f44a99a3834f", "stale": false}
+L2 stale-read       exit 1 {"intake_id": "da0b670ac23a02d2099f315d0eeacca0064b37b06a58f88bdd0fbd827fb67d73", "review_id": "w37e3f44a99a3834f", "stale": true}
+L2 stale-recover    exit 1 {"intake_id": "da0b670ac23a02d2099f315d0eeacca0064b37b06a58f88bdd0fbd827fb67d73", "review_id": "w37e3f44a99a3834f", "stale": true}
+L2 stale-publish    exit 1 {"intake_id": "da0b670ac23a02d2099f315d0eeacca0064b37b06a58f88bdd0fbd827fb67d73", "review_id": "w37e3f44a99a3834f", "stale": true, "correction": "Publication is blocked because the selected source changed after intake."}
+L2 rerecord-prepare exit 0 {"intake_id": "da0b670ac23a02d2099f315d0eeacca0064b37b06a58f88bdd0fbd827fb67d73", "measurement": "incomplete", "stale": true}
+L2 rerecord         exit 2 {"intake_id": "da0b670ac23a02d2099f315d0eeacca0064b37b06a58f88bdd0fbd827fb67d73", "correction": "The artifact measurement is incomplete. The judgment was not recorded."}
+L2 {"idempotent": {"read_equal": true, "recover_equal": true, "no_writes": true}, "protected_review_preserved": {}, "pointer_page_changed_by_publish": true, "earlier_records_preserved_after_rerecord": true, "second_review_id": null}
+L3 prepare          exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "measurement": "complete", "stale": false}
+L3 form             exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023"}
+L3 record           exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "review_id": "wbe14f18f5e730623"}
+L3 inspect          exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "measurement": "complete", "stale": false}
+L3 publish          exit 1 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "review_id": "wbe14f18f5e730623", "correction": "manual-review"}
+L3 read             exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "review_id": "wbe14f18f5e730623", "stale": false}
+L3 recover          exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "review_id": "wbe14f18f5e730623", "stale": false}
+L3 read-again       exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "review_id": "wbe14f18f5e730623", "stale": false}
+L3 recover-again    exit 0 {"intake_id": "53235bddbe0484596f687d033d3a9fb6c6be22a360dae2d2b8ab9c882da75023", "review_id": "wbe14f18f5e730623", "stale": false}
+L3 stale-read       exit 1 {"intake_id": "f53c73bc5a10663a51d83047456c8eec5bba791b32c6071da6d90591a8d88a78", "review_id": "wbe14f18f5e730623", "stale": true}
+L3 stale-recover    exit 1 {"intake_id": "f53c73bc5a10663a51d83047456c8eec5bba791b32c6071da6d90591a8d88a78", "review_id": "wbe14f18f5e730623", "stale": true}
+L3 stale-publish    exit 1 {"intake_id": "f53c73bc5a10663a51d83047456c8eec5bba791b32c6071da6d90591a8d88a78", "review_id": "wbe14f18f5e730623", "stale": true, "correction": "Publication is blocked because the selected source changed after intake."}
+L3 rerecord-prepare exit 0 {"intake_id": "f53c73bc5a10663a51d83047456c8eec5bba791b32c6071da6d90591a8d88a78", "measurement": "incomplete", "stale": true}
+L3 rerecord         exit 2 {"intake_id": "f53c73bc5a10663a51d83047456c8eec5bba791b32c6071da6d90591a8d88a78", "correction": "The artifact measurement is incomplete. The judgment was not recorded."}
+L3 {"idempotent": {"read_equal": true, "recover_equal": true, "no_writes": true}, "protected_review_preserved": {"06.15.review.md": true}, "pointer_page_changed_by_publish": false, "earlier_records_preserved_after_rerecord": true, "second_review_id": null}
+L4 prepare          exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "measurement": "complete", "stale": false}
+L4 form             exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6"}
+L4 record           exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "review_id": "w98ff09eff7c21623"}
+L4 inspect          exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "measurement": "complete", "stale": false}
+L4 publish          exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "review_id": "w98ff09eff7c21623"}
+L4 read             exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "review_id": "w98ff09eff7c21623", "stale": false}
+L4 recover          exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "review_id": "w98ff09eff7c21623", "stale": false}
+L4 read-again       exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "review_id": "w98ff09eff7c21623", "stale": false}
+L4 recover-again    exit 0 {"intake_id": "5fccb77e78468abcddeeda326b55d648665b8f0815ffb466e60df5db6746c5a6", "review_id": "w98ff09eff7c21623", "stale": false}
+L4 stale-read       exit 1 {"intake_id": "c50dc8d004e90e826d21422671160ac923c041967cbd85e3bdeecf0d6fceb9d6", "review_id": "w98ff09eff7c21623", "stale": true}
+L4 stale-recover    exit 1 {"intake_id": "c50dc8d004e90e826d21422671160ac923c041967cbd85e3bdeecf0d6fceb9d6", "review_id": "w98ff09eff7c21623", "stale": true}
+L4 stale-publish    exit 1 {"intake_id": "c50dc8d004e90e826d21422671160ac923c041967cbd85e3bdeecf0d6fceb9d6", "review_id": "w98ff09eff7c21623", "stale": true, "correction": "Publication is blocked because the selected source changed after intake."}
+L4 rerecord-prepare exit 0 {"intake_id": "c50dc8d004e90e826d21422671160ac923c041967cbd85e3bdeecf0d6fceb9d6", "measurement": "incomplete", "stale": true}
+L4 rerecord         exit 2 {"intake_id": "c50dc8d004e90e826d21422671160ac923c041967cbd85e3bdeecf0d6fceb9d6", "correction": "The artifact measurement is incomplete. The judgment was not recorded."}
+L4 {"idempotent": {"read_equal": true, "recover_equal": true, "no_writes": true}, "protected_review_preserved": {}, "pointer_page_changed_by_publish": false, "earlier_records_preserved_after_rerecord": true, "second_review_id": null}

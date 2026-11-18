@@ -1,0 +1,502 @@
+{
+  "schema": "0707-0503-probe/1",
+  "run": "20261101T210326Z-63fd7e",
+  "interpreter": "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "steps": 31,
+  "failed": [],
+  "aggregate": "pass",
+  "rows": [
+    {
+      "step": "U1-real-/2-from-committed-decision",
+      "ok": true,
+      "result": {
+        "record_sha256": "134c65ef6f44565812be5be61c0c6a7576f36b6093f11cb859c8e99b2caeaddf",
+        "review_id": "05.01-r1",
+        "supplied_state": "verified-against-committed-record",
+        "not_established": [
+          "Director acceptance",
+          "release",
+          "authenticated identity"
+        ]
+      }
+    },
+    {
+      "step": "U1-real-/1-legacy",
+      "ok": true,
+      "result": {
+        "record_sha256": "134c65ef6f44565812be5be61c0c6a7576f36b6093f11cb859c8e99b2caeaddf",
+        "review_id": "05.01-r1",
+        "supplied_state": "legacy-/1-envelope: no supplied state is rendered",
+        "not_established": [
+          "Director acceptance",
+          "release",
+          "authenticated identity"
+        ]
+      }
+    },
+    {
+      "step": "U1-tamper-disposition",
+      "ok": true,
+      "expected": "supplied-state",
+      "observed": "supplied-state",
+      "detail": "envelope supplied_review_state differs from the hash-verified committed decision"
+    },
+    {
+      "step": "U1-tamper-goal-terminal",
+      "ok": true,
+      "expected": "supplied-state",
+      "observed": "supplied-state",
+      "detail": "envelope supplied_review_state differs from the hash-verified committed decision"
+    },
+    {
+      "step": "U1-record-bytes-changed",
+      "ok": true,
+      "expected": "record-hash",
+      "observed": "record-hash",
+      "detail": "record.json does not hash to COMMITTED.json"
+    },
+    {
+      "step": "U1-cycle-names-other-record",
+      "ok": true,
+      "expected": "record-hash",
+      "observed": "record-hash",
+      "detail": "record.json is not the record the cycle read names"
+    },
+    {
+      "step": "U1-wrong-review-identity",
+      "ok": true,
+      "expected": "review-identity",
+      "observed": "review-identity",
+      "detail": "envelope review_identity differs from the registration"
+    },
+    {
+      "step": "U1-wrong-binding",
+      "ok": true,
+      "expected": "binding",
+      "observed": "binding",
+      "detail": "committed decision binding differs from the cycle read's task binding"
+    },
+    {
+      "step": "U1-envelope-record-swapped",
+      "ok": true,
+      "expected": "envelope-record",
+      "observed": "envelope-record",
+      "detail": "envelope record is not the committed supplied record"
+    },
+    {
+      "step": "U1-envelope-retargeted",
+      "ok": true,
+      "expected": "envelope-target",
+      "observed": "envelope-target",
+      "detail": "envelope target or pass differs from the registration"
+    },
+    {
+      "step": "U2-constructor-pin",
+      "ok": true,
+      "observed": [
+        "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+        42582
+      ]
+    },
+    {
+      "step": "U2-inspect-A-rendered-LF",
+      "ok": true,
+      "exit": 0,
+      "state": "constructed-same-binding",
+      "binding_found": "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c",
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\A-rendered-LF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-A-rendered-CRLF",
+      "ok": true,
+      "exit": 0,
+      "state": "constructed-same-binding",
+      "binding_found": "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c",
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\A-rendered-CRLF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-B-pending-LF",
+      "ok": true,
+      "exit": 0,
+      "state": "pending",
+      "binding_found": null,
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\B-pending-LF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-B-pending-CRLF",
+      "ok": true,
+      "exit": 0,
+      "state": "pending",
+      "binding_found": null,
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\B-pending-CRLF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-D-changed-LF",
+      "ok": true,
+      "exit": 0,
+      "state": "pending",
+      "binding_found": null,
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\D-changed-LF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-D-changed-CRLF",
+      "ok": true,
+      "exit": 0,
+      "state": "pending",
+      "binding_found": null,
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\D-changed-CRLF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-E-substantive-LF",
+      "ok": true,
+      "exit": 0,
+      "state": "existing-review",
+      "binding_found": null,
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\E-substantive-LF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-E-substantive-CRLF",
+      "ok": true,
+      "exit": 0,
+      "state": "existing-review",
+      "binding_found": null,
+      "writes_none": true,
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\review-construction-pass04\\construct.py",
+        "inspect",
+        "--fixture-root",
+        "D:\\librarian\\temp\\claude-loop03-review-nov01\\scratch\\20261101T210326Z-63fd7e\\E-substantive-CRLF",
+        "--target",
+        "page.md",
+        "--binding",
+        "a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c"
+      ]
+    },
+    {
+      "step": "U2-inspect-LF-equals-CRLF-state",
+      "ok": true
+    },
+    {
+      "step": "U2-prepare-pending",
+      "ok": true,
+      "expected": [
+        "awaiting-review",
+        "record"
+      ],
+      "observed": [
+        "awaiting-review",
+        "record"
+      ],
+      "mechanical": {
+        "state": "awaiting-review",
+        "blocker": null,
+        "route": "record",
+        "text": "Supply the typed judgment, then record.",
+        "target": "pending"
+      },
+      "supplied_next_action": null,
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-prepare-substantive",
+      "ok": true,
+      "expected": [
+        "awaiting-review",
+        "record-then-blocked"
+      ],
+      "observed": [
+        "awaiting-review",
+        "record-then-blocked"
+      ],
+      "mechanical": {
+        "state": "awaiting-review",
+        "blocker": "target-existing-review",
+        "route": "record-then-blocked",
+        "text": "Recording preserves the judgment; rendering into this target will be refused.",
+        "target": "existing-review"
+      },
+      "supplied_next_action": null,
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-prepare-absent",
+      "ok": true,
+      "expected": [
+        "awaiting-review",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "awaiting-review",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "awaiting-review",
+        "blocker": "target-absent",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": "absent",
+        "detail": "record hashes the target and refuses when it is absent (review_loop.py 337)"
+      },
+      "supplied_next_action": null,
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-B-interrupted",
+      "ok": true,
+      "expected": [
+        "render-interrupted",
+        "recover"
+      ],
+      "observed": [
+        "render-interrupted",
+        "recover"
+      ],
+      "mechanical": {
+        "state": "render-interrupted",
+        "blocker": null,
+        "route": "recover",
+        "text": "Run recover: it retries rendering the same committed review into the unchanged target.",
+        "target": "pending"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-D-target-changed",
+      "ok": true,
+      "expected": [
+        "target-changed-since-record",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "target-changed-since-record",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "target-changed-since-record",
+        "blocker": "write-token-changed",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": "pending"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-E-before-render",
+      "ok": true,
+      "expected": [
+        "render-blocked",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "render-blocked",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "render-blocked",
+        "blocker": "target-existing-review",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": "existing-review",
+        "detail": "the judgment is committed (B8); render would refuse and keep one partial"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-E-conflict",
+      "ok": true,
+      "expected": [
+        "existing-review-conflict",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "existing-review-conflict",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "existing-review-conflict",
+        "blocker": "existing-review",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": "existing-review"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-A-rendered",
+      "ok": true,
+      "expected": [
+        "rendered",
+        "read"
+      ],
+      "observed": [
+        "rendered",
+        "read"
+      ],
+      "mechanical": {
+        "state": "rendered",
+        "blocker": null,
+        "route": "read",
+        "text": "Read the rendered review.",
+        "target": "constructed-same-binding"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-SYNTHETIC-marker-missing",
+      "ok": true,
+      "expected": [
+        "rendered-marker-missing",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "rendered-marker-missing",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "rendered-marker-missing",
+        "blocker": "page-holds-this-binding",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": "constructed-same-binding",
+        "detail": "recover refuses 'write token changed since read' (v2 test T7); a successor must confirm byte equality"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-record-mismatch",
+      "ok": true,
+      "expected": [
+        "committed-record-mismatch",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "committed-record-mismatch",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "committed-record-mismatch",
+        "blocker": "supplied-state",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": "constructed-same-binding",
+        "detail": "SYNTHETIC tamper"
+      },
+      "supplied_next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "mechanical_text_is_not_supplied_text": true
+    },
+    {
+      "step": "U2-unknown",
+      "ok": true,
+      "expected": [
+        "unknown-state",
+        "none-in-this-entry"
+      ],
+      "observed": [
+        "unknown-state",
+        "none-in-this-entry"
+      ],
+      "mechanical": {
+        "state": "unknown-state",
+        "blocker": "pass weird render None",
+        "route": "none-in-this-entry",
+        "text": "No mechanical route in this entry; the committed judgment is kept.",
+        "target": null
+      },
+      "supplied_next_action": null,
+      "mechanical_text_is_not_supplied_text": true
+    }
+  ]
+}

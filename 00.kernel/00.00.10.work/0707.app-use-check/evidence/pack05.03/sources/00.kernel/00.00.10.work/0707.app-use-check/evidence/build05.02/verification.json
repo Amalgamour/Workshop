@@ -1,0 +1,46 @@
+{
+  "checkout_status_unchanged": true,
+  "coupling_rows": 9,
+  "couplings_all_as_expected": true,
+  "every_call_guarded": true,
+  "exits": {
+    "01-P0-describe-legacy": 0,
+    "02-P1-pending": 2,
+    "03-P1-substantive": 2,
+    "04-P1-rendered-other": 0,
+    "05-P1-no-heading": 2,
+    "06-P1-duplicate-heading": 2,
+    "07-P1-absent": 2,
+    "08-P2-pending": 0,
+    "09-P2-substantive": 0,
+    "10-P2-rendered-other": 0,
+    "11-P2-no-heading": 0,
+    "12-P2-duplicate-heading": 0,
+    "13-P2-absent": 0,
+    "14-P3-describe-legacy": 0,
+    "15-P3-prepare": 0,
+    "16-P3-record": 1,
+    "17-P3-render": 1,
+    "18-P3-read": 0
+  },
+  "first_failures": [
+    "P3 record exit 1 and render exit 1: prime_review attention, my fixture omitted return_result/within_direction/next_bounded_action for outcome continue; kept, not rerun"
+  ],
+  "not_verified": [
+    "successor behaviour (none exists)",
+    "G6 cycle accepts envelope /2",
+    "G7 pass03 bind equals pass02"
+  ],
+  "pass": "05.02",
+  "probe_calls": 18,
+  "product_edits": "none",
+  "proto_all_ok": true,
+  "proto_rows": 13,
+  "python": "3.14.0",
+  "schema": "0707-verification/2",
+  "source_check_end": {
+    "count": 47,
+    "live_equal": 47,
+    "snapshot_ok": 47
+  }
+}

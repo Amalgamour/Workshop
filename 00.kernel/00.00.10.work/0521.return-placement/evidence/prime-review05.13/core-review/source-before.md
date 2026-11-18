@@ -1,0 +1,38 @@
+# 05.13 - Complete historical/guard integration proof and isolate N7 preparation seam
+date: 2026-11-03
+who: Codex Prime
+executor: Grok-2
+reviewer: Codex Prime
+state: PREPARED; execute on named Director invocation; copied integration only
+
+## Goal / method
+Finish I1/I2 on 06.25 and isolate I3, preserving the proven native N5NN sequence. Verify evidence/pack05.13/source-manifest.json. Claim/notes in NEW 06.26.md; corrected successor contract and exact command plan BEFORE code, noting the earlier bare-init failure and required accepted fixture authority. NEW labs/connected-return-review-pass02, evidence/build05.13 and retained small fixtures. Old pass01/code/proof stamps remain unchanged. Do not read unfinished report or task-agreement modules.
+
+## #01 - Completed historical witness, not just reserved input
+On a SMALL ordinary external book, use the reviewed historical fixture capture path before the line-pass declaration to create ONE complete historical member with actual reservation/receipt/manifest/payload. Verify it positively. Then establish the same book's real door and canonical line-pass layout through accepted synthetic-copy authorization. Demonstrate the completed historical return still reads/verifies on that marked book via the supported historical reader/guard/app path. Missing return.md from an uncaptured member is a separate negative test, never the positive witness. No whole 83-member migration or manual receipt fabrication. Keep positive return/receipt bytes identical throughout.
+
+## #02 - Reach the selected handoff guard with valid preconditions
+Create a separate historical reservation/Clerk job/binding with all required capture input files and matching declared payload bytes. Declare the copied book before performing capture-return through the substituted copied APP. Prove the guard is actually invoked/selected and refuses legacy capture before the historical writer starts. A prior capture-files absent refusal does not prove this boundary. Preserve failure/intent and show a repeated handoff attempt retains prior failure bytes and does not allocate or report completion. Keep writer-start evidence explicit and scoped; no direct unguarded marked-book write to demonstrate bypass.
+
+Native line-pass filing on that same marked book must remain usable. Reproduce a minimal matching N5 source/pass native capture -> lookup/verify -> core record/publish -> fresh read/recover, with real capture-produced receipt and supplied synthetic judgment. Reuse the accepted helpers; distinguish any fixture-driver serialization from compute-generated production functionality. No paid/model calls or new model environment.
+
+## #03 - Minimal N7 cycle-template diagnosis, no active core patch
+Retain the page-local native N7 filing, then isolate why cycle preparation returns no template. Preserve raw descriptor, registration/request, exact called CLI, stdout/stderr/exit, declared dependency identity and expected schema. Reduce to the smallest truthful case without dropping the condition that triggers failure. Identify whether it is a caller-contract issue, missing derived target, an unsupported N7 contract or an implementation defect. Do not silently precreate an approval/review target, fake a template, relabel custody complete as cycle committed, or weaken guards to get a green result.
+
+Return a precise bounded repair recommendation with file/function and input/output invariant, not a speculative broad rewrite. If a caller input can be corrected within the already declared contract, demonstrate a NEW corrected case while keeping the failing one and explaining the correction. If active core must change, STOP the affected N7 success claim and return the actionable seam; unrelated historical/guard proofs may finish. No active or successor core implementation in this slice. Report preliminary fallback honestly.
+
+## #04 - One clear operator handoff
+Retained minimal code fixture uses CURRENT reviewed dispatcher plus only two return substitutions; preserve core review/authoring and other branches. List fixed/live dependency roots honestly. Readiness-pass02 shows copied selected routes/declaration versus current live staged/undeclared state. Recheck original runtime/source pins and source before/after. Proposed shared-app substitutions remain the same narrow delta, not a whole dispatcher replacement. Physical migration/root/release decisions stay outside this pack.
+
+Keep evidence compact and reproducible: actual raw success/refusal runs, first failures, exact positive historical identities, fully eligible guard invocation, N5 recovery, minimal N7 failure/diagnosis, claim -> actual case/result/limit and retained-root index. Count author tests, prior-failure reproduction and future independent review separately. Reread the whole successor contract/results and integrate notes before returning. No blanket integration-ready claim if a required seam remains unsupported.
+
+## Boundaries / return
+Only NEW labs/connected-return-review-pass02, NEW 06.26.md/evidence/build05.13, this pack Return pointer and retained external fixture roots. No shared app/README/current modules/core/declarations, real book/reviews/custody, 01NN migration/archive/layout/authority/root/sentinel, kernel/00.live/N3NN/current assignment, sibling outputs, Git/network/install/models/bots/AR-01 or cleanup. Return Did/Blocked/Need; I1/I2 proof and I3 diagnosis; exact API/pins/ownership; corrected operator contract; raw cases/first failures and limits; Factfind/Hostile/Overflow/Unprompted; artifact manifest excluding itself. Matching 0121 custody remains pending. Stop for Prime review; no selection or release.
+
+## Return pointer
+Invocation/claim: 06.26.md records the historical witness, the eligible guarded handoff, and the N7 cycle diagnosis. Live migration is not released. App selection is not applied. The N7 cycle success claim stays stopped.
+Submission: evidence/build05.13/submission.md sha256 da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50, 1049 bytes.
+Artifact manifest: evidence/build05.13/artifact-manifest.json sha256 0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019, 1790 bytes, 5 files. Excludes itself and this page.
+
+## Review - Codex Prime
+PENDING.

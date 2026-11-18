@@ -1,0 +1,35 @@
+{
+  "checkout_status_new_lines": [
+    "?? 00.kernel/00.00.10.work/0510.colab-tools/06.05.md",
+    "?? colab/labs/0510-reserved-review/",
+    "?? colab/labs/0708.colab-capability/",
+    "?? labs/review-construction-pass03/"
+  ],
+  "checkout_status_removed_lines": [],
+  "existing_tool_edits": "none",
+  "new_lines_expected": "Mine: 0510.colab-tools/06.05.md and colab/labs/0510-reserved-review/. Not mine, concurrent other lanes, names only, not read: colab/labs/0708.colab-capability/ (Grok-1 0708 audit) and labs/review-construction-pass03/ (Grok-2 0522/05.06). The 05.05.md pointer edit and design05.05 sit under already-listed paths.",
+  "not_verified": [
+    "H1-H5 (CONTRACT \u00a76)",
+    "real checker (unbuilt)",
+    "acceptance A-D"
+  ],
+  "pass": "05.05",
+  "probe_P1": {
+    "exit": 0,
+    "read_only": true,
+    "result": "valid",
+    "sha256": "7d62dde48165c5ac80f7f92a2a91f73a66b40c1e8dd2383f0269027038c6a268",
+    "tool": "labs/colab-support-pass02/handoff_check.py"
+  },
+  "python": "3.14.0",
+  "rule_tests": {
+    "run1": "30/30 OK (before authority-limits rule)",
+    "run2": "31/31 OK"
+  },
+  "schema": "0510-design-verification/1",
+  "sources_end": {
+    "count": 32,
+    "live_equal": 32,
+    "snapshot_ok": 32
+  }
+}

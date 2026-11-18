@@ -1,0 +1,27 @@
+good T1: pass
+good T2: pass
+good T3: pass
+good T4: pass
+good T5a: pass
+bad  T1 -> bytes-identical: caught
+bad  T1 -> bytes-identical: caught
+bad  T1 -> bytes-identical: caught
+bad  T1 -> nothing-outside-markers: caught
+bad  T2 -> same-ids: caught
+bad  T2 -> values-equal-key: caught
+bad  T2 -> ordered-by-id: caught
+bad  T2 -> exact-keys: caught
+bad  T3 -> others-ast-identical: caught
+bad  T3 -> heldout-tests: caught
+bad  T3 -> no-new-top-level: caught
+bad  T3 -> heldout-tests: caught
+bad  T3 -> heldout-tests: caught
+bad  T3 -> nothing-outside-block: caught
+bad  T4 -> ids-once-in-order: caught
+bad  T4 -> backtick-spans-kept: caught
+bad  T4 -> numbers-kept: caught
+bad  T4 -> modal-counts-equal: caught
+bad  T5a -> word-count: caught
+bad  T5a -> required-phrases: caught
+bad  T5a -> forbidden-absent: caught
+SELFTEST OK

@@ -1,0 +1,16 @@
+# Candidate constructor tests, separate from the cycle experiment.
+python -B labs/review-construction-pass03/tests/test_pass03.py
+exit 0
+tests 11
+skipped 1
+skip test_symlink_is_refused WinError 1314
+
+# Unchanged-cycle envelope experiment.
+python -B 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.06/experiment/run.py
+read-before exit 0
+record exit 0
+read-after exit 0
+bind exit 0
+bindings_equal true
+page_bytes_unchanged true
+task_binding_sha256 a8761262afb9993a459ce26da4e55b722686f43ba842c880d2e55d3a33cbd74c

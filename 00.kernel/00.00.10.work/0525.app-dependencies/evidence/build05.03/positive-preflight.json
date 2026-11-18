@@ -1,0 +1,716 @@
+{
+  "activation_ready": false,
+  "basis": [
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "n7-local-workbook",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-instance-candidate-librarian",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-instance-declaration",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-instance-door",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-instance-workbook",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-loop-declaration-v9",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-loop-door-v9",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "review-report-hardening",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "selected-app-librarian",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "selected-review-loop-v7",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "source-capacity-declaration",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "source-capacity-door",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "source-capacity-prime-review",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "source-capacity-workbook",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "workbook-review-pass03",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "workbook-review-pass04",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    },
+    {
+      "commit": null,
+      "context_head": null,
+      "declaration_id": "workbook-review-pass05",
+      "form": "working-tree",
+      "kind": "observed-file",
+      "verification": null
+    }
+  ],
+  "closure": false,
+  "commands": [
+    {
+      "command": "requires-instance-door",
+      "exit": 1,
+      "finding_counts": {
+        "address-unresolved": 4,
+        "condition-unknown": 4,
+        "environment-unverified": 10,
+        "shared": 3,
+        "withheld": 5
+      },
+      "status": "incomplete"
+    },
+    {
+      "command": "requires-instance-door-depth1",
+      "exit": 1,
+      "finding_counts": {
+        "address-unresolved": 2,
+        "condition-unknown": 2,
+        "depth-limit": 3,
+        "environment-unverified": 2,
+        "withheld": 3
+      },
+      "status": "incomplete"
+    },
+    {
+      "command": "explain-instance-door-pass05",
+      "exit": 1,
+      "finding_counts": {
+        "address-unresolved": 4,
+        "condition-unknown": 4,
+        "environment-unverified": 10,
+        "shared": 3,
+        "withheld": 5
+      },
+      "status": "incomplete"
+    },
+    {
+      "command": "impacted-pass05-depth1",
+      "exit": 1,
+      "finding_counts": {
+        "depth-limit": 1
+      },
+      "status": "truncated"
+    },
+    {
+      "command": "requires-reporter",
+      "exit": 1,
+      "finding_counts": {
+        "environment-unverified": 3,
+        "pin-differs": 1,
+        "withheld": 3
+      },
+      "status": "incomplete"
+    },
+    {
+      "command": "requires-selected-app",
+      "exit": 1,
+      "finding_counts": {
+        "environment-unverified": 2,
+        "withheld": 2
+      },
+      "status": "incomplete"
+    }
+  ],
+  "commit_authenticated": false,
+  "compatibility": false,
+  "disclosed_dispatcher_difference": [
+    {
+      "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+      "note": "The reporter pair pin expects the inert hardening dispatcher bytes.",
+      "requirement_id": "selected-app-pin",
+      "resolution": "pin-differs"
+    }
+  ],
+  "edges": [
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "unpinned",
+      "requirement_id": "declaration-json",
+      "resolution": "selected"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "pair",
+      "requirement_id": "instance-workbook",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "pair",
+      "requirement_id": "pass05-workbook",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "pair",
+      "requirement_id": "v9-door",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "pair",
+      "requirement_id": "v9-json",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "unpinned",
+      "requirement_id": "canonical-helper-root",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "unpinned",
+      "requirement_id": "pending-w",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+      "pin_form": "unpinned",
+      "requirement_id": "pending-reporter",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/workbook.py",
+      "pin_form": "pair",
+      "requirement_id": "pass05-workbook",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/review-instance-binding-pass01/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "canonical-helper-root",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass05/workbook.py",
+      "pin_form": "pair",
+      "requirement_id": "pass04-workbook",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass05/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass05/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "canonical-helper-root",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass04/workbook.py",
+      "pin_form": "pair",
+      "requirement_id": "pass03-workbook",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass04/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass04/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "canonical-helper-root",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:labs/workbook-review-pass03/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:app/review_loop_tools_v9.py",
+      "pin_form": "unpinned",
+      "requirement_id": "declaration-json",
+      "resolution": "selected"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:app/review_loop_tools_v9.py",
+      "pin_form": "pair",
+      "requirement_id": "pass05-workbook",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:app/review_loop_tools_v9.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:app/review_loop_tools_v9.py",
+      "pin_form": "unpinned",
+      "requirement_id": "pending-w",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-instance-door",
+      "from": "lib-build:app/review_loop_tools_v9.py",
+      "pin_form": "unpinned",
+      "requirement_id": "pending-reporter",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-reporter",
+      "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+      "pin_form": "pair",
+      "requirement_id": "helper-pass03",
+      "resolution": "resolved"
+    },
+    {
+      "command": "requires-reporter",
+      "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+      "pin_form": "pair",
+      "requirement_id": "selected-app-pin",
+      "resolution": "pin-differs"
+    },
+    {
+      "command": "requires-reporter",
+      "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-reporter",
+      "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+      "pin_form": "unpinned",
+      "requirement_id": "canonical-helper-root",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-reporter",
+      "from": "lib-build:labs/workbook-review-pass03/workbook.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-selected-app",
+      "from": "lib-build:app/librarian.py",
+      "pin_form": "unpinned",
+      "requirement_id": "selected-v7",
+      "resolution": "selected"
+    },
+    {
+      "command": "requires-selected-app",
+      "from": "lib-build:app/librarian.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    },
+    {
+      "command": "requires-selected-app",
+      "from": "lib-build:app/review_loop_tools_v7.py",
+      "pin_form": "unpinned",
+      "requirement_id": "python",
+      "resolution": "not-a-module"
+    }
+  ],
+  "identity": {
+    "exit": 1,
+    "rows": [
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+            "relation": "pair-differs",
+            "requirement_id": "selected-app-pin"
+          }
+        ],
+        "module": "lib-build:app/librarian.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+            "relation": "pair-matches",
+            "requirement_id": "v9-json"
+          },
+          {
+            "form": "unpinned",
+            "from": "lib-build:app/review_loop_tools_v9.py",
+            "relation": "unpinned",
+            "requirement_id": "declaration-json"
+          }
+        ],
+        "module": "lib-build:app/review-loop-v9.json",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "unpinned",
+            "from": "lib-build:app/librarian.py",
+            "relation": "unpinned",
+            "requirement_id": "selected-v7"
+          }
+        ],
+        "module": "lib-build:app/review_loop_tools_v7.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+            "relation": "pair-matches",
+            "requirement_id": "v9-door"
+          }
+        ],
+        "module": "lib-build:app/review_loop_tools_v9.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [],
+        "module": "lib-build:labs/n7-local-lifecycle-pass01/workbook.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [],
+        "module": "lib-build:labs/review-instance-binding-pass01/candidate/app/librarian.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "unpinned",
+            "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+            "relation": "unpinned",
+            "requirement_id": "declaration-json"
+          }
+        ],
+        "module": "lib-build:labs/review-instance-binding-pass01/review-loop.json",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "unpinned",
+            "from": "lib-build:labs/review-instance-binding-pass01/candidate/app/librarian.py",
+            "relation": "unpinned",
+            "requirement_id": "candidate-door"
+          }
+        ],
+        "module": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+            "relation": "pair-matches",
+            "requirement_id": "instance-workbook"
+          }
+        ],
+        "module": "lib-build:labs/review-instance-binding-pass01/workbook.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [],
+        "module": "lib-build:labs/review-report-hardening-pass01/report.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-source-capacity-pass03/workbook.py",
+            "relation": "pair-matches",
+            "requirement_id": "capacity-validator"
+          }
+        ],
+        "module": "lib-build:labs/review-source-capacity-pass03/prime_review.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "unpinned",
+            "from": "lib-build:labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+            "relation": "unpinned",
+            "requirement_id": "declaration-json"
+          }
+        ],
+        "module": "lib-build:labs/review-source-capacity-pass03/review-loop-source-capacity-v3.json",
+        "result": "identical"
+      },
+      {
+        "incoming": [],
+        "module": "lib-build:labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-source-capacity-pass03/review_loop_tools_source_capacity_v3.py",
+            "relation": "pair-matches",
+            "requirement_id": "capacity-workbook"
+          }
+        ],
+        "module": "lib-build:labs/review-source-capacity-pass03/workbook.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-report-hardening-pass01/report.py",
+            "relation": "pair-matches",
+            "requirement_id": "helper-pass03"
+          },
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-source-capacity-pass03/workbook.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass03-workbook"
+          },
+          {
+            "form": "pair",
+            "from": "lib-build:labs/workbook-review-pass04/workbook.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass03-workbook"
+          }
+        ],
+        "module": "lib-build:labs/workbook-review-pass03/workbook.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/n7-local-lifecycle-pass01/workbook.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass04-workbook"
+          },
+          {
+            "form": "pair",
+            "from": "lib-build:labs/workbook-review-pass05/workbook.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass04-workbook"
+          }
+        ],
+        "module": "lib-build:labs/workbook-review-pass04/workbook.py",
+        "result": "identical"
+      },
+      {
+        "incoming": [
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-instance-binding-pass01/review_loop_tools.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass05-workbook"
+          },
+          {
+            "form": "pair",
+            "from": "lib-build:labs/review-instance-binding-pass01/workbook.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass05-workbook"
+          },
+          {
+            "form": "pair",
+            "from": "lib-build:app/review_loop_tools_v9.py",
+            "relation": "pair-matches",
+            "requirement_id": "pass05-workbook"
+          }
+        ],
+        "module": "lib-build:labs/workbook-review-pass05/workbook.py",
+        "result": "identical"
+      }
+    ],
+    "status": "incomplete"
+  },
+  "measured_faults": [],
+  "note": "Answers cover the declared edges only. Pending slots stay pending. Identical fixture bytes are not runtime closure.",
+  "pending_slots": [
+    {
+      "bytes": null,
+      "id": "combined-workbook-W",
+      "path": null,
+      "sha256": null,
+      "state": "pending"
+    },
+    {
+      "bytes": null,
+      "id": "reporter-on-W",
+      "path": null,
+      "sha256": null,
+      "state": "pending"
+    }
+  ],
+  "reader": {
+    "bytes": 53693,
+    "path": "labs/module-dependencies-pass02/depdecl.py",
+    "sha256": "a517b0ec3906589e16e2df9bcfb6b3e21a5dd0bd3ef1099d59bf95c0f15ff4e7"
+  },
+  "recommendation": "Hold activation. The declared rows are a preflight of accepted pieces. Combined workbook W and reporter-on-W are pending. This report is not closure, compatibility, or release.",
+  "release": false,
+  "report_status": "hold",
+  "schema": "app-dependency-preflight/1",
+  "set": {
+    "path": "D:\\librarian\\temp\\0525-0503\\run-20261104b\\positive\\set.json",
+    "sha256": "0152daea079d887984f1548bfa13986d8f553aa74048b72ffbcfab1ff0e31082"
+  },
+  "truncation": {
+    "depth1_exit": 1,
+    "depth_limit": true,
+    "explain_paths": 3,
+    "impacted_status": "truncated"
+  },
+  "uncovered": [
+    "v4 through v8 historical door pins except the named v7 and v9 files",
+    "pass01 and pass02 workbook fan-out, and the pass03 load of pass02",
+    "capacity pass01 and pass02 prime_review pins inside source-capacity-prime-review",
+    "the rest of the reporter PINS table",
+    "labs/review-report-hardening-pass01/librarian.py",
+    "the nested candidate tree under labs/review-source-capacity-pass03/candidate",
+    "index and delta commands",
+    "Git authentication, custody, app selection, concurrency, power loss, and AR-01"
+  ],
+  "unknown_environment": [
+    "canonical-helper-root",
+    "python"
+  ],
+  "validate": {
+    "exit": 0,
+    "status": "valid"
+  }
+}

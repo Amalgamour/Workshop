@@ -1,0 +1,92 @@
+{
+ "build": {
+  "exit": 0,
+  "stdout_tail": "{\"root\": \"D:\\\\librarian\\\\temp\\\\fbt3-0525\\\\recon-01\\\\cand\", \"kind\": \"proto-l\", \"files\": 68, \"candidate_sha256\": \"172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af\"}\n",
+  "stderr_tail": ""
+ },
+ "fbt": {
+  "exit": 1,
+  "stdout_tail": "pass         R0     pack-region     \nfail         F1b    pack-region     a meaningful change kept the review current (freshness exemption granted)\nNOT ALL REQUIRED PASS {'pass': 1, 'fail': 1}\nidentity: legacy-discovery labs/n7-local-lifecycle-pass01/workbook.py | proof: {'workbook': 'executed', 'open': 'executed'}\n",
+  "stderr_tail": ""
+ },
+ "h4": {
+  "exit": 1,
+  "stdout_tail": "l refuses before work (door pin)\npass                         CTX-1   preservation    source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares\nNOT READY scope=subset {'pass': 11}\n  - coverage incomplete: 26 required case(s) have no record: ['N7-1', 'N7-2', 'ST-1', 'ST-2', 'ST-3', 'ST-4', 'LR-1', 'LR-2', 'LR-3', 'LR-4', 'LR-5', 'LR-6', 'N7-3', 'LR-7', 'CAP-0', 'CAP-1', 'CAP-2', 'CAP-3', 'CAP-4', 'LC-1', 'RP-1', 'RP-2', 'IN-1', 'IN-2', 'RC-1', 'RB-1']\n  - dependency K is pending\n  - dependency I is pending\n  - dependency R is pending\n  - dependency W is pending\n",
+  "stderr_tail": ""
+ },
+ "verdicts": {
+  "fbt": {
+   "R0": [
+    "pass",
+    "pass"
+   ],
+   "F1b": [
+    "fail",
+    "fail"
+   ]
+  },
+  "h4": {
+   "N5-1": [
+    "pass",
+    "pass"
+   ],
+   "N5-2": [
+    "pass",
+    "pass"
+   ],
+   "N5-3": [
+    "pass",
+    "pass"
+   ],
+   "PR-1": [
+    "pass",
+    "pass"
+   ],
+   "PR-2": [
+    "pass",
+    "pass"
+   ],
+   "PR-3": [
+    "pass",
+    "pass"
+   ],
+   "PR-4": [
+    "pass",
+    "pass"
+   ],
+   "PR-5": [
+    "pass",
+    "pass"
+   ],
+   "PR-6": [
+    "pass",
+    "pass"
+   ],
+   "PR-7": [
+    "pass",
+    "pass"
+   ],
+   "CTX-1": [
+    "pass",
+    "pass"
+   ]
+  }
+ },
+ "verdicts_equal": true,
+ "proof_classes": {
+  "fbt.json": {
+   "workbook": "executed",
+   "open": "executed"
+  },
+  "h4.json": {
+   "workbook": "executed",
+   "open": "executed"
+  }
+ },
+ "preserved": {
+  "rows": 62,
+  "drift": [],
+  "app_modified_after_pack05.25": []
+ },
+ "ok": true
+}

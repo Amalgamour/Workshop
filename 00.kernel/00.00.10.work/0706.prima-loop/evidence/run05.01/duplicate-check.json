@@ -1,0 +1,51 @@
+{
+ "schema": "prima-duplicate-check/1",
+ "observed_at": "2026-11-01T12:39:41-06:00",
+ "observer": "Prima executor subagent (Grok Bot, model unknown); read-only via cursor-github MCP tools",
+ "repository": "Amalgamour/Librarian",
+ "job_key": {
+  "id": "prima-0706-0501",
+  "pack": "00.kernel/00.00.10.work/0706.prima-loop/05.01.pack.md",
+  "pack_sha256": "b2bc7ea8e1a2680381465b27ca4381c9058f2e8cceba6eec6a1b74a41c7d0eae"
+ },
+ "branch_heads_observed": {
+  "prima/assignments": "566d7eb969243761e550f98f50f649f2173442e4",
+  "prima/returns": "68faf0d5e5853a6805a5433a7ed8aa6b4408106d"
+ },
+ "branch_head_notes": {
+  "prima/assignments": "Head commit 566d7eb (committed 2026-11-01T12:18:58-06:00) adds 0422.prima/06.03.md and prima/GAMEATRON.md and modifies prima/notices.json: the Gameatron coordination assignment already being handled. prima/assignments.json at this head lists one assignment, prima-0706-0501, with state 'released' and the same pack_sha256; its content is byte-identical to the 39d86e8 snapshot copy.",
+  "prima/returns": "An earlier poll during this check, at about 12:36 CST, saw head 6919bda9be977d6c6dbc688b267d3bcd56f77086 (the 05.01 return). The head is now 68faf0d5e5853a6805a5433a7ed8aa6b4408106d (parent 6919bda9, committed 2026-11-01T12:37:26-06:00). That commit adds only 3 files under 00.kernel/00.00.10.work/0422.prima/evidence/gameatron-handoff/ (2026-11-01T1233-0600-evidence.json, -gameatron-reply.md, -handoff-status.md). It is the Gameatron handoff record, not part of 05.01. The recursive tree diff between 6919bda9 and 68faf0d shows no other changed path."
+ },
+ "job_listed_in_assignments_json": true,
+ "evidence_paths_found_on_prima_returns_at_68faf0d": {
+  "00.kernel/00.00.10.work/0706.prima-loop/evidence/run05.01/claim.json": "blob db473c717cb072a78be153ccf3eb96b1581a3b02 (also present at 6919bda9 with the same blob)",
+  "00.kernel/00.00.10.work/0706.prima-loop/05.01.return.md": "blob 6e7f0135a4fc805bcf8bbb19bfaa296a1a554aef",
+  "00.kernel/00.00.10.work/0706.prima-loop/evidence/run05.01/artifact-manifest.json": "blob c06a6c45c654d1e452c3cba114262d083048dcaa"
+ },
+ "claim_commit": "9798895846006c8fa4c026143aad9ee57df71fed",
+ "returned_commit": "6919bda9be977d6c6dbc688b267d3bcd56f77086",
+ "decision": "skip: already claimed and returned",
+ "new_actionable_assignments": "none in prima/assignments.json. The only other change at the assignments head is the Gameatron notice (566d7eb), which is already being handled and was not acted on here.",
+ "readback_of_returned_commit": {
+  "commit": "6919bda9be977d6c6dbc688b267d3bcd56f77086",
+  "parents": [
+   "9798895846006c8fa4c026143aad9ee57df71fed"
+  ],
+  "files_in_commit": 43,
+  "status": "all 43 added; 0 modified; 0 deleted; stats +3133/-0",
+  "paths_match_publish_SHA256SUMS": true,
+  "git_blob_sha1_check": "43 of 43: commit-file blob SHA equals the tree blob SHA at 6919bda9 and equals `git hash-object` of the locally staged file",
+  "raw_sha256_check": "38 of 38 non-empty files were fetched raw at ref 6919bda9 (get_file_contents); after removing the tool's own untrusted-data wrapper, every sha256 matches publish.SHA256SUMS",
+  "empty_files": "5 zero-byte files were not raw-fetched; they were verified by blob SHA e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 (the empty blob), which matches the empty sha256 e3b0c442... in SHA256SUMS",
+  "mismatches": [],
+  "reader_limited": [],
+  "confirmed_explicitly": [
+   "00.kernel/00.00.10.work/0706.prima-loop/05.01.return.md (sha256 9afae4c2f181e173d9a85f3e22bd7d21262de08b5d6b0040c06c9a7afc6fe399)",
+   "00.kernel/00.00.10.work/0706.prima-loop/evidence/run05.01/artifact-manifest.json (sha256 4f1490f498807102eb7b76a7ac8f9e96aeec19cf3833f97b7751ae711e8f4fb5)"
+  ],
+  "commit_trailers": "Model: Prima (Grok Bot, model unknown); publisher Cursor cloud agent (Grok 4.7). The publisher's hook also added 'Co-authored-by: Mathias  <Amalgamour@users.noreply.github.com>' (finding #07, expected)."
+ },
+ "routine_observed": false,
+ "routine_note": "The scheduled routine prima-assignment-check (next run 13:52 CST per schedule.json) has NOT yet been observed running at observed_at. This check was a manual one-time poll, not a routine run, and is not evidence that scheduling works.",
+ "receipt_status": "This file is a later receipt. It is published after the return and is excluded from artifact-manifest.json; the sealed return and manifest are not rewritten."
+}

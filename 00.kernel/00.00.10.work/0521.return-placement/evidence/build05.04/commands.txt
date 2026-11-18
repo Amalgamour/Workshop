@@ -1,0 +1,50 @@
+# Commands — 0521.return-placement/05.04
+
+Date: 2026-11-02. Executor: Grok-2.
+Working directory: D:\Git\lib-build
+Environment: PYTHONDONTWRITEBYTECODE=1, PYTHONUNBUFFERED=1
+Interpreter: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+
+Command:
+
+C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B -u labs\return-lines-pass02\tests\run_suite.py
+
+Exit: 0
+Work root: D:\librarian\temp\0521-0504\20261102T173638945721Z-suite
+This rehearsal does not delete that root or earlier roots under D:\librarian\temp\0521-0504.
+
+Print summary. The phase exits below are the saved command results. The seam lines here are condensed from that print:
+
+live fingerprint 75061b0c183e299c36623e809be8518a0d6efd4482ff13ed3bb3d4865c5e2e6d
+unit exit 0
+copied primary members 83
+copied rollback members 83
+seam exit 0
+new-n5nn-0504-0521 exit 0 awaiting-review state complete custody_verified true task_association not-established
+relocated-0101 exit 0 awaiting-review state complete custody_verified true task_association not-established
+OK D:\librarian\temp\0521-0504\20261102T173638945721Z-suite
+plan 52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66
+counts record_count 83 page_local_count 5 incomplete_count 1
+
+Phase exits from commands.json, 36 commands, stderr bytes 0 on every command:
+
+plan 0, 0
+init 0, 0
+stage 0, 0
+reconstruct 0, 0
+publish 0, 0
+retire 0, 0
+lookup 0, 0, 0, 1, 0, 0
+reserve 1, 1, 1, 1, 1, 1, 1
+capture 0, 0, 0, 0, 0, 0, 0
+descriptor 0
+verify 0
+rollback-retire 0
+rollback-publish 0
+
+The lookup exit 1 is `0154.colab-support-first-0501`, state incomplete.
+The reserve exit 1 is pass01's reserved state. Capture has not happened yet at that step.
+Full argv, stdout sha256, and stderr sha256: commands.json sha256 08e435e839eb2b626300818ce9c03d83ea86be3121868b4a0a95ed7b6aac3bab, 43675 bytes.
+Suite report: suite-report.json sha256 744979364fcda23a2d504110e44773236fe6f09b6b8e74884dacfc82d05c9882, 1924 bytes.
+
+The 14 unit tests are inside this command. Their earlier development log was not copied here. This command is the saved rehearsal.

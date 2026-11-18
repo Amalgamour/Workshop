@@ -1,0 +1,24 @@
+{
+ "note": "SYNTHETIC FIXTURE \u2014 0707/05.10 acceptance design. Not live work, not authority, not a receipt. Semantic content only; field names are contract concepts, not an API.",
+ "assessment": "The parser meets T1; T2 failed in run 1 and its fix is not shown; T3 not run.",
+ "findings": [
+  {
+   "id": "F1",
+   "text": "T2 first failure has no later passing run",
+   "disposition": "elevated"
+  },
+  {
+   "id": "F2",
+   "text": "artifact manifest lacks a digest for VERIFICATION.md",
+   "disposition": "answered"
+  }
+ ],
+ "operation": "continue",
+ "reasons": "Routine repair; no Director judgment needed.",
+ "next_action": "Ask the builder for a T2 rerun and a VERIFICATION.md digest.",
+ "tests": {
+  "T1": "passed",
+  "T2": "failed",
+  "T3": "yes"
+ }
+}

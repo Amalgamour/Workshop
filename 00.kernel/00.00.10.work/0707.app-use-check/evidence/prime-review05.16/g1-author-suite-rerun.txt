@@ -1,0 +1,208 @@
+test_live_0522_05_13_pair_matches_and_does_not_write (g1_author2.LiveReads.test_live_0522_05_13_pair_matches_and_does_not_write) ... ok
+test_author_counters_do_not_stat (g1_author2.ReportPass03.test_author_counters_do_not_stat) ... ok
+test_author_digest_mismatch_before_missing_record (g1_author2.ReportPass03.test_author_digest_mismatch_before_missing_record) ... ERROR
+test_author_digest_mismatch_before_missing_record (g1_author2.ReportPass03.test_author_digest_mismatch_before_missing_record) ... ERROR
+test_author_distinct_contents (g1_author2.ReportPass03.test_author_distinct_contents) ... ok
+test_author_finish_recheck_withholds_attention (g1_author2.ReportPass03.test_author_finish_recheck_withholds_attention) ... ERROR
+test_author_finish_recheck_withholds_attention (g1_author2.ReportPass03.test_author_finish_recheck_withholds_attention) ... ERROR
+test_author_four_role_row_totals_keep_their_scopes (g1_author2.ReportPass03.test_author_four_role_row_totals_keep_their_scopes) ... ok
+test_author_identical_hashes_without_paths (g1_author2.ReportPass03.test_author_identical_hashes_without_paths) ... ok
+test_author_journal_current_changed_during_read (g1_author2.ReportPass03.test_author_journal_current_changed_during_read) ... ERROR
+test_author_journal_current_changed_during_read (g1_author2.ReportPass03.test_author_journal_current_changed_during_read) ... ERROR
+test_author_missing_path_identity_blocks_the_addressed_total (g1_author2.ReportPass03.test_author_missing_path_identity_blocks_the_addressed_total) ... ok
+test_author_null_measurement_and_empty_rows (g1_author2.ReportPass03.test_author_null_measurement_and_empty_rows) ... ok
+test_author_path_strings_are_not_normalized (g1_author2.ReportPass03.test_author_path_strings_are_not_normalized) ... ok
+test_author_refusal_does_not_call_the_core (g1_author2.ReportPass03.test_author_refusal_does_not_call_the_core) ... ERROR
+test_author_repeated_roles_share_one_address (g1_author2.ReportPass03.test_author_repeated_roles_share_one_address) ... ok
+test_author_same_relative_path_in_different_roots (g1_author2.ReportPass03.test_author_same_relative_path_in_different_roots) ... ok
+test_author_size_disagreement_and_boolean_bytes (g1_author2.ReportPass03.test_author_size_disagreement_and_boolean_bytes) ... ok
+test_author_two_distinct_equal_content_paths (g1_author2.ReportPass03.test_author_two_distinct_equal_content_paths) ... ERROR
+test_author_two_distinct_equal_content_paths (g1_author2.ReportPass03.test_author_two_distinct_equal_content_paths) ... ERROR
+test_author_uppercase_hash_blocks_the_content_total (g1_author2.ReportPass03.test_author_uppercase_hash_blocks_the_content_total) ... ok
+test_known_failure_identical_files_are_not_independent_coverage (g1_author2.ReportPass03.test_known_failure_identical_files_are_not_independent_coverage) ... ok
+
+======================================================================
+ERROR: test_author_digest_mismatch_before_missing_record (g1_author2.ReportPass03.test_author_digest_mismatch_before_missing_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-digest-g2fw0vl0\\workbook-review\\0599.probe\\05.01'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-digest-g2fw0vl0\\workbook-review\\0599.probe'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 444, in test_author_digest_mismatch_before_missing_record
+    write(root / "journal.json", pretty(journal_body("b" * 64)))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 71, in write
+    path.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-digest-g2fw0vl0\\workbook-review'
+
+======================================================================
+ERROR: test_author_digest_mismatch_before_missing_record (g1_author2.ReportPass03.test_author_digest_mismatch_before_missing_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 170, in tearDown
+    shutil.copytree(path, dest, dirs_exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-digest-g2fw0vl0'
+
+======================================================================
+ERROR: test_author_finish_recheck_withholds_attention (g1_author2.ReportPass03.test_author_finish_recheck_withholds_attention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-finish-fa5zlpil\\workbook-review\\0599.probe\\05.01'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-finish-fa5zlpil\\workbook-review\\0599.probe'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 502, in test_author_finish_recheck_withholds_attention
+    self.plant(book, record_body(["FIRST CUT"], body))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 182, in plant
+    write(root / "journal.json", pretty(journal_body(digest)))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 71, in write
+    path.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-finish-fa5zlpil\\workbook-review'
+
+======================================================================
+ERROR: test_author_finish_recheck_withholds_attention (g1_author2.ReportPass03.test_author_finish_recheck_withholds_attention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 170, in tearDown
+    shutil.copytree(path, dest, dirs_exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-finish-fa5zlpil'
+
+======================================================================
+ERROR: test_author_journal_current_changed_during_read (g1_author2.ReportPass03.test_author_journal_current_changed_during_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-current-hmt28gsy\\workbook-review\\0599.probe\\05.01'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-current-hmt28gsy\\workbook-review\\0599.probe'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 472, in test_author_journal_current_changed_during_read
+    self.plant(book, record_body(["FIRST CUT"], body))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 182, in plant
+    write(root / "journal.json", pretty(journal_body(digest)))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 71, in write
+    path.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-current-hmt28gsy\\workbook-review'
+
+======================================================================
+ERROR: test_author_journal_current_changed_during_read (g1_author2.ReportPass03.test_author_journal_current_changed_during_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 170, in tearDown
+    shutil.copytree(path, dest, dirs_exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-current-hmt28gsy'
+
+======================================================================
+ERROR: test_author_refusal_does_not_call_the_core (g1_author2.ReportPass03.test_author_refusal_does_not_call_the_core)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 170, in tearDown
+    shutil.copytree(path, dest, dirs_exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-empty-root-twrekixa'
+
+======================================================================
+ERROR: test_author_two_distinct_equal_content_paths (g1_author2.ReportPass03.test_author_two_distinct_equal_content_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-two-duez58kk\\workbook-review\\0599.probe\\05.01'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-two-duez58kk\\workbook-review\\0599.probe'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 286, in test_author_two_distinct_equal_content_paths
+    self.plant(book, record_body(["FIRST CUT"], body))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 182, in plant
+    write(root / "journal.json", pretty(journal_body(digest)))
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 71, in write
+    path.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-two-duez58kk\\workbook-review'
+
+======================================================================
+ERROR: test_author_two_distinct_equal_content_paths (g1_author2.ReportPass03.test_author_two_distinct_equal_content_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-report-pass03\tests\test_report.py", line 170, in tearDown
+    shutil.copytree(path, dest, dirs_exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\prime-batch-next-20261103\\g1-temp2\\rr0506-two-duez58kk'
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.268s
+
+FAILED (errors=9)

@@ -1,0 +1,49 @@
+{
+ "schema": "desk-baseline-run-record/1",
+ "case": "C04",
+ "candidate_path": "pinned/labs/prime-desk-pass01/prime_desk.py",
+ "candidate_sha256": "b047a30324b2a764298ec69daafb9621606bdc10fe5fc45e042105f5c1f10b20",
+ "request_sha256": "291dbbbe53c34dfeeaa2a2182de45676329ecb63d80f1b7db98502aebb7c7f04",
+ "request_label": "SYNTHETIC REQUEST ARTIFACT (0705 pass03): built by the lab adapter for the pinned candidate interface; not an authority",
+ "shadow_selected_work_id": "w-0522-review-construction-05-04",
+ "fixture_manifest_sha256": "7795ff8b00e5bd237816df1160ddfcd0ce544765b086b8fb6522b43fb32ab4c0",
+ "fixture_catalog_sha256": "7568d62f4ed15955ef1c34a85d9de5793d8fdf4596caaa971db06e968563602e",
+ "view": {
+  "argv": [
+   "python.exe",
+   "-I",
+   "-B",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\baseline\\pinned\\labs\\prime-desk-pass01\\prime_desk.py",
+   "view",
+   "--request",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\baseline\\runs\\C04\\book\\request.json",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout_file": "view.stdout",
+  "stdout_sha256": "198bf25a152f3e14a653480d9090d7168088db754595577ccca013f2e3f68d6b",
+  "stdout_bytes": 6812,
+  "stderr_file": "view.stderr",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "packet": {
+  "argv": [
+   "python.exe",
+   "-I",
+   "-B",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\baseline\\pinned\\labs\\prime-desk-pass01\\prime_desk.py",
+   "packet",
+   "--request",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\baseline\\runs\\C04\\book\\request.json",
+   "--work-id",
+   "w-0522-review-construction-05-04",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout_file": "packet.stdout",
+  "stdout_sha256": "4c6efbaef0ff3ce3588dbc0437b26f4a4357145ad08658893258e2befb62fadd",
+  "stdout_bytes": 15742,
+  "stderr_file": "packet.stderr",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ }
+}

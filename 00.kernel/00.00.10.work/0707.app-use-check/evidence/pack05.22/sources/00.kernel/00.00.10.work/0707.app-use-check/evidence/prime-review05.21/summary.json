@@ -1,0 +1,46 @@
+{
+  "verification": [
+    {
+      "kind": "freeze",
+      "rows": 635,
+      "live_drift": [],
+      "snapshot_drift": []
+    },
+    {
+      "kind": "return",
+      "rows": 31,
+      "live_drift": [],
+      "snapshot_drift": []
+    }
+  ],
+  "author_unit16_exit": 0,
+  "malformed_dependency_probe_ready": [
+    true,
+    true,
+    true
+  ],
+  "required_stub_cases": [
+    "CAP-4",
+    "RP-1",
+    "RP-2",
+    "IN-2"
+  ],
+  "pending_candidate_exit": 1,
+  "strict_baseline": {
+    "exit": 1,
+    "aggregate": {
+      "ready": false,
+      "reasons": [
+        "dependency K is pending",
+        "dependency I is pending",
+        "dependency R is pending",
+        "dependency W is pending"
+      ],
+      "counts": {
+        "pass": 3
+      },
+      "required": 3
+    }
+  },
+  "scope": "Bounded harness review; full baseline suites not rerun."
+}

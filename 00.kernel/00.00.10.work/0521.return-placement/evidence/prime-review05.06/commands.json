@@ -1,0 +1,117 @@
+[
+  {
+    "label": "forms50",
+    "args": [
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0710.face02-contract\\evidence\\design05.03\\validation\\validate2.py",
+      "--out",
+      "D:\\librarian\\temp\\prime-cycle4-nov02\\forms50"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "lifecycle13",
+    "args": [
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0710.face02-contract\\evidence\\design05.03\\lifecycle\\lifecycle_sim.py",
+      "--runs",
+      "D:\\librarian\\temp\\prime-cycle4-nov02\\lifecycle13"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "attachment8",
+    "args": [
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0710.face02-contract\\evidence\\design05.03\\attach\\attach_lookup.py",
+      "--book",
+      "D:\\librarian\\temp\\prime-cycle4-nov02\\attach-book",
+      "--out",
+      "D:\\librarian\\temp\\prime-cycle4-nov02\\attachment8.json"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "access-native",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\book",
+      "--source",
+      "0521.return-placement",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "access-native2",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\book",
+      "--source",
+      "0521.return-placement",
+      "--pass",
+      "05.02"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "access-historical",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\book",
+      "--source",
+      "0508.return-capture",
+      "--pass",
+      "05.08"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "access-occupant",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\book",
+      "--member",
+      "0104.app-entry-0508"
+    ],
+    "exit": 0
+  },
+  {
+    "label": "access-incomplete",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\book",
+      "--member",
+      "0154.colab-support-first-0501"
+    ],
+    "exit": 1
+  },
+  {
+    "label": "access-local",
+    "args": [
+      "D:\\Git\\lib-build\\app\\librarian.py",
+      "return-lines",
+      "verify",
+      "--book",
+      "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\book",
+      "--source",
+      "0701.bench-method",
+      "--pass",
+      "05.01"
+    ],
+    "exit": 0
+  }
+]

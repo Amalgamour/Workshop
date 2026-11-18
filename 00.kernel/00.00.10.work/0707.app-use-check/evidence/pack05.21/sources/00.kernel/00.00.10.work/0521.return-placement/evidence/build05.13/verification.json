@@ -1,0 +1,95 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "activated": false,
+  "allocated_0184": false,
+  "allocator": "not-used",
+  "app_selected": false,
+  "app_selection_applied": false,
+  "approved": false,
+  "authority": "not-assessed",
+  "branch": "workshop",
+  "capture_slot": null,
+  "cited": {
+    "00.kernel/00.00.10.work/0521.return-placement/06.26.md": {
+      "bytes": 16802,
+      "sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5"
+    },
+    "00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/CONTRACT.md": {
+      "bytes": 14200,
+      "sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14"
+    },
+    "labs/connected-return-review-pass02/drive.py": {
+      "bytes": 45890,
+      "sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc"
+    }
+  },
+  "committed": false,
+  "contract_revised_after_commands": false,
+  "custody": "pending",
+  "date": "2026-11-03",
+  "driver_exit": 0,
+  "eligible_handoff": {
+    "child_line": "writer_started: false",
+    "failure_log_sha256": "3361ed1c8005ddcb0a99a2ee8f730142ff8abe76ac8709c0a9e07012a1a0d65a",
+    "intent_sha256": "13fc7c48e64698dba5b6dc0e7fab15fad70e88c5895cc424433acd972bf01bc5",
+    "member": "0103.historical-eligible",
+    "receipt_present": false,
+    "repeat": "intent is retained"
+  },
+  "executor": "Grok-2",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "historical_witness": {
+    "manifest_sha256": "a5f4be7630eac402514037ed8bbc37cb8bae6f7bca7c603dd7f1f4009cb4817f",
+    "member": "0101.historical-witness",
+    "payload_sha256": "518e59e7215812511b4c8947eb43dc5678d51fb292eed81a4f1e88d273272642",
+    "receipt_sha256": "6f1db71da7ae97823b87a27e97cb2f1ba2bfbde7a45aa5d617f0c7bca568065a",
+    "return_sha256": "6a00ac722fd4bdfb39a076d9b044c84b694d1c5ba9e5c86d65b6292861dd3414",
+    "unchanged_across_declaration": true,
+    "verify": "result complete"
+  },
+  "limits": [
+    "Driver exit 0 is the empty problem list. It is Prime review on neither page.",
+    "result complete coexists with not approved, not accepted, and not published.",
+    "cycle-committed is the N5 tool mode. closes_work and releases_action stay false.",
+    "The N7 review stays preliminary. n7_cycle_success_claimed is false.",
+    "door_result.writer_started records presence of the sentence writer_started: false.",
+    "The supplied judgment is test data.",
+    "Matching custody for 0121.return-placement stays pending.",
+    "The copied review launchers read D:\\Git\\lib-build.",
+    "Prime independent probes were not run."
+  ],
+  "matching_line": "0121.return-placement",
+  "n5_review": {
+    "intake_id": "c29d716f043ec21f169631678a3ec9e73613865666d7e9f67bdcfa7f8bfafb21",
+    "mode": "cycle-committed",
+    "receipt_sha256": "18ee206d73d204cbc42971a4dfcb33f01c976604490b79b6686f2b068b86b1b1",
+    "review_id": "w1c320856d66b3528"
+  },
+  "n7_diagnosis": {
+    "classification": "implementation-seam",
+    "cycle_error": "cycle prepare did not return a template",
+    "mode": "preliminary",
+    "n7_cycle_success_claimed": false,
+    "prepare_exit": 0,
+    "review_id": "w8fd4cbf791e32f26",
+    "target": "0721.connected-local/06.01.review.md",
+    "template": null,
+    "view_schema": "prime-cycle-view/4",
+    "write_token": null
+  },
+  "negative_member": "0102.historical-missing",
+  "pins_after_run": {
+    "checked": 109,
+    "mismatches": 0
+  },
+  "problems": 0,
+  "proof_stamp": "20261103T214834952429Z",
+  "published": false,
+  "receipt": null,
+  "reviewer": "Codex Prime",
+  "schema": "connected-return-review-verification/0513",
+  "seated": false,
+  "source_manifest_sha256": "5c8bf8ae1364868db2a2387f8d9947153237b855d0b41e59c1edf7009682fdb1",
+  "work_complete": false
+}

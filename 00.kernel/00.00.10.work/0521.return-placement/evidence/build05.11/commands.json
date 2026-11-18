@@ -1,0 +1,383 @@
+[
+  {
+    "branch": "workshop",
+    "bytes": 12204,
+    "claim_time_bytes": 12204,
+    "claim_time_sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea",
+    "head": "960d20c5290656095df8457b1740d2d5e586b111",
+    "kind": "dispatcher-baseline",
+    "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\pass01-t1\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\pass01-t1\\book"
+    ],
+    "bytes_stderr": 664,
+    "bytes_stdout": 0,
+    "exit": 1,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass01/readiness.py"
+  },
+  {
+    "case": "pass01-t2",
+    "end_sha256": "89c84f3a8a162383da5ab38a74d441a6dc309c5158f5b05d313f6db802e8c270",
+    "kind": "known-failure",
+    "measured_sha256": "826167161000ac3eab78c466ae47e31b37ff435ea33f4104caf7651ecd21436e"
+  },
+  {
+    "case": "pass02-t1",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\pass02-t1\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\pass02-t1\\book"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 4883,
+    "exit": 0,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "case": "pass02-t2",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "late-dependency",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "layout-appears",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "disappear",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "wrong-type",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "stable-old",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "stable-new",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "separate-first",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "separate-second",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-missing",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-malformed",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-valid",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "bad-declaration",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\bad-declaration\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\bad-declaration\\book"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 11515,
+    "exit": 0,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "case": "bad-dependency",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "door-bytes",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\door-bytes\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\door-bytes\\book"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 11861,
+    "exit": 0,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "case": "door-disappears",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "syntax",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\syntax\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\syntax\\book"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 4799,
+    "exit": 0,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "case": "missing-dispatcher",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "oserror",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "pre-gap",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book",
+      "--text"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 11989,
+    "exit": 0,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [],
+    "bytes_stderr": 28,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code"
+    ],
+    "bytes_stderr": 23,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "labs",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 34,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\Git\\lib-build\\app\\..",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 26,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book",
+      "--force"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--allow-live",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--read-bytes",
+      "x",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--inject",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 29,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--text",
+      "--text",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 24,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\not-a-directory.txt",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 37,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\absent-root",
+      "--book",
+      "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 28,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "kind": "skip",
+    "limit": "[WinError 1314] A required privilege is not held by the client: 'D:\\\\librarian\\\\temp\\\\0521-0511\\\\20261102T230437660010Z-suite\\\\symlink-probe-target' -> 'D:\\\\librarian\\\\temp\\\\0521-0511\\\\20261102T230437660010Z-suite\\\\symlink-probe'",
+    "name": "linked-root"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\Git\\lib-build",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+      "--text"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 12292,
+    "exit": 0,
+    "kind": "cli",
+    "tool": "labs/return-readiness-pass02/readiness.py"
+  },
+  {
+    "case": "hardlink",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  }
+]

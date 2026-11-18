@@ -1,0 +1,11 @@
+--- before/librarian.py
++++ app/librarian.py
+@@ -96,7 +96,7 @@
+     command = args.pop(0)
+     code_root = Path(__file__).resolve().parent.parent
+     if command == "review-loop":
+-        door = load_module(Path(__file__).resolve().parent / "review_loop_tools_v2.py", "librarian_review_loop_tools_v2")
++        door = load_module(Path(__file__).resolve().parent / "review_loop_tools_v3.py", "librarian_review_loop_tools_v3")
+         try:
+             code = door.perform(args, code_root)
+         except door.Refuse as exc:

@@ -1,0 +1,89 @@
+{
+  "attention": [
+    "agreement.goal is unknown",
+    "agreement.scope is unknown",
+    "agreement.prime_discretion is unknown",
+    "agreement.director_required is unknown",
+    "agreement.finish_criteria is unknown",
+    "agreement.recorded_decisions is unknown"
+  ],
+  "custody": "missing",
+  "cycle": {
+    "called": false,
+    "committed": false,
+    "error": null
+  },
+  "cycle_error": null,
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "holds": [],
+  "intake_id": "4cfe60eef568f16948b601c183eb8a664ad0432e62960296c29cfba3c04f8856",
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "correction-required",
+    "finding": "Reporting is improved but not ready for adoption: physical-file counts conflate content equality with file identity.",
+    "findings": [
+      {
+        "disposition": "answered",
+        "finding_id": "P3#file-identity",
+        "text": "Independent failure confirmed. Assigned bounded correction; not closed."
+      }
+    ],
+    "gaps": [
+      "No full author-suite rerun or concurrency guarantee.",
+      "Custody remains unfiled; no release or production selection."
+    ],
+    "goal_terminal": "open",
+    "holds": [],
+    "next_action": "Correct the unique-files counter: equal content hashes do not prove equal physical identity. Distinguish unique addressed paths from verified physical identities and content blobs; keep unknown physical identity unknown. Add separate identical-file and repeated-role cases. Keep the reporter staged.",
+    "operation": "continue",
+    "pass_terminal": "open",
+    "reasons": [
+      "All 21 manifest artifacts match.",
+      "The selected-digest mismatch now fails before record metadata is read.",
+      "Two separately created files with identical bytes collapse to one unique physical file; live count claims therefore are not established."
+    ],
+    "review_passes": [],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": [
+        {
+          "finding_id": "P3#file-identity",
+          "status": "accepted"
+        }
+      ],
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Correct the unique-files counter: equal content hashes do not prove equal physical identity. Distinguish unique addressed paths from verified physical identities and content blobs; keep unknown physical identity unknown. Add separate identical-file and repeated-role cases. Keep the reporter staged.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "Correction required: unique_files unions distinct paths solely on matching hashes and reports two independent 4-byte files as one 4-byte physical file.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "21 returned artifacts verified. The real 0522/05.13 report reads coherently; the known digest mismatch is refused.",
+      "tests_note": "Prime independently ran one real report observation, a digest guard probe and a two-distinct-file probe. The last exposes a defect. The author reports 15 passing tests; that suite was not rerun by Prime.",
+      "tests_passed": false,
+      "within_direction": "Bounded reporting correction; no new authority, app selection, custody or kernel changes."
+    },
+    "semantic_conflict": false
+  },
+  "mode": "preliminary",
+  "next_action": "Correct the unique-files counter: equal content hashes do not prove equal physical identity. Distinguish unique addressed paths from verified physical identities and content blobs; keep unknown physical identity unknown. Add separate identical-file and repeated-role cases. Keep the reporter staged.",
+  "prime_review_effective": "attention",
+  "prime_review_exit": 1,
+  "rendered": "authority: none\ncloses_work: false\nreleases_action: false\nauthenticates_actor: false\nworkbook-review-id: wacaed68fedec4f7e\nmode: preliminary\ncustody: missing\ntask_association: not-established\nThis record is not approval, filing, or release.\n\n### Judgment\noperation: continue\ndisposition: correction-required\nfinding: Reporting is improved but not ready for adoption: physical-file counts conflate content equality with file identity.\n\n### Reasons\n- All 21 manifest artifacts match.\n- The selected-digest mismatch now fails before record metadata is read.\n- Two separately created files with identical bytes collapse to one unique physical file; live count claims therefore are not established.\n\n### Findings\n- P3#file-identity answered: Independent failure confirmed. Assigned bounded correction; not closed.\n\n### Director text\nnone measured\n\n### Answers\nnone supplied\n\n### Next action\nCorrect the unique-files counter: equal content hashes do not prove equal physical identity. Distinguish unique addressed paths from verified physical identities and content blobs; keep unknown physical identity unknown. Add separate identical-file and repeated-role cases. Keep the reporter staged.\nThis line is not a release.\n\ntests_passed: false\nprime_review_effective: attention\neligible_for_custody_completion: false\n",
+  "review_id": "wacaed68fedec4f7e",
+  "schema": "workbook-review-record/1",
+  "successor_of": null
+}

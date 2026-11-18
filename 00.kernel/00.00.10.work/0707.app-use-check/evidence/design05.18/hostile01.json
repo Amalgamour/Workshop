@@ -1,0 +1,334 @@
+{
+ "schema": "rie-hostile/1",
+ "rooms": "D:\\librarian\\temp\\rie-0718\\hostile01",
+ "aggregate": {
+  "PASS": 11,
+  "FAIL": 1,
+  "ERROR": 3,
+  "SEE": 1
+ },
+ "rows": [
+  {
+   "id": "P01",
+   "label": "PACK",
+   "says": "wrong v8 tool hash: a pinned tool (review_loop pass03) altered in the root -> the door refuses before the workbook runs",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: pinned tool hash does not match: labs/review-loop-pass03/review_loop.py\r\n"
+   }
+  },
+  {
+   "id": "P02",
+   "label": "PACK",
+   "says": "wrong transitive dependency: pass02 / pass03 altered in the root -> refused (door predecessor pins)",
+   "status": "FAIL",
+   "detail": {
+    "pass02": {
+     "exit": 2,
+     "stderr": "stop: pass02 pin mismatch\r\n",
+     "ok": true
+    },
+    "pass03": {
+     "exit": 2,
+     "stderr": "stop: pass03 pin mismatch\r\n",
+     "ok": false
+    }
+   }
+  },
+  {
+   "id": "P03",
+   "label": "PACK",
+   "says": "wrong schema / unknown key / wrong length in review-loop-v8.json -> refused",
+   "status": "PASS",
+   "detail": {
+    "schema": {
+     "exit": 2,
+     "stderr": "stop: review loop declaration schema is not review-loop-pins/6\r\n",
+     "ok": true
+    },
+    "extra-key": {
+     "exit": 2,
+     "stderr": "stop: review loop declaration does not match the pinned tools\r\n",
+     "ok": true
+    },
+    "length": {
+     "exit": 2,
+     "stderr": "stop: pinned tool hash does not match: labs/workbook-review-pass04/workbook.py\r\n",
+     "ok": true
+    },
+    "v7-declaration-name": {
+     "exit": 2,
+     "stderr": "stop: review loop declaration does not match the pinned tools\r\n",
+     "ok": true
+    }
+   }
+  },
+  {
+   "id": "P04",
+   "label": "PACK",
+   "says": "missing dependency: prime_cycle pass03 removed from the root -> refused as missing",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stderr": "stop: pinned tool is missing: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+   }
+  },
+  {
+   "id": "P05",
+   "label": "PACK",
+   "says": "missing / tampered manifest artifact on the real N7 0517 copy -> artifact-missing / artifact-hash-mismatch, incomplete",
+   "status": "PASS",
+   "detail": {
+    "missing": {
+     "target": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/CLAIMS.md",
+     "codes": [
+      "artifact-missing",
+      "custody-missing",
+      "index-context-bounded",
+      "unparsed-return-line",
+      "verification-not-measured"
+     ],
+     "measurement": "incomplete",
+     "ok": true
+    },
+    "tampered": {
+     "target": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/CLAIMS.md",
+     "codes": [
+      "artifact-hash-mismatch",
+      "custody-missing",
+      "index-context-bounded",
+      "unparsed-return-line",
+      "verification-not-measured"
+     ],
+     "measurement": "incomplete",
+     "ok": true
+    }
+   }
+  },
+  {
+   "id": "P06",
+   "label": "PACK",
+   "says": "conflicting duplicate pointer (two Returned lines) on the real N7 page -> ambiguous-submission, nothing bound",
+   "status": "ERROR",
+   "detail": {
+    "exception": "IndexError: list index out of range"
+   }
+  },
+  {
+   "id": "P07",
+   "label": "PACK",
+   "says": "illegal traversal inside an accepted path shape (Returned: a/../../x.md) -> malformed-declared-path",
+   "status": "ERROR",
+   "detail": {
+    "exception": "IndexError: list index out of range"
+   }
+  },
+  {
+   "id": "P08",
+   "label": "PACK",
+   "says": "misleading attribution (a hash / a label inside the parentheses) -> attribution-not-descriptive, not bound",
+   "status": "ERROR",
+   "detail": {
+    "exception": "IndexError: list index out of range"
+   }
+  },
+  {
+   "id": "P09",
+   "label": "PACK",
+   "says": "source change between prepare and record -> record refused (the intake no longer matches)",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stdout_tail": "on\",\n  \"instance_id\": \"16228d0ea1de57b7a5d394f50c7da55cd573b05c916a6f39fbc7e05c74979d0f\",\n  \"intake_id\": \"04203238d75d50bbb3a3a561b3cd237ec26f1e65533a3794246d43e09e5a57b4\",\n  \"kind\": \"N7NN\",\n  \"page\": \"0707.app-use-check\",\n  \"pass\": \"05.15\",\n  \"published_work\": false,\n  \"recorded\": false,\n  \"releases_action\": false,\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+    "stderr": "",
+    "store": [
+     "00.kernel\\00.00.10.work\\workbook-review\\0707.app-use-check\\05.15\\failed\\751efe219e58a7d8.correction.txt",
+     "00.kernel\\00.00.10.work\\workbook-review\\0707.app-use-check\\05.15\\failed\\751efe219e58a7d8.json"
+    ]
+   }
+  },
+  {
+   "id": "P10",
+   "label": "PACK",
+   "says": "existing manual review: see lifecycle L3 (06.15.review.md preserved, publish held manual-review)",
+   "status": "SEE",
+   "detail": {
+    "see": "life01.json L3"
+   }
+  },
+  {
+   "id": "P11",
+   "label": "PACK",
+   "says": "a manual target appears between record and publish -> publish held, the manual text preserved byte-for-byte",
+   "status": "PASS",
+   "detail": {
+    "exit": 1,
+    "correction": "manual-review",
+    "preserved": true
+   }
+  },
+  {
+   "id": "P12",
+   "label": "PACK",
+   "says": "stale selection after rollback: v8 files left inert, v7 dispatcher selected -> review-loop runs the v7 door (N7 incomplete again); see rollback.json",
+   "status": "PASS",
+   "detail": {
+    "v8": "complete",
+    "after_rollback": "incomplete",
+    "codes": [
+     "custody-missing",
+     "declared-file-missing",
+     "submission-not-declared",
+     "unparsed-return-line"
+    ]
+   }
+  },
+  {
+   "id": "P13",
+   "label": "PACK",
+   "says": "LF vs CRLF pack page on the real N7 entry -> identical declared/artifact rows (assignment bytes differ by design)",
+   "status": "PASS",
+   "detail": {
+    "lf": {
+     "measurement": "complete",
+     "rows_sha": "9d44c89cb95c810b539fc4c93af18e4b59019eabb9e20a5404d606e79513b22b",
+     "n": 29
+    },
+    "crlf": {
+     "measurement": "complete",
+     "rows_sha": "9d44c89cb95c810b539fc4c93af18e4b59019eabb9e20a5404d606e79513b22b",
+     "n": 29
+    }
+   }
+  },
+  {
+   "id": "N01",
+   "label": "NEW",
+   "says": "PRODUCTION pass04 bytes + PRODUCTION v8 declaration in a copied root: the door accepts the pins, the workbook REFUSES (canonical-root guard) instead of silently mixing roots",
+   "status": "PASS",
+   "detail": {
+    "exit": 2,
+    "stderr": "refused: workbook pass04 is not at its canonical root\r\n"
+   }
+  },
+  {
+   "id": "N02",
+   "label": "NEW",
+   "says": "a decoy file literally named 'artifact-manifest.json,' beside the real manifest on the real N7 entry: the decoy is never bound",
+   "status": "PASS",
+   "detail": {
+    "manifest_rows": [
+     "0707.app-use-check/evidence/design05.15/artifact-manifest.json"
+    ]
+   }
+  },
+  {
+   "id": "D01",
+   "label": "DISPATCH",
+   "says": "authoring / return-lines / review-loop / unknown command: harmless no-argument calls give identical exit, stdout and stderr under v7 and v8 selection",
+   "status": "PASS",
+   "detail": {
+    "same": {
+     "authoring": true,
+     "return-lines": true,
+     "review-loop": true,
+     "review-loop nonsense": true,
+     "authoring inspect": true,
+     "return-lines status": true,
+     "run": true
+    },
+    "calls": {
+     "authoring": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/pack-authoring-pass02/pack_author.py\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/pack-authoring-pass02/pack_author.py\r\n"
+      }
+     },
+     "return-lines": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/return-lines-pass03/return_lines.py\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/return-lines-pass03/return_lines.py\r\n"
+      }
+     },
+     "review-loop": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: unknown review-loop command\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: unknown review-loop command\r\n"
+      }
+     },
+     "review-loop nonsense": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: unknown review-loop command\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: unknown review-loop command\r\n"
+      }
+     },
+     "authoring inspect": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/pack-authoring-pass02/pack_author.py\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/pack-authoring-pass02/pack_author.py\r\n"
+      }
+     },
+     "return-lines status": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/return-lines-pass03/return_lines.py\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: pinned tool is missing: labs/return-lines-pass03/return_lines.py\r\n"
+      }
+     },
+     "run": {
+      "v7": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: normal run is not activated\r\n"
+      },
+      "v8": {
+       "exit": 2,
+       "stdout": "",
+       "stderr": "stop: normal run is not activated\r\n"
+      }
+     },
+     "_writes": {
+      "v7": [],
+      "v8": []
+     }
+    }
+   }
+  }
+ ]
+}

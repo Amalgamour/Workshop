@@ -1,0 +1,158 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "prime-support",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/prime-support-pass01/prime_support.py",
+  "name": "prime_support",
+  "purpose": "Prime status and intake fixture lab; its parse_source is the page parser batch_observe loads.",
+  "interface": [
+   "parse_source (used by batch_observe)",
+   "status and intake commands"
+  ],
+  "limits": [
+   "provisional fixture contract per its docstring"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+  "bytes": 59791,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+   "path": "labs/prime-support-pass01/prime_support.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "parse_source"
+  ],
+  "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "clerk-adapter",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-support-pass01/clerk_adapter.py"
+    }
+   },
+   "pin": {
+    "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+    "bytes": 11774
+   },
+   "pin_required": false,
+   "mechanism": "import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "imported from its own folder by path; this module does not hash-check it (batch_observe does)",
+   "source_ref": {
+    "path": "labs/prime-support-pass01/prime_support.py",
+    "lines": "23-24, 172-174, 678-680"
+   }
+  },
+  {
+   "id": "git",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "git",
+     "detail": "a git executable on PATH, read-only commands"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "git-read",
+    "statement": "a registry status or intake command reads a local git repository; not shown on the batch_observe parse route",
+    "status": "unknown"
+   },
+   "availability": "unverified",
+   "reason": "read-only git in registry status commands",
+   "source_ref": {
+    "path": "labs/prime-support-pass01/prime_support.py",
+    "lines": "226"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "runs as part of its caller's interpreter",
+   "source_ref": null
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "source-stated",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0507.prime-support",
+     "face_or_pass": "05.02",
+     "file": "05.02.md"
+    },
+    "sha256": null,
+    "commit": null,
+    "status": "unpinned",
+    "note": "named by the module docstring; not verified here"
+   },
+   {
+    "role": "source-stated",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0507.prime-support",
+     "face_or_pass": "05.02",
+     "file": "evidence/build05.02/DESIGN.002.md"
+    },
+    "sha256": null,
+    "commit": null,
+    "status": "unpinned",
+    "note": "contract named by the docstring; not verified here"
+   }
+  ],
+  "unknown": [
+   "the 0507 return and review for these bytes are not in the supplied references"
+  ]
+ },
+ "supersedes": null
+}

@@ -1,0 +1,410 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "answers": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "approved": false,
+  "artifacts": {
+    "addressed_sources": {
+      "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+      "bytes": 90980,
+      "bytes_state": "measured",
+      "count": 7,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "addressed-source-paths"
+    },
+    "bytes": 81671,
+    "bytes_state": "declared",
+    "content_blobs": {
+      "assumption": "a 64-character lowercase sha256 proves content equality only",
+      "bytes": 90980,
+      "bytes_state": "measured",
+      "count": 7,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "content-sha256"
+    },
+    "count": 5,
+    "count_state": "declared",
+    "hash_match": 5,
+    "hash_mismatch": 0,
+    "intake_roles": {
+      "bytes": 95759,
+      "bytes_state": "measured",
+      "count": 9,
+      "count_state": "measured",
+      "hash_match": 8,
+      "hash_mismatch": 0,
+      "label": "intake role rows; not a declared artifact total",
+      "not_verified": 1,
+      "provenance": "current-measured",
+      "scope": "full-intake-role-rows"
+    },
+    "integrity_provenance": "current-measured",
+    "integrity_scope": "current-measured-artifact-role-rows",
+    "measured_artifact_rows": {
+      "bytes": 81671,
+      "bytes_state": "measured",
+      "count": 5,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "current-measured-artifact-role-rows"
+    },
+    "measured_by": "accepted-intake",
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 0,
+    "physical_files": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "not-established",
+      "reason": "accepted intake metadata has no physical-file identity; a path and a content hash do not establish one",
+      "scope": "verified-physical-files"
+    },
+    "provenance": "declared",
+    "rows": [
+      {
+        "bytes": 7519,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "0521.return-placement/05.13.md",
+        "role": "assignment",
+        "root": "book",
+        "sha256": "40b38f4da0cf39bb24b2a6eaaa350b4c5a421cb2414f7244c68859267dfa51d8"
+      },
+      {
+        "bytes": 1049,
+        "declared_bytes": 1049,
+        "declared_sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50",
+        "path": "0521.return-placement/evidence/build05.13/submission.md",
+        "role": "submission",
+        "root": "book",
+        "sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50"
+      },
+      {
+        "bytes": 1790,
+        "declared_bytes": 1790,
+        "declared_sha256": "0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019",
+        "path": "0521.return-placement/evidence/build05.13/artifact-manifest.json",
+        "role": "artifact-manifest",
+        "root": "book",
+        "sha256": "0a71b39c5165310dab1748efc01dc851683c1845e21a7b03644cb00f8f64e019"
+      },
+      {
+        "bytes": 16802,
+        "declared_bytes": 16802,
+        "declared_sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5",
+        "path": "0521.return-placement/06.26.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "73cf791daf6a9e58cd130f8f256be30eeb1f5975ce9ba09a1b52b7a6e0a311e5"
+      },
+      {
+        "bytes": 14200,
+        "declared_bytes": 14200,
+        "declared_sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14",
+        "path": "0521.return-placement/evidence/build05.13/CONTRACT.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "cf00c970d0da2a07551bbae6460e218a59853e4b22ec8afb67ad613c8e457b14"
+      },
+      {
+        "bytes": 1049,
+        "declared_bytes": 1049,
+        "declared_sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50",
+        "path": "0521.return-placement/evidence/build05.13/submission.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "da8fe0640bbd9c95c46a757f973e7fdabcdf70e6a1620a3d4b7d946329c28a50"
+      },
+      {
+        "bytes": 3730,
+        "declared_bytes": 3730,
+        "declared_sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6",
+        "path": "0521.return-placement/evidence/build05.13/verification.json",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6"
+      },
+      {
+        "bytes": 45890,
+        "declared_bytes": 45890,
+        "declared_sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc",
+        "path": "labs/connected-return-review-pass02/drive.py",
+        "role": "artifact",
+        "root": "code",
+        "sha256": "3f492ba7502405c2b3810e86b6f4332fa61f56337fb6b471182cfc392022e5bc"
+      },
+      {
+        "bytes": 3730,
+        "declared_bytes": 3730,
+        "declared_sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6",
+        "path": "0521.return-placement/evidence/build05.13/verification.json",
+        "role": "verification",
+        "root": "book",
+        "sha256": "290c4d4d6b0342c525d08d6b362e9bea071ed877ca88ee771596a6bae819a0f6"
+      }
+    ],
+    "scope": "manifest-declared-artifact-entries"
+  },
+  "attention": {
+    "lines": [
+      "agreement.goal is unknown",
+      "agreement.scope is unknown",
+      "agreement.prime_discretion is unknown",
+      "agreement.director_required is unknown",
+      "agreement.finish_criteria is unknown",
+      "agreement.recorded_decisions is unknown"
+    ],
+    "lines_state": "supplied",
+    "source": "journal-checked-record",
+    "state": "measured"
+  },
+  "authority": "none",
+  "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+  "claims": {
+    "limit": "The selected record has no structured claim, case, run, or result rows. Prose in tests_note is not parsed into a pass.",
+    "rows": [],
+    "state": "not-recorded"
+  },
+  "closes_work": false,
+  "code_root": "D:\\librarian\\temp\\0512-0508-report\\candidate",
+  "core": {
+    "inspect_exit": 0,
+    "read_exit": 0,
+    "recover_exit": 0
+  },
+  "custody": "missing",
+  "detail_fields": [
+    "reasons",
+    "findings",
+    "gaps",
+    "answers",
+    "sections",
+    "intake_findings",
+    "artifacts.rows",
+    "render_coverage",
+    "identity",
+    "observation",
+    "interface_gap"
+  ],
+  "director_text": {
+    "state": "none-measured",
+    "text": null
+  },
+  "disposition": "accepted",
+  "eligible_for_custody_completion": false,
+  "evidence_index": {
+    "missing": [],
+    "state": "not-recorded"
+  },
+  "exit": 0,
+  "finding": "Accepted as a bounded connected proof and diagnosis: historical witness and guarded handoff are established; N7 cycle creation remains unsupported.",
+  "findings": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "gaps": {
+    "items": [
+      "No fresh whole-driver run or active selection. Read-only probes and retained guard logs establish this scoped result. Fix the misleading report field in a future successor; do not rewrite sealed evidence.",
+      "Actual review is preliminary; matching-line custody remains missing. Acceptance here is Prime technical assessment, not tool approval or execution release."
+    ],
+    "state": "supplied"
+  },
+  "goal_terminal": "open",
+  "holds": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "identity": {
+    "inspect_current": "webe8f0a86f3de800",
+    "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+    "journal_current": "webe8f0a86f3de800",
+    "judgment_matches_core": true,
+    "read_review_id": "webe8f0a86f3de800",
+    "record_matches_journal": true,
+    "record_sha256": "e9f9655da6e4f5a65c01559416083e6a8ebb4d03dc40e7949d0268a7272c4674",
+    "recover_review_id": "webe8f0a86f3de800",
+    "selected_by": "journal-current"
+  },
+  "instance_id": "51d281c730e42dcf75b1776ba62e256e066f3c050272dc938cb6dcf1edc0b744",
+  "intake_findings": [
+    {
+      "code": "custody-missing",
+      "path": "0121.return-placement"
+    },
+    {
+      "code": "return-missing",
+      "path": "0121.return-placement/05.13.return.md"
+    },
+    {
+      "code": "verification-declared",
+      "hash_match": true,
+      "limit": "The lines are a declaration, not a successful verification run.",
+      "measured": true,
+      "path": "evidence/build05.13/verification.json",
+      "schema": "connected-return-review-verification/0513",
+      "sources": [
+        "submission-lines",
+        "artifact-index"
+      ],
+      "successful_run": false
+    }
+  ],
+  "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+  "judgment_recorded": true,
+  "judgment_recoverable": true,
+  "limits": {
+    "state": "unknown",
+    "value": null
+  },
+  "next_action": "Plan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.",
+  "observation": {
+    "bound": {
+      "digest_kind": "str",
+      "journal_current": "webe8f0a86f3de800",
+      "publication": {
+        "publication": {
+          "after_sha256": "40b38f4da0cf39bb24b2a6eaaa350b4c5a421cb2414f7244c68859267dfa51d8",
+          "before_sha256": "cc7a8c204221343b6afa597d75b8fdc06817576cfdf7d9bf7d4093cfc4c74dae",
+          "rendered_sha256": "b71d194e61aa83fe601571041cdeb78323dfaf1a5363cf1a7be71ccf2dd95f11",
+          "review_id": "webe8f0a86f3de800",
+          "status": "published",
+          "target": "0521.return-placement/05.13.md"
+        },
+        "published_target": {
+          "after_sha256": "40b38f4da0cf39bb24b2a6eaaa350b4c5a421cb2414f7244c68859267dfa51d8",
+          "before_sha256": "cc7a8c204221343b6afa597d75b8fdc06817576cfdf7d9bf7d4093cfc4c74dae",
+          "rendered_sha256": "b71d194e61aa83fe601571041cdeb78323dfaf1a5363cf1a7be71ccf2dd95f11",
+          "review_id": "webe8f0a86f3de800",
+          "status": "published",
+          "target": "0521.return-placement/05.13.md"
+        }
+      },
+      "record_file_sha256": "e9f9655da6e4f5a65c01559416083e6a8ebb4d03dc40e7949d0268a7272c4674",
+      "record_sha256": "e9f9655da6e4f5a65c01559416083e6a8ebb4d03dc40e7949d0268a7272c4674"
+    },
+    "changed": [],
+    "limit": "This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.",
+    "recheck": {
+      "digest_kind": "str",
+      "journal_current": "webe8f0a86f3de800",
+      "publication": {
+        "publication": {
+          "after_sha256": "40b38f4da0cf39bb24b2a6eaaa350b4c5a421cb2414f7244c68859267dfa51d8",
+          "before_sha256": "cc7a8c204221343b6afa597d75b8fdc06817576cfdf7d9bf7d4093cfc4c74dae",
+          "rendered_sha256": "b71d194e61aa83fe601571041cdeb78323dfaf1a5363cf1a7be71ccf2dd95f11",
+          "review_id": "webe8f0a86f3de800",
+          "status": "published",
+          "target": "0521.return-placement/05.13.md"
+        },
+        "published_target": {
+          "after_sha256": "40b38f4da0cf39bb24b2a6eaaa350b4c5a421cb2414f7244c68859267dfa51d8",
+          "before_sha256": "cc7a8c204221343b6afa597d75b8fdc06817576cfdf7d9bf7d4093cfc4c74dae",
+          "rendered_sha256": "b71d194e61aa83fe601571041cdeb78323dfaf1a5363cf1a7be71ccf2dd95f11",
+          "review_id": "webe8f0a86f3de800",
+          "status": "published",
+          "target": "0521.return-placement/05.13.md"
+        }
+      },
+      "record_file_sha256": "e9f9655da6e4f5a65c01559416083e6a8ebb4d03dc40e7949d0268a7272c4674",
+      "record_sha256": "e9f9655da6e4f5a65c01559416083e6a8ebb4d03dc40e7949d0268a7272c4674"
+    },
+    "stable": true,
+    "status": "coherent"
+  },
+  "operation": "continue",
+  "pass": "05.13",
+  "pass_terminal": "finished",
+  "prime_review_effective": "attention",
+  "projection": "schema: review-report/3\nstate: readable\nreview_id: webe8f0a86f3de800\nobservation: coherent\nobservation_stable: true\nselected_digest: e9f9655da6e4f5a65c01559416083e6a8ebb4d03dc40e7949d0268a7272c4674\njudgment_recorded: true\npublication_class: complete\npublication_status: published\nstale: false\ncustody: missing\noperation: continue\ndisposition: accepted\ngoal_terminal: open\npass_terminal: finished\nwork_complete: false\naction_released: false\nauthority: none\ntask_association: not-established\ntests_passed: true\ntests_passed_label: supplied bounded assessment\ntests_note: No fresh whole-driver run or active selection. Read-only probes and retained guard logs establish this scoped result. Fix the misleading report field in a future successor; do not rewrite sealed evidence.\nlimits: unknown\nattention_state: measured\nattention:\n- agreement.goal is unknown\n- agreement.scope is unknown\n- agreement.prime_discretion is unknown\n- agreement.director_required is unknown\n- agreement.finish_criteria is unknown\n- agreement.recorded_decisions is unknown\nnext_action: Plan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.\ndirector_words: none measured\nholds: none supplied\nclaims: not-recorded\nevidence_index: not-recorded\ndeclared_artifacts: count 5, bytes 81671, provenance declared\nmeasured_artifact_rows: count 5, bytes 81671, provenance current-measured\naddressed_sources: count 7, bytes 90980, provenance current-measured, scope addressed-source-paths\ncontent_blobs: count 7, bytes 90980, provenance current-measured, scope content-sha256\nphysical_files: count unknown, bytes unknown, provenance not-established, scope verified-physical-files, reason accepted intake metadata has no physical-file identity; a path and a content hash do not establish one\nintake_role_rows: count 9, bytes 95759, provenance current-measured\nartifact_hash_match: 5\nartifact_hash_mismatch: 0\nartifact_not_verified: 0\nartifact_missing: 0\nmeasurement: complete\nobservation_limit: This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.\ndetail: reasons, findings, gaps, answers, sections, intake_findings, artifacts.rows, render_coverage, identity, observation, interface_gap\nThe stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.\n",
+  "proposed_core_exposure": "Add attention, prime_review_effective, journal current, record digest, and publication identity from the same journal-checked record to inspect, read, and recover.",
+  "publication": {
+    "class": "complete",
+    "rendered_sha256": "b71d194e61aa83fe601571041cdeb78323dfaf1a5363cf1a7be71ccf2dd95f11",
+    "review_id": "webe8f0a86f3de800",
+    "status": "published",
+    "target_state": "section-verified"
+  },
+  "reasons": {
+    "items": [
+      "Historical complete custody survives declaration and still verifies unapproved.",
+      "The retained child capture record says attempted true and writer_started false; the eligible member has no receipt.",
+      "N5 recovery succeeds; N7 stays preliminary because its derived review target is absent.",
+      "The misleading door_result.writer_started boolean is disclosed as sentence presence, not trusted as evidence that a writer ran."
+    ],
+    "state": "supplied"
+  },
+  "releases_action": false,
+  "render_coverage": {
+    "historical_note": "The stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.",
+    "omitted": [
+      "tests_note",
+      "attention",
+      "gaps"
+    ],
+    "path": "workbook-review/0521.return-placement/05.13/reviews/webe8f0a86f3de800/rendered.md",
+    "rendered_ok": true,
+    "shows_attention_lines": false,
+    "shows_tests_note": false,
+    "shows_tests_passed": true,
+    "stored_render_bytes": 1282,
+    "tests_passed_line": "tests_passed: true"
+  },
+  "review_id": "webe8f0a86f3de800",
+  "schema": "review-report/3",
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": null,
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Plan the separate N7 absent-target repair with exclusive creation and existing-target protection. Shared route selection and physical migration remain separate actions.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "Accepted as a bounded connected proof and diagnosis: historical witness and guarded handoff are established; N7 cycle creation remains unsupported.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "5/5 artifacts match. Retained run-report digest matches. Prime independently reran positive guard/reader verification, the missing-return negative and N5/N7 read/recover; witness hashes match.",
+    "tests_note": "No fresh whole-driver run or active selection. Read-only probes and retained guard logs establish this scoped result. Fix the misleading report field in a future successor; do not rewrite sealed evidence.",
+    "tests_passed": true,
+    "within_direction": "Bounded technical review. No kernel, authority, custody, migration or release decision."
+  },
+  "source": "0521.return-placement",
+  "stale": false,
+  "state": "readable",
+  "successor_of": null,
+  "task_association": "not-established",
+  "tests_note": {
+    "state": "supplied",
+    "text": "No fresh whole-driver run or active selection. Read-only probes and retained guard logs establish this scoped result. Fix the misleading report field in a future successor; do not rewrite sealed evidence."
+  },
+  "tests_passed": {
+    "label": "supplied bounded assessment",
+    "proof_of_all_tests": false,
+    "proof_of_requirements": false,
+    "state": "supplied",
+    "value": true
+  },
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ],
+  "work_complete": false
+}

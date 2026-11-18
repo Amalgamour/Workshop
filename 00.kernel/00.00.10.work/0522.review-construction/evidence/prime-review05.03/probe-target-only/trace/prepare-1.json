@@ -1,0 +1,149 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.03/CONTRACT.md",
+  "current": {
+    "current": false,
+    "director_replies": [],
+    "interpretation": null,
+    "latest_review": null,
+    "next_action": null,
+    "pass_state": "conflict",
+    "questions": [],
+    "render_state": "not-applicable",
+    "task_binding_sha256": null,
+    "write_token": {
+      "bytes": 110,
+      "path": "0599.synth-lab/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "c37a58b3fa229d3c36c1e33adfcd963fa6a8b9368d98036c982dde5319ea2542"
+    }
+  },
+  "custody": "not-established",
+  "exit_code": 0,
+  "full_success": false,
+  "historical": null,
+  "next": "conflict",
+  "observation": {
+    "descriptor_state": "complete",
+    "measured": {
+      "custody_present": false,
+      "manifest_bytes": 624,
+      "manifest_sha256": "d70f54e1c53dd9f8fa652a7e063ea20ab52eb747d0a6492d97850a2a6f0acd02",
+      "receipt_bytes": 500,
+      "receipt_sha256": "384abfb1a661216a32fe25bb5e90c8295fbcd0d0f0559dbcee92fb6aa39105fc",
+      "return_bytes": 23,
+      "return_sha256": "a3188c820e8dbc56ad1748cba5f2755242ae9431fe0773f1efc94b5d09d6b214",
+      "verification_present": true
+    },
+    "reason": "custody path is not a regular file",
+    "state": "conflict"
+  },
+  "pass_state": "conflict",
+  "pins": {
+    "construct": {
+      "bytes": 35956,
+      "path": "labs/review-construction-pass01/construct.py",
+      "sha256": "8b9d4a6eda460f594404042f7ee232a7ac55fcc09af38905de364defa189ea8a"
+    },
+    "prime_cycle_pass02": {
+      "bytes": 58448,
+      "path": "labs/prime-cycle-pass02/prime_cycle.py",
+      "sha256": "689d63d26b0dfb59363563effa50acbd69856ffcc2ee728b7f54615f16fabd50"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "review_loop": {
+      "bytes": 26028,
+      "path": "labs/review-loop-pass01/review_loop.py",
+      "sha256": "fac0881d1e7e991b630d1deab688a3e28745e2f7b2075c7eb5148251b8ac5595"
+    }
+  },
+  "releases_action": false,
+  "request_sha256": "d8a4115c1e5ec3d72a9f052b6eead6c5250a805080cce1249b6e037f49d2792d",
+  "schema": "review-loop-result/1",
+  "supplied_judgment": null,
+  "view": {
+    "allocated": false,
+    "attention": [
+      "custody path is not a regular file"
+    ],
+    "authenticates_actor": false,
+    "authority": "none",
+    "binding": null,
+    "closes_work": false,
+    "current": false,
+    "custody": "not-established",
+    "director_replies": [],
+    "historical": null,
+    "interpretation": null,
+    "latest_review": null,
+    "member": "0199.synth-lab",
+    "next_action": null,
+    "observation": {
+      "descriptor_state": "complete",
+      "measured": {
+        "custody_present": false,
+        "manifest_bytes": 624,
+        "manifest_sha256": "d70f54e1c53dd9f8fa652a7e063ea20ab52eb747d0a6492d97850a2a6f0acd02",
+        "receipt_bytes": 500,
+        "receipt_sha256": "384abfb1a661216a32fe25bb5e90c8295fbcd0d0f0559dbcee92fb6aa39105fc",
+        "return_bytes": 23,
+        "return_sha256": "a3188c820e8dbc56ad1748cba5f2755242ae9431fe0773f1efc94b5d09d6b214",
+        "verification_present": true
+      },
+      "reason": "custody path is not a regular file",
+      "state": "conflict"
+    },
+    "page": "0599.synth-lab",
+    "pass": "05.01",
+    "pass_state": "conflict",
+    "pins": {
+      "construct": {
+        "bytes": 35956,
+        "path": "labs/review-construction-pass01/construct.py",
+        "sha256": "8b9d4a6eda460f594404042f7ee232a7ac55fcc09af38905de364defa189ea8a"
+      },
+      "prime_cycle_pass02": {
+        "bytes": 58448,
+        "path": "labs/prime-cycle-pass02/prime_cycle.py",
+        "sha256": "689d63d26b0dfb59363563effa50acbd69856ffcc2ee728b7f54615f16fabd50"
+      },
+      "prime_review_pass01": {
+        "bytes": 58324,
+        "path": "labs/prime-review-pass01/prime_review.py",
+        "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+      },
+      "prime_review_pass02": {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      }
+    },
+    "questions": [],
+    "releases_action": false,
+    "render_state": "not-applicable",
+    "schema": "prime-cycle-view/4",
+    "task_binding_sha256": null,
+    "template": null,
+    "work_id": "synth-0599",
+    "write_token": {
+      "bytes": 110,
+      "path": "0599.synth-lab/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "c37a58b3fa229d3c36c1e33adfcd963fa6a8b9368d98036c982dde5319ea2542"
+    }
+  }
+}

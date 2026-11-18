@@ -1,0 +1,10 @@
+PASS T1     valid N7 pack opened first, matching return, no N1: prepare/form complete, record retains judgment, inspect, SEPARATE pu
+PASS H1     Prime's page-local Review summary in the pack after publish: overlay stays fresh (bound region unchanged); task-body edi
+PASS T5     second pass 05.02: binds only 05.02 (its own pack/return/destination); pass-1 pack, return, review and record untouched 
+PASS T2     orphan return, pointer pending, missing pack, wrong pass (pass04 baseline binds it), wrong page: no local match, record 
+PASS T2f    same page/pass copied (with records) into another book instance: the copied record is not accepted as this book's curren
+PASS H2     pointer names evidence/05.01.return.md (same basename, other folder): overlay return-not-local; pass04 baseline binds it
+PASS T3     pack body / return / artifact changed or missing after record: read stale, publish held, no target created, fresh prepar
+PASS T4     manual Director text at the destination, and a file appearing between inspect and publish: publish held, bytes preserved
+PASS T6     N5 control: overlay and pass04 give byte-identical prepare/form stdout; no exchange object; custody-missing still report
+aggregate {'PASS': 9, 'FAIL': 0}

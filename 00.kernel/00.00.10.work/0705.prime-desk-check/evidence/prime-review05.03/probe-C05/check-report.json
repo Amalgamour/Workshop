@@ -1,0 +1,442 @@
+{
+ "schema": "desk-check-report/1",
+ "run_class": "candidate",
+ "desk_verdict": "not-passed",
+ "blocking": [
+  "cases not observed: C01,C02,C03,C04,C06,C07,C08,C09,C10,C11,C13,C14,C16,C17,C18",
+  "wrong: A-C05-01,A-C05-02",
+  "not-run: A-C01-01,A-C01-02,A-C01-03,A-C01-04,A-C01-05,A-C01-06,A-C02-01,A-C02-02,A-C02-03,A-C02-04,A-C02-05,A-C03-01,A-C03-02,A-C03-03,A-C04-01,A-C04-02,A-C04-03,A-C04-04,A-C04-05,A-C04-06,A-C04-07,A-C04-08,A-C04-09,A-C04-10,A-C06-01,A-C06-02,A-C07-01,A-C07-02,A-C07-03,A-C08-01,A-C09-01,A-C09-02,A-C09-03,A-C10-01,A-C10-02,A-C10-03,A-C11-01,A-C11-02,A-C13-01,A-C14-01,A-C14-02,A-C14-03,A-C14-04,A-C16-01,A-C16-02,A-C16-03,A-C17-01,A-C17-02,A-C18-01,A-C18-02,A-C18-03,A-C18-04",
+  "manual checklist not supplied"
+ ],
+ "expected_sha256": "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+ "cases": {
+  "executable_defined": 16,
+  "manual_defined": 2,
+  "observed": 1,
+  "observation_state": {
+   "C01": "absent",
+   "C02": "absent",
+   "C03": "absent",
+   "C04": "absent",
+   "C05": "observed",
+   "C06": "absent",
+   "C07": "absent",
+   "C08": "absent",
+   "C09": "absent",
+   "C10": "absent",
+   "C11": "absent",
+   "C13": "absent",
+   "C14": "absent",
+   "C16": "absent",
+   "C17": "absent",
+   "C18": "absent"
+  }
+ },
+ "assertions": {
+  "defined": 54,
+  "evaluated": 54,
+  "by_status": {
+   "pass": 0,
+   "wrong": 2,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 0,
+   "not-run": 52,
+   "checker-error": 0
+  }
+ },
+ "manual": {
+  "defined": 0,
+  "by_status": {
+   "pass": 0,
+   "wrong": 0,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 0,
+   "not-run": 0,
+   "checker-error": 0
+  }
+ },
+ "rows": [
+  {
+   "id": "A-C01-01",
+   "case": "C01",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-02",
+   "case": "C01",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-03",
+   "case": "C01",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-04",
+   "case": "C01",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-05",
+   "case": "C01",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C01-06",
+   "case": "C01",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-01",
+   "case": "C02",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-02",
+   "case": "C02",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-03",
+   "case": "C02",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-04",
+   "case": "C02",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C02-05",
+   "case": "C02",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-01",
+   "case": "C03",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-02",
+   "case": "C03",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C03-03",
+   "case": "C03",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-01",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-02",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-03",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-04",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-05",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-06",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-07",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-08",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-09",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C04-10",
+   "case": "C04",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-01",
+   "case": "C05",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'verbatim', 'attributed_to': 'Director', 'source_path': '00.kernel/00.00.10.work/0420.prime-desk/06.01.md', 'quote_sha256': 'cefa10fdb3572b1a32c91118b668b71cdb3f86a302a87aad6fd0e0ea71fcba0f'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-02",
+   "case": "C05",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'interpretation', 'attributed_to': 'Codex Prime', 'source_path': '00.kernel/00.00.10.work/0420.prime-desk/06.01.md'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-01",
+   "case": "C06",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C06-02",
+   "case": "C06",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-01",
+   "case": "C07",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-02",
+   "case": "C07",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C07-03",
+   "case": "C07",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C08-01",
+   "case": "C08",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-01",
+   "case": "C09",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-02",
+   "case": "C09",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C09-03",
+   "case": "C09",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-01",
+   "case": "C10",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-02",
+   "case": "C10",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C10-03",
+   "case": "C10",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-01",
+   "case": "C11",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C11-02",
+   "case": "C11",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C13-01",
+   "case": "C13",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-01",
+   "case": "C14",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-02",
+   "case": "C14",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-03",
+   "case": "C14",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C14-04",
+   "case": "C14",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-01",
+   "case": "C16",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-02",
+   "case": "C16",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C16-03",
+   "case": "C16",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-01",
+   "case": "C17",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C17-02",
+   "case": "C17",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-01",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-02",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-03",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  },
+  {
+   "id": "A-C18-04",
+   "case": "C18",
+   "status": "not-run",
+   "detail": "observation absent",
+   "mandatory": true
+  }
+ ],
+ "manual_rows": [],
+ "limits": "checks normalized facts only; forbidden inferences and readability are manual items; not a semantic judge"
+}

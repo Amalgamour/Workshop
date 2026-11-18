@@ -1,0 +1,13 @@
+PASS  KR1           known-failure reproduction               K1: preserved pass01 refuses legal N5 filenames ending in , ; ) that p
+PASS  KR2           known-failure reproduction (found by Cla pass01 ALSO changed N5 meaning silently: `Artifact manifest: m.json, s
+PASS  P1            author test                              N5 context: every N5 input (including , ; ) filenames, the collision l
+PASS  P2            author test                              no intake context (any other caller): exactly pass03, including on the
+PASS  P3            author test                              N7 context: the real 05.15 pointer binds the exact return and manifest
+PASS  P4            author test                              N7 context keeps old meaning for N5-form lines that are not an N7 form
+PASS  P5            author test                              N7 context duplicates and cross-form conflicts are ambiguous (nothing 
+PASS  P6            author test                              malformed N7 lines bind nothing: missing comma after ')', missing fina
+PASS  P7            author test                              LF and CRLF pointer blocks give identical parses in both contexts
+PASS  I-N5-comma    author test                              N5 page with REAL legal files return.md, and artifact-manifest.json,: 
+PASS  I-N5-paren    author test                              N5 page with REAL legal files return.md) and artifact-manifest.json): 
+PASS  I-N5-semicolon author test                              N5 page with REAL legal files return.md; and artifact-manifest.json;: 
+aggregate {'PASS': 12, 'FAIL': 0, 'ERROR': 0} first failure None

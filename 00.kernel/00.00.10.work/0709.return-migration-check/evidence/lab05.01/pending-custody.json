@@ -1,0 +1,1295 @@
+{
+  "schema": "0709-pending-custody-scan/1",
+  "scope": "page-level *.md in 05NN and 07NN pages only; evidence trees not read",
+  "pattern": "(?i)(custody|matching|0[1-9]?1\\d\\d\\.|return line).*(pending|not filed|unfiled)|(pending).*(custody|matching line|0\\d{3}\\.)",
+  "hit_count": 148,
+  "sources": 76,
+  "hits": [
+    {
+      "page": "0502.workflow-start",
+      "file": "06.02.002.md",
+      "line": 14,
+      "text": "sources: Read at target_commit a5853b7 through GitHub object reads, not mutable working files: README.md; 00.kernel/00.00.10.work/0502.workflow-start/{01.md, 05.01.md (target), 06.01.md, source-manifest.tsv, evidence/ (custody.tsv, readme-custody.tsv, record-hashes.txt, claim-status.txt, render-check.txt, contents-check.txt, source-manifest-check.txt, the five gitbytes-*.txt transcripts, packed/05",
+      "file_sha256": "837388be0250d736be0efab14ece6237d7a8e4d5cb53f2db350e37ac8b142d5d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0502.workflow-start",
+      "file": "06.02.002.md",
+      "line": 34,
+      "text": "- a5853b7 has one parent, 1bb8b47, and changes one file: 05.01.md, +5/\u22122, replacing \"Evidence commit: PENDING\" with the named commit and the gate summary. Its message carries \"Model: grok-4.7\". Because of that edit, the target bytes are not the bytes in the custody row for 05.01.md (38080585\u2026, 16,510 bytes), which is the 1bb8b47 revision. That is explained and expected, but no custody manifest cov",
+      "file_sha256": "837388be0250d736be0efab14ece6237d7a8e4d5cb53f2db350e37ac8b142d5d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0502.workflow-start",
+      "file": "06.02.md",
+      "line": 14,
+      "text": "sources: Read at target_commit a5853b7 through GitHub object reads, not mutable working files: README.md; 00.kernel/00.00.10.work/0502.workflow-start/{01.md, 05.01.md (target), 06.01.md, source-manifest.tsv, evidence/ (custody.tsv, readme-custody.tsv, record-hashes.txt, claim-status.txt, render-check.txt, contents-check.txt, source-manifest-check.txt, the five gitbytes-*.txt transcripts, packed/05",
+      "file_sha256": "4bb3101fd9f91243c97f24dfe35e6c8ce2d3e881115d8bba9122d7b61cd377a6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0502.workflow-start",
+      "file": "06.02.md",
+      "line": 34,
+      "text": "- a5853b7 has one parent, 1bb8b47, and changes one file: 05.01.md, +5/\u22122, replacing \"Evidence commit: PENDING\" with the named commit and the gate summary. Its message carries \"Model: grok-4.7\". Because of that edit, the target bytes are not the bytes in the custody row for 05.01.md (38080585\u2026, 16,510 bytes), which is the 1bb8b47 revision. That is explained and expected, but no custody manifest cov",
+      "file_sha256": "4bb3101fd9f91243c97f24dfe35e6c8ce2d3e881115d8bba9122d7b61cd377a6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0504.app-entry",
+      "file": "05.04.md",
+      "line": 82,
+      "text": "Kernel paths in the evidence commit, other than `evidence/05.04/custody.tsv`, `evidence/05.04/text-custody.tsv`, and the gitbytes transcripts, are in `evidence/05.04/custody.tsv`. The `app/` files are in `evidence/05.04/text-custody.tsv` and stay out of the `-text` attribute check. Root `README.md` and `.gitignore` were not changed. Root `README.md` sha256 `33dccc3fd3fd5f21a4d35ee03a3f17dd6ab02623",
+      "file_sha256": "96535f9f05c08c97ed750f4a80834d7454d03ec1487aad74550ddf5aaf20ebc9",
+      "named_return_lines": []
+    },
+    {
+      "page": "0504.app-entry",
+      "file": "06.17.md",
+      "line": 45,
+      "text": "File symlink creation returned WinError 1314, so that case was skipped. The same-user gap remains open. This module is not an operating-system sandbox. No pinned tool, app file, or live member was edited. Review stays pending. The receipt that follows is custody, not acceptance.",
+      "file_sha256": "91e6c1b222e1ef3657f1e6c925c5c219d4904be7e50ef2a3bb9c031ab3fe507f",
+      "named_return_lines": []
+    },
+    {
+      "page": "0504.app-entry",
+      "file": "06.18.md",
+      "line": 53,
+      "text": "File symlink creation returned WinError 1314, so that case was skipped. The same-user gap remains open. This module is not an operating-system sandbox. No pinned tool, app file, or live member was edited. Review stays pending. The receipt that follows is custody, not acceptance.",
+      "file_sha256": "d848496eebcc0331a4667c4c1716bdeca585a7003e8ac287d4321c17a3617f9c",
+      "named_return_lines": []
+    },
+    {
+      "page": "0504.app-entry",
+      "file": "06.19.md",
+      "line": 65,
+      "text": "The source-view holds 18 pack snapshots plus the declared runner pin. `app/librarian.py` was not copied. Its live hash stayed `694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a`. No pinned tool, app file, or live member was edited. Review stays pending. The receipt that follows is custody, not acceptance.",
+      "file_sha256": "237d1fefeb6d227d9e4aee5833514b7d48595c8330da55d9d4546ed8a1f1c230",
+      "named_return_lines": []
+    },
+    {
+      "page": "0504.app-entry",
+      "file": "06.20.md",
+      "line": 36,
+      "text": "The door files, after this reread, are `app/librarian.py` `cfb209e5f1cbeeada345d208d2aeea623b70969d199effdd17fe97ef2c690572` (9791), `app/handoff_tools.py` `f1d76a517b64a82ff8e348b811a5c59dfe8870385e6737b67878e0749e705bc2` (9901), `app/capture-handoff.json` `9e1cdbbf89d9aa9edbb959b2c1c1944777a9420daf5551a510abe38d4f0ab854` (894), `app/tests/test_handoff_tools.py` `8ab810e2f2cd915364fbef507c9f1fcdd",
+      "file_sha256": "4b9b2ef1cee764c5368175fecd04c28521a8905e037cd0e26ee0b291c8bb15af",
+      "named_return_lines": []
+    },
+    {
+      "page": "0508.return-capture",
+      "file": "05.01.md",
+      "line": 176,
+      "text": "Inventory of root `05.NN.md` at `e6d6eb75538732c7eedbc840042242d386b25c2f` is `evidence/build05.01/inventory.json`: 23 records, 2 pending (`0501.bootstrap/05.01.md` and `05.02.md`), 1 return-present (`0505.observer-design/05.01.md`, heading `## Return to Director`, no Review heading in that file), and 20 needs-prime-classification because a return and a review share the file. A disposition quote i",
+      "file_sha256": "9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472",
+      "named_return_lines": []
+    },
+    {
+      "page": "0508.return-capture",
+      "file": "05.17.md",
+      "line": 90,
+      "text": "Release: the Director, chat 2026-10-28: \"The Director releases 0508.return-capture/05.17. Workspace: D:\\Git\\lib-build Branch: workshop Read: 00.kernel/00.00.10.work/0508.return-capture/05.17.md Verify the manifest and record release/claim. Prepare the cold-Prime acceptance plan, evidence requirements, model-facing homework and separate evaluator guide. Use accepted tools and identify Claude\u2019s pend",
+      "file_sha256": "6085f85b1107b7ac322d619a0240355a86e6e113d152b005f9f7dc9e50755a60",
+      "named_return_lines": [
+        "0147.cold-prime-plan-0517"
+      ]
+    },
+    {
+      "page": "0508.return-capture",
+      "file": "05.17.md",
+      "line": 98,
+      "text": "Held for two corrections before use as a cold-Prime acceptance exercise. CP-01: PLAN calls prepared/partial and oriented/partial/not-oriented success; those are possible recorded outcomes, not passing outcomes. A failed orientation must remain a failed test. CP-02: the eleven-ref total omits mandatory book entry, selected contents and actual role record added by stage_packet before optional refs. ",
+      "file_sha256": "6085f85b1107b7ac322d619a0240355a86e6e113d152b005f9f7dc9e50755a60",
+      "named_return_lines": []
+    },
+    {
+      "page": "0508.return-capture",
+      "file": "06.18.md",
+      "line": 19,
+      "text": "The exercise is test preparation. It appoints no role and adds no module. The proposed packet is eleven commit blobs at the frozen HEAD, 70451 bytes, with one ref slot and 60621 bytes left. The twelfth ref is Claude's real-reader brief. That brief is not sealed. Member `0145.real-reader-brief-0514` held only `01.md` and `reservation.json` at this check. Its bytes are pending. They are not filled f",
+      "file_sha256": "6dcb76a4d16307472c280b9f4bf8537a0e82b97c9f5acd122ba79f1c1f671879",
+      "named_return_lines": [
+        "0145.real-reader-brief-0514"
+      ]
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.03.002.md",
+      "line": 100,
+      "text": "Release: the Director, chat 2026-10-29: \"Work in D:\\Git\\lib-build on branch workshop. Run: 00.kernel/00.00.10.work/0510.colab-tools/05.03.md The Director authorizes this scoped build. This is a fresh design amendment. Read: 0411.colab/evidence/exchange-layout-v2/CONTRACT.md and verify evidence/pack05.03/source-manifest.json. The agreed N7NN exchange is: 05.NN.pack.md 05.NN.return.md 06.NN.notes.md",
+      "file_sha256": "54fc5b19999d4a2aae006ea1cccec60132326f1db20050a33555ad89a384bff4",
+      "named_return_lines": [
+        "0159.colab-exchange-layout-0503"
+      ]
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.03.md",
+      "line": 100,
+      "text": "Release: the Director, chat 2026-10-29: \"Work in D:\\Git\\lib-build on branch workshop. Run: 00.kernel/00.00.10.work/0510.colab-tools/05.03.md The Director authorizes this scoped build. This is a fresh design amendment. Read: 0411.colab/evidence/exchange-layout-v2/CONTRACT.md and verify evidence/pack05.03/source-manifest.json. The agreed N7NN exchange is: 05.NN.pack.md 05.NN.return.md 06.NN.notes.md",
+      "file_sha256": "0b7dd8b90e376c5fe1790be1bdc6ce76f26de641765e06204623002e04d23d57",
+      "named_return_lines": [
+        "0159.colab-exchange-layout-0503"
+      ]
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.05.md",
+      "line": 68,
+      "text": "Reread and integrate notes. Matching 0110 custody pending; no receipt or new slot.",
+      "file_sha256": "cfbb169c643e702800927451d0a1c7e60c455db4b0aaeb0a731c802473c5d74c",
+      "named_return_lines": []
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.05.md",
+      "line": 80,
+      "text": "Custody: matching 0110 stays pending. No receipt and no slot. Prime reviews below.",
+      "file_sha256": "cfbb169c643e702800927451d0a1c7e60c455db4b0aaeb0a731c802473c5d74c",
+      "named_return_lines": []
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.06.md",
+      "line": 59,
+      "text": "manifest hashes here. Matching 0110 custody stays pending; no receipt/allocation.",
+      "file_sha256": "bf546f934ffd8b09bfa58c136d48b3f33a942309b4da9c1ae7bb016e95065a9d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.06.md",
+      "line": 89,
+      "text": "Custody: matching 0110 stays pending. No receipt and no allocation.",
+      "file_sha256": "bf546f934ffd8b09bfa58c136d48b3f33a942309b4da9c1ae7bb016e95065a9d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.06.md",
+      "line": 122,
+      "text": "Do not claim the new workflow enforces reserved exposure before the reserved checker and its attach boundary are actually wired and reviewed. The first workflow slice may supply the custody/order substrate alone, labelled as such. The known review_pending ambiguity remains visible and must not become a completion signal. Legacy N1-backed placement remains history/compatibility coverage, not the se",
+      "file_sha256": "bf546f934ffd8b09bfa58c136d48b3f33a942309b4da9c1ae7bb016e95065a9d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0510.colab-tools",
+      "file": "05.06.md",
+      "line": 127,
+      "text": "Evidence: evidence/prime-review05.06/checks.json, tests.stdout/stderr and review-check.py. Original design and prototype remain unchanged. Custody 0110 remains pending; no receipt, promotion, seating, app activation or new worker invocation is created here.",
+      "file_sha256": "bf546f934ffd8b09bfa58c136d48b3f33a942309b4da9c1ae7bb016e95065a9d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0511.workflow-colab",
+      "file": "05.05.md",
+      "line": 53,
+      "text": "Reread completely and integrate notes. Matching 0111 custody stays pending; no",
+      "file_sha256": "304eea6b6a510aa6061aecdd27ff80262ff94634c5d29d34bc9f21784b0a0714",
+      "named_return_lines": []
+    },
+    {
+      "page": "0511.workflow-colab",
+      "file": "05.05.md",
+      "line": 63,
+      "text": "Accepted for isolated WF01 staged-publication repair, 2026-11-01. Independently verified 52 input and 21 artifact rows; 9 focused tests passed, 1 symlink-permission skip; real producer-backed two-pass smoke passed. Preserved independent second-pass seal-replacement failure proves prior pair recoverable and earlier pass artifacts unchanged. Full review: evidence/prime-review05.05/REVIEW.md. No live",
+      "file_sha256": "304eea6b6a510aa6061aecdd27ff80262ff94634c5d29d34bc9f21784b0a0714",
+      "named_return_lines": []
+    },
+    {
+      "page": "0511.workflow-colab",
+      "file": "06.01.md",
+      "line": 53,
+      "text": "The 15 checks cover the declared band, explicit open, a second pass, multiple targets, duplicate title and target and section, a stale digest, unknown claim/release, custody that is complete while review stays pending, held with followup, accepted without closure, explicit close that keeps a rejection, wrong-origin and partial and ambiguous and retrospective custody, a repeated attach, conflicting",
+      "file_sha256": "f0964118184250ebec669498c0a0f159bf2de4edeeb0a4c7487ae736e449dea2",
+      "named_return_lines": []
+    },
+    {
+      "page": "0511.workflow-colab",
+      "file": "06.04.md",
+      "line": 36,
+      "text": "Prototype readiness in the 0510 reserved-review lab is not an authority. V01\u2013V03 stay with the later checker. This slice does not copy ready or blocked into a gate and does not add reserved exposure. V04 applies only to this build\u2019s test runners: a required child failure must fail the aggregate exit, and earlier output stays. The isolated successor is disposable. Pass02 and prior evidence stay. Th",
+      "file_sha256": "3b57a5a0e8959c065ccb8c841b9227ec350a8ec6134ccdf557fe24f208f2aab4",
+      "named_return_lines": []
+    },
+    {
+      "page": "0511.workflow-colab",
+      "file": "06.04.md",
+      "line": 59,
+      "text": "Pass03 is not selected in the app, the door, the loop, or the cycle. accepted is false. This builder does not commit. Custody stays pending on matching line 0111.workflow-colab. The allocator was not used. 0184 was not allocated. No receipt was written. No new capture slot was opened. Prime review of this pack remains open.",
+      "file_sha256": "3b57a5a0e8959c065ccb8c841b9227ec350a8ec6134ccdf557fe24f208f2aab4",
+      "named_return_lines": [
+        "0111.workflow-colab"
+      ]
+    },
+    {
+      "page": "0511.workflow-colab",
+      "file": "06.08.md",
+      "line": 5,
+      "text": "Accepted for isolated WF01 staged-publication repair, 2026-11-01. Independently verified 52 input and 21 artifact rows; 9 focused tests passed, 1 symlink-permission skip; real producer-backed two-pass smoke passed. Preserved independent second-pass seal-replacement failure proves prior pair recoverable and earlier pass artifacts unchanged. Full review: evidence/prime-review05.05/REVIEW.md. No live",
+      "file_sha256": "d1aa7c04fc891ef5c30744b4835104cf1e0a719143b8f5427cf27494cc732e6d",
+      "named_return_lines": []
+    },
+    {
+      "page": "0515.prime-cycle",
+      "file": "06.03.md",
+      "line": 63,
+      "text": "- run1 test_27 assumed appending a byte to receipt.json breaks custody. The receipt is the root of trust, so the inspector reports complete with a new receipt; I probed it directly. The test now tampers a payload blob, which reports incomplete.",
+      "file_sha256": "cf45fd84513077de3359b043f68d6408160e64e6584fb8f363957798c7e64aec",
+      "named_return_lines": []
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.01.md",
+      "line": 65,
+      "text": "## #05 - reviewable handback and pending custody",
+      "file_sha256": "05b2eab7cddff21601eceabfeb02c223b0c7b2319bb81c0942751b90fe3bbec6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.01.md",
+      "line": 87,
+      "text": "0121.return-placement was not created. The legacy occupant 0121.archive-resolution-0508 is still in the book. 0184 was not allocated. The old reserve allocator was not called. Custody remains pending until Prime accepts the migration and that occupant is retired.",
+      "file_sha256": "05b2eab7cddff21601eceabfeb02c223b0c7b2319bb81c0942751b90fe3bbec6",
+      "named_return_lines": [
+        "0121.archive-resolution-0508",
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.02.md",
+      "line": 56,
+      "text": "Append return pointer here. Custody remains pending matching 0121 after reviewed",
+      "file_sha256": "2e03e9335da4403760479f6dcccfea95f4bb12fe6075d0f816b9cb9e2a5a8ac3",
+      "named_return_lines": []
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.02.md",
+      "line": 67,
+      "text": "Capture PENDING. Submission: evidence/build05.02/submission.md. Custody remains pending on 0121.return-placement until that line is free after a reviewed migration. 0184 was not allocated. This pointer is not a receipt.",
+      "file_sha256": "2e03e9335da4403760479f6dcccfea95f4bb12fe6075d0f816b9cb9e2a5a8ac3",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.02.md",
+      "line": 108,
+      "text": "0154 incomplete. Current return submissions remain page-recorded, pending custody",
+      "file_sha256": "2e03e9335da4403760479f6dcccfea95f4bb12fe6075d0f816b9cb9e2a5a8ac3",
+      "named_return_lines": []
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.03.md",
+      "line": 17,
+      "text": "submission/evidence is durable with matching-line custody explicitly pending.",
+      "file_sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "named_return_lines": []
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.03.md",
+      "line": 92,
+      "text": "Append submission and manifest hashes below; custody stays pending matching",
+      "file_sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "named_return_lines": []
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "05.03.md",
+      "line": 103,
+      "text": "Custody in matching 0121.return-placement: pending migration. Not filed.",
+      "file_sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "06.01.md",
+      "line": 12,
+      "text": "The page is prepared and releases no live migration. This invocation does not approve a move, accept a return, or publish one. Capture of this batch stays pending. The matching line is 0121.return-placement. It is not filed here. The old allocator is not called, and 0184 is not allocated.",
+      "file_sha256": "fbdab4d63270eff9e1876c7cf8d47f946f5c90e4ce2b6351209d1104f92d3ac8",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "06.03.md",
+      "line": 12,
+      "text": "The page is prepared and releases no live migration. This invocation does not approve a move, accept a return, or publish one. Capture of this batch stays pending. The matching line is 0121.return-placement. It is not filed here. The old allocator is not called, and 0184 is not allocated.",
+      "file_sha256": "3705a377a127855cfd4acc5ce775bd144ec4ab065f09a5932b6a2aa80394f784",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "06.05.md",
+      "line": 12,
+      "text": "The page is prepared and releases no live migration, seating, or adoption. This invocation does not approve a move, accept a return, or publish one. Capture of this batch stays pending. The matching line is 0121.return-placement. It is not filed here. The old allocator is not called, and 0184 is not allocated.",
+      "file_sha256": "d8350043669169a30dfa89feb4cebe39d1ce75cd5db13dd4a5f1f6967f09efcb",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0521.return-placement",
+      "file": "06.05.md",
+      "line": 48,
+      "text": "Capture of this batch remains pending. Matching `0121.return-placement` is not filed. `0184` was not allocated. The sequential allocator was not called. Review stays pending.",
+      "file_sha256": "d8350043669169a30dfa89feb4cebe39d1ce75cd5db13dd4a5f1f6967f09efcb",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "01.md",
+      "line": 11,
+      "text": "evidence on this work page; custody remains explicitly pending until the corrected",
+      "file_sha256": "b4a1d5988eeaa84e7a0f58fd7a59f34f0d21a5b9080f3d2c5547b4850e51d7a9",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.01.md",
+      "line": 84,
+      "text": "the permanent submission and artifact manifest. Custody is PENDING until Prime can",
+      "file_sha256": "41ca788e4516ddf58270d47f6b0405e775e7d79ef1431bc9c63bdb27a553833a",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.01.md",
+      "line": 98,
+      "text": "Custody: PENDING. Matching line 0122.review-construction awaits reviewed placement migration. This pass did not use the old allocator and did not reserve a sequential member.",
+      "file_sha256": "41ca788e4516ddf58270d47f6b0405e775e7d79ef1431bc9c63bdb27a553833a",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.01.md",
+      "line": 150,
+      "text": "occurred. Matching custody remains pending at 0122.review-construction.",
+      "file_sha256": "41ca788e4516ddf58270d47f6b0405e775e7d79ef1431bc9c63bdb27a553833a",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.02.md",
+      "line": 55,
+      "text": "Append pointers here. Custody is pending matching 0122 after migration; no old",
+      "file_sha256": "f5ccc7bdbb80ef2a09bcb70f214fad9803c45e4b6b3eb971c05b810c36f9b295",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.02.md",
+      "line": 69,
+      "text": "Custody: PENDING. Matching line 0122.review-construction awaits reviewed placement migration. This pass did not use the old allocator and did not allocate 0184.",
+      "file_sha256": "f5ccc7bdbb80ef2a09bcb70f214fad9803c45e4b6b3eb971c05b810c36f9b295",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.02.md",
+      "line": 113,
+      "text": "Custody filing of this work remains pending matching 0122 after migration.",
+      "file_sha256": "f5ccc7bdbb80ef2a09bcb70f214fad9803c45e4b6b3eb971c05b810c36f9b295",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.03.md",
+      "line": 17,
+      "text": "submission/evidence is durable with matching-line custody explicitly pending.",
+      "file_sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.03.md",
+      "line": 89,
+      "text": "Append submission and manifest hashes below; custody stays pending matching",
+      "file_sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.03.md",
+      "line": 98,
+      "text": "Custody: PENDING. Matching line 0122.review-construction awaits reviewed placement migration. This pass did not use the old allocator and did not allocate 0184.",
+      "file_sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.03.md",
+      "line": 167,
+      "text": "was performed. Matching 0122 custody remains pending; no 0184 was allocated.",
+      "file_sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.04.md",
+      "line": 46,
+      "text": "route. Placement remains pending. Never turn valid legacy custody into claimed",
+      "file_sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.04.md",
+      "line": 115,
+      "text": "Custody: PENDING. Matching line 0122.review-construction awaits reviewed placement migration. This pass did not use the old allocator and did not allocate 0184.",
+      "file_sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.04.md",
+      "line": 123,
+      "text": "Disposition: bounded real-custody review-loop repair verified; app entry pending.",
+      "file_sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.04.md",
+      "line": 143,
+      "text": "legacy-in-place, origin 0519/05.01 and intended 0119.desk-app; placement pending,",
+      "file_sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+      "named_return_lines": [
+        "0119.desk-app"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.05.md",
+      "line": 60,
+      "text": "integrate notes and pointer hashes. Matching 0122 custody pending. Stop for review;",
+      "file_sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.05.md",
+      "line": 68,
+      "text": "Custody: PENDING. Matching line 0122.review-construction awaits reviewed placement migration. This pass did not use the old allocator and did not allocate 0184.",
+      "file_sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.05.md",
+      "line": 94,
+      "text": "origin 0519/05.01, intended matching 0119 line, placement pending. Member fingerprints",
+      "file_sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.05.md",
+      "line": 112,
+      "text": "Matching 0122 custody remains pending; no allocation or production acceptance.",
+      "file_sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.06.md",
+      "line": 66,
+      "text": "and account for notes. Matching 0122 custody pending; no receipt/allocation.",
+      "file_sha256": "5e610db78245ffde6d87f3418a9e99c65628a0ad2685c2aba0cb99e4f0c266b7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.06.md",
+      "line": 93,
+      "text": "The constructor does not compare supplied state with hash-verified cycle record.json; that belongs in the later loop successor. ROOT remains the selected literal checkout path, so this is not a portability repair. No active app/loop/cycle/pin changed. Custody on matching 0122 remains pending; no receipt or new allocation is invented.",
+      "file_sha256": "5e610db78245ffde6d87f3418a9e99c65628a0ad2685c2aba0cb99e4f0c266b7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.07.md",
+      "line": 88,
+      "text": "Matching 0122 custody remains pending; no receipt or allocation is created. The accepted candidate pin is labs/review-construction-pass04/construct.py sha256 6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20, 42582 bytes.",
+      "file_sha256": "fc57aada326b8aa0c0833346ae5318bd7a6b634028dd89070623780566eaa82f",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.08.md",
+      "line": 100,
+      "text": "0122 custody stays pending; no receipt/new slot invented. Prime owns the review.",
+      "file_sha256": "7488181ae1aaab33465529ac1730237dd72ba539aa533664cc365e8b37aa3057",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.08.md",
+      "line": 109,
+      "text": "Accepted for bounded isolated L1 lab, 2026-11-01. Independently verified 192 source rows and 13 artifact rows; 19 direct tests passed under Python 3.12.14, no failures/errors/skips. Actual pre-apply binding, judgment preservation and truthful mechanical guidance meet this slice. Full review: evidence/prime-review05.08/REVIEW.md. Legacy witness is only a compatibility guard; no authenticated proven",
+      "file_sha256": "7488181ae1aaab33465529ac1730237dd72ba539aa533664cc365e8b37aa3057",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.09.md",
+      "line": 33,
+      "text": "Return Did, Blocked, Need, exact edited/added API and selection delta, declared/transitive dependency pins and references, raw app commands/exits, first failures, source before/after, readable PRIME-USE/rollback, verification and final artifact manifest excluding itself. Include Factfind/Hostile/Overflow/Unprompted and reread/integrate notes. Submission.md and hashes go here. Matching 0122 custody",
+      "file_sha256": "ceed848fabc6db1cac467e39297b8695d00d81eb74cb0c9eba7e4005dd74a541",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "05.10.md",
+      "line": 29,
+      "text": "Return Did, Blocked, Need; contract/API delta, exact pins, raw app/test commands/exits and no-launch junction evidence, source before/after, PRIME-USE/rollback, verification and final artifact manifest excluding itself. Include Factfind/Hostile/Overflow/Unprompted; reread fully. Submission and manifest hashes go here; matching 0122 custody remains pending unless actually filed through an accepted ",
+      "file_sha256": "97d48749bf2967bebe9a7ea1d5a0fc99f9ec61523bfb40f3ca4cb4fff2d1577f",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.01.md",
+      "line": 9,
+      "text": "\"Work in D:\\Git\\lib-build on workshop. Run: 00.kernel/00.00.10.work/0522.review-construction/05.01.md. Read the complete pack and verify its source manifest. Record this invocation and your claim. Build and test the bounded review constructor in the assigned lab. Compute must render the full Prime assessment into N5NN/05.NN, preserving judgment, Director replies and bytes outside the review sectio",
+      "file_sha256": "0b64cb61b6095c2e3e7f7e86d92b480abf349736b08b2c6c520217feafb98abb",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.01.md",
+      "line": 13,
+      "text": "Release and claim for the page stay on the Return pointer. This note is the claim record. It is not Director release. Matching-line custody stays pending. This pass does not call the old return allocator and does not reserve a sequential member.",
+      "file_sha256": "0b64cb61b6095c2e3e7f7e86d92b480abf349736b08b2c6c520217feafb98abb",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.02.md",
+      "line": 9,
+      "text": "Original code evidence and submission preserved; custody remains pending migration.",
+      "file_sha256": "27ca699ca9839e1f030e8a48794c122b26bb204a71612d890b805884376adea1",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.03.md",
+      "line": 13,
+      "text": "Release and claim for the page stay on the Return pointer. This note is the claim record. It is not Director release. Matching-line custody stays pending at `0122.review-construction`. This pass does not call the old return allocator and does not allocate `0184`.",
+      "file_sha256": "26612eddbd3a8530ad586e3794e08f7324bb1e4011c24d4d33900f53464a9c24",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.03.md",
+      "line": 39,
+      "text": "The lab change followed this note and `evidence/build05.02/CONTRACT.md`. From `D:\\Git\\lib-build`, `python -B labs/review-construction-pass01/test_construct.py` ran 15 tests, 0 failed, 7.793 seconds, exit 0. The new transcript and sample are `evidence/build05.02/transcript.json` and `evidence/build05.02/sample-review.md`. The sealed `evidence/build05.01/` transcript and sample still match their 05.",
+      "file_sha256": "26612eddbd3a8530ad586e3794e08f7324bb1e4011c24d4d33900f53464a9c24",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.05.md",
+      "line": 13,
+      "text": "Release and claim for the page stay on the Return pointer. This note is the claim record. It is not Director release. Matching-line custody stays pending at `0122.review-construction`. This pass does not call the old return allocator and does not allocate `0184`. A rendered review is not approval.",
+      "file_sha256": "e530f30b64d13b982e93491e5935131366931e409286b8e3ad960110d14f7bc4",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.05.md",
+      "line": 58,
+      "text": "The successor code followed this note and `evidence/build05.03/CONTRACT.md`. This result is lab evidence. It is not acceptance. Custody stays pending at `0122.review-construction`. A rendered review is not approval. `app/librarian.py` was not edited, so `app/review-loop.json` is not seated.",
+      "file_sha256": "e530f30b64d13b982e93491e5935131366931e409286b8e3ad960110d14f7bc4",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.07.md",
+      "line": 13,
+      "text": "Release and claim for the page stay on the Return pointer. This note is the claim record. It is not Director release. Matching-line custody stays pending at `0122.review-construction`. This pass does not call the old return allocator and does not allocate `0184`. A rendered review is not approval. A verified capture is not acceptance.",
+      "file_sha256": "0b3901a7fffbe8f1275e3ae956ff056625c4f71e026c69f6e70331c902cf0d21",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.07.md",
+      "line": 54,
+      "text": "`CONTRACT.md` was not revised after the tests. `PRIME-USE.md` names schema `review-loop-reproduce-decision/1`. No `app/review_loop_tools_v2.py` was written. `librarian.py` was not edited. The live work book gained no return-line layout from this pass. `describe-legacy` was not run against the live book. No return was allocated. `0184` was not allocated. Matching-line custody stays pending at `0122",
+      "file_sha256": "0b3901a7fffbe8f1275e3ae956ff056625c4f71e026c69f6e70331c902cf0d21",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.08.md",
+      "line": 6,
+      "text": "Disposition: bounded real-custody review-loop repair verified; app entry pending.",
+      "file_sha256": "8bd376e0f2905599bca9c7769c3f63a1d3b72f1fd54804655a21e8d863b81493",
+      "named_return_lines": []
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.09.md",
+      "line": 26,
+      "text": "Release and claim for the page stay on the Return pointer. This note is the claim record. It is not Director release. Matching-line custody stays pending at `0122.review-construction`. This pass does not allocate a return and does not allocate `0184`. A rendered review is not approval. A verified capture is not acceptance. This pass does not seat or activate a production runtime.",
+      "file_sha256": "78e700d09d7208455bb5121be3655783bf192d44e1596cabc73a39024d6fdd61",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.09.md",
+      "line": 32,
+      "text": "The 05.04 Prime review was read in full from `05.04.md` and `evidence/prime-review05.04/REVIEW.md`. Disposition: bounded real-custody review-loop repair verified; app entry pending. Thirteen independent tests passed. Prime ran read-only `describe-legacy` on live member `0182.desk-app-integration-design-0501`. That member stayed complete, descriptor `/2`, `legacy-in-place/1`, origin `0519.desk-app/",
+      "file_sha256": "78e700d09d7208455bb5121be3655783bf192d44e1596cabc73a39024d6fdd61",
+      "named_return_lines": [
+        "0119.desk-app",
+        "0182.desk-app-integration-design-0501"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.09.md",
+      "line": 62,
+      "text": "Mutation commands require an explicit disposable fixture root outside `D:\\Git\\lib-build` and outside the live work book. `describe-legacy` may read an explicit book, including the live book, and writes nothing under it. The live page `0519.desk-app/05.01.md` already holds a substantive Prime review. The pilot copies member `0182.desk-app-integration-design-0501` into an external disposable book an",
+      "file_sha256": "78e700d09d7208455bb5121be3655783bf192d44e1596cabc73a39024d6fdd61",
+      "named_return_lines": [
+        "0182.desk-app-integration-design-0501"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.11.md",
+      "line": 51,
+      "text": "accepted is false. This builder does not commit. Custody stays pending on matching line 0122.review-construction. The allocator was not used. 0184 was not allocated. No receipt was written. Prime review of this pack remains open.",
+      "file_sha256": "e93f5b1c784f3dfb3fd9abb7b1c22908363d338e1e49b01290e416ebda227662",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.13.md",
+      "line": 49,
+      "text": "The 05.06 cycle evidence writer was not rerun. The cycle, the loop, the door, and the app stay unmodified. pass04 stays unselected. accepted is false. This builder does not commit. Custody stays pending on matching line 0122.review-construction. The allocator was not used. 0184 was not allocated. No receipt was written. Prime review of this pack remains open.",
+      "file_sha256": "0beb3a8b7c044215c8e31bd03b23d2ab9fdb619cfa63342e1ad5d6ab3f5be90b",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.15.md",
+      "line": 51,
+      "text": "Codex Prime has not reviewed this page. Matching line 0122.review-construction stays pending. No receipt and no new slot. Pass03 is not selected in the app, the cycle, the door, or the README. reproduce and describe-legacy were not driven by this suite. The source-change negative is an in-process bind that returns 64 zeros. A real assignment-byte change is reported as binding, because the cycle vi",
+      "file_sha256": "62a41c681279e377867d9455596fb5d8a7629dc9a8dd7e991066c8d5faf67bc6",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0522.review-construction",
+      "file": "06.17.md",
+      "line": 72,
+      "text": "Codex Prime has not reviewed this page. accepted is false. committed_by_this_builder is false. Matching line 0122.review-construction stays pending. No receipt and no new slot. A24 stays MANUAL. The declared-pin tests use a disposable code copy. They do not replace construct.py under a relocated checkout. The symlink refusal was not executed. The current-assignment record stays stale. Workflow pas",
+      "file_sha256": "9a8d4f481c1aba0532fd9509a71b551d9a0a698ec04aa0674327ddecb8e6bd9f",
+      "named_return_lines": [
+        "0122.review-construction"
+      ]
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.01.md",
+      "line": 148,
+      "text": "Matching-line custody for this live batch remains pending reviewed migration.",
+      "file_sha256": "ce50b1db96963c6712d64e64fde7fa9c2d484ef2eac1813ba87f3aea0ff05581",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.01.md",
+      "line": 235,
+      "text": "copied into the live local app. Matching return custody remains pending 0123.",
+      "file_sha256": "ce50b1db96963c6712d64e64fde7fa9c2d484ef2eac1813ba87f3aea0ff05581",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.02.md",
+      "line": 96,
+      "text": "No live custody. No Windows acceptance. Review remains pending.",
+      "file_sha256": "6149b1eede3abb626809fd04adad05808a0f155a1f6f2123832a586587b8570c",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.02.md",
+      "line": 152,
+      "text": "Matching 0123 custody remains pending reviewed placement; this page and evidence",
+      "file_sha256": "6149b1eede3abb626809fd04adad05808a0f155a1f6f2123832a586587b8570c",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.03.md",
+      "line": 113,
+      "text": "No completed matching 0123 custody is invented while migration remains pending.",
+      "file_sha256": "d7d2bfe606830a5b1ed56c1b6129b5a54fcf7d546151086062770c7ee0b10d12",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.03.md",
+      "line": 133,
+      "text": "No live custody. No Windows acceptance. Review remains pending.",
+      "file_sha256": "d7d2bfe606830a5b1ed56c1b6129b5a54fcf7d546151086062770c7ee0b10d12",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.03.md",
+      "line": 195,
+      "text": "separate selected state, pending operation, custody validity, review freshness and",
+      "file_sha256": "d7d2bfe606830a5b1ed56c1b6129b5a54fcf7d546151086062770c7ee0b10d12",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.03.md",
+      "line": 200,
+      "text": "and matching 0123 custody remains pending. User commissioned an insight prototype;",
+      "file_sha256": "d7d2bfe606830a5b1ed56c1b6129b5a54fcf7d546151086062770c7ee0b10d12",
+      "named_return_lines": []
+    },
+    {
+      "page": "0523.desk-core",
+      "file": "05.04.md",
+      "line": 112,
+      "text": "Matching 0123 custody remains pending; no fabricated receipt/acceptance. Stop after",
+      "file_sha256": "8b661be0f4bf8e7b15c0a1c29c4b6552d3f02eac00bdccc258f4919c47a424b9",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.01.md",
+      "line": 88,
+      "text": "Correct matching 0124 custody pending; page evidence retains work in the meantime.",
+      "file_sha256": "c460ede2ace7c1d436f671f8cf80c1f918753227d7aebaa5cccd65951a6eb660",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.01.md",
+      "line": 101,
+      "text": "Manifest schema: prime-desk-artifact-manifest/1. self_hashed false. 41 files, 8974 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.",
+      "file_sha256": "c460ede2ace7c1d436f671f8cf80c1f918753227d7aebaa5cccd65951a6eb660",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.02.md",
+      "line": 52,
+      "text": "mixed authors, stale sources, wrong instance, unsupported coverage, pending custody,",
+      "file_sha256": "5a5de52b18310dae2b7252651bfe10171ab5eb45ae8e40559b25d3df50eb06b7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.02.md",
+      "line": 62,
+      "text": "integrate notes. Matching 0124 custody remains pending; no fabricated receipt.",
+      "file_sha256": "5a5de52b18310dae2b7252651bfe10171ab5eb45ae8e40559b25d3df50eb06b7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.02.md",
+      "line": 74,
+      "text": "Manifest schema: prime-desk-artifact-manifest/1. self_hashed false. 72 files, 16441 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.",
+      "file_sha256": "5a5de52b18310dae2b7252651bfe10171ab5eb45ae8e40559b25d3df50eb06b7",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.02.md",
+      "line": 102,
+      "text": "then treats the missing wrong review path as custody-pending. Existing custody",
+      "file_sha256": "5a5de52b18310dae2b7252651bfe10171ab5eb45ae8e40559b25d3df50eb06b7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.03.md",
+      "line": 51,
+      "text": "pending N1NN custody; the review must remain discoverable and custody stay pending.",
+      "file_sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.03.md",
+      "line": 66,
+      "text": "hashes here. Matching 0124 custody remains pending: do not fabricate a receipt.",
+      "file_sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.03.md",
+      "line": 79,
+      "text": "Manifest schema: prime-desk-artifact-manifest/1. self_hashed false. 78 files, 17523 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.",
+      "file_sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.03.md",
+      "line": 104,
+      "text": "custody stays pending and no return is created. A matched file is not proof of",
+      "file_sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.03.md",
+      "line": 106,
+      "text": "not absent. Pending custody no longer substitutes for review availability.",
+      "file_sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.03.md",
+      "line": 129,
+      "text": "custody remains pending. No further Grok-1 build released by this review.",
+      "file_sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.04.md",
+      "line": 39,
+      "text": "after, output JSON/Markdown and request/catalog identities. Unknown/pending custody",
+      "file_sha256": "e8f914c3d8aeaa6101db87099c2ef41d921e3fe167f965598b20af22dd86e104",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.04.md",
+      "line": 69,
+      "text": "0124 custody remains pending; no fabricated receipt. Stop for Codex Prime review.",
+      "file_sha256": "e8f914c3d8aeaa6101db87099c2ef41d921e3fe167f965598b20af22dd86e104",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.04.md",
+      "line": 80,
+      "text": "Manifest schema: prime-desk-artifact-manifest/1. self_hashed false. 39 files, 8280 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.",
+      "file_sha256": "e8f914c3d8aeaa6101db87099c2ef41d921e3fe167f965598b20af22dd86e104",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.04.md",
+      "line": 119,
+      "text": "stable until a bounded follow-up is chosen. Matching 0124 custody remains pending.",
+      "file_sha256": "e8f914c3d8aeaa6101db87099c2ef41d921e3fe167f965598b20af22dd86e104",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.05.md",
+      "line": 62,
+      "text": "integrate notes. Matching 0124 custody pending; no receipt. Stop for Prime review.",
+      "file_sha256": "6f741faaf87e7cdf079b62b326c1e55fe7adefc4b99066cfd8eb4888185e2045",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "05.05.md",
+      "line": 73,
+      "text": "Manifest schema: prime-desk-artifact-manifest/1. self_hashed false. 41 files, 8396 bytes. Capture pending. Custody 0124.prime-desk is not filed. No allocation.",
+      "file_sha256": "6f741faaf87e7cdf079b62b326c1e55fe7adefc4b99066cfd8eb4888185e2045",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.01.md",
+      "line": 15,
+      "text": "This page is prepared and releases no live migration, seating, worker launch, or adoption. This invocation does not approve a view, accept a return, or publish one. Capture of this batch stays pending. The matching line is 0124.prime-desk. It is not filed here. The old allocator is not called.",
+      "file_sha256": "a7bba30d8a5945083c3a2be185ae0942922c74bde64c7719373172dd429d3864",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.01.md",
+      "line": 53,
+      "text": "This pass did not run the tool against the live book. Review-loop successor modules were not imported. Capture and 0124 custody stay pending.",
+      "file_sha256": "a7bba30d8a5945083c3a2be185ae0942922c74bde64c7719373172dd429d3864",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.03.md",
+      "line": 15,
+      "text": "Director approval is 0420.prime-desk/06.05.md. That approval releases this scope. It is not a recorded claim that a process is running, and it does not activate the desk. This invocation does not approve a view, accept a return, or publish one. Capture stays pending. The matching line is 0124.prime-desk. It is not filed here.",
+      "file_sha256": "6c3aaba1b92dbc671036fa211bfc5a1bc27be63cff2694530fc24d42f5167585",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.05.md",
+      "line": 15,
+      "text": "This invocation does not approve a view, accept a return, or activate the desk. Capture stays pending. The matching line is 0124.prime-desk. It is not filed here.",
+      "file_sha256": "6e8697d7da8294713e72ab5efb476e84b7caf2014bfed851dd426afd17e2884e",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.05.md",
+      "line": 39,
+      "text": "Demo: `python -B labs/prime-desk-pass03/demo.py --out D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0524.prime-desk\\evidence\\build05.03\\demo-output`. Process exit 0. Both canonical tool exits are 1. The disposable assignment selects `work-0521-0503`. Review path `0521.return-placement/05.03.md` is matched. Return path `0121.return-placement/05.03.return.md` is missing and custody is pending. The file w",
+      "file_sha256": "6e8697d7da8294713e72ab5efb476e84b7caf2014bfed851dd426afd17e2884e",
+      "named_return_lines": [
+        "0121.return-placement"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.07.md",
+      "line": 15,
+      "text": "This invocation does not approve a view, accept a return, or activate the desk. Capture stays pending. The matching line is 0124.prime-desk. It is not filed here.",
+      "file_sha256": "230e742a0b5cf8b10a62cb507b1fdf75d4b9c49f674c28531f38fa270606bfa2",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.09.md",
+      "line": 15,
+      "text": "This invocation does not approve a view, accept a return, or activate the desk. Capture stays pending. The matching line is 0124.prime-desk. It is not filed here.",
+      "file_sha256": "cda4f9519f02227691b31c9100fff7892cb7ef064b6ff802af442def756dbecb",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.09.md",
+      "line": 35,
+      "text": "evidence/prime-review05.04/REVIEW.md says Prime used the 05.04 request five times. Selection stayed `work-0524-0503` on that older profile, and inspection of `work-0522-0505` did not change it. The review names these profile gaps: verification not bound, next route absent, the review-loop operation labelled pending, workers undeclared, and supplied sentences present in JSON but not in the readable",
+      "file_sha256": "cda4f9519f02227691b31c9100fff7892cb7ef064b6ff802af442def756dbecb",
+      "named_return_lines": []
+    },
+    {
+      "page": "0524.prime-desk",
+      "file": "06.09.md",
+      "line": 49,
+      "text": "View, the `work-0524-0504` packet, the `work-0522-0505` packet, and the `work-0707-0501` packet each exited 1. Canonical view state `attention`. Selected id `work-0524-0504`, address `0524.prime-desk/05.04`, rule `assignment-record/v1`. View schema `prime-desk-view/4`. Packet schema `prime-desk-packet/4`. Review path `0524.prime-desk/05.04.md`, file matched, judgment unknown. Return path `0124.pri",
+      "file_sha256": "cda4f9519f02227691b31c9100fff7892cb7ef064b6ff802af442def756dbecb",
+      "named_return_lines": [
+        "0124.prime-desk"
+      ]
+    },
+    {
+      "page": "0525.app-dependencies",
+      "file": "01.md",
+      "line": 9,
+      "text": "Matching 0125.app-dependencies custody is pending; no old allocator or new capture",
+      "file_sha256": "e91094dfd4733c8dbc7c3d9b739450dd9ff6a182b7bac92653b1cccf9044460f",
+      "named_return_lines": [
+        "0125.app-dependencies"
+      ]
+    },
+    {
+      "page": "0525.app-dependencies",
+      "file": "05.01.md",
+      "line": 61,
+      "text": "pending; do not fabricate a receipt or allocate 0184. Stop for Codex Prime review.",
+      "file_sha256": "7a9ddfa3895c36ea867390e29ebf8b1218d191373ee4f0289cd6451ffe37deb6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0525.app-dependencies",
+      "file": "05.01.md",
+      "line": 68,
+      "text": "Custody: PENDING. Matching line 0125.app-dependencies stays pending. This pass did not use the old allocator and did not allocate 0184. No receipt was written.",
+      "file_sha256": "7a9ddfa3895c36ea867390e29ebf8b1218d191373ee4f0289cd6451ffe37deb6",
+      "named_return_lines": [
+        "0125.app-dependencies"
+      ]
+    },
+    {
+      "page": "0525.app-dependencies",
+      "file": "05.01.md",
+      "line": 109,
+      "text": "Matching 0125 custody stays pending. Full review is on this original N5NN pack.",
+      "file_sha256": "7a9ddfa3895c36ea867390e29ebf8b1218d191373ee4f0289cd6451ffe37deb6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0525.app-dependencies",
+      "file": "06.01.md",
+      "line": 48,
+      "text": "The disposable set review-loop-entry-1-missing-capture exits 1, status incomplete, record-missing 3, with condition-inapplicable 1, environment-unverified 20, and shared 32. Those three exit 1 results are the depth bounds and the missing capture record. There was no reader refusal. CONTRACT.md was left as written before the commands. The app and depdecl.py stay unmodified. accepted is false. This ",
+      "file_sha256": "8a2e1f372a0298f4368ba7f64a74beef9787c9e69777d6d8be3e9ef528e52c75",
+      "named_return_lines": [
+        "0125.app-dependencies"
+      ]
+    },
+    {
+      "page": "0525.app-dependencies",
+      "file": "06.03.md",
+      "line": 49,
+      "text": "Predecessor tests: 15 OK and 7 OK. Successor tests: 8 OK, including equal stdout on the unchanged /1 sets. The three unittest logs were saved as LF. The Windows runner had written CRLF; the text and the exit codes were left as captured. CONTRACT.md was left as written before the code. The app and the predecessor reader stay unmodified. accepted is false. This builder does not commit. Custody stays",
+      "file_sha256": "3491050d882edde830d209018a793da9eef274a0262ccc9bc74e48477a309854",
+      "named_return_lines": [
+        "0125.app-dependencies"
+      ]
+    },
+    {
+      "page": "0702.desk-state-review",
+      "file": "06.01.review.md",
+      "line": 4,
+      "text": "Status: answered; implementation correction pending on 0508.return-capture/05.20.",
+      "file_sha256": "e5d7878cfde2c988f88fea1f3dfbe9970a8321890dd01b2c4be85a0206b6a361",
+      "named_return_lines": []
+    },
+    {
+      "page": "0704.desk-core-integration",
+      "file": "05.01.return.md",
+      "line": 24,
+      "text": "- **The loop:** Prime records a bounded N5NN pass. The Director's words release it. A worker claims, then returns. Compute seals the return on the matching N1NN line (one tail per pass) or the N7NN page-local tail. Prime retrieves by page and pass, supplies typed judgment, and compute renders the full review on the source batch. Records alone give the pending state and next action after restart.",
+      "file_sha256": "28017069bbdfca3e04b03b82950b3df390f36b2db1ccaef30a2d40dd922b66f5",
+      "named_return_lines": []
+    },
+    {
+      "page": "0704.desk-core-integration",
+      "file": "05.01.return.md",
+      "line": 63,
+      "text": "- Every pointer written since the placement correction (0521/05.02, 0522/05.02, 0523/05.01) says \"custody pending matching line\".",
+      "file_sha256": "28017069bbdfca3e04b03b82950b3df390f36b2db1ccaef30a2d40dd922b66f5",
+      "named_return_lines": []
+    },
+    {
+      "page": "0704.desk-core-integration",
+      "file": "05.02.return.md",
+      "line": 84,
+      "text": "\"placement\":{\"status\":\"pending\",\"intended_target_page\":\"0119.desk-app\",\"intended_return_path\":\"0119.desk-app/05.01.return.md\",\"relocation_record_path\":null,\"occupancy\":null}}",
+      "file_sha256": "8b933f456d01a2d94148c70b7f6954ae91999614ad858f6556168fa00bdee99b",
+      "named_return_lines": [
+        "0119.desk-app"
+      ]
+    },
+    {
+      "page": "0704.desk-core-integration",
+      "file": "05.02.return.md",
+      "line": 90,
+      "text": "- 0524.example/05.01 returns while 0124 is occupied. The writer seals into `0524.example/evidence/return-staging/05.01/s01/`, with `staging.json` status `placement-pending`, intended `0124.example/05.01.return.md`, and the receipt hash.",
+      "file_sha256": "8b933f456d01a2d94148c70b7f6954ae91999614ad858f6556168fa00bdee99b",
+      "named_return_lines": [
+        "0124.example"
+      ]
+    },
+    {
+      "page": "0704.desk-core-integration",
+      "file": "05.02.return.md",
+      "line": 145,
+      "text": "- **0522 lane** (owns review consumption): the cycle successor accepts a /2 descriptor with `placement.status pending`, computes binding/2 itself, and shows \"custody valid \u00b7 filing pending\". Checks:",
+      "file_sha256": "8b933f456d01a2d94148c70b7f6954ae91999614ad858f6556168fa00bdee99b",
+      "named_return_lines": []
+    },
+    {
+      "page": "0704.desk-core-integration",
+      "file": "06.01.notes.md",
+      "line": 64,
+      "text": "- **N08.** 0521, 0522 and 0523 pointers all say \"custody pending matching line\". Real returns made since the placement correction are page-local and unsealed until migration adoption.",
+      "file_sha256": "79d2d4ae60e30fc7e9eb9c5b034f0b822c8877285cad9e1dc57378faf9ab22d7",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 40,
+      "text": "- custody is pending on matching lines for all current returns;",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 70,
+      "text": "- 0521/05.03 and 0522/05.03 both carry full Prime reviews while their pointers say custody pending (snapshot 0012: \"Not filed\"; 0013: \"Custody: PENDING\").",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 100,
+      "text": "| C06 | missing receipt | real | custody unknown or pending, reason quoted | \"captured\" |",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 125,
+      "text": "**Batch:** 0521.return-placement/05.03. It is a completed workflow batch with a Prime review, a recorded return (submission and manifest hashes), pending custody, and a cross-page finding.",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 131,
+      "text": "- custody pending on 0121, not filed;",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 143,
+      "text": "- \"custody pending matching 0121\".",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "05.01.return.md",
+      "line": 175,
+      "text": "- The desk's hardest problem is not rendering. It is that the books currently hold three in-flight conventions: old sequential members, matching lines pending migration, and N7NN tails.",
+      "file_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "06.01.notes.md",
+      "line": 34,
+      "text": "| Custody | an N1NN line (pending migration), a legacy `01NN.slug` member, or page-local evidence | 0521/0522/0524 pointers all say custody pending |",
+      "file_sha256": "edb91a9425353496e6d823b979fc8706458d2e526275af3168ce03769b146721",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "06.01.notes.md",
+      "line": 48,
+      "text": "- **G4.** Reviewed is not the same as custody complete is not the same as accepted. On real pages a full Prime review coexists with \"custody pending\" (0521/05.03, 0522/05.03).",
+      "file_sha256": "edb91a9425353496e6d823b979fc8706458d2e526275af3168ce03769b146721",
+      "named_return_lines": []
+    },
+    {
+      "page": "0705.prime-desk-check",
+      "file": "06.01.review.md",
+      "line": 73,
+      "text": "0521/05.03 is a useful rehearsal: reviewed material with pending custody and a",
+      "file_sha256": "9bb73aec18d719730c7133942968c3d1af34ac684e2d25168625c7da8d253113",
+      "named_return_lines": []
+    },
+    {
+      "page": "0706.prima-loop",
+      "file": "05.01.return.md",
+      "line": 35,
+      "text": "#06 Placement pending. The route never ran, so origin vs intended route was not compared. reservation.json records origin 00.00.10.work / 0519.desk-app / 05.01. grep of 0119.app-entry-0503 for \"0519\" or \"0182\" finds nothing (Worker B; re-run by Prima, rc=1). So the 0519/05.01 -> 0119 relationship is not established from the published files. Evidence: E8, E10.",
+      "file_sha256": "9afae4c2f181e173d9a85f3e22bd7d21262de08b5d6b0040c06c9a7afc6fe399",
+      "named_return_lines": [
+        "0119.app-entry-0503"
+      ]
+    },
+    {
+      "page": "0707.app-use-check",
+      "file": "05.01.return.md",
+      "line": 32,
+      "text": "| A | describe \u2192 prepare \u2192 record \u2192 render \u2192 new-process read, on a SYNTHETIC PENDING page at the derived `0519.desk-app/05.01.md` | exit 0 throughout; `reviewed`/`rendered`; `accepted` false; custody and task association `not-established` | calls 01\u201305, `books/A.*`, `A-decision.json` |",
+      "file_sha256": "7c21d5810bc11f4a7d9ef2f910dcb1d35a26a9878c37bcdac9fa0143b9561705",
+      "named_return_lines": []
+    },
+    {
+      "page": "0707.app-use-check",
+      "file": "05.01.return.md",
+      "line": 70,
+      "text": "| 3 | Write the PENDING target | the page format (`## Return pointer`, `## Review - Codex Prime`, `PENDING.`) | none | \u2192 `0519.desk-app/05.01.md` | path: PILOT; format: **only pilot.py** | all |",
+      "file_sha256": "7c21d5810bc11f4a7d9ef2f910dcb1d35a26a9878c37bcdac9fa0143b9561705",
+      "named_return_lines": []
+    },
+    {
+      "page": "0709.return-migration-check",
+      "file": "05.01.pack.md",
+      "line": 14,
+      "text": "Separately list newer source-page submissions explicitly marked pending matching-line custody (including 0521/0522); link exact source/return evidence and leave unknown identities unresolved. These are not automatically included in the original 83-record migration or called already captured. We need to know both what can be relocated and what later needs its first proper filing.",
+      "file_sha256": "ec5bbfe35c282bef2466c8e4d44f2a4b3a9eb7adef027c9e03bf703191be42e6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0709.return-migration-check",
+      "file": "05.01.pack.md",
+      "line": 36,
+      "text": "Return Did, Blocked, Need; current routing map and counts, copy/rehearsal facts with full hashes, seam findings, pending-custody list, implementation-pack draft, cutover checklist, explicit Director decisions (only if real policy forks remain), raw commands/exits and limits. Include Factfind/Hostile/Overflow/Unprompted, verification and final artifact manifest excluding itself; reread and integrat",
+      "file_sha256": "ec5bbfe35c282bef2466c8e4d44f2a4b3a9eb7adef027c9e03bf703191be42e6",
+      "named_return_lines": []
+    },
+    {
+      "page": "0709.return-migration-check",
+      "file": "06.01.notes.md",
+      "line": 43,
+      "text": "2. **Pending custody** (`pass01/pending.py`): read only the page-level `*.md` files of the live book's `05NN` and `07NN` pages, not evidence trees. Collect lines that state a matching-line custody or return as pending, with their exact text and source hash. **Unknown identities stay unknown.**",
+      "file_sha256": "65cbeb3cf8fd6449496bcecd327015458f2796ffe8776c4c6c048c28ee8d6c29",
+      "named_return_lines": []
+    }
+  ]
+}

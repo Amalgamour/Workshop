@@ -1,0 +1,56 @@
+{
+  "candidate_path_read": false,
+  "existing_edits": "none",
+  "not_executed": [
+    "labs/review-loop-pass03 (not read)",
+    "loop pass02",
+    "cycle",
+    "constructors",
+    "app",
+    "v2 entry test"
+  ],
+  "pass": "05.04",
+  "python": "3.14.0",
+  "real_candidate_acceptance": "NOT RUN: candidate identity null; preflight UNREADY; zero launches",
+  "real_runs": {
+    "20261101T212604Z-16dab9": "UNREADY",
+    "20261101T212719Z-871e8d": "UNREADY"
+  },
+  "schema": "0707-lab-verification/1",
+  "selftest_runs": {
+    "20261101T212616Z-1072a9": {
+      "errors": 0,
+      "failures": 0,
+      "ok": true,
+      "tests": 13
+    },
+    "20261101T212645Z-9b40b7": {
+      "errors": 0,
+      "failures": 1,
+      "ok": false,
+      "tests": 14
+    },
+    "20261101T212702Z-36bb06": {
+      "errors": 0,
+      "failures": 0,
+      "ok": true,
+      "tests": 14
+    },
+    "20261101T212719Z-922e35": {
+      "errors": 0,
+      "failures": 0,
+      "ok": true,
+      "tests": 14
+    }
+  },
+  "sources_end": {
+    "count": 60,
+    "live_equal": 60,
+    "snapshot_ok": 60
+  },
+  "subprocesses": [
+    "STUB_loop.py (ok/fail/sleep/crash)",
+    "interpreter version probe",
+    "taskkill/tasklist on the launched stub pid"
+  ]
+}

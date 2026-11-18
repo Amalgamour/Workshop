@@ -1,0 +1,42 @@
+python: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+python -B
+PYTHONDONTWRITEBYTECODE=1
+head: 960d20c5290656095df8457b1740d2d5e586b111
+branch: workshop
+pass01 probe was not launched
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\tests\test_probe.py
+cwd: D:\Git\lib-build
+exit: 0
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id ok-1 --mode ok
+cwd: D:\Git\lib-build
+exit: 0
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id fail-1 --mode fail
+cwd: D:\Git\lib-build
+exit: 1
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id hold-killed --mode hold --hold-seconds 30
+cwd: D:\Git\lib-build
+exit: 1
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id occupied-seed --mode ok
+cwd: D:\Git\lib-build
+exit: 2
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id ok-2 --mode ok
+cwd: D:\Git\lib-build
+exit: 0
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id race-1 --mode ok
+cwd: D:\Git\lib-build
+exit: 0
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id race-1 --mode ok
+cwd: D:\Git\lib-build
+exit: 2
+
+command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B D:\Git\lib-build\colab\labs\0708.colab-capability\pass02\probe.py run --evidence-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\slots --scratch-root D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.02\scratch --run-id tool-preview --mode preview --request D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.01\fixtures\request.json --config D:\Git\lib-build\00.kernel\00.00.10.work\0708.colab-capability\evidence\build05.01\fixtures\config.json --producer D:\Git\lib-build\labs\colab-support-pass02\colab_support.py
+cwd: D:\Git\lib-build
+exit: 0

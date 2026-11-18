@@ -1,0 +1,69 @@
+{
+  "aggregate": "PASS",
+  "canonical_paths": {
+    "evidence_root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.10\\runs",
+    "fixture_root": "D:\\librarian\\temp\\review-loop-real-0508-fixtures\\20261101T223407Z-ab42c3",
+    "run_dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.10\\runs\\20261101T223407Z-ab42c3"
+  },
+  "cases": [
+    {
+      "call_anomalies": [],
+      "error": null,
+      "failed_checks": [],
+      "id": "A22a",
+      "status": "PASS",
+      "title": "absent before prepare: no template, truthful no-record guidance, no commitment"
+    },
+    {
+      "call_anomalies": [],
+      "error": null,
+      "failed_checks": [],
+      "id": "A22b",
+      "status": "PASS",
+      "title": "present at prepare, target removed before record: record refuses, decision unchanged"
+    }
+  ],
+  "code_sha256": {
+    "guards6.py": "46c3dd34a483a3d024a98b5ff0345a5e8249f8dd18f616f8fcec7ae14acf1d2b",
+    "harness6.py": "33868898bb3407353cb01568b934ce7082dca9206de590f70a392ac695205967"
+  },
+  "command": [
+    "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+    "run",
+    "--config",
+    "D:/Git/lib-build/00.kernel/00.00.10.work/0707.app-use-check/evidence/lab05.10/candidate.config.json",
+    "--matrix",
+    "real",
+    "--evidence",
+    "D:/Git/lib-build/00.kernel/00.00.10.work/0707.app-use-check/evidence/lab05.10/runs"
+  ],
+  "config_sha256": "9d68fc0c10c5d43481a89e7e2e1ab6ff35816d1cbfa29f46bf9875ff1be0ede0",
+  "exit": 0,
+  "kind": "candidate",
+  "launches": 7,
+  "loop_evidence": true,
+  "matrix": "real",
+  "matrix_provenance": {
+    "colab/labs/0707.app-use-check/pass04/cases.py": "e7b63dc79b29566850c6f4664af20b50aecd2035a41866fb2480d4095674fdf4",
+    "colab/labs/0707.app-use-check/pass04/fixtures.py": "698dbff979eb761f050a992d9525da03f2fafc4b7ca541e092f3f53ced44a08a",
+    "colab/labs/0707.app-use-check/pass07/cases7.py": "200a1d8698f05ef835a5597a22f0643a8e53bcff369137d7d78e571a30e3e6ef",
+    "colab/labs/0707.app-use-check/pass07/driver7.py": "8ffe377582d06c6e82478f73fafe1e3aec3862780dfae5ce744059fd65fe5898"
+  },
+  "preflight": {
+    "candidate": "pinned",
+    "output_root_canonical": "D:\\librarian\\temp\\review-loop-real-0508-fixtures",
+    "reasons": [],
+    "status": "READY"
+  },
+  "reused_pass05": {
+    "colab/labs/0707.app-use-check/pass05/stub_cases5.py": "8023452f91fd07e32b73ff05a2f3c22b2e89b37f93a926dfeddd754b567b1164",
+    "colab/labs/0707.app-use-check/pass05/stubs/STUB5.py": "57bcbdc6b12753d644d8b5ec11d3c29de6087c108a9c234e30cf6e984bbac332",
+    "colab/labs/0707.app-use-check/pass05/winjob.py": "c03d63a1c4d954dd537e91b65e52086a1b1ca34b7bbf868bc9de63ca0171f264"
+  },
+  "run": "20261101T223407Z-ab42c3",
+  "schema": "acceptance-run/2",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

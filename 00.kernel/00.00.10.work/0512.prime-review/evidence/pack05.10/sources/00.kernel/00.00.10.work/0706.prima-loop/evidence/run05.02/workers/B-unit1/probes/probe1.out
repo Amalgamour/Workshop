@@ -1,0 +1,312 @@
+## P1 baseline one row
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 10,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "content-sha256"
+ },
+ "count": 1,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P2 bytes missing (null) single row
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "reason": "rows of one addressed source do not agree on one int byte size",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 10,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "reason": "rows of one content hash do not agree on one int byte size",
+  "scope": "content-sha256"
+ },
+ "count": 1,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P3 non-dict row mixed in
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 10,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "content-sha256"
+ },
+ "count": 1,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P4 empty rows, measurement complete
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": 0,
+  "bytes_state": "measured",
+  "count": 0,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 0,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": 0,
+  "bytes_state": "measured",
+  "count": 0,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "content-sha256"
+ },
+ "count": 0,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": 0,
+  "bytes_state": "measured",
+  "count": 0
+ },
+ "provenance": "declared",
+ "rows_kept": 0,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P5 negative bytes
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": -10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": -10,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": -10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "content-sha256"
+ },
+ "count": 1,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": -10,
+  "bytes_state": "measured",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P6 uppercase sha
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 10,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": null,
+  "count_state": "unknown",
+  "provenance": "current-measured",
+  "reason": "a row lacks a 64-character lowercase sha256, so the content-blob total is not completed from the other rows",
+  "scope": "content-sha256"
+ },
+ "count": 1,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P7 same path, two roots differing only in slash
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": 20,
+  "bytes_state": "measured",
+  "count": 2,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 20,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "content-sha256"
+ },
+ "count": 2,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": 20,
+  "bytes_state": "measured",
+  "count": 2
+ },
+ "provenance": "declared",
+ "rows_kept": 2,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P8 bool bytes
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "reason": "rows of one addressed source do not agree on one int byte size",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": null,
+ "bytes_state": "unknown",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "reason": "rows of one content hash do not agree on one int byte size",
+  "scope": "content-sha256"
+ },
+ "count": null,
+ "count_state": "unknown",
+ "intake_roles": {
+  "bytes": null,
+  "bytes_state": "unknown",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P9 declared counts from intake rows only (no artifact role)
+{
+ "addressed": {
+  "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "addressed-source-paths"
+ },
+ "bytes": 0,
+ "bytes_state": "declared",
+ "content": {
+  "assumption": "a 64-character lowercase sha256 proves content equality only",
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1,
+  "count_state": "measured",
+  "provenance": "current-measured",
+  "scope": "content-sha256"
+ },
+ "count": 0,
+ "count_state": "declared",
+ "intake_roles": {
+  "bytes": 10,
+  "bytes_state": "measured",
+  "count": 1
+ },
+ "provenance": "declared",
+ "rows_kept": 1,
+ "scope": "manifest-declared-artifact-entries"
+}
+## P10 measurement not str (True)
+None unknown measurement is not complete, so addressed-source identity is not established
+## P11 same(): NaN
+False
+## P12 apply_envelope copies arbitrary types
+True {"accepted": "yes", "action_released": {"x": 1}, "approved": null, "authority": "Director", "closes_work": null, "releases_action": {"x": 1}, "task_association": null} word: Director {'x': 1}
+## hashes {
+ "/workspace/prima/run0502/source-room/labs/review-report-pass03/report.py": "70028dfe97bc6178a3497c814cf585476bb0b41650ce67fc79dd3d5b118dfade",
+ "/workspace/prima/run0502/source-room/labs/review-report-pass02/report.py": "d13d8d4f54d79cbdb22e1a40fdffb89bd26b85a611bf8620dc36854be9eb852e"
+}

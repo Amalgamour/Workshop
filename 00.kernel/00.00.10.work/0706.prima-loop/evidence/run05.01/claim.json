@@ -1,0 +1,69 @@
+{
+ "schema": "prima-claim/1",
+ "id": "prima-0706-0501",
+ "job_key": {
+  "id": "prima-0706-0501",
+  "pack_sha256": "b2bc7ea8e1a2680381465b27ca4381c9058f2e8cceba6eec6a1b74a41c7d0eae"
+ },
+ "pack": "00.kernel/00.00.10.work/0706.prima-loop/05.01.pack.md",
+ "pack_sha256": "b2bc7ea8e1a2680381465b27ca4381c9058f2e8cceba6eec6a1b74a41c7d0eae",
+ "source_manifest": "00.kernel/00.00.10.work/0706.prima-loop/evidence/pack05.01/source-manifest.json",
+ "source_manifest_sha256": "be056ec8400d56c049d42417d23db387e88a79eba47adecbb8849f49d7c7dd96",
+ "input_commit": "39d86e871c86484669cafecd7d2e1a8d86e15e34",
+ "input_branch": "prima/assignments",
+ "input_branch_head_at_claim": "39d86e871c86484669cafecd7d2e1a8d86e15e34",
+ "output_branch": "prima/returns",
+ "output_branch_head_before_claim": "39d86e871c86484669cafecd7d2e1a8d86e15e34",
+ "started_at": "2026-11-01T12:21:53-06:00",
+ "role": "Prima",
+ "state": "claimed",
+ "input_verification": {
+  "queue_hashes": "2/2 matched",
+  "manifest_files": "33/33 matched (sha256+bytes)",
+  "verify_inputs_first_attempt": "`python -B prima/verify_inputs.py` -> exit 127, bash: python: command not found",
+  "verify_inputs_second_attempt": "`/usr/bin/python3 -B prima/verify_inputs.py` -> exit 0, status matched, checked_files 33, authorizes_execution false"
+ },
+ "environment": {
+  "os": "Debian GNU/Linux 13 (trixie), Linux 6.12.94+ x86_64",
+  "python": "3.13.5 at /usr/bin/python3; no `python` on PATH",
+  "shell": "bash 5.2.37",
+  "git": "2.47.3; no credentials on box; box cannot clone/push",
+  "gh": "2.103.0, not logged in",
+  "repo_access": "cursor-github API as the Director's GitHub account (read)",
+  "timezone": "America/Chicago (-06:00)",
+  "source_checkout": "API reconstruction at /workspace/prima/run05.01/source (no .git), blob SHA-1 verified, read-only",
+  "model": "unknown"
+ },
+ "capabilities": {
+  "bot_delegation": "can create/message Grok worker bots on this account; shared computer",
+  "scheduling": "routine prima-assignment-check enabled, CRON_TZ=America/Chicago 0 */2 * * *, next 2026-11-01T13:52:00-06:00 (configured, not yet observed firing)",
+  "git_publication": "via Cursor cloud agent to prima/returns explicit paths only"
+ },
+ "worker_plan": {
+  "max_workers": 2,
+  "workers": [
+   {
+    "name": "Prima Worker A",
+    "kind": "new Grok worker bot on this account",
+    "task": "portable custody read: python -B labs/return-capture-pass01/return_inspect.py inspect --book ABS_BOOK --member 0182.desk-app-integration-design-0501 --json",
+    "scratch_dir": "/workspace/prima/run05.01/workerA"
+   },
+   {
+    "name": "Prima Worker B",
+    "kind": "new Grok worker bot on this account",
+    "task": "app route and relocation: python -B app/librarian.py review-loop describe-legacy --book ABS_BOOK --member 0182.desk-app-integration-design-0501",
+    "scratch_dir": "/workspace/prima/run05.01/workerB"
+   }
+  ],
+  "abs_book": "/workspace/prima/run05.01/source/00.kernel/00.00.10.work",
+  "shared_read_only_source": "/workspace/prima/run05.01/source",
+  "git_publisher": "Prima only; workers do not touch Git",
+  "launch_condition": "after this claim is committed on prima/returns"
+ },
+ "publisher_identity": "Prima via a Cursor cloud agent acting with the Director's GitHub connection; exact committer identity to be recorded from the claim commit",
+ "allowed_write_paths": [
+  "00.kernel/00.00.10.work/0706.prima-loop/05.01.return.md",
+  "00.kernel/00.00.10.work/0706.prima-loop/06.01.notes.md",
+  "00.kernel/00.00.10.work/0706.prima-loop/evidence/run05.01/**"
+ ]
+}

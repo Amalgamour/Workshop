@@ -1,0 +1,36 @@
+PASS L1     pair seats; no collision; completed restart re-verifies                -> ok/ok
+PASS L2     content changed after signing: approval refused                        -> refused/draft-bytes-equal-signed
+PASS L2b    content changed after approval: half-seated, held                      -> held/half-seated
+PASS L3     missing approval: held, nothing written                                -> held/approval-missing no-write
+PASS L5     second seat changed after approval: half-seated                        -> held/half-seated
+PASS L7     seat before sign/approve: held                                         -> held/approval-missing
+PASS L7b    sign before stage: refused                                             -> refused/staged
+PASS L8     approval names the pre-sign bytes: refused                             -> refused/approval-names-signed-sha
+PASS L9     lock or promote requested                                              -> refused/not-in-template
+PASS L10    flat warehouse: collision; half-seated                                 -> held/half-seated
+PASS PP1    Prime L-P1: completed restart after changed seated bytes               -> held/completed-drift no-write
+PASS PP2    Prime L-P2: rollback after changed seated bytes                        -> held/rollback-current-changed no-write
+PASS W1     stop at J1 after; restart completes to the same bytes; ledger planned+ -> ok/ok
+PASS W2     stop at J2 after; restart completes to the same bytes; ledger planned+ -> ok/ok
+PASS W3     stop at J3 action; restart completes to the same bytes; ledger planned -> ok/ok
+PASS W4     stop at J4 mid; restart completes to the same bytes; ledger planned+re -> ok/ok
+PASS W5     stop at J4 action; restart completes to the same bytes; ledger planned -> ok/ok
+PASS W6     stop at J5 action; restart completes to the same bytes; ledger planned -> ok/ok
+PASS W7     stop at J6 mid; restart completes to the same bytes; ledger planned+re -> ok/ok
+PASS W8     stop at J6 action; restart completes to the same bytes; ledger planned -> ok/ok
+PASS LG1    stop after J2: ledger says planned, never retired                      -> ok/ok
+PASS M1     malformed journal entry: held, no write                                -> held/journal-malformed no-write
+PASS M2     draft removed during interruption: unknown state held                  -> held/restart-state-unknown no-write
+PASS RB0    rollback with a bound decision restores both versions                  -> ok/ok
+PASS RB1    retired file changed: held, no write                                   -> held/rollback-retired-changed no-write
+PASS RB2    before-image missing: held, no write                                   -> held/before-image-missing no-write
+PASS RB3    no rollback decision: held, no write                                   -> held/rollback-decision-missing no-write
+PASS RB4    decision names other identities: held, no write                        -> held/rollback-decision-mismatch no-write
+PASS RB5    draft name occupied by new work: held, no write                        -> held/destination-occupied no-write
+PASS RW1    rollback stopped at R1 after; restart restores both versions           -> ok/ok
+PASS RW2    rollback stopped at R2 action; restart restores both versions          -> ok/ok
+PASS RW3    rollback stopped at R3 action; restart restores both versions          -> ok/ok
+PASS RW4    rollback stopped at R4 action; restart restores both versions          -> ok/ok
+PASS RW5    rollback stopped at R5 action; restart restores both versions          -> ok/ok
+PASS RW6    rollback interrupted, then the moved file changed: held, no write      -> held/rollback-state-unknown no-write
+cases 35 mismatches 0 first failure None

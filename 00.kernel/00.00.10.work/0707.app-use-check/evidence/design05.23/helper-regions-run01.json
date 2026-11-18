@@ -1,0 +1,106 @@
+{
+ "schema": "helper-regions/1",
+ "label": "HELPER EVIDENCE ONLY; not end-to-end; not an exploit",
+ "source": "labs/n7-local-lifecycle-pass01/workbook.py",
+ "source_sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a",
+ "cases": {
+  "R0": {
+   "applies": true,
+   "required_end_to_end": "current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": true
+  },
+  "R1": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": false,
+   "helper_agrees_with_requirement": true
+  },
+  "R2": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": false,
+   "helper_agrees_with_requirement": true
+  },
+  "R3": {
+   "applies": false,
+   "why": "return/artifact changes are row changes, not pack-region changes"
+  },
+  "R4": {
+   "applies": false,
+   "why": "return/artifact changes are row changes, not pack-region changes"
+  },
+  "F1": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "F1b": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "F2": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "F3": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "F4": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": false,
+   "helper_agrees_with_requirement": true
+  },
+  "F5": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "F6": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": false,
+   "helper_agrees_with_requirement": true
+  },
+  "F7a": {
+   "applies": true,
+   "required_end_to_end": "current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": true
+  },
+  "F7b": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": false,
+   "helper_agrees_with_requirement": true
+  },
+  "E1": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "E2": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": true,
+   "helper_agrees_with_requirement": false
+  },
+  "E3": {
+   "applies": true,
+   "required_end_to_end": "not-current",
+   "helper_exempts_edit": false,
+   "helper_agrees_with_requirement": true
+  }
+ }
+}

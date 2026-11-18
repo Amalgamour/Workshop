@@ -1,0 +1,247 @@
+{
+  "aggregate": "REFUSED",
+  "canonical_paths": {
+    "evidence_root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.06\\prime-independent-selftest\\runs",
+    "fixture_root": null,
+    "run_dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.06\\prime-independent-selftest\\runs\\20261101T220023Z-c85f28"
+  },
+  "cases": [
+    {
+      "id": "A01",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "pending: full path, supplied state shown, no approval implied"
+    },
+    {
+      "id": "A02",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "supplied-state tamper refused before writes"
+    },
+    {
+      "id": "A03",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope task_id changed: binding recomputed before apply"
+    },
+    {
+      "id": "A04",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope agreement changed"
+    },
+    {
+      "id": "A05",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope evidence label changed"
+    },
+    {
+      "id": "A06",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 envelope receipt changed"
+    },
+    {
+      "id": "A07",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "R01 source change after record"
+    },
+    {
+      "id": "A08",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "record.json bytes replaced"
+    },
+    {
+      "id": "A09",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "envelope review_identity changed"
+    },
+    {
+      "id": "A10",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "CRLF target preserved"
+    },
+    {
+      "id": "A11",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "B8 substantive target: judgment retained, render blocked"
+    },
+    {
+      "id": "A12",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "target changed after record"
+    },
+    {
+      "id": "A13",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "target changed between prepare and record"
+    },
+    {
+      "id": "A14a",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect pending"
+    },
+    {
+      "id": "A14b",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect substantive"
+    },
+    {
+      "id": "A14c",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect CRLF"
+    },
+    {
+      "id": "A14d",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect no heading"
+    },
+    {
+      "id": "A14e",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect duplicate heading"
+    },
+    {
+      "id": "A14f",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "inspect absent"
+    },
+    {
+      "id": "A15",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "interrupted render then recover"
+    },
+    {
+      "id": "A16",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "idempotent replay re-verifies"
+    },
+    {
+      "id": "A17",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "rendered marker missing: recover refuses"
+    },
+    {
+      "id": "A18a",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "missing record.json"
+    },
+    {
+      "id": "A18b",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "missing COMMITTED.json"
+    },
+    {
+      "id": "A18c",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "missing envelope.json"
+    },
+    {
+      "id": "A18d",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "malformed record.json"
+    },
+    {
+      "id": "A19",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "supplied next action is not mechanical permission"
+    },
+    {
+      "id": "A20",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "genuine /1 record renders as legacy"
+    },
+    {
+      "id": "A21",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "new /2 record downgraded to /1 is refused"
+    },
+    {
+      "id": "A22",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "absent target: not recorded, decision kept, no false claim"
+    },
+    {
+      "id": "A23",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "no-record read makes no commitment claim"
+    },
+    {
+      "id": "A24",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "pin refusal on wrong construct bytes"
+    },
+    {
+      "id": "A26",
+      "reason": "preflight REFUSED",
+      "status": "NOT RUN",
+      "title": "authority flags false on every result"
+    }
+  ],
+  "code_sha256": {
+    "guards.py": "8c2ee220793cdb681342457b5b52f8dea7a40af1b480af1e1bd252da1883fc65",
+    "harness5.py": "1dcd35f60fafd3f589b7e9f71b5478bc64abd762bc81b46a9dd32d0030498bcc",
+    "stub_cases5.py": "8023452f91fd07e32b73ff05a2f3c22b2e89b37f93a926dfeddd754b567b1164",
+    "stubs/STUB5.py": "57bcbdc6b12753d644d8b5ec11d3c29de6087c108a9c234e30cf6e984bbac332",
+    "winjob.py": "c03d63a1c4d954dd537e91b65e52086a1b1ca34b7bbf868bc9de63ca0171f264"
+  },
+  "command": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py",
+    "run",
+    "--config",
+    "D:\\librarian\\temp\\harness-pass05-review-nov01\\scratch\\configs\\bytes-notjson.json",
+    "--matrix",
+    "real",
+    "--evidence",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.06\\prime-independent-selftest\\runs"
+  ],
+  "config_sha256": "92072df399cb74703f8e86f450d552bc0bb01eeeb98a90985a1b7772c8fd0016",
+  "exit": 2,
+  "kind": null,
+  "launches": 0,
+  "loop_evidence": false,
+  "matrix": "real",
+  "matrix_provenance": {
+    "colab/labs/0707.app-use-check/pass04/cases.py": "e7b63dc79b29566850c6f4664af20b50aecd2035a41866fb2480d4095674fdf4",
+    "colab/labs/0707.app-use-check/pass04/fixtures.py": "698dbff979eb761f050a992d9525da03f2fafc4b7ca541e092f3f53ced44a08a"
+  },
+  "preflight": {
+    "reasons": [
+      "config-json: config is not JSON: Expecting property name enclosed in double quotes at 1"
+    ],
+    "status": "REFUSED"
+  },
+  "run": "20261101T220023Z-c85f28",
+  "schema": "acceptance-run/2",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

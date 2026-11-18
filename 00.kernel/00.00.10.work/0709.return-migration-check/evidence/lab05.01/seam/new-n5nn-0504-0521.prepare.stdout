@@ -1,0 +1,380 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+  "current": {
+    "current": false,
+    "director_replies": [],
+    "interpretation": null,
+    "latest_review": null,
+    "next_action": null,
+    "next_action_label": "supplied",
+    "pass_state": "awaiting-review",
+    "questions": [],
+    "render_state": "not-applicable",
+    "task_binding_sha256": "867f4756fb47da85dcfbdd9212db32b77cf789574d705fc9d832300cda0f2afc",
+    "write_token": {
+      "bytes": 136,
+      "path": "0504.app-entry/05.21.md",
+      "schema": "review-write-token/1",
+      "sha256": "d4601d36cc4bad13f174ef0c6f32bf1830333b7af76b1eec5cc42e70e7508a9c"
+    }
+  },
+  "custody": "not-established",
+  "exit_code": 0,
+  "full_success": false,
+  "historical": null,
+  "mechanical": {
+    "blocker": null,
+    "route": "record",
+    "state": "awaiting-review",
+    "target": "pending",
+    "text": "Supply the typed judgment, then record."
+  },
+  "next": "Supply the typed judgment, then record.",
+  "observation": {
+    "custody_member": "0104.app-entry",
+    "custody_verified": true,
+    "descriptor_state": "complete",
+    "filing_claimed": false,
+    "measured": {
+      "custody_present": true,
+      "manifest_bytes": 637,
+      "manifest_sha256": "eb8e8d52f5b951a993c95fe223044af09a882231fca1398e0c25766911ad93b6",
+      "receipt_bytes": 512,
+      "receipt_sha256": "22a5a53e41f8531f382793b24f458516adcc7b56323aad787003d37dfb5fb89b",
+      "return_bytes": 17,
+      "return_sha256": "29df9da8c83f5bea094da9ffec97d66d9a002142ff02a96bc35ef43701a83b88",
+      "verification_present": true
+    },
+    "member": "0104.app-entry",
+    "placement_status": "final",
+    "reason": null,
+    "state": "complete",
+    "task_association": "not-established",
+    "task_association_reason": "custody records do not name the review task",
+    "validator": {
+      "check": "return-line-capture/1 receipt",
+      "exit": 0,
+      "problems": [],
+      "state": "complete",
+      "tool": "labs/return-lines-pass01/return_lines.py"
+    }
+  },
+  "pass_state": "awaiting-review",
+  "pins": {
+    "construct": {
+      "bytes": 42582,
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "prime_cycle_pass03": {
+      "bytes": 76045,
+      "path": "labs/prime-cycle-pass03/prime_cycle.py",
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_lines": {
+      "bytes": 100897,
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    },
+    "return_placement": {
+      "bytes": 66097,
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+    },
+    "review_loop": {
+      "bytes": 55474,
+      "path": "labs/review-loop-pass03/review_loop.py",
+      "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+    }
+  },
+  "releases_action": false,
+  "request_sha256": "6eabb6af1a15f093c2a215ab4e00d572186381b3b2b4d84797a3aec57e9d741a",
+  "schema": "review-loop-result/2",
+  "supplied_judgment": null,
+  "supplied_next_action": null,
+  "target": {
+    "binding_sha256": null,
+    "rule": null,
+    "schema": "review-target-inspection/1",
+    "section_sha256": "bbf7cb3eb4d88b94d1c75fa9ce0990d2242c89ebaa0c1d068a864309cdaae5a7",
+    "state": "pending",
+    "target_bytes": 136,
+    "target_sha256": "d4601d36cc4bad13f174ef0c6f32bf1830333b7af76b1eec5cc42e70e7508a9c"
+  },
+  "view": {
+    "allocated": false,
+    "attention": [
+      "task association is not established by the custody records",
+      "awaiting-review: a described return has no recorded review"
+    ],
+    "authenticates_actor": false,
+    "authority": "none",
+    "binding": {
+      "agreement_sha256": "a8c5218ec56b6f5dcf83c81fb5b94766bad5c71552e276c6b99934400a4ab980",
+      "direction": {
+        "agreement_sha256": "a8c5218ec56b6f5dcf83c81fb5b94766bad5c71552e276c6b99934400a4ab980",
+        "book": "00.00.10.work",
+        "fields": {
+          "director_required": "da55ac161ede2ba0f46ea3df94fecef3f2a1e4213184a309710ae8dbb83170c2",
+          "finish_criteria": "058b5c28653243230dbeb04210b8e9b0f8e67f548657f402924332d2b2e92ae0",
+          "goal": "405dd916e2a172fc2fff557d2dee307645189c0652464367c95a38588b1955b2",
+          "prime_discretion": "7ccd04a5ac265c78ef3cd8305d29b83100f698f1dcf8841e9b7016e64fe64f5f",
+          "recorded_decisions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "e88021beac656856515fb9ec9ee2165756a7a9476a3fad512c594a753cfccab1"
+        },
+        "review_location": "cycle",
+        "schema": "prime-cycle-direction/1"
+      },
+      "expected_prior": null,
+      "fingerprint": "bc2598dbf81765ef00fc9b191906054be1837d3b816bea560bf962eac5716308",
+      "goal": {
+        "goal_id": "g-seam-0709-new-n5nn-0504-0521",
+        "goal_sha256": "02c07c95226c3cb85e2a25828964b515f6f0f155e7105b63f3ed9df4854e7c0f"
+      },
+      "manifest_sha256": "eb8e8d52f5b951a993c95fe223044af09a882231fca1398e0c25766911ad93b6",
+      "member": "0104.app-entry",
+      "origin": {
+        "batch": "05.21",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "page": "0504.app-entry",
+      "pass": "05.21",
+      "receipt_sha256": "22a5a53e41f8531f382793b24f458516adcc7b56323aad787003d37dfb5fb89b",
+      "return_sha256": "29df9da8c83f5bea094da9ffec97d66d9a002142ff02a96bc35ef43701a83b88",
+      "schema": "prime-cycle-binding/3",
+      "source": {
+        "book": "00.00.10.work",
+        "page": "0504.app-entry",
+        "pass": "05.21"
+      },
+      "submission_id": "grok-1-0521-0503-synthetic",
+      "task_binding_sha256": "867f4756fb47da85dcfbdd9212db32b77cf789574d705fc9d832300cda0f2afc",
+      "work_id": "seam-0709-new-n5nn-0504-0521",
+      "write_token": {
+        "bytes": 136,
+        "path": "0504.app-entry/05.21.md",
+        "schema": "review-write-token/1",
+        "sha256": "d4601d36cc4bad13f174ef0c6f32bf1830333b7af76b1eec5cc42e70e7508a9c"
+      }
+    },
+    "closes_work": false,
+    "current": false,
+    "custody": "not-established",
+    "director_replies": [],
+    "historical": null,
+    "interpretation": null,
+    "latest_review": null,
+    "member": "0104.app-entry",
+    "next_action": null,
+    "observation": {
+      "custody_member": "0104.app-entry",
+      "custody_verified": true,
+      "descriptor_state": "complete",
+      "filing_claimed": false,
+      "measured": {
+        "custody_present": true,
+        "manifest_bytes": 637,
+        "manifest_sha256": "eb8e8d52f5b951a993c95fe223044af09a882231fca1398e0c25766911ad93b6",
+        "receipt_bytes": 512,
+        "receipt_sha256": "22a5a53e41f8531f382793b24f458516adcc7b56323aad787003d37dfb5fb89b",
+        "return_bytes": 17,
+        "return_sha256": "29df9da8c83f5bea094da9ffec97d66d9a002142ff02a96bc35ef43701a83b88",
+        "verification_present": true
+      },
+      "member": "0104.app-entry",
+      "placement_status": "final",
+      "reason": null,
+      "state": "complete",
+      "task_association": "not-established",
+      "task_association_reason": "custody records do not name the review task",
+      "validator": {
+        "check": "return-line-capture/1 receipt",
+        "exit": 0,
+        "problems": [],
+        "state": "complete",
+        "tool": "labs/return-lines-pass01/return_lines.py"
+      }
+    },
+    "page": "0504.app-entry",
+    "pass": "05.21",
+    "pass_state": "awaiting-review",
+    "pins": {
+      "construct": {
+        "bytes": 36188,
+        "path": "labs/review-construction-pass02/construct.py",
+        "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+      },
+      "prime_cycle_pass03": {
+        "bytes": 76045,
+        "path": "labs/prime-cycle-pass03/prime_cycle.py",
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      "prime_review_pass01": {
+        "bytes": 58324,
+        "path": "labs/prime-review-pass01/prime_review.py",
+        "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+      },
+      "prime_review_pass02": {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      },
+      "return_inspect": {
+        "bytes": 11402,
+        "path": "labs/return-capture-pass01/return_inspect.py",
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+      },
+      "return_lines": {
+        "bytes": 100897,
+        "path": "labs/return-lines-pass01/return_lines.py",
+        "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+      },
+      "return_placement": {
+        "bytes": 66097,
+        "path": "labs/return-placement-pass01/return_placement.py",
+        "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+      }
+    },
+    "questions": [],
+    "releases_action": false,
+    "render_state": "not-applicable",
+    "schema": "prime-cycle-view/4",
+    "task_binding_sha256": "867f4756fb47da85dcfbdd9212db32b77cf789574d705fc9d832300cda0f2afc",
+    "template": {
+      "attribution": {
+        "actor_label": null,
+        "evidence": null,
+        "role": "prime"
+      },
+      "binding": {
+        "agreement_sha256": "a8c5218ec56b6f5dcf83c81fb5b94766bad5c71552e276c6b99934400a4ab980",
+        "direction": {
+          "agreement_sha256": "a8c5218ec56b6f5dcf83c81fb5b94766bad5c71552e276c6b99934400a4ab980",
+          "book": "00.00.10.work",
+          "fields": {
+            "director_required": "da55ac161ede2ba0f46ea3df94fecef3f2a1e4213184a309710ae8dbb83170c2",
+            "finish_criteria": "058b5c28653243230dbeb04210b8e9b0f8e67f548657f402924332d2b2e92ae0",
+            "goal": "405dd916e2a172fc2fff557d2dee307645189c0652464367c95a38588b1955b2",
+            "prime_discretion": "7ccd04a5ac265c78ef3cd8305d29b83100f698f1dcf8841e9b7016e64fe64f5f",
+            "recorded_decisions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "scope": "e88021beac656856515fb9ec9ee2165756a7a9476a3fad512c594a753cfccab1"
+          },
+          "review_location": "cycle",
+          "schema": "prime-cycle-direction/1"
+        },
+        "expected_prior": null,
+        "fingerprint": "bc2598dbf81765ef00fc9b191906054be1837d3b816bea560bf962eac5716308",
+        "goal": {
+          "goal_id": "g-seam-0709-new-n5nn-0504-0521",
+          "goal_sha256": "02c07c95226c3cb85e2a25828964b515f6f0f155e7105b63f3ed9df4854e7c0f"
+        },
+        "manifest_sha256": "eb8e8d52f5b951a993c95fe223044af09a882231fca1398e0c25766911ad93b6",
+        "member": "0104.app-entry",
+        "origin": {
+          "batch": "05.21",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        },
+        "page": "0504.app-entry",
+        "pass": "05.21",
+        "receipt_sha256": "22a5a53e41f8531f382793b24f458516adcc7b56323aad787003d37dfb5fb89b",
+        "return_sha256": "29df9da8c83f5bea094da9ffec97d66d9a002142ff02a96bc35ef43701a83b88",
+        "schema": "prime-cycle-binding/3",
+        "source": {
+          "book": "00.00.10.work",
+          "page": "0504.app-entry",
+          "pass": "05.21"
+        },
+        "submission_id": "grok-1-0521-0503-synthetic",
+        "task_binding_sha256": "867f4756fb47da85dcfbdd9212db32b77cf789574d705fc9d832300cda0f2afc",
+        "work_id": "seam-0709-new-n5nn-0504-0521",
+        "write_token": {
+          "bytes": 136,
+          "path": "0504.app-entry/05.21.md",
+          "schema": "review-write-token/1",
+          "sha256": "d4601d36cc4bad13f174ef0c6f32bf1830333b7af76b1eec5cc42e70e7508a9c"
+        }
+      },
+      "judgment": {
+        "answers": [],
+        "design_fork": null,
+        "disposition": null,
+        "finding": null,
+        "goal": {
+          "evidence": [],
+          "goal_id": "g-seam-0709-new-n5nn-0504-0521",
+          "goal_sha256": "02c07c95226c3cb85e2a25828964b515f6f0f155e7105b63f3ed9df4854e7c0f",
+          "terminal": null
+        },
+        "holds": [],
+        "next_action": null,
+        "outcome": null,
+        "pass_terminal": null,
+        "reasons": [],
+        "sections": {
+          "affected": null,
+          "assumptions": null,
+          "consequences": null,
+          "exploration": null,
+          "findings_account": null,
+          "finish_assessments": null,
+          "for_model": null,
+          "issue": null,
+          "learning": null,
+          "limits": null,
+          "next_bounded_action": null,
+          "open_questions": null,
+          "options": null,
+          "outcome_evidence": null,
+          "preservation": null,
+          "prime_finding": null,
+          "proposed_plan": null,
+          "question": null,
+          "recommendation": null,
+          "remaining_choices": null,
+          "return_result": null,
+          "tests_note": null,
+          "tests_passed": null,
+          "within_direction": null
+        },
+        "semantic_conflict": null,
+        "source_refs": [],
+        "unresolved": []
+      },
+      "recovers": null,
+      "review_id": "05.21-r1",
+      "schema": "prime-cycle-decision/3",
+      "supersedes": null,
+      "supplied_record": null
+    },
+    "work_id": "seam-0709-new-n5nn-0504-0521",
+    "write_token": {
+      "bytes": 136,
+      "path": "0504.app-entry/05.21.md",
+      "schema": "review-write-token/1",
+      "sha256": "d4601d36cc4bad13f174ef0c6f32bf1830333b7af76b1eec5cc42e70e7508a9c"
+    }
+  }
+}

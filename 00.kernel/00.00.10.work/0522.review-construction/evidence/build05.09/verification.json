@@ -1,0 +1,93 @@
+{
+  "schema": "review-loop-app-entry-verification/1",
+  "pass": "0522.review-construction/05.09",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "custody": "pending",
+  "matching_line": "0122.review-construction",
+  "receipt": null,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "index": "empty",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "pack_inputs_before_edit": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/pack05.09/source-manifest.json",
+    "sha256": "441a6e49fe683f10c6c064f905f05a6f24d033718125cc207a54620740b5a127",
+    "bytes": 51946,
+    "files": 136,
+    "bad": 0,
+    "missing": 0,
+    "live_bytes": 1893984
+  },
+  "pack_inputs_after_edit": {
+    "files": 136,
+    "bad": 2,
+    "missing": 0,
+    "repinned": false,
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "note": "The snapshot remains the before-edit freeze. Those two live files differ because this slice edited them. No other frozen row drifted."
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.09/CONTRACT.md",
+    "sha256": "b77507e66d3c35ccd3ccc9b6c265c7407f2f746f79eaa9c4b93d4af1daf85f19",
+    "bytes": 7137,
+    "revised_after_commands": false
+  },
+  "loop_unchanged": {
+    "path": "labs/review-loop-pass03/review_loop.py",
+    "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "bytes": 55474
+  },
+  "construct_pass04_unchanged": {
+    "path": "labs/review-construction-pass04/construct.py",
+    "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "bytes": 42582
+  },
+  "construct_pass02_unchanged": {
+    "path": "labs/review-construction-pass02/construct.py",
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "bytes": 36188
+  },
+  "workflow_pass04_not_selected": {
+    "path": "labs/colab-workflow-pass04/colab_workflow.py",
+    "sha256": "8ec953c503edbb9a890216b3cdb6630062967c7c4113fbd9b9304ace83bc9d7d",
+    "bytes": 74884
+  },
+  "cited_run": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.09/runs/20261101T225355Z-b3e958a5",
+    "command": "python -B app/tests/test_review_loop_entry_v3.py",
+    "tests": 13,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "seconds": 26.747,
+    "exit": 0,
+    "calls": 60,
+    "exit_0": 42,
+    "exit_1": 6,
+    "exit_2": 12
+  },
+  "preserved_run": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.09/runs/20261101T225253Z-26a12bed",
+    "tests": 13,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "seconds": 26.533,
+    "exit": 0,
+    "note": "Passed. The test process emitted a SyntaxWarning for a bytes literal. That literal was then written as an explicit encode. This run is not the cited log."
+  },
+  "skip": {
+    "test": "test_linked_declaration_is_not_followed",
+    "reason": "WinError 1314",
+    "protection_claimed": false
+  },
+  "a24": "MANUAL",
+  "draft_unchanged_sha256": "fda6a613b3f5d33a6f2f5ed83800b984d0954bb312e7c3f251d9abcf6c102846"
+}

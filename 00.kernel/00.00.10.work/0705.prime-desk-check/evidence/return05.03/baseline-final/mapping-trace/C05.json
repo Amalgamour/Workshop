@@ -1,0 +1,62 @@
+{
+ "case": "C05",
+ "adapter": "0705-pass03-adapter/1",
+ "view_stdout_sha256": "e63ca3ddf0b0c609675b4fcc897b840b5e5cbed941b4d7d643b6b5a0ec6b7fbc",
+ "trace": [
+  {
+   "field": "instance.selected",
+   "raw": "/instance/root",
+   "transform": "root path -> fixture instance label by exact path equality"
+  },
+  {
+   "field": "selected",
+   "raw": "/selected",
+   "transform": "explicit null selection -> work_ref null, basis unknown (declared)"
+  },
+  {
+   "field": "attention.items[0]",
+   "raw": "/gaps/0",
+   "transform": "gap kind missing -> missing-evidence; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[1]",
+   "raw": "/gaps/1",
+   "transform": "gap kind selector -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[2]",
+   "raw": "/gaps/2",
+   "transform": "gap kind checkpoint -> coverage-gap; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[3]",
+   "raw": "/gaps/3",
+   "transform": "gap kind verification -> coverage-gap; ref via request path->address join"
+  },
+  {
+   "field": "attention.total/shown",
+   "raw": "/attention + /gaps",
+   "transform": "count of mapped items; the candidate shows every declared item (no overflow concept)"
+  },
+  {
+   "field": "sources[0]",
+   "raw": "/not_selected/0/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[1]",
+   "raw": "/record/references/0/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[2]",
+   "raw": "/record/references/1/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "identity_fingerprint",
+   "raw": "/inspectability/fingerprint",
+   "transform": "copy"
+  }
+ ]
+}

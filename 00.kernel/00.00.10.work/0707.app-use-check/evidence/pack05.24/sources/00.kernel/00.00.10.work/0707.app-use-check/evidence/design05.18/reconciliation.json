@@ -1,0 +1,227 @@
+{
+ "schema": "rie-reconciliation/1",
+ "summary": {
+  "historical_pass": 16,
+  "historical_total": 17,
+  "historical_revised": [
+   "G7"
+  ],
+  "g7_matches_revision": true,
+  "same_as_0517": true,
+  "new_pass": 12,
+  "new_total": 12
+ },
+ "cases": [
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G1",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G2",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G3",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G4",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G5",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G6",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G7",
+   "status_0518_candidate": "FAIL",
+   "status_0517_lab": "FAIL",
+   "expectation": "REVISED by K1",
+   "subassertions": {
+    "semicolon after Returned path refused": {
+     "expectation": "PRESERVED",
+     "observed": [
+      "submission-not-declared",
+      "unparsed-return-line"
+     ],
+     "holds": true
+    },
+    "double comma manifest refused": {
+     "expectation": "REVISED: now accepted as pass03 meaning 'm.json,,' (not refused)",
+     "observed": [],
+     "holds": true
+    },
+    "N5 trailing-comma Submission refused": {
+     "expectation": "REVISED: now accepted as 's.md,' (pass03 meaning)",
+     "observed": [],
+     "holds": true
+    }
+   }
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "G8",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "H1",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "D2",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "I1",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "I2",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "I3",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "I4",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "I5",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "H2",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "historical-17 (pass01 0707/05.16, unedited)",
+   "id": "I6",
+   "status_0518_candidate": "PASS",
+   "status_0517_lab": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "KR1",
+   "status_0518_candidate": "PASS",
+   "expectation": "KNOWN FAILURE of preserved pass01 (reproduced)"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "KR2",
+   "status_0518_candidate": "PASS",
+   "expectation": "KNOWN FAILURE of preserved pass01 (reproduced)"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P1",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P2",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P3",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P4",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P5",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P6",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "P7",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "I-N5-comma",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "I-N5-paren",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  },
+  {
+   "suite": "new-12 (0707/05.17)",
+   "id": "I-N5-semicolon",
+   "status_0518_candidate": "PASS",
+   "expectation": "PRESERVED"
+  }
+ ]
+}

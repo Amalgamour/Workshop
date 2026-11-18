@@ -1,0 +1,21 @@
+--- labs/review-entry-integration-pass01/candidate/app/review-loop-v8.json	2026-11-03 17:13:25.646271100 -0600
++++ labs/review-entry-integration-pass01/adapter/review-loop-v8.lab.json	2026-11-03 17:13:25.646271100 -0600
+@@ -1,5 +1,5 @@
+ {
+-  "_note": "N7 return intake repair pins (0707/05.17 contract). Workbook commands use the pass04 workbook; pass03, pass02, pass01, v4, v5, v6 and v7 stay pinned and are not replaced. Fixture commands stay on the v4 door.",
++  "_note": "LAB ADAPTER (0707/05.18): identical to the production v8 declaration except the workbook pin, which names the one-line root adapter of pass04. Not a production declaration.",
+   "schema": "review-loop-pins/6",
+   "tools": {
+     "construct_pass04": {
+@@ -83,9 +83,9 @@
+       "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+     },
+     "workbook": {
+-      "bytes": 6508,
++      "bytes": 6584,
+       "path": "labs/workbook-review-pass04/workbook.py",
+-      "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2"
++      "sha256": "c6be0b97d7274e0393116a4f449848744a2afba0ad9dd694c569276490c62a97"
+     },
+     "workbook_pass01": {
+       "bytes": 79131,

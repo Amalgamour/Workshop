@@ -1,0 +1,86 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "recover",
+  "committed_check": {
+    "detail": "target appeared after read",
+    "not_established": [
+      "Director acceptance",
+      "release",
+      "authenticated identity"
+    ],
+    "rule": null,
+    "supplied_state": "not-established",
+    "verified": false
+  },
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+  "current": null,
+  "custody": "not-established",
+  "full_success": false,
+  "historical": null,
+  "mechanical": {
+    "blocker": null,
+    "detail": "target appeared after read",
+    "route": "none-in-this-entry",
+    "state": "committed-record-mismatch",
+    "target": "unsupported",
+    "text": "The committed record is not established."
+  },
+  "next": "The committed record is not established.",
+  "observation": null,
+  "pins": {
+    "construct": {
+      "bytes": 42582,
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "prime_cycle_pass03": {
+      "bytes": 77501,
+      "path": "labs/n7-first-review-pass01/prime_cycle.py",
+      "sha256": "b664c2c989a132108aa236ea6885e2503cf0dca266a12538ebe0b26cf9dba81d"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_lines": {
+      "bytes": 100897,
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    },
+    "return_placement": {
+      "bytes": 66097,
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+    },
+    "review_loop": {
+      "bytes": 59229,
+      "path": "labs/n7-first-review-pass01/review_loop.py",
+      "sha256": "fb0e1e32a33e25b0f36013fbca6231094fccda5f65491b8596320c8594c89fe4"
+    }
+  },
+  "preserved": [
+    "workbook-review/0721.connected-local/05.01/w66bcc1522ee1efc8/cycle/request.json",
+    "scratch",
+    "trace"
+  ],
+  "releases_action": false,
+  "request_sha256": "d1d76297beb58d99b661bf76e6b761fe40405d25219dd0fe8f6fc18ba1563949",
+  "rule": "target appeared after read",
+  "schema": "review-loop-refusal/1",
+  "supplied_judgment": null
+}

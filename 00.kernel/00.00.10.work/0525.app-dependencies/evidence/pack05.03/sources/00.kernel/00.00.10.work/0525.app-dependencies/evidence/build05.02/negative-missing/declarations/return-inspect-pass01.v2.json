@@ -1,0 +1,129 @@
+{
+ "schema": "module-declaration/2",
+ "declaration_id": "return-inspect-pass01",
+ "version": 2,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/return-capture-pass01/return_inspect.py",
+  "name": "return_inspect",
+  "purpose": "Reads one return member by executing the sibling return_capture.py after a digest check.",
+  "interface": [
+   "inspect"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "the digest check does not compare length"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+  "bytes": 11402,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "labs/return-capture-pass01/return_inspect.py",
+   "verification": "supplied-unverified"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "inspect"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery. Representation corrected for 0525.app-dependencies 05.02. The file was not imported and not executed.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "return-capture",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_capture.py"
+    }
+   },
+   "pin": {
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": null
+   },
+   "pin_required": true,
+   "mechanism": "dynamic-import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pin_bytes hashes the sibling and compares HELPER_SHA256 only (return_inspect.py lines 49-71). Length is not compared. This pin is digest-only: sha256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac and bytes null. The observed length 45767 stays on the helper implementation row, not in the pin.",
+   "source_ref": {
+    "path": "labs/return-capture-pass01/return_inspect.py",
+    "lines": "19-20, 49-81, 277-278"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "dynamic-import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "labs/return-capture-pass01/return_inspect.py",
+    "lines": "74-81"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0508.return-capture",
+     "face_or_pass": "05.04",
+     "file": "05.04.md"
+    },
+    "sha256": "fc7047576589c56332fa0765159a4c575b081eaeb4f5e9a9fbbfe0acdaf3c5af",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that names the new return_inspect.py"
+   }
+  ],
+  "unknown": [
+   "Builder measurement on 2026-11-01: git hash-object of the working tree equals HEAD:labs/return-capture-pass01/return_inspect.py. The blob is at HEAD 960d20c5290656095df8457b1740d2d5e586b111. module-declaration/2 records that commit as a supplied reference with verification supplied-unverified. This reader does not fetch Git and does not authenticate the blob.",
+   "0508/05.05 is a later correction on the same page family. It was not re-derived against these bytes. The bytes do match HEAD."
+  ]
+ },
+ "supersedes": {
+  "declaration_id": "return-inspect-pass01",
+  "version": 1
+ }
+}

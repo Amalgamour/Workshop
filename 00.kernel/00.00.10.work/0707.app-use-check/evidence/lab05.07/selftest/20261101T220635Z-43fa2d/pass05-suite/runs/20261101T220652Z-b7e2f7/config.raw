@@ -1,0 +1,68 @@
+{
+  "schema": 5.5,
+  "kind": "candidate",
+  "label": "0522/05.08 loop successor (Grok-1) - identity NOT YET SUPPLIED; pass06 harness; run is UNREADY until Prime fills sha256/bytes in a NEW config",
+  "candidate": {
+    "path": "labs/review-loop-pass03/review_loop.py",
+    "sha256": null,
+    "bytes": null
+  },
+  "dependencies": [
+    {
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+      "bytes": 42582
+    },
+    {
+      "path": "labs/review-construction-pass02/construct.py",
+      "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+      "bytes": 36188
+    },
+    {
+      "path": "labs/prime-cycle-pass03/prime_cycle.py",
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+      "bytes": 76045
+    },
+    {
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+      "bytes": 58324
+    },
+    {
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+      "bytes": 58560
+    },
+    {
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+      "bytes": 100897
+    },
+    {
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+      "bytes": 66097
+    },
+    {
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    }
+  ],
+  "interpreter": {
+    "path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "version": "3.14.0"
+  },
+  "output_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\pass05-suite\\out",
+  "timeout_seconds": 180,
+  "field_map": {},
+  "release": {
+    "invocation": null,
+    "note": "a real candidate run needs a later named Director invocation and Prime-supplied pins"
+  }
+}

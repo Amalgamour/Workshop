@@ -1,0 +1,22 @@
+{
+  "artifacts": 30,
+  "artifact_mismatches": 0,
+  "snapshots_bad": 0,
+  "live_input_drift": [],
+  "read_calls": 7,
+  "copy_unchanged": true,
+  "hostile_layout": {
+    "case": "duplicate-key-layout-before-backend",
+    "refusal": "layout is not an accepted line-pass declaration",
+    "backend_launches": 0,
+    "book_unchanged": true
+  },
+  "hostile_dependency": {
+    "case": "changed-clerk-dependency-before-handoff",
+    "refusal": "pinned tool hash does not match: clerk",
+    "handoff_launches": 0,
+    "binding_unchanged": true
+  },
+  "app_selected": false,
+  "live_migration": false
+}

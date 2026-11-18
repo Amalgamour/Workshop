@@ -1,0 +1,31 @@
+{
+ "schema": "module-declaration-set/1",
+ "set_id": "prime-cycle-chain-proto-2",
+ "coverage": "PROTOTYPE: four declarations for the prime-cycle entry, its batch reader and the parser/adapter chain, at f0ccb90. No records for prime_review, review_packet, return_inspect, return_capture or the Clerk tool: those stay record-missing. 05.02: prime-support v2 (unenforced import recorded unpinned) replaces v1 in the set; v1 is kept on disk as history.",
+ "declarations": [
+  {
+   "file": "declarations/prime-cycle.v1.json",
+   "sha256": "ac6fa54d0a6204cd5a852569b057476e7f3143ef7c63ec10dfcf0c8e28b92421"
+  },
+  {
+   "file": "declarations/batch-observe.v1.json",
+   "sha256": "8aba57daaecf1754046b5c6b997181ee57dfb93ba12f9c352f2230fa54a3e8b8"
+  },
+  {
+   "file": "declarations/prime-support.v2.json",
+   "sha256": "089a9cd7188d6c364a174ffdd7a8387ece36f5709964e01e9e3f52ba6b67edc9"
+  },
+  {
+   "file": "declarations/clerk-adapter.v1.json",
+   "sha256": "51386b0bf55be382d65449867c07a69949348b02c9dfdca22cb7f6c330a34ea7"
+  }
+ ],
+ "fixtures": [],
+ "select": [],
+ "bounds": {
+  "max_records": 50,
+  "max_file_bytes": 262144,
+  "max_depth": 16,
+  "max_output_bytes": 1048576
+ }
+}

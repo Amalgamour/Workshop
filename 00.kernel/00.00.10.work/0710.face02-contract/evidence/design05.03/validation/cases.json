@@ -1,0 +1,387 @@
+{
+ "cases": [
+  {
+   "id": "P1",
+   "says": "Prime probe 1: list-shaped aliases given as empty text",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "p1.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "shape"
+   }
+  },
+  {
+   "id": "P2",
+   "says": "Prime probe 2: not-applicable reason is a number",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "p2.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "na-reason"
+   }
+  },
+  {
+   "id": "P3",
+   "says": "Prime probe 3: patch holds #NN, output_path, tests_passed",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-revise"
+   },
+   "input": "p3.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "compute-owned"
+   }
+  },
+  {
+   "id": "P4",
+   "says": "Prime probe 4: vacuous artifact; every claimed check must run",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "required-missing"
+   },
+   "artifact_file": "p4.artifact.json",
+   "expect_checks_ran": [
+    "required-answered",
+    "items-contiguous",
+    "note-dispositions-adequate",
+    "dependency-states-present"
+   ]
+  },
+  {
+   "id": "R1",
+   "says": "empty list for a list field is accepted",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "r1.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "R2",
+   "says": "not-applicable with an empty reason",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "r2.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "na-reason"
+   }
+  },
+  {
+   "id": "R3",
+   "says": "patch field with the wrong shape",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-revise"
+   },
+   "input": "r3.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "shape"
+   }
+  },
+  {
+   "id": "R4",
+   "says": "patch empties a value-only field",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-revise"
+   },
+   "input": "r4.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "answer-not-accepted"
+   }
+  },
+  {
+   "id": "R5",
+   "says": "patch names an item that is not in the draft",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-revise"
+   },
+   "input": "r5.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "unresolved-reference"
+   }
+  },
+  {
+   "id": "R6",
+   "says": "patch tries to renumber",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-revise"
+   },
+   "input": "r6.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "compute-owned"
+   }
+  },
+  {
+   "id": "R7",
+   "says": "schema: an unresolved disposition fails",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "note-dispositions-adequate"
+   },
+   "artifact_file": "r7.artifact.json",
+   "expect_checks_ran": [
+    "required-answered",
+    "items-contiguous",
+    "note-dispositions-adequate",
+    "dependency-states-present"
+   ]
+  },
+  {
+   "id": "R8",
+   "says": "schema: the 05.02 V1 artifact has no dependency states",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "dependency-states-present"
+   },
+   "artifact_file": "r8.artifact.json",
+   "expect_checks_ran": [
+    "required-answered",
+    "items-contiguous",
+    "note-dispositions-adequate",
+    "dependency-states-present"
+   ]
+  },
+  {
+   "id": "R9",
+   "says": "schema: integrated names a missing item",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "note-dispositions-adequate"
+   },
+   "artifact_file": "r9.artifact.json",
+   "expect_checks_ran": [
+    "required-answered",
+    "items-contiguous",
+    "note-dispositions-adequate",
+    "dependency-states-present"
+   ]
+  },
+  {
+   "id": "R10",
+   "says": "schema: deferred without a reason",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "note-dispositions-adequate"
+   },
+   "artifact_file": "r10.artifact.json",
+   "expect_checks_ran": [
+    "required-answered",
+    "items-contiguous",
+    "note-dispositions-adequate",
+    "dependency-states-present"
+   ]
+  },
+  {
+   "id": "R11",
+   "says": "collision: Tom Wren already in the register",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "r11.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   },
+   "expect_output_path": "0202.register/01.md#Tom Wren (2)"
+  },
+  {
+   "id": "R12",
+   "says": "bound to stored 001: a field only in 002 is unknown",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "r12.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "unknown-field"
+   },
+   "bind": {
+    "revision": "001"
+   }
+  },
+  {
+   "id": "R13",
+   "says": "bound to stored 002: the same input is accepted",
+   "op": "build",
+   "set": "pack",
+   "select": {
+    "name": "pack-create"
+   },
+   "input": "r12.json",
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   },
+   "bind": {
+    "revision": "002"
+   }
+  },
+  {
+   "id": "R14",
+   "says": "empty answer of the wrong shape for a text field",
+   "op": "build",
+   "set": "person",
+   "select": {
+    "name": "person-create"
+   },
+   "input": "r14.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "shape"
+   }
+  },
+  {
+   "id": "R15",
+   "says": "schema: a complete artifact passes every check",
+   "op": "check",
+   "set": "pack",
+   "select": {
+    "name": "pack-check"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   },
+   "artifact_file": "r15.artifact.json",
+   "expect_checks_ran": [
+    "required-answered",
+    "items-contiguous",
+    "note-dispositions-adequate",
+    "dependency-states-present"
+   ]
+  },
+  {
+   "id": "M1",
+   "says": "menu: qualified route to pack-create",
+   "op": "menu",
+   "set": null,
+   "select": {
+    "page": "00.00.10.work/0423.dev-authoring",
+    "section": "Pack",
+    "form": "pack-create",
+    "set": "pack"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "M2",
+   "says": "menu: qualified route to person-create",
+   "op": "menu",
+   "set": null,
+   "select": {
+    "page": "10.00.01.people/0201.person",
+    "section": "Person",
+    "form": "person-create",
+    "set": "person"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "ok",
+    "code": "ok"
+   }
+  },
+  {
+   "id": "M3",
+   "says": "menu: the 05.02 relative routes",
+   "op": "menu",
+   "set": null,
+   "select": {
+    "page": "00.00.10.work/0423.dev-authoring",
+    "section": "Pack",
+    "form": "pack-create",
+    "set": "pack"
+   },
+   "input": "m3.json",
+   "expect": {
+    "outcome": "refused",
+    "code": "route-unqualified"
+   }
+  },
+  {
+   "id": "M4",
+   "says": "menu: a form the menu does not list",
+   "op": "menu",
+   "set": null,
+   "select": {
+    "page": "00.00.10.work/0423.dev-authoring",
+    "section": "Pack",
+    "form": "pack-template",
+    "set": "pack"
+   },
+   "input": null,
+   "expect": {
+    "outcome": "refused",
+    "code": "select-none"
+   }
+  }
+ ]
+}

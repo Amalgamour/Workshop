@@ -1,0 +1,162 @@
+[
+  {
+    "page": "0504.app-entry",
+    "expected": "0104.app-entry",
+    "actual": "0104.app-entry",
+    "matches": true
+  },
+  {
+    "page": "1504.app-entry",
+    "expected": "1104.app-entry",
+    "actual": "0104.app-entry",
+    "matches": false
+  },
+  {
+    "page": "1702.design",
+    "expected": "1702.design",
+    "error": "undeclared origin",
+    "matches": false
+  },
+  {
+    "probe": "occupied-line-plan",
+    "actual_number_conflicts": [
+      {
+        "target": "0104.app-entry",
+        "occupied_same_number": [
+          "0104.app-entry-0508"
+        ]
+      },
+      {
+        "target": "0107.prime-support",
+        "occupied_same_number": [
+          "0107.clerk-types-0505"
+        ]
+      },
+      {
+        "target": "0108.return-capture",
+        "occupied_same_number": [
+          "0108.backfill-plan-0503"
+        ]
+      },
+      {
+        "target": "0105.observer-design",
+        "occupied_same_number": [
+          "0105.prime-clerk-0504"
+        ]
+      },
+      {
+        "target": "0102.workflow-start",
+        "occupied_same_number": [
+          "0102.prime-support-0501"
+        ]
+      },
+      {
+        "target": "0106.clerk-handoff",
+        "occupied_same_number": [
+          "0106.entry-regression-0509"
+        ]
+      },
+      {
+        "target": "0109.pack-assembly",
+        "occupied_same_number": [
+          "0109.clerk-seam-0510"
+        ]
+      },
+      {
+        "target": "0110.colab-tools",
+        "occupied_same_number": [
+          "0110.return-inspection-0504"
+        ]
+      },
+      {
+        "target": "0111.workflow-colab",
+        "occupied_same_number": [
+          "0111.prime-boot-design-0506"
+        ]
+      },
+      {
+        "target": "0112.prime-review",
+        "occupied_same_number": [
+          "0112.seam-io-0511"
+        ]
+      },
+      {
+        "target": "0113.bench-build",
+        "occupied_same_number": [
+          "0113.prime-boot-0507"
+        ]
+      },
+      {
+        "target": "0114.review-packet",
+        "occupied_same_number": [
+          "0114.inspection-range-0505"
+        ]
+      },
+      {
+        "target": "0115.prime-cycle",
+        "occupied_same_number": [
+          "0115.observer-pilot-0501"
+        ]
+      },
+      {
+        "target": "0116.colab-readiness",
+        "occupied_same_number": [
+          "0116.backfill-run-0506"
+        ]
+      },
+      {
+        "target": "0117.dependencies",
+        "occupied_same_number": [
+          "0117.bridge-parent-0512"
+        ]
+      },
+      {
+        "target": "0118.colab-review",
+        "occupied_same_number": [
+          "0118.workflow-start-0501"
+        ]
+      },
+      {
+        "target": "0119.desk-app",
+        "occupied_same_number": [
+          "0119.app-entry-0503"
+        ]
+      },
+      {
+        "target": "0120.desk-loop-lab",
+        "occupied_same_number": [
+          "0120.backfill-run-0507"
+        ]
+      }
+    ],
+    "reported_collisions": [],
+    "filing_0121": {
+      "allowed": false,
+      "blockers": [
+        "0121.archive-resolution-0508"
+      ],
+      "creates": false,
+      "number": "0121",
+      "page": "0121.return-placement",
+      "schema": "return-placement-filing-check/1"
+    }
+  },
+  {
+    "probe": "missing-receipt",
+    "output": {
+      "complete": true,
+      "exit": 0,
+      "items": [
+        {
+          "old_member": "0101.synthetic",
+          "reason": null,
+          "replay": null,
+          "return_path": "0121.return-placement/05.01.return.md",
+          "status": "placed"
+        }
+      ],
+      "journal": "placement-journal.json"
+    },
+    "source_receipt_exists": false
+  }
+]

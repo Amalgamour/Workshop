@@ -1,0 +1,249 @@
+--- pass02
+
++++ pass03
+
+@@ -1,13 +1,17 @@
+
+ #!/usr/bin/env python3
+ """Render a full Prime assessment into a workflow review section.
+ 
+-Successor of labs/review-construction-pass01/construct.py.
+-Base sha256 8b9d4a6eda460f594404042f7ee232a7ac55fcc09af38905de364defa189ea8a, 35956 bytes.
+-Delta: TOOL is labs/prime-review-pass02/prime_review.py. No other check changes.
++Successor of labs/review-construction-pass02/construct.py.
++Base sha256 b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc, 36188 bytes.
++Delta: review-construction/2 supplied review state, source-hash display for
++recorded decisions on that version, null versus empty-list wording on that
++version only, and read-only inspect. review-construction/1 rendering and the
++task-binding inputs stay compatible with pass02. ROOT stays D:\\Git\\lib-build.
+ 
+ Preview writes nothing. Apply writes only inside a disposable fixture root
+-outside D:\\Git\\lib-build. Judgment words come from a supplied prime-review
+-record. This tool does not accept, release, close, allocate, or establish custody.
++outside D:\\Git\\lib-build. Inspect writes nothing. Judgment words come from a
++supplied prime-review record. This tool does not accept, release, close,
++allocate, or establish custody. A supplied disposition is not Director acceptance.
+ 
+ Compare-then-rename narrows a stale write. It is not proof of race freedom.
+ """
+@@ -29,7 +33,24 @@
+
+ TOOL_SHA256 = "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+ TOOL_BYTES = 58560
+ 
+-SCHEMA = "review-construction/1"
++SCHEMA_V1 = "review-construction/1"
++SCHEMA_V2 = "review-construction/2"
++SCHEMA = SCHEMA_V1
++SUPPLIED_SCHEMA = "supplied-review-state/1"
++SUPPLIED_SOURCE = "cycle decision judgment"
++SUPPLIED_KEYS = {
++    "schema",
++    "source",
++    "disposition",
++    "pass_terminal",
++    "goal_terminal",
++    "outcome",
++}
++DISPOSITIONS = {"accepted", "held", "correction-required"}
++PASS_TERMINALS = {"open", "finished"}
++GOAL_TERMINALS = {"open", "completed"}
++OUTCOMES = {"continue", "director-input", "develop", "complete"}
++INSPECT_SCHEMA = "review-target-inspection/1"
+ HEADING_EM = "## Review — Codex Prime"
+ HEADING_HYPHEN = "## Review - Codex Prime"
+ HEADINGS = (HEADING_EM, HEADING_HYPHEN)
+@@ -302,9 +323,35 @@
+
+     )
+ 
+ 
++def parse_supplied(raw) -> dict:
++    exact(raw, SUPPLIED_KEYS, "supplied_review_state")
++    need(raw["schema"] == SUPPLIED_SCHEMA, "bad supplied_review_state schema")
++    need(raw["source"] == SUPPLIED_SOURCE, "bad supplied_review_state source")
++    need(raw["disposition"] in DISPOSITIONS, "bad supplied_review_state.disposition")
++    need(raw["pass_terminal"] in PASS_TERMINALS, "bad supplied_review_state.pass_terminal")
++    need(raw["goal_terminal"] in GOAL_TERMINALS, "bad supplied_review_state.goal_terminal")
++    need(raw["outcome"] in OUTCOMES, "bad supplied_review_state.outcome")
++    return {
++        "schema": raw["schema"],
++        "source": raw["source"],
++        "disposition": raw["disposition"],
++        "pass_terminal": raw["pass_terminal"],
++        "goal_terminal": raw["goal_terminal"],
++        "outcome": raw["outcome"],
++    }
++
++
+ def parse_envelope(raw: dict) -> dict:
+-    exact(raw, ENVELOPE_KEYS, "envelope")
+-    need(raw["schema"] == SCHEMA, "bad schema")
++    need(isinstance(raw, dict), "envelope must be an object")
++    if raw.get("schema") == SCHEMA_V2:
++        exact(raw, ENVELOPE_KEYS | {"supplied_review_state"}, "envelope")
++        supplied = parse_supplied(raw["supplied_review_state"])
++        schema = SCHEMA_V2
++    else:
++        exact(raw, ENVELOPE_KEYS, "envelope")
++        need(raw["schema"] == SCHEMA_V1, "bad schema")
++        supplied = None
++        schema = SCHEMA_V1
+     kind = raw["source_kind"]
+     need(kind in KINDS, f"unsupported source kind {kind}")
+     pass_id = raw["pass"]
+@@ -362,6 +409,8 @@
+
+         "agreement": raw["agreement"],
+         "receipt": receipt,
+         "record": raw["record"],
++        "envelope_schema": schema,
++        "supplied_review_state": supplied,
+     }
+     address = derive_address(spec)
+     enforce_origin(spec, address)
+@@ -552,6 +601,17 @@
+
+         "",
+         "### Reasons",
+     ]
++    if spec.get("envelope_schema") == SCHEMA_V2:
++        state = spec["supplied_review_state"]
++        insert_at = lines.index("### Reasons")
++        lines[insert_at:insert_at] = [
++            "### Supplied review state",
++            f"review_disposition (supplied): {state['disposition']}",
++            f"pass_terminal (supplied): {state['pass_terminal']}",
++            f"goal_terminal (supplied): {state['goal_terminal']}",
++            "This is the reviewer's supplied state. It is not Director acceptance, approval, seating or authority; see authority: none above.",
++            "",
++        ]
+     reasons = report.get("reasons") or []
+     if reasons:
+         for reason in reasons:
+@@ -594,13 +654,32 @@
+
+     else:
+         for item in criteria:
+             lines.append(f"- {item.get('id')}: {item.get('text')}")
+-    decisions = agreement.get("recorded_decisions") or []
++    decisions_raw = agreement.get("recorded_decisions")
+     lines.append("recorded_decisions:")
+-    if not decisions:
+-        lines.append("none supplied")
+-    else:
+-        for item in decisions:
+-            lines.append(f"- {item.get('id')}: {item.get('text')}")
++    if spec.get("envelope_schema") == SCHEMA_V2:
++        if decisions_raw is None:
++            lines.append("none supplied")
++        elif isinstance(decisions_raw, list) and len(decisions_raw) == 0:
++            lines.append("none recorded")
++        else:
++            need(isinstance(decisions_raw, list), "bad type recorded_decisions")
++            for item in decisions_raw:
++                need(isinstance(item, dict), "bad recorded decision")
++                text = item.get("text")
++                source_sha = item.get("source_sha256")
++                need(isinstance(text, str), "bad recorded decision text")
++                need(
++                    isinstance(source_sha, str) and HEX64.fullmatch(source_sha) is not None,
++                    "bad recorded decision source_sha256",
++                )
++                lines.append(f"- {item.get('id')}: {text} (source sha256 {source_sha})")
++    else:
++        decisions = decisions_raw or []
++        if not decisions:
++            lines.append("none supplied")
++        else:
++            for item in decisions:
++                lines.append(f"- {item.get('id')}: {item.get('text')}")
+     lines.append("")
+     lines.append("### Findings")
+     account = sections.get("findings_account") if isinstance(sections, dict) else None
+@@ -869,6 +948,62 @@
+
+     }
+ 
+ 
++def inspect_target(root: Path, rel: str, binding: str | None) -> dict:
++    if binding is not None:
++        need(isinstance(binding, str) and HEX64.fullmatch(binding) is not None, "bad binding")
++    target = under(root, rel, "target")
++    if not os.path.lexists(target):
++        return {
++            "schema": INSPECT_SCHEMA,
++            "state": "absent",
++            "rule": "target file is absent; this entry does not create targets (permit_create false)",
++            "target_sha256": None,
++            "target_bytes": None,
++            "section_sha256": None,
++            "binding_sha256": None,
++        }
++    data = read_regular(target, "target")
++    base = {
++        "schema": INSPECT_SCHEMA,
++        "target_sha256": sha256_bytes(data),
++        "target_bytes": len(data),
++        "section_sha256": None,
++        "binding_sha256": None,
++    }
++    try:
++        sep = newline_of(data)
++        _prefix, current, _suffix = locate(data, sep)
++        text = current.decode("utf-8")
++    except Refusal as exc:
++        return {**base, "state": "unsupported", "rule": exc.message}
++    section_sha = sha256_bytes(current)
++    match = re.search(r"(?m)^task_binding: ([0-9a-f]{64})$", text)
++    found = match.group(1) if match else None
++    if text.strip() in {"PENDING", "PENDING."}:
++        return {
++            **base,
++            "state": "pending",
++            "rule": None,
++            "section_sha256": section_sha,
++            "binding_sha256": found,
++        }
++    if found and binding and found == binding:
++        return {
++            **base,
++            "state": "constructed-same-binding",
++            "rule": "a constructed review for this task binding is present; render is idempotent only if the body is identical",
++            "section_sha256": section_sha,
++            "binding_sha256": found,
++        }
++    return {
++        **base,
++        "state": "existing-review",
++        "rule": "existing review conflicts; a successor process is required and this review was not overwritten",
++        "section_sha256": section_sha,
++        "binding_sha256": found,
++    }
++
++
+ def emit(payload: dict) -> None:
+     data = (json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+     buffer = getattr(sys.stdout, "buffer", None)
+@@ -889,6 +1024,10 @@
+
+     show = sub.add_parser("show")
+     show.add_argument("--fixture-root", required=True)
+     show.add_argument("--target", required=True)
++    inspect = sub.add_parser("inspect")
++    inspect.add_argument("--fixture-root", required=True)
++    inspect.add_argument("--target", required=True)
++    inspect.add_argument("--binding", required=False)
+     try:
+         args = parser.parse_args(argv)
+     except SystemExit as exc:
+@@ -899,6 +1038,8 @@
+
+             emit(command_bind(root, args.input))
+         elif args.command == "show":
+             emit(command_show(root, args.target))
++        elif args.command == "inspect":
++            emit(inspect_target(root, args.target, args.binding))
+         else:
+             emit(compose(root, args.input, args.command))
+     except Refusal as exc:

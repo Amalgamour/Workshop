@@ -1,0 +1,11 @@
+Did.
+
+Claimed 0522.review-construction/05.01 on branch workshop. The invocation recorded for this pass is "Work in D:\Git\lib-build on workshop. Run: 00.kernel/00.00.10.work/0522.review-construction/05.01.md". Notes are 06.01.md, written before the lab code. The contract is evidence/build05.01/CONTRACT.md. The lab is labs/review-construction-pass01. It calls pinned prime_review.py report and renders the full assessment under the Review heading of a disposable N5NN 05.NN.md. Test: python -B labs/review-construction-pass01/test_construct.py from D:\Git\lib-build. 8 tests, 0 failed, 5.600s, exit 0. A synthetic review with a finding, a failed optional check, dissent, and a Director reply rendered in place. Bytes outside that section stayed exact. The task binding was unchanged by the render and changed when the assignment, the evidence, the agreement, or the receipt bytes changed. A no-findings review, a held question, and an unmet complete judgment also rendered. Pack05.01 matched 13 of 13 when the notes were opened. The Prime review on 0519/05.01 was read before the design. This builder did not commit.
+
+Blocked.
+
+The constructor is lab evidence, not an adopted desk command. A rendered review is not approval, acceptance, release, or closure. Receipt hashes match the supplied files and custody stays not-established. The old allocator was not used, and matching line 0122.review-construction is not filed. prime_cycle still binds the whole page hash, so this lab does not make a live record survive its own render. N7NN is supported only as the existing 06.NN.review.md tail. Compare-then-rename is not proof of race freedom. AR-01 stays held. Grok-1's placement lab was not used. No production module was edited.
+
+Need.
+
+One bounded pack: teach prime_cycle to accept review-task-binding/1 for staleness, keep the page hash as the write token, and add the app command prime-review-construct. The minimal next test is one disposable page whose rendered review does not stale that task binding, while one changed evidence byte does. Director decision: when the reviewed 0521 migration may fill this descriptor from 0122.review-construction. The live release sentence stays the Director's own sentence.

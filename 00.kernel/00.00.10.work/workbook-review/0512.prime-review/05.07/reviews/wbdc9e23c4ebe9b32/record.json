@@ -1,0 +1,98 @@
+{
+  "attention": [
+    "agreement.goal is unknown",
+    "agreement.scope is unknown",
+    "agreement.prime_discretion is unknown",
+    "agreement.director_required is unknown",
+    "agreement.finish_criteria is unknown",
+    "agreement.recorded_decisions is unknown"
+  ],
+  "custody": "missing",
+  "cycle": {
+    "called": false,
+    "committed": false,
+    "error": null
+  },
+  "cycle_error": null,
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "holds": [],
+  "intake_id": "d46b1d91dfeb6d21dfee42e2bf765f73d96eb3593400612f0809a3c5c5a088ff",
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "correction-required",
+    "finding": "Correction required before treating review-report as a usable normal app command; retain the working staged connector.",
+    "findings": [
+      {
+        "disposition": "answered",
+        "finding_id": "R1#deployment-pins",
+        "text": "Disclosed integration blocker independently reproduced on actual candidate bytes; assigned followup, not closed."
+      },
+      {
+        "disposition": "answered",
+        "finding_id": "R2#filed-test",
+        "text": "Test assumes return still PENDING after filing; repair regression fixture and preservation invariant in successor, not historical suite."
+      }
+    ],
+    "gaps": [
+      "No active app selection, custody filing or migration.",
+      "No change to old reporter meaning or old evidence; staged command remains available."
+    ],
+    "goal_terminal": "open",
+    "holds": [],
+    "next_action": "Complete the deployment-coherent reporter app integration on a real on-disk candidate copy, with a versioned consistent pin chain, and make its tests valid after return filing. Keep shared app selection Prime-owned.",
+    "operation": "continue",
+    "pass_terminal": "open",
+    "reasons": [
+      "The standalone connector faithfully preserves both tested real report outputs.",
+      "Executing proposed source with an old on-disk dispatcher is not a deployment proof; a real candidate copy refuses the changed dispatcher hash.",
+      "The post-filing author-suite failure is an invalid lifecycle assumption, not evidence that filling the return pointer was wrong."
+    ],
+    "review_passes": [],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": [
+        {
+          "finding_id": "R1#deployment-pins",
+          "status": "accepted"
+        },
+        {
+          "finding_id": "R2#filed-test",
+          "status": "accepted"
+        }
+      ],
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Complete the deployment-coherent reporter app integration on a real on-disk candidate copy, with a versioned consistent pin chain, and make its tests valid after return filing. Keep shared app selection Prime-owned.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "Staged adapter works. The actual proposed dispatcher on disk is refused by the old app hash, and one author test assumes an unfiled PENDING return.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "23/23 artifacts verified. Independent direct/connector reads on 0512/05.06 and 0521/05.13 are byte-identical with exit 0.",
+      "tests_note": "Prime reran 15 author cases: 14 pass, one fails because filing the legitimate return replaces PENDING. Separate independent comparisons pass; an actual installed-copy command exits 2 on the disclosed dispatcher pin conflict.",
+      "tests_passed": false,
+      "within_direction": "Finish the authorized app reporter connector without changing report semantics, release authority, active modules or historical evidence."
+    },
+    "semantic_conflict": false
+  },
+  "mode": "preliminary",
+  "next_action": "Complete the deployment-coherent reporter app integration on a real on-disk candidate copy, with a versioned consistent pin chain, and make its tests valid after return filing. Keep shared app selection Prime-owned.",
+  "prime_review_effective": "attention",
+  "prime_review_exit": 1,
+  "rendered": "authority: none\ncloses_work: false\nreleases_action: false\nauthenticates_actor: false\nworkbook-review-id: wbdc9e23c4ebe9b32\nmode: preliminary\ncustody: missing\ntask_association: not-established\nThis record is not approval, filing, or release.\n\n### Judgment\noperation: continue\ndisposition: correction-required\nfinding: Correction required before treating review-report as a usable normal app command; retain the working staged connector.\n\n### Reasons\n- The standalone connector faithfully preserves both tested real report outputs.\n- Executing proposed source with an old on-disk dispatcher is not a deployment proof; a real candidate copy refuses the changed dispatcher hash.\n- The post-filing author-suite failure is an invalid lifecycle assumption, not evidence that filling the return pointer was wrong.\n\n### Findings\n- R1#deployment-pins answered: Disclosed integration blocker independently reproduced on actual candidate bytes; assigned followup, not closed.\n- R2#filed-test answered: Test assumes return still PENDING after filing; repair regression fixture and preservation invariant in successor, not historical suite.\n\n### Director text\nnone measured\n\n### Answers\nnone supplied\n\n### Next action\nComplete the deployment-coherent reporter app integration on a real on-disk candidate copy, with a versioned consistent pin chain, and make its tests valid after return filing. Keep shared app selection Prime-owned.\nThis line is not a release.\n\ntests_passed: false\nprime_review_effective: attention\neligible_for_custody_completion: false\n",
+  "review_id": "wbdc9e23c4ebe9b32",
+  "schema": "workbook-review-record/1",
+  "successor_of": null
+}

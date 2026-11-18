@@ -1,0 +1,1814 @@
+{
+ "schema": "desk-loop-replay/1",
+ "label": "synthetic supplied judgments; disposable books; no model",
+ "loop": {
+  "trace": [
+   {
+    "label": "clerk queue",
+    "exit": 0,
+    "stdout": "queued job-loop\nevent 0001.queued.json sha256=487b56dd907be8d8095e98c70466d8a99ecc268b4124d16eacd6e9d680a6ef25\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "queue",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\store",
+     "--job",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\job.json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\instructions"
+    ]
+   },
+   {
+    "label": "clerk claim",
+    "exit": 0,
+    "stdout": "claimed job-loop\ntoken 47e4d0f865485c9ed450e12f678d52e9\nevent 0002.claimed.json sha256=9c1f9e6ca4e1cbd55534973bfdf7afde7c89f75d09f252b3e2d46a4079afbf20\ninstructions-usable sha256=ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "claim",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\store",
+     "--job",
+     "job-loop",
+     "--as",
+     "lab-builder",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\instructions"
+    ]
+   },
+   {
+    "label": "clerk show",
+    "exit": 0,
+    "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"not-applicable\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"lab-builder\",\"token\":\"47e4d0f865485c9ed450e12f678d52e9\"},\"job\":{\"assignee\":\"lab-builder\",\"expected_outputs\":[\"piece.txt\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44\"},\"job_id\":\"job-loop\",\"release\":\"synthetic job label; not a release\",\"reviewer\":\"lab-reviewer\",\"routed_by\":\"desk-loop-replay-pass01\"},\"job_id\":\"job-loop\",\"problems\":[],\"returned\":null,\"schema\":\"clerk-handoff-inspection/2\",\"state\":\"claimed\"}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "show",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\store",
+     "--job",
+     "job-loop",
+     "--json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\instructions"
+    ]
+   },
+   {
+    "label": "clerk return",
+    "exit": 0,
+    "stdout": "returned job-loop\ndelivery delivery-loop\nevent 0003.returned.json sha256=cff985a76835747bbd5d91ffa3dd1f51d7a658d64130714907b6c6a708e43960\nwitness 0003.witness.json records event sha256=cff985a76835747bbd5d91ffa3dd1f51d7a658d64130714907b6c6a708e43960\nartifact piece.txt sha256=4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29 bytes=16\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "return",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\store",
+     "--job",
+     "job-loop",
+     "--as",
+     "lab-builder",
+     "--claim",
+     "47e4d0f865485c9ed450e12f678d52e9",
+     "--delivery",
+     "delivery-loop",
+     "--evidence",
+     "synthetic handback line"
+    ]
+   },
+   {
+    "label": "return_capture reserve",
+    "exit": 0,
+    "stdout": "member 0101.loop-return\nsubmission loop-happy\nresult reserved\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/return-capture-pass01/return_capture.py",
+     "reserve",
+     "--book",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\repo\\00.kernel\\00.00.10.work",
+     "--submission",
+     "loop-happy",
+     "--name",
+     "loop-return",
+     "--origin-book",
+     "00.00.10.work",
+     "--origin-page",
+     "0599.loop-lab",
+     "--origin-batch",
+     "05.01",
+     "--expected-output",
+     "piece.txt",
+     "--submitter",
+     "lab-builder",
+     "--reviewer",
+     "lab-reviewer",
+     "--release",
+     "synthetic reservation; not a release"
+    ]
+   },
+   {
+    "label": "handoff perform",
+    "exit": 0,
+    "stdout": "returned-event cff985a76835747bbd5d91ffa3dd1f51d7a658d64130714907b6c6a708e43960\nwork-ref synthetic-work-ref\nwork-ref-role declared-label\nreservation 7064be49e38dc738655168f5803832dd297308e46aebf78488c38bf094b3c9ee\nmanifest 3ebf7456bb066f959262db9e47eb0ddd7e667327afafa43b1c6540ba77b06fa4\nreceipt ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\npayload 0001.blob 4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29\nresult complete\nnot approved\nnot accepted\nnot published\nwrites intent D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\handoff-record\\intent.json\nwrites completed D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\handoff-record\\completed.json\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/capture-handoff-pass01/handoff.py",
+     "perform",
+     "--binding",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\binding.json"
+    ]
+   },
+   {
+    "label": "cycle read before review",
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 1,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\journal\\\\2026-10-31\\\\20261031T210652.060288Z-2d2410a85546\",\n  \"enabled\": true,\n  \"op_id\": \"20261031T210652.060288Z-2d2410a85546\",\n  \"root\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"0148a3014f0a5833c453313c6bd7aa84e1470f9ea1be663ed0a94e9a3baf1b8f\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 1,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"awaiting-review: a captured return has no recorded review\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.loop-return\",\n    \"receipt_sha256\": \"ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\",\n    \"state\": \"present\",\n    \"state_reason\": null\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"awaiting-review\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"907566d8144268ac0f70c231b01c3717bfd0ea6331ad44a30f4949dcfdce6110\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f\",\n       \"goal\": \"753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6\",\n       \"scope\": \"40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"054725582938cc4dda0480be346baaa89131fa00b70f1b368544ec86366d1415\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n     },\n     \"member\": \"0101.loop-return\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0599.loop-lab\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 424,\n      \"page_sha256\": \"3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f\"\n     },\n     \"submission_id\": \"loop-happy\",\n     \"work_id\": \"loop\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"loop\"\n  }\n ]\n}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\registration.json",
+     "--json",
+     "--templates",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\out\\templates",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle record held",
+    "exit": 0,
+    "stdout": "recorded D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\repo\\00.kernel\\00.00.10.work\\0599.loop-lab\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal op 20261031T210652.401605Z-9e6f53454526\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\registration.json",
+     "--decision",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\held.json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle read after review",
+    "exit": 0,
+    "stdout": "{\n \"attention_count\": 0,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\journal\\\\2026-10-31\\\\20261031T210652.837378Z-1f5022785b3b\",\n  \"enabled\": true,\n  \"op_id\": \"20261031T210652.837378Z-1f5022785b3b\",\n  \"root\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"0148a3014f0a5833c453313c6bd7aa84e1470f9ea1be663ed0a94e9a3baf1b8f\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 0,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 1,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.loop-return\",\n    \"receipt_sha256\": \"ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\",\n    \"state\": \"present\",\n    \"state_reason\": null\n   },\n   \"disposition\": \"held\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n   },\n   \"goal_terminal\": \"open\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": {\n    \"author\": \"Grok-2 lab (SUPPLIED)\",\n    \"current\": true,\n    \"effective\": \"continue\",\n    \"outcome\": \"continue\",\n    \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": {\n    \"action_id\": \"pack-correction\",\n    \"author\": \"Grok-2 lab (SUPPLIED)\",\n    \"authorized_in_grant\": true,\n    \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n    \"source\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json\",\n    \"text\": \"Pack one bounded correction for the synthetic piece.\"\n   },\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"reviewed\",\n   \"pass_terminal\": \"open\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"f56ed19d8d7fee98d2b79d71a319b8b69315d926b8608364ed6fb122bfbf167c\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f\",\n       \"goal\": \"753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6\",\n       \"scope\": \"40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"c13c190aa25cb3b6cb61be73bb11bcc0741e73599da7847598d88cb75657c9d3\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n     },\n     \"member\": \"0101.loop-return\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0599.loop-lab\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 424,\n      \"page_sha256\": \"3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f\"\n     },\n     \"submission_id\": \"loop-happy\",\n     \"work_id\": \"loop\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [],\n   \"work_id\": \"loop\"\n  }\n ]\n}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\registration.json",
+     "--json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle read after page edit",
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 1,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\journal\\\\2026-10-31\\\\20261031T210653.158931Z-8b928aa59915\",\n  \"enabled\": true,\n  \"op_id\": \"20261031T210653.158931Z-8b928aa59915\",\n  \"root\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"0148a3014f0a5833c453313c6bd7aa84e1470f9ea1be663ed0a94e9a3baf1b8f\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 0,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 1,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"review-stale: 05.01-r1 binds a different page; its declarations are historical; re-review required\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.loop-return\",\n    \"receipt_sha256\": \"ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\",\n    \"state\": \"present\",\n    \"state_reason\": null\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": {\n    \"disposition\": \"held\",\n    \"goal_id\": \"g1\",\n    \"goal_terminal\": \"open\",\n    \"next_action\": {\n     \"action_id\": \"pack-correction\",\n     \"author\": \"Grok-2 lab (SUPPLIED)\",\n     \"authorized_in_grant\": true,\n     \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n     \"source\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json\",\n     \"text\": \"Pack one bounded correction for the synthetic piece.\"\n    },\n    \"pass_terminal\": \"open\",\n    \"reason\": \"review-stale\",\n    \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"holds\": [],\n   \"latest_review\": {\n    \"author\": \"Grok-2 lab (SUPPLIED)\",\n    \"current\": false,\n    \"effective\": \"continue\",\n    \"outcome\": \"continue\",\n    \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"review-stale\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"ec6e050103aff58f017dc0e37071e33dbe13b61cb2895d393ce1c3d0b16c7acf\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"3c3a031490cf4c80fb7f38d909f53f16483b74c63166f25395a39071ece167cc\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f\",\n       \"goal\": \"753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6\",\n       \"scope\": \"40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"154a96c77e0f8baea5551f0661198fe4aaa6ab78cd74542ad78a678b8001f0c6\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n     },\n     \"member\": \"0101.loop-return\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0599.loop-lab\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 446,\n      \"page_sha256\": \"3c3a031490cf4c80fb7f38d909f53f16483b74c63166f25395a39071ece167cc\"\n     },\n     \"submission_id\": \"loop-happy\",\n     \"work_id\": \"loop\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [],\n   \"work_id\": \"loop\"\n  }\n ]\n}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\registration.json",
+     "--json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle record stale template",
+    "exit": 2,
+    "stdout": "refused: source changed since read: source\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal op 20261031T210653.484408Z-5050d04ceb2a\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\registration.json",
+     "--decision",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\held.json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   }
+  ],
+  "show": {
+   "checks": {
+    "artifacts": "not-applicable",
+    "completion": "not-applicable",
+    "events": "ok",
+    "instructions": "usable"
+   },
+   "claim": {
+    "by": "lab-builder",
+    "token": "47e4d0f865485c9ed450e12f678d52e9"
+   },
+   "job": {
+    "assignee": "lab-builder",
+    "expected_outputs": [
+     "piece.txt"
+    ],
+    "instructions": {
+     "path": "task.txt",
+     "sha256": "ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44"
+    },
+    "job_id": "job-loop",
+    "release": "synthetic job label; not a release",
+    "reviewer": "lab-reviewer",
+    "routed_by": "desk-loop-replay-pass01"
+   },
+   "job_id": "job-loop",
+   "problems": [],
+   "returned": null,
+   "schema": "clerk-handoff-inspection/2",
+   "state": "claimed"
+  },
+  "return_exit": 0,
+  "handoff_exit": 0,
+  "receipt": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+  "before": {
+   "attention": [
+    "awaiting-review: a captured return has no recorded review"
+   ],
+   "custody": {
+    "basis": "live inspection at read time; custody is not acceptance",
+    "member": "0101.loop-return",
+    "receipt_sha256": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+    "retrospective": false,
+    "role": "primary-current-candidate",
+    "state": "present",
+    "state_reason": null
+   },
+   "disposition": "unknown",
+   "goal": {
+    "goal_id": "g1",
+    "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+   },
+   "goal_terminal": "unknown",
+   "historical": null,
+   "holds": [],
+   "latest_review": null,
+   "next_action": null,
+   "next_action_guard": [],
+   "observation": {
+    "diagnostic": null,
+    "kind": null,
+    "part": null,
+    "state": "observed"
+   },
+   "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+   "pass": "05.01",
+   "pass_state": "awaiting-review",
+   "pass_terminal": "unknown",
+   "reader": {
+    "ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld"
+    ],
+    "attention": [],
+    "exit": 1,
+    "failed": null,
+    "stdout_sha256": "907566d8144268ac0f70c231b01c3717bfd0ea6331ad44a30f4949dcfdce6110"
+   },
+   "reviews": {
+    "committed": [],
+    "heads": [],
+    "invalid": [],
+    "partial": []
+   },
+   "source": {
+    "commit": null,
+    "kind": "live-file",
+    "page_sha256": "3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f"
+   },
+   "template": {
+    "attribution": {
+     "actor_label": null,
+     "evidence": null,
+     "role": "prime"
+    },
+    "binding": {
+     "direction": {
+      "agreement_sha256": "ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+       "director_required": "ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67",
+       "finish_criteria": "903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f",
+       "goal": "753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49",
+       "prime_discretion": "704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2",
+       "recorded_decisions": "4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6",
+       "scope": "40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8"
+      },
+      "review_location": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01",
+      "schema": "prime-cycle-direction/1"
+     },
+     "expected_prior": null,
+     "fingerprint": "054725582938cc4dda0480be346baaa89131fa00b70f1b368544ec86366d1415",
+     "goal": {
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+     },
+     "member": "0101.loop-return",
+     "member_role": "primary-current-candidate",
+     "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0599.loop-lab"
+     },
+     "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+     "pass": "05.01",
+     "receipt_sha256": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+     "retrospective": false,
+     "source": {
+      "commit": null,
+      "kind": "live-file",
+      "page_bytes": 424,
+      "page_sha256": "3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f"
+     },
+     "submission_id": "loop-happy",
+     "work_id": "loop"
+    },
+    "judgment": {
+     "answers": [],
+     "design_fork": null,
+     "disposition": null,
+     "finding": null,
+     "goal": {
+      "evidence": [],
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3",
+      "terminal": null
+     },
+     "holds": [],
+     "next_action": null,
+     "outcome": null,
+     "pass_terminal": null,
+     "reasons": [],
+     "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+     },
+     "semantic_conflict": null,
+     "source_refs": [],
+     "unresolved": []
+    },
+    "recovers": null,
+    "review_id": "05.01-r1",
+    "schema": "prime-cycle-decision/2",
+    "supersedes": null
+   },
+   "unresolved": [],
+   "work_id": "loop"
+  },
+  "before_exit": 1,
+  "record_exit": 0,
+  "record_stdout": "recorded D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\repo\\00.kernel\\00.00.10.work\\0599.loop-lab\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal op 20261031T210652.401605Z-9e6f53454526\n",
+  "after": {
+   "attention": [],
+   "custody": {
+    "basis": "live inspection at read time; custody is not acceptance",
+    "member": "0101.loop-return",
+    "receipt_sha256": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+    "retrospective": false,
+    "role": "primary-current-candidate",
+    "state": "present",
+    "state_reason": null
+   },
+   "disposition": "held",
+   "goal": {
+    "goal_id": "g1",
+    "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+   },
+   "goal_terminal": "open",
+   "historical": null,
+   "holds": [],
+   "latest_review": {
+    "author": "Grok-2 lab (SUPPLIED)",
+    "current": true,
+    "effective": "continue",
+    "outcome": "continue",
+    "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+    "review_id": "05.01-r1"
+   },
+   "next_action": {
+    "action_id": "pack-correction",
+    "author": "Grok-2 lab (SUPPLIED)",
+    "authorized_in_grant": true,
+    "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+    "source": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json",
+    "text": "Pack one bounded correction for the synthetic piece."
+   },
+   "next_action_guard": [],
+   "observation": {
+    "diagnostic": null,
+    "kind": null,
+    "part": null,
+    "state": "observed"
+   },
+   "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+   "pass": "05.01",
+   "pass_state": "reviewed",
+   "pass_terminal": "open",
+   "reader": {
+    "ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld"
+    ],
+    "attention": [],
+    "exit": 1,
+    "failed": null,
+    "stdout_sha256": "f56ed19d8d7fee98d2b79d71a319b8b69315d926b8608364ed6fb122bfbf167c"
+   },
+   "reviews": {
+    "committed": [
+     "05.01-r1"
+    ],
+    "heads": [
+     "05.01-r1"
+    ],
+    "invalid": [],
+    "partial": []
+   },
+   "source": {
+    "commit": null,
+    "kind": "live-file",
+    "page_sha256": "3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f"
+   },
+   "template": {
+    "attribution": {
+     "actor_label": null,
+     "evidence": null,
+     "role": "prime"
+    },
+    "binding": {
+     "direction": {
+      "agreement_sha256": "ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+       "director_required": "ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67",
+       "finish_criteria": "903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f",
+       "goal": "753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49",
+       "prime_discretion": "704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2",
+       "recorded_decisions": "4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6",
+       "scope": "40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8"
+      },
+      "review_location": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01",
+      "schema": "prime-cycle-direction/1"
+     },
+     "expected_prior": {
+      "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+      "review_id": "05.01-r1"
+     },
+     "fingerprint": "c13c190aa25cb3b6cb61be73bb11bcc0741e73599da7847598d88cb75657c9d3",
+     "goal": {
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+     },
+     "member": "0101.loop-return",
+     "member_role": "primary-current-candidate",
+     "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0599.loop-lab"
+     },
+     "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+     "pass": "05.01",
+     "receipt_sha256": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+     "retrospective": false,
+     "source": {
+      "commit": null,
+      "kind": "live-file",
+      "page_bytes": 424,
+      "page_sha256": "3d0572c5cdfea94a7db2718f35dbea0b43e03242a84bd27bb45c54e63252d36f"
+     },
+     "submission_id": "loop-happy",
+     "work_id": "loop"
+    },
+    "judgment": {
+     "answers": [],
+     "design_fork": null,
+     "disposition": null,
+     "finding": null,
+     "goal": {
+      "evidence": [],
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3",
+      "terminal": null
+     },
+     "holds": [],
+     "next_action": null,
+     "outcome": null,
+     "pass_terminal": null,
+     "reasons": [],
+     "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+     },
+     "semantic_conflict": null,
+     "source_refs": [],
+     "unresolved": []
+    },
+    "recovers": null,
+    "review_id": "05.01-r2",
+    "schema": "prime-cycle-decision/2",
+    "supersedes": {
+     "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+     "review_id": "05.01-r1"
+    }
+   },
+   "unresolved": [],
+   "work_id": "loop"
+  },
+  "after_exit": 0,
+  "stale": {
+   "attention": [
+    "review-stale: 05.01-r1 binds a different page; its declarations are historical; re-review required"
+   ],
+   "custody": {
+    "basis": "live inspection at read time; custody is not acceptance",
+    "member": "0101.loop-return",
+    "receipt_sha256": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+    "retrospective": false,
+    "role": "primary-current-candidate",
+    "state": "present",
+    "state_reason": null
+   },
+   "disposition": "unknown",
+   "goal": {
+    "goal_id": "g1",
+    "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+   },
+   "goal_terminal": "unknown",
+   "historical": {
+    "disposition": "held",
+    "goal_id": "g1",
+    "goal_terminal": "open",
+    "next_action": {
+     "action_id": "pack-correction",
+     "author": "Grok-2 lab (SUPPLIED)",
+     "authorized_in_grant": true,
+     "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+     "source": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json",
+     "text": "Pack one bounded correction for the synthetic piece."
+    },
+    "pass_terminal": "open",
+    "reason": "review-stale",
+    "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+    "review_id": "05.01-r1"
+   },
+   "holds": [],
+   "latest_review": {
+    "author": "Grok-2 lab (SUPPLIED)",
+    "current": false,
+    "effective": "continue",
+    "outcome": "continue",
+    "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+    "review_id": "05.01-r1"
+   },
+   "next_action": null,
+   "next_action_guard": [],
+   "observation": {
+    "diagnostic": null,
+    "kind": null,
+    "part": null,
+    "state": "observed"
+   },
+   "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+   "pass": "05.01",
+   "pass_state": "review-stale",
+   "pass_terminal": "unknown",
+   "reader": {
+    "ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld"
+    ],
+    "attention": [],
+    "exit": 1,
+    "failed": null,
+    "stdout_sha256": "ec6e050103aff58f017dc0e37071e33dbe13b61cb2895d393ce1c3d0b16c7acf"
+   },
+   "reviews": {
+    "committed": [
+     "05.01-r1"
+    ],
+    "heads": [
+     "05.01-r1"
+    ],
+    "invalid": [],
+    "partial": []
+   },
+   "source": {
+    "commit": null,
+    "kind": "live-file",
+    "page_sha256": "3c3a031490cf4c80fb7f38d909f53f16483b74c63166f25395a39071ece167cc"
+   },
+   "template": {
+    "attribution": {
+     "actor_label": null,
+     "evidence": null,
+     "role": "prime"
+    },
+    "binding": {
+     "direction": {
+      "agreement_sha256": "ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+       "director_required": "ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67",
+       "finish_criteria": "903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f",
+       "goal": "753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49",
+       "prime_discretion": "704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2",
+       "recorded_decisions": "4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6",
+       "scope": "40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8"
+      },
+      "review_location": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01",
+      "schema": "prime-cycle-direction/1"
+     },
+     "expected_prior": {
+      "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+      "review_id": "05.01-r1"
+     },
+     "fingerprint": "154a96c77e0f8baea5551f0661198fe4aaa6ab78cd74542ad78a678b8001f0c6",
+     "goal": {
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+     },
+     "member": "0101.loop-return",
+     "member_role": "primary-current-candidate",
+     "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0599.loop-lab"
+     },
+     "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+     "pass": "05.01",
+     "receipt_sha256": "ca00d9d8087cbbfc3c6fffac353723439ac9b31a14e6611c4fd62b87fecec781",
+     "retrospective": false,
+     "source": {
+      "commit": null,
+      "kind": "live-file",
+      "page_bytes": 446,
+      "page_sha256": "3c3a031490cf4c80fb7f38d909f53f16483b74c63166f25395a39071ece167cc"
+     },
+     "submission_id": "loop-happy",
+     "work_id": "loop"
+    },
+    "judgment": {
+     "answers": [],
+     "design_fork": null,
+     "disposition": null,
+     "finding": null,
+     "goal": {
+      "evidence": [],
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3",
+      "terminal": null
+     },
+     "holds": [],
+     "next_action": null,
+     "outcome": null,
+     "pass_terminal": null,
+     "reasons": [],
+     "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+     },
+     "semantic_conflict": null,
+     "source_refs": [],
+     "unresolved": []
+    },
+    "recovers": null,
+    "review_id": "05.01-r2",
+    "schema": "prime-cycle-decision/2",
+    "supersedes": {
+     "record_sha256": "b663f4d9804f3b0d6367bc0935aaf2af6646b8a6a2a636db900d1f2c7652e6dc",
+     "review_id": "05.01-r1"
+    }
+   },
+   "unresolved": [],
+   "work_id": "loop"
+  },
+  "stale_exit": 1,
+  "stale_record_exit": 2,
+  "stale_record_stdout": "refused: source changed since read: source\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal op 20261031T210653.484408Z-5050d04ceb2a\n",
+  "elected": [
+   null,
+   null,
+   null
+  ]
+ },
+ "missing": {
+  "trace": [
+   {
+    "label": "clerk queue",
+    "exit": 0,
+    "stdout": "queued job-missing\nevent 0001.queued.json sha256=b3ee5d07db8025dce2a0c9f9ab5cb8a2b6bc008dc8d805f665910cb1623c4da0\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "queue",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\store",
+     "--job",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\job.json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\instructions"
+    ]
+   },
+   {
+    "label": "clerk claim",
+    "exit": 0,
+    "stdout": "claimed job-missing\ntoken c380d93ac0d1eb8e3ecd6d7b14fa6eab\nevent 0002.claimed.json sha256=6ecb12dfda369ea9d334947f373cfbe10e88630e929a5c133cb9b46a96e56aa2\ninstructions-usable sha256=ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "claim",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\store",
+     "--job",
+     "job-missing",
+     "--as",
+     "lab-builder",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\instructions"
+    ]
+   },
+   {
+    "label": "clerk return",
+    "exit": 0,
+    "stdout": "returned job-missing\ndelivery delivery-missing\nevent 0003.returned.json sha256=1e15ab662cd6cc4343d194c7c53ff71c4025a70cf2a336c382bcc8a1b257827e\nwitness 0003.witness.json records event sha256=1e15ab662cd6cc4343d194c7c53ff71c4025a70cf2a336c382bcc8a1b257827e\nartifact piece.txt sha256=4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29 bytes=16\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "return",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\store",
+     "--job",
+     "job-missing",
+     "--as",
+     "lab-builder",
+     "--claim",
+     "c380d93ac0d1eb8e3ecd6d7b14fa6eab",
+     "--delivery",
+     "delivery-missing",
+     "--evidence",
+     "synthetic handback line"
+    ]
+   },
+   {
+    "label": "clerk show returned",
+    "exit": 0,
+    "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"lab-builder\",\"token\":\"c380d93ac0d1eb8e3ecd6d7b14fa6eab\"},\"job\":{\"assignee\":\"lab-builder\",\"expected_outputs\":[\"piece.txt\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44\"},\"job_id\":\"job-missing\",\"release\":\"synthetic job label; not a release\",\"reviewer\":\"lab-reviewer\",\"routed_by\":\"desk-loop-replay-pass01\"},\"job_id\":\"job-missing\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":16,\"path\":\"piece.txt\",\"sha256\":\"4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29\"}],\"by\":\"lab-builder\",\"delivery\":\"delivery-missing\",\"event_sha256\":\"1e15ab662cd6cc4343d194c7c53ff71c4025a70cf2a336c382bcc8a1b257827e\",\"evidence\":\"synthetic handback line\"},\"schema\":\"clerk-handoff-inspection/2\",\"state\":\"returned\"}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "show",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\store",
+     "--job",
+     "job-missing",
+     "--json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\instructions"
+    ]
+   },
+   {
+    "label": "cycle read with no capture",
+    "exit": 0,
+    "stdout": "{\n \"attention_count\": 0,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-missing-fx8driic\\\\journal\\\\2026-10-31\\\\20261031T210654.265169Z-e9d6e3f45661\",\n  \"enabled\": true,\n  \"op_id\": \"20261031T210654.265169Z-e9d6e3f45661\",\n  \"root\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-missing-fx8driic\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"c5972af895cccd85cb6d1232bc60de291bb5b2a033ebb8d95aa00035f0008676\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 0,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": null,\n    \"receipt_sha256\": null,\n    \"retrospective\": null,\n    \"role\": null,\n    \"state\": \"absent\",\n    \"state_reason\": \"no member is named by the page and none is registered\"\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"no-return\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"351bc1a6aed6fc2d4c69265bb35e9489cada93c62e0f1937481759c65d8788a3\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"3a5c203481377103b137fedb9dbf6a5441e740c8f3bc72d82e58e658a3b40dad\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f\",\n       \"goal\": \"753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6\",\n       \"scope\": \"40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"ce3aeb4a1ef97ae65c164170d329f67d3a3665ae8095133d505361ef3039efbc\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n     },\n     \"member\": null,\n     \"member_role\": null,\n     \"origin\": null,\n     \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": null,\n     \"retrospective\": null,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 316,\n      \"page_sha256\": \"3a5c203481377103b137fedb9dbf6a5441e740c8f3bc72d82e58e658a3b40dad\"\n     },\n     \"submission_id\": null,\n     \"work_id\": \"loop\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"loop\"\n  }\n ]\n}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\registration.json",
+     "--json",
+     "--templates",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\out\\templates",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle record accepted without capture",
+    "exit": 2,
+    "stdout": "refused: an accepted review needs a bound captured return\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\journal op 20261031T210654.503720Z-da9b1a3b9f87\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\registration.json",
+     "--decision",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\accepted.json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   }
+  ],
+  "clerk_state": "returned",
+  "return_exit": 0,
+  "members": [
+   "0599.loop-lab"
+  ],
+  "view": {
+   "attention": [],
+   "custody": {
+    "basis": "live inspection at read time; custody is not acceptance",
+    "member": null,
+    "receipt_sha256": null,
+    "retrospective": null,
+    "role": null,
+    "state": "absent",
+    "state_reason": "no member is named by the page and none is registered"
+   },
+   "disposition": "unknown",
+   "goal": {
+    "goal_id": "g1",
+    "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+   },
+   "goal_terminal": "unknown",
+   "historical": null,
+   "holds": [],
+   "latest_review": null,
+   "next_action": null,
+   "next_action_guard": [],
+   "observation": {
+    "diagnostic": null,
+    "kind": null,
+    "part": null,
+    "state": "observed"
+   },
+   "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+   "pass": "05.01",
+   "pass_state": "no-return",
+   "pass_terminal": "unknown",
+   "reader": {
+    "ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld"
+    ],
+    "attention": [],
+    "exit": 1,
+    "failed": null,
+    "stdout_sha256": "351bc1a6aed6fc2d4c69265bb35e9489cada93c62e0f1937481759c65d8788a3"
+   },
+   "reviews": {
+    "committed": [],
+    "heads": [],
+    "invalid": [],
+    "partial": []
+   },
+   "source": {
+    "commit": null,
+    "kind": "live-file",
+    "page_sha256": "3a5c203481377103b137fedb9dbf6a5441e740c8f3bc72d82e58e658a3b40dad"
+   },
+   "template": {
+    "attribution": {
+     "actor_label": null,
+     "evidence": null,
+     "role": "prime"
+    },
+    "binding": {
+     "direction": {
+      "agreement_sha256": "ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+       "director_required": "ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67",
+       "finish_criteria": "903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f",
+       "goal": "753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49",
+       "prime_discretion": "704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2",
+       "recorded_decisions": "4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6",
+       "scope": "40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8"
+      },
+      "review_location": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01",
+      "schema": "prime-cycle-direction/1"
+     },
+     "expected_prior": null,
+     "fingerprint": "ce3aeb4a1ef97ae65c164170d329f67d3a3665ae8095133d505361ef3039efbc",
+     "goal": {
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+     },
+     "member": null,
+     "member_role": null,
+     "origin": null,
+     "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+     "pass": "05.01",
+     "receipt_sha256": null,
+     "retrospective": null,
+     "source": {
+      "commit": null,
+      "kind": "live-file",
+      "page_bytes": 316,
+      "page_sha256": "3a5c203481377103b137fedb9dbf6a5441e740c8f3bc72d82e58e658a3b40dad"
+     },
+     "submission_id": null,
+     "work_id": "loop"
+    },
+    "judgment": {
+     "answers": [],
+     "design_fork": null,
+     "disposition": null,
+     "finding": null,
+     "goal": {
+      "evidence": [],
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3",
+      "terminal": null
+     },
+     "holds": [],
+     "next_action": null,
+     "outcome": null,
+     "pass_terminal": null,
+     "reasons": [],
+     "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+     },
+     "semantic_conflict": null,
+     "source_refs": [],
+     "unresolved": []
+    },
+    "recovers": null,
+    "review_id": "05.01-r1",
+    "schema": "prime-cycle-decision/2",
+    "supersedes": null
+   },
+   "unresolved": [],
+   "work_id": "loop"
+  },
+  "view_exit": 0,
+  "accept_exit": 2,
+  "accept_stdout": "refused: an accepted review needs a bound captured return\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\journal op 20261031T210654.503720Z-da9b1a3b9f87\n",
+  "review_dirs": []
+ },
+ "repeat": {
+  "trace": [
+   {
+    "label": "clerk queue",
+    "exit": 0,
+    "stdout": "queued job-repeat\nevent 0001.queued.json sha256=89b9ec401672de8d5960854112a5798ae2c1c43521843539ecb1b06c63b538f5\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "queue",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\store",
+     "--job",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\job.json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\instructions"
+    ]
+   },
+   {
+    "label": "clerk claim",
+    "exit": 0,
+    "stdout": "claimed job-repeat\ntoken 3805ccbe6ae4762b72791d4f677a1691\nevent 0002.claimed.json sha256=002dc5be88d4153c5e1144e528f30dd96ae8c3bd1739261cab69d0270785f934\ninstructions-usable sha256=ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "claim",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\store",
+     "--job",
+     "job-repeat",
+     "--as",
+     "lab-builder",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\instructions"
+    ]
+   },
+   {
+    "label": "clerk return",
+    "exit": 0,
+    "stdout": "returned job-repeat\ndelivery delivery-repeat\nevent 0003.returned.json sha256=57604ece629081557c7c85f0970c406cda1647f2e0c2e106be3b69ada7493146\nwitness 0003.witness.json records event sha256=57604ece629081557c7c85f0970c406cda1647f2e0c2e106be3b69ada7493146\nartifact piece.txt sha256=4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29 bytes=16\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "return",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\store",
+     "--job",
+     "job-repeat",
+     "--as",
+     "lab-builder",
+     "--claim",
+     "3805ccbe6ae4762b72791d4f677a1691",
+     "--delivery",
+     "delivery-repeat",
+     "--evidence",
+     "synthetic handback line"
+    ]
+   },
+   {
+    "label": "return_capture reserve",
+    "exit": 0,
+    "stdout": "member 0101.loop-repeat\nsubmission loop-repeat\nresult reserved\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/return-capture-pass01/return_capture.py",
+     "reserve",
+     "--book",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\repo\\00.kernel\\00.00.10.work",
+     "--submission",
+     "loop-repeat",
+     "--name",
+     "loop-repeat",
+     "--origin-book",
+     "00.00.10.work",
+     "--origin-page",
+     "0599.loop-lab",
+     "--origin-batch",
+     "05.01",
+     "--expected-output",
+     "piece.txt",
+     "--submitter",
+     "lab-builder",
+     "--reviewer",
+     "lab-reviewer",
+     "--release",
+     "synthetic reservation; not a release"
+    ]
+   },
+   {
+    "label": "handoff perform",
+    "exit": 0,
+    "stdout": "returned-event 57604ece629081557c7c85f0970c406cda1647f2e0c2e106be3b69ada7493146\nwork-ref synthetic-work-ref\nwork-ref-role declared-label\nreservation dbaf732c22194ba579cf68d7811943b97700ec581d7581940e881bc9d05f9f54\nmanifest 11ebf14e7de1030d082221425c07e47660a70ae08cd63d505c19ef45ccf43482\nreceipt 4f93513deb63fd6a67ce1618b62a26ba62242ca43d288162bf1feb1e7ff16d52\npayload 0001.blob 4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29\nresult complete\nnot approved\nnot accepted\nnot published\nwrites intent D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\handoff-record\\intent.json\nwrites completed D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\handoff-record\\completed.json\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/capture-handoff-pass01/handoff.py",
+     "perform",
+     "--binding",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\binding.json"
+    ]
+   },
+   {
+    "label": "clerk return",
+    "exit": 0,
+    "stdout": "already-recorded job-repeat\ndelivery delivery-repeat\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "return",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\store",
+     "--job",
+     "job-repeat",
+     "--as",
+     "lab-builder",
+     "--claim",
+     "3805ccbe6ae4762b72791d4f677a1691",
+     "--delivery",
+     "delivery-repeat",
+     "--evidence",
+     "synthetic handback line"
+    ]
+   },
+   {
+    "label": "handoff perform retry",
+    "exit": 0,
+    "stdout": "returned-event 57604ece629081557c7c85f0970c406cda1647f2e0c2e106be3b69ada7493146\nwork-ref synthetic-work-ref\nwork-ref-role declared-label\nreservation dbaf732c22194ba579cf68d7811943b97700ec581d7581940e881bc9d05f9f54\nmanifest 11ebf14e7de1030d082221425c07e47660a70ae08cd63d505c19ef45ccf43482\nreceipt 4f93513deb63fd6a67ce1618b62a26ba62242ca43d288162bf1feb1e7ff16d52\npayload 0001.blob 4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29\nresult complete\nnot approved\nnot accepted\nnot published\nwrites none\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/capture-handoff-pass01/handoff.py",
+     "perform",
+     "--binding",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\binding.json"
+    ]
+   },
+   {
+    "label": "clerk return",
+    "exit": 2,
+    "stdout": "refused: delivery conflict\nresult refused\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "return",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\store",
+     "--job",
+     "job-repeat",
+     "--as",
+     "lab-builder",
+     "--claim",
+     "3805ccbe6ae4762b72791d4f677a1691",
+     "--delivery",
+     "delivery-repeat",
+     "--evidence",
+     "synthetic handback line"
+    ]
+   },
+   {
+    "label": "return_capture capture changed return",
+    "exit": 2,
+    "stdout": "conflict submission loop-repeat\nexisting 0101.loop-repeat\nresult refused\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/return-capture-pass01/return_capture.py",
+     "capture",
+     "--book",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\repo\\00.kernel\\00.00.10.work",
+     "--submission",
+     "loop-repeat",
+     "--return-file",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\other-return.md",
+     "--source-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-repeat-bi4_nvzx\\source",
+     "--artifact",
+     "piece.txt|piece.txt"
+    ]
+   }
+  ],
+  "first_exit": 0,
+  "handoff_exit": 0,
+  "again_exit": 0,
+  "again_stdout": "already-recorded job-repeat\ndelivery delivery-repeat\nresult ok\n",
+  "event_unchanged": true,
+  "retry_exit": 0,
+  "retry_stdout": "returned-event 57604ece629081557c7c85f0970c406cda1647f2e0c2e106be3b69ada7493146\nwork-ref synthetic-work-ref\nwork-ref-role declared-label\nreservation dbaf732c22194ba579cf68d7811943b97700ec581d7581940e881bc9d05f9f54\nmanifest 11ebf14e7de1030d082221425c07e47660a70ae08cd63d505c19ef45ccf43482\nreceipt 4f93513deb63fd6a67ce1618b62a26ba62242ca43d288162bf1feb1e7ff16d52\npayload 0001.blob 4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29\nresult complete\nnot approved\nnot accepted\nnot published\nwrites none\nresult ok\n",
+  "completed_unchanged": true,
+  "conflict_exit": 2,
+  "conflict_stdout": "refused: delivery conflict\nresult refused\n",
+  "event_unchanged_after_conflict": true,
+  "recapture_exit": 2,
+  "recapture_stdout": "conflict submission loop-repeat\nexisting 0101.loop-repeat\nresult refused\n",
+  "receipt_unchanged": true
+ },
+ "stale_instruction": {
+  "trace": [
+   {
+    "label": "clerk queue",
+    "exit": 0,
+    "stdout": "queued job-stale\nevent 0001.queued.json sha256=da67f0781be8a27b04bdb31112218e1bf000162ae696a988398464a016b4f004\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "queue",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-stale-0z0xq65j\\store",
+     "--job",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-stale-0z0xq65j\\job.json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-stale-0z0xq65j\\instructions"
+    ]
+   },
+   {
+    "label": "clerk claim stale instructions",
+    "exit": 2,
+    "stdout": "refused: instruction hash mismatch\nresult refused\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "claim",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-stale-0z0xq65j\\store",
+     "--job",
+     "job-stale",
+     "--as",
+     "lab-builder",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-stale-0z0xq65j\\instructions"
+    ]
+   }
+  ],
+  "queue_exit": 0,
+  "claim_exit": 2,
+  "claim_stdout": "refused: instruction hash mismatch\nresult refused\n",
+  "claim_written": false
+ },
+ "unresolved": {
+  "trace": [
+   {
+    "label": "clerk queue",
+    "exit": 0,
+    "stdout": "queued job-question\nevent 0001.queued.json sha256=b2feedec6ec0d5e1e68279f4a6037a8d2b96db0ab62588cad6a1d16539982607\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "queue",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\store",
+     "--job",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\job.json",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\instructions"
+    ]
+   },
+   {
+    "label": "clerk claim",
+    "exit": 0,
+    "stdout": "claimed job-question\ntoken 8927373b5da6c5543840d98b31c3668c\nevent 0002.claimed.json sha256=3e7cc908b21bcf2a4c2fe6af822e5b374323eda5e22ea7e4ce7a43702bf8f07b\ninstructions-usable sha256=ef2b0b524aa7dd14ca8e7539014ec2bd7c935246081091395578d1e39763df44\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "claim",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\store",
+     "--job",
+     "job-question",
+     "--as",
+     "lab-builder",
+     "--instructions-base",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\instructions"
+    ]
+   },
+   {
+    "label": "clerk return",
+    "exit": 0,
+    "stdout": "returned job-question\ndelivery delivery-question\nevent 0003.returned.json sha256=d3e866b200bfb9fc6effb93c8b4711f1af829385247d63fb394f45367d1f5c3c\nwitness 0003.witness.json records event sha256=d3e866b200bfb9fc6effb93c8b4711f1af829385247d63fb394f45367d1f5c3c\nartifact piece.txt sha256=4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29 bytes=16\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/clerk-handoff-pass02/clerk.py",
+     "return",
+     "--store",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\store",
+     "--job",
+     "job-question",
+     "--as",
+     "lab-builder",
+     "--claim",
+     "8927373b5da6c5543840d98b31c3668c",
+     "--delivery",
+     "delivery-question",
+     "--evidence",
+     "synthetic handback line"
+    ]
+   },
+   {
+    "label": "return_capture reserve",
+    "exit": 0,
+    "stdout": "member 0101.loop-question\nsubmission loop-question\nresult reserved\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/return-capture-pass01/return_capture.py",
+     "reserve",
+     "--book",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\repo\\00.kernel\\00.00.10.work",
+     "--submission",
+     "loop-question",
+     "--name",
+     "loop-question",
+     "--origin-book",
+     "00.00.10.work",
+     "--origin-page",
+     "0599.loop-lab",
+     "--origin-batch",
+     "05.01",
+     "--expected-output",
+     "piece.txt",
+     "--submitter",
+     "lab-builder",
+     "--reviewer",
+     "lab-reviewer",
+     "--release",
+     "synthetic reservation; not a release"
+    ]
+   },
+   {
+    "label": "handoff perform",
+    "exit": 0,
+    "stdout": "returned-event d3e866b200bfb9fc6effb93c8b4711f1af829385247d63fb394f45367d1f5c3c\nwork-ref synthetic-work-ref\nwork-ref-role declared-label\nreservation 20e531ca32df692bea4a360db44c9f56f8d68017bd478f1472e71ebf98e79341\nmanifest a33b79a20b7f8e0d5c641352d228b245101750e66618b2b6148f447158fda0c6\nreceipt 6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346\npayload 0001.blob 4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29\nresult complete\nnot approved\nnot accepted\nnot published\nwrites intent D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\handoff-record\\intent.json\nwrites completed D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\handoff-record\\completed.json\nresult ok\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/capture-handoff-pass01/handoff.py",
+     "perform",
+     "--binding",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\binding.json"
+    ]
+   },
+   {
+    "label": "cycle read before question",
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 1,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-question-0dpr3rvp\\\\journal\\\\2026-10-31\\\\20261031T210657.859406Z-563daca53851\",\n  \"enabled\": true,\n  \"op_id\": \"20261031T210657.859406Z-563daca53851\",\n  \"root\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-question-0dpr3rvp\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"42e499485bac977ef1d32dfed34177258273a9d1dcd86eec8fc6e34c79f6a575\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 1,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"awaiting-review: a captured return has no recorded review\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.loop-question\",\n    \"receipt_sha256\": \"6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\",\n    \"state\": \"present\",\n    \"state_reason\": null\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"awaiting-review\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"7dc66506c49150d0685ee38a6ce9a8b0c42bf8a8036bcf121c9191f53b2ab092\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"fe0bd760e4909fa6106a45bffc34ef14571db54ff8ecda1cdb39b9be98ed7170\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f\",\n       \"goal\": \"753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6\",\n       \"scope\": \"40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"906deeebc96329e0cea8705cba3a285729fc946aba6417d861153b26ddf47ed8\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n     },\n     \"member\": \"0101.loop-question\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0599.loop-lab\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 426,\n      \"page_sha256\": \"fe0bd760e4909fa6106a45bffc34ef14571db54ff8ecda1cdb39b9be98ed7170\"\n     },\n     \"submission_id\": \"loop-question\",\n     \"work_id\": \"loop\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"loop\"\n  }\n ]\n}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\registration.json",
+     "--json",
+     "--templates",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\out\\templates",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle record question",
+    "exit": 1,
+    "stdout": "recorded D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\repo\\00.kernel\\00.00.10.work\\0599.loop-lab\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective hold\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\journal op 20261031T210658.203702Z-061a93123299\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\registration.json",
+     "--decision",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\question.json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   },
+   {
+    "label": "cycle read after question",
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 1,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-question-0dpr3rvp\\\\journal\\\\2026-10-31\\\\20261031T210658.650159Z-7cce6180e834\",\n  \"enabled\": true,\n  \"op_id\": \"20261031T210658.650159Z-7cce6180e834\",\n  \"root\": \"D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-question-0dpr3rvp\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"42e499485bac977ef1d32dfed34177258273a9d1dcd86eec8fc6e34c79f6a575\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 0,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 1,\n  \"reviewed_current\": 1,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"hold open: H1 (unresolved) blocks ['design-change']\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.loop-question\",\n    \"receipt_sha256\": \"6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\",\n    \"state\": \"present\",\n    \"state_reason\": null\n   },\n   \"disposition\": \"held\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n   },\n   \"goal_terminal\": \"open\",\n   \"historical\": null,\n   \"holds\": [\n    {\n     \"answer_ids\": [],\n     \"dependent_scope\": [\n      \"design-change\"\n     ],\n     \"finding_id\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md#F-01\",\n     \"hold_id\": \"H1\",\n     \"kind\": \"director-judgment\",\n     \"question_id\": \"Q1\",\n     \"question_revision\": \"r1\",\n     \"question_sha256\": \"2c76c793d1d2fcfd4403d1e3c3133959b84577a7f118633285deac6d975ff8df\",\n     \"status\": \"unresolved\"\n    }\n   ],\n   \"latest_review\": {\n    \"author\": \"Grok-2 lab (SUPPLIED)\",\n    \"current\": true,\n    \"effective\": \"hold\",\n    \"outcome\": \"director-input\",\n    \"record_sha256\": \"eabb62f091d9d12393fae1d65f1c2f13b0af68ce8c8145c33cf6a01a02074e17\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"reviewed\",\n   \"pass_terminal\": \"open\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"aeb4cc6309e9ce19e4f0bc3115e70084da25d8e0f0590060b828d32866481622\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"fe0bd760e4909fa6106a45bffc34ef14571db54ff8ecda1cdb39b9be98ed7170\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f\",\n       \"goal\": \"753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6\",\n       \"scope\": \"40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"eabb62f091d9d12393fae1d65f1c2f13b0af68ce8c8145c33cf6a01a02074e17\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"3ef30ea24ca6712db8133cf52f6423aca64f4c34117cea99346e23bf2299a4cc\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\"\n     },\n     \"member\": \"0101.loop-question\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0599.loop-lab\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 426,\n      \"page_sha256\": \"fe0bd760e4909fa6106a45bffc34ef14571db54ff8ecda1cdb39b9be98ed7170\"\n     },\n     \"submission_id\": \"loop-question\",\n     \"work_id\": \"loop\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"eabb62f091d9d12393fae1d65f1c2f13b0af68ce8c8145c33cf6a01a02074e17\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [\n    \"SUPPLIED question: should the synthetic piece stay one file?\"\n   ],\n   \"work_id\": \"loop\"\n  }\n ]\n}\n",
+    "stderr": "",
+    "argv": [
+     "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\registration.json",
+     "--json",
+     "--journal-root",
+     "D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\journal",
+     "--caller",
+     "Grok-2 lab (SUPPLIED)",
+     "--note",
+     "synthetic desk-loop replay"
+    ]
+   }
+  ],
+  "handoff_exit": 0,
+  "record_exit": 1,
+  "record_stdout": "recorded D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\repo\\00.kernel\\00.00.10.work\\0599.loop-lab\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective hold\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-question-0dpr3rvp\\journal op 20261031T210658.203702Z-061a93123299\n",
+  "after": {
+   "attention": [
+    "hold open: H1 (unresolved) blocks ['design-change']"
+   ],
+   "custody": {
+    "basis": "live inspection at read time; custody is not acceptance",
+    "member": "0101.loop-question",
+    "receipt_sha256": "6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346",
+    "retrospective": false,
+    "role": "primary-current-candidate",
+    "state": "present",
+    "state_reason": null
+   },
+   "disposition": "held",
+   "goal": {
+    "goal_id": "g1",
+    "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+   },
+   "goal_terminal": "open",
+   "historical": null,
+   "holds": [
+    {
+     "answer_ids": [],
+     "dependent_scope": [
+      "design-change"
+     ],
+     "finding_id": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md#F-01",
+     "hold_id": "H1",
+     "kind": "director-judgment",
+     "question_id": "Q1",
+     "question_revision": "r1",
+     "question_sha256": "2c76c793d1d2fcfd4403d1e3c3133959b84577a7f118633285deac6d975ff8df",
+     "status": "unresolved"
+    }
+   ],
+   "latest_review": {
+    "author": "Grok-2 lab (SUPPLIED)",
+    "current": true,
+    "effective": "hold",
+    "outcome": "director-input",
+    "record_sha256": "eabb62f091d9d12393fae1d65f1c2f13b0af68ce8c8145c33cf6a01a02074e17",
+    "review_id": "05.01-r1"
+   },
+   "next_action": null,
+   "next_action_guard": [],
+   "observation": {
+    "diagnostic": null,
+    "kind": null,
+    "part": null,
+    "state": "observed"
+   },
+   "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+   "pass": "05.01",
+   "pass_state": "reviewed",
+   "pass_terminal": "open",
+   "reader": {
+    "ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld"
+    ],
+    "attention": [],
+    "exit": 1,
+    "failed": null,
+    "stdout_sha256": "aeb4cc6309e9ce19e4f0bc3115e70084da25d8e0f0590060b828d32866481622"
+   },
+   "reviews": {
+    "committed": [
+     "05.01-r1"
+    ],
+    "heads": [
+     "05.01-r1"
+    ],
+    "invalid": [],
+    "partial": []
+   },
+   "source": {
+    "commit": null,
+    "kind": "live-file",
+    "page_sha256": "fe0bd760e4909fa6106a45bffc34ef14571db54ff8ecda1cdb39b9be98ed7170"
+   },
+   "template": {
+    "attribution": {
+     "actor_label": null,
+     "evidence": null,
+     "role": "prime"
+    },
+    "binding": {
+     "direction": {
+      "agreement_sha256": "ad9365e87f7c791dbaa44226cc7c88d78b2f5c4dc2fbb21a2d721640705b824a",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+       "director_required": "ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67",
+       "finish_criteria": "903cfb7ecf8f9f77047978053b5b6c15132ad7704c89e3f5534248ae5243905f",
+       "goal": "753cef87f9e3e67e45473a408251a9102d82a3aedabdf01a924206ee2583cf49",
+       "prime_discretion": "704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2",
+       "recorded_decisions": "4709d97ed41068fbc689d5be10cf50c1ba6a8009b6632ed170a63a428ee8fcf6",
+       "scope": "40d7385db4308ee5bc4168f647c72a15d3bec481a6fe12cc83d761e46104adc8"
+      },
+      "review_location": "00.kernel/00.00.10.work/0599.loop-lab/evidence/prime-cycle-reviews/05.01",
+      "schema": "prime-cycle-direction/1"
+     },
+     "expected_prior": {
+      "record_sha256": "eabb62f091d9d12393fae1d65f1c2f13b0af68ce8c8145c33cf6a01a02074e17",
+      "review_id": "05.01-r1"
+     },
+     "fingerprint": "3ef30ea24ca6712db8133cf52f6423aca64f4c34117cea99346e23bf2299a4cc",
+     "goal": {
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3"
+     },
+     "member": "0101.loop-question",
+     "member_role": "primary-current-candidate",
+     "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0599.loop-lab"
+     },
+     "page": "00.kernel/00.00.10.work/0599.loop-lab/05.01.md",
+     "pass": "05.01",
+     "receipt_sha256": "6eac297cb35bff3027005b62dda22262aaab1514a45ad31be679f3fa44377346",
+     "retrospective": false,
+     "source": {
+      "commit": null,
+      "kind": "live-file",
+      "page_bytes": 426,
+      "page_sha256": "fe0bd760e4909fa6106a45bffc34ef14571db54ff8ecda1cdb39b9be98ed7170"
+     },
+     "submission_id": "loop-question",
+     "work_id": "loop"
+    },
+    "judgment": {
+     "answers": [],
+     "design_fork": null,
+     "disposition": null,
+     "finding": null,
+     "goal": {
+      "evidence": [],
+      "goal_id": "g1",
+      "goal_sha256": "6622dca9400721979332e8b9c4b0132cd0afbf8a2c89c7dc476a5d00297ee7e3",
+      "terminal": null
+     },
+     "holds": [],
+     "next_action": null,
+     "outcome": null,
+     "pass_terminal": null,
+     "reasons": [],
+     "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+     },
+     "semantic_conflict": null,
+     "source_refs": [],
+     "unresolved": []
+    },
+    "recovers": null,
+    "review_id": "05.01-r2",
+    "schema": "prime-cycle-decision/2",
+    "supersedes": {
+     "record_sha256": "eabb62f091d9d12393fae1d65f1c2f13b0af68ce8c8145c33cf6a01a02074e17",
+     "review_id": "05.01-r1"
+    }
+   },
+   "unresolved": [
+    "SUPPLIED question: should the synthetic piece stay one file?"
+   ],
+   "work_id": "loop"
+  },
+  "after_text_has_question": true,
+  "after_exit": 1,
+  "elected": null
+ },
+ "checks": [
+  {
+   "name": "loop claim shows usable instructions",
+   "ok": true,
+   "detail": "{'checks': {'artifacts': 'not-applicable', 'completion': 'not-applicable', 'events': 'ok', 'instructions': 'usable'}, 'claim': {'by': 'lab-builder', 'token': '47e4d0f865485c9ed450e12f678d52e9'}, 'job': {'assignee': 'lab-builder', 'expected_"
+  },
+  {
+   "name": "loop handoff captures",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "name": "restart before review is awaiting-review",
+   "ok": true,
+   "detail": "{\"pass_state\": \"awaiting-review\", \"custody\": \"present\", \"terminal\": \"unknown\"}"
+  },
+  {
+   "name": "held review recovers the next action",
+   "ok": true,
+   "detail": "{\"record\": \"recorded D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-loop-cxpjd2dn\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0599.loop-lab\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01-r1\\nprime_review effecti\", \"pass_state\": \"reviewed\", \"next\": \"Pack one bounded correction for the synthetic piece.\"}"
+  },
+  {
+   "name": "cycle elects nothing",
+   "ok": true,
+   "detail": "[None, None, None]"
+  },
+  {
+   "name": "edited page makes the review stale",
+   "ok": true,
+   "detail": "{\"pass_state\": \"review-stale\", \"historical\": \"review-stale\"}"
+  },
+  {
+   "name": "stale template is refused",
+   "ok": true,
+   "detail": "refused: source changed since read: source\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-loop-cxpjd2dn\\journal op 20261031T210653.484408Z-5050d04ceb2a\n"
+  },
+  {
+   "name": "returned clerk job is not a capture",
+   "ok": true,
+   "detail": "{\"state\": \"returned\", \"book_entries\": [\"0599.loop-lab\"], \"captures\": []}"
+  },
+  {
+   "name": "missing capture does not look complete",
+   "ok": true,
+   "detail": "{\"pass_state\": \"no-return\", \"terminal\": \"unknown\", \"goal\": \"unknown\"}"
+  },
+  {
+   "name": "accepted review without a capture is refused",
+   "ok": true,
+   "detail": "refused: an accepted review needs a bound captured return\njournal: D:\\librarian\\temp\\review0520-lab\\scratch\\deskloop-missing-fx8driic\\journal op 20261031T210654.503720Z-da9b1a3b9f87\n"
+  },
+  {
+   "name": "identical clerk return writes nothing",
+   "ok": true,
+   "detail": "already-recorded job-repeat\ndelivery delivery-repeat\nresult ok\n"
+  },
+  {
+   "name": "identical handoff retry keeps the receipt",
+   "ok": true,
+   "detail": "returned-event 57604ece629081557c7c85f0970c406cda1647f2e0c2e106be3b69ada7493146\nwork-ref synthetic-work-ref\nwork-ref-role declared-label\nreservation dbaf732c22194ba579cf68d7811943b97700ec581d7581940e8"
+  },
+  {
+   "name": "changed clerk bytes conflict and keep the event",
+   "ok": true,
+   "detail": "refused: delivery conflict\nresult refused\n"
+  },
+  {
+   "name": "changed capture bytes conflict and keep the receipt",
+   "ok": true,
+   "detail": "conflict submission loop-repeat\nexisting 0101.loop-repeat\nresult refused\n"
+  },
+  {
+   "name": "stale instructions refuse the claim",
+   "ok": true,
+   "detail": "refused: instruction hash mismatch\nresult refused\n"
+  },
+  {
+   "name": "unresolved question remains after restart",
+   "ok": true,
+   "detail": "{\"record\": \"recorded D:\\\\librarian\\\\temp\\\\review0520-lab\\\\scratch\\\\deskloop-question-0dpr3rvp\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0599.loop-lab\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01\", \"hold\": [{\"answer_ids\": [], \"dependent_scope\": [\"design-change\"], \"finding_id\": \"00.kernel/00.00.10.work/0599.loop-lab/05.01.md#F-01\", \"hold_id\": \"H1\", \"kind\": \"director-judgment\", \"question_id\": \"Q1\", \"question_revision\": \"r1\", \"question_sha256\": \"2c76c793d1d2fcfd4403d1e3c3133959b84577a7f118633285deac6d975ff8df\", \"status\": \"unresolved\"}], \"unresolved\": [\"SUPPLIED question: should the synthetic piece stay one file?\"]}"
+  }
+ ],
+ "ok": true
+}

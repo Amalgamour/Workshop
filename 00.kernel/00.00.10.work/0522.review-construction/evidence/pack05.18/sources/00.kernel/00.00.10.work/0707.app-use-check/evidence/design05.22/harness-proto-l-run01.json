@@ -1,0 +1,1468 @@
+{
+ "schema": "harness-result/1",
+ "inputs": "labs/loop-convergence-harness-pass02/inputs/inputs-proto-l.json",
+ "inputs_sha256": "fcfc0976235cae2582270cb9207b71ab537d1899b4d7c8689558c957305dab51",
+ "candidate": "D:\\librarian\\temp\\lch2-0522\\cand-proto-l",
+ "suite": "all",
+ "ready": false,
+ "exit_meaning": "NOT READY",
+ "aggregate": {
+  "ready": false,
+  "scope": "full",
+  "reasons": [
+   "required case ST-1: fail",
+   "required case ST-2: fail",
+   "required case ST-3: fail",
+   "required case N7-3: fail",
+   "required case CAP-1: blocked",
+   "required case CAP-2: blocked",
+   "required case CAP-3: blocked",
+   "required case CAP-4: blocked",
+   "required case RP-1: blocked",
+   "required case RP-2: blocked",
+   "required case IN-2: blocked",
+   "dependency K is pending",
+   "dependency I is pending",
+   "dependency R is pending",
+   "dependency W is pending"
+  ],
+  "counts": {
+   "pass": 26,
+   "fail": 4,
+   "blocked": 7,
+   "known-failure-reproduced": 3
+  },
+  "required_full": 37,
+  "required_selected": 37,
+  "coverage_missing": [],
+  "subset": {
+   "ids": [
+    "N5-1",
+    "N5-2",
+    "N5-3",
+    "N7-1",
+    "N7-2",
+    "ST-1",
+    "ST-2",
+    "ST-3",
+    "ST-4",
+    "LR-1",
+    "LR-2",
+    "LR-3",
+    "LR-4",
+    "LR-5",
+    "LR-6",
+    "N7-3",
+    "LR-7",
+    "CAP-0",
+    "CAP-1",
+    "CAP-2",
+    "CAP-3",
+    "CAP-4",
+    "LC-1",
+    "PR-1",
+    "PR-2",
+    "PR-3",
+    "PR-4",
+    "PR-5",
+    "PR-6",
+    "PR-7",
+    "CTX-1",
+    "RP-1",
+    "RP-2",
+    "IN-1",
+    "IN-2",
+    "RC-1",
+    "RB-1"
+   ],
+   "all_selected_required_pass": false,
+   "note": "a subset result is diagnostic only; it is never combined readiness"
+  }
+ },
+ "records": [
+  {
+   "id": "N5-1",
+   "group": "n5-same-cut",
+   "requirement": "N5 0512/05.06: candidate prepare equals the faithful pass03 baseline on the same root (intake_id, rows, cuts, findings)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "baseline == candidate",
+   "observed": {
+    "diff": {},
+    "candidate": {
+     "exit": 0,
+     "intake_id": "f172a3002619ae6050238528e8ecfa0db1b664fe39ad77d59efc7632e9e8a641",
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing"
+     ],
+     "rows_sha": "ab38bd81b3d42d4349391102a1f0bd0e35ee1d66ecad039cf78deb2a1dd933c1",
+     "cuts_sha": "ef01738d7417d59e97d8ce21f498cd37ee4170c5013371ec651690a04905e639"
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N5-1"
+  },
+  {
+   "id": "N5-2",
+   "group": "n5-same-cut",
+   "requirement": "N5 0522/05.13: same-state equality with the baseline; the declared selection-induced change (app/librarian.py artifact) appears iff the dispatcher differs from c3a5be3b",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "equal_to_baseline": true,
+    "selection_delta_expected": true,
+    "declared_collisions": "candidate-owned paths only"
+   },
+   "observed": {
+    "diff": {},
+    "selection_delta_observed": true,
+    "collisions": [
+     "app/librarian.py"
+    ],
+    "candidate": {
+     "exit": 0,
+     "intake_id": "533e8dee3ea7c84e7ed8d70ec4d4875839463985d3f90dd022db9d4b8d837c3a",
+     "measurement": "incomplete",
+     "codes": [
+      "artifact-hash-mismatch",
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing",
+      "verification-not-measured"
+     ],
+     "rows_sha": "8d6a1b1eb187f6b0c01c4bf1eb3c8bbf0b1c24902528887e9b68d60d5f616d44",
+     "cuts_sha": "93292c952a39169ccd8002b22eb8ae2c1d8929682ede0d73e90f757e342b343d"
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N5-2"
+  },
+  {
+   "id": "N5-3",
+   "group": "n5-same-cut",
+   "requirement": "N5 legitimate filename punctuation (return.md, / ; / ) ) binds as before (candidate == baseline, file resolved)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "equal and complete for , ; )",
+   "observed": {
+    ",": {
+     "equal": true,
+     "measurement": "complete"
+    },
+    ";": {
+     "equal": true,
+     "measurement": "complete"
+    },
+    ")": {
+     "equal": true,
+     "measurement": "complete"
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N5-3"
+  },
+  {
+   "id": "N7-1",
+   "group": "n7-valid",
+   "requirement": "N7 0707/05.15: complete, 26/26 artifacts, local pair matched, N1 not applicable",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "artifacts": 26,
+    "manifest_rows_counted_by_harness": 26,
+    "exchange": "matched",
+    "n1_custody": "not-applicable"
+   },
+   "observed": {
+    "measurement": "complete",
+    "artifacts": 26,
+    "exchange_state": "matched",
+    "n1_custody": "not-applicable",
+    "chronology": "unverified",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N7-1"
+  },
+  {
+   "id": "N7-2",
+   "group": "n7-valid",
+   "requirement": "N7 0707/05.17: complete, 33/33 artifacts, local pair matched, N1 not applicable",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "artifacts": 33,
+    "manifest_rows_counted_by_harness": 33,
+    "exchange": "matched",
+    "n1_custody": "not-applicable"
+   },
+   "observed": {
+    "measurement": "complete",
+    "artifacts": 33,
+    "exchange_state": "matched",
+    "n1_custody": "not-applicable",
+    "chronology": "unverified",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N7-2"
+  },
+  {
+   "id": "ST-1",
+   "group": "strict-n7",
+   "requirement": "trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,': reason malformed-n7-declaration; decoy not bound as artifact-manifest; record/publication refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "complete",
+    "codes": [
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "submission",
+      "path": "0707.app-use-check/05.15.return.md"
+     },
+     {
+      "role": "artifact-manifest",
+      "path": "0707.app-use-check/evidence/design05.15/artifact-manifest.json,"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/05.15.return.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 0,
+    "publish_exit": 0,
+    "destination_unchanged": false,
+    "judge_reasons": [
+     "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)",
+     "measurement 'complete' != 'incomplete'",
+     "rejected alternative bound: [{'role': 'artifact-manifest', 'path': '0707.app-use-check/evidence/design05.15/artifact-manifest.json,'}]",
+     "record not refused",
+     "publication not refused",
+     "destination changed"
+    ]
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\ST-1"
+  },
+  {
+   "id": "ST-2",
+   "group": "strict-n7",
+   "requirement": "a refused declaration (hash in attribution) beside a valid alternative Returned line: reason malformed-n7-declaration; the alternative 06.15.notes.md not bound as submission/return; refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "attribution-not-descriptive",
+     "index-context-bounded",
+     "n1-not-applicable",
+     "n7-exchange-return-not-local",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "submission",
+      "path": "0707.app-use-check/06.15.notes.md"
+     },
+     {
+      "role": "artifact-manifest",
+      "path": "0707.app-use-check/evidence/design05.15/artifact-manifest.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/05.15.return.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/06.15.notes.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/COMPAT.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.exit"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.stdout"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/DECISIONS.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/FAILURE-MATRIX.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/HANDOFF.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.exit"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.stdout"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run02.exit"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run02.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run02.stdout"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/SPEC.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/verification.json"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/profiles/legacy-headings-v0.json"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/run_compat16.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/ta.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/tests/test_ta.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/core_compat.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/profiles/legacy-headings-v0.json"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/README.md"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/ta2.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/tests/test_ta2.py"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": [
+     "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)",
+     "rejected alternative bound: [{'role': 'submission', 'path': '0707.app-use-check/06.15.notes.md'}]"
+    ]
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\ST-2"
+  },
+  {
+   "id": "ST-3",
+   "group": "strict-n7",
+   "requirement": "an incomplete recognized label ('Verification:' with no value): reason malformed-n7-declaration; record/publication refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "complete",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "submission",
+      "path": "0707.app-use-check/05.15.return.md"
+     },
+     {
+      "role": "artifact-manifest",
+      "path": "0707.app-use-check/evidence/design05.15/artifact-manifest.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/05.15.return.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/06.15.notes.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/COMPAT.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.exit"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/compat16-run01.stdout"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/DECISIONS.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/FAILURE-MATRIX.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/HANDOFF.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.exit"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run01.stdout"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run02.exit"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run02.json"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/new-run02.stdout"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/SPEC.md"
+     },
+     {
+      "role": "artifact",
+      "path": "0707.app-use-check/evidence/design05.15/verification.json"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/profiles/legacy-headings-v0.json"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/run_compat16.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/ta.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/compat16/tests/test_ta.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/core_compat.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/profiles/legacy-headings-v0.json"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/README.md"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/ta2.py"
+     },
+     {
+      "role": "artifact",
+      "path": "labs/task-agreement-reference-pass02/tests/test_ta2.py"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 0,
+    "publish_exit": 0,
+    "destination_unchanged": false,
+    "judge_reasons": [
+     "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)",
+     "measurement 'complete' != 'incomplete'",
+     "record not refused",
+     "publication not refused",
+     "destination changed"
+    ]
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\ST-3"
+  },
+  {
+   "id": "ST-4",
+   "group": "strict-n7",
+   "requirement": "control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malformed-n7-declaration code; complete)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "measurement": "complete",
+    "malformed-n7-declaration": "absent"
+   },
+   "observed": {
+    ",": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    },
+    ";": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    },
+    ")": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\ST-4"
+  },
+  {
+   "id": "LR-1",
+   "group": "n7-local",
+   "requirement": "orphan return (no pack): not matched; record refused; return bytes kept",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "state": "orphan-return",
+    "record": "refused",
+    "bytes_kept": true
+   },
+   "observed": {
+    "state": "orphan-return",
+    "measurement": "incomplete",
+    "record_exit": 2,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-1"
+  },
+  {
+   "id": "LR-2",
+   "group": "n7-local",
+   "requirement": "wrong pass: pack 05.02 pointing at the 05.01 return is not a local match",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "state": "return-not-local",
+    "measurement": "incomplete"
+   },
+   "observed": {
+    "state": "return-not-local",
+    "measurement": "incomplete"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-2"
+  },
+  {
+   "id": "LR-3",
+   "group": "n7-local",
+   "requirement": "wrong page: a return copied to another N7 page with no pack does not borrow a nearby pack",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "state": "orphan-return"
+   },
+   "observed": {
+    "state": "orphan-return",
+    "assignment": null,
+    "measurement": "incomplete"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-3"
+  },
+  {
+   "id": "LR-4",
+   "group": "n7-local",
+   "requirement": "foreign book: an N7 record copied into another book instance is not current there",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "read in the copy: not current (exit != 0 or stale)",
+   "observed": {
+    "exit": 1,
+    "stale": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-4"
+  },
+  {
+   "id": "LR-5",
+   "group": "n7-local",
+   "requirement": "existing history (0707/05.15): matched with chronology 'unverified' (Director 06.20)",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "state": "matched",
+    "chronology": "unverified"
+   },
+   "observed": {
+    "state": "matched",
+    "chronology": "unverified"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-5"
+  },
+  {
+   "id": "LR-6",
+   "group": "n7-local",
+   "requirement": "new work: pack observed before return -> chronology 'recorded-before-return'; same .NN throughout",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "open_exit": 0,
+    "chronology": "recorded-before-return",
+    "return": "0799.n7-local-lab/05.01.return.md",
+    "destination": "0799.n7-local-lab/06.01.review.md"
+   },
+   "observed": {
+    "open_exit": 0,
+    "state": "matched",
+    "chronology": "recorded-before-return",
+    "return": "0799.n7-local-lab/05.01.return.md",
+    "destination": "0799.n7-local-lab/06.01.review.md"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-6"
+  },
+  {
+   "id": "N7-3",
+   "group": "n7-valid",
+   "requirement": "N7 not-applicable on record and render: a recorded local N7 pair stores and renders custody 'not-applicable' (never 'missing'); an N5 control keeps its N5 custody value",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "record_custody": "not-applicable",
+    "render": "custody: not-applicable",
+    "exchange.n1_custody": "not-applicable",
+    "n5_control": "N5 enum unchanged"
+   },
+   "observed": {
+    "record_exit": 0,
+    "read_custody": "missing",
+    "rendered": "836 chars (full text in N7-3-inspect.stdout)",
+    "exchange": {
+     "book": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N7-3\\00.kernel\\00.00.10.work",
+     "chronology": "recorded-before-return",
+     "declared_submission": [
+      "0799.n7-local-lab/05.01.return.md"
+     ],
+     "destination": "0799.n7-local-lab/06.01.review.md",
+     "n1_custody": "not-applicable",
+     "open_record": {
+      "note": "observed by this command at this moment; not a historical timestamp",
+      "pack_body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+      "pack_path": "0799.n7-local-lab/05.01.pack.md",
+      "page": "0799.n7-local-lab",
+      "pass": "05.01",
+      "return_present": false,
+      "schema": "n7-local-open/0"
+     },
+     "pack": {
+      "body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+      "bound_sha256": "f81edcff44d0c3073241d2798e40425821708e94d6958cee80ce4bf7d248a99a",
+      "path": "0799.n7-local-lab/05.01.pack.md",
+      "present": true,
+      "sha256": "6ac1d519c61fd5ec3ac6a4f97204a945b2797e8b7a9364bf94956689974a98c9"
+     },
+     "page": "0799.n7-local-lab",
+     "pass": "05.01",
+     "return": {
+      "path": "0799.n7-local-lab/05.01.return.md",
+      "present": true,
+      "sha256": "55f8fa9176df097253da3d699b6da6d9d16547a550fb5fe88961861942dd9b9b"
+     },
+     "route": "n7-local",
+     "schema": "n7-local-exchange/0",
+     "state": "matched",
+     "unfiled_return_preserved": false
+    },
+    "n5_control_custody": "missing",
+    "judge_reasons": [
+     "stored N7 record custody 'missing' != 'not-applicable'",
+     "rendered text does not state 'custody: not-applicable'",
+     "rendered text states 'custody: missing' for N7"
+    ]
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\N7-3"
+  },
+  {
+   "id": "LR-7",
+   "group": "n7-local",
+   "requirement": "second pass binds only itself; the first pass's files and record stay byte-equal and current",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "pass 2 matched and published to 06.02; pass 1 unchanged and current",
+   "observed": {
+    "pass2_state": "matched",
+    "pass2_publish": 0,
+    "pass2_target": true,
+    "pass1_kept": true,
+    "pass1_read": 0,
+    "pass1_review_id_same": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LR-7"
+  },
+  {
+   "id": "CAP-0",
+   "group": "capacity",
+   "requirement": "harness self-check: independently counted emitted sources equal Prime's measured 29 / 20 / 44",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "j-0512-0509": 29,
+    "j-0522-0514": 20,
+    "j-0512-0510": 44
+   },
+   "observed": {
+    "j-0512-0509": {
+     "expected": 29,
+     "counted": 29,
+     "artifact_rows": 36
+    },
+    "j-0522-0514": {
+     "expected": 20,
+     "counted": 20,
+     "artifact_rows": 28
+    },
+    "j-0512-0510": {
+     "expected": 44,
+     "counted": 44,
+     "artifact_rows": 92
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\CAP-0"
+  },
+  {
+   "id": "CAP-1",
+   "group": "capacity",
+   "requirement": "retained 29-source judgment (0512/05.09) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "CAP-2",
+   "group": "capacity",
+   "requirement": "retained 20-source judgment (0522/05.14) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "CAP-3",
+   "group": "capacity",
+   "requirement": "retained 44-source judgment (0512/05.10, judgment-open) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "CAP-4",
+   "group": "capacity",
+   "requirement": "declared bound: 64 harness-counted sources record and read back equal; 65 refuse with an explicit 'sources' diagnostic; separately, MAX_LIST 24 (25 reasons refused) and the 262144-byte document bound still hold with few sources",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-CAP",
+   "group": "capacity",
+   "requirement": "KNOWN FAILURE (baseline): the 29- and 44-source retained judgments are refused 'limit sources' at the old 24 bound",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "both refused 'limit sources'",
+   "observed": {
+    "29": {
+     "measurement": "complete",
+     "record_exit": 2,
+     "correction": "refused: limit sources",
+     "judgment_canonically_equal": false
+    },
+    "44": {
+     "measurement": "complete",
+     "record_exit": 2,
+     "correction": "refused: limit sources",
+     "judgment_canonically_equal": false
+    }
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\KF-CAP"
+  },
+  {
+   "id": "LC-1",
+   "group": "lifecycle",
+   "requirement": "prepare/form -> record (supplied judgment) -> inspect checkpoint (full rendered output) -> SEPARATE publish -> read/recover x2 equal, no writes; no approval/release",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "complete cycle; checkpoint stored before publish",
+   "observed": {
+    "form_exit": 0,
+    "record_exit": 0,
+    "inspect_rendered_present": true,
+    "publish_exit": 0,
+    "target": true,
+    "reads": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "repeat_equal": true,
+    "no_writes": true,
+    "judgment_equal": true,
+    "flags": {
+     "accepted": false,
+     "approved": false,
+     "authority": "none",
+     "closes_work": false,
+     "releases_action": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\LC-1"
+  },
+  {
+   "id": "PR-1",
+   "group": "preservation",
+   "requirement": "manual text present at the destination: publish held, bytes preserved, judgment retained",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "held; preserved; judgment equal",
+   "observed": {
+    "publish_exit": 1,
+    "correction": "manual-review",
+    "bytes_kept": true,
+    "judgment_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-1"
+  },
+  {
+   "id": "PR-2",
+   "group": "preservation",
+   "requirement": "a destination file appearing between inspect and publish: held, bytes preserved",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "held; preserved",
+   "observed": {
+    "publish_exit": 1,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-2"
+  },
+  {
+   "id": "PR-3",
+   "group": "preservation",
+   "requirement": "pack task-body change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-3"
+  },
+  {
+   "id": "PR-4",
+   "group": "preservation",
+   "requirement": "return change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-4"
+  },
+  {
+   "id": "PR-5",
+   "group": "preservation",
+   "requirement": "declared artifact changed or missing after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "stale; held (both)",
+   "observed": {
+    "changed": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    },
+    "missing": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-5"
+  },
+  {
+   "id": "PR-6",
+   "group": "preservation",
+   "requirement": "review-region-only pack edit after publish keeps the exchange current; a task edit does not",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": {
+    "review_edit": "current",
+    "task_edit": "stale"
+   },
+   "observed": {
+    "review_edit": {
+     "exit": 0,
+     "stale": false
+    },
+    "task_edit": {
+     "exit": 1,
+     "stale": true
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-6"
+  },
+  {
+   "id": "PR-7",
+   "group": "preservation",
+   "requirement": "missing or altered pinned tool refuses before work (door pin)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "exit 2 with a pin refusal",
+   "observed": {
+    "exit": 2,
+    "stderr": "stop: pinned tool hash does not match: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\PR-7"
+  },
+  {
+   "id": "CTX-1",
+   "group": "preservation",
+   "requirement": "source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "in-process ids == fresh-process ids",
+   "observed": {
+    "fresh": [
+     "b6714db2f8ecbeb2692e344b293686500bfebac0827e524ef36d4d3173605a1d",
+     "fb2d4f06632e3d9333af72255f07dc8dc92b46b9d332d16d16521b69ef25adba",
+     "b6714db2f8ecbeb2692e344b293686500bfebac0827e524ef36d4d3173605a1d"
+    ],
+    "in_process": [
+     "b6714db2f8ecbeb2692e344b293686500bfebac0827e524ef36d4d3173605a1d",
+     "fb2d4f06632e3d9333af72255f07dc8dc92b46b9d332d16d16521b69ef25adba",
+     "b6714db2f8ecbeb2692e344b293686500bfebac0827e524ef36d4d3173605a1d"
+    ],
+    "workbook": "labs/n7-local-lifecycle-pass01/workbook.py"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\CTX-1"
+  },
+  {
+   "id": "RP-1",
+   "group": "reporter",
+   "requirement": "review-report (candidate route) agrees with the core: published N7 current -> readable/stale false; changed return -> stale; incomplete intake -> held; N7 exchange state/chronology/n1_custody, custody and review_id equal to the core; authority none and accepted/work_complete/action_released/releases_action false",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "RP-2",
+   "group": "reporter",
+   "requirement": "review-report refuses (nonzero, no traceback) a wrong dispatcher pin, a wrong chain (workbook) pin and malformed envelopes (unknown flag, repeated flag, relative book, bad pass, missing source), after an untampered positive control succeeds",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-RP",
+   "group": "reporter",
+   "requirement": "KNOWN FAILURE (baseline): the frozen reporter v3 refuses this candidate's dispatcher (pins only f1d23d45)",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "refusal",
+   "observed": {
+    "note": "candidate dispatcher has no review-report route at all"
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\KF-RP"
+  },
+  {
+   "id": "IN-1",
+   "group": "instance",
+   "requirement": "N5 same book: record then read is current (exit 0, not stale)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "current",
+   "observed": {
+    "record_exit": 0,
+    "read_exit": 0,
+    "stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\IN-1"
+  },
+  {
+   "id": "IN-2",
+   "group": "instance",
+   "requirement": "N5 foreign copied book: the copy's current applicability is held (positive evidence: nonzero read, stale or applicable=false), the historical judgment stays available (read or recover), publish is refused with no destination; the original stays current and byte-unchanged",
+   "required": true,
+   "needs": [
+    "I"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['I']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-IN",
+   "group": "instance",
+   "requirement": "KNOWN FAILURE (baseline): an N5 record in a byte-copied book reads current in the copy",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "copy reads current (defect)",
+   "observed": {
+    "exit": 0,
+    "stale": false
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\KF-IN"
+  },
+  {
+   "id": "RC-1",
+   "group": "reconstruction",
+   "requirement": "a NEW root rebuilt by the declared builder from frozen sources has the identical candidate file list, and reproduces N7-1 rows",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "identical files; identical rows/cuts",
+   "observed": {
+    "files_equal": true,
+    "rows_equal": true,
+    "cuts_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\RC-1"
+  },
+  {
+   "id": "RB-1",
+   "group": "rollback",
+   "requirement": "restore the v7 dispatcher on a copy: new N7 records are kept byte-equal and reported non-current (held), not silently fresh; re-selecting restores current",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor); not independent Prime review",
+   "expected": "v7: non-current; records kept; reselect current",
+   "observed": {
+    "v7_read_exit": 1,
+    "v7_stale": true,
+    "records_kept": true,
+    "reselect_exit": 0,
+    "reselect_stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch2-0522\\run-proto-l-01\\RB-1"
+  }
+ ]
+}

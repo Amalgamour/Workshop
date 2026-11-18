@@ -1,0 +1,277 @@
+{
+ "command": "identity",
+ "finding_counts": {},
+ "fixtures": [
+  {
+   "bytes": 11037,
+   "declared_implementations": [
+    "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b"
+   ],
+   "file": "fixtures/librarian.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "librarian-review-loop",
+     "file": "declarations/librarian-review-loop.v1.json",
+     "implementation_sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b",
+     "record_sha256": "5e37b4a19b7e682386fef23620b255a24a4ad25bd101f94456fc11bbd103bd4a",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:app/librarian.py",
+   "result": "identical",
+   "sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b"
+  },
+  {
+   "bytes": 11126,
+   "declared_implementations": [
+    "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408"
+   ],
+   "file": "fixtures/review_loop_tools_v2.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "review-loop-door",
+     "file": "declarations/review-loop-door.v1.json",
+     "implementation_sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+     "record_sha256": "a18f6686ae82ad7a92d66557bac1a8ce04f1e4ca097eab81b2625fbc8aaa4450",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:app/review_loop_tools_v2.py",
+   "result": "identical",
+   "sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408"
+  },
+  {
+   "bytes": 1892,
+   "declared_implementations": [
+    "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3"
+   ],
+   "file": "fixtures/review-loop-v2.json",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "review-loop-declaration",
+     "file": "declarations/review-loop-declaration.v1.json",
+     "implementation_sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+     "record_sha256": "fb648a3cde429d5c2e832fb61b8d603a6b75a3baf5529a6fb707c7e78716b09d",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:app/review-loop-v2.json",
+   "result": "identical",
+   "sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3"
+  },
+  {
+   "bytes": 47189,
+   "declared_implementations": [
+    "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+   ],
+   "file": "fixtures/review_loop.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "review-loop-pass02",
+     "file": "declarations/review-loop-pass02.v1.json",
+     "implementation_sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+     "record_sha256": "c6534e08ee24c471ee26eb043fa77661309d9839fa267509627b6aab3193f387",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/review-loop-pass02/review_loop.py",
+   "result": "identical",
+   "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+  },
+  {
+   "bytes": 76045,
+   "declared_implementations": [
+    "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+   ],
+   "file": "fixtures/prime_cycle.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "prime-cycle-pass03",
+     "file": "declarations/prime-cycle-pass03.v1.json",
+     "implementation_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+     "record_sha256": "e001ea21196fb2bcacce8f9d5f39a87f9590abe3f4bca585c633fa3960a31da9",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/prime-cycle-pass03/prime_cycle.py",
+   "result": "identical",
+   "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+  },
+  {
+   "bytes": 36188,
+   "declared_implementations": [
+    "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+   ],
+   "file": "fixtures/construct.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "review-construct-pass02",
+     "file": "declarations/review-construct-pass02.v1.json",
+     "implementation_sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+     "record_sha256": "ada39f8e7499778cf1dc20c9e6cda5ad5c65b6c4bfcb1b1516bd45c7c5121cd4",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/review-construction-pass02/construct.py",
+   "result": "identical",
+   "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+  },
+  {
+   "bytes": 58324,
+   "declared_implementations": [
+    "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+   ],
+   "file": "fixtures/prime_review_pass01.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "prime-review-pass01",
+     "file": "declarations/prime-review-pass01.v1.json",
+     "implementation_sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+     "record_sha256": "b4e51edebd8945b91aadf9efec1109859e43c84774df5bf32b3da88b2e060f1a",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/prime-review-pass01/prime_review.py",
+   "result": "identical",
+   "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+  },
+  {
+   "bytes": 58560,
+   "declared_implementations": [
+    "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+   ],
+   "file": "fixtures/prime_review_pass02.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "prime-review-pass02",
+     "file": "declarations/prime-review-pass02.v1.json",
+     "implementation_sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+     "record_sha256": "c74be6c23a8978c896f11880b21864207116870df68a3d1bbad517e01d18a2d6",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/prime-review-pass02/prime_review.py",
+   "result": "identical",
+   "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+  },
+  {
+   "bytes": 100897,
+   "declared_implementations": [
+    "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+   ],
+   "file": "fixtures/return_lines.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "return-lines-pass01",
+     "file": "declarations/return-lines-pass01.v1.json",
+     "implementation_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+     "record_sha256": "d41bab6c741959cd2a0cdd9d3b1e81e40daf2f17f87f70eaf9562bb44c25c50f",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/return-lines-pass01/return_lines.py",
+   "result": "identical",
+   "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+  },
+  {
+   "bytes": 66097,
+   "declared_implementations": [
+    "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+   ],
+   "file": "fixtures/return_placement.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "return-placement-pass01",
+     "file": "declarations/return-placement-pass01.v1.json",
+     "implementation_sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+     "record_sha256": "97aa0d2d57ebb4daa2c3a2290578919c9bcdec4b645f4b25ad37ee34db3001b4",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/return-placement-pass01/return_placement.py",
+   "result": "identical",
+   "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+  },
+  {
+   "bytes": 11402,
+   "declared_implementations": [
+    "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+   ],
+   "file": "fixtures/return_inspect.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "return-inspect-pass01",
+     "file": "declarations/return-inspect-pass01.v1.json",
+     "implementation_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+     "record_sha256": "268f41204ddaf1c8c3011a5febfd0b4677df8ca19e41d3f5c42dae08536600f5",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/return-capture-pass01/return_inspect.py",
+   "result": "identical",
+   "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+  },
+  {
+   "bytes": 45767,
+   "declared_implementations": [
+    "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+   ],
+   "file": "fixtures/return_capture.py",
+   "length_contradicted_by": [],
+   "matches": [
+    {
+     "declaration_id": "return-capture-pass01",
+     "file": "declarations/return-capture-pass01.v1.json",
+     "implementation_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+     "record_sha256": "55bc7932a370f67afa625df017891113a16e562dc016fd91f4d19e7c278ec7ff",
+     "status": "prototype",
+     "version": 1
+    }
+   ],
+   "measured": true,
+   "module": "lib-build:labs/return-capture-pass01/return_capture.py",
+   "result": "identical",
+   "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+  }
+ ],
+ "note": "Byte identity of the listed fixture copies only; identical bytes are not semantic compatibility.",
+ "schema": "module-dependency-result/1",
+ "set": {
+  "path": "D:\\Git\\lib-build\\labs\\app-dependencies-pass01\\set.json",
+  "sha256": "0a2ae9b028e974a20c15c3c5904ff654f7fa91f01a0380fbd6b5e9dfcf6e6af6"
+ },
+ "status": "complete-for-declared-coverage"
+}

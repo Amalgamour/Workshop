@@ -1,0 +1,310 @@
+[
+  {
+    "bytes": 12204,
+    "claim_time_bytes": 12204,
+    "claim_time_sha256": "e2d85b1b641d8a1113b0afaa67a9b8203eb58e9f1028308be922a806fffa5f90",
+    "kind": "dispatcher-baseline",
+    "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+  },
+  {
+    "case": "old-staged",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "both-new",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "one-route",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "missing-facade",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\missing-facade\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\missing-facade\\book"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 11039,
+    "exit": 0,
+    "kind": "cli"
+  },
+  {
+    "case": "changed-facade",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "changed-dependency",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "staged-drift",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "comment-docstring",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "duplicate-branch",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "dynamic-branch",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "unknown-route",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "tampered-declaration",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "malformed-dispatcher",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "missing-dispatcher",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-malformed",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-duplicate-key",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-conflicting",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "layout-directory",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "door-file",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "valid-book",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "new-and-declared",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "fault-dispatcher",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "bom-layout",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "case": "fault-dependency",
+    "kind": "inspect",
+    "mode": "unit-fault-injection"
+  },
+  {
+    "case": "hardlink-dependency",
+    "kind": "inspect",
+    "mode": "in-process"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book",
+      "--text"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 11545,
+    "exit": 0,
+    "kind": "cli"
+  },
+  {
+    "args": [],
+    "bytes_stderr": 28,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code"
+    ],
+    "bytes_stderr": 23,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "labs",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 34,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\Git\\lib-build\\app\\..",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 26,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book",
+      "--force"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--allow-live",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--read-bytes",
+      "x",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 25,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 29,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--text",
+      "--text",
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\code",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 24,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\not-a-directory.txt",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 37,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\absent-root",
+      "--book",
+      "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite\\cases\\old-staged\\book"
+    ],
+    "bytes_stderr": 28,
+    "bytes_stdout": 0,
+    "exit": 2,
+    "kind": "cli"
+  },
+  {
+    "kind": "skip",
+    "limit": "[WinError 1314] A required privilege is not held by the client: 'D:\\\\librarian\\\\temp\\\\0521-0510\\\\20261102T222239061199Z-suite\\\\symlink-probe-target' -> 'D:\\\\librarian\\\\temp\\\\0521-0510\\\\20261102T222239061199Z-suite\\\\symlink-probe'",
+    "name": "linked-root"
+  },
+  {
+    "args": [
+      "--code-root",
+      "D:\\Git\\lib-build",
+      "--book",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+      "--text"
+    ],
+    "bytes_stderr": 0,
+    "bytes_stdout": 11848,
+    "exit": 0,
+    "kind": "cli"
+  }
+]

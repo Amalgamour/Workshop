@@ -1,0 +1,85 @@
+# 05.02 - authored draft
+profile: 0423-to-0526
+pass: 05.02
+approval: false
+release: false
+authority: authoring record; this face is derived
+label: the meaning below is supplied by the caller
+
+## Intent
+goal: Supplied synthetic preview of the authoring command. Not a release and not the Prime pilot.
+finish: Prime can inspect the draft with the actual command
+executor: Grok-1
+reviewer: Codex Prime
+scope.included: one unreleased draft after 05.01
+scope.excluded: freeze, release, and return filing
+scope.allowed_writes: evidence/authoring05.NN under 0526.dev-authoring
+
+## Declared notes
+- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition integrated item 01 why -
+  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261
+- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition deferred item - why Supplied synthetic: this preview does not decide the draft review.
+  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788
+
+## Draft notes
+- none
+
+## Items
+## #01 - Show the source form
+Supplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.
+requirements:
+- The model does not choose the pass or the item number.
+interfaces:
+- authoring start
+acceptance:
+- Inspect shows this meaning under the computed item number.
+note-refs:
+- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md
+open-choices:
+- Prime replaces this synthetic item in a later pilot.
+dependency-refs:
+- none
+
+## #02 - Keep the second meaning separate
+Supplied synthetic demonstration. A second item is meaning only, including the mark Δ.
+requirements:
+- UTF-8 text is stored as text.
+interfaces:
+- authoring add-item
+acceptance:
+- Inspect shows both items in one draft.
+note-refs:
+- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md
+open-choices:
+- none
+dependency-refs:
+- none
+
+## Dependencies
+set-path: labs/app-dependencies-pass02/set.json
+set-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706
+set-label: measured-file
+set-form: working-tree
+complete_claim: false
+query validate module - exit 0 status valid labels -
+query requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment
+query requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment
+
+## Return
+intended: 0126.dev-authoring
+status: occupied
+occupants: 0126.boot-members-0509
+readiness: blocked
+n7nn: page-local
+
+## Review
+review: absent
+
+## Sources
+- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true
+- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true
+- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true
+- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true
+- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true
+
+Freeze emits these bytes unchanged. Approval and release stay separate.

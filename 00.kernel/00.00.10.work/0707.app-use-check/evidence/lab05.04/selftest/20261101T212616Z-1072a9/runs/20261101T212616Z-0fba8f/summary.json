@@ -1,0 +1,219 @@
+{
+  "aggregate": "UNREADY",
+  "cases": [
+    {
+      "id": "A01",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "pending: full path, supplied state shown, no approval implied"
+    },
+    {
+      "id": "A02",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "supplied-state tamper refused before writes"
+    },
+    {
+      "id": "A03",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "R01 envelope task_id changed: binding recomputed before apply"
+    },
+    {
+      "id": "A04",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "R01 envelope agreement changed"
+    },
+    {
+      "id": "A05",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "R01 envelope evidence label changed"
+    },
+    {
+      "id": "A06",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "R01 envelope receipt changed"
+    },
+    {
+      "id": "A07",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "R01 source change after record"
+    },
+    {
+      "id": "A08",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "record.json bytes replaced"
+    },
+    {
+      "id": "A09",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "envelope review_identity changed"
+    },
+    {
+      "id": "A10",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "CRLF target preserved"
+    },
+    {
+      "id": "A11",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "B8 substantive target: judgment retained, render blocked"
+    },
+    {
+      "id": "A12",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "target changed after record"
+    },
+    {
+      "id": "A13",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "target changed between prepare and record"
+    },
+    {
+      "id": "A14a",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "inspect pending"
+    },
+    {
+      "id": "A14b",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "inspect substantive"
+    },
+    {
+      "id": "A14c",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "inspect CRLF"
+    },
+    {
+      "id": "A14d",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "inspect no heading"
+    },
+    {
+      "id": "A14e",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "inspect duplicate heading"
+    },
+    {
+      "id": "A14f",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "inspect absent"
+    },
+    {
+      "id": "A15",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "interrupted render then recover"
+    },
+    {
+      "id": "A16",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "idempotent replay re-verifies"
+    },
+    {
+      "id": "A17",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "rendered marker missing: recover refuses"
+    },
+    {
+      "id": "A18a",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "missing record.json"
+    },
+    {
+      "id": "A18b",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "missing COMMITTED.json"
+    },
+    {
+      "id": "A18c",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "missing envelope.json"
+    },
+    {
+      "id": "A18d",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "malformed record.json"
+    },
+    {
+      "id": "A19",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "supplied next action is not mechanical permission"
+    },
+    {
+      "id": "A20",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "genuine /1 record renders as legacy"
+    },
+    {
+      "id": "A21",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "new /2 record downgraded to /1 is refused"
+    },
+    {
+      "id": "A22",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "absent target: not recorded, decision kept, no false claim"
+    },
+    {
+      "id": "A23",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "no-record read makes no commitment claim"
+    },
+    {
+      "id": "A24",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "pin refusal on wrong construct bytes"
+    },
+    {
+      "id": "A26",
+      "reason": "preflight UNREADY",
+      "status": "NOT RUN",
+      "title": "authority flags false on every result"
+    }
+  ],
+  "config_sha256": "308eeb915453b9c76e293834d118ea77241c9baf132640ca203112ba1711213a",
+  "exit": 2,
+  "kind": "candidate",
+  "launches": 0,
+  "loop_evidence": false,
+  "matrix": "real",
+  "preflight": {
+    "candidate": "unknown",
+    "reasons": [
+      "candidate identity unknown: sha256/bytes are null; nothing is launched and the path is not read"
+    ],
+    "status": "UNREADY"
+  },
+  "run": "20261101T212616Z-0fba8f",
+  "schema": "acceptance-run/1",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

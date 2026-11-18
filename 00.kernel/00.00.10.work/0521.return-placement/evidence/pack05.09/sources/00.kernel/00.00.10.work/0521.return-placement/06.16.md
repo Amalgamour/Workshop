@@ -1,0 +1,34 @@
+# Review - Codex Prime: 0521/05.08 guarded legacy writer
+date: 2026-11-02
+outcome: bounded guard prototype verified; ready for caller integration after review-loop app owner finishes; not activated
+review-method: manual Prime record with independent compute checks; core-managed 0522/05.11 still in progress
+
+## Evidence and provenance
+Read full submission/verification, contract/failure/caller/integration/Prime-use material and guard/harness/test source. All 24 artifacts and 24 frozen input snapshots/live files verify. Builder reports its official 23-command copy/handoff run green, with earlier failures preserved. Prime did not rerun that complete rehearsal.
+
+Prime's first direct Python 3.12.14 test command exited 1: five of six test methods hit WinError 5 creating child files/directories in tempfile.mkdtemp's created root. Preserve the raw stderr as an environment/test-harness failure, not a guard behavior regression or a passing run. The same unmodified test functions were then loaded and run with ROOT assigned to a normally created retained workspace directory; all six pass. No source edit, ACL change or discarded failure. Record that adaptation and limits explicitly.
+
+Prime added two independent contract-driven hostile cases: layout path is a directory, and layout JSON contains a duplicate key. Both return exit 2, writer loader not called, full existing file tree unchanged. These are independent coverage, separate from reproducing the six author-written cases.
+
+## Claim-to-evidence map
+| Claim | Evidence | Observed | Limit |
+|---|---|---|---|
+| Declared reserve refuses before writer execution | author test_declared_reserve_does_not_load_the_writer, independently rerun with retained root | exit 2; zero stub writer calls | in-process loader seam |
+| Pre-reserved capture refuses after declaration | builder commands.json zero-based rows 3 and 9; suite-report.guard_refused_declared_capture | exit 2 in builder record | not newly rerun by Prime |
+| Old completed capture stays readable | builder rows 6-8 and reader_state complete | verify/inspect exit 0 | attributed builder copy run |
+| Malformed layout cannot fall back to writer | Prime cases layout-is-directory and duplicate-layout-key | exit 2; no loader call; bytes unchanged | two tested malformed shapes, not arbitrary filesystem faults |
+| Handoff keeps failed capture distinct from success | builder suite-report/handoff log and inspected harness | attention, refusal log retained, no receipt | copied harness, not active app wiring |
+| Selected current app is protected | none | NOT established | successor is not activated |
+
+## Judgment
+The guard uses exact accepted layout declarations, refuses legacy reserve/capture on declared books, retains verification and honestly labels undeclared books as unprotected. It adds no allocator/custody schema and leaves historical files unchanged. Accept this bounded module as an integration input, not as an adopted runtime or completed migration.
+
+## Integration requirements and limits
+The normal app/handoff still selects old write paths. Its callers must explicitly select the measured guard and the reviewed pass04 line backend; old historical scripts remain runnable, so do not claim same-user confinement. No sentinel policy is adopted. Read-only inspector sibling pins can stay on the old helper; no global historical repin is needed.
+
+The proof harness redirects capture launch but only pins the old handoff; guard_path is not checked against a measured guard hash there. Do not promote that harness unchanged to a production selector. The actual successor facade/declaration must verify the NEW script it really executes, alongside unchanged reader dependencies, with mismatch-before-launch tests. This is a static identity requirement, not a claim to close same-user TOCTOU races.
+
+The native line-file proof used a fresh doorless copy with layout, not the entire marked live-book cutover. The final combined integration test must include the actual band door and source/pass flow, exact recorded authority where required, legacy write refusal and historical reads. Keep no-live-write/no-authority boundaries until that test and exact Director cutover release. Current real book has no layout, so this guard by itself would delegate legacy writes if invoked there; it was not invoked for real writes in this review.
+
+## Next
+Queue one bounded app/caller integration after Grok-1's review-loop work returns: select pass04 return path plus guarded legacy write edges, preserve old reads, run a complete marked-book copy cycle, then bring the exact migration/roots/recovery proposal to the Director. Do not modify Grok-1's in-flight app files or silently widen its pack. No next pack, active selection, live layout/archive/receipt, kernel edit, Git write or bot launch by this review. Matching 0121 custody stays pending.

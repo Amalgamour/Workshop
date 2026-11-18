@@ -1,0 +1,137 @@
+{
+  "schema": "workbook-review-form/1",
+  "form_id": "workbook-review-v1",
+  "pattern": "Field list in the authoring-forms shape. pack_author.py does not parse this file.",
+  "meaning": "The judgment Prime returns. Compute bindings are not fields of this file.",
+  "correction_help": {
+    "route": "labs/workbook-review-pass01/PRIME-USE.md",
+    "states": ["absent", "null", "empty", "wrong-type", "extra", "conflict"]
+  },
+  "owners": {
+    "intelligence": "finding, reasons, operation, disposition, terminals, next action, semantic conflict, findings, sections, holds, answers, passes, gaps",
+    "compute": "intake id, review id, digests, custody mode, destination"
+  },
+  "not_submitted": ["intake_id", "review_id", "sha256", "registration", "receipt", "descriptor", "agreement"],
+  "fields": [
+    {
+      "name": "finding",
+      "meaning": "Prime's finding about the measured return.",
+      "type": "string",
+      "presence": "required",
+      "null": "refused",
+      "empty": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "reasons",
+      "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+      "type": "list",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "operation",
+      "meaning": "continue, director-input, develop, or complete. Not a command.",
+      "type": "enum",
+      "presence": "required",
+      "values": ["continue", "director-input", "develop", "complete"],
+      "owner": "intelligence"
+    },
+    {
+      "name": "disposition",
+      "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+      "type": "enum",
+      "presence": "required",
+      "values": ["accepted", "held", "correction-required"],
+      "owner": "intelligence"
+    },
+    {
+      "name": "pass_terminal",
+      "meaning": "finished or open.",
+      "type": "enum",
+      "presence": "required",
+      "values": ["finished", "open"],
+      "owner": "intelligence"
+    },
+    {
+      "name": "goal_terminal",
+      "meaning": "completed or open. Completed is allowed only with operation complete.",
+      "type": "enum",
+      "presence": "required",
+      "values": ["completed", "open"],
+      "owner": "intelligence"
+    },
+    {
+      "name": "next_action",
+      "meaning": "The next action Prime supplies. Compute does not invent one.",
+      "type": "string",
+      "presence": "required",
+      "null": "refused",
+      "empty": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "semantic_conflict",
+      "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+      "type": "boolean-or-null",
+      "presence": "required",
+      "owner": "intelligence"
+    },
+    {
+      "name": "design_fork",
+      "meaning": "Null, or an object with id and text.",
+      "type": "object-or-null",
+      "presence": "required",
+      "owner": "intelligence"
+    },
+    {
+      "name": "findings",
+      "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+      "type": "list",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "sections",
+      "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+      "type": "object",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "holds",
+      "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+      "type": "list",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "answers",
+      "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+      "type": "list",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "review_passes",
+      "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+      "type": "list",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    },
+    {
+      "name": "gaps",
+      "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+      "type": "list",
+      "presence": "required",
+      "null": "refused",
+      "owner": "intelligence"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "librarian-review-loop",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "app/librarian.py",
+  "name": "librarian",
+  "purpose": "Development entry. This record covers only command review-loop.",
+  "interface": [
+   "review-loop"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "other librarian commands are outside this record"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b",
+  "bytes": 11037,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "960d20c5290656095df8457b1740d2d5e586b111",
+   "path": "app/librarian.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "review-loop"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "review-loop-door",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "app/review_loop_tools_v2.py"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "dynamic-import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "load_module reads app/review_loop_tools_v2.py by path and executes it. librarian.py does not hash that file. Observed bytes at this cut: sha256 e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408, 11126 bytes. Observation only.",
+   "source_ref": {
+    "path": "app/librarian.py",
+    "lines": "34-40, 98-101"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "app/librarian.py",
+    "lines": "30-31, 98-106"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.05",
+     "file": "05.05.md"
+    },
+    "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment that added the review-loop namespace, the v2 door, and the v2 declaration"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.05",
+     "file": "evidence/prime-review05.05/REVIEW.md"
+    },
+    "sha256": "a189382baeeb83475bd2c46b52d7bdd291e0b2f321e2cd3b2c2f3b3af2a22861",
+    "commit": null,
+    "status": "pinned",
+    "note": "Prime review of the app entry; bounded development use, not acceptance of this graph"
+   }
+  ],
+  "unknown": [
+   "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:app/librarian.py, and git log --find-object found no commit. basis.kind is git-blob because module-declaration/1 refuses every other kind. basis.commit is the observed HEAD 960d20c5290656095df8457b1740d2d5e586b111. These bytes are not that commit's blob.",
+   "The old facade app/review_loop_tools.py is not loaded for review-loop."
+  ]
+ },
+ "supersedes": null
+}

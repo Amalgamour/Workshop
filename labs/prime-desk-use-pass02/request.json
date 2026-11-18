@@ -1,0 +1,474 @@
+{
+  "assignment": {
+    "bytes": 489,
+    "path": "0401.goal/06.01.md",
+    "sha256": "ab3bf603dc7368b83b3f8965b2ab87108abfba5e2acc8bc152204fee70889e85"
+  },
+  "attention": [],
+  "attribution": [
+    {
+      "author": "director",
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 834,
+      "end": 403,
+      "id": "dir",
+      "path": "0420.prime-desk/06.01.md",
+      "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+      "start": 111
+    },
+    {
+      "author": "model",
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 834,
+      "end": 834,
+      "id": "mod",
+      "path": "0420.prime-desk/06.01.md",
+      "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+      "start": 430
+    }
+  ],
+  "catalog": {
+    "bytes": 704,
+    "path": "0524.prime-desk/evidence/build05.05/catalog.json",
+    "sha256": "f5f07f1af1aa25b7a96f1326dc4aaf704c9525d50bc92d42eaff126d09b77d3b"
+  },
+  "coverage": "declared-paths",
+  "foreign": [],
+  "history": [],
+  "instance": {
+    "book": "00.00.10.work",
+    "role": "prime",
+    "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "tools_root": "D:\\Git\\lib-build"
+  },
+  "legacy": [],
+  "legacy_selector": null,
+  "operations": [
+    {
+      "activation": "unknown",
+      "bytes": 47189,
+      "id": "loop",
+      "limitation": "Reviewed lab pin from this source cut. Read-only reference. Not production activation. Disposable-root limits stay on the 0522/05.05 page. This request does not launch the module.",
+      "name": "review-loop",
+      "past_tests": "unknown",
+      "path": "labs/review-loop-pass02/review_loop.py",
+      "sha256": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 11126,
+      "id": "loop-tools",
+      "limitation": "App entry module pin. This request does not register it, import it, or write through it.",
+      "name": "review-loop-tools",
+      "past_tests": "unknown",
+      "path": "app/review_loop_tools_v2.py",
+      "sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 1892,
+      "id": "loop-reg",
+      "limitation": "Registration file pin. Not applied to the shared app by this request.",
+      "name": "review-loop-registration",
+      "past_tests": "unknown",
+      "path": "app/review-loop-v2.json",
+      "sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 11037,
+      "id": "librarian",
+      "limitation": "Facade pin. Not parsed as desk authority and not launched.",
+      "name": "librarian",
+      "past_tests": "unknown",
+      "path": "app/librarian.py",
+      "sha256": "d07de8a7c6d0c2ecb03300c5a4aed1d2659122e4fdecd843431adafba715857b"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 77622,
+      "id": "desk",
+      "limitation": "Reviewed desk used by 0524/05.04. This pass04 command does not import that module.",
+      "name": "prime-desk-pass03",
+      "past_tests": "unknown",
+      "path": "labs/prime-desk-pass03/prime_desk.py",
+      "sha256": "cd1e74aa0a51b52dcedaa544b4fd1f2de90f84bf69a8c21234ef362ae2a5f812"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 3838,
+      "id": "index",
+      "limitation": "Reviewed hash check and request writer. It does not choose current work.",
+      "name": "request-index",
+      "past_tests": "unknown",
+      "path": "labs/prime-desk-pass03/request_index.py",
+      "sha256": "d6dacbe94e0797d72354483991ec4066ab7ac013a705bee40b836c1859391c2f"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 36188,
+      "id": "construct",
+      "limitation": "Reviewed construction lab pin. Not launched.",
+      "name": "review-construction",
+      "past_tests": "unknown",
+      "path": "labs/review-construction-pass02/construct.py",
+      "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+    },
+    {
+      "activation": "unknown",
+      "bytes": 58560,
+      "id": "preview",
+      "limitation": "Reviewed review-lab pin. Not launched and not a semantic judgment.",
+      "name": "prime-review-pass02",
+      "past_tests": "unknown",
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    }
+  ],
+  "references": [
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 5914,
+      "id": "goal",
+      "label": "desk goal",
+      "path": "0401.goal/01.md",
+      "role": "goal",
+      "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 2031,
+      "id": "seats",
+      "label": "seats page",
+      "path": "0408.seats/01.md",
+      "role": "scope",
+      "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 4153,
+      "id": "desk-scope",
+      "label": "approved desk deliverable",
+      "path": "0420.prime-desk/01.md",
+      "role": "scope",
+      "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 834,
+      "id": "authority",
+      "label": "Director decision",
+      "path": "0420.prime-desk/06.01.md",
+      "role": "authority",
+      "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 2044,
+      "id": "policy",
+      "label": "reporting policy",
+      "path": "0412.prime-review/06.02.md",
+      "role": "dependency",
+      "sha256": "28e9afeb62638d17ce2bbba15cf7e13bb05074a8bf655bdcefd6cc546fdfbeac"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 520,
+      "id": "prior-record",
+      "label": "prior assignment bytes retained on 0420",
+      "path": "0420.prime-desk/evidence/selection-update-2026-11-01-02/prior-current-assignment.md",
+      "role": "dependency",
+      "sha256": "28d69375eaccd04dcea9d39133c8052dd68b770e20608e9ebc33ec1dc13375e2"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 8077,
+      "id": "dep-0525",
+      "label": "0525/05.01 source page in this cut",
+      "path": "0525.app-dependencies/05.01.md",
+      "role": "dependency",
+      "sha256": "7a9ddfa3895c36ea867390e29ebf8b1218d191373ee4f0289cd6451ffe37deb6"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 5758,
+      "id": "dep-0525-cov",
+      "label": "0525/05.01 coverage note in this cut",
+      "path": "0525.app-dependencies/evidence/build05.01/coverage.md",
+      "role": "dependency",
+      "sha256": "fc7ca61a14771f7593a2ee16a288f941be0176d6c19f4a1309004359938d821d"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 17639,
+      "id": "dep-0706-return",
+      "label": "recorded Prima return page",
+      "path": "0706.prima-loop/05.01.return.md",
+      "role": "dependency",
+      "sha256": "9afae4c2f181e173d9a85f3e22bd7d21262de08b5d6b0040c06c9a7afc6fe399"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 7113,
+      "id": "dep-0706-review",
+      "label": "Prime review of the Prima return",
+      "path": "0706.prima-loop/06.01.review.md",
+      "role": "dependency",
+      "sha256": "0bbf621ac34ac7a4d810c8abb265da0b7e235fc4c7ab5f0c6704fa59a38a031a"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 3293,
+      "id": "dep-0503-review",
+      "label": "Prime review of 0524/05.03 routing",
+      "path": "0524.prime-desk/evidence/prime-review05.03/REVIEW.md",
+      "role": "dependency",
+      "sha256": "128bb2ed6dd72d79af730fee8b2ab0193f112a69929649e84f2bfe594a607400"
+    },
+    {
+      "binding": {
+        "scope": "desk"
+      },
+      "bytes": 593,
+      "id": "dep-0503-tests",
+      "label": "Prime native test record for pass03; not a 05.04 suite rerun",
+      "path": "0524.prime-desk/evidence/prime-review05.03/tests-native.json",
+      "role": "dependency",
+      "sha256": "401efa7c9a05498aae4b6da43de8c9f98318130a5f5b382e607775ad5f8d268e"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0524-0504"
+      },
+      "bytes": 1939,
+      "id": "checkpoint",
+      "label": "Prime checkpoint for the next support batch",
+      "path": "0420.prime-desk/06.08.md",
+      "role": "checkpoint",
+      "sha256": "85be3563e46f5c833c04bdda5d03713d9cd85819abe27598f6ea87216a425300"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0524-0504"
+      },
+      "bytes": 1939,
+      "id": "next-0524",
+      "label": "next prepared batch named by the checkpoint",
+      "path": "0420.prime-desk/06.08.md",
+      "role": "next",
+      "sha256": "85be3563e46f5c833c04bdda5d03713d9cd85819abe27598f6ea87216a425300"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0524-0504"
+      },
+      "bytes": 7869,
+      "id": "crit-0524",
+      "label": "0524/05.04 task",
+      "path": "0524.prime-desk/05.04.md",
+      "role": "criteria",
+      "sha256": "e8f914c3d8aeaa6101db87099c2ef41d921e3fe167f965598b20af22dd86e104"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0524-0504"
+      },
+      "bytes": 2627,
+      "id": "ver-0524",
+      "label": "Prime use review of 0524/05.04",
+      "path": "0524.prime-desk/evidence/prime-review05.04/REVIEW.md",
+      "role": "verification",
+      "sha256": "de7c1e4952bcdeff35ce9a663e502f5d9104ad7670b1cd8e2fd3e948cc941ea3"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0524-0504"
+      },
+      "bytes": 2627,
+      "id": "find-0524",
+      "label": "Prime findings on the 0524/05.04 profile",
+      "path": "0524.prime-desk/evidence/prime-review05.04/REVIEW.md",
+      "role": "finding",
+      "sha256": "de7c1e4952bcdeff35ce9a663e502f5d9104ad7670b1cd8e2fd3e948cc941ea3"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0522-0505"
+      },
+      "bytes": 8532,
+      "id": "crit-0522",
+      "label": "0522/05.05 task",
+      "path": "0522.review-construction/05.05.md",
+      "role": "criteria",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0707-0501"
+      },
+      "bytes": 5140,
+      "id": "crit-0707",
+      "label": "0707/05.01 pack task",
+      "path": "0707.app-use-check/05.01.pack.md",
+      "role": "criteria",
+      "sha256": "18e5dd0071bf9f5d83daa037680af7e845418ac4dc0555ff9e02269dd2378121"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0707-0501"
+      },
+      "bytes": 19382,
+      "id": "ret-0707",
+      "label": "0707/05.01 return page",
+      "path": "0707.app-use-check/05.01.return.md",
+      "role": "return",
+      "sha256": "7c21d5810bc11f4a7d9ef2f910dcb1d35a26a9878c37bcdac9fa0143b9561705"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0707-0501"
+      },
+      "bytes": 5076,
+      "id": "find-0707",
+      "label": "Prime review of 0707/05.01",
+      "path": "0707.app-use-check/06.01.review.md",
+      "role": "finding",
+      "sha256": "bbbe66df25c0679e25e984c8e51fa654b4f7d57b3e38f0947c1f20a3d173b424"
+    },
+    {
+      "binding": {
+        "scope": "work",
+        "work_id": "work-0707-0501"
+      },
+      "bytes": 5076,
+      "id": "ver-0707",
+      "label": "Prime review bytes for 0707/05.01",
+      "path": "0707.app-use-check/06.01.review.md",
+      "role": "verification",
+      "sha256": "bbbe66df25c0679e25e984c8e51fa654b4f7d57b3e38f0947c1f20a3d173b424"
+    }
+  ],
+  "schema": "prime-desk-request/2",
+  "supplied": [
+    {
+      "about": "",
+      "id": "sup-director",
+      "limit": "Director release basis quoted from 0420.prime-desk/06.08.md. Separate from the model spans on 06.01. Not a grant of every open deliverable.",
+      "speaker": "director",
+      "text": "Ok this looks good. you can pack the next batch of work."
+    },
+    {
+      "about": "",
+      "id": "sup-select",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. Technical review is not Director acceptance. Not live process activity.",
+      "speaker": "codex-prime",
+      "text": "Prime deliberately selects last reviewed 0524/05.04 as the current focus, returned (technical review is not Director acceptance)."
+    },
+    {
+      "about": "",
+      "id": "sup-prepared",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. Prepared jobs are not worker claims and not running processes.",
+      "speaker": "codex-prime",
+      "text": "Prepared next: Grok-1 0524/05.05 desk view/profile; Grok-2 0525/05.02 dependency representation; Claude 0707/05.02.pack operator-repair design. A prepared or released pack is not evidence of delivery, claim, live process activity or completion."
+    },
+    {
+      "about": "",
+      "id": "sup-0707",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. Recorded review result. Not production activation and not a live process check.",
+      "speaker": "codex-prime",
+      "text": "0707/05.01: Prime independently reproduced 26 calls and six operator cases. Reviews preserve decisions but hide disposition on the page and detect existing-review conflict late. Needs bounded design before shared app changes."
+    },
+    {
+      "about": "",
+      "id": "sup-0525",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. Recorded review limit. Not acceptance of that set and not a running worker.",
+      "speaker": "codex-prime",
+      "text": "0525/05.01: Prime verified 30 sources/72 artifacts and six reader commands. Useful map, but D-04 working-tree/git-blob and D-05 digest-only pin require representation repair. The machine-readable set is not yet accepted as a truthful source basis."
+    },
+    {
+      "about": "",
+      "id": "sup-prima",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. Later recorded return. Not an observed routine firing.",
+      "speaker": "codex-prime",
+      "text": "0706/05.01: Prima returned via 6919bda9, receipt head 39a8e1b; Prime review is 06.01.review. Coordination evidenced; first scheduled firing not yet observed at that review."
+    },
+    {
+      "about": "",
+      "id": "sup-meter",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. A figure reported at that review. Not a current meter.",
+      "speaker": "codex-prime",
+      "text": "Latest reported usage was 55.6% remaining at 12:39:41 Central, not a guaranteed current meter. Gameatron original return partial 112/300."
+    },
+    {
+      "about": "",
+      "id": "sup-start",
+      "limit": "Quoted from 0420.prime-desk/06.08.md. This profile does not start another lane.",
+      "speaker": "codex-prime",
+      "text": "Only the named worker invocation starts its bounded batch. No shared app edits in this batch."
+    }
+  ],
+  "work": [
+    {
+      "address": "0524.prime-desk/05.04",
+      "bytes": 7869,
+      "id": "work-0524-0504",
+      "path": "0524.prime-desk/05.04.md",
+      "sha256": "e8f914c3d8aeaa6101db87099c2ef41d921e3fe167f965598b20af22dd86e104"
+    },
+    {
+      "address": "0522.review-construction/05.05",
+      "bytes": 8532,
+      "id": "work-0522-0505",
+      "path": "0522.review-construction/05.05.md",
+      "sha256": "9101c9bf4d7bbbff41efe7afb6d63f861ab55e1a0f02bc634a34f1d9634a61e5"
+    },
+    {
+      "address": "0707.app-use-check/05.01.pack",
+      "bytes": 5140,
+      "id": "work-0707-0501",
+      "path": "0707.app-use-check/05.01.pack.md",
+      "sha256": "18e5dd0071bf9f5d83daa037680af7e845418ac4dc0555ff9e02269dd2378121"
+    }
+  ],
+  "workers": [],
+  "workspace": {
+    "bytes": 538,
+    "path": "app/development-workspace.json",
+    "sha256": "b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018"
+  }
+}

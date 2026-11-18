@@ -1,0 +1,35 @@
+test_changed_bytes_wrong_line_and_hash (app.desk_core.test_loop.DeskCoreLoop.test_changed_bytes_wrong_line_and_hash) ... ok
+test_claim_conflict_visible (app.desk_core.test_loop.DeskCoreLoop.test_claim_conflict_visible) ... ok
+test_each_binding_field_and_interrupt (app.desk_core.test_loop.DeskCoreLoop.test_each_binding_field_and_interrupt) ... ok
+test_full_loop_restart_and_binding (app.desk_core.test_loop.DeskCoreLoop.test_full_loop_restart_and_binding) ... ok
+test_pins_and_live_book_and_undeclared (app.desk_core.test_loop.DeskCoreLoop.test_pins_and_live_book_and_undeclared) ... FAIL
+test_review_without_return_duplicate_key_and_projection (app.desk_core.test_loop.DeskCoreLoop.test_review_without_return_duplicate_key_and_projection) ... ok
+test_said_done_without_capture (app.desk_core.test_loop.DeskCoreLoop.test_said_done_without_capture) ... ok
+test_stale_claim_and_review_binding (app.desk_core.test_loop.DeskCoreLoop.test_stale_claim_and_review_binding) ... ok
+test_two_passes_one_line_and_colab_and_occupant (app.desk_core.test_loop.DeskCoreLoop.test_two_passes_one_line_and_colab_and_occupant) ... ok
+test_binary_roundtrip_and_occupied_temp (app.desk_core.test_repair.Repair.test_binary_roundtrip_and_occupied_temp) ... ok
+test_cr_only_heading_names_the_format (app.desk_core.test_repair.Repair.test_cr_only_heading_names_the_format) ... ok
+test_crlf_utf8_preserves_outside_bytes (app.desk_core.test_repair.Repair.test_crlf_utf8_preserves_outside_bytes) ... ok
+test_lock_is_held_and_windows_lock_is_not_a_no_op (app.desk_core.test_repair.Repair.test_lock_is_held_and_windows_lock_is_not_a_no_op) ... ok
+test_prefix_and_distinct_source_identity (app.desk_core.test_repair.Repair.test_prefix_and_distinct_source_identity) ... ok
+test_revision_preserves_bytes_and_interrupt_does_not_replace (app.desk_core.test_repair.Repair.test_revision_preserves_bytes_and_interrupt_does_not_replace) ... ok
+test_stale_return_is_not_a_fresh_review (app.desk_core.test_repair.Repair.test_stale_return_is_not_a_fresh_review) ... ok
+test_version1_task_preimage_still_recomputes (app.desk_core.test_repair.Repair.test_version1_task_preimage_still_recomputes) ... ok
+test_corrupt_and_other_request_keep_the_files (app.desk_core.test_fault.FaultMatrix.test_corrupt_and_other_request_keep_the_files) ... ok
+test_each_write_boundary_recovers_in_a_new_process (app.desk_core.test_fault.FaultMatrix.test_each_write_boundary_recovers_in_a_new_process) ... ok
+test_other_request_is_refused_while_one_is_open (app.desk_core.test_fault.FaultMatrix.test_other_request_is_refused_while_one_is_open) ... ok
+test_resume_does_not_duplicate_history (app.desk_core.test_fault.FaultMatrix.test_resume_does_not_duplicate_history) ... ok
+test_selection_cleanup_and_same_request_resume (app.desk_core.test_fault.FaultMatrix.test_selection_cleanup_and_same_request_resume) ... ok
+
+======================================================================
+FAIL: test_pins_and_live_book_and_undeclared (app.desk_core.test_loop.DeskCoreLoop.test_pins_and_live_book_and_undeclared)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\cloud-core-reliability-review-nov01\source\app\desk_core\test_loop.py", line 153, in test_pins_and_live_book_and_undeclared
+    self.assertEqual(code, 0, payload)
+AssertionError: 1 != 0 : {'accepted': False, 'message': "FileNotFoundError: [Errno 2] No such file or directory: 'D:\\\\librarian\\\\temp\\\\cloud-core-reliability-review-nov01\\\\source\\\\00.kernel\\\\00.00.10.work\\\\0417.return-placement\\\\06.01.md'", 'ok': False, 'refusal': 'unexpected', 'schema': 'desk-core-result/1'}
+
+----------------------------------------------------------------------
+Ran 22 tests in 137.519s
+
+FAILED (failures=1)

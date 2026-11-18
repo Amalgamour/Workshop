@@ -1,0 +1,60 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record.result recorded",
+      "expected": null,
+      "observed": "recorded",
+      "ok": true
+    },
+    {
+      "check": "render-interrupted / recover",
+      "expected": null,
+      "observed": {
+        "blocker": null,
+        "route": "recover",
+        "state": "render-interrupted",
+        "target": "pending",
+        "text": "Run recover: it retries rendering the same committed review into the unchanged target."
+      },
+      "ok": true
+    },
+    {
+      "check": "recover exit 0 rendered",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "reviewed",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "page shows supplied state",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,50 @@
+{
+ "schema": "desk-baseline-run-record/1",
+ "case": "C05",
+ "label": "SUPPLEMENTARY PROBE: fixture-completed copy (added 0522/05.04 snapshot bytes)",
+ "added_file": {
+  "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+  "sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11"
+ },
+ "candidate_sha256": "b047a30324b2a764298ec69daafb9621606bdc10fe5fc45e042105f5c1f10b20",
+ "request_sha256": "9e522b5cdca2e090ad6c12a132bd7364ac7c509fae5335899c57739452789da3",
+ "fixture_manifest_sha256": "e0b178ecacb26c8892d030b2978e2af85614288971701f2ce592609d04ca36b3",
+ "view": {
+  "argv": [
+   "python.exe",
+   "-I",
+   "-B",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\baseline\\pinned\\labs\\prime-desk-pass01\\prime_desk.py",
+   "view",
+   "--request",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\probe-C05\\runs\\C05\\book\\request.json",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout_file": "view.stdout",
+  "stdout_sha256": "d745499a7ff0a15d849d0b08f85b364449e5a930eaa6da3dbfe98799ededc91a",
+  "stdout_bytes": 5416,
+  "stderr_file": "view.stderr",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "packet": {
+  "argv": [
+   "python.exe",
+   "-I",
+   "-B",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\baseline\\pinned\\labs\\prime-desk-pass01\\prime_desk.py",
+   "packet",
+   "--request",
+   "D:\\librarian\\temp\\review0705-pass03-nov01\\probe-C05\\runs\\C05\\book\\request.json",
+   "--work-id",
+   "w-0522-review-construction-05-04",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout_file": "packet.stdout",
+  "stdout_sha256": "5ff0fdafe6c38f69baa92138827f936711a78246206f249a4d4ecaf8f6b9f3c6",
+  "stdout_bytes": 15858,
+  "stderr_file": "packet.stderr",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ }
+}

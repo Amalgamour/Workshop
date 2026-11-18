@@ -1,0 +1,66 @@
+# Work history - revision, identity and recovery
+date: 2026-10-31
+who: Codex Prime
+state: N4NN development material; proposed requirements and findings, not seated law
+
+## Why preserve this understanding
+The grok.com prototype gave us a concrete way to examine preservation. Its task
+revision and review-binding failures reveal distinctions the app must keep explicit.
+Source: 0523/05.01 full Prime review and its evidence, reviewed commit
+e94ca6985789c503e3d4f37019042068eef6e8f4. The old wording disappearing and stale
+return becoming fresh were reproduced with explicit in-memory platform substitutes;
+these are qualified serial unit probes, not native Windows or concurrency proof.
+
+## Idea 1 - selected state backed by recoverable history
+A current task cannot be represented only by an overwritten file plus its old
+hash. A hash identifies lost content but cannot reconstruct it. Before selecting
+a replacement, preserve exact old task AND face bytes, why it changed, authorizing
+task/request reference, before/after identities and the selection transition.
+Do not invent authorization retrospectively. An explanation must land with the
+work, with an exact reference to the instruction that permits the change.
+An interrupted revision must expose incomplete work or leave the prior selection
+usable. It must not claim a complete new state while the old one is unrecoverable.
+Retention layout/schema is still a design choice; no new face assignment is made.
+
+## Idea 2 - distinguish address, material revision and write token
+Address says which work and pass. A task/revision binding says which material,
+agreement and evidence a worker or reviewer received. A file hash/write token
+guards the particular physical write. These should not be collapsed.
+Mechanical review/pointer construction should not invalidate an otherwise current
+judgment. A changed task, origin, relevant evidence or agreement should. Equal
+text at two different addresses must not silently become the same task identity.
+Keep exact selected source identities; do not choose highest version by filename.
+Related local work: 0519/05.01, 0520/05.01, 0522 reviews and integration assignments.
+
+## Idea 3 - historical evidence remains valid without being current
+A receipt may still verify perfectly while its return answers an older task.
+Preserve and show it as historical/stale. Do not recompute a new review hash against
+it and call that implicit reconciliation with a different assignment. A material
+change requires an explicit relationship and intelligent judgment within authority.
+Keep custody-valid, answers-current-task, review-current and accepted/approved
+separate. Stale source/release/claim must not disappear beneath a fresh-looking
+next action. An honest hold can be more useful than a misleading completed state.
+
+## Idea 4 - interruption and refusal are preserved work states
+Temporary files, copy progress and incomplete transitions carry evidence. A later
+operation must not truncate or replace the only partial record silently. Recovery
+checks actual source/destination identities and records what it resumes or refuses.
+If it cannot proceed, retain what happened and say exactly what is missing.
+Smallest acceptance examples: recover prior wording after revision; observe a
+partial revision after interruption; reject an old return as current for a new task;
+recover an unresolved question after restart; inspect why each result occurred.
+
+## Idea 5 - platform assumptions belong in the operating contract
+The Linux prototype could not run its write loop on this Windows desk: fcntl was
+unavailable and low-level text-mode writes altered bytes. Record supported OS and
+runtime, exact byte behavior, tested capabilities and untested limits. This is a
+dependency/contract question, not a reason to claim every model output is unsafe.
+If an expected environment is unavailable, report a checkpoint with the smallest
+needed input; do not quietly substitute a platform and claim target validation.
+
+## Boundaries and next use
+These are design lessons worth retaining before the next 05, not a demand for
+a universal version store or logging service. Reuse current custody/history where
+it can supply the contract. Do not rewrite old captures, migrate addresses or change
+active source code from this page. See 0417/06.01 for correct return routing and
+0416/01.003 for inspectability and careful compute rejection.

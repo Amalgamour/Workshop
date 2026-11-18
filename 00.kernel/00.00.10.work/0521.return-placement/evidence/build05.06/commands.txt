@@ -1,0 +1,54 @@
+# Commands — 0521.return-placement/05.06
+
+Date: 2026-11-02. Executor: Grok-2.
+Working directory: D:\Git\lib-build
+Environment: PYTHONDONTWRITEBYTECODE=1
+Interpreter: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+
+This file is a print summary of the official rehearsal. It is not a byte copy of the terminal log. Full argv, stdout sha256, and stderr sha256 are in commands.json.
+
+Command:
+
+C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B labs\return-lines-pass04\tests\run_suite.py
+
+Exit: 0
+Work root: D:\librarian\temp\0521-0506\20261102T192444618088Z-suite
+This rehearsal does not delete that root or the unit-test roots under D:\librarian\temp\0521-0506.
+The earlier suite invocation stopped before it created a directory. That stop is first-failure.txt.
+
+Print summary:
+
+live fingerprint 75061b0c183e299c36623e809be8518a0d6efd4482ff13ed3bb3d4865c5e2e6d
+unit exit 0
+copied recovery members 1
+copied interrupt members 1
+copied primary members 83
+retired originals 65 occupants 18
+seam exit 0
+OK D:\librarian\temp\0521-0506\20261102T192444618088Z-suite
+copy plan 52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66
+live plan 52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66 789717
+counts record_count 83 page_local_count 5 incomplete_count 1
+retired originals 65 occupants 18 old_members_left 0
+preflight 2 return-line-release-candidate/1 mismatches 0
+
+Phase exits from commands.json, 55 commands, stderr bytes 0 on every command. designated_live is false on every command.
+
+plan 0 four times
+preflight 0 twice, and 2 three times
+init 0 three times, and 2 once
+stage 0 three times
+reconstruct 0 three times
+publish 0 twice, and 3 once
+publish-resume 0 once
+retire 0 twice
+rollback-retire 0 once
+rollback-publish 0 once
+lookup 0 four times, and 1 once
+reserve 1 seven times
+capture 0 seven times
+descriptor 0 once
+return_capture.py verify 0 twice, and 2 five times
+seam.py 0 once
+
+The init exit 2 is the one-member copy whose recorded operation list contained only stage. The preflight exits 2 are the missing authorization file on that copy, the missing authorization file on the live book, and the inactive candidate on the live book. The lookup exit 1 is 0154.colab-support-first-0501. The publish exit 3 is --interrupt-after 1. The reserve exits 1 are the seven synthetic filings.

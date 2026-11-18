@@ -1,0 +1,49 @@
+{
+  "frozen_inputs": 13,
+  "artifacts": 78,
+  "pointer_hashes": "matched",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "commands": [
+    {
+      "name": "tests",
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "D:\\Git\\lib-build\\labs\\prime-desk-pass03\\tests",
+        "-p",
+        "test_prime_desk.py",
+        "-v"
+      ],
+      "exit": 1,
+      "seconds": 0.25
+    },
+    {
+      "name": "demo",
+      "argv": [
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\Git\\lib-build\\labs\\prime-desk-pass03\\demo.py",
+        "--out",
+        "D:\\librarian\\temp\\desk-pass03-review-nov01\\demo"
+      ],
+      "exit": 0,
+      "seconds": 7.686999999976251
+    }
+  ],
+  "route_probes": 7,
+  "first_attempt": {
+    "command": "unittest discover using default system TEMP",
+    "exit": 1,
+    "reason": "Windows sandbox denied fixture directory writes in system TEMP; tests failed in setUp before assertions",
+    "raw_output": "Codex tool transcript; original attempt was not captured to a file",
+    "changed_condition": "TEMP and TMP redirected to writable D:/librarian/temp/desk-pass03-review-nov01/tmp; no product changes"
+  }
+}

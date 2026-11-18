@@ -1,0 +1,241 @@
+[
+  {
+    "label": "pass05-preflight-nul-output-root",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py",
+      "preflight",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\nul-output-root.json"
+    ],
+    "exit": 1,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "59b39d549ebf56610bd1e2dc762ceb22179d684431bc08af6e230375a3d84a45"
+  },
+  {
+    "label": "pass06-preflight-nul-output-root",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "preflight",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\nul-output-root.json"
+    ],
+    "exit": 2,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "b290183f4e29365d1f862ce8379c3e0daf32a6ccc384cad11d986bad018c95d5"
+  },
+  {
+    "label": "pass06-run-nul-output-root",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\nul-output-root.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "9bb293a0b494a569956e3c228a4c53d363c1fb0acdbf41446f9d55fb0d3bb6c0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "candidate-nul-known",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\candidate-nul-known.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "84482b26d895a1fa9ef0277a570d84de2704570285bb36b12f73f7073d44e3d3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "candidate-nul-unknown",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\candidate-nul-unknown.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "b73730c95df4ff424bfb0ce3e7ba7d97a8ed90c071e37d1e05da5f5c1b0fb619",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "config-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\bad<>|.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "57d1cfa44bc36dfa2051e38587045c21b011cc544a87889a64dbe868e2ab0375",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "dependency-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\dependency-invalid-name.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "342cf4fcbf7b54834790d022fbc7ece2162e5721d7d133f71f7df030fc10cf2b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "evidence-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\ev.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\bad<>|"
+    ],
+    "exit": 2,
+    "stdout_sha256": "4456dd048c92a3babd5601ae7b7c891b891651b96f9b972ca6161663c50bf772",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "evidence-relative",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\ev2.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "lab05.07"
+    ],
+    "exit": 2,
+    "stdout_sha256": "b3bdae354bfbeb4dca1d3b440a2a9d455647963953913330699c79a136710a3f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "interpreter-not-executable",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\interpreter-not-executable.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "a78cd60aa2af8e8cb950ab01627bd7a92450ae6fcc573e92f15a094ffc571aa5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "interpreter-nul",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\interpreter-nul.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "47ebeee5aa2f6d0c6e79ccc39b22227ab967a01449cfa69bc2bd68eb31f4c59d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "output-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\output-invalid-name.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "e2c452fd2bf27bda5db55275764e090959b371088f1b5b9e2c8ff03c68fa2e5c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "output-overlong",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0507-selftest\\20261101T220635Z-43fa2d\\configs\\output-overlong.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\selftest\\20261101T220635Z-43fa2d\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "0a8ae7e320dc3fceb4e8a20bbc97143a6aa27d4cda5fdffbfdbf5daa5edfb4d7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

@@ -1,0 +1,14 @@
+PASS L1   pair seats; equal 01.004.09.md from two pages do not collide       -> ok/ok
+PASS L2   content changed after signing: approval refused                    -> refused/draft-bytes-equal-signed
+PASS L2b  content changed after approval: first face seats, second held      -> held/half-seated
+PASS L3   missing approval for one face: release held, nothing renamed       -> held/approval-missing
+PASS L4   interrupted after J3; restart checks hashes and completes          -> ok/ok
+PASS L4b  interrupted, draft changed before restart: held                    -> held/restart-hash-mismatch
+PASS L5   second seat changed after approval: half-seated, held for Director -> held/half-seated
+PASS L6   rollback restores both versions byte-for-byte                      -> ok/ok
+PASS L7   seat before sign/approve: held, approval missing                   -> held/approval-missing
+PASS L7b  sign before stage: refused                                         -> refused/staged
+PASS L8   approval names the pre-sign bytes: refused                         -> refused/approval-names-signed-sha
+PASS L9   lock or promote requested                                          -> refused/not-in-template
+PASS L10  flat warehouse: second 01.004.09.md collides; held half-seated     -> held/half-seated
+cases 13 mismatches 0

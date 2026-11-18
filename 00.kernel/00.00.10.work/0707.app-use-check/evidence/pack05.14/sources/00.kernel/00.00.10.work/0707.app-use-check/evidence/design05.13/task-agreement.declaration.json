@@ -1,0 +1,60 @@
+{
+  "schema": "task-agreement-declaration/1",
+  "status": "PROPOSAL, 0707/05.13. Not enacted. Not a kernel rule. Works under the existing 0412 development agreement.",
+  "home": "a fenced block ```task-agreement ... ``` inside the pack page (05.NN.md), BEFORE '## Return pointer', so it is part of the frozen pack cut. No companion file. Old packs without it are reported, not migrated.",
+  "binding": {
+    "keys": ["book_instance", "page", "pass", "pack_cut_sha256"],
+    "pack_cut": "pack bytes from the start of the file to (not including) the line '## Return pointer'; the tool's own Return-pointer and Review writes therefore do not change it",
+    "owner": "compute measures at intake and stores the binding in the existing intake record (same intake id); nothing is copied into a second ledger"
+  },
+  "cut_kinds": {
+    "heading": "from the line '## <exact heading>' to before the next line starting '## ' (bytes as stored); must occur exactly once",
+    "self-heading": "a heading cut inside the same pack page",
+    "whole": "the whole file (only for short standing records)"
+  },
+  "states": {
+    "cited": "a cut is named, resolves exactly once, and its sha256 is recorded",
+    "unknown": "no cut is named or the block is absent; the dependent acts wait (holds table)",
+    "none-recorded": "only for recorded_decisions: Prime declares that no Director decision applies; an explicit empty list, not a default",
+    "not-applicable": "needs a reason text; for example finish_criteria of a pure discussion page",
+    "stale": "a bound cut's bytes now differ; the old binding is kept; no automatic rebinding",
+    "conflict": "two cited cuts disagree on the same field; both kept; Director judgment; only the dependent act waits"
+  },
+  "applicability": ["this-pass", "standing", "superseded"],
+  "fields": [
+    {"name": "goal", "required_now": true, "cites": "a self-heading (for example '## Goal' or '## Question / selected evidence')", "supplier": "intelligence names the cut; compute measures", "states": ["cited", "unknown"]},
+    {"name": "scope", "required_now": true, "cites": "self-heading(s) naming included, excluded and allowed writes", "supplier": "intelligence names the cut(s); compute measures", "states": ["cited", "unknown", "conflict", "stale"]},
+    {"name": "finish_criteria", "required_now": true, "cites": "self-heading (for example '## Return' or '## Deliverables / boundaries')", "supplier": "intelligence names the cut; compute measures", "states": ["cited", "unknown", "not-applicable"]},
+    {"name": "prime_discretion", "required_now": true, "cites": "a standing record (0412/01 '## Local work agreement'; director-agreement 'whole') and optionally a self-heading narrowing it", "supplier": "intelligence names the cut(s); compute measures", "states": ["cited", "unknown", "stale"]},
+    {"name": "director_required", "required_now": true, "cites": "a standing record (director-agreement 'whole') plus any pack-specific stop line", "supplier": "intelligence names the cut(s); compute measures", "states": ["cited", "unknown", "stale"]},
+    {"name": "recorded_decisions", "required_now": true, "cites": "a list of decision bindings (below), or none-recorded", "supplier": "intelligence selects; compute measures and checks the pairing", "states": ["cited", "none-recorded", "unknown", "stale", "conflict"]},
+    {"name": "gloss", "required_now": false, "cites": "free text by Prime, labelled interpretation; never authority", "supplier": "intelligence", "states": ["cited", "unknown"]}
+  ],
+  "decision_binding": {
+    "keys": ["record", "verbatim_cut", "interpretation_cut", "answers_cut", "answers_scope"],
+    "rules": [
+      "verbatim_cut and interpretation_cut are different cuts of the same record file",
+      "answers_cut names the proposal or question the reply answers (a heading cut, in the same or another named record)",
+      "answers_scope is 'only the cited proposal or question'; it never widens to a general release",
+      "a reply resolves only its answers_cut; other holds remain"
+    ]
+  },
+  "holds": {
+    "goal unknown": "the operation 'complete' and goal_terminal 'completed' wait",
+    "scope unknown": "action release for builder execution waits; recording and publishing a preliminary review may continue",
+    "finish_criteria unknown": "pass_terminal 'finished' and goal 'completed' wait",
+    "prime_discretion unknown": "a Prime-only release waits; recording continues",
+    "director_required unknown": "nothing is inferred either way; any act Prime marks consequential waits for the Director",
+    "recorded_decisions unknown": "answers cannot close holds; held items stay held",
+    "any stale": "the acts that depend on that field wait until reconciled",
+    "any conflict": "the acts that depend on that field wait for the Director"
+  },
+  "never": [
+    "select a source by newest file, fuzzy keyword or heading guess",
+    "treat a heading, link, model label, Boolean or the word 'yes' as authentication or approval",
+    "copy Director text into a second approved ledger",
+    "rebind silently to a changed or newer revision",
+    "fill an unknown so that a form turns green",
+    "treat a mechanical refusal as rejection of the idea"
+  ]
+}

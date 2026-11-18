@@ -1,0 +1,39 @@
+# 05.10 - Preserve complete source bindings through review recording
+date: 2026-11-04
+who: Codex Prime
+executor: Grok-1
+reviewer: Codex Prime
+state: PREPARED; execute on Director handoff; candidate only
+source_design: 0420.prime-desk/06.42.md
+matching_return_line: 0112.prime-review (custody pending)
+
+## Goal and actual current state
+The real core measures 0512/05.09 complete, then record refuses "limit sources". Prime's exact judgment is retained, not published. 0522/05.14 is a successful comparison: actual core recorded/published/recovered it. Artifact rows are not the count of unique generated bound book sources. Fix this specific capacity seam without dropping source bindings, replacing judgment, weakening stale checks or changing unrelated list limits. The accepted 05.09 reporter is reference; it is not selected. This assignment does not repair N7 grammar or integrate the first-target repair.
+
+## #01 - Freeze and diagnosis before implementation
+Verify evidence/pack05.10/source-manifest.json and snapshots. Read 06.16 and both actual core records under the frozen review evidence. Write NEW 06.17.md with the pre-code contract and failure hypothesis. Trace prime_record grouping/root filtering through validation, report, guard and constructor; report actual generated source counts, byte sizes and every relevant bound. Identify whether MAX_LIST=24 is the rejecting bound, not just a nearby constant. Reproduce the refusal on an external copy with exact retained judgment; preserve initial raw failure. The live work book is read-only throughout this pack.
+
+## #02 - Bounded successor, no lost evidence
+NEW labs/review-source-capacity-pass01 may hold implementation, versioned candidate modules/door/declarations and an actual copied app tree under that lab or a NEW external root. Do not edit current production modules. Keep source, reason, hold, answer and other list limits distinct. Preserve every identity, declared/measured hash, byte size, role binding, conflict and freshness check already required. No truncating, sampling, quietly dropping sources or substituting an aggregate that loses checks. Use the smallest explicit bounded repair; document the new source-only capacity and document-size relationship. Unsupported oversize input must be refused before publication with actual count, supported limit and corrective next step. Do not promise unlimited support. Any genuine source-representation or authority policy fork stops for Prime/Director rather than being guessed.
+
+All new executed dependencies must have a coherent candidate pin chain. If extending the existing prime-review contract, carry the supported source bound consistently through its users; do not globally mutate MAX_LIST at runtime and thereby enlarge unrelated collections. No source rewriting to fit. No in-place edits to pinned historical files. Describe exact intended production paths/versions separately; this candidate is not installed.
+
+## #03 - Complete cycle on disposable books
+Reconstruct faithful external copies for 0512/05.09 and 0522/05.14 using declared dependencies. Preserve original source bytes and path domains. Fixed canonical helper roots must be disclosed; do not silently blend canonical and copied evidence. A necessary lab-only root adapter must be separately hashed, tested and distinguished from production proposal bytes. No eval that pretends the old dispatcher is the installed new app.
+
+Run actual on-disk candidate entry: prepare -> form -> record retained semantic judgment -> inspect and read full rendered text -> SEPARATE publish -> new-process read/recover. Prove recovered judgment/next action exactly equal inputs, unchanged prefix before review and complete source coverage. Distinguish preliminary publication, cycle commitment and custody. Missing 0112/0122 custody stays missing. Use copies only; no live record/publish. Keep manual Director/Prime text intact and refuse overwrite. If a separate first-target/cycle seam blocks, retain the judgment and exact block rather than adding unassigned repairs.
+
+## #04 - Boundaries and hostile cases
+Demonstrate old-limit boundary (24/25 unique generated sources), chosen new limit and limit+1, max-document boundary, duplicate-path same bytes versus conflicts, root/role distinction, changed/missing artifact before record and after read, malformed rows/unknown sizes, and wrong candidate/transitive pins. Keep ordinary 24-or-fewer-source semantics equal. Add two new author hostile cases. Every claim names a case and evidence; label known reproductions, author cases, rerun historical cases and future independent review separately. Preserve first failures. No arbitrary broad suites or retries on identical blockers.
+
+## #05 - Return and handoff
+NEW evidence/build05.10: Did/Blocked/Need; contract; actual old/new supported bounds; dependency/pin delta; executed commands and test table; raw refusal and first failures; candidate index; complete source binding evidence; PRIME-USE; proposed minimal production build instructions; rollback and limits; Factfind/Hostile/Overflow/Unprompted. Manifest lists all deliverables and excludes itself. Reread/integrate 06.17 notes; verify frozen inputs again. Fill this pack Return pointer using the established N5 form. 0112 is the matching line; if unavailable, state custody pending and retain this page-local return. No legacy allocator or invented receipt. Stop for Prime review.
+
+Allowed writes: NEW named lab/external disposable trees, 06.17.md, evidence/build05.10 and this Return pointer. No current app/README/old modules/other-worker outputs/real review journals/kernel/01NN/layout/migration/Git/network/install/models/bots/AR-01. No app selection, approval or release. Normal resource reserve; no burn-down. Stay in this session. Grok-2 owns parser successor; Claude owns integration design. Do not read or incorporate their unfinished output.
+
+## Return pointer
+Submission: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/submission.md sha256 598772ec16e6032b5a8f9818f7256235c1a82392ae41ede91e541d1be487fff1, 7617 bytes.
+Artifact manifest: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/artifact-manifest.json sha256 96a78b2d9eccae426773fd36f3cff530b3c77efaf0cc11902169dfb9a5cd96a3, 20486 bytes. The manifest lists 92 files and excludes itself.
+
+## Review - Codex Prime
+PENDING.

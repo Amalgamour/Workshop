@@ -1,0 +1,14 @@
+[
+  {
+    "test": "test_pass04.py",
+    "exit": 0,
+    "stdout": "ok test_successor_midwrite_keeps_root_pair\r\nok test_open_midwrite_invents_nothing\r\nok test_replace_and_projection_failures\r\nok test_second_pass_midwrite\r\nok test_collision_replay_and_bytes\r\nok test_legacy_live_and_links\r\nskip test_symlink_refusal: WinError 1314\r\nok test_bad_producer_pin\r\nok test_write_hook_before_staged_record\r\nok test_source_and_runner\r\nexecuted 9\r\nskipped 1\r\nfailed 0\r\n",
+    "stderr": ""
+  },
+  {
+    "test": "test_real_two_pass.py",
+    "exit": 0,
+    "stdout": "real-tool two-pass\r\nopen 0 complete\r\nattach-05.01 0 complete 42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\r\nseal-05.01 0 complete\r\nreview-05.01 0 request-next\r\nopen-pass 0 complete\r\npreview-05.02 0\r\nprepare-05.02 0 933171c1201b91ddf8f87a00179ec23a3fe83dcc0ce440cd6614b68494af4b0e\r\nattach-05.02 0 complete\r\nseal-05.02 0 complete\r\nreview-05.02 0 finish\r\nreal-tool actions open attach seal-return review open-pass attach seal-return review\r\nreal-tool ok\r\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,81 @@
+{
+ "schema": "rie-candidate/1",
+ "state": "UNAPPLIED PROPOSAL; not installed, not selected",
+ "production": [
+  {
+   "intended_path": "app/librarian.py",
+   "role": "EDIT (selection line + docstring line); Prime-owned shared dispatcher",
+   "sha256": "5bc43806e6189f482b9e23e924e77cd60f9921a1ce94aaf0fe0f5c9278c4ea83",
+   "bytes": 12204,
+   "candidate_file": "labs/review-entry-integration-pass01/candidate/app/librarian.py"
+  },
+  {
+   "intended_path": "app/review_loop_tools_v8.py",
+   "role": "NEW door",
+   "sha256": "0335da325abf0f0292807ddbcf6f96cc107e8224732ee4afcf3f35470a0f9fc3",
+   "bytes": 11054,
+   "candidate_file": "labs/review-entry-integration-pass01/candidate/app/review_loop_tools_v8.py"
+  },
+  {
+   "intended_path": "app/review-loop-v8.json",
+   "role": "NEW declaration, schema review-loop-pins/6",
+   "sha256": "92a718d300e20a52b765c4f1ed795051013e32a86597522edffb9ff49255872e",
+   "bytes": 4100,
+   "candidate_file": "labs/review-entry-integration-pass01/candidate/app/review-loop-v8.json"
+  },
+  {
+   "intended_path": "labs/workbook-review-pass04/workbook.py",
+   "role": "NEW workbook",
+   "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2",
+   "bytes": 6508,
+   "candidate_file": "labs/review-entry-integration-pass01/candidate/labs/workbook-review-pass04/workbook.py"
+  }
+ ],
+ "lab_only_not_for_production": [
+  {
+   "intended_path": "labs/workbook-review-pass04/workbook.py (LAB ONLY)",
+   "role": "LAB ADAPTER: line 28 REPO = own root",
+   "sha256": "c6be0b97d7274e0393116a4f449848744a2afba0ad9dd694c569276490c62a97",
+   "bytes": 6584,
+   "candidate_file": "labs/review-entry-integration-pass01/adapter/workbook-pass04.lab.py"
+  },
+  {
+   "intended_path": "app/review-loop-v8.json (LAB ONLY)",
+   "role": "LAB ADAPTER: _note and workbook pin",
+   "sha256": "1873f824af09b91a95e0023a148bc882a91d21bcc167eb8f21dd21a4acd38a93",
+   "bytes": 4064,
+   "candidate_file": "labs/review-entry-integration-pass01/adapter/review-loop-v8.lab.json"
+  }
+ ],
+ "must_stay_unchanged": [
+  {
+   "path": "app/review_loop_tools_v7.py",
+   "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
+  },
+  {
+   "path": "app/review-loop-v7.json",
+   "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
+  },
+  {
+   "path": "labs/workbook-review-pass03/workbook.py",
+   "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+  },
+  {
+   "path": "labs/workbook-review-pass02/workbook.py",
+   "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+  },
+  {
+   "path": "labs/workbook-review-pass01/workbook.py",
+   "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+  },
+  {
+   "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+   "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+  },
+  {
+   "path": "app/README.md",
+   "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  }
+ ],
+ "form": "pass04 reuses pass03's form (labs/workbook-review-pass03/forms/workbook-review-v1.json); no new form file"
+}

@@ -1,0 +1,241 @@
+[
+  {
+    "label": "pass05-preflight-nul-output-root",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py",
+      "preflight",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\nul-output-root.json"
+    ],
+    "exit": 1,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e300ae8b9d1fc6a47ba7420022e23c6fa1419b637900d2e06acc7290f2604a01"
+  },
+  {
+    "label": "pass06-preflight-nul-output-root",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "preflight",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\nul-output-root.json"
+    ],
+    "exit": 2,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "b290183f4e29365d1f862ce8379c3e0daf32a6ccc384cad11d986bad018c95d5"
+  },
+  {
+    "label": "pass06-run-nul-output-root",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\nul-output-root.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "efd11997dcc4a5008ac929f6f8a3840e198063bc3f5fd615a896d327af69b260",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "candidate-nul-known",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\candidate-nul-known.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "4b6058d00d8204c6da04baa1f5cd207de3e727ade67b481dc37adfc3b720074f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "candidate-nul-unknown",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\candidate-nul-unknown.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "abf8e2730c62fa650d334b300c2c1427260248d2c6bd764529a5da1c1e40f4b1",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "config-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "C:\\bad<>|.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "36a054fbd28ca4f8bd5a1d53f069ac1ea0a3bb75560151ef1db044fd06932bc3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "dependency-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\dependency-invalid-name.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "dcce08ddde53ab7a824a67415337e611219716aedeaae6908b1f8b0a0dc6ad52",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "evidence-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\ev.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.07\\bad<>|"
+    ],
+    "exit": 2,
+    "stdout_sha256": "4456dd048c92a3babd5601ae7b7c891b891651b96f9b972ca6161663c50bf772",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "evidence-relative",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\ev2.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "lab05.07"
+    ],
+    "exit": 2,
+    "stdout_sha256": "b3bdae354bfbeb4dca1d3b440a2a9d455647963953913330699c79a136710a3f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "interpreter-not-executable",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\interpreter-not-executable.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "0d68e7de89191235c10550233d098147d3278912df70bf8216027ba48f533956",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "interpreter-nul",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\interpreter-nul.json",
+      "--matrix",
+      "stub",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "191311565ee6ee467c55c180678a7a4bbb0a70c31877de52daa496373f878606",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "output-invalid-name",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\output-invalid-name.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "609f9297bb9cbad9b1ef41c2b0603d103e0c7a7a0a1c04a04d574d3116e64211",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "label": "output-overlong",
+    "argv": [
+      "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass06\\harness6.py",
+      "run",
+      "--config",
+      "D:\\librarian\\temp\\harness-pass06-review-nov01\\scratch\\configs\\output-overlong.json",
+      "--matrix",
+      "real",
+      "--evidence",
+      "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.08\\prime-independent-selftest\\runs"
+    ],
+    "exit": 2,
+    "stdout_sha256": "725d6017e216118ebe492b5b3c47fc7660a4fac9a2ad449ce28e1606fc9b890c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

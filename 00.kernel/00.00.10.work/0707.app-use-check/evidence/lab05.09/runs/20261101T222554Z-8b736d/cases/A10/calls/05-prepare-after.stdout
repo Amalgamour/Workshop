@@ -1,0 +1,434 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+  "current": {
+    "current": true,
+    "director_replies": [],
+    "interpretation": "task-binding",
+    "latest_review": {
+      "current": true,
+      "directory": "cycle/05.01-r1",
+      "effective": "continue",
+      "prime_review_exit": 0,
+      "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+      "review_id": "05.01-r1",
+      "schema": "prime-cycle-review/3",
+      "task_binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+      "write_token": {
+        "bytes": 198,
+        "path": "0519.desk-app/05.01.md",
+        "schema": "review-write-token/1",
+        "sha256": "1a9bc5e5b53cc21b9287a87c2674dd65ef0f918f86645366a8390b16ffbfc09d"
+      }
+    },
+    "next_action": {
+      "action_id": "prime-real-judgment",
+      "author": "Claude (SUPPLIED sample, 0707 lab)",
+      "authorized_in_grant": false,
+      "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+      "review_id": "05.01-r1",
+      "text": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    "next_action_label": "supplied",
+    "pass_state": "reviewed",
+    "questions": [],
+    "render_state": "rendered",
+    "task_binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+    "write_token": {
+      "bytes": 5020,
+      "path": "0519.desk-app/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "6da3112f5211c596e58774c035d7a4b773c62f67cc806f947d61050c4b402629"
+    }
+  },
+  "custody": "not-established",
+  "exit_code": 0,
+  "full_success": false,
+  "historical": null,
+  "mechanical": {
+    "blocker": null,
+    "route": "read",
+    "state": "rendered",
+    "target": "constructed-same-binding",
+    "text": "Read the rendered review."
+  },
+  "next": "Read the rendered review.",
+  "observation": {
+    "custody_member": "0182.desk-app-integration-design-0501",
+    "custody_verified": true,
+    "descriptor_state": "complete",
+    "filing_claimed": false,
+    "measured": {
+      "custody_present": true,
+      "manifest_bytes": 2037,
+      "manifest_sha256": "637670d8c846cd633f0b0987fecbcc2e9699135267c33f9cc6c4fc0d78d85b30",
+      "receipt_bytes": 299,
+      "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+      "return_bytes": 3187,
+      "return_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+      "verification_present": true
+    },
+    "member": "0119.desk-app",
+    "placement_status": "pending",
+    "reason": null,
+    "state": "complete",
+    "task_association": "not-established",
+    "task_association_reason": "custody records do not name the review task",
+    "validator": {
+      "exit": 0,
+      "problems": [],
+      "state": "complete",
+      "tool": "labs/return-capture-pass01/return_inspect.py"
+    }
+  },
+  "pass_state": "reviewed",
+  "pins": {
+    "construct": {
+      "bytes": 42582,
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "prime_cycle_pass03": {
+      "bytes": 76045,
+      "path": "labs/prime-cycle-pass03/prime_cycle.py",
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_lines": {
+      "bytes": 100897,
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    },
+    "return_placement": {
+      "bytes": 66097,
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+    },
+    "review_loop": {
+      "bytes": 55474,
+      "path": "labs/review-loop-pass03/review_loop.py",
+      "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+    }
+  },
+  "releases_action": false,
+  "request_sha256": "d8a4115c1e5ec3d72a9f052b6eead6c5250a805080cce1249b6e037f49d2792d",
+  "schema": "review-loop-result/2",
+  "supplied_judgment": null,
+  "supplied_next_action": {
+    "action_id": "prime-real-judgment",
+    "authorized_in_grant": false,
+    "text": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+  },
+  "target": {
+    "binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+    "rule": "a constructed review for this task binding is present; render is idempotent only if the body is identical",
+    "schema": "review-target-inspection/1",
+    "section_sha256": "a05701b8ea29502e81cf9ee85b29c5b23420236c191c688446f361c11b70dbfe",
+    "state": "constructed-same-binding",
+    "target_bytes": 5020,
+    "target_sha256": "6da3112f5211c596e58774c035d7a4b773c62f67cc806f947d61050c4b402629"
+  },
+  "view": {
+    "allocated": false,
+    "attention": [
+      "task association is not established by the custody records"
+    ],
+    "authenticates_actor": false,
+    "authority": "none",
+    "binding": {
+      "agreement_sha256": "c756a0337c0696fc8414ff5f4d946c4e02cf30a21b73e53822d3afa89a8ba904",
+      "direction": {
+        "agreement_sha256": "c756a0337c0696fc8414ff5f4d946c4e02cf30a21b73e53822d3afa89a8ba904",
+        "book": "00.00.10.work",
+        "fields": {
+          "director_required": "da55ac161ede2ba0f46ea3df94fecef3f2a1e4213184a309710ae8dbb83170c2",
+          "finish_criteria": "058b5c28653243230dbeb04210b8e9b0f8e67f548657f402924332d2b2e92ae0",
+          "goal": "0a47f275b196c8ad172ba4777a059ae5993ae91d3e79b1357fd8b8739ad95070",
+          "prime_discretion": "7ccd04a5ac265c78ef3cd8305d29b83100f698f1dcf8841e9b7016e64fe64f5f",
+          "recorded_decisions": "1a1e40bef075d581bb99ffda10f6d685ae76fb79e60233f35f2d435fa835ed51",
+          "scope": "e88021beac656856515fb9ec9ee2165756a7a9476a3fad512c594a753cfccab1"
+        },
+        "review_location": "cycle",
+        "schema": "prime-cycle-direction/1"
+      },
+      "expected_prior": {
+        "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+        "review_id": "05.01-r1"
+      },
+      "fingerprint": "e26b8ba0008a9e2b9b9174c13691c9c7d1bf988a3d1aaab1fdb7d0497cda1a7a",
+      "goal": {
+        "goal_id": "g-pilot-0182",
+        "goal_sha256": "4755518f2572145b6bb63a939083e136c182b18320bf4044b7e25d5bb7379636"
+      },
+      "manifest_sha256": "637670d8c846cd633f0b0987fecbcc2e9699135267c33f9cc6c4fc0d78d85b30",
+      "member": "0119.desk-app",
+      "origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0519.desk-app"
+      },
+      "page": "0519.desk-app",
+      "pass": "05.01",
+      "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+      "return_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+      "schema": "prime-cycle-binding/3",
+      "source": {
+        "book": "00.00.10.work",
+        "page": "0519.desk-app",
+        "pass": "05.01"
+      },
+      "submission_id": "claude-0519-0501",
+      "task_binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+      "work_id": "pilot-0182",
+      "write_token": {
+        "bytes": 5020,
+        "path": "0519.desk-app/05.01.md",
+        "schema": "review-write-token/1",
+        "sha256": "6da3112f5211c596e58774c035d7a4b773c62f67cc806f947d61050c4b402629"
+      }
+    },
+    "closes_work": false,
+    "current": true,
+    "custody": "not-established",
+    "director_replies": [],
+    "historical": null,
+    "interpretation": "task-binding",
+    "latest_review": {
+      "current": true,
+      "directory": "cycle/05.01-r1",
+      "effective": "continue",
+      "prime_review_exit": 0,
+      "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+      "review_id": "05.01-r1",
+      "schema": "prime-cycle-review/3",
+      "task_binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+      "write_token": {
+        "bytes": 198,
+        "path": "0519.desk-app/05.01.md",
+        "schema": "review-write-token/1",
+        "sha256": "1a9bc5e5b53cc21b9287a87c2674dd65ef0f918f86645366a8390b16ffbfc09d"
+      }
+    },
+    "member": "0119.desk-app",
+    "next_action": {
+      "action_id": "prime-real-judgment",
+      "author": "Claude (SUPPLIED sample, 0707 lab)",
+      "authorized_in_grant": false,
+      "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+      "review_id": "05.01-r1",
+      "text": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01."
+    },
+    "observation": {
+      "custody_member": "0182.desk-app-integration-design-0501",
+      "custody_verified": true,
+      "descriptor_state": "complete",
+      "filing_claimed": false,
+      "measured": {
+        "custody_present": true,
+        "manifest_bytes": 2037,
+        "manifest_sha256": "637670d8c846cd633f0b0987fecbcc2e9699135267c33f9cc6c4fc0d78d85b30",
+        "receipt_bytes": 299,
+        "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+        "return_bytes": 3187,
+        "return_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+        "verification_present": true
+      },
+      "member": "0119.desk-app",
+      "placement_status": "pending",
+      "reason": null,
+      "state": "complete",
+      "task_association": "not-established",
+      "task_association_reason": "custody records do not name the review task",
+      "validator": {
+        "exit": 0,
+        "problems": [],
+        "state": "complete",
+        "tool": "labs/return-capture-pass01/return_inspect.py"
+      }
+    },
+    "page": "0519.desk-app",
+    "pass": "05.01",
+    "pass_state": "reviewed",
+    "pins": {
+      "construct": {
+        "bytes": 36188,
+        "path": "labs/review-construction-pass02/construct.py",
+        "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+      },
+      "prime_cycle_pass03": {
+        "bytes": 76045,
+        "path": "labs/prime-cycle-pass03/prime_cycle.py",
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      "prime_review_pass01": {
+        "bytes": 58324,
+        "path": "labs/prime-review-pass01/prime_review.py",
+        "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+      },
+      "prime_review_pass02": {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      },
+      "return_inspect": {
+        "bytes": 11402,
+        "path": "labs/return-capture-pass01/return_inspect.py",
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+      },
+      "return_lines": {
+        "bytes": 100897,
+        "path": "labs/return-lines-pass01/return_lines.py",
+        "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+      },
+      "return_placement": {
+        "bytes": 66097,
+        "path": "labs/return-placement-pass01/return_placement.py",
+        "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+      }
+    },
+    "questions": [],
+    "releases_action": false,
+    "render_state": "rendered",
+    "schema": "prime-cycle-view/4",
+    "task_binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+    "template": {
+      "attribution": {
+        "actor_label": null,
+        "evidence": null,
+        "role": "prime"
+      },
+      "binding": {
+        "agreement_sha256": "c756a0337c0696fc8414ff5f4d946c4e02cf30a21b73e53822d3afa89a8ba904",
+        "direction": {
+          "agreement_sha256": "c756a0337c0696fc8414ff5f4d946c4e02cf30a21b73e53822d3afa89a8ba904",
+          "book": "00.00.10.work",
+          "fields": {
+            "director_required": "da55ac161ede2ba0f46ea3df94fecef3f2a1e4213184a309710ae8dbb83170c2",
+            "finish_criteria": "058b5c28653243230dbeb04210b8e9b0f8e67f548657f402924332d2b2e92ae0",
+            "goal": "0a47f275b196c8ad172ba4777a059ae5993ae91d3e79b1357fd8b8739ad95070",
+            "prime_discretion": "7ccd04a5ac265c78ef3cd8305d29b83100f698f1dcf8841e9b7016e64fe64f5f",
+            "recorded_decisions": "1a1e40bef075d581bb99ffda10f6d685ae76fb79e60233f35f2d435fa835ed51",
+            "scope": "e88021beac656856515fb9ec9ee2165756a7a9476a3fad512c594a753cfccab1"
+          },
+          "review_location": "cycle",
+          "schema": "prime-cycle-direction/1"
+        },
+        "expected_prior": {
+          "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+          "review_id": "05.01-r1"
+        },
+        "fingerprint": "e26b8ba0008a9e2b9b9174c13691c9c7d1bf988a3d1aaab1fdb7d0497cda1a7a",
+        "goal": {
+          "goal_id": "g-pilot-0182",
+          "goal_sha256": "4755518f2572145b6bb63a939083e136c182b18320bf4044b7e25d5bb7379636"
+        },
+        "manifest_sha256": "637670d8c846cd633f0b0987fecbcc2e9699135267c33f9cc6c4fc0d78d85b30",
+        "member": "0119.desk-app",
+        "origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0519.desk-app"
+        },
+        "page": "0519.desk-app",
+        "pass": "05.01",
+        "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+        "return_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+        "schema": "prime-cycle-binding/3",
+        "source": {
+          "book": "00.00.10.work",
+          "page": "0519.desk-app",
+          "pass": "05.01"
+        },
+        "submission_id": "claude-0519-0501",
+        "task_binding_sha256": "49d2e04d579c7c98d24a319b93b9ab71e1d53a0d5e7ced5247a84fe210666922",
+        "work_id": "pilot-0182",
+        "write_token": {
+          "bytes": 5020,
+          "path": "0519.desk-app/05.01.md",
+          "schema": "review-write-token/1",
+          "sha256": "6da3112f5211c596e58774c035d7a4b773c62f67cc806f947d61050c4b402629"
+        }
+      },
+      "judgment": {
+        "answers": [],
+        "design_fork": null,
+        "disposition": null,
+        "finding": null,
+        "goal": {
+          "evidence": [],
+          "goal_id": "g-pilot-0182",
+          "goal_sha256": "4755518f2572145b6bb63a939083e136c182b18320bf4044b7e25d5bb7379636",
+          "terminal": null
+        },
+        "holds": [],
+        "next_action": null,
+        "outcome": null,
+        "pass_terminal": null,
+        "reasons": [],
+        "sections": {
+          "affected": null,
+          "assumptions": null,
+          "consequences": null,
+          "exploration": null,
+          "findings_account": null,
+          "finish_assessments": null,
+          "for_model": null,
+          "issue": null,
+          "learning": null,
+          "limits": null,
+          "next_bounded_action": null,
+          "open_questions": null,
+          "options": null,
+          "outcome_evidence": null,
+          "preservation": null,
+          "prime_finding": null,
+          "proposed_plan": null,
+          "question": null,
+          "recommendation": null,
+          "remaining_choices": null,
+          "return_result": null,
+          "tests_note": null,
+          "tests_passed": null,
+          "within_direction": null
+        },
+        "semantic_conflict": null,
+        "source_refs": [],
+        "unresolved": []
+      },
+      "recovers": null,
+      "review_id": "05.01-r2",
+      "schema": "prime-cycle-decision/3",
+      "supersedes": {
+        "record_sha256": "b274da3ea5e37d7d9c8a4708667e383408aedb56bec7318b37bfca968cf61c41",
+        "review_id": "05.01-r1"
+      },
+      "supplied_record": null
+    },
+    "work_id": "pilot-0182",
+    "write_token": {
+      "bytes": 5020,
+      "path": "0519.desk-app/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "6da3112f5211c596e58774c035d7a4b773c62f67cc806f947d61050c4b402629"
+    }
+  }
+}

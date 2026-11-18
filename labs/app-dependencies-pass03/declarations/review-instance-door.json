@@ -1,0 +1,318 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-loop"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "review-instance-door",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-instance-binding-pass01/review_loop_tools.py",
+      "repository": "lib-build"
+    },
+    "bytes": 13142,
+    "sha256": "134221019b9854bc44529ff6a909c99c464bc3515a3e39da5536b2524d00cb22"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-loop"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "unselected door"
+    ],
+    "name": "review_instance_door",
+    "path": "labs/review-instance-binding-pass01/review_loop_tools.py",
+    "purpose": "Unselected I door. It pair-pins the instance workbook, pass05, and the v9 door files.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.35",
+          "file": "06.35.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "Prime accepted the instance door and did not select it",
+        "role": "review",
+        "sha256": "507b9c101c2b165ac6e7cc92e2c7909a98c2d80fed15c44bbde7b027efd2f0f2",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "declaration-json",
+      "kind": "runtime-code",
+      "mechanism": "read",
+      "pin": null,
+      "pin_required": false,
+      "reason": "load_declaration reads review-loop.json by path. The file bytes are not pinned.",
+      "source_ref": {
+        "lines": "167-194",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/review-instance-binding-pass01/review-loop.json",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "instance-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 5916,
+        "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"
+      },
+      "pin_required": true,
+      "reason": "pin_named pair-pins the instance workbook.",
+      "source_ref": {
+        "lines": "5-5",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/review-instance-binding-pass01/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "pass05-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 6994,
+        "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+      },
+      "pin_required": true,
+      "reason": "pin_named pair-pins pass05.",
+      "source_ref": {
+        "lines": "100-100",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass05/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "v9-door",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 11765,
+        "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47"
+      },
+      "pin_required": true,
+      "reason": "pin_named pair-pins the v9 door.",
+      "source_ref": {
+        "lines": "51-51",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "module": {
+          "path": "app/review_loop_tools_v9.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "v9-json",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 4670,
+        "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656"
+      },
+      "pin_required": true,
+      "reason": "pin_named pair-pins review-loop-v9.json.",
+      "source_ref": {
+        "lines": "53-53",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "module": {
+          "path": "app/review-loop-v9.json",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "212-212",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "26-314",
+        "path": "labs/review-instance-binding-pass01/review_loop_tools.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The resolved door file must equal its path under D:\\Git\\lib-build. This preflight did not execute that compare.",
+          "name": "canonical-helper-root"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-w",
+        "statement": "Combined workbook W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-w",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "Combined workbook W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-reporter",
+        "statement": "reporter-on-W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-reporter",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "reporter-on-W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "pin_named checks for v4 through v8 and pass01 through pass04 are outside this subset",
+      "what": "historical door pins"
+    }
+  ]
+}

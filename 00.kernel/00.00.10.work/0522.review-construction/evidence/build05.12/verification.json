@@ -1,0 +1,134 @@
+{
+  "accepted": false,
+  "allocated_0184": false,
+  "allocator": "not-used",
+  "branch": "workshop",
+  "committed_by_this_builder": false,
+  "contract": {
+    "bytes": 10559,
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.12/CONTRACT.md",
+    "revised_after_tests": false,
+    "sha256": "18f6372b76e4ac73086f30b22e7676f04a763a58f0fd0a6e01bfee3ba652e728"
+  },
+  "current_book": {
+    "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "commands": [
+      "prepare",
+      "form",
+      "inspect"
+    ],
+    "custody": "missing",
+    "exits": [
+      0,
+      0,
+      0
+    ],
+    "findings": [
+      "verification-not-measured",
+      "index-context-bounded",
+      "artifact-hash-mismatch",
+      "artifact-hash-mismatch",
+      "custody-missing",
+      "return-missing"
+    ],
+    "intake_id": "3967e58683f55ad50f71ada8ecde4f6726c131069232e6237e09f00a5e072f3d",
+    "judgment": null,
+    "measurement": "incomplete",
+    "page_bytes": 11646,
+    "page_sha256": "531482b4b7a0c14cc2a6aba7014089972636a54e013cbc75ed3cedd786f32ef2",
+    "page_unchanged": true,
+    "pass": "05.11",
+    "published": false,
+    "recorded": false,
+    "source": "0522.review-construction",
+    "stderr_bytes": [
+      0,
+      0,
+      0
+    ],
+    "stdout_bytes": [
+      24222,
+      15285,
+      16601
+    ]
+  },
+  "custody": "pending",
+  "door": {
+    "bytes": 9175,
+    "declaration": "app/review-loop-v6.json",
+    "declaration_bytes": 2743,
+    "declaration_sha256": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa",
+    "path": "app/review_loop_tools_v6.py",
+    "schema": "review-loop-pins/4",
+    "sha256": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94"
+  },
+  "form": {
+    "bytes": 4532,
+    "form_id": "workbook-review-v1",
+    "path": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+    "route": "labs/workbook-review-pass02/PRIME-USE.md",
+    "sha256": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645"
+  },
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "index_at_close_check": "empty",
+  "librarian": {
+    "before_bytes": 12204,
+    "before_sha256": "e2d85b1b641d8a1113b0afaa67a9b8203eb58e9f1028308be922a806fffa5f90",
+    "bytes": 12204,
+    "path": "app/librarian.py",
+    "sha256": "b15919adb7664f993373fbc6eaaaf86d66100f396b3401845900734f920248ea"
+  },
+  "matching_line": "0122.review-construction",
+  "matching_status": "unfiled",
+  "pack_inputs_at_close_before_pointer": {
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "files": 92,
+    "missing_live": 0,
+    "missing_snapshot": 0,
+    "repinned": false,
+    "snapshot_mismatches": 0
+  },
+  "pack_inputs_before_edit": {
+    "bad": 0,
+    "bytes": 34288,
+    "extra_snapshots": 0,
+    "files": 92,
+    "live_drift": 0,
+    "missing_live": 0,
+    "missing_snapshot": 0,
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/pack05.12/source-manifest.json",
+    "schema": "prime-pack-inputs/1",
+    "sha256": "7e6a6366bb87cb06c46b5eea8e133c8eaf2b1bae9ae8095d4cbdcd32c5de4563",
+    "snapshot_mismatch": 0
+  },
+  "pass": "0522.review-construction/05.12",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "readme": {
+    "before_bytes": 38352,
+    "before_sha256": "d30d68d47cf90475f7f4b7abe9215c3ad2b323535494e2000bfc306f302f6c16",
+    "bytes": 39210,
+    "path": "app/README.md",
+    "sha256": "471f689adcfc89b44c2c455500924702bcf8f9eadfc83f8ae9eaa344775a65b6"
+  },
+  "receipt": null,
+  "schema": "workbook-review-verification/1",
+  "seated": false,
+  "suite": {
+    "command": "python -B labs/workbook-review-pass02/tests/test_workbook.py",
+    "exit": 0,
+    "failed": 0,
+    "first_failure": "The first full run exited 1. test_filed_two_sources_and_successor raised KeyError on cycle after record exited 0 with mode cycle-committed. The record result then gained the cycle object. The declaration was regenerated. The filed case passed in 93.467s. The cited suite is the rerun after that change.",
+    "result": "OK",
+    "seconds": 184.929,
+    "tests": 6
+  },
+  "workbook": {
+    "bytes": 52574,
+    "path": "labs/workbook-review-pass02/workbook.py",
+    "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+  }
+}

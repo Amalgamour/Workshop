@@ -1,0 +1,116 @@
+{
+  "audit": {
+    "file_count_field": 16,
+    "files_length": 16,
+    "manifest_bytes": 3867,
+    "manifest_sha256": "bbd4e5a33279105f0177491c7eff2ecfa70e172cd0fd6a266d70c2c3b93e809d",
+    "match": 16,
+    "mismatch_count": 0,
+    "mismatch_paths": [],
+    "missing": [],
+    "submission_bytes": 874,
+    "submission_sha256": "ddccb9110a02d82df300adffc25870c8ebf24d0815dab2651c67ececfaf36de8",
+    "verification_bytes": 5177,
+    "verification_sha256": "99497147811cdd4009cfafca11be8594c943971ac63add170b032f9408d81f45"
+  },
+  "door": "app/review_loop_tools_v6.py",
+  "k1": {
+    "cut_roles": [
+      "assignment"
+    ],
+    "exit": 0,
+    "finding_codes": [
+      "unparsed-return-line",
+      "declared-file-missing",
+      "custody-missing",
+      "return-missing"
+    ],
+    "intake_id": "6ae3839653bc8a3d1148cd647cade813d64997960a51f8e5322e54f09dbd1742",
+    "measurement": "incomplete",
+    "page_bytes_after": 8076,
+    "page_bytes_before": 8076,
+    "page_sha_after": "af56727c4a29007d9a78b0a746af4c949774daf01632bf7c1b7258ce471963c5",
+    "page_sha_before": "af56727c4a29007d9a78b0a746af4c949774daf01632bf7c1b7258ce471963c5",
+    "page_unchanged": true,
+    "row_roles": [
+      "assignment"
+    ],
+    "stderr_bytes": 0,
+    "unknowns": [
+      "agreement.goal",
+      "agreement.scope",
+      "recorded_decisions",
+      "receipt"
+    ]
+  },
+  "k1_command": [
+    "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\app\\librarian.py",
+    "review-loop",
+    "prepare",
+    "--book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "--source",
+    "0521.return-placement",
+    "--pass",
+    "05.10"
+  ],
+  "k2_book": "D:\\librarian\\temp\\0522-0513-repro\\book",
+  "k2_prepare_exit": 0,
+  "k2_prepare_measurement": "complete",
+  "k2_prepare_stderr_bytes": 0,
+  "k2_record": {
+    "correction": "refused: duplicate id at sources",
+    "exit": 2,
+    "failed_input": "workbook-review/0599.fixture-review/05.01/failed/6429cac0f00012d9.json",
+    "intake_id": "86f92dbb4a21e74e0eb40c248317b523bcb7239e685320b9425fa6fca92a1cc4",
+    "recorded": false,
+    "stderr_bytes": 0
+  },
+  "k2_rows": [
+    {
+      "path": "0599.fixture-review/05.01.md",
+      "role": "assignment",
+      "root": "book"
+    },
+    {
+      "path": "0599.fixture-review/evidence/build05.01/submission.md",
+      "role": "submission",
+      "root": "book"
+    },
+    {
+      "path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+      "role": "verification",
+      "root": "book"
+    },
+    {
+      "path": "0599.fixture-review/evidence/build05.01/artifact-manifest.json",
+      "role": "artifact-manifest",
+      "root": "book"
+    },
+    {
+      "path": "0599.fixture-review/evidence/build05.01/submission.md",
+      "role": "artifact",
+      "root": "book"
+    },
+    {
+      "path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+      "role": "artifact",
+      "root": "book"
+    },
+    {
+      "path": "0599.fixture-review/evidence/build05.01/payload/parser.py",
+      "role": "artifact",
+      "root": "book"
+    }
+  ],
+  "note_sha256": "637985a6cb606cbcf594789c9bf534a7efb782560c3bcd767f28c86287e5677b",
+  "pins_ok": true,
+  "prime_book_untouched": true,
+  "status_added": [],
+  "v6_py": {
+    "bytes": 9175,
+    "sha256": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94"
+  }
+}

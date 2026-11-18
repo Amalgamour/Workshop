@@ -1,0 +1,14 @@
+[
+  {
+    "probe": "completed restart after changed seated bytes",
+    "result": "already-complete"
+  },
+  {
+    "probe": "rollback after changed seated bytes",
+    "result": {
+      "seat_restored": true,
+      "draft_restored_to_signed": false
+    },
+    "renamed_before_refusal": true
+  }
+]

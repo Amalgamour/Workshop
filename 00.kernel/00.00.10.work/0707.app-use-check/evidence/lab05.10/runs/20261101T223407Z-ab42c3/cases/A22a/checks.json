@@ -1,0 +1,84 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "authority flags false: describe",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "authority flags false: prepare",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "prepare exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare target.state absent",
+      "expected": null,
+      "observed": "absent",
+      "ok": true
+    },
+    {
+      "check": "prepare view.template is null (corrected prerequisite)",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "prepare text does not claim a commitment",
+      "expected": null,
+      "observed": "No judgment is recorded. The target is absent, so this entry does not commit one.",
+      "ok": true
+    },
+    {
+      "check": "prepare mechanical route grants no record or recover",
+      "expected": null,
+      "observed": "none-in-this-entry",
+      "ok": true
+    },
+    {
+      "check": "authority flags false: read",
+      "expected": null,
+      "observed": {},
+      "ok": true
+    },
+    {
+      "check": "read does not claim a commitment",
+      "expected": null,
+      "observed": "No judgment is recorded. The target is absent, so this entry does not commit one. \"No judgment is recorded. The target is absent, so this entry does not commit one.\"",
+      "ok": true
+    },
+    {
+      "check": "R02 wording: not recorded (heuristic, unchanged)",
+      "expected": null,
+      "observed": "No judgment is recorded. The target is absent, so this entry does not commit one. \"No judgment is recorded. The target is absent, so this entry does not commit one.\"",
+      "ok": true
+    },
+    {
+      "check": "no committed review",
+      "expected": null,
+      "observed": [],
+      "ok": true
+    },
+    {
+      "check": "target still absent (not created)",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    }
+  ],
+  "error": null
+}

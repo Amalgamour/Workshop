@@ -1,0 +1,123 @@
+[
+  {
+    "ready": false,
+    "scope": "full",
+    "reasons": [
+      "dependencies is not a list (got NoneType)"
+    ],
+    "counts": {
+      "pass": 1
+    },
+    "required_full": 1,
+    "required_selected": 1,
+    "coverage_missing": [],
+    "subset": {
+      "ids": [
+        "a"
+      ],
+      "all_selected_required_pass": true,
+      "note": "a subset result is diagnostic only; it is never combined readiness"
+    }
+  },
+  {
+    "ready": false,
+    "scope": "full",
+    "reasons": [
+      "dependencies is not a list (got dict)"
+    ],
+    "counts": {
+      "pass": 1
+    },
+    "required_full": 1,
+    "required_selected": 1,
+    "coverage_missing": [],
+    "subset": {
+      "ids": [
+        "a"
+      ],
+      "all_selected_required_pass": true,
+      "note": "a subset result is diagnostic only; it is never combined readiness"
+    }
+  },
+  {
+    "ready": false,
+    "scope": "full",
+    "reasons": [
+      "dependencies is not a list (got str)"
+    ],
+    "counts": {
+      "pass": 1
+    },
+    "required_full": 1,
+    "required_selected": 1,
+    "coverage_missing": [],
+    "subset": {
+      "ids": [
+        "a"
+      ],
+      "all_selected_required_pass": true,
+      "note": "a subset result is diagnostic only; it is never combined readiness"
+    }
+  },
+  {
+    "ready": false,
+    "scope": "subset",
+    "reasons": [
+      "coverage incomplete: 1 required case(s) have no record: ['b']"
+    ],
+    "counts": {
+      "pass": 1
+    },
+    "required_full": 2,
+    "required_selected": 1,
+    "coverage_missing": [
+      "b"
+    ],
+    "subset": {
+      "ids": [
+        "a"
+      ],
+      "all_selected_required_pass": true,
+      "note": "a subset result is diagnostic only; it is never combined readiness"
+    }
+  },
+  [
+    {
+      "codes_include": "malformed-n7-declaration",
+      "alternative_bound": false,
+      "measurement": "incomplete",
+      "record": "refused",
+      "publish": "refused",
+      "destination_unchanged": true
+    },
+    {
+      "codes": [
+        "unrelated-blocker"
+      ],
+      "bound_rows": [],
+      "measurement": "incomplete",
+      "record_exit": 2,
+      "publish_exit": 2,
+      "destination_unchanged": true,
+      "judge_reasons": [
+        "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)"
+      ]
+    },
+    "fail"
+  ],
+  {
+    "where": "sources",
+    "count": 64,
+    "accepted": true
+  },
+  {
+    "where": "sources",
+    "count": 65,
+    "accepted": false
+  },
+  {
+    "where": "holds",
+    "count": 25,
+    "accepted": false
+  }
+]

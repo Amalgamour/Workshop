@@ -1,0 +1,766 @@
+{
+ "schema": "prime-desk-oracle/1",
+ "pack": "00.kernel/00.00.10.work/0705.prime-desk-check/05.01.pack.md",
+ "authority": "none: declarative expectations for a later independent check; not executed against any desk tool; not approval",
+ "who": "claude-opus-5-5 (Claude), contextual Colab, 2026-11-01",
+ "conventions": {
+  "basis": "Every displayed fact carries a basis: observed (bytes read and hash-checked now), supplied (attributed words or labels), derived (computed by a declared rule from observed facts), unknown (with a reason).",
+  "real-frozen": "Sources are pack05.01 frozen inputs; the expected facts are read from those exact bytes.",
+  "synthetic": "A declared mutation of named frozen inputs, built only in a disposable copy by whoever runs the oracle. Nothing in this file creates or edits a live record.",
+  "oracle_rule": "A case passes only on the listed facts with their basis and source links, and on the absence of every forbidden inference. Matching the tool's own summary text is not evidence."
+ },
+ "cases": [
+  {
+   "id": "C01",
+   "topic": "stale selector",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+     "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+     "sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "disposable"
+    },
+    {
+     "op": "replace-line",
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "key": "current_work",
+     "value": "00.kernel/00.00.10.work/0522.review-construction/05.03.md"
+    },
+    {
+     "op": "replace-line",
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "key": "pack",
+     "value": "00.kernel/00.00.10.work/0522.review-construction/05.03.md"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "selected work = 0522.review-construction/05.03 (basis observed: selector line current_work)",
+     "selector state = running (basis supplied: the selector's own label)",
+     "selected page has a Prime review dated 2026-11-01 with state 'repair required before real capture integration' (observed: page section)",
+     "a newer page 0522/05.04 exists and is NOT selected"
+    ],
+    "unknowns": [],
+    "attention": [
+     "selector-vs-page tension: selector says running; the selected page carries a completed Prime review requiring repair. Shown as a conflict for Prime, not resolved by the tool"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "selecting 0522/05.04 because it is newer",
+    "rewriting or 'correcting' the selector",
+    "declaring the review 'done' or the work complete"
+   ],
+   "evidence_required": [
+    "selector bytes sha256",
+    "selected page sha256",
+    "the exact review heading line and its state line"
+   ],
+   "finish": "The view names the selector's choice, the page's review state and the tension, each with its basis and link, and selects nothing else."
+  },
+  {
+   "id": "C02",
+   "topic": "two parallel assignments",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/06.02.md",
+     "sha256": "b2ed2207f1e351f80e06cecc1234d742be9edd85dd7442c4bbb578e08ab82180"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+     "sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11"
+    }
+   ],
+   "setup": [
+    {
+     "op": "catalog-lists",
+     "works": [
+      "0522.review-construction/05.04",
+      "0524.prime-desk/05.01",
+      "0705.prime-desk-check/05.01.pack"
+     ],
+     "note": "the catalog is an index supplied by Prime"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "primary = 0522/05.04 (observed: selector)",
+     "0524/05.01: Executor Grok-1 (observed: page Assignment line); Return pointer PENDING (observed)",
+     "parallel listing of 0524 and 0705 comes from the catalog (basis supplied: catalog index) and from 0420/06.02 prose 'Parallel packs 0524 and 0705 are prepared, not claimed until invoked' (supplied, Prime)"
+    ],
+    "unknowns": [
+     "whether 0524 or 0705 is claimed now: their snapshots show PENDING pointers; any later claim is outside these sources"
+    ],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "treating the catalog as the assignment authority",
+    "showing 0524 as running because the Director said Grok-1 was available ('We have claude and grok-1 sitting')",
+    "parsing waits_on prose into structured assignments"
+   ],
+   "evidence_required": [
+    "selector sha256",
+    "each page sha256 and its pointer line",
+    "catalog entry with its own source label"
+   ],
+   "finish": "The primary and the parallel works are shown with distinct bases; claim state comes only from page pointers."
+  },
+  {
+   "id": "C03",
+   "topic": "wrong instance, same address",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "instance-A"
+    },
+    {
+     "op": "copy-book",
+     "to": "instance-B"
+    },
+    {
+     "op": "append-line",
+     "instance": "instance-B",
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "text": "SYNTHETIC divergent line in instance B."
+    },
+    {
+     "op": "request",
+     "selected_instance": "instance-A",
+     "catalog_points_to": "instance-B path for 0524/05.01"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "selected instance = A, with its root and identity"
+    ],
+    "unknowns": [],
+    "attention": [],
+    "refusals": [
+     "the catalog reference resolves outside the selected instance: refused or stale with instance identity shown (rule: 0420/01 'Never mix same-address records from different book instances silently')"
+    ]
+   },
+   "forbidden": [
+    "reading instance B's bytes as the selected task",
+    "merging facts across instances because the address matches"
+   ],
+   "evidence_required": [
+    "both instance roots",
+    "both page sha256 values",
+    "the rule reference"
+   ],
+   "finish": "Facts come only from instance A; the cross-instance reference is visible as a refusal or stale with both identities."
+  },
+  {
+   "id": "C04",
+   "topic": "unreviewed return versus completed review",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0521.return-placement/05.03.md",
+     "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+     "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+     "sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11"
+    }
+   ],
+   "setup": [],
+   "expected": {
+    "facts": [
+     "0521/05.03: return recorded (submission 3705add4…, manifest 964e5be5…), Prime review present: 'bounded migration/capture candidate checks passed; live adoption not performed' (observed)",
+     "0521/05.03 custody: 'Custody in matching 0121.return-placement: pending migration. Not filed.' (observed)",
+     "0522/05.03: return recorded; Prime review state 'repair required before real capture integration'; custody PENDING (observed)",
+     "0522/05.04: Return pointer PENDING and Review PENDING (observed)"
+    ],
+    "unknowns": [
+     "sealed custody for 0521/05.03 and 0522/05.03: none observed; reviewed does not imply custody"
+    ],
+    "attention": [
+     "0522/05.04 has no return yet; it is not 'awaiting review'"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "'reviewed' rendered as complete or accepted",
+    "a 'checks passed' review rendered as approval",
+    "custody inferred from a submission hash on the page"
+   ],
+   "evidence_required": [
+    "the review state lines verbatim",
+    "the pointer custody lines verbatim",
+    "page sha256 values"
+   ],
+   "finish": "Three separate facts per work (return recorded, review state, custody) with no merged 'done' label."
+  },
+  {
+   "id": "C05",
+   "topic": "Director words versus interpretation",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+     "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342"
+    }
+   ],
+   "setup": [],
+   "expected": {
+    "facts": [
+     "Director verbatim block quoted exactly (three quoted lines, including 'I like it.  I can't think of anything to change so lets go with it.' with its double space)",
+     "'Prime - interpretation' shown separately, attributed to Codex Prime"
+    ],
+    "unknowns": [],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "paraphrasing the Director's words",
+    "attributing the interpretation's limits ('not permission to migrate…') to the Director",
+    "normalizing spacing or punctuation inside the quote"
+   ],
+   "evidence_required": [
+    "byte-exact quote with source sha256 and line range"
+   ],
+   "finish": "A fresh reader can tell which sentences are the Director's and which are Prime's."
+  },
+  {
+   "id": "C06",
+   "topic": "missing receipt",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+     "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f"
+    }
+   ],
+   "setup": [],
+   "expected": {
+    "facts": [
+     "submission and artifact-manifest hashes stated on the page (observed as text)"
+    ],
+    "unknowns": [
+     "receipt: none; matching line 0122.review-construction awaits migration (observed pointer text)"
+    ],
+    "attention": [
+     "return without sealed custody"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "status 'captured' or 'complete'",
+    "verifying the stated hashes against files the request did not declare and calling that custody"
+   ],
+   "evidence_required": [
+    "the pointer's Custody line verbatim"
+   ],
+   "finish": "Custody is unknown or pending with the reason quoted; the work is not shown as filed."
+  },
+  {
+   "id": "C07",
+   "topic": "unresolved hold and unrelated work",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+     "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "disposable"
+    },
+    {
+     "op": "append-section",
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.03.md",
+     "text": "SYNTHETIC hold H1: Director question Q1 'Which seam field semantics apply?' blocks: real-capture-integration."
+    }
+   ],
+   "expected": {
+    "facts": [
+     "hold H1 on 0522/05.03 with its question and dependent scope (observed in the disposable copy)",
+     "0524/05.01 remains listed with its own state and is not blocked"
+    ],
+    "unknowns": [],
+    "attention": [
+     "H1 open: Director question pending"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "hiding H1 under an overflow budget",
+    "marking all work blocked",
+    "inventing an answer or a resolution"
+   ],
+   "evidence_required": [
+    "hold text and source sha256",
+    "unrelated work state with its own source"
+   ],
+   "finish": "The hold is always visible; unrelated work stays actionable."
+  },
+  {
+   "id": "C08",
+   "topic": "unregistered Observer sources",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/01.md",
+     "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989"
+    }
+   ],
+   "setup": [
+    {
+     "op": "request",
+     "observer_sources": [],
+     "note": "no Observer report is registered"
+    }
+   ],
+   "expected": {
+    "facts": [],
+    "unknowns": [
+     "Observer findings: not covered (no registered source); the rule 'unregistered does not mean none' is cited"
+    ],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "'no Observer findings'",
+    "polling or fetching an Observer branch"
+   ],
+   "evidence_required": [
+    "coverage line naming registered Observer sources (empty)"
+   ],
+   "finish": "Coverage is explicit and the absence of findings is not claimed."
+  },
+  {
+   "id": "C09",
+   "topic": "supplied worker activity",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/06.02.md",
+     "sha256": "b2ed2207f1e351f80e06cecc1234d742be9edd85dd7442c4bbb578e08ab82180"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+     "sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11"
+    }
+   ],
+   "setup": [],
+   "expected": {
+    "facts": [
+     "Grok-2 working on 0522/05.04 (basis supplied: 'Director reported Grok-2 working', recorded by Prime on 0420/06.02)",
+     "selector assignment_state running (supplied label)",
+     "0522/05.04 Return pointer PENDING (observed)"
+    ],
+    "unknowns": [
+     "whether any process is running now"
+    ],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "'running' shown as observed process activity",
+    "a claim inferred from the selector label"
+   ],
+   "evidence_required": [
+    "the supplied sentence verbatim with its source"
+   ],
+   "finish": "Worker activity is shown as supplied with its limit; the observed page state stays PENDING."
+  },
+  {
+   "id": "C10",
+   "topic": "long history and overview overflow",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/01.md",
+     "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "disposable"
+    },
+    {
+     "op": "attention-items",
+     "count": 40,
+     "including": "one open hold H9 as the 40th item"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "the overview shows a bounded attention list with an overflow count and an expansion route",
+     "H9 is shown regardless of position"
+    ],
+    "unknowns": [],
+    "attention": [
+     "overflow: N items not shown, with the route to list them"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "silent truncation",
+    "dropping any hold, conflict or Director question for length",
+    "copying 0401/01.md history into the default view"
+   ],
+   "evidence_required": [
+    "overflow count equal to items omitted",
+    "drill-down reference"
+   ],
+   "finish": "The default view stays short; nothing safety-relevant is cut."
+  },
+  {
+   "id": "C11",
+   "topic": "absent dependency",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/06.02.md",
+     "sha256": "b2ed2207f1e351f80e06cecc1234d742be9edd85dd7442c4bbb578e08ab82180"
+    }
+   ],
+   "setup": [
+    {
+     "op": "request-declares",
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/evidence/assignment-before-nov01.md",
+     "sha256": "305189287e3dca1b5a22063bf4493930caa54b866583a82c38db8c8e01ff3ec8",
+     "note": "named by 0420/06.02 but not supplied in this oracle's instance"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "0420/06.02 names a preserved previous selector with its sha256 (observed text)"
+    ],
+    "unknowns": [
+     "previous selector content: not present in the selected instance (absent dependency)"
+    ],
+    "attention": [
+     "missing source with path and expected hash"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "reconstructing the previous selector from memory or chat",
+    "suppressing unrelated valid facts because one optional source is absent"
+   ],
+   "evidence_required": [
+    "the missing path and expected hash"
+   ],
+   "finish": "The absence is precise, and the rest of the view is intact."
+  },
+  {
+   "id": "C12",
+   "topic": "quoted commands in discussion",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+     "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11"
+    }
+   ],
+   "setup": [],
+   "expected": {
+    "facts": [
+     "0524/05.01 contains command forms (e.g. 'view --request ABS [--json]') inside its instructions: shown as text of the pack",
+     "Director's 'Then if you are good pack it for work to be done.' shown as quoted words with Prime's interpretation separate"
+    ],
+    "unknowns": [],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "listing any quoted command as an available or released operation",
+    "classifying chat words as an executable instruction",
+    "executing anything named in a page"
+   ],
+   "evidence_required": [
+    "operations list sourced only from the declared catalog and app pins"
+   ],
+   "finish": "Operations come only from declared identities; quoted commands stay text."
+  },
+  {
+   "id": "C13",
+   "topic": "changed source hash",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "disposable"
+    },
+    {
+     "op": "catalog-pins",
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "<frozen sha256>"
+    },
+    {
+     "op": "append-line",
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "text": "SYNTHETIC change after cataloguing."
+    }
+   ],
+   "expected": {
+    "facts": [
+     "catalog pin and current bytes differ: both hashes shown"
+    ],
+    "unknowns": [],
+    "attention": [
+     "stale reference with a correction route (Prime re-pins after reading)"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "silent repinning",
+    "presenting the new bytes as the catalogued version",
+    "presenting the old catalogued facts as current"
+   ],
+   "evidence_required": [
+    "expected and observed sha256"
+   ],
+   "finish": "Staleness is explicit and not repaired by the tool."
+  },
+  {
+   "id": "C14",
+   "topic": "model or process restart",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+     "sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11"
+    }
+   ],
+   "setup": [
+    {
+     "op": "run",
+     "steps": [
+      "view",
+      "packet --work-id 0524/05.01",
+      "new process: view"
+     ]
+    }
+   ],
+   "expected": {
+    "facts": [
+     "the second view recovers the same selected identity, the same unresolved items and the same source hashes as the first"
+    ],
+    "unknowns": [],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "state carried in memory, cache or a written view treated as input",
+    "a source-tree change caused by view or packet (fingerprint must be identical)"
+   ],
+   "evidence_required": [
+    "source-tree fingerprint before and after",
+    "both views' identity fields"
+   ],
+   "finish": "A process restart is a process restart; this is not called a fresh-model result."
+  },
+  {
+   "id": "C15",
+   "topic": "source encoding faults shown as they are",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/01.md",
+     "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf"
+    }
+   ],
+   "setup": [],
+   "expected": {
+    "facts": [
+     "the goal page header contains the bytes C3 A2 E2 82 AC (displayed 'â€'), three times; shown as found with a source-defect note"
+    ],
+    "unknowns": [],
+    "attention": [
+     "encoding fault in a source page (reported, not fixed)"
+    ],
+    "refusals": []
+   },
+   "forbidden": [
+    "silently 'repairing' the characters in the view or the source"
+   ],
+   "evidence_required": [
+    "page sha256"
+   ],
+   "finish": "The fault is visible as a source fact; no source byte changes."
+  },
+  {
+   "id": "C16",
+   "topic": "N7NN tailed pages are visible",
+   "kind": "real-frozen",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0420.prime-desk/01.md",
+     "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989"
+    }
+   ],
+   "setup": [
+    {
+     "op": "catalog-lists",
+     "works": [
+      "0705.prime-desk-check/05.01.pack"
+     ],
+     "note": "this page itself; its files are 05.01.pack.md, 05.01.return.md, 06.01.notes.md, 06.01.review.md"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "0705/05.01 shown with its pack, return and review tails as separate files"
+    ],
+    "unknowns": [
+     "review: 06.01.review.md absent until Prime writes it"
+    ],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "omitting the page because a reader only scans root 05.NN.md files",
+    "looking for an N1NN member for an N7NN page"
+   ],
+   "evidence_required": [
+    "each tail path with presence and sha256"
+   ],
+   "finish": "Colab work is as visible as workflow work."
+  },
+  {
+   "id": "C17",
+   "topic": "new-placement members versus legacy member form",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0521.return-placement/05.03.md",
+     "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "disposable"
+    },
+    {
+     "op": "place-return",
+     "line": "0124.prime-desk",
+     "tail": "05.01.return.md",
+     "note": "matching-line form; not 01NN.slug"
+    }
+   ],
+   "expected": {
+    "facts": [
+     "the return for 0524/05.01 is found on its matching line, or shown as an unsupported form with the reason"
+    ],
+    "unknowns": [],
+    "attention": [],
+    "refusals": []
+   },
+   "forbidden": [
+    "dropping the return as 'unprojected' with no visible reason",
+    "requiring the ^01\\d\\d\\. legacy member pattern"
+   ],
+   "evidence_required": [
+    "the reader identity used and its supported forms"
+   ],
+   "finish": "Either the new form is read or its absence of support is explicit."
+  },
+  {
+   "id": "C18",
+   "topic": "malformed selector",
+   "kind": "synthetic",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540"
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0410.imports/01.md",
+     "sha256": "082314ff34b0b53de8ac690663024a1982e2c9a4873a44285a6be487e50e7e07"
+    }
+   ],
+   "setup": [
+    {
+     "op": "copy-book",
+     "to": "disposable"
+    },
+    {
+     "op": "duplicate-line",
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "key": "current_work"
+    }
+   ],
+   "expected": {
+    "facts": [],
+    "unknowns": [
+     "selected work: unknown"
+    ],
+    "attention": [],
+    "refusals": [
+     "selector refused: 'record repeats a key' (rule 0410/01.md assignment-record schema), with the record's path and sha256; other valid facts still shown"
+    ]
+   },
+   "forbidden": [
+    "guessing the current work from the newest page or the catalog"
+   ],
+   "evidence_required": [
+    "the rule reference and the failing line"
+   ],
+   "finish": "A precise partial view with a named refusal."
+  }
+ ]
+}

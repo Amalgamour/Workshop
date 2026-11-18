@@ -1,0 +1,60 @@
+{
+  "exact": {
+    "findings": [
+      {
+        "code": "submission-not-declared",
+        "path": null
+      }
+    ],
+    "manifest": {
+      "bytes": 5,
+      "declared_form": "n7-manifest",
+      "path": "m.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+  },
+  "suffix": {
+    "findings": [
+      {
+        "code": "submission-not-declared",
+        "path": null
+      }
+    ],
+    "manifest": {
+      "bytes": 5,
+      "path": "m.json,",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "state": "parsed",
+    "submission": null,
+    "verification": null
+  },
+  "refused_plus_valid": {
+    "findings": [
+      {
+        "code": "attribution-not-descriptive",
+        "path": null,
+        "text": "Returned: bad.md (Submission: injected), sha256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 5 bytes."
+      }
+    ],
+    "manifest": null,
+    "state": "parsed",
+    "submission": {
+      "bytes": 5,
+      "path": "good.md",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "verification": null
+  },
+  "n5_equal": [
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "provenance": "Prime independent probes on actual canonical pass04"
+}

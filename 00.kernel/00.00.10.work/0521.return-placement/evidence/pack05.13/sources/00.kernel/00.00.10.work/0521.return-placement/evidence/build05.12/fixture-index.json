@@ -1,0 +1,139 @@
+{
+  "candidate_roots_absent": {
+    "D:\\Git\\lib-build\\00.archive\\0521.return-lines": true,
+    "D:\\librarian\\return-placement\\0521-backup": true,
+    "D:\\librarian\\return-placement\\0521-staging": true
+  },
+  "earlier_official_runs": [
+    {
+      "bytes": 52586,
+      "first_problem": "02-init: exit 2, expected [0]",
+      "init_exit": 2,
+      "problem_count": 34,
+      "sha256": "8203929b8049f0a68684a8e9349d445ac5f4f6041cbd53f74010be1761bc3130",
+      "stamp": "20261103T173827361432Z"
+    },
+    {
+      "bytes": 53195,
+      "first_problem": "02-init: exit 2, expected [0]",
+      "init_exit": 2,
+      "problem_count": 34,
+      "sha256": "631bc700a5c657c47cc198ecd45ed203ee7a921a6d5b6693cf04bf4f544dab7e",
+      "stamp": "20261103T174140129061Z"
+    }
+  ],
+  "live_after": {
+    "dispatcher_bytes": 12204,
+    "dispatcher_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "door_bytes": 10206,
+    "door_sha256": "c9ff0949c09268451a8e2a2113c1612047b374b3ecc0b3c177b6c5fd22b6842d",
+    "layout_exists": false,
+    "readme_bytes": 39687,
+    "readme_sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "pincheck": {
+    "files": 55,
+    "mismatches": 0,
+    "pack_page_bytes_before_pointer": 5871,
+    "pack_page_sha256_before_pointer": "882578b75842e2e4ddbce262779bb27899322ba0ef12256ec78597f93faa5a05",
+    "source_manifest_sha256": "9bd211a9447af406409900dac3b7e6c20cc4a544e7d5649739e4953be7c1e77f"
+  },
+  "probe_directories_retained": [
+    {
+      "exists": true,
+      "path": "D:\\librarian\\temp\\0521-0512\\init-probe"
+    },
+    {
+      "exists": true,
+      "path": "D:\\librarian\\temp\\0521-0512\\init-probe2"
+    }
+  ],
+  "proof": {
+    "allocated_0121_connected_local": false,
+    "copy_dispatcher_bytes": 12207,
+    "copy_dispatcher_sha256": "b0dc477f268494a16388914a1300a4c0ee2044dae0883a5ec934165604a77de6",
+    "driver_exit": 0,
+    "fixed_repo_references": [
+      {
+        "bytes": 13381,
+        "path": "app/review_loop_tools_v4.py",
+        "sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296"
+      },
+      {
+        "bytes": 76045,
+        "path": "labs/prime-cycle-pass03/prime_cycle.py",
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      {
+        "bytes": 42582,
+        "path": "labs/review-construction-pass04/construct.py",
+        "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+      },
+      {
+        "bytes": 55474,
+        "path": "labs/review-loop-pass03/review_loop.py",
+        "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+      },
+      {
+        "bytes": 79131,
+        "path": "labs/workbook-review-pass01/workbook.py",
+        "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+      },
+      {
+        "bytes": 52574,
+        "path": "labs/workbook-review-pass02/workbook.py",
+        "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+      },
+      {
+        "bytes": 4178,
+        "path": "labs/workbook-review-pass03/PRIME-USE.md",
+        "sha256": "8a280550deb366e08c0b595f92ef87db1b2044da403a40cb2c4f22ea6640fe6d"
+      },
+      {
+        "bytes": 19533,
+        "path": "labs/workbook-review-pass03/workbook.py",
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      }
+    ],
+    "historical_member": "0101.historical-read",
+    "layout_sha256": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804",
+    "members": [
+      "0100.band.returns",
+      "0101.historical-read",
+      "0121.connected-return-review"
+    ],
+    "n7_review_destination_exists": true,
+    "path": "D:\\librarian\\temp\\0521-0512\\20261103T174543190015Z",
+    "problems": 0,
+    "readiness_copy_declared": true,
+    "readiness_live_declared": false,
+    "receipt_0501_bytes": 492,
+    "receipt_0501_sha256": "9fb9a97fd33600f3adbdb3e6501bfa4c5de319e5e0ef9c7e0b4d185ab25b513e",
+    "receipt_0503_bytes": 492,
+    "receipt_0503_sha256": "d84d17727cb68354b80ee0170e30875f0545142f9d0abc09bf52e74793f5a5a9",
+    "review_n5": {
+      "inspect_bytes": 9890,
+      "intake_id": "05abe915b760884fd51ed5d42e7175d4c469dd5f2419187f9f487590762b44ee",
+      "mode": "cycle-committed",
+      "prepare_exit": 0,
+      "publish_exit": 0,
+      "record_exit": 0,
+      "review_id": "wfa98d716f6f5c927",
+      "unknowns": null
+    },
+    "review_n7": {
+      "inspect_bytes": 9861,
+      "intake_id": "9b1ec601c522119e17d5448088410a01e01f3b4357e26a18be86b609893b9190",
+      "mode": "preliminary",
+      "prepare_exit": 0,
+      "publish_exit": 0,
+      "record_exit": 0,
+      "review_id": "w4baaea40abfd1e02",
+      "unknowns": null
+    },
+    "run_report_bytes": 51258,
+    "run_report_sha256": "11bd312f0b007c3dc20d2fed63b233b8a60f753008360b2d73077a4c51a2435f",
+    "substitutions_account_for_the_copy": true
+  },
+  "schema": "connected-return-review-fixture/0512"
+}

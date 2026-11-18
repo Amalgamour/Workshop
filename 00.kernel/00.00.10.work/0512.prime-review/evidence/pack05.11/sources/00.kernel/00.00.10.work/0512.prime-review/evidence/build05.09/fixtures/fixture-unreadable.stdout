@@ -1,0 +1,267 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "answers": {
+    "items": null,
+    "state": "unknown"
+  },
+  "approved": false,
+  "artifacts": {
+    "addressed_sources": {
+      "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+      "bytes": 1611,
+      "bytes_state": "measured",
+      "count": 4,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "addressed-source-paths"
+    },
+    "bytes": 9,
+    "bytes_state": "declared",
+    "content_blobs": {
+      "assumption": "a 64-character lowercase sha256 proves content equality only",
+      "bytes": 1611,
+      "bytes_state": "measured",
+      "count": 4,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "content-sha256"
+    },
+    "count": 1,
+    "count_state": "declared",
+    "hash_match": 1,
+    "hash_mismatch": 0,
+    "intake_roles": {
+      "bytes": 1611,
+      "bytes_state": "measured",
+      "count": 4,
+      "count_state": "measured",
+      "hash_match": 3,
+      "hash_mismatch": 0,
+      "label": "intake role rows; not a declared artifact total",
+      "not_verified": 1,
+      "provenance": "current-measured",
+      "scope": "full-intake-role-rows"
+    },
+    "integrity_provenance": "current-measured",
+    "integrity_scope": "current-measured-artifact-role-rows",
+    "measured_artifact_rows": {
+      "bytes": 9,
+      "bytes_state": "measured",
+      "count": 1,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "current-measured-artifact-role-rows"
+    },
+    "measured_by": "accepted-intake",
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 0,
+    "physical_files": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "not-established",
+      "reason": "accepted intake metadata has no physical-file identity; a path and a content hash do not establish one",
+      "scope": "verified-physical-files"
+    },
+    "provenance": "declared",
+    "rows": [
+      {
+        "bytes": 1322,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "0587.hardening-unreadable/05.87.md",
+        "role": "assignment",
+        "root": "book",
+        "sha256": "5ff83ea8ac609b21cc8be598cfd6e40857b196cd4371ea5f5fbd39a64a7e034c"
+      },
+      {
+        "bytes": 87,
+        "declared_bytes": 87,
+        "declared_sha256": "fb9b60f72183203eb17776a54bddef627e755b31c660815cc818a5503e8df1e5",
+        "path": "evidence/submission.md",
+        "role": "submission",
+        "root": "book",
+        "sha256": "fb9b60f72183203eb17776a54bddef627e755b31c660815cc818a5503e8df1e5"
+      },
+      {
+        "bytes": 193,
+        "declared_bytes": 193,
+        "declared_sha256": "2f8d14296dd0ebeeec38cfc68c3745d82008df43cdf80fd44bc39e4f7e47b7e4",
+        "path": "evidence/artifact-manifest.json",
+        "role": "artifact-manifest",
+        "root": "book",
+        "sha256": "2f8d14296dd0ebeeec38cfc68c3745d82008df43cdf80fd44bc39e4f7e47b7e4"
+      },
+      {
+        "bytes": 9,
+        "declared_bytes": 9,
+        "declared_sha256": "c6b0707c58b2934ac3d3a0fbf43cbf8836c914c33f9937266c9621ce83b467ec",
+        "path": "note.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "c6b0707c58b2934ac3d3a0fbf43cbf8836c914c33f9937266c9621ce83b467ec"
+      }
+    ],
+    "scope": "manifest-declared-artifact-entries"
+  },
+  "attention": {
+    "lines": null,
+    "lines_state": "unknown",
+    "source": null,
+    "state": "unknown"
+  },
+  "authority": "none",
+  "book": "D:\\librarian\\temp\\0512-0509-report\\books\\unreadable",
+  "claims": {
+    "limit": "The selected record has no structured claim, case, run, or result rows. Prose in tests_note is not parsed into a pass.",
+    "rows": [],
+    "state": "not-recorded"
+  },
+  "closes_work": false,
+  "code_root": "D:\\librarian\\temp\\0512-0509-report\\candidate",
+  "core": {
+    "inspect_exit": 0,
+    "read_exit": 2,
+    "recover_exit": 2
+  },
+  "custody": null,
+  "detail_fields": [
+    "reasons",
+    "findings",
+    "gaps",
+    "answers",
+    "sections",
+    "intake_findings",
+    "artifacts.rows",
+    "render_coverage",
+    "identity",
+    "observation",
+    "interface_gap"
+  ],
+  "director_text": {
+    "state": "unknown",
+    "text": null
+  },
+  "disposition": null,
+  "eligible_for_custody_completion": null,
+  "evidence_index": {
+    "missing": [],
+    "state": "not-recorded"
+  },
+  "exit": 1,
+  "finding": null,
+  "findings": {
+    "items": null,
+    "state": "unknown"
+  },
+  "gaps": {
+    "items": null,
+    "state": "unknown"
+  },
+  "goal_terminal": null,
+  "holds": {
+    "items": null,
+    "state": "unknown"
+  },
+  "identity": {
+    "inspect_current": null,
+    "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+    "journal_current": null,
+    "judgment_matches_core": null,
+    "read_review_id": null,
+    "record_matches_journal": null,
+    "record_sha256": null,
+    "recover_review_id": null,
+    "selected_by": "none"
+  },
+  "instance_id": "3a3878966c9807a79417e72f8d5ec5d644329aead6b10501a6542254dba7676a",
+  "intake_findings": [
+    {
+      "code": "verification-not-measured",
+      "path": "evidence/submission.md"
+    },
+    {
+      "code": "thin-submission",
+      "path": "evidence/submission.md"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0187.hardening-unreadable"
+    },
+    {
+      "code": "return-missing",
+      "path": "0187.hardening-unreadable/05.87.return.md"
+    }
+  ],
+  "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+  "judgment_recorded": false,
+  "judgment_recoverable": false,
+  "limits": {
+    "state": "unknown",
+    "value": null
+  },
+  "next_action": null,
+  "observation": {
+    "bound": null,
+    "changed": [],
+    "limit": "This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.",
+    "recheck": null,
+    "stable": null,
+    "status": "unreadable"
+  },
+  "operation": null,
+  "pass": "05.87",
+  "pass_terminal": null,
+  "prime_review_effective": null,
+  "projection": "schema: review-report/3\nstate: not-recorded\nreview_id: unknown\nobservation: unreadable\nobservation_stable: unknown\nselected_digest: unknown\njudgment_recorded: false\npublication_class: not-recorded\npublication_status: unknown\nstale: unknown\ncustody: unknown\noperation: unknown\ndisposition: unknown\ngoal_terminal: unknown\npass_terminal: unknown\nwork_complete: unknown\naction_released: false\nauthority: none\ntask_association: not-established\ntests_passed: unknown\ntests_passed_label: unknown\ntests_note: unknown\nlimits: unknown\nattention_state: unknown\nattention: unknown\nnext_action: unknown\ndirector_words: unknown\nholds: unknown\nclaims: not-recorded\nevidence_index: not-recorded\ndeclared_artifacts: count 1, bytes 9, provenance declared\nmeasured_artifact_rows: count 1, bytes 9, provenance current-measured\naddressed_sources: count 4, bytes 1611, provenance current-measured, scope addressed-source-paths\ncontent_blobs: count 4, bytes 1611, provenance current-measured, scope content-sha256\nphysical_files: count unknown, bytes unknown, provenance not-established, scope verified-physical-files, reason accepted intake metadata has no physical-file identity; a path and a content hash do not establish one\nintake_role_rows: count 4, bytes 1611, provenance current-measured\nartifact_hash_match: 1\nartifact_hash_mismatch: 0\nartifact_not_verified: 0\nartifact_missing: 0\nmeasurement: complete\nobservation_limit: This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.\ndetail: reasons, findings, gaps, answers, sections, intake_findings, artifacts.rows, render_coverage, identity, observation, interface_gap\nThe stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.\n",
+  "proposed_core_exposure": "Add attention, prime_review_effective, journal current, record digest, and publication identity from the same journal-checked record to inspect, read, and recover.",
+  "publication": {
+    "class": "not-recorded",
+    "rendered_sha256": null,
+    "review_id": null,
+    "status": null,
+    "target_state": null
+  },
+  "reasons": {
+    "items": null,
+    "state": "unknown"
+  },
+  "releases_action": false,
+  "render_coverage": {
+    "historical_note": "The stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.",
+    "omitted": [],
+    "path": null,
+    "rendered_ok": null,
+    "shows_attention_lines": null,
+    "shows_tests_note": null,
+    "shows_tests_passed": null,
+    "stored_render_bytes": null,
+    "tests_passed_line": null
+  },
+  "review_id": null,
+  "schema": "review-report/3",
+  "sections": null,
+  "source": "0587.hardening-unreadable",
+  "stale": null,
+  "state": "not-recorded",
+  "successor_of": null,
+  "task_association": "not-established",
+  "tests_note": {
+    "state": "unknown",
+    "text": null
+  },
+  "tests_passed": {
+    "label": null,
+    "proof_of_all_tests": false,
+    "proof_of_requirements": false,
+    "state": "unknown",
+    "value": null
+  },
+  "unknowns": [
+    "receipt"
+  ],
+  "work_complete": null
+}

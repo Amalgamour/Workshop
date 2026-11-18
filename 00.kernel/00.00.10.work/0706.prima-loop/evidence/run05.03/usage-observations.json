@@ -1,0 +1,16 @@
+{
+  "schema": "prima-usage-observations/1",
+  "source": "Grok Bot subscription usage report (weekly limit shared with other apps on the plan)",
+  "reset": "2026-11-05T09:42-06:00",
+  "observations": [
+    {"at": "2026-11-04T16:56-06:00", "weekly_used_percent": 93.0, "phase": "pre-start check (held: below 8% remaining)"},
+    {"at": "2026-11-04T16:59-06:00", "weekly_used_percent": 93.2, "phase": "opening, at claim"},
+    {"at": "2026-11-04T17:00-06:00", "weekly_used_percent": 93.3, "phase": "checkpoint after read"},
+    {"at": "2026-11-04T17:01-06:00", "weekly_used_percent": 93.3, "phase": "closing, before publish"}
+  ],
+  "stop_thresholds": {"used_increase_pp": 1.0, "stop_at_used_percent": 94.2, "reserve_floor": "waived by Director for 2026-11-04 only"},
+  "triggered": false,
+  "attribution_limit": "Shared pool; other apps and bots draw on it; this unit's cost is not inferred from the delta.",
+  "elapsed": "claim 16:59:03 CST to closing reading 17:01 CST; read-only reasoning about 2 minutes",
+  "relayed": {"quote": "We have 8% of usage and reset is in 15 hours ish.", "provider_verified_as": "remaining (7% at 16:56 CST)"}
+}

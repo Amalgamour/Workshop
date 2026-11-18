@@ -1,0 +1,15 @@
+# Reproduction of G01 and G02 against frozen pass03. Separate from the successor suite.
+python -B 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.07/reproduce/run.py
+runner exit 0
+This runner exit means the Prime findings were reproduced. It does not mean pass03 inspect or preview succeeded.
+g01 lf inspect exit 0 state constructed-same-binding
+g01 crlf inspect exit 0 state existing-review binding null
+g01 crlf show exit 2
+g02 preview exit 1 TypeError target unchanged
+
+# Candidate successor tests.
+python -B labs/review-construction-pass04/tests/test_pass04.py
+exit 0
+tests 12
+skipped 1
+skip test_symlink_is_refused WinError 1314

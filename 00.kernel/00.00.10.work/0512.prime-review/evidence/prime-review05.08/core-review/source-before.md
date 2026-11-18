@@ -1,0 +1,36 @@
+# 05.08 - Deployment-coherent app reporter and post-filing regression
+date: 2026-11-03
+who: Codex Prime
+executor: Grok-1
+reviewer: Codex Prime
+state: PREPARED; execute on named Director invocation; staged successor only
+
+## Goal
+Finish R1/R2 on 06.12.md. The normal app review-report command must work with its actual proposed dispatcher bytes on disk and a coherent versioned pin set, not only an eval harness with an old file underneath. Keep the accepted report meaning and active app unchanged until Prime review.
+
+## #01 - Freeze, notes and known failures
+Verify evidence/pack05.08/source-manifest.json. Read the Prime review and independent-checks.json. Write 06.13.md notes and a pre-code contract. Reproduce the real installed-copy pin refusal and the author test's post-filing PENDING failure. Retain them as known failures. Neither author disclosure nor this reproduction is new independent test coverage.
+
+## #02 - Complete versioned deployment candidate
+NEW app/review_report_tools_v2.py and app/review-report-v2.json plus NEW labs/review-report-deployment-pass01 for the proposed dispatcher, minimal runtime successors/adapters, tests and integration/rollback recipe. Preserve existing v1 connector, all pass01/pass02/pass03 reporters, shared dispatcher and selected core byte-for-byte. Build the smallest coherent successor chain that accepts the EXACT candidate dispatcher and intended pinned dependencies before reader execution. Inspect every transitive pin that would reject the changed app. Do not solve only the outer connector while the reporter still refuses it.
+
+No skip-check switch, broad wildcard/version tolerance, fake old __file__/on-disk identity, or mutation of historical modules/pin evidence. Any explicit successor runtime contract must be versioned, bound to measured expected hashes/lengths and documented. A hash validates declared bytes; it does not grant authority. If a new authority decision is required, return it instead of choosing one. Source roots and fixed live read-only helper roots must remain explicit.
+
+Produce actual deployment bytes on an external candidate root and invoke that root's real app/librarian.py review-report. Do not execute a proposed string while checking a different on-disk app. The active D:/Git/lib-build app remains unchanged. Prime owns its later selection.
+
+## #03 - Regression and actual candidate proof
+Keep staged direct-report parity on actual 0512/05.06 and 0521/05.13 read-only. On the same disposable code/book root, capture the accepted baseline before the proposed app change, then run the genuinely installed candidate; compare report meaning/exit, judgment, attention, tests_note, counters, custody, stale/coherence and authority. Explain any measured runtime/source identity differences explicitly rather than deleting fields to force equality. The source cut must remain the same. Include wrong app hash, wrong transitive hash, malformed/repeated arguments, stale/held/missing review, and no-write checks.
+
+Successor tests must be valid before AND after a legitimate return pointer and Prime review are filled. Preserve task body/source contract while treating those declared lifecycle regions separately. Do not edit the historical tests or source packs to hide the failing assumption. Re-run the bounded successor suite after filing; retain its report externally if adding it to a sealed manifest would be circular. Add two new author hostile deployment cases and label provenance honestly. Existing review-loop/authoring/return-lines routes must still dispatch as before, without real mutations.
+
+## #04 - Return with a usable installation handoff
+NEW evidence/build05.08: submission, pre-code contract, exact dependency/pin changes, candidate-root index, raw failures/successes, test/provenance table, no-write proof, artifact manifest excluding itself, PRIME-USE, exact apply/verify/rollback steps. List all files a coherent selection changes; do not claim one-line installation if other pins must also change. Reread and integrate notes, fill this pack pointer, stop for Prime review.
+
+Allowed: new v2 files, new lab/runtime successor files under that lab, 06.13.md, evidence/build05.08, external candidates and this pointer. No current app/README/old modules/selected core/reviews/custody/migration/kernel/other worker outputs/Git/network/install/models/bots/AR-01. No active selection or release. Claude's accepted N7 pointer repair and Grok-2's N7 first-review task are separate; do not incorporate unfinished shared changes.
+
+## Return pointer
+Submission: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.08/submission.md sha256 d1a87c76a458c64becb0901ea2cfc4fc3ea47ceec4ca9f9b26f4b34b88329d6b, 7474 bytes.
+Artifact manifest: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.08/artifact-manifest.json sha256 052f97bc4e5c2b5e6305d561f6cdc1e43ffa9bbefd5b0ea679369f4077f79e06, 6553 bytes. The manifest lists 30 files and excludes itself.
+
+## Review - Codex Prime
+PENDING.

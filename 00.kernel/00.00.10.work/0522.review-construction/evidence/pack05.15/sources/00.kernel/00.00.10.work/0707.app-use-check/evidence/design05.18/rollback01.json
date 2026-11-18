@@ -1,0 +1,275 @@
+{
+ "schema": "rie-rollback/1",
+ "rooms": "D:\\librarian\\temp\\rie-0718\\rollback01",
+ "roots": {
+  "R-N7": {
+   "fixture": "n7-0515",
+   "omit": [
+    "06.15.review.md"
+   ],
+   "synthetic": null,
+   "v8_review_id": "wfd2a21e59cf52bf9",
+   "v7_record_review_id": null,
+   "v8_files_changed_by_v7_steps": [],
+   "files_added_by_v7_steps": [
+    "workbook-review/0707.app-use-check/05.15/failed/34809336c9cfc5b9.correction.txt",
+    "workbook-review/0707.app-use-check/05.15/failed/34809336c9cfc5b9.json"
+   ],
+   "record_store": [
+    "workbook-review/0707.app-use-check/05.15/failed/34809336c9cfc5b9.correction.txt",
+    "workbook-review/0707.app-use-check/05.15/failed/34809336c9cfc5b9.json",
+    "workbook-review/0707.app-use-check/05.15/intake.json",
+    "workbook-review/0707.app-use-check/05.15/journal.json",
+    "workbook-review/0707.app-use-check/05.15/reviews/wfd2a21e59cf52bf9/judgment.json",
+    "workbook-review/0707.app-use-check/05.15/reviews/wfd2a21e59cf52bf9/record.json",
+    "workbook-review/0707.app-use-check/05.15/reviews/wfd2a21e59cf52bf9/rendered.md",
+    "workbook-review/tmp/prime-input.json"
+   ],
+   "steps": {
+    "v8-prepare": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "stored_intake_id": null,
+     "live_intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "measurement": "complete",
+     "stale": false,
+     "finding_codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "unparsed-return-line",
+      "verification-not-measured"
+     ],
+     "stderr": ""
+    },
+    "v8-record": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "review_id": "wfd2a21e59cf52bf9",
+     "recorded": true,
+     "mode": "preliminary",
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v8-publish": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "review_id": "wfd2a21e59cf52bf9",
+     "published": true,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v7-read": {
+     "selected": "v7",
+     "exit": 1,
+     "intake_id": "7e0f3dd7d9f559262d392d7acfabd7422cdb517695b96abd50b5d029b1472318",
+     "review_id": "wfd2a21e59cf52bf9",
+     "stale": true,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v7-recover": {
+     "selected": "v7",
+     "exit": 1,
+     "intake_id": "7e0f3dd7d9f559262d392d7acfabd7422cdb517695b96abd50b5d029b1472318",
+     "review_id": "wfd2a21e59cf52bf9",
+     "stale": true,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v7-inspect": {
+     "selected": "v7",
+     "exit": 0,
+     "intake_id": "7e0f3dd7d9f559262d392d7acfabd7422cdb517695b96abd50b5d029b1472318",
+     "measurement": "incomplete",
+     "stale": true,
+     "mode": "preliminary",
+     "finding_codes": [
+      "custody-missing",
+      "declared-file-missing",
+      "submission-not-declared",
+      "unparsed-return-line"
+     ],
+     "stderr": ""
+    },
+    "v7-prepare": {
+     "selected": "v7",
+     "exit": 0,
+     "intake_id": "7e0f3dd7d9f559262d392d7acfabd7422cdb517695b96abd50b5d029b1472318",
+     "stored_intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "live_intake_id": "7e0f3dd7d9f559262d392d7acfabd7422cdb517695b96abd50b5d029b1472318",
+     "measurement": "incomplete",
+     "stale": true,
+     "finding_codes": [
+      "custody-missing",
+      "declared-file-missing",
+      "submission-not-declared",
+      "unparsed-return-line"
+     ],
+     "stderr": ""
+    },
+    "v7-record": {
+     "selected": "v7",
+     "exit": 2,
+     "intake_id": "7e0f3dd7d9f559262d392d7acfabd7422cdb517695b96abd50b5d029b1472318",
+     "correction": "The artifact measurement is incomplete. The judgment was not recorded.",
+     "recorded": false,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v8-read-again": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "review_id": "wfd2a21e59cf52bf9",
+     "stale": false,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v8-recover-again": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "064934659f1929c0dbf5918f78f5d5e465da8e7e2913953f1408a2108455bae4",
+     "review_id": "wfd2a21e59cf52bf9",
+     "stale": false,
+     "finding_codes": [],
+     "stderr": ""
+    }
+   }
+  },
+  "R-N5": {
+   "fixture": "n5-0512",
+   "omit": [],
+   "synthetic": "pending-review",
+   "v8_review_id": "wb232d69ef99b5673",
+   "v7_record_review_id": null,
+   "v8_files_changed_by_v7_steps": [],
+   "files_added_by_v7_steps": [
+    "workbook-review/0512.prime-review/05.06/failed/34809336c9cfc5b9.correction.txt",
+    "workbook-review/0512.prime-review/05.06/failed/34809336c9cfc5b9.json"
+   ],
+   "record_store": [
+    "workbook-review/0512.prime-review/05.06/failed/34809336c9cfc5b9.correction.txt",
+    "workbook-review/0512.prime-review/05.06/failed/34809336c9cfc5b9.json",
+    "workbook-review/0512.prime-review/05.06/intake.json",
+    "workbook-review/0512.prime-review/05.06/journal.json",
+    "workbook-review/0512.prime-review/05.06/reviews/wb232d69ef99b5673/judgment.json",
+    "workbook-review/0512.prime-review/05.06/reviews/wb232d69ef99b5673/record.json",
+    "workbook-review/0512.prime-review/05.06/reviews/wb232d69ef99b5673/rendered.md",
+    "workbook-review/tmp/prime-input.json"
+   ],
+   "steps": {
+    "v8-prepare": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "63dc4ed3396ef9d728250655b076929ef483d9496fca409c837d1bbca9a06a20",
+     "stored_intake_id": null,
+     "live_intake_id": "63dc4ed3396ef9d728250655b076929ef483d9496fca409c837d1bbca9a06a20",
+     "measurement": "complete",
+     "stale": false,
+     "finding_codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing"
+     ],
+     "stderr": ""
+    },
+    "v8-record": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "63dc4ed3396ef9d728250655b076929ef483d9496fca409c837d1bbca9a06a20",
+     "review_id": "wb232d69ef99b5673",
+     "recorded": true,
+     "mode": "preliminary",
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v8-publish": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "63dc4ed3396ef9d728250655b076929ef483d9496fca409c837d1bbca9a06a20",
+     "review_id": "wb232d69ef99b5673",
+     "published": true,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v7-read": {
+     "selected": "v7",
+     "exit": 1,
+     "intake_id": "a46ed0fdac7eaea8bb01cefe22534d1346c59fd82a19be926952af6f163e3c37",
+     "review_id": "wb232d69ef99b5673",
+     "stale": true,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v7-recover": {
+     "selected": "v7",
+     "exit": 1,
+     "intake_id": "a46ed0fdac7eaea8bb01cefe22534d1346c59fd82a19be926952af6f163e3c37",
+     "review_id": "wb232d69ef99b5673",
+     "stale": true,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v7-inspect": {
+     "selected": "v7",
+     "exit": 0,
+     "intake_id": "a46ed0fdac7eaea8bb01cefe22534d1346c59fd82a19be926952af6f163e3c37",
+     "measurement": "incomplete",
+     "stale": true,
+     "mode": "preliminary",
+     "finding_codes": [
+      "ambiguous-declared-root",
+      "custody-missing",
+      "return-missing"
+     ],
+     "stderr": ""
+    },
+    "v7-prepare": {
+     "selected": "v7",
+     "exit": 0,
+     "intake_id": "a46ed0fdac7eaea8bb01cefe22534d1346c59fd82a19be926952af6f163e3c37",
+     "stored_intake_id": "63dc4ed3396ef9d728250655b076929ef483d9496fca409c837d1bbca9a06a20",
+     "live_intake_id": "a46ed0fdac7eaea8bb01cefe22534d1346c59fd82a19be926952af6f163e3c37",
+     "measurement": "incomplete",
+     "stale": true,
+     "finding_codes": [
+      "ambiguous-declared-root",
+      "custody-missing",
+      "return-missing"
+     ],
+     "stderr": ""
+    },
+    "v7-record": {
+     "selected": "v7",
+     "exit": 2,
+     "intake_id": "a46ed0fdac7eaea8bb01cefe22534d1346c59fd82a19be926952af6f163e3c37",
+     "correction": "The artifact measurement is incomplete. The judgment was not recorded.",
+     "recorded": false,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v8-read-again": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "87ccb1d005755319d6f1669524be69ba7108011f4ead7ed3051666c04d127a0e",
+     "review_id": "wb232d69ef99b5673",
+     "stale": false,
+     "finding_codes": [],
+     "stderr": ""
+    },
+    "v8-recover-again": {
+     "selected": "v8",
+     "exit": 0,
+     "intake_id": "87ccb1d005755319d6f1669524be69ba7108011f4ead7ed3051666c04d127a0e",
+     "review_id": "wb232d69ef99b5673",
+     "stale": false,
+     "finding_codes": [],
+     "stderr": ""
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,93 @@
+{
+ "schema": "desk-observation/1",
+ "case_id": "C05",
+ "producer": {
+  "kind": "candidate",
+  "adapter": {
+   "id": "0705-pass03-adapter/1",
+   "sha256": "1f22e141dafb66580088fc1b9d9bba491a6f6d1ddf3ddfe838b1a8ac635e9fc1",
+   "status": "connected"
+  },
+  "raw_outputs": [
+   {
+    "path": "view.stdout",
+    "sha256": "a80096b0c76b8124a314c51993b4a5247910f0573911b6b7eb28544dfde7e34b"
+   }
+  ],
+  "unmapped": [
+   "works",
+   "parallel",
+   "coverage",
+   "workers",
+   [
+    "selected",
+    "source"
+   ]
+  ]
+ },
+ "instance": {
+  "selected": "instance-A"
+ },
+ "selected": {
+  "work_ref": null,
+  "basis": "unknown",
+  "source": {
+   "path": null,
+   "sha256": null
+  }
+ },
+ "parallel": [],
+ "works": [],
+ "attention": {
+  "total": 4,
+  "shown": 4,
+  "overflow_route": null,
+  "items": [
+   {
+    "kind": "missing-evidence",
+    "ref": "0522.review-construction/05.04"
+   },
+   {
+    "kind": "conflict",
+    "ref": "0522.review-construction/05.04"
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   }
+  ]
+ },
+ "holds": [],
+ "coverage": [],
+ "sources": [
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+   "instance": "instance-A",
+   "expected_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "observed_sha256": null,
+   "status": "absent"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "observed_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+   "observed_sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+   "status": "ok"
+  }
+ ],
+ "quotes": [],
+ "workers": [],
+ "refusals": [],
+ "identity_fingerprint": "0131ff8c6aaea0eb2c647c74268916e28156e5e3b5af82dea1d4b161c4ffa880"
+}

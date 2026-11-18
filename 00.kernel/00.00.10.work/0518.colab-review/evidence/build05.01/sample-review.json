@@ -1,0 +1,159 @@
+{
+ "schema": "colab-review-sample/1",
+ "label": "SYNTHETIC: an actual observed derived result from SYNTHETIC supplied reviewer results; no model was run",
+ "report": {
+  "by": "Codex Prime (SYNTHETIC)",
+  "comprehension": [
+   {
+    "comprehension": {
+     "current_system": "SYNTHETIC: nothing exists yet.",
+     "handback_route": "SYNTHETIC: one return in the reserved member.",
+     "proposed": "SYNTHETIC R01: the page proposes a fixture design.",
+     "task_authority": "SYNTHETIC: Prime reviews; the Director decides forks."
+    },
+    "findings": 0,
+    "member": "0101.r01-s01",
+    "reviewer": "R01",
+    "stage": "S01"
+   },
+   {
+    "comprehension": {
+     "current_system": "SYNTHETIC: nothing exists yet.",
+     "handback_route": "SYNTHETIC: one return in the reserved member.",
+     "proposed": "SYNTHETIC R02: the page proposes a fixture design.",
+     "task_authority": "SYNTHETIC: Prime reviews; the Director decides forks."
+    },
+    "findings": 0,
+    "member": "0102.r02-s01",
+    "reviewer": "R02",
+    "stage": "S01"
+   }
+  ],
+  "disagreements": [
+   {
+    "findings": [
+     "R02-S02-F02"
+    ],
+    "text": "SYNTHETIC: R01 did not raise this risk."
+   }
+  ],
+  "findings": [],
+  "incomplete": [],
+  "intake_sha256": "1d71f31b299796295bc005ff987dfa57722b74e5b356122dca23704be1ccc05f",
+  "intake_status": "complete",
+  "items": [
+   {
+    "findings": [
+     "R01-S02-F01",
+     "R02-S02-F01"
+    ],
+    "id": "X01",
+    "originals": [
+     {
+      "id": "R01-S02-F01",
+      "location": "SYNTHETIC section",
+      "member": "0103.r01-s02",
+      "receipt_sha256": "930210710e95cf952c87770229934b20fca090b5c97bceaaf71b6cb4b941c504",
+      "target": "T01",
+      "text": "SYNTHETIC: section 2 conflates two terms."
+     },
+     {
+      "id": "R02-S02-F01",
+      "location": "SYNTHETIC section",
+      "member": "0104.r02-s02",
+      "receipt_sha256": "7537ad9e669f71c8379b1075c437c901a0b6edf824c1a6771f7ac8c6e33d797c",
+      "target": "T01",
+      "text": "SYNTHETIC: section 2 conflates two terms."
+     }
+    ],
+    "recommendation": "SYNTHETIC: define both terms once.",
+    "title": "SYNTHETIC: terminology"
+   }
+  ],
+  "label": "SYNTHETIC",
+  "plan_id": "plan-1",
+  "report_digest": "7c427e45d7bf2239a1852d01fadf2a263bec9a95c752a18427a256ef8812633b",
+  "residual_uncertainty": [
+   "SYNTHETIC: isolation is unknown for both readers."
+  ],
+  "retained": [
+   {
+    "disposition": "minority",
+    "finding": "R02-S02-F02",
+    "of": null,
+    "original": {
+     "location": "SYNTHETIC section",
+     "member": "0104.r02-s02",
+     "receipt_sha256": "7537ad9e669f71c8379b1075c437c901a0b6edf824c1a6771f7ac8c6e33d797c",
+     "target": "T01",
+     "text": "SYNTHETIC: the fallback path is untested."
+    },
+    "reason": "SYNTHETIC: one reader only; kept open"
+   }
+  ],
+  "round": {
+   "cap": 2,
+   "cap_reached": false,
+   "number": 1
+  },
+  "schema": "colab-review-report/1",
+  "statement": "derived; originals are in N1 custody and the workflow page; not a review, not acceptance, not Director approval",
+  "status": "consistent"
+ },
+ "report_json_sha256": "04f64d9c8a81df3649b800e64befddd686fc372deedbd5b249857592981f2e67",
+ "mappings": {
+  "plan_sha256": "4b0b17f549790b015bf214cea57ad4dc87bf27d3aa0885e0be82a441fbd1830d",
+  "producer_digest": "c3159538fbf00702423ab6ba9b8d8002c73885608585bee4d1bfab7606a4f998",
+  "binding_sha256": "e40a759cbbc69ffb0293ab2118b056ef1e5f9f8ce1ed41bfb5d13a774545f3b9",
+  "intake_sha256": "1d71f31b299796295bc005ff987dfa57722b74e5b356122dca23704be1ccc05f",
+  "members": [
+   {
+    "member": "0101.r01-s01",
+    "receipt_sha256": "7b0ad501dc145694783d64e317e0a847a2907ba96413cf68ec43f08fcceea586",
+    "result_sha256": "719501cd14555e30e067b0401b58549312c138da85f65a2a472e22a265894235",
+    "reviewer": "R01",
+    "stage": "S01"
+   },
+   {
+    "member": "0102.r02-s01",
+    "receipt_sha256": "52a79ce1e2a09e5df79684fd5423ffe18628c4ad27bc6966e14863ae6734307a",
+    "result_sha256": "5014f1066579e8f907439a6778c1f8a81c631881de7d75cc2183282cc53f5671",
+    "reviewer": "R02",
+    "stage": "S01"
+   },
+   {
+    "member": "0103.r01-s02",
+    "receipt_sha256": "930210710e95cf952c87770229934b20fca090b5c97bceaaf71b6cb4b941c504",
+    "result_sha256": "0d7dbf9f384c5cbfedea6efa3282f233066bdb00370ce355b6820a6a6bd930f7",
+    "reviewer": "R01",
+    "stage": "S02"
+   },
+   {
+    "member": "0104.r02-s02",
+    "receipt_sha256": "7537ad9e669f71c8379b1075c437c901a0b6edf824c1a6771f7ac8c6e33d797c",
+    "result_sha256": "611934eeb1e139b0f09bade70e9715a07865b733e2dbaef24f6c3ff2b659d80a",
+    "reviewer": "R02",
+    "stage": "S02"
+   }
+  ],
+  "placed_return": {
+   "member": "0101.r01-s01",
+   "workflow_return_sha256": "2fe245e15a48d704021168537997a8a0326823c15ae06d3cb094ec374b875341",
+   "member_return_sha256": "2fe245e15a48d704021168537997a8a0326823c15ae06d3cb094ec374b875341"
+  },
+  "workflow_review_md_sha256": "4f075c620f79ac16f6a1462bcd71d58481e91678121fa927bcf949fb97c40311"
+ },
+ "readiness": {
+  "ready_for_declared_method": true,
+  "transport_valid": true,
+  "runtime_dependencies_resolved": true,
+  "evidence_references_resolved": true,
+  "minimum_evidence_satisfied": true,
+  "semantic_sufficiency": "not-established",
+  "independent_proof": "not-established"
+ },
+ "limits": [
+  "only R01 S01's return is placed: the workflow places one return per pass; the other three stay in their N1 members",
+  "readiness is a declared-record check of the package bytes; it establishes no semantic quality and no smoke"
+ ]
+}

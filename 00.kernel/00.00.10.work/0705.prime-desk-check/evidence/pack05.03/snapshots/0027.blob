@@ -1,0 +1,175 @@
+# 05.02.return — executable independent Prime desk checks (lab)
+date: 2026-11-01
+who: claude-opus-5-5 (Claude), contextual Colab and labs; reviewer Codex Prime
+pack: 05.02.pack.md · notes: 06.02.notes.md · contract: evidence/return05.02/CONTRACT.md · lab: colab/labs/0705.prime-desk-check/pass02/
+state: lab return.
+
+**The actual desk is NOT validated.** The candidate adapter is NOT CONNECTED, and every candidate case is not-run. All runs below use SYNTHETIC observations to test the checker, not the desk.
+
+context: not cold. I wrote pass01, prime_support and the 0519 design. No 0524 or 0522 implementation was read, imported or run.
+
+## Did
+- Verified pack05.02: 56 of 56 snapshots match their pins and equal live at the start.
+- Recorded the invocation and my claim.
+- Read Prime's 06.01 review in full.
+- Wrote notes first (06.02.notes.md), then CONTRACT.md, then code.
+- Built pass02 in `colab/labs/0705.prime-desk-check/pass02/`; pass01 is byte-unchanged:
+  - **cases.json:** 18 cases traced to pass01, with Prime's corrections; 16 executable, 2 manual.
+  - **expected.json:** 54 assertions, frozen before any evaluation (sha256 d44d237a…8e09, recorded in `evidence/return05.02/expected-frozen.sha256`).
+  - **manual-checklist.json:** 24 items.
+  - **Fixture builder:** snapshot bytes plus declarative ops, into a new external directory.
+  - **Checker:** seven statuses and a separate desk verdict.
+  - **Synthetic materializer, two-process harness, 20 self-tests.**
+  - **Rehearsal package for 0521/05.03.**
+- Ran the self-tests three times; earlier failures are kept. Ran the harness once. Ran the checker once with no candidate observations, to record the real desk status.
+
+## Blocked
+- **Actual desk validation.** The output interface of the 0524 tool is not frozen and I did not read it, so no adapter exists. Desk status, recorded in `evidence/return05.02/desk-validation-NOT-RUN.json`: `desk_verdict: not-passed`, all 54 assertions `not-run`, blocking `no observation was supplied`, `adapter-not-connected`, 16 cases not observed, and the manual checklist pending.
+- **Desk restart and the first-use rehearsal.** Both are pending the reviewed candidate.
+
+## Need
+- **Prime:** after reviewing 0524, write or commission a declared adapter from the tool's raw outputs to `desk-observation/1` (CONTRACT §3–4). Then run `check.py` on candidate observations, and answer the manual checklist with attribution.
+- **Prime decides** where the rehearsal evidence folder lives.
+
+## 1. Comprehension
+- **The oracle stays independent.** Facts are written from frozen bytes before any output exists. The checker reads only saved, normalized observation files plus the pinned expected manifest and the fixture manifests.
+- **The adapter is the explicit seam.** It may map fields and declare what it cannot map (`unmapped` gives `unsupported`). It may not invent facts or upgrade "supplied" to "observed".
+- **Pass requires everything,** never a subset, and synthetic data can never produce one:
+  - candidate producer;
+  - connected adapter;
+  - all executable cases observed;
+  - all mandatory assertions `pass`;
+  - all manual items answered `yes` with `by` and `date`.
+
+**Prime's 06.01 corrections are applied:**
+
+| Prime correction | How pass02 applies it |
+|---|---|
+| **C04** | four facts: custody, review state, the attributed disposition (an "accepted"-type value is allowed) and Director approval |
+| **C11** | the absence is an `omit` op of this bounded fixture, with a note that it is not a workspace claim |
+| **C16** | `constructed`: the pack tail is generated and listed in the fixture manifest; the return, notes and review tails are real snapshots |
+| **C17** | zero-prefix `0124` (matches the old regex) and nonzero `1524→1124` are tested separately. Either the return is read, or it shows as visibly `unsupported`. Silence fails. |
+| **C05** | exact quote bytes are checked through a derived hash (allowed from packet or drill-down); the short view may link instead |
+| **M2** | a derived cache is not flagged as an authority; nothing in the checker treats a stored view as a fault |
+
+## 2. Findings
+- **P1. Self-test run 1 failed in setup.** It errored in all three classes. Cause: my synthetic materializer could not follow a list selector inside a `contains` path. The builder had already worked. Kept in `selftest/run1.*`. Fixed in `synth_obs.py`.
+- **P2. Run 1 left three temp directories.** `setUpClass` failed, so teardown never ran. I inspected them (fixtures only) and removed them, and switched to `addClassCleanup` so a failed setup still cleans up. Runs 2 and 3 left nothing.
+- **P3. Live pages changed during the pass.** At the start all 56 sources equalled live. By the end, `0522.review-construction/05.04.md` and `0524.prime-desk/05.01.md` differ. They are presumably the builders updating their own pages. Recorded only, not read or altered. Fixtures use the frozen snapshots, as the pack requires (`source-check.json` → `live_changed_during_pass`).
+- **P4. The normalized vocabulary is my proposal.**
+  - The vocabulary includes `review-complete`, `pending`, `none-recorded`, the attention kinds, and `return-form:<work_ref>` as the coverage area name.
+  - An adapter must map the candidate's terms into it. Where a mapping needs judgment, it should be marked `unmapped`, not guessed.
+  - This is lab-local and is not a product schema.
+- **P5. Synthetic positive observations are materialized from the assertions themselves.** So "54/54 pass" proves only that the checker accepts a matching observation. Its value is in the negative tests.
+
+## 3. Coverage matrix
+| Case | Topic | Mode | Assertions | State now |
+|---|---|---|---|---|
+| C01 | stale selector | executable | 6 | not-run (candidate) · checker self-tested |
+| C02 | parallel assignments | executable | 5 | not-run · self-tested |
+| C03 | wrong instance | executable | 3 | not-run · self-tested |
+| C04 | return / review / custody / disposition / approval | executable | 10 | not-run · self-tested |
+| C05 | Director words vs interpretation | executable | 2 | not-run · self-tested |
+| C06 | missing receipt | executable | 2 | not-run · self-tested |
+| C07 | hold and unrelated work | executable | 3 | not-run · self-tested |
+| C08 | Observer coverage | executable | 1 | not-run · self-tested |
+| C09 | supplied worker activity | executable | 3 | not-run · self-tested |
+| C10 | overflow | executable | 3 | not-run · self-tested |
+| C11 | absent dependency (bounded fixture) | executable | 2 | not-run · self-tested |
+| C12 | quoted commands | **manual** (F-C12) | 0 | needs-human-assessment |
+| C13 | changed source hash | executable | 1 | not-run · self-tested |
+| C14 | restart identity | executable | 4 | not-run (desk) · harness restart only |
+| C15 | encoding fault | **manual** (F-C15) | 0 | needs-human-assessment |
+| C16 | N7NN tails (constructed) | executable | 3 | not-run · self-tested |
+| C17 | member form, zero and nonzero | executable | 2 (one-of) | not-run · self-tested |
+| C18 | malformed selector | executable | 4 | not-run · self-tested |
+
+**Totals:**
+- 18 cases: 16 executable, 2 manual;
+- 54 assertions;
+- 24 manual items: M-01…M-06 (selected work, limitations, next route, critical holds, attribution, reading-time observation), F-C12, F-C15, and one forbidden-inference item per executable case.
+
+The forbidden inferences are manual because word presence cannot prove their absence.
+
+## 4. Self-test results (SYNTHETIC; checker behaviour only)
+**Final run** `selftest/run3-final.*`, `python -I -B tests/test_lab.py --pack-manifest <abs>` on Windows Python 3.14.0: 20 tests, 0 failures, 0 errors, 0 skips, exit 0.
+
+**Every check records its subprocess command line and exit** in `run3-final-report.json`. The tests check that:
+- **a synthetic positive is never desk evidence:** all 54 pass, `run_class synthetic-self-test`, `desk_verdict not-applicable`, exit 1;
+- **a candidate label without a connected adapter** is `not-passed`, with `adapter-not-connected` and all 24 manual items `needs-human-assessment`;
+- **the verdict logic** (labels forged inside the test only) gives `pass`, exit 0, only with every gate satisfied. One unattributed manual answer turns it into `not-passed`;
+- **each planted fault gets its exact status:**
+
+  | Planted fault | Assertion → status |
+  |---|---|
+  | wrong selected work | A-C01-01 wrong |
+  | omitted holds | A-C07-01 wrong, A-C10-01 wrong |
+  | Director words attributed to Prime | A-C05-01 wrong |
+  | supplied running shown as observed | A-C09-01 wrong |
+  | missing receipt shown complete | A-C06-01 wrong, A-C04-01 wrong |
+  | silently dropped return form | A-C17-01/02 missing or wrong, never pass; A-C08-01 wrong |
+  | adapter-unmapped path | unsupported, never pass |
+  | changed hash reported ok | A-C13-01 wrong |
+  | wrong instance | A-C03-01 wrong |
+  | hidden overflow without a route | A-C10-03 wrong |
+  | absent C02 output | all C02 not-run, plus "cases not observed" |
+  | malformed C18 output | all C18 wrong |
+  | C14 second observation absent / different | not-run / wrong |
+
+- **the oracle is guarded:**
+  - a tampered `expected.json` under the old pin is `checker-error`, exit 2;
+  - under a new pin it is visible: defined count 53, and the sha differs;
+  - a changed expected value fails an honest observation;
+  - a missing fixture manifest is `checker-error`;
+- **the builder** refuses an occupied output and an output inside the checkout;
+- **every non-generated fixture file** equals its pack05.02 snapshot pin.
+
+**Harness** (`harness-synthetic-summary.json`), HARNESS RESTART ONLY: two checker processes gave byte-identical reports, `run_class synthetic-self-test`, `desk_verdict not-applicable`. It was blocked by synthetic-only input, the unconnected adapter and 24 pending manual items.
+
+Sample report: `sample-check-report-SYNTHETIC.json`.
+
+## 5. Adapter boundary
+**Input:**
+- the candidate's raw outputs for each case's fixture, kept with their hashes;
+- the fixture's `catalog.json`, a generated supplied index of the instance roots, selector, works, parallel works, workers, Observer sources and declared sources with pins.
+
+**Output:** `<case>.json`, a `desk-observation/1` with `producer.kind candidate` and `adapter {id, sha256, status: connected}`.
+
+**Rules:**
+- no invented fact;
+- no default filling;
+- no basis upgrade;
+- an unmappable field goes into `unmapped`.
+
+**State now:** NOT CONNECTED. The exact candidate invocation per fixture is pending the reviewed 0524 interface.
+
+## 6. First-use instructions (0521/05.03)
+See `pass02/rehearsal/0521-05.03/README.md`. It has 12 pinned sources. The pointer's submission and manifest hashes were verified to equal the pinned files. The package holds 11 packet facts and 2 overview facts, plus the forbidden inferences.
+- **Runs now:** building the disposable copy.
+- **Pending the reviewed candidate:**
+  - collecting outputs;
+  - the adapter;
+  - the check;
+  - Prime's manual answers;
+  - the new-process repeat (desk restart).
+- **Manual assembly still needed:** the candidate request for this catalog, the adapter, and the evidence-folder location.
+- **Not implied:** no review, approval or completion.
+
+## 7. Exact dependencies
+- Python (Windows 3.14.0 used), standard library only. Git is not used.
+- Inputs: `evidence/pack05.02/source-manifest.json` and its 56 snapshots.
+- No 0524 or 0522 code, no app module, no network.
+
+## 8. Limitations
+- The synthetic positive run is circular by construction (P5). It does not show the expected facts are true; I wrote them from frozen bytes, and a reviewer should spot-check C04/C05 against the snapshots.
+- `contains` matches a subset of fields, so extra fields are ignored. An observation could carry contradictory duplicates. Manual items cover readability and contradictions.
+- C10's 40 constructed pages are synthetic attention sources. Whether the candidate counts them as attention depends on its semantics, which are checked through `ge 40` and the overflow-consistency rule.
+- The 30–60 s reading target is an observation in M-06, not a measurement.
+
+## 9. Recommended next action
+After Prime reviews 0524/05.01, freeze its output interface. Commission a small declared adapter. Run `check.py` on candidate observations from these fixtures, then answer the manual checklist, then run the 0521/05.03 rehearsal.
+
+## Unprompted
+- C12 and C15 could become partly executable once the candidate's operations list is in the observation (C12: no quoted command among the operations). I kept them manual so as not to pre-empt the adapter mapping.
+
+One thing I would write differently: I would have built the synthetic positives by hand for a few cases rather than materializing all of them from the assertions. Hand-built positives would also test whether my expected facts are internally consistent, not only whether the checker accepts its own mirror.

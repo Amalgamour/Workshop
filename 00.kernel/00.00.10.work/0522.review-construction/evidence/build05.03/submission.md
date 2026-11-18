@@ -1,0 +1,15 @@
+Did
+
+Recorded the 05.03 invocation and the Grok-2 claim in `06.05.md` before code. Pack `evidence/pack05.03` matched live bytes, snapshots, and declared hashes for 43 sources, bad 0. The 05.02 Prime review, `integration-seam-v1.md`, and `0416.desk-app/01.003.md` were read before the design. `evidence/build05.03/CONTRACT.md` was written before the successors.
+
+Built three versioned modules and left the pinned tools in place. `labs/prime-review-pass02/prime_review.py` copies pass01 `805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0` and widens only the N1NN member pattern. `labs/prime-cycle-pass02/prime_cycle.py` is the focused successor of pass01 `19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d`. A `/3` review is current on the `review-task-binding/2` digest plus origin, member, direction, and goal. The page hash is a write token. `/1` stays legacy. `/2` keeps the historical page-hash rule. `labs/review-loop-pass01/review_loop.py` orchestrates prepare, record, render, read, and recover through those pinned programs and the unchanged constructor `8b9d4a6eda460f594404042f7ee232a7ac55fcc09af38905de364defa189ea8a`.
+
+Demonstrated the 0-space loop on a disposable book: read the synthetic descriptor, derive a decision template, record the supplied judgment, render the full review in `0599.synth-lab/05.01.md`, and recover the next action in a new process. Rendering left the task binding current. Changed task, evidence, receipt, and agreement made the review stale and left the old record in place. Partial failure, a substantive-section conflict, duplicate judgment, unknown origin, wrong destination, a Director question, N7NN's own tail, and historical `/1` and `/2` records are in `transcript.json`. The second suite run was 14 tests, 0 failed, 25.404 seconds, exit 0. The preserved pass01 cycle tests were 14, 12, and 6, each exit 0. `app/review-loop.json` and `app/review_loop_tools.py` pin the adapter and are not loaded by `librarian.py`.
+
+Blocked
+
+Live integration, seating, and adoption are not done. `librarian.py` and the existing facades were not edited. Nonzero `1599.synth-lab` commits through pass02 as member `1199.synth-lab` and then stays `render-pending` because the constructor still refuses `bad member` from pass01. The page is not rendered. Matching-line custody stays pending at `0122.review-construction`. No return was allocated. `0184` was not allocated. The synthetic descriptor is not a live capture and not Grok-1's output. `labs/review-construction-pass01/test_construct.py` was not rerun, because that teardown writes `evidence/build05.02`. AR-01 fixtures were not run. The first harness run exited 1 in 1.294 seconds and is preserved as `first-suite-failure.log`. This builder does not accept the work. A rendered review is not approval.
+
+Need
+
+Prime reviews this page before any integration. The later constructor successor that should pin `labs/prime-review-pass02/prime_review.py`, and the single-owner registration of `app/review-loop.json`, are described in `integration-patch.md` and are not applied. Custody of the matching line remains a later migration step.

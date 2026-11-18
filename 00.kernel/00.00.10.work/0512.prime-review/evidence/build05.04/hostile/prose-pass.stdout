@@ -1,0 +1,242 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "answers": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "approved": false,
+  "artifacts": {
+    "bytes": 1264,
+    "count": 5,
+    "hash_match": 4,
+    "hash_mismatch": 0,
+    "measured_by": "accepted-intake",
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 1,
+    "rows": [
+      {
+        "bytes": 686,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "0586.report-prose/05.12.md",
+        "role": "assignment",
+        "root": "book",
+        "sha256": "0be7e406a70e8770feefc59d3b7a264ee2562dbd800e22284c30daf2a7b3cef5"
+      },
+      {
+        "bytes": 61,
+        "declared_bytes": 61,
+        "declared_sha256": "7731839bfe0a2be5c50ee5a7a83782f6d9a899914735a0bbdadd15c58bf01245",
+        "path": "0586.report-prose/evidence/build12/submission.md",
+        "role": "submission",
+        "root": "book",
+        "sha256": "7731839bfe0a2be5c50ee5a7a83782f6d9a899914735a0bbdadd15c58bf01245"
+      },
+      {
+        "bytes": 414,
+        "declared_bytes": 414,
+        "declared_sha256": "96950d3dbee09e2a3d0152ffcda244d00a4b6443d823562545d6025068db1d11",
+        "path": "0586.report-prose/evidence/build12/artifact-manifest.json",
+        "role": "artifact-manifest",
+        "root": "book",
+        "sha256": "96950d3dbee09e2a3d0152ffcda244d00a4b6443d823562545d6025068db1d11"
+      },
+      {
+        "bytes": 61,
+        "declared_bytes": 61,
+        "declared_sha256": "7731839bfe0a2be5c50ee5a7a83782f6d9a899914735a0bbdadd15c58bf01245",
+        "path": "0586.report-prose/evidence/build12/submission.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "7731839bfe0a2be5c50ee5a7a83782f6d9a899914735a0bbdadd15c58bf01245"
+      },
+      {
+        "bytes": 42,
+        "declared_bytes": 42,
+        "declared_sha256": "f84a36d2a448dcd0b8020e4010edd097e239485aef0954d6fff38137d14664e9",
+        "path": "0586.report-prose/evidence/build12/payload.txt",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "f84a36d2a448dcd0b8020e4010edd097e239485aef0954d6fff38137d14664e9"
+      }
+    ]
+  },
+  "attention": {
+    "lines": [],
+    "lines_state": "none-supplied",
+    "source": "journal-checked-record",
+    "state": "measured"
+  },
+  "authority": "none",
+  "book": "C:\\Users\\misg\\AppData\\Local\\Temp\\rr0504-prose-3dv2ig_p",
+  "claims": {
+    "limit": "The selected record has no structured claim, case, run, or result rows. Prose in tests_note is not parsed into a pass.",
+    "rows": [],
+    "state": "not-recorded"
+  },
+  "closes_work": false,
+  "code_root": "D:\\Git\\lib-build",
+  "core": {
+    "inspect_exit": 0,
+    "read_exit": 0,
+    "recover_exit": 0
+  },
+  "custody": "missing",
+  "director_text": {
+    "state": "supplied",
+    "text": "Pack it up."
+  },
+  "disposition": "accepted",
+  "eligible_for_custody_completion": false,
+  "evidence_index": {
+    "missing": [],
+    "state": "not-recorded"
+  },
+  "exit": 0,
+  "finding": "The disposable note is present.",
+  "findings": {
+    "items": [
+      {
+        "disposition": "answered",
+        "finding_id": "note#1",
+        "text": "The note is named by the return."
+      }
+    ],
+    "state": "supplied"
+  },
+  "gaps": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "goal_terminal": "open",
+  "holds": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "identity": {
+    "inspect_current": "wc54de9cb9975137a",
+    "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core.",
+    "journal_current": "wc54de9cb9975137a",
+    "judgment_matches_core": true,
+    "read_review_id": "wc54de9cb9975137a",
+    "record_matches_journal": true,
+    "record_sha256": "387274d435df305a17d8e276e8a9f9432ba392c4312a95340c8ea739ab3c1014",
+    "recover_review_id": "wc54de9cb9975137a",
+    "selected_by": "journal-current"
+  },
+  "instance_id": "ddf4eb659f2c1cca877518bf9909eef4322bdfb97bb7fa200661c1cce48b4838",
+  "intake_findings": [
+    {
+      "code": "verification-not-measured",
+      "path": "evidence/build12/submission.md"
+    },
+    {
+      "code": "thin-submission",
+      "path": "evidence/build12/submission.md"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0186.report-prose"
+    },
+    {
+      "code": "return-missing",
+      "path": "0186.report-prose/05.12.return.md"
+    }
+  ],
+  "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core.",
+  "judgment_recorded": true,
+  "judgment_recoverable": true,
+  "limits": {
+    "state": "unknown",
+    "value": null
+  },
+  "next_action": "Hand back one correction for the disposable note.",
+  "operation": "continue",
+  "pass": "05.12",
+  "pass_terminal": "finished",
+  "prime_review_effective": "continue",
+  "projection": "state: readable\nreview_id: wc54de9cb9975137a\npublication_class: recorded\npublication_status: recorded\npublication_review_id: wc54de9cb9975137a\ntarget_state: not-published\nstale: false\ncustody: missing\noperation: continue\ndisposition: accepted\ngoal_terminal: open\npass_terminal: finished\nwork_complete: false\naction_released: false\nauthority: none\ntask_association: not-established\ncloses_work: false\nreleases_action: false\nfinding: The disposable note is present.\ntests_passed: true\ntests_passed_label: supplied bounded assessment\ntests_note: independent execution confirms all tests passed and every requirement passed.\nlimits: unknown\nattention_state: measured\nattention: none supplied\nprime_review_effective: continue\nnext_action: Hand back one correction for the disposable note.\ndirector_words: Pack it up.\nholds: none supplied\nclaims: not-recorded\nevidence_index: not-recorded\nartifact_measured_by: accepted-intake\nartifact_count: 5\nartifact_bytes: 1264\nartifact_hash_match: 4\nartifact_hash_mismatch: 0\nartifact_missing: 0\nartifact_not_verified: 1\nmeasurement: complete\n\nDetailed projection\nsuccessor_of: none supplied\nreasons:\n- The return text names the note.\njudgment_findings:\n- note#1 answered: The note is named by the return.\nintake_findings:\n- verification-not-measured evidence/build12/submission.md\n- thin-submission evidence/build12/submission.md\n- custody-missing 0186.report-prose\n- return-missing 0186.report-prose/05.12.return.md\ngaps:\nnone-supplied\nselected_replies:\nnone supplied\nsections:\n- findings_account: [{\"finding_id\": \"note#1\", \"status\": \"accepted\"}]\n- next_bounded_action: \"Hand back one correction for the disposable note.\"\n- prime_finding: \"The disposable note is present.\"\n- return_result: \"The builder returned the disposable note.\"\n- tests_note: \"independent execution confirms all tests passed and every requirement passed.\"\n- tests_passed: true\n- within_direction: \"This stays inside the supplied grant.\"\nartifact_rows:\n- assignment 0586.report-prose/05.12.md 0be7e406a70e8770feefc59d3b7a264ee2562dbd800e22284c30daf2a7b3cef5 686\n- submission 0586.report-prose/evidence/build12/submission.md 7731839bfe0a2be5c50ee5a7a83782f6d9a899914735a0bbdadd15c58bf01245 61\n- artifact-manifest 0586.report-prose/evidence/build12/artifact-manifest.json 96950d3dbee09e2a3d0152ffcda244d00a4b6443d823562545d6025068db1d11 414\n- artifact 0586.report-prose/evidence/build12/submission.md 7731839bfe0a2be5c50ee5a7a83782f6d9a899914735a0bbdadd15c58bf01245 61\n- artifact 0586.report-prose/evidence/build12/payload.txt f84a36d2a448dcd0b8020e4010edd097e239485aef0954d6fff38137d14664e9 42\nrender_path: workbook-review/0586.report-prose/05.12/reviews/wc54de9cb9975137a/rendered.md\nrender_tests_passed_line: tests_passed: true\nrender_omits: tests_note\nThe stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.\ninspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core.\nAdd attention and prime_review_effective from the journal-checked record to inspect, read, and recover.\n",
+  "proposed_core_exposure": "Add attention and prime_review_effective from the journal-checked record to inspect, read, and recover.",
+  "publication": {
+    "class": "recorded",
+    "rendered_sha256": null,
+    "review_id": "wc54de9cb9975137a",
+    "status": "recorded",
+    "target_state": "not-published"
+  },
+  "reasons": {
+    "items": [
+      "The return text names the note."
+    ],
+    "state": "supplied"
+  },
+  "releases_action": false,
+  "render_coverage": {
+    "historical_note": "The stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.",
+    "omitted": [
+      "tests_note"
+    ],
+    "path": "workbook-review/0586.report-prose/05.12/reviews/wc54de9cb9975137a/rendered.md",
+    "rendered_ok": true,
+    "shows_attention_lines": true,
+    "shows_tests_note": false,
+    "shows_tests_passed": true,
+    "stored_render_bytes": 696,
+    "tests_passed_line": "tests_passed: true"
+  },
+  "review_id": "wc54de9cb9975137a",
+  "schema": "review-report/1",
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": [
+      {
+        "finding_id": "note#1",
+        "status": "accepted"
+      }
+    ],
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Hand back one correction for the disposable note.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "The disposable note is present.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "The builder returned the disposable note.",
+    "tests_note": "independent execution confirms all tests passed and every requirement passed.",
+    "tests_passed": true,
+    "within_direction": "This stays inside the supplied grant."
+  },
+  "source": "0586.report-prose",
+  "stale": false,
+  "state": "readable",
+  "successor_of": null,
+  "task_association": "not-established",
+  "tests_note": {
+    "state": "supplied",
+    "text": "independent execution confirms all tests passed and every requirement passed."
+  },
+  "tests_passed": {
+    "label": "supplied bounded assessment",
+    "proof_of_all_tests": false,
+    "proof_of_requirements": false,
+    "state": "supplied",
+    "value": true
+  },
+  "unknowns": [
+    "receipt"
+  ],
+  "work_complete": false
+}

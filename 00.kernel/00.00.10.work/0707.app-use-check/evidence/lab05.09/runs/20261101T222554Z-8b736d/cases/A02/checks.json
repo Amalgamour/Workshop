@@ -1,0 +1,86 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "record.result recorded",
+      "expected": null,
+      "observed": "recorded",
+      "ok": true
+    },
+    {
+      "check": "render exit 2",
+      "expected": null,
+      "observed": 2,
+      "ok": true
+    },
+    {
+      "check": "render no traceback",
+      "expected": null,
+      "observed": "refused: supplied-state: envelope supplied_review_state differs from the hash-verified committed decision\r\n",
+      "ok": true
+    },
+    {
+      "check": "render names supplied-state",
+      "expected": null,
+      "observed": "ce1249b6e037f49d2792d\", \"rule\": \"supplied-state: envelope supplied_review_state differs from the hash-verified committed decision\", \"schema\": \"review-loop-refusal/1\", \"supplied_judgment\": null}refused: supplied-state: envelope supplied_review_state differs from the hash-verified committed decision\r\n",
+      "ok": true
+    },
+    {
+      "check": "no writes: render after tamper",
+      "expected": null,
+      "observed": {
+        "after": {
+          "partial": [],
+          "rendered_markers": {},
+          "support": {},
+          "target": "f341411fc9207d73adfa9f37f67890b53f47e82b61147807ddc52d91781bb09b"
+        },
+        "before": {
+          "partial": [],
+          "rendered_markers": {},
+          "support": {},
+          "target": "f341411fc9207d73adfa9f37f67890b53f47e82b61147807ddc52d91781bb09b"
+        }
+      },
+      "ok": true
+    },
+    {
+      "check": "read mechanical.state committed-record-mismatch",
+      "expected": null,
+      "observed": {
+        "blocker": "supplied-state",
+        "detail": "supplied-state: envelope supplied_review_state differs from the hash-verified committed decision",
+        "route": "none-in-this-entry",
+        "state": "committed-record-mismatch",
+        "target": "pending",
+        "text": "The committed record is not established."
+      },
+      "ok": true
+    },
+    {
+      "check": "read not verified",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    }
+  ],
+  "error": null
+}

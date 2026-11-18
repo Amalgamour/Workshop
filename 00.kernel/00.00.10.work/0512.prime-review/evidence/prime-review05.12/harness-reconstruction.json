@@ -1,0 +1,127 @@
+{
+ "schema": "harness-reconstruct/1",
+ "steps": {
+  "builder_frozen": true,
+  "build-proto-l": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\make_candidate.py",
+    "--kind",
+    "proto-l",
+    "--root",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\cand-proto-l"
+   ],
+   "exit": 0,
+   "stdout_tail": "{\"root\": \"D:\\\\librarian\\\\temp\\\\prime-final-inputs-20261104\\\\harness-reconstruction\\\\cand-proto-l\", \"kind\": \"proto-l\", \"files\": 68, \"candidate_sha256\": \"172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af\"}\n",
+   "stderr_tail": ""
+  },
+  "inputs-proto-l": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\make_inputs.py",
+    "--candidate-root",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\cand-proto-l",
+    "--name",
+    "proto-l",
+    "--out",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-proto-l.json"
+   ],
+   "exit": 0,
+   "stdout_tail": "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-proto-l.json fcfc0976235cae2582270cb9207b71ab537d1899b4d7c8689558c957305dab51\n",
+   "stderr_tail": ""
+  },
+  "inputs-proto-l-identical": true,
+  "build-staged-g": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\make_candidate.py",
+    "--kind",
+    "staged-g",
+    "--root",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\cand-staged-g"
+   ],
+   "exit": 0,
+   "stdout_tail": "{\"root\": \"D:\\\\librarian\\\\temp\\\\prime-final-inputs-20261104\\\\harness-reconstruction\\\\cand-staged-g\", \"kind\": \"staged-g\", \"files\": 69, \"candidate_sha256\": \"062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a\"}\n",
+   "stderr_tail": ""
+  },
+  "inputs-staged-g": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\make_inputs.py",
+    "--candidate-root",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\cand-staged-g",
+    "--name",
+    "staged-g",
+    "--out",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-staged-g.json"
+   ],
+   "exit": 0,
+   "stdout_tail": "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-staged-g.json 2b1a2d2d54d7c73822090f8fbe30d23af164eeff3d067c58242e3b0eb29594b1\n",
+   "stderr_tail": ""
+  },
+  "inputs-staged-g-identical": true,
+  "inputs-combined": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\make_inputs.py",
+    "--combined",
+    "--out",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-combined.json"
+   ],
+   "exit": 0,
+   "stdout_tail": "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-combined.json 3248075ef8504e5bbc004a988c62a56f86bdc1d971ffec46d120bc4941391fd2\n",
+   "stderr_tail": ""
+  },
+  "inputs-combined-identical": true,
+  "test_verdict.py": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\test_verdict.py"
+   ],
+   "exit": 1,
+   "stdout_tail": "ran 40, expected 40\n",
+   "stderr_tail": "_os.chmod, path, 0o700)\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\tempfile.py\", line 277, in _dont_follow_symlinks\n    func(path, *args)\nPermissionError: [WinError 5] Access is denied: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\tmpj03z5fg6'\n\n----------------------------------------------------------------------\nRan 40 tests in 0.028s\n\nFAILED (errors=6)\n"
+  },
+  "test_shapes.py": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\test_shapes.py"
+   ],
+   "exit": 0,
+   "stdout_tail": "ran 24, expected 24\n",
+   "stderr_tail": "judgments_wrong (__main__.Shapes.test_s20_judgments_wrong) ... ok\ntest_s21_candidate_files_not_list (__main__.Shapes.test_s21_candidate_files_not_list) ... ok\ntest_s22_schema_v1 (__main__.Shapes.test_s22_schema_v1) ... ok\ntest_s23_inputs_not_object (__main__.Shapes.test_s23_inputs_not_object) ... ok\n\n----------------------------------------------------------------------\nRan 24 tests in 0.023s\n\nOK\n"
+  },
+  "test_callbacks.py": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\test_callbacks.py"
+   ],
+   "exit": 1,
+   "stdout_tail": "ran 29, expected 29\n",
+   "stderr_tail": "os.chmod, path, 0o700)\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\tempfile.py\", line 277, in _dont_follow_symlinks\n    func(path, *args)\nPermissionError: [WinError 5] Access is denied: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\tmpugy0o4k8'\n\n----------------------------------------------------------------------\nRan 29 tests in 0.023s\n\nFAILED (errors=10)\n"
+  },
+  "strict-subset-rebuilt-staged-g": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\harness.py",
+    "--candidate",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\cand-staged-g",
+    "--inputs",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\inputs-staged-g.json",
+    "--rooms",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\rooms-strict",
+    "--out",
+    "D:\\librarian\\temp\\prime-final-inputs-20261104\\harness-reconstruction\\strict.json",
+    "--suite",
+    "strict-n7"
+   ],
+   "exit": 1,
+   "stdout_tail": "      ST-4    strict-n7       control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malforme\nNOT READY scope=subset {'pass': 4}\n  - coverage incomplete: 33 required case(s) have no record: ['N5-1', 'N5-2', 'N5-3', 'N7-1', 'N7-2', 'LR-1', 'LR-2', 'LR-3', 'LR-4', 'LR-5', 'LR-6', 'N7-3', 'LR-7', 'CAP-0', 'CAP-1', 'CAP-2', 'CAP-3', 'CAP-4', 'LC-1', 'PR-1', 'PR-2', 'PR-3', 'PR-4', 'PR-5', 'PR-6', 'PR-7', 'CTX-1', 'RP-1', 'RP-2', 'IN-1', 'IN-2', 'RC-1', 'RB-1']\n  - dependency K is pending\n  - dependency I is pending\n  - dependency R is pending\n  - dependency W is pending\n",
+   "stderr_tail": ""
+  },
+  "strict-verdicts": {
+   "ST-1": "pass",
+   "ST-2": "pass",
+   "ST-3": "pass",
+   "ST-4": "pass"
+  },
+  "no-production-writes": {
+   "frozen_app_and_labs_rows": 183,
+   "drift": [],
+   "app_files_changed_after_pack05.22_manifest": [],
+   "app_files_scanned": 220
+  }
+ },
+ "ok": false
+}

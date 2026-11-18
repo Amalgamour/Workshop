@@ -1,0 +1,89 @@
+{
+  "accepted": false,
+  "active_librarian": {
+    "bytes": 12204,
+    "path": "app/librarian.py",
+    "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "candidate_librarian": {
+    "bytes": 12246,
+    "sha256": "a4e0ec03095a43291a997fbf9e9899f89409863a3df718c7ba9e219ed63ea6bf"
+  },
+  "capacity_pass01": {
+    "bytes": 2031,
+    "path": "labs/review-source-capacity-pass01/prime_review.py",
+    "sha256": "a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87"
+  },
+  "declaration_schema": "review-loop-source-capacity/2",
+  "historical_prime_review": {
+    "bytes": 58560,
+    "path": "labs/prime-review-pass02/prime_review.py",
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+  },
+  "proposal": {
+    "adapter": {
+      "bytes": 3119,
+      "sha256": "41ef1f5448215bc763648219a5a7b2ba75ade86818734adef6edea6659eff38d"
+    },
+    "build": {
+      "bytes": 8462,
+      "sha256": "16b57302687be79742545c45b1fb30d2bb7343a67992a031b552a9ee0b7e0934"
+    },
+    "candidate_build": {
+      "bytes": 11780,
+      "sha256": "b931e8a01988dff8b91a96a8338404426d037dd861a89066d9c22600816f0526"
+    },
+    "candidate_declaration": {
+      "bytes": 4753,
+      "sha256": "c64a83f82331fb89d405aa93bf9707fdf913366d241c313b764d8bdcf91906cd"
+    },
+    "candidate_door": {
+      "bytes": 11355,
+      "sha256": "78815b908c22618fe2ab85b9dbe9a3cd4aa534f7c3a9b2afc35bf986ad192d6c"
+    },
+    "candidate_librarian": {
+      "bytes": 12246,
+      "sha256": "a4e0ec03095a43291a997fbf9e9899f89409863a3df718c7ba9e219ed63ea6bf"
+    },
+    "declaration": {
+      "bytes": 4753,
+      "sha256": "c64a83f82331fb89d405aa93bf9707fdf913366d241c313b764d8bdcf91906cd"
+    },
+    "door": {
+      "bytes": 11355,
+      "sha256": "78815b908c22618fe2ab85b9dbe9a3cd4aa534f7c3a9b2afc35bf986ad192d6c"
+    },
+    "historical_replay": {
+      "bytes": 1815,
+      "sha256": "1975dabe626e466c50dd030210e29ea9dc6f27b6ce98d3ade439ba9dce2de45b"
+    },
+    "predecessor_replay": {
+      "bytes": 2405,
+      "sha256": "6a83c9d1b81dc3cb80d805f0ff3fc3e26a8044ffbf9a06906b9ddc4120c25083"
+    },
+    "successor": {
+      "bytes": 2160,
+      "sha256": "32567d68ccd6dc838c175af078610c53e4ec777d7c2f5eddb9d6ea8ea9c4644f"
+    },
+    "tests": {
+      "bytes": 59696,
+      "sha256": "f04b7cfc8586d75d58a26f8242834683d573e7cddf6623f074443c087d17cfd7"
+    }
+  },
+  "readme": {
+    "bytes": 39687,
+    "path": "app/README.md",
+    "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "selected_app_route": false,
+  "substitutions": [
+    {
+      "from": "to the pinned v7 door.",
+      "to": "to the pinned source-capacity-64 door."
+    },
+    {
+      "from": "review_loop_tools_v7.py\", \"librarian_review_loop_tools_v7\"",
+      "to": "review_loop_tools_source_capacity_v2.py\", \"librarian_review_loop_source_capacity_v2\""
+    }
+  ]
+}

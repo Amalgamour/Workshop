@@ -1,0 +1,625 @@
+{
+ "schema": "harness-result/1",
+ "inputs": "labs/loop-convergence-harness-pass02/inputs/inputs-staged-g.json",
+ "inputs_sha256": "2b1a2d2d54d7c73822090f8fbe30d23af164eeff3d067c58242e3b0eb29594b1",
+ "candidate": "D:\\librarian\\temp\\fbt2-0524\\cand-staged-g",
+ "execution_proof": {
+  "workbook": {
+   "target": "labs/workbook-review-pass05/workbook.py",
+   "nonce": "9f930e970c3a",
+   "evidence": "checked: the chain refused naming this target (e.g. a pin check); a check of these bytes, not proof they run",
+   "control": {
+    "exit": 0,
+    "stdout_sha256": "be84ae3429318b786cf73965baaf9f2e3f3973b55554681e1a6ec39275fc228f",
+    "normalized_stdout_sha256": "be84ae3429318b786cf73965baaf9f2e3f3973b55554681e1a6ec39275fc228f",
+    "stderr_tail": ""
+   },
+   "tampered": {
+    "exit": 2,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalized_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "nonce_in_stderr": false,
+    "stderr_tail": "stop: pinned tool hash does not match: labs/workbook-review-pass05/workbook.py\r\n"
+   },
+   "deterministic_control": true,
+   "executed": true,
+   "verdict": "executed",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01-proof\\workbook-control-1",
+    "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01-proof\\workbook-control-2",
+    "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01-proof\\workbook-tamper"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01-proof\\workbook-run"
+  }
+ },
+ "identity_mode": "legacy-discovery",
+ "workbook_entry": "labs/workbook-review-pass05/workbook.py",
+ "open_entry": null,
+ "suite": "strict-n7,preservation,reporter,reconstruction,instance",
+ "ready": false,
+ "exit_meaning": "NOT READY",
+ "aggregate": {
+  "ready": false,
+  "scope": "subset",
+  "reasons": [
+   "coverage incomplete: 20 required case(s) have no record: ['N5-1', 'N5-2', 'N5-3', 'N7-1', 'N7-2', 'LR-1', 'LR-2', 'LR-3', 'LR-4', 'LR-5', 'LR-6', 'N7-3', 'LR-7', 'CAP-0', 'CAP-1', 'CAP-2', 'CAP-3', 'CAP-4', 'LC-1', 'RB-1']",
+   "required case PR-6: fail",
+   "required case RP-1: blocked",
+   "required case RP-2: blocked",
+   "required case IN-2: blocked",
+   "dependency K is pending",
+   "dependency I is pending",
+   "dependency R is pending",
+   "dependency W is pending"
+  ],
+  "counts": {
+   "pass": 13,
+   "fail": 1,
+   "blocked": 3,
+   "known-failure-reproduced": 2
+  },
+  "required_full": 37,
+  "required_selected": 17,
+  "coverage_missing": [
+   "N5-1",
+   "N5-2",
+   "N5-3",
+   "N7-1",
+   "N7-2",
+   "LR-1",
+   "LR-2",
+   "LR-3",
+   "LR-4",
+   "LR-5",
+   "LR-6",
+   "N7-3",
+   "LR-7",
+   "CAP-0",
+   "CAP-1",
+   "CAP-2",
+   "CAP-3",
+   "CAP-4",
+   "LC-1",
+   "RB-1"
+  ],
+  "subset": {
+   "ids": [
+    "ST-1",
+    "ST-2",
+    "ST-3",
+    "ST-4",
+    "PR-1",
+    "PR-2",
+    "PR-3",
+    "PR-4",
+    "PR-5",
+    "PR-6",
+    "PR-7",
+    "CTX-1",
+    "RP-1",
+    "RP-2",
+    "IN-1",
+    "IN-2",
+    "RC-1"
+   ],
+   "all_selected_required_pass": false,
+   "note": "a subset result is diagnostic only; it is never combined readiness"
+  }
+ },
+ "records": [
+  {
+   "id": "ST-1",
+   "group": "strict-n7",
+   "requirement": "trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,': reason malformed-n7-declaration; decoy not bound as artifact-manifest; record/publication refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "malformed-n7-declaration",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\ST-1"
+  },
+  {
+   "id": "ST-2",
+   "group": "strict-n7",
+   "requirement": "a refused declaration (hash in attribution) beside a valid alternative Returned line: reason malformed-n7-declaration; the alternative 06.15.notes.md not bound as submission/return; refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "attribution-not-descriptive",
+     "custody-missing",
+     "malformed-n7-declaration",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\ST-2"
+  },
+  {
+   "id": "ST-3",
+   "group": "strict-n7",
+   "requirement": "an incomplete recognized label ('Verification:' with no value): reason malformed-n7-declaration; record/publication refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "malformed-n7-declaration",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\ST-3"
+  },
+  {
+   "id": "ST-4",
+   "group": "strict-n7",
+   "requirement": "control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malformed-n7-declaration code; complete)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "measurement": "complete",
+    "malformed-n7-declaration": "absent"
+   },
+   "observed": {
+    ",": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    },
+    ";": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    },
+    ")": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\ST-4"
+  },
+  {
+   "id": "PR-1",
+   "group": "preservation",
+   "requirement": "manual text present at the destination: publish held, bytes preserved, judgment retained",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "held; preserved; judgment equal",
+   "observed": {
+    "publish_exit": 1,
+    "correction": "manual-review",
+    "bytes_kept": true,
+    "judgment_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-1"
+  },
+  {
+   "id": "PR-2",
+   "group": "preservation",
+   "requirement": "a destination file appearing between inspect and publish: held, bytes preserved",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "held; preserved",
+   "observed": {
+    "publish_exit": 1,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-2"
+  },
+  {
+   "id": "PR-3",
+   "group": "preservation",
+   "requirement": "pack task-body change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-3"
+  },
+  {
+   "id": "PR-4",
+   "group": "preservation",
+   "requirement": "return change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-4"
+  },
+  {
+   "id": "PR-5",
+   "group": "preservation",
+   "requirement": "declared artifact changed or missing after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "stale; held (both)",
+   "observed": {
+    "changed": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    },
+    "missing": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-5"
+  },
+  {
+   "id": "PR-6",
+   "group": "preservation",
+   "requirement": "review-region-only pack edit after publish keeps the exchange current; a task edit does not",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "review_edit": "current",
+    "task_edit": "stale"
+   },
+   "observed": {
+    "review_edit": {
+     "exit": 1,
+     "stale": true
+    },
+    "task_edit": {
+     "exit": 1,
+     "stale": true
+    }
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-6"
+  },
+  {
+   "id": "PR-7",
+   "group": "preservation",
+   "requirement": "missing or altered pinned tool refuses before work (door pin)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "exit 2 with a pin refusal",
+   "observed": {
+    "exit": 2,
+    "stderr": "stop: pinned tool hash does not match: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\PR-7"
+  },
+  {
+   "id": "CTX-1",
+   "group": "preservation",
+   "requirement": "source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "in-process ids == fresh-process ids",
+   "observed": {
+    "fresh": [
+     "589f87a1c69429e832fb91d42789f1f0ca34e8d2ec87bef8bcb01199cce3a02c",
+     "4462c133b99e86ce8e1c7c47e50bed7460830c12575f7947572ae2641839127e",
+     "589f87a1c69429e832fb91d42789f1f0ca34e8d2ec87bef8bcb01199cce3a02c"
+    ],
+    "in_process": [
+     "589f87a1c69429e832fb91d42789f1f0ca34e8d2ec87bef8bcb01199cce3a02c",
+     "4462c133b99e86ce8e1c7c47e50bed7460830c12575f7947572ae2641839127e",
+     "589f87a1c69429e832fb91d42789f1f0ca34e8d2ec87bef8bcb01199cce3a02c"
+    ],
+    "workbook": "labs/workbook-review-pass05/workbook.py"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\CTX-1"
+  },
+  {
+   "id": "RP-1",
+   "group": "reporter",
+   "requirement": "review-report (candidate route) agrees with the core: published N7 current -> readable/stale false; changed return -> stale; incomplete intake -> held; N7 exchange state/chronology/n1_custody, custody and review_id equal to the core; authority none and accepted/work_complete/action_released/releases_action false",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "RP-2",
+   "group": "reporter",
+   "requirement": "review-report refuses (nonzero, no traceback) a wrong dispatcher pin, a wrong chain (workbook) pin and malformed envelopes (unknown flag, repeated flag, relative book, bad pass, missing source), after an untampered positive control succeeds",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-RP",
+   "group": "reporter",
+   "requirement": "KNOWN FAILURE (baseline): the frozen reporter v3 refuses this candidate's dispatcher (pins only f1d23d45)",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "refusal",
+   "observed": {
+    "note": "candidate dispatcher has no review-report route at all"
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\KF-RP"
+  },
+  {
+   "id": "IN-1",
+   "group": "instance",
+   "requirement": "N5 same book: record then read is current (exit 0, not stale)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "current",
+   "observed": {
+    "record_exit": 0,
+    "read_exit": 0,
+    "stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\IN-1"
+  },
+  {
+   "id": "IN-2",
+   "group": "instance",
+   "requirement": "N5 foreign copied book: the copy's current applicability is held (positive evidence: nonzero read, stale or applicable=false), the historical judgment stays available (read or recover), publish is refused with no destination; the original stays current and byte-unchanged",
+   "required": true,
+   "needs": [
+    "I"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['I']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-IN",
+   "group": "instance",
+   "requirement": "KNOWN FAILURE (baseline): an N5 record in a byte-copied book reads current in the copy",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "copy reads current (defect)",
+   "observed": {
+    "exit": 0,
+    "stale": false
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\KF-IN"
+  },
+  {
+   "id": "RC-1",
+   "group": "reconstruction",
+   "requirement": "a NEW root rebuilt by the declared builder from frozen sources has the identical candidate file list, and reproduces N7-1 rows",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "062a3c8da7c3e55e84ffa579d106c7ad07e2ef4011c513421584a151a5cc1b2a",
+    "kind": "staged-g"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "identical files; identical rows/cuts",
+   "observed": {
+    "files_equal": true,
+    "rows_equal": true,
+    "cuts_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt2-0524\\h3-staged-g-01\\RC-1"
+  }
+ ]
+}

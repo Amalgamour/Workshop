@@ -1,0 +1,766 @@
+{
+  "agreement": {
+    "director_required": null,
+    "finish_criteria": null,
+    "goal": null,
+    "prime_discretion": null,
+    "recorded_decisions": null,
+    "scope": null
+  },
+  "answers": [],
+  "attribution": {
+    "actor_label": "Codex Prime (supplied)",
+    "evidence": "The actor label is not authentication.",
+    "role": "prime"
+  },
+  "gaps": [
+    "Core record blocked by existing 24-source validator; no publication.",
+    "No selection or combined integration proof."
+  ],
+  "holds": [],
+  "judgment": {
+    "design_fork": null,
+    "finding": "Capacity repair needs one bounded successor: support the observed complete return and fix post-filing regression.",
+    "next_action": "Build a versioned capacity successor supporting the observed 44-source return with an explicit tested source-only bound of 64, retain document/other-list limits, and make tests valid after filing/review-region updates.",
+    "outcome": "continue",
+    "reasons": [
+      "92 artifacts and 148 source/live-snapshot inputs verified. Prime rerun: 18 author tests, 17 pass, 1 failure at test_author_active_surface_stays because legitimate filing replaces PENDING. Independent probes verify source-only 32 bound and unchanged other-list 24 bound. Read-only actual generation for this new return: 44 sources, 136624-byte prime record, beyond candidate capacity 32.",
+      "32 was sufficient for the previous 29-source example but this actual assigned return needs 44; shrinking or splitting historical evidence to fit would avoid the goal.",
+      "The repeated PENDING-only assertion tests an obsolete lifecycle state, not current production immutability."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": "Current selected core also refuses recording this larger review. Preserve judgment locally; no false publication. No app selection or new lifecycle integration.",
+      "next_bounded_action": "Build a versioned capacity successor supporting the observed 44-source return with an explicit tested source-only bound of 64, retain document/other-list limits, and make tests valid after filing/review-region updates.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "Correction required before integration: bounded source-only mechanism is useful but does not support this completed 44-source return; post-filing author suite also fails.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "92 artifacts and 148 source/live-snapshot inputs verified. Prime rerun: 18 author tests, 17 pass, 1 failure at test_author_active_surface_stays because legitimate filing replaces PENDING. Independent probes verify source-only 32 bound and unchanged other-list 24 bound. Read-only actual generation for this new return: 44 sources, 136624-byte prime record, beyond candidate capacity 32.",
+      "tests_note": "92 artifacts and 148 source/live-snapshot inputs verified. Prime rerun: 18 author tests, 17 pass, 1 failure at test_author_active_surface_stays because legitimate filing replaces PENDING. Independent probes verify source-only 32 bound and unchanged other-list 24 bound. Read-only actual generation for this new return: 44 sources, 136624-byte prime record, beyond candidate capacity 32.",
+      "tests_passed": false,
+      "within_direction": "Versioned narrow repair; preserve every source, existing document bound, old code/evidence and Director decisions."
+    },
+    "semantic_conflict": false
+  },
+  "review_passes": [],
+  "schema": "prime-review-record/1",
+  "sources": [
+    {
+      "bind": true,
+      "content_bytes": 6357,
+      "content_sha256": "057f3c26382e9446e1a11e9ffdb9bf7e541143fd8939584b717d2a484ecf8393",
+      "identity": {
+        "schema": "page-bytes/1"
+      },
+      "kind": "page",
+      "logical_path": "0512.prime-review/05.10.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# 05.10 - Preserve complete source bindings through review recording\ndate: 2026-11-04\nwho: Codex Prime\nexecutor: Grok-1\nreviewer: Codex Prime\nstate: PREPARED; execute on Director handoff; candidate only\nsource_design: 0420.prime-desk/06.42.md\nmatching_return_line: 0112.prime-review (custody pending)\n\n## Goal and actual current state\nThe real core measures 0512/05.09 complete, then record refuses \"limit sources\". Prime's exact judgment is retained, not published. 0522/05.14 is a successful comparison: actual core recorded/published/recovered it. Artifact rows are not the count of unique generated bound book sources. Fix this specific capacity seam without dropping source bindings, replacing judgment, weakening stale checks or changing unrelated list limits. The accepted 05.09 reporter is reference; it is not selected. This assignment does not repair N7 grammar or integrate the first-target repair.\n\n## #01 - Freeze and diagnosis before implementation\nVerify evidence/pack05.10/source-manifest.json and snapshots. Read 06.16 and both actual core records under the frozen review evidence. Write NEW 06.17.md with the pre-code contract and failure hypothesis. Trace prime_record grouping/root filtering through validation, report, guard and constructor; report actual generated source counts, byte sizes and every relevant bound. Identify whether MAX_LIST=24 is the rejecting bound, not just a nearby constant. Reproduce the refusal on an external copy with exact retained judgment; preserve initial raw failure. The live work book is read-only throughout this pack.\n\n## #02 - Bounded successor, no lost evidence\nNEW labs/review-source-capacity-pass01 may hold implementation, versioned candidate modules/door/declarations and an actual copied app tree under that lab or a NEW external root. Do not edit current production modules. Keep source, reason, hold, answer and other list limits distinct. Preserve every identity, declared/measured hash, byte size, role binding, conflict and freshness check already required. No truncating, sampling, quietly dropping sources or substituting an aggregate that loses checks. Use the smallest explicit bounded repair; document the new source-only capacity and document-size relationship. Unsupported oversize input must be refused before publication with actual count, supported limit and corrective next step. Do not promise unlimited support. Any genuine source-representation or authority policy fork stops for Prime/Director rather than being guessed.\n\nAll new executed dependencies must have a coherent candidate pin chain. If extending the existing prime-review contract, carry the supported source bound consistently through its users; do not globally mutate MAX_LIST at runtime and thereby enlarge unrelated collections. No source rewriting to fit. No in-place edits to pinned historical files. Describe exact intended production paths/versions separately; this candidate is not installed.\n\n## #03 - Complete cycle on disposable books\nReconstruct faithful external copies for 0512/05.09 and 0522/05.14 using declared dependencies. Preserve original source bytes and path domains. Fixed canonical helper roots must be disclosed; do not silently blend canonical and copied evidence. A necessary lab-only root adapter must be separately hashed, tested and distinguished from production proposal bytes. No eval that pretends the old dispatcher is the installed new app.\n\nRun actual on-disk candidate entry: prepare -> form -> record retained semantic judgment -> inspect and read full rendered text -> SEPARATE publish -> new-process read/recover. Prove recovered judgment/next action exactly equal inputs, unchanged prefix before review and complete source coverage. Distinguish preliminary publication, cycle commitment and custody. Missing 0112/0122 custody stays missing. Use copies only; no live record/publish. Keep manual Director/Prime text intact and refuse overwrite. If a separate first-target/cycle seam blocks, retain the judgment and exact block rather than adding unassigned repairs.\n\n## #04 - Boundaries and hostile cases\nDemonstrate old-limit boundary (24/25 unique generated sources), chosen new limit and limit+1, max-document boundary, duplicate-path same bytes versus conflicts, root/role distinction, changed/missing artifact before record and after read, malformed rows/unknown sizes, and wrong candidate/transitive pins. Keep ordinary 24-or-fewer-source semantics equal. Add two new author hostile cases. Every claim names a case and evidence; label known reproductions, author cases, rerun historical cases and future independent review separately. Preserve first failures. No arbitrary broad suites or retries on identical blockers.\n\n## #05 - Return and handoff\nNEW evidence/build05.10: Did/Blocked/Need; contract; actual old/new supported bounds; dependency/pin delta; executed commands and test table; raw refusal and first failures; candidate index; complete source binding evidence; PRIME-USE; proposed minimal production build instructions; rollback and limits; Factfind/Hostile/Overflow/Unprompted. Manifest lists all deliverables and excludes itself. Reread/integrate 06.17 notes; verify frozen inputs again. Fill this pack Return pointer using the established N5 form. 0112 is the matching line; if unavailable, state custody pending and retain this page-local return. No legacy allocator or invented receipt. Stop for Prime review.\n\nAllowed writes: NEW named lab/external disposable trees, 06.17.md, evidence/build05.10 and this Return pointer. No current app/README/old modules/other-worker outputs/real review journals/kernel/01NN/layout/migration/Git/network/install/models/bots/AR-01. No app selection, approval or release. Normal resource reserve; no burn-down. Stay in this session. Grok-2 owns parser successor; Claude owns integration design. Do not read or incorporate their unfinished output.\n\n## Return pointer\nSubmission: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/submission.md sha256 598772ec16e6032b5a8f9818f7256235c1a82392ae41ede91e541d1be487fff1, 7617 bytes.\nArtifact manifest: 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/artifact-manifest.json sha256 96a78b2d9eccae426773fd36f3cff530b3c77efaf0cc11902169dfb9a5cd96a3, 20486 bytes. The manifest lists 92 files and excludes itself.\n\n## Review - Codex Prime\nPENDING.\n",
+      "transport_bytes": 6357,
+      "transport_sha256": "057f3c26382e9446e1a11e9ffdb9bf7e541143fd8939584b717d2a484ecf8393"
+    },
+    {
+      "bind": true,
+      "content_bytes": 7617,
+      "content_sha256": "598772ec16e6032b5a8f9818f7256235c1a82392ae41ede91e541d1be487fff1",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/submission.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Submission - 0512.prime-review/05.10\n\ndate: 2026-11-04\nexecutor: Grok-1\nreviewer: Codex Prime\naccepted: false\ncommitted_by_this_builder: false\ncustody: pending\nmatching line: 0112.prime-review unfiled\nreadiness: returned for Codex Prime review\n\nThis is the builder return for the named invocation of 05.10. It is a claim. It is not acceptance, custody, or a release. The notes in 06.17.md were reread after the author suite. The contract body was corrected once before any author run and was not revised after the passing run. This file does not carry the artifact-manifest hash. That hash is written only on the 05.10 return pointer after the manifest exists.\n\n## Did\n\nVerified evidence/pack05.10/source-manifest.json before the notes and again before this filing. Schema prime-pack-inputs/1. 148 files. bad 0. missing live 0. missing snapshot 0. Manifest sha256 eb9e173cbddd476b8c8bc608c5ca21599413c8ef4ea7720933508b28d3a14c6e, 44512 bytes. 05.10.md is outside that manifest. HEAD 960d20c5290656095df8457b1740d2d5e586b111. Branch workshop. Index empty. The worktree already had other dirty paths. They were left in place. The freeze was not repinned.\n\nRead 06.16.md and both frozen core records. The frozen live record of 0512/05.09 exits 2 with correction `refused: limit sources`. The retained judgment stays evidence/prime-review05.09/core-review/judgment.json. A read-only measurement wrote source-measurement.json. 0512/05.09 emits 29 sources in a 125955-byte document. 0522/05.14 emits 20 sources in a 62200-byte document. Artifact rows are a different count from emitted sources. The rejecting bound is MAX_LIST = 24 on the source list. MAX_DOC, MAX_TEXT, MAX_INDEX, and the other list limits stay as they were.\n\nThe first external copy, book D:\\librarian\\temp\\0512-0510-report\\books\\g1-0509, did not reach the capacity refusal. locate_declared found work-prefixed artifacts on the copy and again on the helper, so record returned `The artifact measurement is incomplete. The judgment was not recorded.` Those logs are known-reproductions. The capacity refusal was then reproduced by historical_replay.py on a candidate root that omits 00.kernel. That record exits 2 with `refused: limit sources`. The author suite repeated it on books/author-hist-0509. Both logs are in this return.\n\nThe successor is labs/review-source-capacity-pass01/prime_review.py, sha256 a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87, 2031 bytes. MAX_SOURCES = 32 applies only to sources. The lab adapter is workbook.py, sha256 7383e6ec4e5bf7909f069796a7fe6c71e23b6f241edec64fc3805656174a742e, 3055 bytes. The candidate librarian is sha256 d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4, 12237 bytes. The declaration is sha256 3a47008e03bae8f8b580fb903514fc98d4683a5e48401f44b2c454d63aa094b5, 4319 bytes. The door is sha256 cde90e02250d1f56c38a0b249bcfd1bcef15d6e3899d2f71375e9a900ab0fd3a, 11018 bytes. Helper root D:\\Git\\lib-build is disclosed. The active app/librarian.py stayed sha256 c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9, 12204 bytes. app/README.md stayed sha256 3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920, 39687 bytes, which is the digest the passing author results recorded.\n\nThe author cycle on a fresh copy of 0512/05.09 ran prepare, form, record, inspect, read, a separate publish, and a new-process recover through the candidate librarian. Sources 29. Prime-input 125955 bytes, sha256 d4696fc278e17411b0db1ab785a3bd419f5d17d66dc53685b0bf091cca6339c2. Review wa625af81adaf35cd. Mode preliminary. Custody missing. Cycle called false and committed false. accepted false. authority none. published_work false. Publish set published true. Recover target_state section-verified, record_ok true, stale false. Finding and next action equal the retained judgment. The prefix before the review heading equals the live page. The same cycle on 0522/05.14 recorded 20 sources and a 62200-byte prime-input, sha256 4a2dd8e043daf0293a404301442c577afb5bc6bfe763a675ac13db511077a4cd. Review wcfa3cd82d3322f65. Publish returned `stale-own-review` because the copied section already holds wb980a2a872c7e7c7. The page bytes stayed equal to the live page. Recover target_state not-published, with the new judgment and next action retained and custody missing.\n\nThe passing author suite was 18 tests, 62.369 seconds, OK, exit 0, Python 3.14.0. The first failure log remains author-suite-first.txt, sha256 2bb81350963d423c9643fe8d0d17050b607e8905c794f5c18fa5c3784910b1e8, 3344 bytes. The pre-code contract digest before the reread is sha256 60ff7af4b26cef53a1de421678d14a2e4e452d2eb48c3ac475d026cf27db8faf, 7516 bytes.\n\n## Blocked\n\nMatching line 0112.prime-review is unfiled. This slice does not file it and does not invent a receipt. Custody on these returns stays missing. The candidate is unselected. Codex Prime has not reviewed this pack. This builder does not commit. The occupied 0522/05.14 review section stays occupied. N7 grammar and the first-target repair stay outside this pack. A source count above 32, or a document above 262144 bytes, is still refused.\n\n## Need\n\nCodex Prime review of this return. The candidate command, the pin list, and the rollback are in PRIME-USE.md and INTEGRATION.md. Stop here.\n\n## Claim, case, result, limit\n\nThe table is TEST-TABLE.md. The bounds are bounds.md. The pin delta is pin-delta.json. The commands are command-log.json. The candidate file list is candidate-index.json. The source rows are source-bindings.json, and the full prime-input documents are bindings/0509-prime-input.json and bindings/0514-prime-input.json. The locked rules are CONTRACT.md and 06.17.md.\n\n## Factfind, hostile, overflow, unprompted\n\nFactfind: 36 artifact rows on the 05.09 return are not 29 emitted sources. Seven inline records on that return, and eleven on the 05.14 return, are null because the decoded text is outside MAX_TEXT. That omission is the historical source row. The artifact-manifest role is measured and is not emitted. Code-root rows are measured and are not emitted. index-context-bounded does not by itself make measurement incomplete. The author record of 05.09 lists six agreement fields as unknown. That attention is the historical gap on a page whose agreement is null. The naive copy failure and the capacity refusal are different logs, and both are kept.\n\nHostile: a 33-long source list that repeats one path is refused with the count 33. A 276423-byte document of 22 sources is refused with `input: input exceeds 262144 bytes`. A changed or missing artifact before record leaves the judgment unrecorded. A changed or deleted artifact after record makes read stale and still returns the stored finding. A wrong successor hash stops with `pinned tool hash does not match: labs/review-source-capacity-pass01/prime_review.py`. A wrong pass02 workbook byte stops with `pass02 pin mismatch`. A junction under the candidate labs path stops with `tool path is linked and was not followed`.\n\nOverflow: none. The emitted source identities, hashes, and byte sizes are in source-bindings.json. The inline texts that fit MAX_TEXT are in the copied prime-input files. No source was sampled out of the record to make the count fit.\n\nUnprompted: the suite compares app/README.md. The root README.md is a different file and was not the compared surface. Git porcelain was already dirty and was not cleaned. v8 and the other 05.14 code artifacts were copied into the candidate by hash so the declared paths resolve. They were not read as the design of this door. The post-filing suite log stays outside the sealed manifest.\n",
+      "transport_bytes": 7617,
+      "transport_sha256": "598772ec16e6032b5a8f9818f7256235c1a82392ae41ede91e541d1be487fff1"
+    },
+    {
+      "bind": true,
+      "content_bytes": 8267,
+      "content_sha256": "b8e675d38252598ba558879b47a3ac2e937053e7e1c8c636670b995cae7606a0",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/06.17.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# 06.17 - Source capacity contract before the repair\ndate: 2026-11-04\nwho: Grok-1\nstate: pre-code contract; candidate unselected\n\n## Measured failure\nThe frozen live record of 0512.prime-review/05.09 is evidence/prime-review05.09/core-review/record.stdout. Record exit 2. Correction `refused: limit sources`. stderr empty. The retained judgment is evidence/prime-review05.09/core-review/judgment.json. Finding: Accept the bounded reporter-hardening slice; combined activation remains held. Next action: Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\n\nA read-only measurement through labs/workbook-review-pass03/workbook.py prime_record, with that judgment and capture None, wrote D:\\librarian\\temp\\0512-0510-report\\source-measurement.json. 0512/05.09 has 39 intake rows, 30 unique book paths, and 29 emitted sources. The pretty prime-review-record JSON is 125955 bytes. It is over the source-list bound and under the document bound. Roles: book artifact 28, book artifact-manifest 1, book assignment 1, book submission 1, code artifact 8. The artifact-manifest role is the unique book path that is not emitted. Code-root rows are excluded by the book-root filter. Inline record text is present on 22 sources and null on 7, which is the existing MAX_TEXT omission. 0522/05.14 has 31 rows, 21 unique book paths, 20 emitted sources, and a 62200-byte document, under both bounds.\n\nThe rejecting check is labs/prime-review-pass02/prime_review.py as_list, called as sources = as_list(raw[\"sources\"], \"sources\"), against MAX_LIST = 24. The same function bounds holds, answers, review_passes, gaps, and the other non-source lists. strict_json refuses a document above MAX_DOC = 262144 with `input: input exceeds 262144 bytes`. MAX_TEXT = 12000 bounds prose and an inline source record. MAX_INDEX = 12 bounds form cuts only. It is not the record refusal. Form can exit 0 with finding index-context-bounded while prime_record still emits every book source row.\n\nThe first external copy, book D:\\librarian\\temp\\0512-0510-report\\books\\g1-0509 and the live app entry, did not reach this limit. locate_declared found each work-prefixed artifact on the copy and again on the helper checkout, so prepare reported ambiguous-declared-root and record returned `The artifact measurement is incomplete. The judgment was not recorded.` Those logs stay in known-reproductions. They are the copy-construction result. The capacity refusal remains the frozen live record.\n\n## Chosen bound\nMAX_SOURCES = 32. It is the smallest power of two above the measured 29 emitted sources. It applies only when as_list is called with where == \"sources\". MAX_LIST stays 24 for every other list. MAX_DOC stays 262144. MAX_TEXT stays 12000. A count above 32 is refused before publication with the actual count, the supported limit, and this next step: split the return so one record binds at most 32 sources. The refusal text is `limit sources: N sources exceeds supported limit 32; split the return so one record binds at most 32 sources`. A document above 262144 bytes still uses the historical document message, including when the source count is 32 or below. Ordinary records of 24 or fewer sources keep the historical report. This measurement is under the document bound, so the count repair is sufficient. There is no source-representation or authority fork to stop for.\n\n## Repair shape\nThe production proposal is labs/review-source-capacity-pass01/prime_review.py. It loads the historical prime-review module by the pinned hash 80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e, 58560 bytes, from helper root D:\\Git\\lib-build, and rebinds that module's as_list. It does not assign MAX_LIST. Report, guard, and check-next all parse through that function.\n\nThe lab adapter is labs/review-source-capacity-pass01/workbook.py. It loads labs/workbook-review-pass03/workbook.py by hash 9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c, 19533 bytes, from the same helper root. Pass03 then loads pass02 and pass01 from that helper. The adapter then sets the pass01 REPO to Path(__file__).resolve().parents[2], the tree root that contains app/ and labs/, and points pin_file(\"prime_review\") at the sibling successor after a hash check. In the proof tree that root contains the pinned code files and omits 00.kernel/00.00.10.work, so an external book copy is unambiguous. Placed at labs/review-source-capacity-pass01/workbook.py in the checkout, parents[2] is the checkout, which is how the live book already resolves. This sentence was corrected before any author run, once the adapter path arithmetic was written. The adapter does not change source grouping, root filtering, conflict checks, or freshness checks. Its bytes are distinct from the successor.\n\nhistorical_replay.py is the known-reproduction entry. It performs the same REPO placement and leaves the historical prime_review pin in place. It is not the candidate door.\n\nThe candidate app tree is labs/review-source-capacity-pass01/candidate. Its app/librarian.py is a copy of the active librarian with the review-loop load pointed at app/review_loop_tools_source_capacity.py. The declaration schema is review-loop-source-capacity/1. The workbook tool path is the adapter. prime_review_capacity is the successor. workbook_pass03 and prime_review_pass02 remain the historical files. The active app/librarian.py, app/review-loop-v7.json, app/review_loop_tools_v7.py, and app/review_loop_tools_v8.py stay untouched. v8 is a copied code artifact of 0522/05.14, not this door. Direct execution of the lab-root adapter is not an install.\n\n## Proof the candidate must meet\nExternal copies of 0512.prime-review and 0522.review-construction, original bytes and declared paths, with the disclosed candidate root as the code root. Historical replay of 0512/05.09 records exit 2 with `refused: limit sources`. The candidate then prepare, form, record of the retained judgment, inspect, read, a separate publish, and a new-process read/recover. Recovered judgment and next action equal the input. The prefix before the review heading stays byte-identical. 0512/05.09 binds 29 sources. 0522/05.14 binds 20. Publication of these returns is preliminary. Cycle called and committed stay false. Custody stays missing. 0112 and 0122 stay unfiled.\n\nAuthor cases cover 24 and 25 generated sources on the historical pin, 32 and 33 on the successor, the document bound, duplicate paths with the same bytes, conflicting declarations, code-root rows excluded from emitted sources, a changed or missing artifact before record and after read, a malformed manifest row, an unknown source size, a wrong successor pin, and a wrong pass02 pin. Two hostile cases: a 33-long source list that contains a duplicate path is still refused at 33, and a document over 262144 bytes with 32 or fewer sources is refused with the historical document message. The active app hash stays c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9, 12204 bytes.\n\n## Limits\nThis candidate is unselected. Rollback to the historical v7 door and pass02 prime_review again refuses this 29-source return at 24. The successor does not raise holds, answers, gaps, or review_passes above 24. It does not promise an unbounded source list. A later return above 32 sources, or a return whose pretty record exceeds 262144 bytes, stops at the matching refusal. N7 grammar and the first-target repair stay outside this pack.\n\n## Reread\n\nThe author suite passed after the single wording correction already present in the contract body. That body was left as written. The first author failures were expectations in the suite: a changed artifact before any stored intake is an incomplete measurement, and the copied 0522/05.14 review section is already occupied. The successor, the adapter, and the candidate bytes were left as they were for that passing run. Frozen pack inputs were compared with their snapshots again at filing and matched. The active librarian and the historical modules named above stayed on their pins. Matching line 0112.prime-review stays unfiled. Custody stays pending. This reread records neither the submission digest nor the artifact-manifest digest.\n",
+      "transport_bytes": 8267,
+      "transport_sha256": "b8e675d38252598ba558879b47a3ac2e937053e7e1c8c636670b995cae7606a0"
+    },
+    {
+      "bind": true,
+      "content_bytes": 3810,
+      "content_sha256": "a281b5b24bcc6a99a006047b8b282ac1dc2548c89e81880e2153b5ba61a8d0bd",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/CONTRACT.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Contract - source capacity before activation\n\ncontract: review-source-capacity/1\ndate: 2026-11-04\nexecutor: Grok-1\nreviewer: Codex Prime\naccepted: false\nactivated: false\nstate: locked pre-code contract, restated at filing\n\nThe locked pre-code contract is 00.kernel/00.00.10.work/0512.prime-review/06.17.md. Its body before the reread is sha256 60ff7af4b26cef53a1de421678d14a2e4e452d2eb48c3ac475d026cf27db8faf, 7516 bytes. One sentence in that body was corrected before any author run, so the adapter root is Path(__file__).resolve().parents[2]. The body was not revised after the first author failure and was not revised after the passing run. This file restates those rules for the return. It does not add a repair rule.\n\n## Freeze\n\nevidence/pack05.10/source-manifest.json was verified before the notes and again at filing. Schema prime-pack-inputs/1. 148 files. bad 0. missing live 0. missing snapshot 0. Manifest sha256 eb9e173cbddd476b8c8bc608c5ca21599413c8ef4ea7720933508b28d3a14c6e, 44512 bytes. The only extra top-level key is prepared. 05.10.md is outside that manifest. HEAD 960d20c5290656095df8457b1740d2d5e586b111. Branch workshop. Index empty.\n\n## Bound\n\nMAX_SOURCES = 32 applies only when as_list is called with where == \"sources\". MAX_LIST stays 24 for every other list. MAX_DOC stays 262144. MAX_TEXT stays 12000. MAX_INDEX stays 12 and bounds form cuts only. A count above 32 is refused before publication with the actual count, the supported limit, and this next step: split the return so one record binds at most 32 sources. The refusal text is `limit sources: N sources exceeds supported limit 32; split the return so one record binds at most 32 sources`. A document above 262144 bytes still uses `input: input exceeds 262144 bytes`, including when the source count is 32 or below. Ordinary records of 24 or fewer sources keep the historical report. The measured 05.09 document is 125955 bytes, so the count repair covers that return. There is no source-representation or authority fork in this measurement.\n\n## Shape\n\nThe production proposal is labs/review-source-capacity-pass01/prime_review.py. It loads labs/prime-review-pass02/prime_review.py by hash 80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e, 58560 bytes, and rebinds as_list. It does not assign MAX_LIST.\n\nThe lab adapter is labs/review-source-capacity-pass01/workbook.py. It loads labs/workbook-review-pass03/workbook.py by hash 9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c, 19533 bytes, from helper root D:\\Git\\lib-build, then sets the pass01 REPO to the tree root that contains app/ and labs/. In the proof tree that root omits 00.kernel/00.00.10.work. The adapter points pin_file(\"prime_review\") at the sibling successor after a hash check. Its bytes are distinct from the successor. historical_replay.py leaves the historical prime_review pin in place.\n\nThe candidate app tree is labs/review-source-capacity-pass01/candidate. It is unselected and uninstalled. The active app/librarian.py stays sha256 c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9, 12204 bytes.\n\n## Proof already required by the notes\n\nExternal copies of 0512.prime-review and 0522.review-construction keep original bytes and declared paths. Historical replay of 0512/05.09 records exit 2 with `refused: limit sources`. The candidate then prepares, forms, records the retained judgment, inspects, reads, publishes separately, and recovers in a new process. Recovered judgment and next action equal the input. The prefix before the review heading stays byte-identical. 0512/05.09 binds 29 sources. 0522/05.14 binds 20. Publication of these returns is preliminary. Cycle called and committed stay false. Custody stays missing. 0112 and 0122 stay unfiled. An occupied review section is left unchanged.\n",
+      "transport_bytes": 3810,
+      "transport_sha256": "a281b5b24bcc6a99a006047b8b282ac1dc2548c89e81880e2153b5ba61a8d0bd"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2982,
+      "content_sha256": "f3d4c0eb54a3bd50451d2138409bd6407dec5dacb99068ece890656dc3266869",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/INTEGRATION.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Integration - source-capacity candidate\n\naccepted: false\napplied: false\nstate: unapplied candidate bytes\n\n## What a later selection would change\n\nThis pack does not apply that selection.\n\nOne existing file would change. app/librarian.py would be replaced by labs/review-source-capacity-pass01/candidate/app/librarian.py, 12237 bytes, sha256 d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4. The working copy differs from the active file in two substitutions: the review-loop docstring names the source-capacity door, and the review-loop load names app/review_loop_tools_source_capacity.py.\n\nThese new files would have to remain at the declared paths:\n\n- app/review_loop_tools_source_capacity.py, 11018 bytes, sha256 cde90e02250d1f56c38a0b249bcfd1bcef15d6e3899d2f71375e9a900ab0fd3a\n- app/review-loop-source-capacity.json, 4319 bytes, sha256 3a47008e03bae8f8b580fb903514fc98d4683a5e48401f44b2c454d63aa094b5\n- labs/review-source-capacity-pass01/prime_review.py, 2031 bytes, sha256 a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87\n\nThe production pin for prime_review names that successor. The successor loads the historical pass02 module by the pinned hash and rebinds as_list for sources only.\n\n## Adapter and proof tree\n\nlabs/review-source-capacity-pass01/workbook.py, 3055 bytes, sha256 7383e6ec4e5bf7909f069796a7fe6c71e23b6f241edec64fc3805656174a742e, is the lab adapter. The candidate declaration points its workbook tool at that adapter so the proof can set REPO to the candidate root and redirect pin_file(\"prime_review\") to the successor. The proof candidate omits 00.kernel/00.00.10.work, which keeps a copied book path from also resolving on the helper. That omitted tree is the proof root. It is not the checkout to install.\n\nHelper root D:\\Git\\lib-build remains the place the adapter loads pass03, and the place the successor loads pass02. Those historical files stay byte-identical. The fixed helper and the copied book stay distinct.\n\nhistorical_replay.py, 1824 bytes, sha256 62f9c466b2f8e0df1ae900936377c802a712d99bce8c6ee1902b0c817eafa33b, is the known-reproduction entry. It sets the same REPO and leaves the historical prime_review pin in place.\n\n## Verify before any later apply\n\nConfirm app/librarian.py is sha256 c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9, 12204 bytes. Confirm the successor, the door, and the declaration match the hashes above. Confirm evidence/build05.10/pin-delta.json. If any of those bytes differ, stop.\n\n## Rollback\n\nRestore app/librarian.py from evidence/build05.10/rollback-librarian.py. That file is the active librarian, sha256 c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9, 12204 bytes. Leave the new files on disk. The restored v7 door does not load them. A later record of the 29-source 0512/05.09 return through pass02 refuses `limit sources` again. v7, pass02, and pass03 stay the historical pins. This pack does not claim those pins accept the successor.\n",
+      "transport_bytes": 2982,
+      "transport_sha256": "f3d4c0eb54a3bd50451d2138409bd6407dec5dacb99068ece890656dc3266869"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2700,
+      "content_sha256": "90d43360a6433b8a2184a258de4093ab84cfe5e98cc4447da0fa9f44bffbb5b1",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/PRIME-USE.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Prime use - source-capacity candidate\n\naccepted: false\nstate: staged candidate; active dispatcher unchanged\n\n## Proof command\n\nOn the candidate root labs/review-source-capacity-pass01/candidate, with the working directory set to that root:\n\n```\npython -B app/librarian.py review-loop COMMAND --book ABS --source PAGE --pass 05.NN\n```\n\nCOMMAND is prepare, form, record, inspect, read, publish, or recover. record also takes --intake and --judgment. publish also takes --review. The process is that root's app/librarian.py. Exit 0 is a completed command on a disposable book. Exit 0 is not a release. The active D:\\Git\\lib-build app is unchanged. Direct execution of labs/review-source-capacity-pass01/review_loop_tools_source_capacity.py from the lab directory refuses with `review loop declaration is missing`. That refusal is the uninstalled state.\n\n## Candidate identity\n\nCandidate librarian sha256 d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4, 12237 bytes. Successor sha256 a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87, 2031 bytes. Adapter sha256 7383e6ec4e5bf7909f069796a7fe6c71e23b6f241edec64fc3805656174a742e, 3055 bytes. Declaration schema review-loop-source-capacity/1. The full candidate file list is evidence/build05.10/candidate-index.json. The proof root contains the pinned code files and omits 00.kernel.\n\n## What the author cycle showed\n\n0512/05.09 on a fresh external copy recorded 29 sources and a 125955-byte prime-input. Review wa625af81adaf35cd. Mode preliminary. Custody missing. Cycle called false. Cycle committed false. Separate publish set published true and published_work false. Recover target_state section-verified. The prefix before `## Review - Codex Prime` matched the live page. Finding and next action matched the retained judgment.\n\n0522/05.14 on a fresh external copy recorded 20 sources and a 62200-byte prime-input. Review wcfa3cd82d3322f65. The copied page already contains workbook-review-id wb980a2a872c7e7c7. Separate publish returned correction `stale-own-review`, published false, and the page bytes stayed equal to the live page. Recover target_state not-published. The retained judgment and next action came back. Custody stayed missing. That occupied section was left in place.\n\n## Selection and rollback\n\nSelection is not applied. A later selection is described in evidence/build05.10/INTEGRATION.md. Rollback restores evidence/build05.10/rollback-librarian.py. This note does not file 0112.prime-review.\n\n## Helper root\n\nThe adapter and the successor load historical modules from D:\\Git\\lib-build by hash. The candidate REPO used for declared-path lookup is the candidate root. Those two roots stay distinct.\n",
+      "transport_bytes": 2700,
+      "transport_sha256": "90d43360a6433b8a2184a258de4093ab84cfe5e98cc4447da0fa9f44bffbb5b1"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2617,
+      "content_sha256": "611f5696cf7271aeef75b78371cdf750b90b21f4d93d9a1d466ce2ebb7e7596e",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/TEST-TABLE.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Test table - 0512.prime-review/05.10\n\naccepted: false\nprovenance: author unless a row says otherwise\nindependent: false\n\nThe successor suite is python -B labs/review-source-capacity-pass01/tests/test_capacity.py. Python 3.14.0. The passing run is 18 tests, 62.369 seconds, OK, exit 0. The first run is 18 tests, 89.820 seconds, FAILED (failures=2), exit 1. The contract body was not revised after that first run. The two failures were suite expectations, and the expectations were corrected before the passing run. The successor, the adapter, and the candidate were left unchanged between those runs. These cases are not Prime's independent probes.\n\n| Case | Provenance | Result |\n| --- | --- | --- |\n| active librarian, app README, page body, and unfilled pointer | author | OK on the pre-filing run |\n| historical pass02, pass03, pass01, and v7 pins stay, and candidate copies match | author | OK |\n| naive external copy is ambiguous-declared-root | known reproduction | OK |\n| historical replay of 0512/05.09 refuses `limit sources` | known reproduction | OK |\n| candidate cycle 0512/05.09, 29 sources, 125955 bytes, preliminary publish, section-verified | author | OK |\n| candidate cycle 0522/05.14, 20 sources, 62200 bytes, publish `stale-own-review`, not-published | author | OK on the passing run; the first run expected a vacant review |\n| generated bounds 24, 25, 32, and 33 | author | OK |\n| holds of 25 stay `limit holds` | author | OK |\n| document above 262144 bytes with 22 sources | author | OK |\n| 33-long source list containing a duplicate path is refused at 33 | author hostile | OK |\n| document bound again, labeled hostile | author hostile | OK |\n| duplicate path, same bytes, collapses; conflicting hash stays incomplete | author | OK |\n| code-root row app/review-loop-v7.json is measured and is not emitted | author | OK |\n| changed artifact before record is artifact-hash-mismatch; missing artifact before record is artifact-missing; change or delete after record is stale and keeps the stored finding | author | OK on the passing run; the first run expected stale before any stored intake |\n| malformed manifest row stays incomplete; unknown content_bytes is `bad type sources[0].content_bytes` | author | OK |\n| wrong successor pin and wrong pass02 pin stop before record | author | OK |\n| direct lab door is not an install | author | OK |\n| linked labs junction is not followed | author | OK |\n\nThe raw first log is author-suite-first.txt. The passing log is author-suite.txt. Post-filing rerun path, outside this manifest: D:/librarian/temp/0512-0510-report/author-suite-after-filing.txt.\n",
+      "transport_bytes": 2617,
+      "transport_sha256": "611f5696cf7271aeef75b78371cdf750b90b21f4d93d9a1d466ce2ebb7e7596e"
+    },
+    {
+      "bind": true,
+      "content_bytes": 3742,
+      "content_sha256": "824cd0b05ee1d94b919a8155cc0afc07b1634b739ec3bd8b6a04c815ee70bf75",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/cycle-0509/publish.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"publish\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"instance_id\": \"e1a82760d67e4070652fd2763a408946b3a15b6c83b023bf1ea5c63a3f0dfbb8\",\n  \"intake_id\": \"e4d2cc6eeed9162f0c66d44ae264ad8e213fcbcfcbf52f07121ff28bffcd5b5b\",\n  \"judgment\": {\n    \"answers\": [],\n    \"design_fork\": null,\n    \"disposition\": \"accepted\",\n    \"finding\": \"Accept the bounded reporter-hardening slice; combined activation remains held.\",\n    \"findings\": [],\n    \"gaps\": [\n      \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.\",\n      \"No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\",\n      \"Matching N1 custody missing; review remains preliminary.\"\n    ],\n    \"goal_terminal\": \"open\",\n    \"holds\": [],\n    \"next_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n    \"operation\": \"continue\",\n    \"pass_terminal\": \"finished\",\n    \"reasons\": [\n      \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.\",\n      \"No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\"\n    ],\n    \"review_passes\": [],\n    \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.; No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\",\n      \"next_bounded_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": \"Accept the bounded reporter-hardening slice; combined activation remains held.\",\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"tests_note\": \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"tests_passed\": true,\n      \"within_direction\": \"Accept only the assigned bounded staging/hardening scope, no activation or release.\"\n    },\n    \"semantic_conflict\": false\n  },\n  \"kind\": \"N5NN\",\n  \"next_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published\": true,\n  \"published_work\": false,\n  \"releases_action\": false,\n  \"review_id\": \"wa625af81adaf35cd\",\n  \"schema\": \"workbook-review-result/1\",\n  \"target\": \"0512.prime-review/05.09.md\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 3742,
+      "transport_sha256": "824cd0b05ee1d94b919a8155cc0afc07b1634b739ec3bd8b6a04c815ee70bf75"
+    },
+    {
+      "bind": true,
+      "content_bytes": 4138,
+      "content_sha256": "df379deee0e8471760b10d71e717dea3a799f883a4d0b11a3f98ebd31bcebe9a",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/cycle-0509/record.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"attention\": [\n    \"agreement.goal is unknown\",\n    \"agreement.scope is unknown\",\n    \"agreement.prime_discretion is unknown\",\n    \"agreement.director_required is unknown\",\n    \"agreement.finish_criteria is unknown\",\n    \"agreement.recorded_decisions is unknown\"\n  ],\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"record\",\n  \"custody\": \"missing\",\n  \"cycle\": {\n    \"called\": false,\n    \"committed\": false,\n    \"error\": null\n  },\n  \"director_text\": null,\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"holds\": [],\n  \"instance_id\": \"e1a82760d67e4070652fd2763a408946b3a15b6c83b023bf1ea5c63a3f0dfbb8\",\n  \"intake_id\": \"e4d2cc6eeed9162f0c66d44ae264ad8e213fcbcfcbf52f07121ff28bffcd5b5b\",\n  \"judgment\": {\n    \"answers\": [],\n    \"design_fork\": null,\n    \"disposition\": \"accepted\",\n    \"finding\": \"Accept the bounded reporter-hardening slice; combined activation remains held.\",\n    \"findings\": [],\n    \"gaps\": [\n      \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.\",\n      \"No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\",\n      \"Matching N1 custody missing; review remains preliminary.\"\n    ],\n    \"goal_terminal\": \"open\",\n    \"holds\": [],\n    \"next_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n    \"operation\": \"continue\",\n    \"pass_terminal\": \"finished\",\n    \"reasons\": [\n      \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.\",\n      \"No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\"\n    ],\n    \"review_passes\": [],\n    \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.; No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\",\n      \"next_bounded_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": \"Accept the bounded reporter-hardening slice; combined activation remains held.\",\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"tests_note\": \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"tests_passed\": true,\n      \"within_direction\": \"Accept only the assigned bounded staging/hardening scope, no activation or release.\"\n    },\n    \"semantic_conflict\": false\n  },\n  \"kind\": \"N5NN\",\n  \"mode\": \"preliminary\",\n  \"next_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"recorded\": true,\n  \"releases_action\": false,\n  \"review_id\": \"wa625af81adaf35cd\",\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 4138,
+      "transport_sha256": "df379deee0e8471760b10d71e717dea3a799f883a4d0b11a3f98ebd31bcebe9a"
+    },
+    {
+      "bind": true,
+      "content_bytes": 3843,
+      "content_sha256": "b85101a3d250b4316eb9d92a192530296124e5e9e849381044d790483064045e",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/cycle-0509/recover.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"recover\",\n  \"custody\": \"missing\",\n  \"director_text\": null,\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"holds\": [],\n  \"instance_id\": \"e1a82760d67e4070652fd2763a408946b3a15b6c83b023bf1ea5c63a3f0dfbb8\",\n  \"intake_id\": \"b3e688767a7b78b6ef5899f481c5dc1d7f6ad39662d184b06fe9de4b5487660e\",\n  \"judgment\": {\n    \"answers\": [],\n    \"design_fork\": null,\n    \"disposition\": \"accepted\",\n    \"finding\": \"Accept the bounded reporter-hardening slice; combined activation remains held.\",\n    \"findings\": [],\n    \"gaps\": [\n      \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.\",\n      \"No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\",\n      \"Matching N1 custody missing; review remains preliminary.\"\n    ],\n    \"goal_terminal\": \"open\",\n    \"holds\": [],\n    \"next_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n    \"operation\": \"continue\",\n    \"pass_terminal\": \"finished\",\n    \"reasons\": [\n      \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.\",\n      \"No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\"\n    ],\n    \"review_passes\": [],\n    \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": \"B-01 malformed row totals and B-05 held envelope handled in this staged successor.; No current app selection or native custody. Canonical helper dependency and observation limits remain explicit.\",\n      \"next_bounded_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": \"Accept the bounded reporter-hardening slice; combined activation remains held.\",\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"tests_note\": \"25 author cases rerun: 25 pass, no errors/skips. Four independent malformed-envelope inputs rejected; independent unstable observation clears all seven current-cut fields. 36 artifacts and 97 source/snapshot rows verify.\",\n      \"tests_passed\": true,\n      \"within_direction\": \"Accept only the assigned bounded staging/hardening scope, no activation or release.\"\n    },\n    \"semantic_conflict\": false\n  },\n  \"kind\": \"N5NN\",\n  \"next_action\": \"Combine the reviewed reporter with the corrected N7 intake only in a new coherent candidate, preserving old pins and historical source evidence.\",\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"record_ok\": true,\n  \"releases_action\": false,\n  \"rendered_ok\": true,\n  \"review_id\": \"wa625af81adaf35cd\",\n  \"schema\": \"workbook-review-result/1\",\n  \"stale\": false,\n  \"target_state\": \"section-verified\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 3843,
+      "transport_sha256": "b85101a3d250b4316eb9d92a192530296124e5e9e849381044d790483064045e"
+    },
+    {
+      "bind": true,
+      "content_bytes": 4637,
+      "content_sha256": "ae7b0abb7535d24ba2acfbc3a63bfb5e1fe7f9b49b40071916ea22a458a32848",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/cycle-0514/publish.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"publish\",\n  \"correction\": \"stale-own-review\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 1,\n  \"holds\": [],\n  \"instance_id\": \"8b25b534ee04984f0436a690022cfb6ec1e745c74545e7be9bc27da6ab6f81a8\",\n  \"intake_id\": \"924cc82ce18fddc115eeeab5f57103cbfddd071f2f233d95eb35999ec414f30f\",\n  \"judgment\": {\n    \"answers\": [],\n    \"design_fork\": null,\n    \"disposition\": \"accepted\",\n    \"finding\": \"Accept canonical-root staging; hold activation for separately retained parser findings.\",\n    \"findings\": [],\n    \"gaps\": [\n      \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.\",\n      \"A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.\",\n      \"Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\",\n      \"Matching custody missing; no final completion.\"\n    ],\n    \"goal_terminal\": \"open\",\n    \"holds\": [],\n    \"next_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n    \"operation\": \"continue\",\n    \"pass_terminal\": \"finished\",\n    \"reasons\": [\n      \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.\",\n      \"A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.\",\n      \"Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\"\n    ],\n    \"review_passes\": [],\n    \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.; A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.; Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\",\n      \"next_bounded_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": \"Accept canonical-root staging; hold activation for separately retained parser findings.\",\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"tests_note\": \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"tests_passed\": true,\n      \"within_direction\": \"Accept only the bounded staging scope; no activation or release.\"\n    },\n    \"semantic_conflict\": false\n  },\n  \"kind\": \"N5NN\",\n  \"next_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n  \"page\": \"0522.review-construction\",\n  \"pass\": \"05.14\",\n  \"published\": false,\n  \"published_work\": false,\n  \"releases_action\": false,\n  \"review_id\": \"wcfa3cd82d3322f65\",\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 4637,
+      "transport_sha256": "ae7b0abb7535d24ba2acfbc3a63bfb5e1fe7f9b49b40071916ea22a458a32848"
+    },
+    {
+      "bind": true,
+      "content_bytes": 5023,
+      "content_sha256": "81fee16cc716395568eefb94e53188f79cbcf404b05ba6ffd6ec04c6972d6860",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/cycle-0514/record.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"attention\": [\n    \"agreement.goal is unknown\",\n    \"agreement.scope is unknown\",\n    \"agreement.prime_discretion is unknown\",\n    \"agreement.director_required is unknown\",\n    \"agreement.finish_criteria is unknown\",\n    \"agreement.recorded_decisions is unknown\"\n  ],\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"record\",\n  \"custody\": \"missing\",\n  \"cycle\": {\n    \"called\": false,\n    \"committed\": false,\n    \"error\": null\n  },\n  \"director_text\": null,\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"holds\": [],\n  \"instance_id\": \"8b25b534ee04984f0436a690022cfb6ec1e745c74545e7be9bc27da6ab6f81a8\",\n  \"intake_id\": \"924cc82ce18fddc115eeeab5f57103cbfddd071f2f233d95eb35999ec414f30f\",\n  \"judgment\": {\n    \"answers\": [],\n    \"design_fork\": null,\n    \"disposition\": \"accepted\",\n    \"finding\": \"Accept canonical-root staging; hold activation for separately retained parser findings.\",\n    \"findings\": [],\n    \"gaps\": [\n      \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.\",\n      \"A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.\",\n      \"Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\",\n      \"Matching custody missing; no final completion.\"\n    ],\n    \"goal_terminal\": \"open\",\n    \"holds\": [],\n    \"next_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n    \"operation\": \"continue\",\n    \"pass_terminal\": \"finished\",\n    \"reasons\": [\n      \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.\",\n      \"A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.\",\n      \"Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\"\n    ],\n    \"review_passes\": [],\n    \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.; A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.; Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\",\n      \"next_bounded_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": \"Accept canonical-root staging; hold activation for separately retained parser findings.\",\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"tests_note\": \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"tests_passed\": true,\n      \"within_direction\": \"Accept only the bounded staging scope; no activation or release.\"\n    },\n    \"semantic_conflict\": false\n  },\n  \"kind\": \"N5NN\",\n  \"mode\": \"preliminary\",\n  \"next_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n  \"page\": \"0522.review-construction\",\n  \"pass\": \"05.14\",\n  \"published_work\": false,\n  \"recorded\": true,\n  \"releases_action\": false,\n  \"review_id\": \"wcfa3cd82d3322f65\",\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 5023,
+      "transport_sha256": "81fee16cc716395568eefb94e53188f79cbcf404b05ba6ffd6ec04c6972d6860"
+    },
+    {
+      "bind": true,
+      "content_bytes": 4725,
+      "content_sha256": "f972827f36b55973d8ad51a3298b55657b6b62c874c4ae67f4be23658b961b68",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/cycle-0514/recover.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"recover\",\n  \"custody\": \"missing\",\n  \"director_text\": null,\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"holds\": [],\n  \"instance_id\": \"8b25b534ee04984f0436a690022cfb6ec1e745c74545e7be9bc27da6ab6f81a8\",\n  \"intake_id\": \"924cc82ce18fddc115eeeab5f57103cbfddd071f2f233d95eb35999ec414f30f\",\n  \"judgment\": {\n    \"answers\": [],\n    \"design_fork\": null,\n    \"disposition\": \"accepted\",\n    \"finding\": \"Accept canonical-root staging; hold activation for separately retained parser findings.\",\n    \"findings\": [],\n    \"gaps\": [\n      \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.\",\n      \"A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.\",\n      \"Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\",\n      \"Matching custody missing; no final completion.\"\n    ],\n    \"goal_terminal\": \"open\",\n    \"holds\": [],\n    \"next_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n    \"operation\": \"continue\",\n    \"pass_terminal\": \"finished\",\n    \"reasons\": [\n      \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.\",\n      \"A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.\",\n      \"Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\"\n    ],\n    \"review_passes\": [],\n    \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": \"Historical four-case failure report retained: G7 has superseded expectations; I4/H2/I6 collide with canonical root and do not prove the intended fixture assertion.; A-01 remains: trailing text changes m.json to m.json,. A-02 requires an explicit refusal/ambiguity contract before activation.; Both N5/N7 lifecycle proofs are preliminary. Isolated first-target repair is not integrated.\",\n      \"next_bounded_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": \"Accept canonical-root staging; hold activation for separately retained parser findings.\",\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"tests_note\": \"28 artifacts and 210 source/snapshot rows verify. Reran the 12 author cases successfully. Independently invoked real staged door on four live pages: N5 bound rows, cuts, findings and intake IDs equal v7; N7 complete with 26/33 artifacts. Independently reproduced A-01 suffix fallback and A-02 refused-plus-valid parsing.\",\n      \"tests_passed\": true,\n      \"within_direction\": \"Accept only the bounded staging scope; no activation or release.\"\n    },\n    \"semantic_conflict\": false\n  },\n  \"kind\": \"N5NN\",\n  \"next_action\": \"Repair the N7 labelled-line grammar in a versioned successor before combined selection; preserve N5 punctuation and stop for any policy decision.\",\n  \"page\": \"0522.review-construction\",\n  \"pass\": \"05.14\",\n  \"published_work\": false,\n  \"record_ok\": true,\n  \"releases_action\": false,\n  \"rendered_ok\": true,\n  \"review_id\": \"wcfa3cd82d3322f65\",\n  \"schema\": \"workbook-review-result/1\",\n  \"stale\": false,\n  \"target_state\": \"not-published\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 4725,
+      "transport_sha256": "f972827f36b55973d8ad51a3298b55657b6b62c874c4ae67f4be23658b961b68"
+    },
+    {
+      "bind": true,
+      "content_bytes": 697,
+      "content_sha256": "63fcdd027b2295cae5945a250f5a3758abd81143276e414ca1272b44b5a4b789",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-cycles/historical-0509/record.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"record\",\n  \"correction\": \"refused: limit sources\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 2,\n  \"failed_input\": \"workbook-review/0512.prime-review/05.09/failed/f6815ca48d8a67a2.json\",\n  \"instance_id\": \"47bb3ea7f197e96c05b12bebc3055ea4bd2966a2157d044f4a1dfea7462ef930\",\n  \"intake_id\": \"22fbfdbfd98db77a9935865a3ffcb80d2c1f121d9a11dd3a672c8019256828cb\",\n  \"kind\": \"N5NN\",\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"recorded\": false,\n  \"releases_action\": false,\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 697,
+      "transport_sha256": "63fcdd027b2295cae5945a250f5a3758abd81143276e414ca1272b44b5a4b789"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2087,
+      "content_sha256": "9959bf80751054024e01042ed092f69519c0351fc36aea8496920758273b4f3e",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-results.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "[\n  {\n    \"librarian_sha256\": \"c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9\",\n    \"name\": \"active-surface\",\n    \"provenance\": \"author\",\n    \"readme_sha256\": \"3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920\"\n  },\n  {\n    \"name\": \"changed-and-missing\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"emitted\": 3,\n    \"name\": \"code-root-excluded\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"custody\": \"missing\",\n    \"document_bytes\": 125955,\n    \"mode\": \"preliminary\",\n    \"name\": \"cycle-0509\",\n    \"provenance\": \"author\",\n    \"publish\": \"published\",\n    \"review_id\": \"wa625af81adaf35cd\",\n    \"sources\": 29\n  },\n  {\n    \"custody\": \"missing\",\n    \"document_bytes\": 62200,\n    \"mode\": \"preliminary\",\n    \"name\": \"cycle-0514\",\n    \"provenance\": \"author\",\n    \"publish\": \"stale-own-review\",\n    \"review_id\": \"wcfa3cd82d3322f65\",\n    \"sources\": 20\n  },\n  {\n    \"bytes\": 276423,\n    \"name\": \"document-bound\",\n    \"provenance\": \"author\",\n    \"sources\": 22\n  },\n  {\n    \"name\": \"duplicate-and-conflict\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"name\": \"generated-bounds\",\n    \"new_32\": 32,\n    \"new_33\": 33,\n    \"old_24\": true,\n    \"old_25\": \"limit sources\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"name\": \"historical-modules\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"correction\": \"refused: limit sources\",\n    \"name\": \"historical-replay-0509\",\n    \"provenance\": \"known-reproduction\"\n  },\n  {\n    \"name\": \"holds-stay-24\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"name\": \"hostile-count\",\n    \"provenance\": \"author-hostile\"\n  },\n  {\n    \"bytes\": 276423,\n    \"name\": \"document-bound\",\n    \"provenance\": \"author\",\n    \"sources\": 22\n  },\n  {\n    \"name\": \"hostile-document\",\n    \"provenance\": \"author-hostile\"\n  },\n  {\n    \"name\": \"lab-door-not-install\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"name\": \"linked-pin\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"name\": \"malformed-and-unknown-size\",\n    \"provenance\": \"author\"\n  },\n  {\n    \"name\": \"naive-external-copy\",\n    \"provenance\": \"known-reproduction\"\n  },\n  {\n    \"name\": \"wrong-pins\",\n    \"provenance\": \"author\"\n  }\n]\n",
+      "transport_bytes": 2087,
+      "transport_sha256": "9959bf80751054024e01042ed092f69519c0351fc36aea8496920758273b4f3e"
+    },
+    {
+      "bind": true,
+      "content_bytes": 3344,
+      "content_sha256": "2bb81350963d423c9643fe8d0d17050b607e8905c794f5c18fa5c3784910b1e8",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-suite-first.txt",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "test_author_active_surface_stays (__main__.CapacityAuthor.test_author_active_surface_stays) ... ok\ntest_author_changed_and_missing (__main__.CapacityAuthor.test_author_changed_and_missing) ... FAIL\ntest_author_code_root_is_excluded (__main__.CapacityAuthor.test_author_code_root_is_excluded) ... ok\ntest_author_cycle_0509 (__main__.CapacityAuthor.test_author_cycle_0509) ... ok\ntest_author_cycle_0514 (__main__.CapacityAuthor.test_author_cycle_0514) ... FAIL\ntest_author_document_bound (__main__.CapacityAuthor.test_author_document_bound) ... ok\ntest_author_duplicate_and_conflict (__main__.CapacityAuthor.test_author_duplicate_and_conflict) ... ok\ntest_author_generated_bounds (__main__.CapacityAuthor.test_author_generated_bounds) ... ok\ntest_author_historical_modules_stay (__main__.CapacityAuthor.test_author_historical_modules_stay) ... ok\ntest_author_historical_replay_refuses_0509 (__main__.CapacityAuthor.test_author_historical_replay_refuses_0509) ... ok\ntest_author_holds_stay_24 (__main__.CapacityAuthor.test_author_holds_stay_24) ... ok\ntest_author_hostile_count_is_not_trimmed (__main__.CapacityAuthor.test_author_hostile_count_is_not_trimmed) ... ok\ntest_author_hostile_document_bound_stays (__main__.CapacityAuthor.test_author_hostile_document_bound_stays) ... ok\ntest_author_lab_door_is_not_an_install (__main__.CapacityAuthor.test_author_lab_door_is_not_an_install) ... ok\ntest_author_linked_candidate_pin (__main__.CapacityAuthor.test_author_linked_candidate_pin) ... ok\ntest_author_malformed_row_and_unknown_size (__main__.CapacityAuthor.test_author_malformed_row_and_unknown_size) ... ok\ntest_author_naive_external_copy_is_ambiguous (__main__.CapacityAuthor.test_author_naive_external_copy_is_ambiguous) ... ok\ntest_author_wrong_pins (__main__.CapacityAuthor.test_author_wrong_pins) ... ok\n\n======================================================================\nFAIL: test_author_changed_and_missing (__main__.CapacityAuthor.test_author_changed_and_missing)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"D:\\Git\\lib-build\\labs\\review-source-capacity-pass01\\tests\\test_capacity.py\", line 482, in test_author_changed_and_missing\n    self.assertTrue(payload.get(\"stale\"))\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: None is not true\n\n======================================================================\nFAIL: test_author_cycle_0514 (__main__.CapacityAuthor.test_author_cycle_0514)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"D:\\Git\\lib-build\\labs\\review-source-capacity-pass01\\tests\\test_capacity.py\", line 317, in test_author_cycle_0514\n    self.assert_cycle(\"cycle-0514\", \"0522.review-construction\", \"05.14\", JUDGMENT_0514, 20, 62200)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\labs\\review-source-capacity-pass01\\tests\\test_capacity.py\", line 256, in assert_cycle\n    self.assertTrue(suffix.startswith(b\"PENDING.\\n\") or suffix.startswith(b\"PENDING.\"))\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n\n----------------------------------------------------------------------\nRan 18 tests in 89.820s\n\nFAILED (failures=2)\n",
+      "transport_bytes": 3344,
+      "transport_sha256": "2bb81350963d423c9643fe8d0d17050b607e8905c794f5c18fa5c3784910b1e8"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1906,
+      "content_sha256": "ba72a3ccc726a5cea26f3d396a77722bc5e43d07b43649a47db1653dc6c01f1b",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/author-suite.txt",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "test_author_active_surface_stays (__main__.CapacityAuthor.test_author_active_surface_stays) ... ok\ntest_author_changed_and_missing (__main__.CapacityAuthor.test_author_changed_and_missing) ... ok\ntest_author_code_root_is_excluded (__main__.CapacityAuthor.test_author_code_root_is_excluded) ... ok\ntest_author_cycle_0509 (__main__.CapacityAuthor.test_author_cycle_0509) ... ok\ntest_author_cycle_0514 (__main__.CapacityAuthor.test_author_cycle_0514) ... ok\ntest_author_document_bound (__main__.CapacityAuthor.test_author_document_bound) ... ok\ntest_author_duplicate_and_conflict (__main__.CapacityAuthor.test_author_duplicate_and_conflict) ... ok\ntest_author_generated_bounds (__main__.CapacityAuthor.test_author_generated_bounds) ... ok\ntest_author_historical_modules_stay (__main__.CapacityAuthor.test_author_historical_modules_stay) ... ok\ntest_author_historical_replay_refuses_0509 (__main__.CapacityAuthor.test_author_historical_replay_refuses_0509) ... ok\ntest_author_holds_stay_24 (__main__.CapacityAuthor.test_author_holds_stay_24) ... ok\ntest_author_hostile_count_is_not_trimmed (__main__.CapacityAuthor.test_author_hostile_count_is_not_trimmed) ... ok\ntest_author_hostile_document_bound_stays (__main__.CapacityAuthor.test_author_hostile_document_bound_stays) ... ok\ntest_author_lab_door_is_not_an_install (__main__.CapacityAuthor.test_author_lab_door_is_not_an_install) ... ok\ntest_author_linked_candidate_pin (__main__.CapacityAuthor.test_author_linked_candidate_pin) ... ok\ntest_author_malformed_row_and_unknown_size (__main__.CapacityAuthor.test_author_malformed_row_and_unknown_size) ... ok\ntest_author_naive_external_copy_is_ambiguous (__main__.CapacityAuthor.test_author_naive_external_copy_is_ambiguous) ... ok\ntest_author_wrong_pins (__main__.CapacityAuthor.test_author_wrong_pins) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 62.369s\n\nOK\n",
+      "transport_bytes": 1906,
+      "transport_sha256": "ba72a3ccc726a5cea26f3d396a77722bc5e43d07b43649a47db1653dc6c01f1b"
+    },
+    {
+      "bind": true,
+      "content_bytes": 125955,
+      "content_sha256": "d4696fc278e17411b0db1ab785a3bd419f5d17d66dc53685b0bf091cca6339c2",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/bindings/0509-prime-input.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 125955,
+      "transport_sha256": "d4696fc278e17411b0db1ab785a3bd419f5d17d66dc53685b0bf091cca6339c2"
+    },
+    {
+      "bind": true,
+      "content_bytes": 62200,
+      "content_sha256": "4a2dd8e043daf0293a404301442c577afb5bc6bfe763a675ac13db511077a4cd",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/bindings/0514-prime-input.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 62200,
+      "transport_sha256": "4a2dd8e043daf0293a404301442c577afb5bc6bfe763a675ac13db511077a4cd"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2195,
+      "content_sha256": "d3d8b870a389ff210cce275ad8771de4e436b1a55c741f91361c8ee3a08e7af9",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/bounds.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Bounds - old and new source capacity\n\naccepted: false\n\nThe rejecting check on the frozen 0512/05.09 record is as_list(sources) against MAX_LIST = 24 in labs/prime-review-pass02/prime_review.py. The same function still bounds holds, answers, review_passes, gaps, and the other non-source lists. strict_json still refuses a document above MAX_DOC = 262144. MAX_TEXT = 12000 still bounds prose and an inline source record. MAX_INDEX = 12 still bounds form cuts. Form can exit 0 with finding index-context-bounded while every emitted book source is still present.\n\n| Bound | Old module | Successor |\n| --- | --- | --- |\n| unique generated sources, 24 | records | records, and the report matches the old module on the saved 24-source input |\n| unique generated sources, 25 | refuses `limit sources` | records |\n| unique generated sources, 32 | refuses `limit sources` | records |\n| unique generated sources, 33 | refuses `limit sources` | refuses `limit sources: 33 sources exceeds supported limit 32; split the return so one record binds at most 32 sources` and leaves the review PENDING |\n| holds, 25 | refuses `limit holds` | refuses `limit holds` |\n| document bytes above 262144, with 22 sources | refuses `input: input exceeds 262144 bytes` | same message |\n\nMeasured 0512/05.09: 39 intake rows, 30 unique book paths, 29 emitted sources, pretty record 125955 bytes. Roles: book artifact 28, book artifact-manifest 1, book assignment 1, book submission 1, code artifact 8. The artifact-manifest role is the book path that is not emitted. Code-root rows are excluded by the book-root filter. Inline record text is present on 22 sources and null on 7.\n\nMeasured 0522/05.14: 31 intake rows, 21 unique book paths, 20 emitted sources, pretty record 62200 bytes. That return is inside the old source limit. The candidate recorded it. Separate publish stopped because the copied review section is already occupied.\n\n32 is the smallest power of two above the measured 29 emitted sources. The successor does not promise an unbounded list. A later return above 32 sources, or a pretty record above 262144 bytes, stops at the matching refusal. Rollback to pass02 refuses the 29-source return at 24 again.\n",
+      "transport_bytes": 2195,
+      "transport_sha256": "d3d8b870a389ff210cce275ad8771de4e436b1a55c741f91361c8ee3a08e7af9"
+    },
+    {
+      "bind": true,
+      "content_bytes": 7408,
+      "content_sha256": "c7f39782edc99d1ce9c8103955e03361b1cd2cfa60eac070b057d4e2adda19fd",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/candidate-index.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"file_count\": 41,\n  \"files\": [\n    {\n      \"bytes\": 12237,\n      \"path\": \"app/librarian.py\",\n      \"sha256\": \"d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4\"\n    },\n    {\n      \"bytes\": 4319,\n      \"path\": \"app/review-loop-source-capacity.json\",\n      \"sha256\": \"3a47008e03bae8f8b580fb903514fc98d4683a5e48401f44b2c454d63aa094b5\"\n    },\n    {\n      \"bytes\": 2519,\n      \"path\": \"app/review-loop-v4.json\",\n      \"sha256\": \"769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723\"\n    },\n    {\n      \"bytes\": 1964,\n      \"path\": \"app/review-loop-v5.json\",\n      \"sha256\": \"eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3\"\n    },\n    {\n      \"bytes\": 2743,\n      \"path\": \"app/review-loop-v6.json\",\n      \"sha256\": \"c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa\"\n    },\n    {\n      \"bytes\": 3515,\n      \"path\": \"app/review-loop-v7.json\",\n      \"sha256\": \"bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8\"\n    },\n    {\n      \"bytes\": 4100,\n      \"path\": \"app/review-loop-v8.json\",\n      \"sha256\": \"92a718d300e20a52b765c4f1ed795051013e32a86597522edffb9ff49255872e\"\n    },\n    {\n      \"bytes\": 4276,\n      \"path\": \"app/review-report-v3.json\",\n      \"sha256\": \"a27bf702c0eb87b4608ff60929467126e78fd7e60b7353644321468043a25817\"\n    },\n    {\n      \"bytes\": 11018,\n      \"path\": \"app/review_loop_tools_source_capacity.py\",\n      \"sha256\": \"cde90e02250d1f56c38a0b249bcfd1bcef15d6e3899d2f71375e9a900ab0fd3a\"\n    },\n    {\n      \"bytes\": 13381,\n      \"path\": \"app/review_loop_tools_v4.py\",\n      \"sha256\": \"0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296\"\n    },\n    {\n      \"bytes\": 7875,\n      \"path\": \"app/review_loop_tools_v5.py\",\n      \"sha256\": \"b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9\"\n    },\n    {\n      \"bytes\": 9175,\n      \"path\": \"app/review_loop_tools_v6.py\",\n      \"sha256\": \"e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94\"\n    },\n    {\n      \"bytes\": 10291,\n      \"path\": \"app/review_loop_tools_v7.py\",\n      \"sha256\": \"93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d\"\n    },\n    {\n      \"bytes\": 11054,\n      \"path\": \"app/review_loop_tools_v8.py\",\n      \"sha256\": \"0335da325abf0f0292807ddbcf6f96cc107e8224732ee4afcf3f35470a0f9fc3\"\n    },\n    {\n      \"bytes\": 14156,\n      \"path\": \"app/review_report_tools_v3.py\",\n      \"sha256\": \"be29de7daa00b84f79a0f403f2c5eaea3cf035d51e1b405d2fbf2f6ba5f7e73f\"\n    },\n    {\n      \"bytes\": 76045,\n      \"path\": \"labs/prime-cycle-pass03/prime_cycle.py\",\n      \"sha256\": \"496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c\"\n    },\n    {\n      \"bytes\": 58560,\n      \"path\": \"labs/prime-review-pass02/prime_review.py\",\n      \"sha256\": \"80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e\"\n    },\n    {\n      \"bytes\": 26561,\n      \"path\": \"labs/return-access-pass01/return_access.py\",\n      \"sha256\": \"501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5\"\n    },\n    {\n      \"bytes\": 42582,\n      \"path\": \"labs/review-construction-pass04/construct.py\",\n      \"sha256\": \"6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20\"\n    },\n    {\n      \"bytes\": 30430,\n      \"path\": \"labs/review-entry-staging-pass01/drive.py\",\n      \"sha256\": \"38a41afe83ba0509343bd612d27a0ad68e5a1f81c0eb34ee0bfeb79293ba776f\"\n    },\n    {\n      \"bytes\": 3481,\n      \"path\": \"labs/review-entry-staging-pass01/suite/compat17/make_fixture.py\",\n      \"sha256\": \"3fe35e2cbf90104910af077fbcb75cd482833bf0e57a364944741bed6d28368b\"\n    },\n    {\n      \"bytes\": 770,\n      \"path\": \"labs/review-entry-staging-pass01/suite/compat17/n7compat.py\",\n      \"sha256\": \"939b928083c1a8050bfac92eeb15b6257ed4eaa9b02bbad260a48d8eafb0e379\"\n    },\n    {\n      \"bytes\": 13391,\n      \"path\": \"labs/review-entry-staging-pass01/suite/compat17/tests/test_n7.py\",\n      \"sha256\": \"b703b36fbea44680fc3821f6aefb7761dac5b59d0a4ae752ac96c7421d31ce9b\"\n    },\n    {\n      \"bytes\": 2472,\n      \"path\": \"labs/review-entry-staging-pass01/suite/n7compat2.py\",\n      \"sha256\": \"4ec4ea8e58bdc83ae7cf5565416d6f0a8b408db16d6b68d7dd76988931683790\"\n    },\n    {\n      \"bytes\": 12422,\n      \"path\": \"labs/review-entry-staging-pass01/suite/tests/test_n7v2.py\",\n      \"sha256\": \"0615a973c73c849fb9ef709c2577b221dca866b6a1e9e1dce092cd79171294c9\"\n    },\n    {\n      \"bytes\": 55474,\n      \"path\": \"labs/review-loop-pass03/review_loop.py\",\n      \"sha256\": \"47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b\"\n    },\n    {\n      \"bytes\": 1972,\n      \"path\": \"labs/review-report-hardening-pass01/DISPATCHER.diff\",\n      \"sha256\": \"9bc1ef79672e0a67ae1e4d513b523b3dee105c694b0c91aa748cf4f6b9b13b62\"\n    },\n    {\n      \"bytes\": 2451,\n      \"path\": \"labs/review-report-hardening-pass01/INTEGRATION.md\",\n      \"sha256\": \"932724996497c5d202fa1320c54f839a9f130c0470fec771b2a78f8ac747b6be\"\n    },\n    {\n      \"bytes\": 12804,\n      \"path\": \"labs/review-report-hardening-pass01/librarian.py\",\n      \"sha256\": \"f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983\"\n    },\n    {\n      \"bytes\": 2027,\n      \"path\": \"labs/review-report-hardening-pass01/PRIME-USE.md\",\n      \"sha256\": \"50e6a8b3b4f3c167e67d558187ab96e976be1cbef45df2db7c302843ec549fd6\"\n    },\n    {\n      \"bytes\": 18139,\n      \"path\": \"labs/review-report-hardening-pass01/report.py\",\n      \"sha256\": \"27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b\"\n    },\n    {\n      \"bytes\": 54345,\n      \"path\": \"labs/review-report-hardening-pass01/tests/test_hardening.py\",\n      \"sha256\": \"dc2cb9564c83a4d8842c46a5e696816783e1c36e4a0aa82e6a51954b1d5c698a\"\n    },\n    {\n      \"bytes\": 2031,\n      \"path\": \"labs/review-source-capacity-pass01/prime_review.py\",\n      \"sha256\": \"a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87\"\n    },\n    {\n      \"bytes\": 3055,\n      \"path\": \"labs/review-source-capacity-pass01/workbook.py\",\n      \"sha256\": \"7383e6ec4e5bf7909f069796a7fe6c71e23b6f241edec64fc3805656174a742e\"\n    },\n    {\n      \"bytes\": 4532,\n      \"path\": \"labs/workbook-review-pass01/forms/workbook-review-v1.json\",\n      \"sha256\": \"152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f\"\n    },\n    {\n      \"bytes\": 79131,\n      \"path\": \"labs/workbook-review-pass01/workbook.py\",\n      \"sha256\": \"60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a\"\n    },\n    {\n      \"bytes\": 4532,\n      \"path\": \"labs/workbook-review-pass02/forms/workbook-review-v1.json\",\n      \"sha256\": \"66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645\"\n    },\n    {\n      \"bytes\": 52574,\n      \"path\": \"labs/workbook-review-pass02/workbook.py\",\n      \"sha256\": \"6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a\"\n    },\n    {\n      \"bytes\": 4532,\n      \"path\": \"labs/workbook-review-pass03/forms/workbook-review-v1.json\",\n      \"sha256\": \"4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b\"\n    },\n    {\n      \"bytes\": 19533,\n      \"path\": \"labs/workbook-review-pass03/workbook.py\",\n      \"sha256\": \"9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c\"\n    },\n    {\n      \"bytes\": 6508,\n      \"path\": \"labs/workbook-review-pass04/workbook.py\",\n      \"sha256\": \"b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2\"\n    }\n  ],\n  \"installed\": false,\n  \"root\": \"labs/review-source-capacity-pass01/candidate\",\n  \"schema\": \"review-source-capacity-candidate-index/1\"\n}\n",
+      "transport_bytes": 7408,
+      "transport_sha256": "c7f39782edc99d1ce9c8103955e03361b1cd2cfa60eac070b057d4e2adda19fd"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1182,
+      "content_sha256": "35704e0aaa3134027a8a36357fdd1f1df96a19d54b551baf1d6d1473f1fd7381",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/command-log.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"commands\": [\n    {\n      \"command\": \"python -B C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\0510-gather.py\",\n      \"exit\": 0,\n      \"result\": \"freeze bad 0; 148 rows; page pointer PENDING\"\n    },\n    {\n      \"command\": \"python -B labs/review-source-capacity-pass01/build_candidate.py\",\n      \"exit\": 0,\n      \"result\": \"candidate tree written\"\n    },\n    {\n      \"command\": \"python -B labs/review-source-capacity-pass01/tests/test_capacity.py\",\n      \"exit\": 1,\n      \"log\": \"evidence/build05.10/author-suite-first.txt\",\n      \"result\": \"first run, 18 tests, 89.820s, failures=2\"\n    },\n    {\n      \"command\": \"python -B labs/review-source-capacity-pass01/tests/test_capacity.py\",\n      \"exit\": 0,\n      \"log\": \"evidence/build05.10/author-suite.txt\",\n      \"result\": \"passing run, 18 tests, 62.369s, OK\"\n    }\n  ],\n  \"cycles\": {\n    \"author_0509_prefix_equals_live\": true,\n    \"author_0514_page_equals_live\": true,\n    \"author_0514_prefix_equals_live\": true\n  },\n  \"python\": \"3.14.0\",\n  \"readme_app\": {\n    \"bytes\": 39687,\n    \"sha256\": \"3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920\"\n  },\n  \"schema\": \"review-source-capacity-command-log/1\"\n}\n",
+      "transport_bytes": 1182,
+      "transport_sha256": "35704e0aaa3134027a8a36357fdd1f1df96a19d54b551baf1d6d1473f1fd7381"
+    },
+    {
+      "bind": true,
+      "content_bytes": 15166,
+      "content_sha256": "c3cc41047fe02cbfaea8cca0b5d48364b955572875666e55d9b25a63a90621af",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/hostile/holds-25.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 15166,
+      "transport_sha256": "c3cc41047fe02cbfaea8cca0b5d48364b955572875666e55d9b25a63a90621af"
+    },
+    {
+      "bind": true,
+      "content_bytes": 976,
+      "content_sha256": "724eff64ca0694e04f009e6ff31d56d1e923aca3b408b71022a123486950c8c5",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/hostile/hostile-33.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\"agreement\": {}, \"answers\": [], \"attribution\": {}, \"gaps\": [], \"holds\": [], \"judgment\": {}, \"review_passes\": [], \"schema\": \"prime-review-record/1\", \"sources\": [{\"logical_path\": \"p0\"}, {\"logical_path\": \"p1\"}, {\"logical_path\": \"p2\"}, {\"logical_path\": \"p3\"}, {\"logical_path\": \"p4\"}, {\"logical_path\": \"p5\"}, {\"logical_path\": \"p6\"}, {\"logical_path\": \"p7\"}, {\"logical_path\": \"p8\"}, {\"logical_path\": \"p9\"}, {\"logical_path\": \"p10\"}, {\"logical_path\": \"p11\"}, {\"logical_path\": \"p12\"}, {\"logical_path\": \"p13\"}, {\"logical_path\": \"p14\"}, {\"logical_path\": \"p15\"}, {\"logical_path\": \"p16\"}, {\"logical_path\": \"p17\"}, {\"logical_path\": \"p18\"}, {\"logical_path\": \"p19\"}, {\"logical_path\": \"p20\"}, {\"logical_path\": \"p21\"}, {\"logical_path\": \"p22\"}, {\"logical_path\": \"p23\"}, {\"logical_path\": \"p24\"}, {\"logical_path\": \"p25\"}, {\"logical_path\": \"p26\"}, {\"logical_path\": \"p27\"}, {\"logical_path\": \"p28\"}, {\"logical_path\": \"p29\"}, {\"logical_path\": \"p30\"}, {\"logical_path\": \"p31\"}, {\"logical_path\": \"p0\"}]}\n",
+      "transport_bytes": 976,
+      "transport_sha256": "724eff64ca0694e04f009e6ff31d56d1e923aca3b408b71022a123486950c8c5"
+    },
+    {
+      "bind": true,
+      "content_bytes": 276423,
+      "content_sha256": "203565f92dace2f3474dadca0f054129e98d6abf1037dabdc0a069f50f1dc1ac",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/hostile/over-document.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 276423,
+      "transport_sha256": "203565f92dace2f3474dadca0f054129e98d6abf1037dabdc0a069f50f1dc1ac"
+    },
+    {
+      "bind": true,
+      "content_bytes": 15074,
+      "content_sha256": "c0f664d84d146e4286f94ca7497273e49d77b401b3456cb2cde712e95bd85c44",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/hostile/unknown-size.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 15074,
+      "transport_sha256": "c0f664d84d146e4286f94ca7497273e49d77b401b3456cb2cde712e95bd85c44"
+    },
+    {
+      "bind": true,
+      "content_bytes": 35315,
+      "content_sha256": "22c9a834f52408e129fe235be62913f2a44f8c3d46789ac2a2757a891c5daaf0",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions-historical/prepare.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 35315,
+      "transport_sha256": "22c9a834f52408e129fe235be62913f2a44f8c3d46789ac2a2757a891c5daaf0"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2,
+      "content_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions-historical/record.exit",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "2\n",
+      "transport_bytes": 2,
+      "transport_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    {
+      "bind": true,
+      "content_bytes": 0,
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions-historical/record.stderr",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "",
+      "transport_bytes": 0,
+      "transport_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bind": true,
+      "content_bytes": 697,
+      "content_sha256": "5382264d38574f9ddc7ea9dddf41c5f41ed034459dc953dd0e4058ccf4b98c48",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions-historical/record.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"record\",\n  \"correction\": \"refused: limit sources\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 2,\n  \"failed_input\": \"workbook-review/0512.prime-review/05.09/failed/f6815ca48d8a67a2.json\",\n  \"instance_id\": \"8a02a544e87148d66c55575a9b321b97b3928fd1b7ba2587e37730cf8f1d8abc\",\n  \"intake_id\": \"4733cf621bcc499cbaad1230adcb9163f2fe30ab96e34364a91dd64c14f49331\",\n  \"kind\": \"N5NN\",\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"recorded\": false,\n  \"releases_action\": false,\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 697,
+      "transport_sha256": "5382264d38574f9ddc7ea9dddf41c5f41ed034459dc953dd0e4058ccf4b98c48"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2,
+      "content_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/form.exit",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "0\n",
+      "transport_bytes": 2,
+      "transport_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bind": true,
+      "content_bytes": 0,
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/form.stderr",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "",
+      "transport_bytes": 0,
+      "transport_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bind": true,
+      "content_bytes": 6797,
+      "content_sha256": "ee8c21d597fe96235e127e9fcc68e53810fee2e3b738de0e5ee8dea4a095820c",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/form.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"form\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"form\": {\n    \"bindings\": {\n      \"custody\": \"missing\",\n      \"destination\": \"0512.prime-review/05.09.md\",\n      \"director_text\": null,\n      \"findings\": [\n        {\n          \"code\": \"ambiguous-declared-root\",\n          \"path\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/submission.md\"\n        },\n        {\n          \"code\": \"ambiguous-declared-root\",\n          \"path\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/artifact-manifest.json\"\n        },\n        {\n          \"code\": \"custody-missing\",\n          \"path\": \"0112.prime-review\"\n        },\n        {\n          \"code\": \"return-missing\",\n          \"path\": \"0112.prime-review/05.09.return.md\"\n        }\n      ],\n      \"instance_id\": \"d8dc8abca679d89ef61d40b3801f18325855456cf6159b520b00c1aa2bfee785\",\n      \"intake_id\": \"c33df69706f3d641d5a7241a407f53f0a7f0f66b149dee7a3eaa1f52078d9b62\",\n      \"kind\": \"N5NN\",\n      \"member\": \"0112.prime-review\",\n      \"return_path\": null,\n      \"rows\": [\n        {\n          \"bytes\": 6251,\n          \"declared_path\": \"0512.prime-review/05.09.md\",\n          \"path\": \"0512.prime-review/05.09.md\",\n          \"role\": \"assignment\",\n          \"root\": \"book\",\n          \"sha256\": \"0f9bb6707060f146c2caf8060f89fdcce6fd92ecfa6c3459808b93a5e76717b6\"\n        }\n      ],\n      \"unknowns\": [\n        \"agreement.goal\",\n        \"agreement.scope\",\n        \"recorded_decisions\",\n        \"receipt\"\n      ]\n    },\n    \"correction_help\": {\n      \"route\": \"labs/workbook-review-pass03/PRIME-USE.md\",\n      \"states\": [\n        \"absent\",\n        \"null\",\n        \"empty\",\n        \"wrong-type\",\n        \"extra\",\n        \"conflict\"\n      ]\n    },\n    \"declaration\": {\n      \"bytes\": 4532,\n      \"path\": \"labs/workbook-review-pass03/forms/workbook-review-v1.json\",\n      \"sha256\": \"4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b\"\n    },\n    \"fields\": [\n      {\n        \"empty\": \"refused\",\n        \"meaning\": \"Prime's finding about the measured return.\",\n        \"name\": \"finding\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"string\"\n      },\n      {\n        \"meaning\": \"Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.\",\n        \"name\": \"reasons\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"continue, director-input, develop, or complete. Not a command.\",\n        \"name\": \"operation\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"continue\",\n          \"director-input\",\n          \"develop\",\n          \"complete\"\n        ]\n      },\n      {\n        \"meaning\": \"accepted, held, or correction-required. Accepted is not Director consent.\",\n        \"name\": \"disposition\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"accepted\",\n          \"held\",\n          \"correction-required\"\n        ]\n      },\n      {\n        \"meaning\": \"finished or open.\",\n        \"name\": \"pass_terminal\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"finished\",\n          \"open\"\n        ]\n      },\n      {\n        \"meaning\": \"completed or open. Completed is allowed only with operation complete.\",\n        \"name\": \"goal_terminal\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"completed\",\n          \"open\"\n        ]\n      },\n      {\n        \"empty\": \"refused\",\n        \"meaning\": \"The next action Prime supplies. Compute does not invent one.\",\n        \"name\": \"next_action\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"string\"\n      },\n      {\n        \"meaning\": \"True, false, or null. Null is the legal unknown. Omission is a missing field, not false.\",\n        \"name\": \"semantic_conflict\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"boolean-or-null\"\n      },\n      {\n        \"meaning\": \"Null, or an object with id and text.\",\n        \"name\": \"design_fork\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"object-or-null\"\n      },\n      {\n        \"meaning\": \"Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.\",\n        \"name\": \"findings\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"The prime-review section object. Unknown section values stay null. tests_passed null is not passed.\",\n        \"name\": \"sections\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"object\"\n      },\n      {\n        \"meaning\": \"Director holds Prime is recording. An explicit empty list means none are supplied.\",\n        \"name\": \"holds\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"Replies Prime supplies. A reply does not close a finding by itself.\",\n        \"name\": \"answers\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.\",\n        \"name\": \"review_passes\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.\",\n        \"name\": \"gaps\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      }\n    ],\n    \"form_id\": \"workbook-review-v1\",\n    \"not_submitted\": [\n      \"intake_id\",\n      \"review_id\",\n      \"sha256\",\n      \"registration\",\n      \"receipt\",\n      \"descriptor\",\n      \"agreement\"\n    ],\n    \"schema\": \"workbook-review-form/1\"\n  },\n  \"instance_id\": \"d8dc8abca679d89ef61d40b3801f18325855456cf6159b520b00c1aa2bfee785\",\n  \"intake_id\": \"c33df69706f3d641d5a7241a407f53f0a7f0f66b149dee7a3eaa1f52078d9b62\",\n  \"kind\": \"N5NN\",\n  \"missing\": [],\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"releases_action\": false,\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 6797,
+      "transport_sha256": "ee8c21d597fe96235e127e9fcc68e53810fee2e3b738de0e5ee8dea4a095820c"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2,
+      "content_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/prepare.exit",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "0\n",
+      "transport_bytes": 2,
+      "transport_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bind": true,
+      "content_bytes": 0,
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/prepare.stderr",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "",
+      "transport_bytes": 0,
+      "transport_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bind": true,
+      "content_bytes": 8264,
+      "content_sha256": "078f3db9c01675a5c7aeddc7c8340a36125613074ba75eae0ad1e37738ffdc55",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/prepare.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"prepare\",\n  \"custody\": \"missing\",\n  \"cuts\": [\n    {\n      \"encoding\": \"utf-8\",\n      \"path\": \"0512.prime-review/05.09.md\",\n      \"role\": \"assignment\",\n      \"root\": \"book\",\n      \"text\": \"# 05.09 - Reporter contract hardening before activation\\ndate: 2026-11-03\\nwho: Codex Prime\\nexecutor: Grok-1\\nreviewer: Codex Prime\\nstate: PREPARED; execute on named Director invocation; staged successor only\\nmatching_return_line: 0112.prime-review (custody pending)\\n\\n## Goal / contract\\nClose the independently reproduced Prima B-05 and B-01 reporter weaknesses and related mechanical validation cases w\",\n      \"truncated\": true\n    }\n  ],\n  \"destination\": \"0512.prime-review/05.09.md\",\n  \"director_text\": null,\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 0,\n  \"findings\": [\n    {\n      \"code\": \"ambiguous-declared-root\",\n      \"path\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/submission.md\"\n    },\n    {\n      \"code\": \"ambiguous-declared-root\",\n      \"path\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/artifact-manifest.json\"\n    },\n    {\n      \"code\": \"custody-missing\",\n      \"path\": \"0112.prime-review\"\n    },\n    {\n      \"code\": \"return-missing\",\n      \"path\": \"0112.prime-review/05.09.return.md\"\n    }\n  ],\n  \"form\": {\n    \"bindings\": {\n      \"custody\": \"missing\",\n      \"destination\": \"0512.prime-review/05.09.md\",\n      \"director_text\": null,\n      \"findings\": [\n        {\n          \"code\": \"ambiguous-declared-root\",\n          \"path\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/submission.md\"\n        },\n        {\n          \"code\": \"ambiguous-declared-root\",\n          \"path\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/artifact-manifest.json\"\n        },\n        {\n          \"code\": \"custody-missing\",\n          \"path\": \"0112.prime-review\"\n        },\n        {\n          \"code\": \"return-missing\",\n          \"path\": \"0112.prime-review/05.09.return.md\"\n        }\n      ],\n      \"instance_id\": \"d8dc8abca679d89ef61d40b3801f18325855456cf6159b520b00c1aa2bfee785\",\n      \"intake_id\": \"c33df69706f3d641d5a7241a407f53f0a7f0f66b149dee7a3eaa1f52078d9b62\",\n      \"kind\": \"N5NN\",\n      \"member\": \"0112.prime-review\",\n      \"return_path\": null,\n      \"rows\": [\n        {\n          \"bytes\": 6251,\n          \"declared_path\": \"0512.prime-review/05.09.md\",\n          \"path\": \"0512.prime-review/05.09.md\",\n          \"role\": \"assignment\",\n          \"root\": \"book\",\n          \"sha256\": \"0f9bb6707060f146c2caf8060f89fdcce6fd92ecfa6c3459808b93a5e76717b6\"\n        }\n      ],\n      \"unknowns\": [\n        \"agreement.goal\",\n        \"agreement.scope\",\n        \"recorded_decisions\",\n        \"receipt\"\n      ]\n    },\n    \"correction_help\": {\n      \"route\": \"labs/workbook-review-pass03/PRIME-USE.md\",\n      \"states\": [\n        \"absent\",\n        \"null\",\n        \"empty\",\n        \"wrong-type\",\n        \"extra\",\n        \"conflict\"\n      ]\n    },\n    \"declaration\": {\n      \"bytes\": 4532,\n      \"path\": \"labs/workbook-review-pass03/forms/workbook-review-v1.json\",\n      \"sha256\": \"4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b\"\n    },\n    \"fields\": [\n      {\n        \"empty\": \"refused\",\n        \"meaning\": \"Prime's finding about the measured return.\",\n        \"name\": \"finding\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"string\"\n      },\n      {\n        \"meaning\": \"Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.\",\n        \"name\": \"reasons\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"continue, director-input, develop, or complete. Not a command.\",\n        \"name\": \"operation\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"continue\",\n          \"director-input\",\n          \"develop\",\n          \"complete\"\n        ]\n      },\n      {\n        \"meaning\": \"accepted, held, or correction-required. Accepted is not Director consent.\",\n        \"name\": \"disposition\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"accepted\",\n          \"held\",\n          \"correction-required\"\n        ]\n      },\n      {\n        \"meaning\": \"finished or open.\",\n        \"name\": \"pass_terminal\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"finished\",\n          \"open\"\n        ]\n      },\n      {\n        \"meaning\": \"completed or open. Completed is allowed only with operation complete.\",\n        \"name\": \"goal_terminal\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"enum\",\n        \"values\": [\n          \"completed\",\n          \"open\"\n        ]\n      },\n      {\n        \"empty\": \"refused\",\n        \"meaning\": \"The next action Prime supplies. Compute does not invent one.\",\n        \"name\": \"next_action\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"string\"\n      },\n      {\n        \"meaning\": \"True, false, or null. Null is the legal unknown. Omission is a missing field, not false.\",\n        \"name\": \"semantic_conflict\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"boolean-or-null\"\n      },\n      {\n        \"meaning\": \"Null, or an object with id and text.\",\n        \"name\": \"design_fork\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"object-or-null\"\n      },\n      {\n        \"meaning\": \"Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.\",\n        \"name\": \"findings\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"The prime-review section object. Unknown section values stay null. tests_passed null is not passed.\",\n        \"name\": \"sections\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"object\"\n      },\n      {\n        \"meaning\": \"Director holds Prime is recording. An explicit empty list means none are supplied.\",\n        \"name\": \"holds\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"Replies Prime supplies. A reply does not close a finding by itself.\",\n        \"name\": \"answers\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.\",\n        \"name\": \"review_passes\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      },\n      {\n        \"meaning\": \"Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.\",\n        \"name\": \"gaps\",\n        \"null\": \"refused\",\n        \"owner\": \"intelligence\",\n        \"presence\": \"required\",\n        \"type\": \"list\"\n      }\n    ],\n    \"form_id\": \"workbook-review-v1\",\n    \"not_submitted\": [\n      \"intake_id\",\n      \"review_id\",\n      \"sha256\",\n      \"registration\",\n      \"receipt\",\n      \"descriptor\",\n      \"agreement\"\n    ],\n    \"schema\": \"workbook-review-form/1\"\n  },\n  \"instance_id\": \"d8dc8abca679d89ef61d40b3801f18325855456cf6159b520b00c1aa2bfee785\",\n  \"intake_id\": \"c33df69706f3d641d5a7241a407f53f0a7f0f66b149dee7a3eaa1f52078d9b62\",\n  \"kind\": \"N5NN\",\n  \"live_intake_id\": \"c33df69706f3d641d5a7241a407f53f0a7f0f66b149dee7a3eaa1f52078d9b62\",\n  \"measurement\": \"incomplete\",\n  \"missing\": [],\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"releases_action\": false,\n  \"schema\": \"workbook-review-result/1\",\n  \"stale\": false,\n  \"stored_intake_id\": null,\n  \"task_association\": \"not-established\",\n  \"unknowns\": [\n    \"agreement.goal\",\n    \"agreement.scope\",\n    \"recorded_decisions\",\n    \"receipt\"\n  ]\n}\n",
+      "transport_bytes": 8264,
+      "transport_sha256": "078f3db9c01675a5c7aeddc7c8340a36125613074ba75eae0ad1e37738ffdc55"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2,
+      "content_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/record.exit",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "2\n",
+      "transport_bytes": 2,
+      "transport_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    {
+      "bind": true,
+      "content_bytes": 0,
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/record.stderr",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "",
+      "transport_bytes": 0,
+      "transport_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bind": true,
+      "content_bytes": 745,
+      "content_sha256": "029f539571b2db4d0dc8b1e03ebc9d7bbe60bdb56c4af8236b2391dcf7e77129",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/known-reproductions/record.stdout",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"approved\": false,\n  \"authority\": \"none\",\n  \"closes_work\": false,\n  \"command\": \"record\",\n  \"correction\": \"The artifact measurement is incomplete. The judgment was not recorded.\",\n  \"eligible_for_custody_completion\": false,\n  \"exit\": 2,\n  \"failed_input\": \"workbook-review/0512.prime-review/05.09/failed/f6815ca48d8a67a2.json\",\n  \"instance_id\": \"d8dc8abca679d89ef61d40b3801f18325855456cf6159b520b00c1aa2bfee785\",\n  \"intake_id\": \"c33df69706f3d641d5a7241a407f53f0a7f0f66b149dee7a3eaa1f52078d9b62\",\n  \"kind\": \"N5NN\",\n  \"page\": \"0512.prime-review\",\n  \"pass\": \"05.09\",\n  \"published_work\": false,\n  \"recorded\": false,\n  \"releases_action\": false,\n  \"schema\": \"workbook-review-result/1\",\n  \"task_association\": \"not-established\"\n}\n",
+      "transport_bytes": 745,
+      "transport_sha256": "029f539571b2db4d0dc8b1e03ebc9d7bbe60bdb56c4af8236b2391dcf7e77129"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2851,
+      "content_sha256": "3f2f8aa76ff2da36be77502b530af44eaba08ede29c9e55bfd271e1eb8852624",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/pin-delta.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"active_librarian\": {\n    \"bytes\": 12204,\n    \"sha256\": \"c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9\"\n  },\n  \"candidate_librarian\": {\n    \"bytes\": 12237,\n    \"sha256\": \"d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4\"\n  },\n  \"changed_or_added\": [\n    {\n      \"key\": \"prime_review_capacity\",\n      \"new\": {\n        \"bytes\": 2031,\n        \"path\": \"labs/review-source-capacity-pass01/prime_review.py\",\n        \"sha256\": \"a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87\"\n      },\n      \"old\": null\n    },\n    {\n      \"key\": \"review_loop_v7\",\n      \"new\": {\n        \"bytes\": 10291,\n        \"path\": \"app/review_loop_tools_v7.py\",\n        \"sha256\": \"93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d\"\n      },\n      \"old\": null\n    },\n    {\n      \"key\": \"review_loop_v7_json\",\n      \"new\": {\n        \"bytes\": 3515,\n        \"path\": \"app/review-loop-v7.json\",\n        \"sha256\": \"bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8\"\n      },\n      \"old\": null\n    },\n    {\n      \"key\": \"workbook\",\n      \"new\": {\n        \"bytes\": 3055,\n        \"path\": \"labs/review-source-capacity-pass01/workbook.py\",\n        \"sha256\": \"7383e6ec4e5bf7909f069796a7fe6c71e23b6f241edec64fc3805656174a742e\"\n      },\n      \"old\": {\n        \"bytes\": 19533,\n        \"path\": \"labs/workbook-review-pass03/workbook.py\",\n        \"sha256\": \"9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c\"\n      }\n    },\n    {\n      \"key\": \"workbook_pass03\",\n      \"new\": {\n        \"bytes\": 19533,\n        \"path\": \"labs/workbook-review-pass03/workbook.py\",\n        \"sha256\": \"9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c\"\n      },\n      \"old\": null\n    }\n  ],\n  \"declaration\": {\n    \"bytes\": 4319,\n    \"sha256\": \"3a47008e03bae8f8b580fb903514fc98d4683a5e48401f44b2c454d63aa094b5\"\n  },\n  \"librarian_substitutions\": [\n    \"to the pinned v7 door. -> to the pinned source-capacity door.\",\n    \"review_loop_tools_v7.py / librarian_review_loop_tools_v7 -> review_loop_tools_source_capacity.py / librarian_review_loop_source_capacity\"\n  ],\n  \"new_schema\": \"review-loop-source-capacity/1\",\n  \"old_schema\": \"review-loop-pins/5\",\n  \"successor\": {\n    \"bytes\": 2031,\n    \"sha256\": \"a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87\"\n  },\n  \"unchanged_tool_keys\": [\n    \"construct_pass04\",\n    \"form\",\n    \"form_pass01\",\n    \"form_pass02\",\n    \"prime_cycle_pass03\",\n    \"prime_review_pass02\",\n    \"return_access\",\n    \"review_loop\",\n    \"review_loop_v4\",\n    \"review_loop_v4_json\",\n    \"review_loop_v5\",\n    \"review_loop_v5_json\",\n    \"review_loop_v6\",\n    \"review_loop_v6_json\",\n    \"workbook_pass01\",\n    \"workbook_pass02\"\n  ],\n  \"v7_declaration\": {\n    \"bytes\": 3515,\n    \"sha256\": \"bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8\"\n  }\n}\n",
+      "transport_bytes": 2851,
+      "transport_sha256": "3f2f8aa76ff2da36be77502b530af44eaba08ede29c9e55bfd271e1eb8852624"
+    },
+    {
+      "bind": true,
+      "content_bytes": 12204,
+      "content_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/rollback-librarian.py",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 12204,
+      "transport_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+    },
+    {
+      "bind": true,
+      "content_bytes": 23990,
+      "content_sha256": "319e8a39c65c44986f2306f3495ef5eb8497dc42a5b7b09ebd761d06b232b3ce",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/source-bindings.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 23990,
+      "transport_sha256": "319e8a39c65c44986f2306f3495ef5eb8497dc42a5b7b09ebd761d06b232b3ce"
+    },
+    {
+      "bind": true,
+      "content_bytes": 14483,
+      "content_sha256": "c167eddebe124d498fbb57b574a49b9632723f50bd108687198fcfdb46557a38",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/source-measurement.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "transport_bytes": 14483,
+      "transport_sha256": "c167eddebe124d498fbb57b574a49b9632723f50bd108687198fcfdb46557a38"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2239,
+      "content_sha256": "bcebeb81ed2e57cedf5baff85ead822e4f59c1c540a177aa66cc1a6f5cda97ea",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0512.prime-review/evidence/build05.10/verification.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"activated\": false,\n  \"allocated\": \"not used\",\n  \"author_suite\": {\n    \"command\": \"python -B labs/review-source-capacity-pass01/tests/test_capacity.py\",\n    \"exit\": 0,\n    \"first_failure_log\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/author-suite-first.txt\",\n    \"first_failure_sha256\": \"2bb81350963d423c9643fe8d0d17050b607e8905c794f5c18fa5c3784910b1e8\",\n    \"independent\": false,\n    \"limit\": \"Author cases. Prime's future independent probes were not run. The contract body was corrected once before any author run and was not revised after the passing run.\",\n    \"passing_log\": \"00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/author-suite.txt\",\n    \"passing_sha256\": \"ba72a3ccc726a5cea26f3d396a77722bc5e43d07b43649a47db1653dc6c01f1b\",\n    \"python\": \"3.14.0\",\n    \"result\": \"OK\",\n    \"seconds\": 62.369,\n    \"tests\": 18\n  },\n  \"branch\": \"workshop\",\n  \"candidate_librarian\": {\n    \"bytes\": 12237,\n    \"sha256\": \"d2d7f7a3e25b435708f3f05a7c84a7b0d56e095758e8309237f53a25c1cb9bf4\"\n  },\n  \"committed_by_this_builder\": false,\n  \"contract_evidence\": {\n    \"bytes\": 3810,\n    \"sha256\": \"a281b5b24bcc6a99a006047b8b282ac1dc2548c89e81880e2153b5ba61a8d0bd\"\n  },\n  \"contract_notes_pre_reread\": {\n    \"bytes\": 7516,\n    \"sha256\": \"60ff7af4b26cef53a1de421678d14a2e4e452d2eb48c3ac475d026cf27db8faf\"\n  },\n  \"contract_notes_with_reread\": {\n    \"bytes\": 8267,\n    \"sha256\": \"b8e675d38252598ba558879b47a3ac2e937053e7e1c8c636670b995cae7606a0\"\n  },\n  \"custody\": \"pending\",\n  \"head\": \"960d20c5290656095df8457b1740d2d5e586b111\",\n  \"index_empty\": true,\n  \"librarian_py\": {\n    \"bytes\": 12204,\n    \"sha256\": \"c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9\"\n  },\n  \"matching_line\": \"0112.prime-review unfiled\",\n  \"readme\": {\n    \"bytes\": 39687,\n    \"sha256\": \"3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920\"\n  },\n  \"receipt\": null,\n  \"schema\": \"review-report-verification/2\",\n  \"seated\": false,\n  \"selected_app_route\": false,\n  \"submission_bytes\": 7617,\n  \"submission_sha256\": \"598772ec16e6032b5a8f9818f7256235c1a82392ae41ede91e541d1be487fff1\",\n  \"successor\": {\n    \"bytes\": 2031,\n    \"sha256\": \"a12b88958dcf2aea0fdc4c83f30c245b0f7f91d6ddf7c515bf31c7119c01fa87\"\n  }\n}\n",
+      "transport_bytes": 2239,
+      "transport_sha256": "bcebeb81ed2e57cedf5baff85ead822e4f59c1c540a177aa66cc1a6f5cda97ea"
+    }
+  ]
+}

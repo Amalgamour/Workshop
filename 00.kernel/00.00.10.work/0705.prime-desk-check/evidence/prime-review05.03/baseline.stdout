@@ -1,0 +1,35 @@
+{
+ "candidate_sha256": "b047a30324b2a764298ec69daafb9621606bdc10fe5fc45e042105f5c1f10b20",
+ "shadow_selector_rule": {
+  "work_ref": "0522.review-construction/05.04",
+  "from": "pinned pack05.02 snapshot of 0401/06.01 (R1); same for every case"
+ },
+ "check": {
+  "exit": 1,
+  "stdout_sha256": "d762f5cf56e3fff80bdcaedb57a55d1ca5cfe9dc9e21c946d30e9ff843cdb686",
+  "run_class": "candidate",
+  "desk_verdict": "not-passed",
+  "assertions": {
+   "defined": 54,
+   "evaluated": 54,
+   "by_status": {
+    "pass": 12,
+    "wrong": 9,
+    "missing": 0,
+    "unsupported": 29,
+    "needs-human-assessment": 0,
+    "not-run": 4,
+    "checker-error": 0
+   }
+  },
+  "manual": {
+   "pass": 0,
+   "wrong": 0,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 24,
+   "not-run": 0,
+   "checker-error": 0
+  }
+ }
+}

@@ -1,0 +1,105 @@
+{
+  "schema": "0709-pending-custody-curated/1",
+  "derived_from": "pending-custody.json (raw scan kept unchanged)",
+  "rule": "(?i)matching(?: line)? (01\\d\\d)(\\.[a-z0-9-]+)?[^.]*?(pending|stays pending|remains pending|is pending)|custody[^.]*?pending[^.]*?(01\\d\\d)|(01\\d\\d)\\.[a-z0-9-]+ (?:custody )?(?:stays|remains) pending",
+  "n5nn_sources_marked_pending": [
+    {
+      "source_page": "0510.colab-tools",
+      "named_matching_numbers": [
+        "0110"
+      ],
+      "source_files": [
+        "05.05.md",
+        "05.06.md"
+      ]
+    },
+    {
+      "source_page": "0511.workflow-colab",
+      "named_matching_numbers": [
+        "0111"
+      ],
+      "source_files": [
+        "05.05.md",
+        "06.04.md"
+      ]
+    },
+    {
+      "source_page": "0521.return-placement",
+      "named_matching_numbers": [
+        "0121"
+      ],
+      "source_files": [
+        "05.02.md",
+        "05.03.md"
+      ]
+    },
+    {
+      "source_page": "0522.review-construction",
+      "named_matching_numbers": [
+        "0119",
+        "0122"
+      ],
+      "source_files": [
+        "05.01.md",
+        "05.02.md",
+        "05.03.md",
+        "05.05.md",
+        "05.06.md",
+        "05.07.md",
+        "05.10.md",
+        "06.03.md",
+        "06.05.md",
+        "06.07.md",
+        "06.09.md",
+        "06.11.md",
+        "06.13.md",
+        "06.15.md",
+        "06.17.md"
+      ]
+    },
+    {
+      "source_page": "0523.desk-core",
+      "named_matching_numbers": [
+        "0123"
+      ],
+      "source_files": [
+        "05.01.md",
+        "05.02.md",
+        "05.03.md",
+        "05.04.md"
+      ]
+    },
+    {
+      "source_page": "0524.prime-desk",
+      "named_matching_numbers": [
+        "0124"
+      ],
+      "source_files": [
+        "05.01.md",
+        "05.02.md",
+        "05.03.md",
+        "05.04.md",
+        "05.05.md"
+      ]
+    },
+    {
+      "source_page": "0525.app-dependencies",
+      "named_matching_numbers": [
+        "0125"
+      ],
+      "source_files": [
+        "01.md",
+        "05.01.md"
+      ]
+    }
+  ],
+  "n7nn_pages_mentioning_pending": [
+    "0702.desk-state-review",
+    "0704.desk-core-integration",
+    "0705.prime-desk-check",
+    "0706.prima-loop",
+    "0707.app-use-check",
+    "0709.return-migration-check"
+  ],
+  "n7nn_note": "N7NN returns are page-local tails (0417/06.01); a pending note on an N7NN page is not an N1NN filing need"
+}

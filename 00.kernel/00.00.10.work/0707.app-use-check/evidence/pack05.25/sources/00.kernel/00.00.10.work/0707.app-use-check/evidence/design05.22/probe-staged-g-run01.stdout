@@ -1,0 +1,4 @@
+PROBE fail   CAP-4  reasons: ['64-source judgment not recorded', '64-source judgment not read back canonically equal']
+PROBE fail   RP-1   reasons: ['current: reporter gave no JSON body (unimplemented operation; exit 2)', 'stale: reporter gave no JSON body (unimplemented operation; exit 2)', 'held: reporter gave no JSON body (unimplemented operation; exit 2)']
+PROBE fail   RP-2   reasons: ['positive control: untampered report did not succeed (exit 2); refusals prove nothing without it']
+PROBE fail   IN-2   reasons: ['copy has no positive hold evidence: it reads current, or gives no correctly typed stale/applicability field', 'copy publish not refused, or a destination appeared']

@@ -1,0 +1,45 @@
+[
+  {
+    "field": "accepted",
+    "value": 0,
+    "supported": false
+  },
+  {
+    "field": "authority",
+    "value": [
+      "none"
+    ],
+    "supported": false
+  },
+  {
+    "field": "task_association",
+    "value": null,
+    "supported": false
+  },
+  {
+    "field": "releases_action",
+    "value": 1,
+    "supported": false
+  },
+  {
+    "held_fields": {
+      "accepted": null,
+      "action_released": null,
+      "approved": null,
+      "authority": null,
+      "closes_work": null,
+      "releases_action": null,
+      "task_association": null
+    },
+    "observation": {
+      "bound": null,
+      "changed": [
+        "record_sha256"
+      ],
+      "limit": "This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.",
+      "recheck": null,
+      "stable": false,
+      "status": "unstable"
+    }
+  }
+]

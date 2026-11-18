@@ -1,0 +1,1705 @@
+{
+ "schema": "harness-result/1",
+ "inputs": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.25/fixtures/identity-0518-with-doors.json",
+ "inputs_sha256": "5ce1e4c0ae92fb7ab9db1582d129a1e0bc97b546749294be30e647f016ca5163",
+ "candidate": "D:\\librarian\\temp\\fbt3-0525\\cand-0518",
+ "execution_proof": {
+  "workbook": {
+   "target": "labs/review-loop-convergence-pass02/workbook.py",
+   "nonce": "c4cf202a38f2",
+   "probe_argv": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run\\app\\librarian.py",
+    "review-loop",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run\\00.kernel\\00.00.10.work",
+    "--source",
+    "0587.fbt-probe",
+    "--pass",
+    "05.01"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-control-1",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-control-2",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-tamper"
+   ],
+   "audit_logs": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-control-1.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-control-2.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-tamper.audit.jsonl"
+   ],
+   "class": "executed",
+   "executed": true,
+   "deterministic_controls": true,
+   "control": {
+    "exit": 0,
+    "normalized_stdout_sha256": "5752f52fe63c4a8f939dcb60d8f84e9d5ddb4d5533eadc010406d09bac8cf2fa",
+    "stderr_tail": "",
+    "target_events": {
+     "exec": 2,
+     "open": 3,
+     "compile": 1
+    }
+   },
+   "control_2_target_events": {
+    "exec": 2,
+    "open": 3,
+    "compile": 1
+   },
+   "tamper": {
+    "exit": 2,
+    "changed": true,
+    "corroboration": "output changed",
+    "stderr_tail": "stop: workbook pin mismatch got 6657 bytes sha256 22cc2b95018a3c1ec9a039ee223890fbf5baf6231ff19dbaeeaac9789448f3b6 want 6613 bytes sha256 a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f\r\n"
+   },
+   "binding": [
+    {
+     "pid": 32836,
+     "event": "run_file",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0587.fbt-probe"
+     ]
+    },
+    {
+     "pid": 32836,
+     "event": "exec",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "prepare",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\workbook-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0587.fbt-probe"
+     ]
+    }
+   ]
+  },
+  "open": {
+   "target": "labs/review-loop-convergence-pass02/workbook.py",
+   "nonce": "e5c4d082865d",
+   "probe_argv": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+    "open",
+    "--book",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\00.kernel\\00.00.10.work",
+    "--source",
+    "0787.fbt-probe",
+    "--pass",
+    "05.01"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-control-1",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-control-2",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-tamper"
+   ],
+   "audit_logs": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-control-1.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-control-2.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-tamper.audit.jsonl"
+   ],
+   "class": "executed",
+   "executed": true,
+   "deterministic_controls": true,
+   "control": {
+    "exit": 0,
+    "normalized_stdout_sha256": "c80f75fce1eab7e6bf61c27dd48367fa716486998b77e2cb7d687a52528373c9",
+    "stderr_tail": "",
+    "target_events": {
+     "exec": 2,
+     "open": 2,
+     "compile": 1
+    }
+   },
+   "control_2_target_events": {
+    "exec": 2,
+    "open": 2,
+    "compile": 1
+   },
+   "tamper": {
+    "exit": 1,
+    "changed": true,
+    "corroboration": "compile of the tampered target failed",
+    "stderr_tail": "  File \"D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py\", line 11\r\n    from __future__ import annotations\r\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nSyntaxError: from __future__ imports must occur at the beginning of the file\r\n"
+   },
+   "binding": [
+    {
+     "pid": 2400,
+     "event": "run_file",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "open",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0787.fbt-probe"
+     ]
+    },
+    {
+     "pid": 2400,
+     "event": "exec",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\labs\\review-loop-convergence-pass02\\workbook.py",
+      "open",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\open-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0787.fbt-probe"
+     ]
+    }
+   ]
+  },
+  "reporter": {
+   "target": "labs/review-loop-convergence-pass02/report.py",
+   "nonce": "f226b0a59783",
+   "probe_argv": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-run\\app\\librarian.py",
+    "review-report",
+    "--book",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-run\\00.kernel\\00.00.10.work",
+    "--source",
+    "0587.fbt-probe",
+    "--pass",
+    "05.01"
+   ],
+   "stable_path": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-run",
+   "rooms": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-control-1",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-control-2",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-tamper"
+   ],
+   "audit_logs": [
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-control-1.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-control-2.audit.jsonl",
+    "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-tamper.audit.jsonl"
+   ],
+   "class": "executed",
+   "executed": true,
+   "deterministic_controls": true,
+   "control": {
+    "exit": 0,
+    "normalized_stdout_sha256": "8b06cd922157fc18dcd4f38a7362850c0e298b78a9601a4417a1680819af85b7",
+    "stderr_tail": "",
+    "target_events": {
+     "exec": 1,
+     "open": 2,
+     "compile": 1
+    }
+   },
+   "control_2_target_events": {
+    "exec": 1,
+    "open": 2,
+    "compile": 1
+   },
+   "tamper": {
+    "exit": 2,
+    "changed": true,
+    "corroboration": "output changed",
+    "stderr_tail": "stop: reporter pin mismatch got 11478 bytes sha256 088d7704d2b944e7bc50e3e92cb6cbb85e5d7166568f2960b93bb7aa060353cb want 11434 bytes sha256 d17da33c4ea7a8b3ab65c16b0b339b4485010b3e938dfb8c42e2408652f6bc38\r\n"
+   },
+   "binding": [
+    {
+     "pid": 2280,
+     "event": "exec",
+     "process_argv": [
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-run\\app\\librarian.py",
+      "review-report",
+      "--book",
+      "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01-proof\\reporter-run\\00.kernel\\00.00.10.work",
+      "--source",
+      "0587.fbt-probe"
+     ]
+    }
+   ]
+  }
+ },
+ "identity_mode": "explicit",
+ "workbook_entry": "labs/review-loop-convergence-pass02/workbook.py",
+ "open_entry": "labs/review-loop-convergence-pass02/workbook.py",
+ "suite": "all",
+ "ready": false,
+ "exit_meaning": "NOT READY",
+ "aggregate": {
+  "ready": false,
+  "scope": "full",
+  "reasons": [
+   "required case N5-2: fail",
+   "required case CTX-1: fail",
+   "required case RP-1: blocked",
+   "required case RP-2: blocked",
+   "required case RC-1: fail",
+   "dependency R is pending",
+   "dependency W is pending"
+  ],
+  "counts": {
+   "pass": 34,
+   "fail": 5,
+   "known-failure-not-reproduced": 3,
+   "blocked": 2
+  },
+  "required_full": 37,
+  "required_selected": 37,
+  "coverage_missing": [],
+  "subset": {
+   "ids": [
+    "N5-1",
+    "N5-2",
+    "N5-3",
+    "N7-1",
+    "N7-2",
+    "ST-1",
+    "ST-2",
+    "ST-3",
+    "ST-4",
+    "LR-1",
+    "LR-2",
+    "LR-3",
+    "LR-4",
+    "LR-5",
+    "LR-6",
+    "N7-3",
+    "LR-7",
+    "CAP-0",
+    "CAP-1",
+    "CAP-2",
+    "CAP-3",
+    "CAP-4",
+    "LC-1",
+    "PR-1",
+    "PR-2",
+    "PR-3",
+    "PR-4",
+    "PR-5",
+    "PR-6",
+    "PR-7",
+    "CTX-1",
+    "RP-1",
+    "RP-2",
+    "IN-1",
+    "IN-2",
+    "RC-1",
+    "RB-1"
+   ],
+   "all_selected_required_pass": false,
+   "note": "a subset result is diagnostic only; it is never combined readiness"
+  }
+ },
+ "records": [
+  {
+   "id": "N5-1",
+   "group": "n5-same-cut",
+   "requirement": "N5 0512/05.06: candidate prepare equals the faithful pass03 baseline on the same root (intake_id, rows, cuts, findings)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "baseline == candidate",
+   "observed": {
+    "diff": {},
+    "candidate": {
+     "exit": 0,
+     "intake_id": "bbe13055e825062377a48d22699a7936c9ce2a5a7ee5beeaf0e1b83600a7e9db",
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing"
+     ],
+     "rows_sha": "ab38bd81b3d42d4349391102a1f0bd0e35ee1d66ecad039cf78deb2a1dd933c1",
+     "cuts_sha": "ef01738d7417d59e97d8ce21f498cd37ee4170c5013371ec651690a04905e639"
+    },
+    "baseline": {
+     "exit": 0,
+     "intake_id": "bbe13055e825062377a48d22699a7936c9ce2a5a7ee5beeaf0e1b83600a7e9db",
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing"
+     ],
+     "rows_sha": "ab38bd81b3d42d4349391102a1f0bd0e35ee1d66ecad039cf78deb2a1dd933c1",
+     "cuts_sha": "ef01738d7417d59e97d8ce21f498cd37ee4170c5013371ec651690a04905e639"
+    },
+    "closure": {
+     "added": [
+      "app/review-loop-v7.json",
+      "labs/review-construction-pass04/construct.py",
+      "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+      "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+      "labs/prime-cycle-pass03/prime_cycle.py",
+      "labs/prime-review-pass02/prime_review.py",
+      "labs/return-access-pass01/return_access.py",
+      "labs/review-loop-pass03/review_loop.py",
+      "app/review_loop_tools_v4.py",
+      "app/review-loop-v4.json",
+      "app/review_loop_tools_v5.py",
+      "app/review-loop-v5.json",
+      "app/review_loop_tools_v6.py",
+      "app/review-loop-v6.json",
+      "labs/workbook-review-pass03/workbook.py",
+      "labs/workbook-review-pass01/workbook.py",
+      "labs/workbook-review-pass02/workbook.py"
+     ],
+     "present": [],
+     "collisions": [],
+     "unfrozen": []
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N5-1"
+  },
+  {
+   "id": "N5-2",
+   "group": "n5-same-cut",
+   "requirement": "N5 0522/05.13: same-state equality with the baseline; the declared selection-induced change (app/librarian.py artifact) appears iff the dispatcher differs from c3a5be3b",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "equal_to_baseline": true,
+    "selection_delta_expected": true,
+    "declared_collisions": "candidate-owned paths only"
+   },
+   "observed": {
+    "diff": {
+     "intake_id": {
+      "baseline": "2a66d0813f905f7f281a105f7e940b6088b71d652ec23feb5c6c36d6d7c74a80",
+      "candidate": "bd709cbf02d46e0e28203bdc5b8a44ddaaab24713de135fbcb64bb371099e338"
+     },
+     "measurement": {
+      "baseline": "incomplete",
+      "candidate": "complete"
+     },
+     "codes": {
+      "baseline": [
+       "artifact-hash-mismatch",
+       "custody-missing",
+       "index-context-bounded",
+       "return-missing",
+       "verification-not-measured"
+      ],
+      "candidate": [
+       "custody-missing",
+       "index-context-bounded",
+       "return-missing",
+       "verification-not-measured"
+      ],
+      "only_candidate": [],
+      "only_baseline": [
+       "artifact-hash-mismatch"
+      ]
+     },
+     "rows_sha": {
+      "baseline": "b8377cd5765c3c08ec62adf9285fdce718ed0c93834a46eb070d087773b21346",
+      "candidate": "5323120dcb3bd8939d73cee7c4e4b9ea91ebc4959140709983c89b6f2dec4a85"
+     }
+    },
+    "selection_delta_observed": false,
+    "collisions": [
+     "app/librarian.py"
+    ],
+    "candidate": {
+     "exit": 0,
+     "intake_id": "bd709cbf02d46e0e28203bdc5b8a44ddaaab24713de135fbcb64bb371099e338",
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing",
+      "verification-not-measured"
+     ],
+     "rows_sha": "5323120dcb3bd8939d73cee7c4e4b9ea91ebc4959140709983c89b6f2dec4a85",
+     "cuts_sha": "93292c952a39169ccd8002b22eb8ae2c1d8929682ede0d73e90f757e342b343d"
+    }
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N5-2"
+  },
+  {
+   "id": "N5-3",
+   "group": "n5-same-cut",
+   "requirement": "N5 legitimate filename punctuation (return.md, / ; / ) ) binds as before (candidate == baseline, file resolved)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "a successful baseline each time; equal and complete for , ; )",
+   "observed": {
+    ",": {
+     "equal": true,
+     "measurement": "complete",
+     "diff": {}
+    },
+    ";": {
+     "equal": true,
+     "measurement": "complete",
+     "diff": {}
+    },
+    ")": {
+     "equal": true,
+     "measurement": "complete",
+     "diff": {}
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N5-3"
+  },
+  {
+   "id": "N7-1",
+   "group": "n7-valid",
+   "requirement": "N7 0707/05.15: complete, 26/26 artifacts, local pair matched, N1 not applicable",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "artifacts": 26,
+    "manifest_rows_counted_by_harness": 26,
+    "exchange": "matched",
+    "n1_custody": "not-applicable"
+   },
+   "observed": {
+    "measurement": "complete",
+    "artifacts": 26,
+    "exchange_state": "matched",
+    "n1_custody": "not-applicable",
+    "chronology": "unverified",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N7-1"
+  },
+  {
+   "id": "N7-2",
+   "group": "n7-valid",
+   "requirement": "N7 0707/05.17: complete, 33/33 artifacts, local pair matched, N1 not applicable",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "artifacts": 33,
+    "manifest_rows_counted_by_harness": 33,
+    "exchange": "matched",
+    "n1_custody": "not-applicable"
+   },
+   "observed": {
+    "measurement": "complete",
+    "artifacts": 33,
+    "exchange_state": "matched",
+    "n1_custody": "not-applicable",
+    "chronology": "unverified",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N7-2"
+  },
+  {
+   "id": "ST-1",
+   "group": "strict-n7",
+   "requirement": "trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,': reason malformed-n7-declaration; decoy not bound as artifact-manifest; record/publication refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "malformed-n7-declaration",
+     "n1-not-applicable",
+     "n7-exchange-return-not-local",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\ST-1"
+  },
+  {
+   "id": "ST-2",
+   "group": "strict-n7",
+   "requirement": "a refused declaration (hash in attribution) beside a valid alternative Returned line: reason malformed-n7-declaration; the alternative 06.15.notes.md not bound as submission/return; refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "attribution-not-descriptive",
+     "malformed-n7-declaration",
+     "n1-not-applicable",
+     "n7-exchange-return-not-local",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\ST-2"
+  },
+  {
+   "id": "ST-3",
+   "group": "strict-n7",
+   "requirement": "an incomplete recognized label ('Verification:' with no value): reason malformed-n7-declaration; record/publication refused",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "codes_include": "malformed-n7-declaration",
+    "alternative_bound": false,
+    "measurement": "incomplete",
+    "record": "refused",
+    "publish": "refused",
+    "destination_unchanged": true
+   },
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "malformed-n7-declaration",
+     "n1-not-applicable",
+     "n7-exchange-return-not-local",
+     "unparsed-return-line"
+    ],
+    "bound_rows": [
+     {
+      "role": "assignment",
+      "path": "0707.app-use-check/05.15.pack.md"
+     },
+     {
+      "role": "return",
+      "path": "0707.app-use-check/05.15.return.md"
+     }
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\ST-3"
+  },
+  {
+   "id": "ST-4",
+   "group": "strict-n7",
+   "requirement": "control: legitimate N5 filename punctuation is NOT a malformed N7 declaration (no malformed-n7-declaration code; complete)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "measurement": "complete",
+    "malformed-n7-declaration": "absent"
+   },
+   "observed": {
+    ",": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    },
+    ";": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    },
+    ")": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "return-missing",
+      "thin-submission"
+     ]
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\ST-4"
+  },
+  {
+   "id": "LR-1",
+   "group": "n7-local",
+   "requirement": "orphan return (no pack): not matched; record refused; return bytes kept",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "state": "orphan-return",
+    "record": "refused",
+    "bytes_kept": true
+   },
+   "observed": {
+    "state": "orphan-return",
+    "measurement": "incomplete",
+    "record_exit": 2,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-1"
+  },
+  {
+   "id": "LR-2",
+   "group": "n7-local",
+   "requirement": "wrong pass: pack 05.02 pointing at the 05.01 return is not a local match",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "state": "return-not-local",
+    "measurement": "incomplete"
+   },
+   "observed": {
+    "state": "return-not-local",
+    "measurement": "incomplete"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-2"
+  },
+  {
+   "id": "LR-3",
+   "group": "n7-local",
+   "requirement": "wrong page: a return copied to another N7 page with no pack does not borrow a nearby pack",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "state": "orphan-return"
+   },
+   "observed": {
+    "state": "orphan-return",
+    "assignment": null,
+    "measurement": "incomplete"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-3"
+  },
+  {
+   "id": "LR-4",
+   "group": "n7-local",
+   "requirement": "foreign book: an N7 record copied into another book instance is not current there",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "read in the copy: not current (exit != 0 or stale)",
+   "observed": {
+    "exit": 1,
+    "stale": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-4"
+  },
+  {
+   "id": "LR-5",
+   "group": "n7-local",
+   "requirement": "existing history (0707/05.15): matched with chronology 'unverified' (Director 06.20)",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "state": "matched",
+    "chronology": "unverified"
+   },
+   "observed": {
+    "state": "matched",
+    "chronology": "unverified"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-5"
+  },
+  {
+   "id": "LR-6",
+   "group": "n7-local",
+   "requirement": "new work: pack observed before return -> chronology 'recorded-before-return'; same .NN throughout",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "open_exit": 0,
+    "chronology": "recorded-before-return",
+    "return": "0799.n7-local-lab/05.01.return.md",
+    "destination": "0799.n7-local-lab/06.01.review.md"
+   },
+   "observed": {
+    "open_exit": 0,
+    "state": "matched",
+    "chronology": "recorded-before-return",
+    "return": "0799.n7-local-lab/05.01.return.md",
+    "destination": "0799.n7-local-lab/06.01.review.md"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-6"
+  },
+  {
+   "id": "N7-3",
+   "group": "n7-valid",
+   "requirement": "N7 not-applicable on record and render: a recorded local N7 pair stores and renders custody 'not-applicable' (never 'missing'); an N5 control keeps its N5 custody value",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "record_custody": "not-applicable",
+    "render": "custody: not-applicable",
+    "exchange.n1_custody": "not-applicable",
+    "n5_control": "N5 enum unchanged"
+   },
+   "observed": {
+    "record_exit": 0,
+    "read_custody": "not-applicable",
+    "rendered": "843 chars (full text in N7-3-inspect.stdout)",
+    "exchange": {
+     "book": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N7-3\\00.kernel\\00.00.10.work",
+     "chronology": "recorded-before-return",
+     "declared_submission": [
+      "0799.n7-local-lab/05.01.return.md"
+     ],
+     "destination": "0799.n7-local-lab/06.01.review.md",
+     "n1_custody": "not-applicable",
+     "open_record": {
+      "note": "observed by this command at this moment; not a historical timestamp",
+      "pack_body_sha256": "371d9e5641221a0561737baaf95c0a5ef3247de36739221262447d77010bab3c",
+      "pack_path": "0799.n7-local-lab/05.01.pack.md",
+      "pack_structure": "clear",
+      "page": "0799.n7-local-lab",
+      "pass": "05.01",
+      "return_present": false,
+      "schema": "n7-local-open/0"
+     },
+     "pack": {
+      "body_sha256": "371d9e5641221a0561737baaf95c0a5ef3247de36739221262447d77010bab3c",
+      "bound_sha256": "0f8eec39aea0bc813c47ef966032df73ee16d0e91f183237f78b855c71d1274d",
+      "path": "0799.n7-local-lab/05.01.pack.md",
+      "present": true,
+      "sha256": "6ac1d519c61fd5ec3ac6a4f97204a945b2797e8b7a9364bf94956689974a98c9",
+      "structure": "clear"
+     },
+     "page": "0799.n7-local-lab",
+     "pass": "05.01",
+     "return": {
+      "path": "0799.n7-local-lab/05.01.return.md",
+      "present": true,
+      "sha256": "55f8fa9176df097253da3d699b6da6d9d16547a550fb5fe88961861942dd9b9b"
+     },
+     "route": "n7-local",
+     "schema": "n7-local-exchange/0",
+     "state": "matched",
+     "unfiled_return_preserved": false
+    },
+    "n5_control_custody": "missing",
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\N7-3"
+  },
+  {
+   "id": "LR-7",
+   "group": "n7-local",
+   "requirement": "second pass binds only itself; the first pass's files and record stay byte-equal and current",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "pass 2 matched and published to 06.02; pass 1 unchanged and current",
+   "observed": {
+    "pass2_state": "matched",
+    "pass2_publish": 0,
+    "pass2_target": true,
+    "pass1_kept": true,
+    "pass1_read": 0,
+    "pass1_review_id_same": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LR-7"
+  },
+  {
+   "id": "CAP-0",
+   "group": "capacity",
+   "requirement": "harness self-check: independently counted emitted sources equal Prime's measured 29 / 20 / 44",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "j-0512-0509": 29,
+    "j-0522-0514": 20,
+    "j-0512-0510": 44
+   },
+   "observed": {
+    "j-0512-0509": {
+     "expected": 29,
+     "counted": 29,
+     "artifact_rows": 36
+    },
+    "j-0522-0514": {
+     "expected": 20,
+     "counted": 20,
+     "artifact_rows": 28
+    },
+    "j-0512-0510": {
+     "expected": 44,
+     "counted": 44,
+     "artifact_rows": 92
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\CAP-0"
+  },
+  {
+   "id": "CAP-1",
+   "group": "capacity",
+   "requirement": "retained 29-source judgment (0512/05.09) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "record exit 0; judgment equal",
+   "observed": {
+    "measurement": "complete",
+    "record_exit": 0,
+    "correction": null,
+    "judgment_canonically_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\CAP-1"
+  },
+  {
+   "id": "CAP-2",
+   "group": "capacity",
+   "requirement": "retained 20-source judgment (0522/05.14) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "record exit 0; judgment equal",
+   "observed": {
+    "measurement": "complete",
+    "record_exit": 0,
+    "correction": null,
+    "judgment_canonically_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\CAP-2"
+  },
+  {
+   "id": "CAP-3",
+   "group": "capacity",
+   "requirement": "retained 44-source judgment (0512/05.10, judgment-open) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "record exit 0; judgment equal",
+   "observed": {
+    "measurement": "complete",
+    "record_exit": 0,
+    "correction": null,
+    "judgment_canonically_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\CAP-3"
+  },
+  {
+   "id": "CAP-4",
+   "group": "capacity",
+   "requirement": "declared bound: 64 harness-counted sources record and read back equal; 65 refuse with an explicit 'sources' diagnostic; separately, MAX_LIST 24 (25 reasons refused) and the 262144-byte document bound still hold with few sources",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "64": "record + read equal",
+    "65": "refused 'sources'",
+    "list 25": "refused 'limit reasons'",
+    "doc > 262144": "refused (document bound)"
+   },
+   "observed": {
+    "at_bound": {
+     "harness_count": 64,
+     "measurement": "complete",
+     "exit": 0,
+     "record_exit": 0,
+     "diagnostic": "null | ",
+     "stderr": "",
+     "judgment_bytes": 1299,
+     "read_exit": 0,
+     "judgment_equal": true
+    },
+    "over_bound": {
+     "harness_count": 65,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: limit sources: 65 sources exceeds supported limit 64; keep every source identity on this record and stop for a versioned successor whose source bound covers the count\" | ",
+     "stderr": "",
+     "judgment_bytes": 1299
+    },
+    "list25": {
+     "harness_count": 3,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: limit reasons\" | ",
+     "stderr": "",
+     "judgment_bytes": 1773
+    },
+    "doc": {
+     "harness_count": 3,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: input: input exceeds 262144 bytes\" | ",
+     "stderr": "",
+     "judgment_bytes": 265605
+    },
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\CAP-4"
+  },
+  {
+   "id": "KF-CAP",
+   "group": "capacity",
+   "requirement": "KNOWN FAILURE (baseline): the 29- and 44-source retained judgments are refused 'limit sources' at the old 24 bound",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "both refused 'limit sources'",
+   "observed": {
+    "29": {
+     "measurement": "complete",
+     "record_exit": 0,
+     "correction": null,
+     "judgment_canonically_equal": true
+    },
+    "44": {
+     "measurement": "complete",
+     "record_exit": 0,
+     "correction": null,
+     "judgment_canonically_equal": true
+    }
+   },
+   "verdict": "known-failure-not-reproduced",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\KF-CAP"
+  },
+  {
+   "id": "LC-1",
+   "group": "lifecycle",
+   "requirement": "prepare/form -> record (supplied judgment) -> inspect checkpoint (full rendered output) -> SEPARATE publish -> read/recover x2 equal, no writes; no approval/release",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "complete cycle; checkpoint stored before publish",
+   "observed": {
+    "form_exit": 0,
+    "record_exit": 0,
+    "inspect_rendered_present": true,
+    "publish_exit": 0,
+    "target": true,
+    "reads": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "repeat_equal": true,
+    "no_writes": true,
+    "judgment_equal": true,
+    "flags": {
+     "accepted": false,
+     "approved": false,
+     "authority": "none",
+     "closes_work": false,
+     "releases_action": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\LC-1"
+  },
+  {
+   "id": "PR-1",
+   "group": "preservation",
+   "requirement": "manual text present at the destination: publish held, bytes preserved, judgment retained",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "held; preserved; judgment equal",
+   "observed": {
+    "publish_exit": 1,
+    "correction": "manual-review",
+    "bytes_kept": true,
+    "judgment_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-1"
+  },
+  {
+   "id": "PR-2",
+   "group": "preservation",
+   "requirement": "a destination file appearing between inspect and publish: held, bytes preserved",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "held; preserved",
+   "observed": {
+    "publish_exit": 1,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-2"
+  },
+  {
+   "id": "PR-3",
+   "group": "preservation",
+   "requirement": "pack task-body change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-3"
+  },
+  {
+   "id": "PR-4",
+   "group": "preservation",
+   "requirement": "return change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-4"
+  },
+  {
+   "id": "PR-5",
+   "group": "preservation",
+   "requirement": "declared artifact changed or missing after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "stale; held (both)",
+   "observed": {
+    "changed": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    },
+    "missing": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-5"
+  },
+  {
+   "id": "PR-6",
+   "group": "preservation",
+   "requirement": "review-region-only pack edit after publish keeps the exchange current; a task edit does not",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "review_edit": "current",
+    "task_edit": "stale"
+   },
+   "observed": {
+    "review_edit": {
+     "exit": 0,
+     "stale": false
+    },
+    "task_edit": {
+     "exit": 1,
+     "stale": true
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-6"
+  },
+  {
+   "id": "PR-7",
+   "group": "preservation",
+   "requirement": "missing or altered pinned tool refuses before work (door pin)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "successful control, then a clean refusal (int nonzero, no traceback)",
+   "observed": {
+    "workbook": "labs/review-loop-convergence-pass02/workbook.py",
+    "control": {
+     "exit": 0,
+     "measurement": "complete"
+    },
+    "tampered": {
+     "exit": 2,
+     "traceback": false,
+     "stderr": "stop: workbook pin mismatch got 6646 bytes sha256 b7c0ef86c1cde0240848b8d62c006072bd8ae43c53dd36e2161e6fa65714f0ef want 6613 bytes sha256 a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f\r\n",
+     "names_target": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\PR-7"
+  },
+  {
+   "id": "CTX-1",
+   "group": "preservation",
+   "requirement": "source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "real successful observations, then in-process ids == fresh ids",
+   "observed": {
+    "workbook": "labs/review-loop-convergence-pass02/workbook.py",
+    "fresh": [
+     "220f4f3e18cae016e4c24b0435bda036ecacddc36c92f42d3b2b9242e8d18d10",
+     "1212d59a1708cb1839e8087ec8c7e628a17e94220f06c3e364323bbde0148137",
+     "220f4f3e18cae016e4c24b0435bda036ecacddc36c92f42d3b2b9242e8d18d10"
+    ],
+    "fresh_exits": [
+     0,
+     0,
+     0
+    ],
+    "mode": "explicit",
+    "hook": "build_intake (explicit)",
+    "why": "the declared workbook exposes no build_intake(book, page, pass_id) hook"
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\CTX-1"
+  },
+  {
+   "id": "RP-1",
+   "group": "reporter",
+   "requirement": "review-report (candidate route) agrees with the core: published N7 current -> readable/stale false; changed return -> stale; incomplete intake -> held; N7 exchange state/chronology/n1_custody, custody and review_id equal to the core; authority none and accepted/work_complete/action_released/releases_action false",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "RP-2",
+   "group": "reporter",
+   "requirement": "review-report refuses (nonzero, no traceback) a wrong dispatcher pin, a wrong chain (workbook) pin and malformed envelopes (unknown flag, repeated flag, relative book, bad pass, missing source), after an untampered positive control succeeds",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-RP",
+   "group": "reporter",
+   "requirement": "KNOWN FAILURE (baseline): the frozen reporter v3 refuses this candidate's dispatcher (pins only f1d23d45)",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "refusal",
+   "observed": {
+    "exit": 0,
+    "stderr": ""
+   },
+   "verdict": "known-failure-not-reproduced",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\KF-RP"
+  },
+  {
+   "id": "IN-1",
+   "group": "instance",
+   "requirement": "N5 same book: record then read is current (exit 0, not stale)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "current",
+   "observed": {
+    "record_exit": 0,
+    "read_exit": 0,
+    "stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\IN-1"
+  },
+  {
+   "id": "IN-2",
+   "group": "instance",
+   "requirement": "N5 foreign copied book: the copy's current applicability is held (positive evidence: nonzero read, stale or applicable=false), the historical judgment stays available (read or recover), publish is refused with no destination; the original stays current and byte-unchanged",
+   "required": true,
+   "needs": [
+    "I"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": {
+    "original": "current before/after; bytes unchanged",
+    "copy": "not current (held/stale); judgment retained; publish refused"
+   },
+   "observed": {
+    "a_record_exit": 0,
+    "a_read_before": {
+     "exit": 0,
+     "stale": false,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "a_read_after": {
+     "exit": 0,
+     "stale": false,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "a_bytes_unchanged": true,
+    "b_read": {
+     "exit": 1,
+     "stale": true,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "b_recover": {
+     "exit": 1,
+     "stale": true,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "b_publish": {
+     "exit": 1,
+     "stderr": ""
+    },
+    "b_destination_created": false,
+    "judge_reasons": []
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\IN-2"
+  },
+  {
+   "id": "KF-IN",
+   "group": "instance",
+   "requirement": "KNOWN FAILURE (baseline): an N5 record in a byte-copied book reads current in the copy",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "copy reads current (defect)",
+   "observed": {
+    "exit": 1,
+    "stale": true
+   },
+   "verdict": "known-failure-not-reproduced",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\KF-IN"
+  },
+  {
+   "id": "DD-1",
+   "group": "door-proposed",
+   "requirement": "PROPOSED (not required): altered loop door refuses before import",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "clean refusal before the altered/missing door runs",
+   "observed": {
+    "door": "labs/review-loop-convergence-pass02/review_loop_tools.py",
+    "how": "altered",
+    "control_exit": 0,
+    "exit": 0,
+    "traceback": false,
+    "stderr": "",
+    "door_code_executed": true
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\DD-1"
+  },
+  {
+   "id": "DD-2",
+   "group": "door-proposed",
+   "requirement": "PROPOSED (not required): missing loop door refuses cleanly",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "clean refusal before the altered/missing door runs",
+   "observed": {
+    "door": "labs/review-loop-convergence-pass02/review_loop_tools.py",
+    "how": "missing",
+    "control_exit": 0,
+    "exit": 2,
+    "traceback": false,
+    "stderr": "stop: review-loop door is missing\r\n",
+    "door_code_executed": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\DD-2"
+  },
+  {
+   "id": "DD-3",
+   "group": "door-proposed",
+   "requirement": "PROPOSED (not required): altered report door refuses before import",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "clean refusal before the altered/missing door runs",
+   "observed": {
+    "door": "labs/review-loop-convergence-pass02/review_report_tools.py",
+    "how": "altered",
+    "control_exit": 0,
+    "exit": 0,
+    "traceback": false,
+    "stderr": "",
+    "door_code_executed": true
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\DD-3"
+  },
+  {
+   "id": "DD-4",
+   "group": "door-proposed",
+   "requirement": "PROPOSED (not required): missing report door refuses cleanly",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "clean refusal before the altered/missing door runs",
+   "observed": {
+    "door": "labs/review-loop-convergence-pass02/review_report_tools.py",
+    "how": "missing",
+    "control_exit": 0,
+    "exit": 2,
+    "traceback": false,
+    "stderr": "stop: review-report door is missing\r\n",
+    "door_code_executed": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\DD-4"
+  },
+  {
+   "id": "RC-1",
+   "group": "reconstruction",
+   "requirement": "a NEW root rebuilt by the declared builder from frozen sources has the identical candidate file list, and reproduces N7-1 rows",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "a declared, frozen builder {path, sha256, bytes, args}",
+   "observed": {
+    "builder": null,
+    "blocker": "no declared builder; for the 0522/05.18 cut the normal builder CLI writes generated files under the delivered lab (0522/06.40), so it is NOT executed here (no live-repo writes)"
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\RC-1"
+  },
+  {
+   "id": "RB-1",
+   "group": "rollback",
+   "requirement": "restore the v7 dispatcher on a copy: new N7 records are kept byte-equal and reported non-current (held), not silently fresh; re-selecting restores current",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d",
+    "kind": "combined"
+   },
+   "provenance": "harness case (Claude, 0707/05.22 successor; 0707/05.24 explicit-identity pass03); not independent Prime review",
+   "expected": "v7: non-current; records kept; reselect current",
+   "observed": {
+    "v7_read_exit": 1,
+    "v7_stale": null,
+    "records_kept": true,
+    "reselect_exit": 0,
+    "reselect_stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\fbt3-0525\\h4-0518-01\\RB-1"
+  }
+ ]
+}

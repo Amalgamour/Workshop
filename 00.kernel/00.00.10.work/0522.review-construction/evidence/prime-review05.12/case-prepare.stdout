@@ -1,0 +1,338 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0599.fixture-review/05.01.md",
+      "role": "assignment",
+      "root": "book",
+      "text": "# 05.01 - Fixture build pass\r\nSYNTHETIC FIXTURE — 0707/05.10 acceptance design. Not live work, not authority, not a receipt.\r\nexecutor: fixture-builder\r\nreviewer: Codex Prime\r\n\r\n## Goal\r\nAdd a bounded parser and prove it with three tests.\r\n\r\n## Scope\r\nNew module only. No other page edits.\r\n\r\n## Return pointer\r\nSubmission: 0599.fixture-review/evidence/build05.01/submission.md sha256 1a621b631cb8df1",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0599.fixture-review/evidence/build05.01/submission.md",
+      "role": "submission",
+      "root": "book",
+      "text": "# Submission (thin)\nSYNTHETIC FIXTURE — 0707/05.10 acceptance design. Not live work, not authority, not a receipt.\nSee VERIFICATION.md and artifact-manifest.json. Tests: see verification.\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+      "role": "verification",
+      "root": "book",
+      "text": "# Verification (substantive)\nSYNTHETIC FIXTURE — 0707/05.10 acceptance design. Not live work, not authority, not a receipt.\n| test | state |\n|---|---|\n| T1 parse valid | passed |\n| T2 refuse malformed | failed (first failure kept: run 1) |\n| T3 large input | not run (unknown) |\n\nKnown limit: Windows path case not covered.\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0599.fixture-review/evidence/build05.01/submission.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Submission (thin)\nSYNTHETIC FIXTURE — 0707/05.10 acceptance design. Not live work, not authority, not a receipt.\nSee VERIFICATION.md and artifact-manifest.json. Tests: see verification.\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+      "role": "artifact",
+      "root": "book",
+      "text": "# Verification (substantive)\nSYNTHETIC FIXTURE — 0707/05.10 acceptance design. Not live work, not authority, not a receipt.\n| test | state |\n|---|---|\n| T1 parse valid | passed |\n| T2 refuse malformed | failed (first failure kept: run 1) |\n| T3 large input | not run (unknown) |\n\nKnown limit: Windows path case not covered.\n",
+      "truncated": false
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0599.fixture-review/evidence/build05.01/payload/parser.py",
+      "role": "artifact",
+      "root": "book",
+      "text": "# SYNTHETIC FIXTURE — 0707/05.10 acceptance design. Not live work, not authority, not a receipt.\ndef parse(text):\n    return text.split()\n",
+      "truncated": false
+    }
+  ],
+  "destination": "0599.fixture-review/05.01.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "custody-missing",
+      "path": "0199.fixture-review"
+    },
+    {
+      "code": "return-missing",
+      "path": "0199.fixture-review/05.01.return.md"
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0599.fixture-review/05.01.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "custody-missing",
+          "path": "0199.fixture-review"
+        },
+        {
+          "code": "return-missing",
+          "path": "0199.fixture-review/05.01.return.md"
+        }
+      ],
+      "instance_id": "de6e10a24b5f42f04c3734d3ccf877316b8f82b7c9f7006551296b9643d6f6b4",
+      "intake_id": "98c3afd201fbe1604a2a0e72f490f5588b41b7bf6547ad5c087c32133b9eeca3",
+      "kind": "N5NN",
+      "member": "0199.fixture-review",
+      "return_path": null,
+      "rows": [
+        {
+          "bytes": 824,
+          "declared_path": "0599.fixture-review/05.01.md",
+          "path": "0599.fixture-review/05.01.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "120e335a77ea9364446ad8c09e2c7ee896347840d82e24c27c3df2000577ffad"
+        },
+        {
+          "bytes": 190,
+          "declared_path": "0599.fixture-review/evidence/build05.01/submission.md",
+          "path": "0599.fixture-review/evidence/build05.01/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "1a621b631cb8df100cb8eeafb15ae3dac10a58c07ae194624fd9059595d372ca"
+        },
+        {
+          "bytes": 326,
+          "declared_path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+          "path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+          "role": "verification",
+          "root": "book",
+          "sha256": "0f97ad2a30ae490f6a623ab63665b71203e7e32e0b78b1a0fb22746c2460d3a6"
+        },
+        {
+          "bytes": 606,
+          "declared_path": "0599.fixture-review/evidence/build05.01/artifact-manifest.json",
+          "path": "0599.fixture-review/evidence/build05.01/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "779a664b1fc5a0863f51481e885298c6302e99417df45caaf2f12ebf1c7cac27"
+        },
+        {
+          "bytes": 190,
+          "declared_path": "0599.fixture-review/evidence/build05.01/submission.md",
+          "path": "0599.fixture-review/evidence/build05.01/submission.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1a621b631cb8df100cb8eeafb15ae3dac10a58c07ae194624fd9059595d372ca"
+        },
+        {
+          "bytes": 326,
+          "declared_path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+          "path": "0599.fixture-review/evidence/build05.01/VERIFICATION.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0f97ad2a30ae490f6a623ab63665b71203e7e32e0b78b1a0fb22746c2460d3a6"
+        },
+        {
+          "bytes": 140,
+          "declared_path": "0599.fixture-review/evidence/build05.01/payload/parser.py",
+          "path": "0599.fixture-review/evidence/build05.01/payload/parser.py",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "f0536f4887b2c07cefdd8e70aa4288e17a9437939353ef63006852b93ebc2937"
+        }
+      ],
+      "unknowns": [
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass02/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+      "sha256": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "de6e10a24b5f42f04c3734d3ccf877316b8f82b7c9f7006551296b9643d6f6b4",
+  "intake_id": "98c3afd201fbe1604a2a0e72f490f5588b41b7bf6547ad5c087c32133b9eeca3",
+  "kind": "N5NN",
+  "live_intake_id": "98c3afd201fbe1604a2a0e72f490f5588b41b7bf6547ad5c087c32133b9eeca3",
+  "measurement": "complete",
+  "missing": [],
+  "page": "0599.fixture-review",
+  "pass": "05.01",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": null,
+  "task_association": "not-established",
+  "unknowns": [
+    "recorded_decisions",
+    "receipt"
+  ]
+}

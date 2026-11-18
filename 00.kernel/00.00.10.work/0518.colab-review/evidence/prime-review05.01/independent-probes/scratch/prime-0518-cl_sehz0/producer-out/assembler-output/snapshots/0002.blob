@@ -1,0 +1,82 @@
+{
+ "finish_boundary": "a return per stage; Prime synthesizes; the Director decides any design fork",
+ "investigation": {
+  "book": "00.00.10.work",
+  "page": "0702.colab-review-fixture",
+  "pass": "05.01"
+ },
+ "mode": "combination",
+ "ordered": true,
+ "plan_id": "plan-1",
+ "read_scope": [
+  "the package files only"
+ ],
+ "reviewers": [
+  {
+   "context": {
+    "conversation_supplied": "none",
+    "familiarity": "SYNTHETIC: none",
+    "host_context": "SYNTHETIC: none declared",
+    "isolation": "unknown"
+   },
+   "id": "R01",
+   "label": "SYNTHETIC reader one"
+  },
+  {
+   "context": {
+    "conversation_supplied": "none",
+    "familiarity": "SYNTHETIC: none",
+    "host_context": "SYNTHETIC: none declared",
+    "isolation": "unknown"
+   },
+   "id": "R02",
+   "label": "SYNTHETIC reader two"
+  }
+ ],
+ "round": {
+  "cap": 2,
+  "number": 1
+ },
+ "schema": "colab-review-plan/1",
+ "simplicity": {
+  "after": "SYNTHETIC design v2",
+  "before": "SYNTHETIC design v1",
+  "fixes_under_review": [
+   "F-A"
+  ]
+ },
+ "stages": [
+  {
+   "id": "S01",
+   "kind": "comprehension",
+   "required": true,
+   "reviewers": [
+    "R01",
+    "R02"
+   ]
+  },
+  {
+   "id": "S02",
+   "kind": "critique",
+   "required": true,
+   "reviewers": [
+    "R01",
+    "R02"
+   ]
+  },
+  {
+   "id": "S03",
+   "kind": "simplicity",
+   "required": false,
+   "reviewers": [
+    "R01"
+   ]
+  }
+ ],
+ "withheld": [
+  {
+   "item": "SYNTHETIC: other drafts",
+   "reason": "unreviewed"
+  }
+ ]
+}

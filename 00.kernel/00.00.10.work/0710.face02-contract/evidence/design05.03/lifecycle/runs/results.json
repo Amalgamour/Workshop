@@ -1,0 +1,208 @@
+{
+ "schema": "0710-lifecycle-sim/1",
+ "cases": [
+  {
+   "id": "L1",
+   "says": "pair seats; equal 01.004.09.md from two pages do not collide",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "seated": [
+      "0001.law",
+      "0002.schema"
+     ],
+     "warehouse": [
+      "00.retire.09/0001.law/01.004.09.md",
+      "00.retire.09/0002.schema/01.004.09.md",
+      "00.retire.09/09.md"
+     ],
+     "content_kept_through_stamps": true
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "L2",
+   "says": "content changed after signing: approval refused",
+   "expect": [
+    "refused",
+    "draft-bytes-equal-signed"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "draft-bytes-equal-signed",
+    "detail": "approve 0001.law: precondition draft-bytes-equal-signed failed"
+   },
+   "match": true
+  },
+  {
+   "id": "L2b",
+   "says": "content changed after approval: first face seats, second held",
+   "expect": [
+    "held",
+    "half-seated"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "half-seated",
+    "detail": "seated ['0001.law']; 0002.schema stopped at draft-bytes-equal-approved; Director decides finish or rollback"
+   },
+   "match": true
+  },
+  {
+   "id": "L3",
+   "says": "missing approval for one face: release held, nothing renamed",
+   "expect": [
+    "held",
+    "approval-missing"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "approval-missing",
+    "detail": "the release has a face without an approval; nothing renamed"
+   },
+   "match": true
+  },
+  {
+   "id": "L4",
+   "says": "interrupted after J3; restart checks hashes and completes",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": "completed"
+   },
+   "match": true
+  },
+  {
+   "id": "L4b",
+   "says": "interrupted, draft changed before restart: held",
+   "expect": [
+    "held",
+    "restart-hash-mismatch"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "restart-hash-mismatch",
+    "detail": "draft bytes are not the approved bytes"
+   },
+   "match": true
+  },
+  {
+   "id": "L5",
+   "says": "second seat changed after approval: half-seated, held for Director",
+   "expect": [
+    "held",
+    "half-seated"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "half-seated",
+    "detail": "seated ['0001.law']; 0002.schema stopped at seat-unchanged; Director decides finish or rollback"
+   },
+   "match": true
+  },
+  {
+   "id": "L6",
+   "says": "rollback restores both versions byte-for-byte",
+   "expect": [
+    "ok",
+    "ok"
+   ],
+   "actual": {
+    "outcome": "ok",
+    "code": "ok",
+    "detail": {
+     "0001.law": {
+      "seat_restored": true,
+      "draft_restored_to_signed": true
+     },
+     "0002.schema": {
+      "seat_restored": true,
+      "draft_restored_to_signed": true
+     }
+    }
+   },
+   "match": true
+  },
+  {
+   "id": "L7",
+   "says": "seat before sign/approve: held, approval missing",
+   "expect": [
+    "held",
+    "approval-missing"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "approval-missing",
+    "detail": "the release has a face without an approval; nothing renamed"
+   },
+   "match": true
+  },
+  {
+   "id": "L7b",
+   "says": "sign before stage: refused",
+   "expect": [
+    "refused",
+    "staged"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "staged",
+    "detail": "sign 0001.law: precondition staged failed"
+   },
+   "match": true
+  },
+  {
+   "id": "L8",
+   "says": "approval names the pre-sign bytes: refused",
+   "expect": [
+    "refused",
+    "approval-names-signed-sha"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "approval-names-signed-sha",
+    "detail": "approve 0001.law: precondition approval-names-signed-sha failed"
+   },
+   "match": true
+  },
+  {
+   "id": "L9",
+   "says": "lock or promote requested",
+   "expect": [
+    "refused",
+    "not-in-template"
+   ],
+   "actual": {
+    "outcome": "refused",
+    "code": "not-in-template",
+    "detail": "lock and promote are separate (0023)"
+   },
+   "match": true
+  },
+  {
+   "id": "L10",
+   "says": "flat warehouse: second 01.004.09.md collides; held half-seated",
+   "expect": [
+    "held",
+    "half-seated"
+   ],
+   "actual": {
+    "outcome": "held",
+    "code": "half-seated",
+    "detail": "seated ['0001.law']; 0002.schema stopped at warehouse-name-free; Director decides finish or rollback"
+   },
+   "match": true
+  }
+ ],
+ "mismatches": 0
+}

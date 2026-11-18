@@ -1,0 +1,94 @@
+{
+  "measurement": "complete",
+  "custody": "missing",
+  "cuts": [
+    [
+      "assignment",
+      "0521.return-placement/05.11.md"
+    ],
+    [
+      "submission",
+      "0521.return-placement/evidence/build05.11/submission.md"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/06.22.md"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/DELTA.md"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/PRIME-USE.md"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/claims.json"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/commands.json"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/commands.txt"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/earlier/20261102T230210Z-first-failure.txt"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/fixture-index.json"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/live-stdout.txt"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/live-summary.json"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/submission.md"
+    ],
+    [
+      "artifact",
+      "0521.return-placement/evidence/build05.11/verification.json"
+    ],
+    [
+      "verification",
+      "0521.return-placement/evidence/build05.11/verification.json"
+    ]
+  ],
+  "findings": [
+    {
+      "code": "index-context-bounded",
+      "count": 19,
+      "path": "evidence/build05.11/artifact-manifest.json"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0121.return-placement"
+    },
+    {
+      "code": "return-missing",
+      "path": "0121.return-placement/05.11.return.md"
+    },
+    {
+      "code": "verification-declared",
+      "hash_match": true,
+      "limit": "The lines are a declaration, not a successful verification run.",
+      "measured": true,
+      "path": "evidence/build05.11/verification.json",
+      "schema": "return-route-readiness-verification/0511",
+      "sources": [
+        "submission-lines",
+        "artifact-index"
+      ],
+      "successful_run": false
+    }
+  ]
+}

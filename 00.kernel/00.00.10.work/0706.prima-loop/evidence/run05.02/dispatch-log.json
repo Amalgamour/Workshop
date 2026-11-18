@@ -1,0 +1,72 @@
+{
+ "schema": "prima-dispatch-log/1",
+ "assignment_id": "prima-0706-0502",
+ "claim_commit": "3762f4743d34f2be7ae0c3cbf596b3f9d0c03c44",
+ "units": [
+  {
+   "worker": "A",
+   "agent_id": "3d63faf3-e852-462b-a55c-10c8550b3b0e",
+   "unit": 1,
+   "dispatched_at": "2026-11-03T17:29:11-06:00",
+   "usage_before": {
+    "used_percent": 83.4,
+    "observed_at": "2026-11-03T17:29:11-06:00",
+    "source": "Grok Bot subscription usage report",
+    "kind": "directly observed"
+   },
+   "brief_sha256": "e547c0acd45429f2351af3ebd59556c65744e99e92651b44a78b2daf4295f58a",
+   "common_sha256": "aae0abf2216d0cd65674c8e9a7588d75d0bc9dd1a0f1d6cf724043e504183ee9",
+   "max_minutes": 25,
+   "returned_at": "2026-11-03T17:32:13-06:00",
+   "reply": "done, 9 findings in workers/A (A-01 medium: N7 manifest line trailing-suffix collision; A-09 no full app run possible)"
+  },
+  {
+   "worker": "B",
+   "agent_id": "f4a829e6-5083-44e1-90e6-01e60d562f1a",
+   "unit": 1,
+   "dispatched_at": "2026-11-03T17:29:11-06:00",
+   "usage_before": {
+    "used_percent": 83.4,
+    "observed_at": "2026-11-03T17:29:11-06:00",
+    "source": "Grok Bot subscription usage report",
+    "kind": "directly observed"
+   },
+   "brief_sha256": "02cf922739b6603dae77f1e4a9e7690419ecba6de1f6c5d93aa5baca36d22a48",
+   "common_sha256": "aae0abf2216d0cd65674c8e9a7588d75d0bc9dd1a0f1d6cf724043e504183ee9",
+   "max_minutes": 25,
+   "returned_at": "2026-11-03T17:32:29-06:00",
+   "reply": "done, 10 findings in workers/B (B-05: authority/action_released passed through unvalidated, not cleared on unstable/held cut; B-10 unresolved items)"
+  },
+  {
+   "worker": "A",
+   "agent_id": "3d63faf3-e852-462b-a55c-10c8550b3b0e",
+   "unit": 2,
+   "dispatched_at": "2026-11-03T17:32:13-06:00",
+   "usage_before": {
+    "used_percent": 84,
+    "observed_at": "2026-11-03T17:32:13-06:00",
+    "source": "Grok Bot subscription usage report",
+    "kind": "directly observed"
+   },
+   "brief_sha256": "a7979d90ca471ed01f8f116576327ad29a6f4bcf0d4a615ad5eb3801b4b51c00",
+   "max_minutes": 25,
+   "returned_at": "2026-11-03T17:35:45-06:00",
+   "reply": "done, 8 findings + dependencies.json in workers/A2 (static/AST only)"
+  },
+  {
+   "worker": "B",
+   "agent_id": "f4a829e6-5083-44e1-90e6-01e60d562f1a",
+   "unit": 2,
+   "dispatched_at": "2026-11-03T17:32:29-06:00",
+   "usage_before": {
+    "used_percent": 84,
+    "observed_at": "2026-11-03T17:32:29-06:00",
+    "source": "Grok Bot subscription usage report",
+    "kind": "directly observed"
+   },
+   "max_minutes": 25,
+   "returned_at": "2026-11-03T17:35:16-06:00",
+   "reply": "done, 8 findings in workers/B2 (B2-06: 0521/05.13 decisive evidence only by hash in external D:\\librarian\\temp stamp; 05.05/05.07 manifests, 06.08, 06.25 and pack manifests absent from room; B2-03: no Director quotations or recorded invocation in the four episodes)"
+  }
+ ]
+}

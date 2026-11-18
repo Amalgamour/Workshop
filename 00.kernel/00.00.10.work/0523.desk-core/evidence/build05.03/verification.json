@@ -1,0 +1,56 @@
+{
+  "schema": "desk-core-verification/1",
+  "contract": "desk-core/2",
+  "interpreter": "Python 3.11.2",
+  "interpreter_command": "python3.11",
+  "python3_also_ran": "Python 3.10.22",
+  "python_3_12": "not installed; no installation performed; Windows pending Prime",
+  "windows_native": "pending",
+  "runtime_dependencies": ["python-stdlib"],
+  "tests": {
+    "command": "python3.11 -B -m unittest app.desk_core.test_loop app.desk_core.test_repair app.desk_core.test_fault -v",
+    "ran": 22,
+    "failed": 0,
+    "elapsed_seconds": 14.93,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.03/unittest.txt"
+  },
+  "tests_py310": {
+    "command": "python3 -B -m unittest app.desk_core.test_loop app.desk_core.test_repair app.desk_core.test_fault",
+    "interpreter": "Python 3.10.22",
+    "ran": 22,
+    "failed": 0,
+    "elapsed_seconds": 19.575,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.03/unittest-py310.txt",
+    "note": "optional extra Linux check, not the acceptance target"
+  },
+  "demo": {
+    "exit": 0,
+    "step_exits": [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.03/demo-transcript.txt"
+  },
+  "fault_matrix": {
+    "boundaries": 9,
+    "injected_exit": 91,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.03/fault-matrix.json",
+    "summary": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.03/fault-matrix.md"
+  },
+  "pins": {
+    "pack": "pack05.03",
+    "matched": 19,
+    "sources": 19,
+    "reviewed_commit": "eeefbeced8587991e4b4a80ce6620ea78a90c1e3"
+  },
+  "predecessor": "eeefbeced8587991e4b4a80ce6620ea78a90c1e3",
+  "fast_forward": "42563e669457a46b73f0be8c8caf30d9d16c819d",
+  "notes_commit": "3309b0e549878340b581687520aa86cced6e3b3b",
+  "implementation_commit": "46505955f141196db187d491f301d29156389f96",
+  "limits": [
+    "Windows Python 3.12+ not run",
+    "not a power-loss proof",
+    "not a concurrency proof",
+    "not race freedom",
+    "not live custody"
+  ],
+  "not_production_ready": true,
+  "accepted": false
+}

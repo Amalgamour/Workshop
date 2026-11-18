@@ -1,0 +1,223 @@
+{
+  "branch": "workshop",
+  "checks_ok": true,
+  "harness": {
+    "exit": 0,
+    "stderr_bytes": 1833,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "index_empty": true,
+  "labels": {
+    "fail-1": "controlled failure",
+    "hold-killed": "actual termination"
+  },
+  "limits": [
+    "no power-loss durability",
+    "no kill during status replace",
+    "one same-id race only",
+    "no authenticated ownership",
+    "preview is not package acceptance"
+  ],
+  "pass01_probe_launched": false,
+  "pins": {
+    "bad": 0,
+    "live_bytes": 624403,
+    "rows": 53,
+    "schema": "prime-pack-inputs/1"
+  },
+  "preserved_identical": true,
+  "preserved_sha256_after": "9d7196b7ed098bb6c396bdb6c27384fa4efa2a389cad95a1b17495799c081eeb",
+  "preserved_sha256_before": "9d7196b7ed098bb6c396bdb6c27384fa4efa2a389cad95a1b17495799c081eeb",
+  "prior_slots_unchanged_by_later_success": true,
+  "python": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "runs": {
+    "fail-1": {
+      "exit": 1,
+      "partial_bytes": "partial-output\n",
+      "status": {
+        "checks": [
+          {
+            "matched": true,
+            "name": "child-exit",
+            "observed": 1
+          },
+          {
+            "matched": true,
+            "name": "partial-output",
+            "observed": "9bc06cfb87e845bcd0f9b6419f3e164a62bc67ff54cf9f43236d630f01be08db"
+          }
+        ],
+        "child_exit": 1,
+        "detail": "fail mode recorded a caught failure",
+        "interruption": "caught-failure",
+        "run_id": "fail-1",
+        "schema": "colab-probe-run/0502",
+        "status": "failed"
+      }
+    },
+    "hold-killed": {
+      "observed_before_kill": {
+        "checks": [],
+        "detail": "started",
+        "interruption": null,
+        "run_id": "hold-killed",
+        "schema": "colab-probe-run/0502",
+        "status": "running"
+      },
+      "process_exit": 1,
+      "status_after_kill": {
+        "checks": [],
+        "detail": "started",
+        "interruption": null,
+        "run_id": "hold-killed",
+        "schema": "colab-probe-run/0502",
+        "status": "running"
+      }
+    },
+    "occupied-seed": {
+      "exit": 2,
+      "marker": "keep-me\n",
+      "scratch_exists": false
+    },
+    "ok-1": {
+      "exit": 0,
+      "status": {
+        "checks": [
+          {
+            "matched": true,
+            "name": "child-exit",
+            "observed": 0
+          },
+          {
+            "matched": true,
+            "name": "child-out",
+            "observed": "a8e43b85a8546c0325478ae715ec0558577dd719da7c5fa5494cfdaaece923b3"
+          }
+        ],
+        "child_exit": 0,
+        "detail": "ok checks passed",
+        "interruption": "none",
+        "run_id": "ok-1",
+        "schema": "colab-probe-run/0502",
+        "status": "complete"
+      }
+    },
+    "ok-2": {
+      "exit": 0,
+      "status": {
+        "checks": [
+          {
+            "matched": true,
+            "name": "child-exit",
+            "observed": 0
+          },
+          {
+            "matched": true,
+            "name": "child-out",
+            "observed": "a8e43b85a8546c0325478ae715ec0558577dd719da7c5fa5494cfdaaece923b3"
+          }
+        ],
+        "child_exit": 0,
+        "detail": "ok checks passed",
+        "interruption": "none",
+        "run_id": "ok-2",
+        "schema": "colab-probe-run/0502",
+        "status": "complete"
+      }
+    },
+    "race-1": {
+      "codes": [
+        0,
+        2
+      ],
+      "interruption": "none",
+      "results": [
+        {
+          "exit": 0,
+          "stderr": ""
+        },
+        {
+          "exit": 2,
+          "stderr": "refused: occupied evidence destination\r\n"
+        }
+      ],
+      "status": "complete"
+    },
+    "tool-preview": {
+      "digest": "058fed372869e9c47512a11addd27a88b7ffaf33433c4c1c964e88da9b9dd277",
+      "digest_matches_05_01": true,
+      "exit": 0,
+      "status": {
+        "checks": [
+          {
+            "matched": true,
+            "name": "preview-report",
+            "observed": "058fed372869e9c47512a11addd27a88b7ffaf33433c4c1c964e88da9b9dd277"
+          }
+        ],
+        "child_exit": 0,
+        "detail": "preview checks passed",
+        "interruption": "none",
+        "run_id": "tool-preview",
+        "schema": "colab-probe-run/0502",
+        "status": "complete"
+      }
+    }
+  },
+  "schema": "colab-probe-verification/0502",
+  "slot_digests_after_ok_2": {
+    "fail-1": {
+      "evidence": "f6c32a0a88296945cee3259951776f43f3e296306c440867bf545b249b423878",
+      "scratch": "3767182b03988d99c5ee8d3b888a834fc1de53f726bbfda6fd429de1c3670735"
+    },
+    "hold-killed": {
+      "evidence": "9d2f439f3d93e5e265dccd51af9d23fc4e4e665212f8dd8d93945e41398aeb45",
+      "scratch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "occupied-seed": {
+      "evidence": "969e0a3cd77e66ba64bbef6dc0d7add665ca69ae4b64ceee5553bac6c86f61a4",
+      "scratch": null
+    },
+    "ok-1": {
+      "evidence": "ba70ce8306309e74522a9e1110ca3189bd7a38399a38e8ec71a7f01373c4688b",
+      "scratch": "55ee7a71ba55d7cee540462f80d782f07e9b82751b8be5c4dd5c681fcef535c7"
+    }
+  },
+  "slot_digests_after_preview": {
+    "fail-1": {
+      "evidence": "f6c32a0a88296945cee3259951776f43f3e296306c440867bf545b249b423878",
+      "scratch": "3767182b03988d99c5ee8d3b888a834fc1de53f726bbfda6fd429de1c3670735"
+    },
+    "hold-killed": {
+      "evidence": "9d2f439f3d93e5e265dccd51af9d23fc4e4e665212f8dd8d93945e41398aeb45",
+      "scratch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "occupied-seed": {
+      "evidence": "969e0a3cd77e66ba64bbef6dc0d7add665ca69ae4b64ceee5553bac6c86f61a4",
+      "scratch": null
+    },
+    "ok-1": {
+      "evidence": "ba70ce8306309e74522a9e1110ca3189bd7a38399a38e8ec71a7f01373c4688b",
+      "scratch": "55ee7a71ba55d7cee540462f80d782f07e9b82751b8be5c4dd5c681fcef535c7"
+    }
+  },
+  "slot_digests_before_later_success": {
+    "fail-1": {
+      "evidence": "f6c32a0a88296945cee3259951776f43f3e296306c440867bf545b249b423878",
+      "scratch": "3767182b03988d99c5ee8d3b888a834fc1de53f726bbfda6fd429de1c3670735"
+    },
+    "hold-killed": {
+      "evidence": "9d2f439f3d93e5e265dccd51af9d23fc4e4e665212f8dd8d93945e41398aeb45",
+      "scratch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "occupied-seed": {
+      "evidence": "969e0a3cd77e66ba64bbef6dc0d7add665ca69ae4b64ceee5553bac6c86f61a4",
+      "scratch": null
+    },
+    "ok-1": {
+      "evidence": "ba70ce8306309e74522a9e1110ca3189bd7a38399a38e8ec71a7f01373c4688b",
+      "scratch": "55ee7a71ba55d7cee540462f80d782f07e9b82751b8be5c4dd5c681fcef535c7"
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "schema": "0710-form-validation/1",
+  "cases": 27,
+  "mismatches": 0,
+  "rows": [
+    {
+      "id": "V1",
+      "says": "valid pack create: N/A tagged, empty list, null bool, non-ASCII; compute assigns #NN and path",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "pack-create",
+        "kind": "template",
+        "artifact_sha256": "03260b719b4b6bffe5379072746b311c7ff0ae5a26cb76c261bc9b07b664f2c1",
+        "output_path": "0526.dev-authoring/05.03.md",
+        "notes": [
+          "source: ground 0423/01#2 is a draft (illustrative)",
+          "goal: ground 0423/01#4 is a draft (illustrative)",
+          "scope: ground 0423/01#4 is a draft (illustrative)",
+          "finish: ground 0423/01#4 is a draft (illustrative)",
+          "executor: ground 0423/01#4 is a draft (illustrative)",
+          "reviewer: ground 0423/01#4 is a draft (illustrative)",
+          "note_dispositions: ground 0423/01#4 is a draft (illustrative)",
+          "title: ground 0423/01#4 is a draft (illustrative)",
+          "purpose: ground 0423/01#4 is a draft (illustrative)",
+          "requirements: ground 0423/01#4 is a draft (illustrative)",
+          "acceptance: ground 0423/01#4 is a draft (illustrative)",
+          "title: ground 0423/01#4 is a draft (illustrative)",
+          "purpose: ground 0423/01#4 is a draft (illustrative)",
+          "requirements: ground 0423/01#4 is a draft (illustrative)",
+          "acceptance: ground 0423/01#4 is a draft (illustrative)"
+        ],
+        "item_ids": [
+          "#01",
+          "#02"
+        ]
+      },
+      "match": true
+    },
+    {
+      "id": "V2",
+      "says": "valid pack revise names an item (semantic ref)",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "pack-revise",
+        "kind": "template",
+        "artifact_sha256": "1db4af80550d8f6083ea1b2c8efbc63ad2b09d4d8f0b4c392ad04d90b236152d",
+        "output_path": null,
+        "notes": [
+          "item: ground 0423/01#3 is a draft (illustrative)",
+          "changes: ground 0423/01#3 is a draft (illustrative)",
+          "reason: ground 0423/01#3 is a draft (illustrative)"
+        ],
+        "item_ids": []
+      },
+      "match": true
+    },
+    {
+      "id": "V3",
+      "says": "valid person create: address resolves, empty description, null death date",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "person-create",
+        "kind": "template",
+        "artifact_sha256": "c010276604af79a732534e11435eb4988f2daa38726afaf55a7adafd7094932c",
+        "output_path": "0202.register/01.md#Ada Wren",
+        "notes": [],
+        "item_ids": []
+      },
+      "match": true
+    },
+    {
+      "id": "V4",
+      "says": "person not-applicable is distinct from null",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "person-create",
+        "kind": "template",
+        "artifact_sha256": "f55cfb3141d6b5fcdf0e2f92b85fdcab437502aad17bfc6a8f24a2b39b41884e",
+        "output_path": "0202.register/01.md#The Harbour Bell",
+        "notes": [],
+        "item_ids": []
+      },
+      "match": true
+    },
+    {
+      "id": "V5",
+      "says": "card read by name",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "pack-card",
+        "kind": "card",
+        "body": "A pack names its source and work pass, a goal, a scope, finish criteria, an executor and a reviewer, then one #NN per work item with its acceptance. Compute numbers and stamps it. Release is separate."
+      },
+      "match": true
+    },
+    {
+      "id": "V6",
+      "says": "schema checks the V1 artifact",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "pack-check",
+        "kind": "schema",
+        "checked": [
+          "required-answered",
+          "items-contiguous",
+          "note-dispositions-complete",
+          "dependency-states-present"
+        ]
+      },
+      "match": true
+    },
+    {
+      "id": "V7",
+      "says": "selected revision 001 stays bound although a newer draft 002 exists",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "pack-create",
+        "kind": "template",
+        "note": "newer revision(s) ['002'] exist (['draft']); selected 001 stays bound",
+        "form_sha256": "b0d6f326d5ea62f3ba40d5386f44465a5bd922accb2e94b4e5b3a16759042995",
+        "artifact_sha256": "03260b719b4b6bffe5379072746b311c7ff0ae5a26cb76c261bc9b07b664f2c1",
+        "output_path": "0526.dev-authoring/05.03.md",
+        "notes": [
+          "source: ground 0423/01#2 is a draft (illustrative)",
+          "goal: ground 0423/01#4 is a draft (illustrative)",
+          "scope: ground 0423/01#4 is a draft (illustrative)",
+          "finish: ground 0423/01#4 is a draft (illustrative)",
+          "executor: ground 0423/01#4 is a draft (illustrative)",
+          "reviewer: ground 0423/01#4 is a draft (illustrative)",
+          "note_dispositions: ground 0423/01#4 is a draft (illustrative)",
+          "title: ground 0423/01#4 is a draft (illustrative)",
+          "purpose: ground 0423/01#4 is a draft (illustrative)",
+          "requirements: ground 0423/01#4 is a draft (illustrative)",
+          "acceptance: ground 0423/01#4 is a draft (illustrative)",
+          "title: ground 0423/01#4 is a draft (illustrative)",
+          "purpose: ground 0423/01#4 is a draft (illustrative)",
+          "requirements: ground 0423/01#4 is a draft (illustrative)",
+          "acceptance: ground 0423/01#4 is a draft (illustrative)"
+        ],
+        "item_ids": [
+          "#01",
+          "#02"
+        ]
+      },
+      "match": true
+    },
+    {
+      "id": "V8",
+      "says": "review binds the inspected candidate; the final artifact has its own identity",
+      "expect": {
+        "outcome": "ok",
+        "code": "ok"
+      },
+      "actual": {
+        "outcome": "ok",
+        "code": "ok",
+        "form": "pack-create",
+        "kind": "template",
+        "candidate_sha256": "03260b719b4b6bffe5379072746b311c7ff0ae5a26cb76c261bc9b07b664f2c1",
+        "final_sha256": "d5b3e746054e09c61cc6061df16ccd13bdc99d6b8effb23971b3fd052e06bd26",
+        "candidate_equals_final": false,
+        "binding": "review binds the candidate; the final artifact has its own identity"
+      },
+      "match": true
+    },
+    {
+      "id": "N1",
+      "says": "typed field: prose for a boolean (0707/05.09 attempt 1)",
+      "expect": {
+        "outcome": "refused",
+        "code": "shape"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "shape",
+        "detail": "field breaking_change: expected bool or null, observed str \"no, it does not\""
+      },
+      "match": true
+    },
+    {
+      "id": "N2",
+      "says": "null where the field does not accept null",
+      "expect": {
+        "outcome": "refused",
+        "code": "answer-not-accepted"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "answer-not-accepted",
+        "detail": "pack-create: field goal answered null; accepts ['value']"
+      },
+      "match": true
+    },
+    {
+      "id": "N3",
+      "says": "not applicable where not accepted",
+      "expect": {
+        "outcome": "refused",
+        "code": "answer-not-accepted"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "answer-not-accepted",
+        "detail": "pack-create: field goal answered not_applicable; accepts ['value']"
+      },
+      "match": true
+    },
+    {
+      "id": "N4",
+      "says": "the 05.01 example bug: not-applicable written as a plain string",
+      "expect": {
+        "outcome": "refused",
+        "code": "shape"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "shape",
+        "detail": "field open_choices: expected text-list, observed str \"not-applicable\""
+      },
+      "match": true
+    },
+    {
+      "id": "N5",
+      "says": "required field not supplied",
+      "expect": {
+        "outcome": "refused",
+        "code": "required-missing"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "required-missing",
+        "detail": "pack-create: field finish answered not_supplied; accepts ['value']"
+      },
+      "match": true
+    },
+    {
+      "id": "N6",
+      "says": "model supplies #NN",
+      "expect": {
+        "outcome": "refused",
+        "code": "compute-owned"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "compute-owned",
+        "detail": "item 1: #NN is generated by compute, not supplied"
+      },
+      "match": true
+    },
+    {
+      "id": "N6b",
+      "says": "model supplies an output path",
+      "expect": {
+        "outcome": "refused",
+        "code": "compute-owned"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "compute-owned",
+        "detail": "pack-create: output_path is generated by compute, not supplied"
+      },
+      "match": true
+    },
+    {
+      "id": "N7",
+      "says": "semantic reference that does not resolve",
+      "expect": {
+        "outcome": "refused",
+        "code": "unresolved-reference"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "unresolved-reference",
+        "detail": "field first_appearance: page 10.00.01.people/0399.nowhere does not resolve"
+      },
+      "match": true
+    },
+    {
+      "id": "N8",
+      "says": "unknown field (tests_passed)",
+      "expect": {
+        "outcome": "refused",
+        "code": "unknown-field"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "unknown-field",
+        "detail": "item 2: unknown field tests_passed"
+      },
+      "match": true
+    },
+    {
+      "id": "N9",
+      "says": "selection by kind with two templates",
+      "expect": {
+        "outcome": "refused",
+        "code": "select-ambiguous"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "select-ambiguous",
+        "detail": "2 forms match {'kind': 'template'}"
+      },
+      "match": true
+    },
+    {
+      "id": "N10",
+      "says": "card selected to build",
+      "expect": {
+        "outcome": "refused",
+        "code": "kind"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "kind",
+        "detail": "card pack-card cannot build"
+      },
+      "match": true
+    },
+    {
+      "id": "N11",
+      "says": "bound form bytes changed",
+      "expect": {
+        "outcome": "stale",
+        "code": "binding-stale"
+      },
+      "actual": {
+        "outcome": "stale",
+        "code": "binding-stale",
+        "detail": "bound form bytes 000000000000 differ from current b0d6f326d5ea; recheck before use"
+      },
+      "match": true
+    },
+    {
+      "id": "N12",
+      "says": "template adds a gate the source does not state",
+      "expect": {
+        "outcome": "held",
+        "code": "form-adds-condition"
+      },
+      "actual": {
+        "outcome": "held",
+        "code": "form-adds-condition",
+        "detail": "pack-create-gated: risk_at_most_2 adds a gate the source does not state; Director review"
+      },
+      "match": true
+    },
+    {
+      "id": "N13",
+      "says": "required meaning with no ground",
+      "expect": {
+        "outcome": "held",
+        "code": "no-ground"
+      },
+      "actual": {
+        "outcome": "held",
+        "code": "no-ground",
+        "detail": "pack-create-ungrounded: required field budget names no meaning ground; Director review"
+      },
+      "match": true
+    },
+    {
+      "id": "N14",
+      "says": "input in platform encoding cp1252 (0707/05.09 attempt 2)",
+      "expect": {
+        "outcome": "refused",
+        "code": "encoding"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "encoding",
+        "detail": "input is not UTF-8 at byte 45; input kept unchanged"
+      },
+      "match": true
+    },
+    {
+      "id": "N15",
+      "says": "person input copies the pack #NN habit",
+      "expect": {
+        "outcome": "refused",
+        "code": "unknown-field"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "unknown-field",
+        "detail": "person-create: declares no repeating block; items refused"
+      },
+      "match": true
+    },
+    {
+      "id": "N16",
+      "says": "review after the candidate changed",
+      "expect": {
+        "outcome": "stale",
+        "code": "review-target-changed"
+      },
+      "actual": {
+        "outcome": "stale",
+        "code": "review-target-changed",
+        "detail": "review names 03260b719b4b, the candidate is now 2459fdea895e"
+      },
+      "match": true
+    },
+    {
+      "id": "N17",
+      "says": "selected revision that does not exist",
+      "expect": {
+        "outcome": "refused",
+        "code": "binding-missing"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "binding-missing",
+        "detail": "revision 009 of pack-create does not exist"
+      },
+      "match": true
+    },
+    {
+      "id": "N18",
+      "says": "selection names no form",
+      "expect": {
+        "outcome": "refused",
+        "code": "select-none"
+      },
+      "actual": {
+        "outcome": "refused",
+        "code": "select-none",
+        "detail": "0 forms match {'name': 'pack-template'}"
+      },
+      "match": true
+    }
+  ]
+}

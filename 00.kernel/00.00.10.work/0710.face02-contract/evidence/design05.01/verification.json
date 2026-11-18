@@ -1,0 +1,20 @@
+{
+  "schema": "0710-end-verification/1",
+  "pack05_01_inputs": 16,
+  "pack05_01_bad": [
+    "00.kernel/00.00.10.work/0526.dev-authoring/05.01.md"
+  ],
+  "extra_02_reads_unchanged": true,
+  "extra_bad": [],
+  "kernel_draft_files_present": {
+    "0002.schema/01.004.md": false,
+    "0001.law/01.005.md": false
+  },
+  "scope_note": "Measured: the 16 pack inputs (including the 0001/0002 seats) and 5 extra 02 files are byte-unchanged, and no draft sits at the kernel targets. Not measured: every other kernel file (no Git used).",
+  "pack05_01_drift_explained": {
+    "path": "00.kernel/00.00.10.work/0526.dev-authoring/05.01.md",
+    "diff": "line 36 only: 'Invocation/claim: PENDING.' replaced by Grok-1's own claim line (file mtime 2026-11-02 11:23 -0600)",
+    "writer": "Grok-1 (its builder claim), not this Colab",
+    "effect": "none on this design: #01-#03 and Scope are byte-identical to the frozen snapshot that was read"
+  }
+}

@@ -1,0 +1,71 @@
+{
+ "schema": "lcd-inv2b/1",
+ "rooms": "D:\\librarian\\temp\\lcd-0719\\inv2b-run01",
+ "cases": {
+  "X6": {
+   "expected": "reporter v3 refuses the combined dispatcher; review-loop route still runs v8",
+   "combined_dispatcher_sha256": "6ce0e3644b3d6c1d6dd72b929272eb3d789485a526855eda0c142473c9381f00",
+   "combined_bytes": 12804,
+   "report_exit": 2,
+   "report_stderr": "stop: dependency conflict app/librarian.py got 12804 bytes sha256 6ce0e3644b3d6c1d6dd72b929272eb3d789485a526855eda0c142473c9381f00 want 12804 bytes sha256 f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983\r\n",
+   "review_loop_measurement": "complete",
+   "as_predicted": true
+  },
+  "X7": {
+   "expected": "v3 reporter does not report the v8-recorded N7 review as current",
+   "v8_record": {
+    "review_id": "w7b241e033b525f7b",
+    "publish_exit": 0
+   },
+   "report_exit": 1,
+   "report_stderr": "",
+   "report_keys": [
+    "accepted",
+    "action_released",
+    "answers",
+    "approved",
+    "artifacts",
+    "attention",
+    "authority",
+    "book",
+    "claims",
+    "closes_work",
+    "code_root",
+    "core",
+    "custody",
+    "detail_fields",
+    "director_text",
+    "disposition",
+    "eligible_for_custody_completion",
+    "evidence_index",
+    "exit",
+    "finding",
+    "findings",
+    "gaps",
+    "goal_terminal",
+    "holds",
+    "identity",
+    "instance_id",
+    "intake_findings",
+    "interface_gap",
+    "judgment_recorded",
+    "judgment_recoverable",
+    "limits",
+    "next_action",
+    "observation",
+    "operation",
+    "pass",
+    "pass_terminal",
+    "prime_review_effective",
+    "projection",
+    "proposed_core_exposure",
+    "publication"
+   ],
+   "stale": true,
+   "state": "stale",
+   "mentions_review_id": true,
+   "measurement_in_report": null,
+   "as_predicted": true
+  }
+ }
+}

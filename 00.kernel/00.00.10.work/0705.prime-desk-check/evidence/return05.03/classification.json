@@ -1,0 +1,409 @@
+{
+ "schema": "desk-baseline-classification/1",
+ "authority": "Claude's lab reading; not a Prime disposition",
+ "check_report_sha256": "d762f5cf56e3fff80bdcaedb57a55d1ca5cfe9dc9e21c946d30e9ff843cdb686",
+ "summary": {
+  "product-defect": 2,
+  "genuine-pass (qualified)": 2,
+  "unsupported-by-mapping": 29,
+  "pass-dependent-on-R1": 3,
+  "genuine-pass": 4,
+  "needs-prime-judgment": 1,
+  "vocabulary-gap": 1,
+  "fixture-defect (pass02 FX-01)": 2,
+  "boundary-needs-prime-decision": 3,
+  "incidental-pass": 1,
+  "vacuous-pass": 2,
+  "candidate-crash (PD-04)": 4
+ },
+ "supplementary_probe_C05": [
+  [
+   "A-C05-01",
+   "wrong"
+  ],
+  [
+   "A-C05-02",
+   "wrong"
+  ]
+ ],
+ "rows": [
+  {
+   "id": "A-C01-01",
+   "case": "C01",
+   "status": "wrong",
+   "class": "product-defect",
+   "why": "PD-01: candidate selects from its shadow selector (05.04); edited canonical names 05.03. conflicts/C01.json holds both raw pointers"
+  },
+  {
+   "id": "A-C01-02",
+   "case": "C01",
+   "status": "pass",
+   "class": "genuine-pass (qualified)",
+   "why": "basis observed for its (wrong) selection"
+  },
+  {
+   "id": "A-C01-03",
+   "case": "C01",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C01-04",
+   "case": "C01",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C01-05",
+   "case": "C01",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C01-06",
+   "case": "C01",
+   "status": "wrong",
+   "class": "product-defect",
+   "why": "PD-01 corollary: no conflict attention compares selection with the canonical record; only catalog-not-chosen gaps appear"
+  },
+  {
+   "id": "A-C02-01",
+   "case": "C02",
+   "status": "pass",
+   "class": "pass-dependent-on-R1",
+   "why": "selected 05.04 equals canonical only because the shadow selector (R1) names the same work; not proof of canonical selection"
+  },
+  {
+   "id": "A-C02-02",
+   "case": "C02",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C02-03",
+   "case": "C02",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C02-04",
+   "case": "C02",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C02-05",
+   "case": "C02",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C03-01",
+   "case": "C03",
+   "status": "pass",
+   "class": "genuine-pass",
+   "why": "instance root equals the selected run book (instance-A copy)"
+  },
+  {
+   "id": "A-C03-02",
+   "case": "C03",
+   "status": "wrong",
+   "class": "needs-prime-judgment",
+   "why": "candidate records foreign.read=false and same_instance=false, with no refusal concept; whether that meets 'refused or stale' is a judgment"
+  },
+  {
+   "id": "A-C03-03",
+   "case": "C03",
+   "status": "wrong",
+   "class": "vocabulary-gap",
+   "why": "candidate foreign row carries address, not path; adapter maps outside-instance with path null rather than inventing the path"
+  },
+  {
+   "id": "A-C04-01",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-02",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-03",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-04",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-05",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-06",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-07",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-08",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-09",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C04-10",
+   "case": "C04",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C05-01",
+   "case": "C05",
+   "status": "wrong",
+   "class": "fixture-defect (pass02 FX-01)",
+   "why": "C05 fixture lacks the 05.04 page its catalog lists; no selection, so no packet. Supplementary probe on a fixture-completed copy: wrong (PD-03: whole 834-byte file quoted as Director; sha 2e5fe132 vs expected blockquote cefa10fd)"
+  },
+  {
+   "id": "A-C05-02",
+   "case": "C05",
+   "status": "wrong",
+   "class": "fixture-defect (pass02 FX-01)",
+   "why": "as above; probe: wrong, the candidate has no separate interpretation block for the mixed-author file (PD-03)"
+  },
+  {
+   "id": "A-C06-01",
+   "case": "C06",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C06-02",
+   "case": "C06",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C07-01",
+   "case": "C07",
+   "status": "wrong",
+   "class": "boundary-needs-prime-decision",
+   "why": "a hold written inside a page is invisible: the candidate shows only request-declared attention and does not parse prose (by its contract). Prime decides whether holds must be catalogued or read"
+  },
+  {
+   "id": "A-C07-02",
+   "case": "C07",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C07-03",
+   "case": "C07",
+   "status": "wrong",
+   "class": "boundary-needs-prime-decision",
+   "why": "as A-C07-01"
+  },
+  {
+   "id": "A-C08-01",
+   "case": "C08",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C09-01",
+   "case": "C09",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C09-02",
+   "case": "C09",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C09-03",
+   "case": "C09",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C10-01",
+   "case": "C10",
+   "status": "wrong",
+   "class": "boundary-needs-prime-decision",
+   "why": "as A-C07-01 (H9 in a constructed page)"
+  },
+  {
+   "id": "A-C10-02",
+   "case": "C10",
+   "status": "pass",
+   "class": "incidental-pass",
+   "why": "the >=40 count comes from 40 catalog-not-chosen and other gaps, not from awaiting-review detection"
+  },
+  {
+   "id": "A-C10-03",
+   "case": "C10",
+   "status": "pass",
+   "class": "vacuous-pass",
+   "why": "total == shown, nothing hidden; the candidate has no overflow concept"
+  },
+  {
+   "id": "A-C11-01",
+   "case": "C11",
+   "status": "pass",
+   "class": "genuine-pass",
+   "why": "declared previous selector absent; expected hash shown"
+  },
+  {
+   "id": "A-C11-02",
+   "case": "C11",
+   "status": "pass",
+   "class": "pass-dependent-on-R1",
+   "why": "as A-C02-01"
+  },
+  {
+   "id": "A-C13-01",
+   "case": "C13",
+   "status": "pass",
+   "class": "genuine-pass",
+   "why": "catalogued pin vs changed bytes: stale, both hashes shown"
+  },
+  {
+   "id": "A-C14-01",
+   "case": "C14",
+   "status": "pass",
+   "class": "genuine-pass",
+   "why": "identical fingerprint across two candidate processes"
+  },
+  {
+   "id": "A-C14-02",
+   "case": "C14",
+   "status": "pass",
+   "class": "genuine-pass (qualified)",
+   "why": "same selected work across processes (R1-dependent value)"
+  },
+  {
+   "id": "A-C14-03",
+   "case": "C14",
+   "status": "pass",
+   "class": "vacuous-pass",
+   "why": "holds empty in both processes"
+  },
+  {
+   "id": "A-C14-04",
+   "case": "C14",
+   "status": "pass",
+   "class": "pass-dependent-on-R1",
+   "why": "as A-C02-01"
+  },
+  {
+   "id": "A-C16-01",
+   "case": "C16",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C16-02",
+   "case": "C16",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C16-03",
+   "case": "C16",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C17-01",
+   "case": "C17",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C17-02",
+   "case": "C17",
+   "status": "unsupported",
+   "class": "unsupported-by-mapping",
+   "why": "field not in candidate output; see pass03/mapping.json"
+  },
+  {
+   "id": "A-C18-01",
+   "case": "C18",
+   "status": "not-run",
+   "class": "candidate-crash (PD-04)",
+   "why": "app/context.parse_assignment raises Stop on the duplicated key; the candidate catches only SystemExit; traceback, empty stdout, exit 1; adapter refused to invent an observation"
+  },
+  {
+   "id": "A-C18-02",
+   "case": "C18",
+   "status": "not-run",
+   "class": "candidate-crash (PD-04)",
+   "why": "app/context.parse_assignment raises Stop on the duplicated key; the candidate catches only SystemExit; traceback, empty stdout, exit 1; adapter refused to invent an observation"
+  },
+  {
+   "id": "A-C18-03",
+   "case": "C18",
+   "status": "not-run",
+   "class": "candidate-crash (PD-04)",
+   "why": "app/context.parse_assignment raises Stop on the duplicated key; the candidate catches only SystemExit; traceback, empty stdout, exit 1; adapter refused to invent an observation"
+  },
+  {
+   "id": "A-C18-04",
+   "case": "C18",
+   "status": "not-run",
+   "class": "candidate-crash (PD-04)",
+   "why": "app/context.parse_assignment raises Stop on the duplicated key; the candidate catches only SystemExit; traceback, empty stdout, exit 1; adapter refused to invent an observation"
+  }
+ ]
+}

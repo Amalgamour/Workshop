@@ -1,0 +1,15 @@
+OK  HX-1 exit 1, not ready, all blocked | exit 1
+OK  HX-2 exit 2, refused, no rooms | exit 2
+OK  HX-3 exit 2 (pending row with a guessed pin) | exit 2
+OK  HX-4 exit 2 (accepted row does not match frozen bytes) | exit 2
+OK  HX-5 three unit suites exit 0 | exit 0
+OK  HX-6 capacity-only: NOT READY, scope subset, 32 missing required ids enumerated | exit 1
+OK  HX-7 exit 2 (dependencies None) | exit 2
+OK  HX-8 exit 2 (dependencies {}) | exit 2
+OK  HX-9 exit 2 (dependencies string) | exit 2
+OK  HX-10 exit 2 (pending K promoted by a status string only) | exit 2
+OK  HX-11 exit 2 (accepted G with a wrong frozen review reference) | exit 2
+OK  HX-12 exit 2 (unknown suite group) | exit 2
+OK  HX-13 staged-g strict-n7 subset: every selected case passes; still NOT READY (exit 1, pending deps); subset pass reported | exit 1
+OK  HX-14 proto-l strict-n7: ST-1/2/3 fail naming the absent malformed-n7-declaration reason; ST-4 control passes; exit 1 | exit 1
+aggregate {'ok': 14, 'total': 14}

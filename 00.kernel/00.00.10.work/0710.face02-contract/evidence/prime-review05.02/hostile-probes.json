@@ -1,0 +1,119 @@
+[
+  {
+    "label": "list-shaped aliases supplied as empty string",
+    "outcome": "accepted",
+    "artifact": {
+      "name": "Ada Wren",
+      "first_appearance": "10.00.01.people/0301.harbour",
+      "role": "harbour pilot",
+      "description": "",
+      "aliases": "",
+      "relations": [
+        {
+          "relation": "sister of",
+          "other": "0202.register#Tom Wren"
+        }
+      ],
+      "date_of_death": null,
+      "output_path": "0202.register/01.md#Ada Wren"
+    }
+  },
+  {
+    "label": "not-applicable reason is a number",
+    "outcome": "accepted",
+    "artifact": {
+      "source": "0423.dev-authoring",
+      "goal": "Reduce manual pack and review setup.",
+      "scope": {
+        "included": [
+          "source-linked start",
+          "per-item input"
+        ],
+        "excluded": [],
+        "allowed_writes": [
+          "new authoring draft on the linked work page"
+        ]
+      },
+      "finish": [
+        "Prime authors one real next pack with the tool."
+      ],
+      "executor": "Grok-1",
+      "reviewer": "Codex Prime",
+      "note_dispositions": [
+        {
+          "note": "0423/06.01",
+          "disposition": "integrated",
+          "item": "#01"
+        },
+        {
+          "note": "0423/06.02",
+          "disposition": "deferred",
+          "why": "kernel registration later"
+        }
+      ],
+      "items": [
+        {
+          "#NN": "#01",
+          "title": "Derive registration and source hashes",
+          "purpose": "Derive hashes from explicit work and authority references.",
+          "requirements": "Preserve missing or ambiguous data; never invent it.",
+          "acceptance": "Prime starts from the source page and gets a usable form.",
+          "breaking_change": false,
+          "interfaces": [],
+          "open_choices": {
+            "not_applicable": 42
+          }
+        },
+        {
+          "#NN": "#02",
+          "title": "Typed fields and UTF-8 — café",
+          "purpose": "Serialize typed fields and UTF-8 consistently.",
+          "requirements": "Prose meaning never needs a hand-computed hash.",
+          "acceptance": "A boolean given prose is refused at that field.",
+          "breaking_change": null
+        }
+      ],
+      "output_path": "0526.dev-authoring/05.03.md"
+    }
+  },
+  {
+    "label": "item-patch contains compute-owned and unknown fields",
+    "outcome": "accepted",
+    "artifact": {
+      "item": "#02",
+      "changes": {
+        "#NN": "#99",
+        "output_path": "arbitrary",
+        "tests_passed": true
+      },
+      "reason": "Make the acceptance observable."
+    }
+  },
+  {
+    "label": "schema missing goal/scope/finish/items/dependency states with unresolved notes",
+    "result": {
+      "outcome": "ok",
+      "code": "ok",
+      "form": "pack-check",
+      "kind": "schema",
+      "checked": [
+        "required-answered",
+        "items-contiguous",
+        "note-dispositions-complete",
+        "dependency-states-present"
+      ]
+    },
+    "artifact": {
+      "note_dispositions": [
+        {
+          "note": "0423/06.01",
+          "disposition": "unresolved"
+        },
+        {
+          "note": "0423/06.02",
+          "disposition": "unresolved"
+        }
+      ]
+    }
+  }
+]

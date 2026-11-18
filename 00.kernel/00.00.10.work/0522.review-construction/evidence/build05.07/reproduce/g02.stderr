@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-construction-pass03\construct.py", line 1052, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "D:\Git\lib-build\labs\review-construction-pass03\construct.py", line 1044, in main
+    emit(compose(root, args.input, args.command))
+         ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\review-construction-pass03\construct.py", line 864, in compose
+    spec = parse_envelope(load_json(read_regular(under(root, rel, "input"), "input"), "input"))
+  File "D:\Git\lib-build\labs\review-construction-pass03\construct.py", line 348, in parse_envelope
+    supplied = parse_supplied(raw["supplied_review_state"])
+  File "D:\Git\lib-build\labs\review-construction-pass03\construct.py", line 330, in parse_supplied
+    need(raw["disposition"] in DISPOSITIONS, "bad supplied_review_state.disposition")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')

@@ -1,0 +1,12 @@
+PASS  B1         exact N7 manifest still binds m.json
+PASS  B2         A-01 trailing note blocks and does not bind m.json,
+PASS  H-before   malformed manifest before a valid Returned line binds neither field
+PASS  H-after    valid manifest before a non-descriptive Returned line binds neither field
+PASS  B3         A-02 refused declaration plus a later valid Submission binds nothing
+PASS  B4         labels with no value and the double-comma near-match block in N7
+PASS  B5         Notes beside a valid manifest stays diagnostic and keeps the manifest
+PASS  B6         duplicate Returned lines stay ambiguous and unblocked
+PASS  B7         N5 punctuation and the A-01 suffix stay on the pass03 parser object
+PASS  B8         LF and CRLF pointer blocks parse equally in N7
+PASS  B9         a blocked build resets kind and the block flag, and the sibling file is unbound
+aggregate {'PASS': 11, 'FAIL': 0, 'ERROR': 0} first failure None

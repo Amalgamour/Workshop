@@ -1,0 +1,29 @@
+MATCH    0512/05.05.md:33 0512.prime-review/evidence/build05.05/submission.md actual 95c5cc4239a16987 10694
+ABSENT   0512/05.05.md:34 0512.prime-review/evidence/build05.05/artifact-manifest.json
+MATCH    0512/05.06.md:96 0512.prime-review/evidence/build05.06/submission.md actual dc5b52a7aeed664d 12303
+MATCH    0512/05.06.md:97 0512.prime-review/evidence/build05.06/artifact-manifest.json actual 983efc6a8a236456 3168
+MATCH    0512/05.07.md:165 0512.prime-review/evidence/build05.07/submission.md actual dfefe8754c4153d5 8252
+ABSENT   0512/05.07.md:166 0512.prime-review/evidence/build05.07/artifact-manifest.json
+MATCH    0521/05.13.md:34 0521.return-placement/evidence/build05.13/submission.md actual da8fe0640bbd9c95 1049
+MATCH    0521/05.13.md:35 0521.return-placement/evidence/build05.13/artifact-manifest.json actual 0a71b39c5165310d 1790
+== manifest 0512.prime-review/evidence/build05.06/artifact-manifest.json keys ['accepted', 'allocated', 'committed_by_this_builder', 'custody', 'excludes_self', 'file_count', 'files', 'omits', 'schema']
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/06.09.md
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/CONTRACT.md
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/author-suite.txt
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/current-review/report-second.stdout
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/current-review/report.json
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/current-review/summary.json
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/hostile/current-changed.json
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/known-failures/identical-files-pass02.json
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/submission.md
+   MATCH  00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/verification.json
+   MATCH  labs/review-report-pass03/PRIME-USE.md
+   MATCH  labs/review-report-pass03/README.md
+   MATCH  labs/review-report-pass03/report.py
+   MATCH  labs/review-report-pass03/tests/test_report.py
+== manifest 0521.return-placement/evidence/build05.13/artifact-manifest.json keys ['accepted', 'action_released', 'activated', 'allocated_0184', 'allocator', 'app_selected', 'app_selection_applied', 'approved', 'authority', 'bytes_total', 'capture_slot', 'committed', 'contract_revised_after_commands', 'custody', 'excludes', 'file_count', 'files', 'matching_line', 'published', 'receipt', 'schema', 'seated', 'work_complete']
+   MATCH  00.kernel/00.00.10.work/0521.return-placement/06.26.md
+   MATCH  00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/CONTRACT.md
+   MATCH  00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/submission.md
+   MATCH  00.kernel/00.00.10.work/0521.return-placement/evidence/build05.13/verification.json
+   MATCH  labs/connected-return-review-pass02/drive.py

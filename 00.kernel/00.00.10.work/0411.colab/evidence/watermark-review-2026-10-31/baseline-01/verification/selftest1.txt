@@ -1,0 +1,31 @@
+Exception in thread Thread-11 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1081, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\threading.py", line 1023, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 1613, in _readerthread
+    buffer.append(fh.read())
+                  ~~~~~~~^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x97 in position 751: invalid start byte
+good T1: pass
+good T2: pass
+good T3: pass
+good T4: pass
+good T5a: pass
+Traceback (most recent call last):
+  File "D:\Git\lib-build\00.kernel\00.00.10.work\0411.colab\evidence\watermark-review-2026-10-31\baseline-01\tools\selftest.py", line 98, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "D:\Git\lib-build\00.kernel\00.00.10.work\0411.colab\evidence\watermark-review-2026-10-31\baseline-01\tools\selftest.py", line 89, in main
+    rep = run(task, reply, tmp)
+  File "D:\Git\lib-build\00.kernel\00.00.10.work\0411.colab\evidence\watermark-review-2026-10-31\baseline-01\tools\selftest.py", line 76, in run
+    return json.loads(p.stdout)
+           ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+                    f'not {s.__class__.__name__}')
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType

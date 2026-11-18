@@ -1,0 +1,32 @@
+{
+ "example": "c2 decision record changed after binding",
+ "measured_before": {
+  "resolved": true,
+  "count": 1,
+  "sha256": "5524adba62072a5c283ed26db6c5cfe861885675c210ef5579745d24845b5564",
+  "bytes": 46
+ },
+ "measured_after": {
+  "resolved": true,
+  "count": 1,
+  "sha256": "da00e298c2aeabca23b0679b6a3f96f0b7ed44c92093ce9377de9f7ae7ca3c1d",
+  "bytes": 65
+ },
+ "restored_for_other_examples": true,
+ "specified_NOT_RUN": {
+  "states": {
+   "recorded_decisions": "stale"
+  },
+  "keep": "the original binding and its sha",
+  "never": "rebind silently",
+  "reconciliation_request": {
+   "stale_binding": "0599.fixture-task/06.02.decisions.md#Director - verbatim",
+   "bound_sha256": "5524adba62072a5c283ed26db6c5cfe861885675c210ef5579745d24845b5564",
+   "observed_sha256": "da00e298c2aeabca23b0679b6a3f96f0b7ed44c92093ce9377de9f7ae7ca3c1d",
+   "routed_to": "Director (a changed verbatim Director record is itself a conflict)"
+  },
+  "must_wait": [
+   "acts depending on that decision"
+  ]
+ }
+}

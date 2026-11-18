@@ -1,0 +1,45 @@
+test_crash_leaving_child_keeps_traceback (__main__.H01Timeouts.test_crash_leaving_child_keeps_traceback) ... ok
+test_exit_leaving_detached_child_is_detected_and_cleaned (__main__.H01Timeouts.test_exit_leaving_detached_child_is_detected_and_cleaned) ... ok
+test_exit_with_pipe_holding_child (__main__.H01Timeouts.test_exit_with_pipe_holding_child) ... ok
+test_flush_then_timeout_keeps_both_streams_once (__main__.H01Timeouts.test_flush_then_timeout_keeps_both_streams_once) ... ok
+test_ok_has_no_anomaly (__main__.H01Timeouts.test_ok_has_no_anomaly) ... ok
+test_timeout_with_pipe_holding_child_kills_it_and_keeps_output (__main__.H01Timeouts.test_timeout_with_pipe_holding_child_kills_it_and_keeps_output) ... ok
+test_unrelated_process_untouched (__main__.H01Timeouts.test_unrelated_process_untouched) ... ok
+test_evidence_roots (__main__.H02Boundaries.test_evidence_roots) ... ok
+test_existing_subdir_through_junction_refused (__main__.H02Boundaries.test_existing_subdir_through_junction_refused) ... ok
+test_fixture_write_entry_rechecks (__main__.H02Boundaries.test_fixture_write_entry_rechecks) ... ok
+test_junction_to_checkout_refused_as_output_root (__main__.H02Boundaries.test_junction_to_checkout_refused_as_output_root) ... ok
+test_lexical_checkout_refused (__main__.H02Boundaries.test_lexical_checkout_refused) ... ok
+test_occupied_directory_refused (__main__.H02Boundaries.test_occupied_directory_refused) ... ok
+test_dependencies_null_is_refused_not_unready (__main__.H03Config.test_dependencies_null_is_refused_not_unready) ... ok
+test_malformed_bytes (__main__.H03Config.test_malformed_bytes) ... ok
+test_substitution_fuzz (__main__.H03Config.test_substitution_fuzz) ... FAIL
+test_kind_matrix_separation (__main__.Preservation.test_kind_matrix_separation) ... ok
+test_pass04_files_unchanged (__main__.Preservation.test_pass04_files_unchanged) ... ok
+test_real_matrix_unready_no_launch_and_cases_unchanged (__main__.Preservation.test_real_matrix_unready_no_launch_and_cases_unchanged) ... ok
+test_unique_runs_preserve_earlier (__main__.Preservation.test_unique_runs_preserve_earlier) ... ok
+
+======================================================================
+FAIL: test_substitution_fuzz (__main__.H03Config.test_substitution_fuzz)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass05\selftest5.py", line 278, in test_substitution_fuzz
+    self.assertEqual(unexpected, [], "shape-invalid values reached UNREADY")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [('candidate.sha256', 'null'), ('candidate[108 chars]ll')] != []
+
+First list contains 5 additional elements.
+First extra element 0:
+('candidate.sha256', 'null')
+
++ []
+- [('candidate.sha256', 'null'),
+-  ('candidate.bytes', 'null'),
+-  ('dependencies.0.bytes', '0'),
+-  ('dependencies.0.bytes', '601'),
+-  ('release.invocation', 'null')] : shape-invalid values reached UNREADY
+
+----------------------------------------------------------------------
+Ran 20 tests in 14.999s
+
+FAILED (failures=1)

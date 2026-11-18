@@ -1,0 +1,241 @@
+{
+  "accepted": null,
+  "action_released": null,
+  "answers": {
+    "items": null,
+    "state": "unknown"
+  },
+  "approved": null,
+  "artifacts": {
+    "bytes": 0,
+    "bytes_state": "declared",
+    "count": 0,
+    "count_state": "declared",
+    "hash_match": 0,
+    "hash_mismatch": 0,
+    "intake_roles": {
+      "bytes": 0,
+      "bytes_state": "measured",
+      "count": 0,
+      "count_state": "measured",
+      "hash_match": 0,
+      "hash_mismatch": 0,
+      "label": "intake role rows; not a declared artifact total",
+      "not_verified": 0,
+      "provenance": "current-measured",
+      "scope": "full-intake-role-rows"
+    },
+    "integrity_provenance": "current-measured",
+    "integrity_scope": "current-measured-artifact-role-rows",
+    "measured_artifact_rows": {
+      "bytes": 0,
+      "bytes_state": "measured",
+      "count": 0,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "current-measured-artifact-role-rows"
+    },
+    "measured_by": "accepted-intake",
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 0,
+    "provenance": "declared",
+    "rows": [],
+    "scope": "manifest-declared-artifact-entries",
+    "unique_files": {
+      "bytes": 0,
+      "bytes_state": "measured",
+      "count": 0,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "unique-physical-files"
+    }
+  },
+  "attention": {
+    "lines": null,
+    "lines_state": "unknown",
+    "source": null,
+    "state": "not-exposed"
+  },
+  "authority": null,
+  "book": "C:\\Users\\misg\\AppData\\Local\\Temp\\rr0505-rebaseline-fh02zd93",
+  "claims": {
+    "limit": "The selected record has no structured claim, case, run, or result rows. Prose in tests_note is not parsed into a pass.",
+    "rows": [],
+    "state": "not-recorded"
+  },
+  "closes_work": null,
+  "code_root": "D:\\Git\\lib-build",
+  "core": {
+    "inspect_exit": 0,
+    "read_exit": 0,
+    "recover_exit": 0
+  },
+  "custody": null,
+  "detail_fields": [
+    "reasons",
+    "findings",
+    "gaps",
+    "answers",
+    "sections",
+    "intake_findings",
+    "artifacts.rows",
+    "render_coverage",
+    "identity",
+    "observation",
+    "interface_gap"
+  ],
+  "director_text": {
+    "state": "unknown",
+    "text": null
+  },
+  "disposition": null,
+  "eligible_for_custody_completion": null,
+  "evidence_index": {
+    "missing": [],
+    "state": "not-recorded"
+  },
+  "exit": 1,
+  "finding": null,
+  "findings": {
+    "items": null,
+    "state": "unknown"
+  },
+  "gaps": {
+    "items": null,
+    "state": "unknown"
+  },
+  "goal_terminal": null,
+  "holds": {
+    "items": null,
+    "state": "unknown"
+  },
+  "identity": {
+    "inspect_current": null,
+    "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+    "journal_current": "rev-bound",
+    "judgment_matches_core": false,
+    "read_review_id": null,
+    "record_matches_journal": false,
+    "record_sha256": "df6cc1ef1e42d76a4963a89263e7a20562b1520f93a9671784fe7fe64d9a6f6a",
+    "recover_review_id": null,
+    "selected_by": "bound-cut"
+  },
+  "instance_id": "inst-1",
+  "intake_findings": [],
+  "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+  "judgment_recorded": false,
+  "judgment_recoverable": false,
+  "limits": {
+    "state": "unknown",
+    "value": null
+  },
+  "next_action": null,
+  "observation": {
+    "bound": {
+      "digest_kind": "str",
+      "journal_current": "rev-bound",
+      "publication": {
+        "publication": {
+          "after_sha256": "aa",
+          "before_sha256": "bb",
+          "rendered_sha256": "cc",
+          "review_id": "rev-bound",
+          "status": "published",
+          "target": "0599.probe/05.01.md"
+        },
+        "published_target": {
+          "after_sha256": "aa",
+          "before_sha256": "bb",
+          "rendered_sha256": "cc",
+          "review_id": "rev-bound",
+          "status": "published",
+          "target": "0599.probe/05.01.md"
+        }
+      },
+      "record_file_sha256": "df6cc1ef1e42d76a4963a89263e7a20562b1520f93a9671784fe7fe64d9a6f6a",
+      "record_sha256": "df6cc1ef1e42d76a4963a89263e7a20562b1520f93a9671784fe7fe64d9a6f6a"
+    },
+    "changed": [
+      "record_file_sha256",
+      "record_sha256"
+    ],
+    "limit": "This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.",
+    "recheck": {
+      "digest_kind": "str",
+      "journal_current": "rev-bound",
+      "publication": {
+        "publication": {
+          "after_sha256": "aa",
+          "before_sha256": "bb",
+          "rendered_sha256": "cc",
+          "review_id": "rev-bound",
+          "status": "published",
+          "target": "0599.probe/05.01.md"
+        },
+        "published_target": {
+          "after_sha256": "aa",
+          "before_sha256": "bb",
+          "rendered_sha256": "cc",
+          "review_id": "rev-bound",
+          "status": "published",
+          "target": "0599.probe/05.01.md"
+        }
+      },
+      "record_file_sha256": "2aa354329b8e5df9591b54caa886817d1754667089519947d02a327bbd7642bd",
+      "record_sha256": "2aa354329b8e5df9591b54caa886817d1754667089519947d02a327bbd7642bd"
+    },
+    "stable": false,
+    "status": "unstable"
+  },
+  "operation": null,
+  "pass": "05.01",
+  "pass_terminal": null,
+  "prime_review_effective": null,
+  "projection": "schema: review-report/2\nstate: held\nreview_id: rev-bound\nobservation: unstable\nobservation_stable: false\nselected_digest: df6cc1ef1e42d76a4963a89263e7a20562b1520f93a9671784fe7fe64d9a6f6a\njudgment_recorded: false\npublication_class: unknown\npublication_status: published\nstale: true\ncustody: unknown\noperation: unknown\ndisposition: unknown\ngoal_terminal: unknown\npass_terminal: unknown\nwork_complete: unknown\naction_released: unknown\nauthority: unknown\ntask_association: unknown\ntests_passed: unknown\ntests_passed_label: unknown\ntests_note: unknown\nlimits: unknown\nattention_state: not-exposed\nattention: not exposed\nnext_action: unknown\ndirector_words: unknown\nholds: unknown\nclaims: not-recorded\nevidence_index: not-recorded\ndeclared_artifacts: count 0, bytes 0, provenance declared\nmeasured_artifact_rows: count 0, bytes 0, provenance current-measured\nunique_files: count 0, bytes 0, provenance current-measured\nintake_role_rows: count 0, bytes 0, provenance current-measured\nartifact_hash_match: 0\nartifact_hash_mismatch: 0\nartifact_not_verified: 0\nartifact_missing: 0\nmeasurement: complete\nobservation_limit: This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.\ndetail: reasons, findings, gaps, answers, sections, intake_findings, artifacts.rows, render_coverage, identity, observation, interface_gap\nThe stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.\n",
+  "proposed_core_exposure": "Add attention, prime_review_effective, journal current, record digest, and publication identity from the same journal-checked record to inspect, read, and recover.",
+  "publication": {
+    "class": "unknown",
+    "rendered_sha256": "cc",
+    "review_id": "rev-bound",
+    "status": "published",
+    "target_state": null
+  },
+  "reasons": {
+    "items": null,
+    "state": "unknown"
+  },
+  "releases_action": null,
+  "render_coverage": {
+    "historical_note": "The stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.",
+    "omitted": [],
+    "path": "workbook-review/0599.probe/05.01/reviews/rev-bound/rendered.md",
+    "rendered_ok": null,
+    "shows_attention_lines": null,
+    "shows_tests_note": null,
+    "shows_tests_passed": null,
+    "stored_render_bytes": null,
+    "tests_passed_line": null
+  },
+  "review_id": "rev-bound",
+  "schema": "review-report/2",
+  "sections": null,
+  "source": "0599.probe",
+  "stale": true,
+  "state": "held",
+  "successor_of": null,
+  "task_association": null,
+  "tests_note": {
+    "state": "unknown",
+    "text": null
+  },
+  "tests_passed": {
+    "label": null,
+    "proof_of_all_tests": false,
+    "proof_of_requirements": false,
+    "state": "unknown",
+    "value": null
+  },
+  "unknowns": [],
+  "work_complete": null
+}

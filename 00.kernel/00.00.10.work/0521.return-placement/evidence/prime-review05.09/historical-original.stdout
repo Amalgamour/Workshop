@@ -1,0 +1,137 @@
+{
+  "accepted": false,
+  "approved": false,
+  "check": "return-line-relocation/1",
+  "command": "lookup",
+  "correction": "Observed checks passed. This is not acceptance, seating, or publication.",
+  "custody_is_acceptance": false,
+  "descriptor": {
+    "custody_format": "legacy-relocated/1",
+    "custody_path": "0104.app-entry/05.06.custody",
+    "manifest_path": "0104.app-entry/05.06.custody/manifest.json",
+    "origin": {
+      "batch": "05.06",
+      "book": "00.00.10.work",
+      "page": "0504.app-entry"
+    },
+    "receipt_path": "0104.app-entry/05.06.custody/receipt.json",
+    "receipt_sha256": "bb71698f903c786497fa44b34cef046f32fabc01a039b40e53e8bd940a1a3580",
+    "return_bytes": 13251,
+    "return_path": "0104.app-entry/05.06.return.md",
+    "return_sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+    "route": "matched-workflow-return-line",
+    "schema": "return-line-descriptor/1",
+    "state": "complete",
+    "submission_id": "0504-05-06-pinned",
+    "target_page": "0104.app-entry",
+    "verification": {
+      "evidence_path": "0104.app-entry/05.06.custody/relocation.json",
+      "result": "complete",
+      "tool_path": "labs/return-lines-pass01/return_lines.py",
+      "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    }
+  },
+  "detail": {
+    "app_selected": false,
+    "rewritten": false,
+    "selected_backend": {
+      "bytes": 12124,
+      "path": "labs/return-lines-pass04/return_lines.py",
+      "sha256": "708443c5b3af457f930e8751be4224234d1494f2a2b4e18e3cf08bd7a7af1df6"
+    },
+    "sentinel_policy": "not-adopted",
+    "successor_consumed": false,
+    "backend": {
+      "check": "return-line-relocation/1",
+      "command": "lookup",
+      "correction": "Observed checks passed. This is not acceptance, seating, or publication.",
+      "descriptor": {
+        "custody_format": "legacy-relocated/1",
+        "custody_path": "0104.app-entry/05.06.custody",
+        "manifest_path": "0104.app-entry/05.06.custody/manifest.json",
+        "origin": {
+          "batch": "05.06",
+          "book": "00.00.10.work",
+          "page": "0504.app-entry"
+        },
+        "receipt_path": "0104.app-entry/05.06.custody/receipt.json",
+        "receipt_sha256": "bb71698f903c786497fa44b34cef046f32fabc01a039b40e53e8bd940a1a3580",
+        "return_bytes": 13251,
+        "return_path": "0104.app-entry/05.06.return.md",
+        "return_sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+        "route": "matched-workflow-return-line",
+        "schema": "return-line-descriptor/1",
+        "state": "complete",
+        "submission_id": "0504-05-06-pinned",
+        "target_page": "0104.app-entry",
+        "verification": {
+          "evidence_path": "0104.app-entry/05.06.custody/relocation.json",
+          "result": "complete",
+          "tool_path": "labs/return-lines-pass01/return_lines.py",
+          "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+        }
+      },
+      "detail": {
+        "problems": [],
+        "acceptance": null,
+        "accepted": false,
+        "approved": false,
+        "published": false,
+        "new_home": {
+          "custody_path": "0104.app-entry/05.06.custody",
+          "logical_return_path": "0104.app-entry/05.06.return.md",
+          "target_page": "0104.app-entry"
+        },
+        "retained_original": {
+          "archived_identity": "0101.app-entry-0506",
+          "backup_path": "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\backup",
+          "book_member_present": false,
+          "retired_rel": "originals/0101.app-entry-0506",
+          "retired_root": "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\retired",
+          "source_backup": "sources/0101.app-entry-0506"
+        },
+        "pass02_tool": "labs/return-lines-pass02/return_lines.py",
+        "pass02_tool_sha256": "6691d0587ab97ba24a1709c9950b506961152939e2d112ee608f9dbd23e92908"
+      },
+      "evidence": "0104.app-entry/05.06.custody/relocation.json",
+      "exit": 0,
+      "schema": "return-line-result/1",
+      "state": "complete"
+    }
+  },
+  "exit": 0,
+  "legacy": {
+    "called": true,
+    "exit": 0,
+    "member": "0101.app-entry-0506",
+    "parent": "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\retired\\originals",
+    "reason": null,
+    "text": "reservation 937140258022d1be8402b653b17108c5905e2f5af4ddcbf93d564b6ef842087d\nmanifest 233297c3257c0fb7c060671a9e733fdd1957136a01d7ec5ae8d3985b0c09006e\nreceipt bb71698f903c786497fa44b34cef046f32fabc01a039b40e53e8bd940a1a3580\npayload 0001.blob 8b6f6498b7fef8e4eb3706d7080bab4d6ed851c1a3af8efbe0e8b9ee019655d3\npayload 0002.blob 1ee161c5497212eccfcc13d6703e94df7b8c05d31e1dae00e978ac321d7978bc\npayload 0003.blob 11f0478f542c2970729adae749d97dd109144601f0e3d104e7f35e41a4e11a9c\npayload 0004.blob 67a85eb7545107a0c75176304e587d235f93ba79cb893b97ed3b33f465d9ea83\npayload 0005.blob 615c82b7fc5f26b1d3e7a17b2a492d269492b81f3a4021faf5d6cf4f25b40935\npayload 0006.blob 87227606cafd8f3bb96c52af67eb9eba09d530d45419b26c1de9a82beb4adf41\npayload 0007.blob b8c37b8a68c5753b9d541d56b05aa1fd7f22371848377a38a0c9990580e1d6b4\npayload 0008.blob 32c532b49dfc30ca655995e63d2f679f3de0bc9923f1916b80a2f97c178e3bb2\npayload 0009.blob a373efd99e4fc68521e2553eb35712ffccec0928cb82d6fa643a2c40ac25bbeb\npayload 0010.blob 66c1053bc44b27a11daa0fe1a0ff48225023891fa54b1813dd2c884d728e3ba7\npayload 0011.blob ec5fdf63b1ba88c0570ad7f67fc5007307445d6287dcd5fee03da01348ce5fe3\npayload 0012.blob a3259175b3225e28798716b874c3865f14045f7e37167e34268950bfc173f9c6\npayload 0013.blob b9f6b36578308b0a3f09e2da09c77e0db06c518579304c8ed33b7a978b332af5\npayload 0014.blob 8b7d6da2b610e7491334673f8fa85248e62dc1ba0d9b1e9e49d30dd782133097\npayload 0015.blob b32ef983d2c6fdbccb9b3fe1b24f562a9303e8c6f933992bcd06fcb8eb175958\npayload 0016.blob d8554aa880b923d2c6963f5b7c509b890e73440623a1b8b97a2ec80d8ed329ff\npayload 0017.blob a89927ee37821c1021bf30b3d4908be56bb076052aa6d33661ec8a555302f339\npayload 0018.blob 4b576f50b99b3d861c69ea82004b4ddce4390a6ae04476443457626d6c5a65bb\npayload 0019.blob 935b09b8e168115c1e222c4f1454286aead7add8df6360b98b9a5acf071511f4\npayload 0020.blob d7e964e605b81d14fa52a6053035debcfc53ca3ee3801cb5c679ca0db1a7d76e\npayload 0021.blob 8365ec5ebe811d34bb61f81d5ce8b46a212fbf3b1dd334a1a6d81d7607b65805\npayload 0022.blob c00daad88336642247c8745a71df0537d5dbcc5c6962c98137aecc1f6c856f81\npayload 0023.blob e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\npayload 0024.blob 75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b\npayload 0025.blob 75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b\npayload 0026.blob 00a910c1334f58ee1de8d2f091591d76618cb676a946b20141da5e097529f45e\npayload 0027.blob 45714faedf6b23f4c7008300ad5130efe80ef0a2f51a10d1751e8e778d42b485\npayload 0028.blob 002bd2a46a5b574a357e625bbde6822a9794c4dc0e131e6d02fbbe6f3347d41b\npayload 0029.blob 002bd2a46a5b574a357e625bbde6822a9794c4dc0e131e6d02fbbe6f3347d41b\npayload 0030.blob e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\npayload 0031.blob f9cb10ba3b134e3762bb770600667551974710f54599b6540eeb80e17a64eadb\npayload 0032.blob 75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b\npayload 0033.blob 75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b\npayload 0034.blob 739a2ab13bd4becdbc78828a7ab314500fbb6e2f0eff85f8b2a00a92f621804c\npayload 0035.blob b433faf975c4ae11f22ce2163d37a0a839f2221127e3ac2ede104cf452c462c1\npayload 0036.blob 171409fc0f719c58590871c717f4011186dc5d722493452ca5dca731ab5596bf\npayload 0037.blob 171409fc0f719c58590871c717f4011186dc5d722493452ca5dca731ab5596bf\npayload 0038.blob 0cb6ad63c6a61988153304a55d3d7619a74207942f44328a35b8b9b12137cc3c\npayload 0039.blob 53922a8d90951aad75ab947c37504023a8732792f9dd8126b86d1783a0dcde37\npayload 0040.blob 19afe1f4122232354d2949d6d5f1bc24b077cc05319ad82635d29cf9e895dbde\npayload 0041.blob e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\npayload 0042.blob e9acc014b8f7af24a88bfa396d0a9c167ef796255eb2e51071816b2abca3538c\npayload 0043.blob e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\npayload 0044.blob f663104e963ca1c20ac34c5ac3a0a647f92ee229afe4cc262530482b5c90e62a\npayload 0045.blob e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\npayload 0046.blob 9d539694959f49bba685fbb93203d67ccd72650e893a2ca061602d35ae281b56\npayload 0047.blob e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\npayload 0048.blob 1302e1f5eab0c1fab2b0b0720d7088adfe481a48a370857817985e3fe223715b\npayload 0049.blob ae91994f9fc323cc5b3e5cfd02d8ed5660eb47b1b4d7125b09baa4e3ddf6e438\npayload 0050.blob 7ad292d6ebc4d97b5a1d44ada643998ab257ace5efa1d1c21970ea43d97f5426\npayload 0051.blob 14d59150b6638173606a2b158053c12ec6efed2e14dbaf78f91c19982ce46116\npayload 0052.blob bffc7c4553446e2129bef44e67ae6ebd0dbe9be7a09c863cb9f6756884e61248\npayload 0053.blob 1e6477b53475d82c265626a9da0817aff475244cb5508cc84c8b765c6bab8053\npayload 0054.blob 55dc06394b548b6f90cef5c0e23659271342b9d1c3d53bfe897f31c78c18901d\npayload 0055.blob f57ff8b523dbdd7fdc6cc19da9ee34dc611a5cef1aed5a01b544726384ca6cbf\npayload 0056.blob e89e73995e3a97d79e51f48dc44da6fa151e4168ce1163ef44cebdcdad2a0fd8\npayload 0057.blob 657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975\npayload 0058.blob 3e81d54b8c111e7bb4a8110e73df078c79492acc205d9b8b5f4544d43ab11eb5\npayload 0059.blob 03ffc50a67c7323536c0c46d7f82c5f76cf02a33d44f4264665002d6005140d8\npayload 0060.blob 8cbabc26c57ea8eff7546ebf7339527257c8912d5bf428849c86b73fafc9b72f\nresult complete\nnot approved\nnot accepted\nnot published\n"
+  },
+  "missing": [],
+  "partial": false,
+  "published": false,
+  "route": {
+    "custody_path": "0104.app-entry/05.06.custody",
+    "pass": "05.06",
+    "return_path": "0104.app-entry/05.06.return.md",
+    "route": "matched-workflow-return-line",
+    "source_page": "0504.app-entry",
+    "target_page": "0104.app-entry"
+  },
+  "schema": "return-access-result/1",
+  "state": "complete",
+  "task_association": "not-established",
+  "verified": {
+    "pass": "05.06",
+    "return_path": "0104.app-entry/05.06.return.md",
+    "route": "matched-workflow-return-line",
+    "source_page": "0504.app-entry",
+    "target_page": "0104.app-entry",
+    "return_bytes": 13251,
+    "return_sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+    "receipt_sha256": "bb71698f903c786497fa44b34cef046f32fabc01a039b40e53e8bd940a1a3580",
+    "legacy_member": "0101.app-entry-0506",
+    "legacy_parent": "D:\\librarian\\temp\\0521-0509\\20261102T213852169046Z-suite\\primary\\retired\\originals"
+  }
+}

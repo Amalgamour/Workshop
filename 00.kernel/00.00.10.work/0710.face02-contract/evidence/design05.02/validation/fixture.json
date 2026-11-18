@@ -1,0 +1,18 @@
+{
+  "note": "SYNTHETIC fixture registry for the 0710/05.02 nonproduction validator. Not the live book.",
+  "grounds": {
+    "0423/01#2": "draft",
+    "0423/01#3": "draft",
+    "0423/01#4": "draft",
+    "0201/01#Person": "synthetic-approved"
+  },
+  "relations": {"0423.dev-authoring": {"work": "0526.dev-authoring", "next_pass": "05.03"}},
+  "pages": ["10.00.01.people/0301.harbour", "10.00.01.people/0302.market"],
+  "records": ["0202.register#Tom Wren"],
+  "notes": ["0423/06.01", "0423/06.02"],
+  "draft_items": ["#01", "#02"],
+  "revisions": {
+    "pack-create": {"001": {"state": "approved"}, "002": {"state": "draft"}},
+    "person-create": {"001": {"state": "synthetic-approved"}}
+  }
+}

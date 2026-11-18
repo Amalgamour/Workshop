@@ -1,0 +1,104 @@
+# 05 — Desk app core integration design and lab
+version: 001
+Authorization: draft — 2026-10-31
+who: Codex Prime
+state: prepared for named Director invocation
+Face: 05
+PPPP: 0519
+book: 00.00.10.work
+
+## Assignment
+Executor: Claude. Reviewer: Codex Prime.
+Release and claim: recorded in the Return pointer. This draft grants no release.
+Workspace D:/Git/lib-build, branch workshop. Verify evidence/pack05.01/source-manifest.json.
+
+## Goal and context
+Design and demonstrate the smallest desk app core using existing work, for the
+current Prime first. We already have a work-book pack/return workflow and multiple
+modules. Keep that workflow functioning. Do not make an isolated room, new OS
+account, permission migration, cloud service or manual ZIP handoff a prerequisite.
+You may inspect project files, write/run bounded labs and save the local return.
+You may NOT implement or edit production app code. Grok builds released slices.
+
+## #01 - source-backed map before design
+Write 06.01.md notes, inspect the pinned app and supporting modules, and produce
+integration-map.json. Map session/role registration, orientation, assignment,
+claim/status, result submission, immutable local capture, Prime review, next action
+and restart recovery. For each name the real file/interface, demonstrated behavior,
+unverified claim, limitation or missing piece. Read code, not only old README prose.
+The boot selector is historical and being corrected by Prime; newest page is not
+an assignment selection rule. Do not rewrite global state yourself.
+
+## #02 - first vertical slice
+The first useful finish line is: Prime records a bounded assignment -> worker
+retrieves it -> worker submits a durable return with evidence -> Prime retrieves
+and reviews it -> the recorded state identifies what happens next after restart.
+Use existing N5NN pack and N1NN capture identities. Do not invent parallel custody.
+Propose a minimal interface for the Director and model-facing command/API access.
+A local service/browser UI is a candidate, not a requirement to duplicate working
+CLI code. Choose the smallest justified integration and explain alternatives.
+No automatic model launching or routing network is needed for the first slice.
+Do not require face builders, full kernel seating or all future approval features
+before this handoff works. Identify those as later slices where appropriate.
+
+## #03 - bounded integration lab
+Write new code only in labs/desk-app-integration-pass01, with disposable fixture
+state. Inspect filesystem effects before launching existing code; use explicit
+dependencies and existing supported interfaces. Demonstrate whatever subset can
+actually run safely: one assignment/return/review, missing return distinct from
+done, repeated handback, stale source identity, restart from durable records.
+Use synthetic tasks/returns, not a claim that a real fresh model ran. If the loop
+cannot be completed without missing production code, demonstrate the boundary and
+propose its smallest implementation rather than faking a green result.
+No broad app test suite, inventory/bridge fixtures or AR-01 race tests. No paid
+calls, installs, new model sessions, browser automation or global settings changes.
+
+## #04 - design for reviewed implementation
+DESIGN.md explains authoritative records, interfaces, module ownership, dependency
+identities, error states, approval/release versus mere receipt, source revision
+binding, restart and partial writes. Session registration is not authentication
+or filesystem enforcement; record current trust assumptions plainly. No claim of
+enforced isolation. No mandatory infrastructure expansion in this assignment.
+Show how task, return, evidence, review and the next action remain findable in the
+work book. Do not put the only instructions or decisions in chat or transient state.
+
+## #05 - implementation plan and hostile check
+BUILD-PLAN.md breaks the smallest core into bounded Grok implementation packs,
+with concrete proposed file ownership, dependencies, tests and observable completion.
+Identify which can run in parallel and which depend on agreed contracts. Prioritize
+something Prime can use immediately over a large ideal architecture.
+Include a hostile self-review for duplicate engines, missing handoff records,
+stale selectors and unnecessary complexity. Flag true Director choices with a
+recommendation. Prime will discuss and Colab the design before production build.
+
+## #06 - evidence and return
+Record commands, inputs, outputs/exits, real test results and limits in verification
+and an artifact manifest binding all new lab code, design and evidence. Notes first,
+draft, full reread, integrate corrections. Return Did, Blocked, Need, with one
+recommended next action. Capture and verify it locally using the reserved member.
+
+## Allowed writes and parallel lane
+Only labs/desk-app-integration-pass01, 0519/06.01.md, evidence/build05.01, this
+claim/pointer and the reserved capture. No app/, existing lab/core changes,
+kernel/law seating, queue/00.live, other page edits or Git stage/commit/push.
+Grok is repairing labs/colab-review-pass01 independently. That unaccepted adapter
+is not a dependency or blocker for this app design. Request extra sources through
+Prime; do not silently import current output from the other lane.
+
+## Local capture
+Dedicated submission starts Did, Blocked, Need. Use reserved 0182.desk-app-integration-design-0501:
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission claude-0519-0501 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/submission.md" --source-root "D:/Git/lib-build" --artifact "00.kernel/00.00.10.work/0519.desk-app/06.01.md|00.kernel/00.00.10.work/0519.desk-app/06.01.md" --artifact "00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/DESIGN.md|00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/DESIGN.md" --artifact "00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/integration-map.json|00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/integration-map.json" --artifact "00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/verification.json|00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/verification.json" --artifact "00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/artifact-manifest.json|00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/artifact-manifest.json" --artifact "00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/BUILD-PLAN.md|00.kernel/00.00.10.work/0519.desk-app/evidence/build05.01/BUILD-PLAN.md"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0182.desk-app-integration-design-0501
+```
+Keep submitted sources and partial evidence. Never overwrite/remove captures or
+allocate around failure. Append pointers/receipt/fresh verify below. No shared Git
+stage/commit/push, other-lane changes or new authority. Prime reviews/publishes.
+Draft/reservation is not Director release.
+
+## Return pointer
+Release: the Director, chat 2026-10-31: "Work in D:\Git\lib-build on workshop. Run this bounded design and lab assignment: 00.kernel/00.00.10.work/0519.desk-app/05.01.md Read the complete pack and verify its source manifest before starting. Record this invocation and your claim on the batch. Your role is design, investigation and executable disposable labs. Do not modify production app code. Prioritize the smallest working assignment → durable return → Prime review loop, reusing our existing modules and work-book records. Capture and verify your return locally as: 0182.desk-app-integration-design-0501 No Git stage, commit or push. Prime reviews and publishes."
+Claim: claude-opus-5-5 (Anthropic), executor (named on this page as Claude), in the Claude Code desktop app; a continuing session (it built 0518/05.01 earlier, now under Grok's 05.02 repair). Claimed 2026-10-31 on workshop at HEAD 960d20c5290656095df8457b1740d2d5e586b111. pack05.01: 51 of 51 snapshots match their pins and equal live; 49 equal HEAD; the other two are uncommitted Prime records (0416.desk-app/01.002.md untracked; 0401.goal/06.01.md modified to select this pack). Scope: this batch only.
+
+## Review — Codex Prime
+PENDING.

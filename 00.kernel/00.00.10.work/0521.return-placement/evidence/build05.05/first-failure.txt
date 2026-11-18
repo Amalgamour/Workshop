@@ -1,0 +1,15 @@
+First unit run, before the book-location source check was limited to preflight, init, stage, reconstruct, and publish.
+Command: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B -u labs\return-lines-pass03\tests\test_pass03.py
+Exit: 1. 15 tests, 6.564s. One failure. The contract and the tool were both still before verification.json.
+
+FAIL: test_designated_flow_interrupt_partial_and_rollback
+AssertionError: 2 != 0
+command: rollback-retire
+check: stale source
+reason in correction: source bytes no longer match the audit
+detail.source_example.reason: missing
+detail.source_example.path: 00.kernel/00.00.10.work/0101.app-entry-0506/01.md
+detail.source_files_checked: 0
+detail.source_mismatch_count: 65
+
+The members had already moved to the retired root. Rollback was refused because the new check still expected them in the book. The check was then limited. Retire, rollback, reserve, and capture keep pass02's backup and journal comparisons.

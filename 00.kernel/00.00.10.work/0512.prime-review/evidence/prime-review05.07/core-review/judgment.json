@@ -1,0 +1,69 @@
+{
+  "finding": "Correction required before treating review-report as a usable normal app command; retain the working staged connector.",
+  "reasons": [
+    "The standalone connector faithfully preserves both tested real report outputs.",
+    "Executing proposed source with an old on-disk dispatcher is not a deployment proof; a real candidate copy refuses the changed dispatcher hash.",
+    "The post-filing author-suite failure is an invalid lifecycle assumption, not evidence that filling the return pointer was wrong."
+  ],
+  "operation": "continue",
+  "disposition": "correction-required",
+  "pass_terminal": "open",
+  "goal_terminal": "open",
+  "next_action": "Complete the deployment-coherent reporter app integration on a real on-disk candidate copy, with a versioned consistent pin chain, and make its tests valid after return filing. Keep shared app selection Prime-owned.",
+  "semantic_conflict": false,
+  "design_fork": null,
+  "findings": [
+    {
+      "finding_id": "R1#deployment-pins",
+      "disposition": "answered",
+      "text": "Disclosed integration blocker independently reproduced on actual candidate bytes; assigned followup, not closed."
+    },
+    {
+      "finding_id": "R2#filed-test",
+      "disposition": "answered",
+      "text": "Test assumes return still PENDING after filing; repair regression fixture and preservation invariant in successor, not historical suite."
+    }
+  ],
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": [
+      {
+        "finding_id": "R1#deployment-pins",
+        "status": "accepted"
+      },
+      {
+        "finding_id": "R2#filed-test",
+        "status": "accepted"
+      }
+    ],
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Complete the deployment-coherent reporter app integration on a real on-disk candidate copy, with a versioned consistent pin chain, and make its tests valid after return filing. Keep shared app selection Prime-owned.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "Staged adapter works. The actual proposed dispatcher on disk is refused by the old app hash, and one author test assumes an unfiled PENDING return.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "23/23 artifacts verified. Independent direct/connector reads on 0512/05.06 and 0521/05.13 are byte-identical with exit 0.",
+    "tests_note": "Prime reran 15 author cases: 14 pass, one fails because filing the legitimate return replaces PENDING. Separate independent comparisons pass; an actual installed-copy command exits 2 on the disclosed dispatcher pin conflict.",
+    "tests_passed": false,
+    "within_direction": "Finish the authorized app reporter connector without changing report semantics, release authority, active modules or historical evidence."
+  },
+  "holds": [],
+  "answers": [],
+  "review_passes": [],
+  "gaps": [
+    "No active app selection, custody filing or migration.",
+    "No change to old reporter meaning or old evidence; staged command remains available."
+  ]
+}

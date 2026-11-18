@@ -1,0 +1,120 @@
+{
+  "proposed_action": {
+    "action_id": "read-pinned-page",
+    "authorized_in_grant": true,
+    "grant_ref": "SUPPLIED EXAMPLE. Reading the pinned page is declared inside the record. Appointment is not.",
+    "label": "read-pinned-page"
+  },
+  "review": {
+    "agreement": {
+      "director_required": "Any appointment of a Prime, and any reopening of the trial.",
+      "finish_criteria": [
+        {
+          "id": "recorded",
+          "text": "The page states the trial result and its limits."
+        }
+      ],
+      "goal": "Record the already-run orientation trial t2.",
+      "prime_discretion": "How to phrase the report of the recorded result.",
+      "recorded_decisions": [
+        {
+          "id": "quoted-done",
+          "source_sha256": "7ad45e5bafd71d04a6d1a114c88faadcb2f2e49203a488fec0007d53a6983f38",
+          "text": "The page quotes the Director: \"Good, the prime test is done.\" This supplied example does not treat that sentence as a new release or an appointment."
+        }
+      ],
+      "scope": "Pinned page 0507.prime-support/05.17.md only. No new trial and no appointment."
+    },
+    "answers": [],
+    "attribution": {
+      "actor_label": "SUPPLIED EXAMPLE",
+      "evidence": "Hypothetical review for the 05.01 walkthrough. Not a Director decision, not Prime acceptance, and not an appointment.",
+      "role": "prime"
+    },
+    "gaps": [
+      "Exact initial chat text and the full transcript were not supplied. They are not invented here."
+    ],
+    "holds": [
+      {
+        "dependent_scope": [
+          "appoint-candidate",
+          "reopen-trial"
+        ],
+        "finding_id": "00.kernel/00.00.10.work/0507.prime-support/05.17.md#O6",
+        "hold_id": "H-0517",
+        "kind": "director-judgment",
+        "question_id": "Q-0517",
+        "question_revision": "r1",
+        "question_sha256": "7ad45e5bafd71d04a6d1a114c88faadcb2f2e49203a488fec0007d53a6983f38"
+      }
+    ],
+    "judgment": {
+      "design_fork": null,
+      "finding": "The pinned page says \"Judge:not-oriented; authority none.\" and \"Candidate is not appointed Prime.\" This supplied example does not appoint anyone.",
+      "next_action": "Prime reviews this draft. No succession step is proposed.",
+      "outcome": "complete",
+      "reasons": [
+        "Those sentences are on the pinned page."
+      ],
+      "sections": {
+        "affected": null,
+        "assumptions": null,
+        "consequences": null,
+        "exploration": null,
+        "findings_account": [
+          {
+            "finding_id": "00.kernel/00.00.10.work/0507.prime-support/05.17.md#O6",
+            "status": "accepted"
+          }
+        ],
+        "finish_assessments": [
+          {
+            "assessment": "met",
+            "criterion_id": "recorded"
+          }
+        ],
+        "for_model": null,
+        "issue": null,
+        "learning": "A protocol miss stays in the record.",
+        "limits": "Authority none. The page says the exact initial chat text was not supplied. This draft does not verify member 0153 and does not reopen the trial.",
+        "next_bounded_action": null,
+        "open_questions": null,
+        "options": null,
+        "outcome_evidence": "Mechanical O1–O6 checks ok. O1–O5 semantic pass; O6 content sound but protocol wrong:\ncandidate disclosed extra shell operations forbidden by fixed evaluator(f).\nJudge:not-oriented; authority none. Outside memory note also disclosed; influence\non answers unknown, no evaluator read alleged.",
+        "preservation": "Keep the pinned page bytes. This draft adds no acceptance.",
+        "prime_finding": null,
+        "proposed_plan": null,
+        "question": null,
+        "recommendation": null,
+        "remaining_choices": [
+          "Should anyone be appointed Prime from this trial, or should the trial be reopened? This supplied example is not an answer."
+        ],
+        "return_result": null,
+        "tests_note": "The page records mechanical checks and a not-oriented judge line. This draft does not use those checks as closure.",
+        "tests_passed": null,
+        "within_direction": null
+      },
+      "semantic_conflict": false
+    },
+    "review_passes": [],
+    "schema": "prime-review-record/1",
+    "sources": [
+      {
+        "bind": true,
+        "content_bytes": 1304,
+        "content_sha256": "7ad45e5bafd71d04a6d1a114c88faadcb2f2e49203a488fec0007d53a6983f38",
+        "identity": {
+          "schema": "page-bytes/1"
+        },
+        "kind": "page",
+        "logical_path": "00.kernel/00.00.10.work/0507.prime-support/05.17.md",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "# 05 — Recorded orientation trial t2\nversion:001\nwho:Codex Prime\nstate:returned and assessed\nFace:05\nPPPP:0507\nbook:00.00.10.work\n\n## Scope and actual authorization\nThis card records an ALREADY RUN trial and its review, not a retroactively released\nbuild pack. Director said \"fresh claude is running\" then \"Good, the prime test is\ndone.\" The candidate reports reading the supplied LAUNCH-PROMPT and trial inputs.\nExact initial chat text/full transcript were not supplied; do not invent them.\nPreparation:0507/05.16, sealed0151, actual external attempt t2. Formal evaluator and\nPrime launch boundary were fixed before answers. Candidate is not appointed Prime.\n\n## Result\nMechanical O1–O6 checks ok. O1–O5 semantic pass; O6 content sound but protocol wrong:\ncandidate disclosed extra shell operations forbidden by fixed evaluator(f).\nJudge:not-oriented; authority none. Outside memory note also disclosed; influence\non answers unknown, no evaluator read alleged. See evidence/trial-t2/review.md.\n\n## Return and custody\nCapture member/receipt will be appended after verification. All candidate evidence\nretained as exact copies; this page does not alter the source answers/preparation.\n\nReserved member:0153.prime-orientation-trial-t2. Receipt and verify are recorded in the separate capture result.\n",
+        "transport_bytes": 1304,
+        "transport_sha256": "7ad45e5bafd71d04a6d1a114c88faadcb2f2e49203a488fec0007d53a6983f38"
+      }
+    ]
+  },
+  "schema": "prime-review-guard/1"
+}

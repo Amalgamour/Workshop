@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\stubs\\STUB5.py",
+    "exit-hold-child",
+    "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\313e7ce7-27d2-405b-881d-6a16a47199dc\\scratchpad\\lab0505-selftest\\20261101T215635Z-6a5f16\\out\\20261101T215635Z-de1864\\S07-grandchild.pid"
+  ],
+  "containment": {
+    "method": "job",
+    "note": "a descendant started before job assignment could escape (start-to-assign window)"
+  },
+  "exit": null,
+  "label": "stub-exit-hold-child",
+  "leftover_descendants": null,
+  "output_status": "complete-after-termination",
+  "parent_exit": 0,
+  "seconds": 3.013,
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_bytes": 196,
+  "stdout_sha256": "98b5c02078dfb0a3ac8558d5aed8678100b5d4ac7a30a2586c6f9640335aaf7f",
+  "termination": {
+    "method": "TerminateJobObject on this harness's job",
+    "ok": true
+  },
+  "timed_out": true,
+  "timeout_reason": "pipes held by a descendant after the parent exited"
+}

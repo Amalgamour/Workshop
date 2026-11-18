@@ -1,0 +1,104 @@
+{
+ "schema": "desk-observation/1",
+ "case_id": "C02",
+ "producer": {
+  "kind": "candidate",
+  "adapter": {
+   "id": "0705-pass03-adapter/1",
+   "sha256": "1f22e141dafb66580088fc1b9d9bba491a6f6d1ddf3ddfe838b1a8ac635e9fc1",
+   "status": "connected"
+  },
+  "raw_outputs": [
+   {
+    "path": "view.stdout",
+    "sha256": "f2978bcec04eaa9420c901fb755ed9fe8178e2f0ba8a4d63eea793b723e44e57"
+   },
+   {
+    "path": "packet.stdout",
+    "sha256": "6c6f42790e445add7b4878f4f1d9cc7aa26caa9a87d7d714823c8942bfaa2699"
+   }
+  ],
+  "unmapped": [
+   "works",
+   "parallel",
+   "coverage",
+   "workers",
+   [
+    "selected",
+    "source"
+   ]
+  ]
+ },
+ "instance": {
+  "selected": "instance-A"
+ },
+ "selected": {
+  "work_ref": "0522.review-construction/05.04",
+  "basis": "observed",
+  "source": {
+   "path": null,
+   "sha256": null
+  }
+ },
+ "parallel": [],
+ "works": [],
+ "attention": {
+  "total": 4,
+  "shown": 4,
+  "overflow_route": null,
+  "items": [
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "coverage-gap",
+    "ref": null
+   },
+   {
+    "kind": "conflict",
+    "ref": null
+   },
+   {
+    "kind": "conflict",
+    "ref": null
+   }
+  ]
+ },
+ "holds": [],
+ "coverage": [],
+ "sources": [
+  {
+   "path": "00.kernel/00.00.10.work/0522.review-construction/05.04.md",
+   "instance": "instance-A",
+   "expected_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "observed_sha256": "9da5a0ba30dc45ba926237a6c5690263ae68758964647539078c552714784c11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0524.prime-desk/05.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11",
+   "observed_sha256": "a76c9599976b945ee5a961eb3cd29f4fd6f80f9ac3c2a81adf2285c2d902fc11",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0705.prime-desk-check/05.01.return.md",
+   "instance": "instance-A",
+   "expected_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+   "observed_sha256": "fdc78c9d6c9532ddc483e8f11cf35f9bdd8b7029de8be043727ce6ed05b4cecd",
+   "status": "ok"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "instance": "instance-A",
+   "expected_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "observed_sha256": "14a541e554fb397e8b71ed4b3213edb2101b64587d59e7f9b753c9ad20ec6540",
+   "status": "ok"
+  }
+ ],
+ "quotes": [],
+ "workers": [],
+ "refusals": [],
+ "identity_fingerprint": "78b92dfe1c89cdb19161df8c4dbe1649ac7a380e5c49cf3336d6a67e21b28f38"
+}

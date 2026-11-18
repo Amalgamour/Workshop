@@ -1,0 +1,185 @@
+# 05.01.return — Can Prime resume from the desk view? Independent check
+date: 2026-11-01
+who: claude-opus-5-5 (Claude), contextual Colab and labs; reviewer Codex Prime
+pack: 05.01.pack.md · notes: 06.01.notes.md · evidence: evidence/return05.01/ · oracle: colab/labs/0705.prime-desk-check/pass01/
+state: advisory. Not approval or closure of the 0420 deliverable. The oracle is declarative and has not been run against any desk tool.
+context: not cold. I wrote prime_support (one of the readers 0524 should reuse), the 0519 design, prime_cycle and the 0704 returns. I did not read Grok-1's 0524 lab or Grok-2's 0522/05.04 work.
+
+## Did
+- Verified pack05.01: 40 of 40 inputs match their pins and equal live (evidence/return05.01/source-check.json).
+- Recorded the invocation and my claim. Wrote notes first.
+- Read the approved deliverable (0420/01, 06.01, 06.02), the selector and its schema (0401/06.01, 0410/01), the 0524 build pack, the reviews of 0521/05.03 and 0522/05.03, the 0522/05.04 pack, and the predecessor readers' code (desk_state, prime_brief, state_projection, prime_support) where the design depends on them.
+- Wrote an 18-case declarative oracle covering all 14 required topics, plus 4 found while reading.
+- Ran the in-lab shape-and-pin checker twice:
+  - the real fixture: exit 0, 31 source pins checked;
+  - a mutated copy: exit 1, both planted faults caught.
+- Planned a first-use rehearsal on 0521/05.03.
+
+## Blocked
+Nothing. The oracle cannot be run against the desk tool until Grok-1 returns it, and I did not wait, per the pack.
+
+## Need
+- **Prime:** decide on M1–M3 (mandatory before first real use, in my assessment), and hand the oracle to the 0524 reviewer as independent cases.
+- **Additional sources for the rehearsal** (§5) must be in Prime's request, because they are not in this packet.
+
+## 1. Comprehension
+**What the desk must tell Prime on opening (0420/01):**
+- the instance, role, goal and authority;
+- the selector's page/pass, never the newest, with its checkpoint and recorded next action;
+- attention items, with declared coverage;
+- workers, with the evidenced state, supplied words attributed;
+- operations, with identities and limits;
+- the decision record, verbatim and apart from interpretation;
+- for every fact: source, hash, basis and drill-down.
+
+Three layers stay separate: the overview, one selected packet, and the book and history. The design states this separation, and nothing in the sources contradicts it.
+
+**Which record owns which fact** (table in 06.01.notes.md):
+- the selector owns the primary selection;
+- the work page owns task, release, claim, return pointer and review prose;
+- custody is pending on matching lines for all current returns;
+- worker activity is supplied text.
+
+**What would still force reconstruction from chat:**
+- parallel lanes (F3);
+- release words not yet copied onto a page;
+- cross-page findings such as RL-01;
+- the reason the selector changed, held in an evidence file outside this packet.
+
+## 2. Findings
+### Mandatory before the first real use
+**M1 (serious) — The readers 0524 is told to reuse cannot see the corrected return layout.**
+- `state_projection.py` and `prime_brief.py` accept only `MEMBER = ^01\d\d\.[a-z0-9][a-z0-9.-]*$` (snapshot 0039 line 34; 0026 line 29). Matching-line returns (`N1NN.subject/05.NN.return.md`) are therefore "unprojected".
+- `prime_support.py` scans page folders only for `PAGE_FILE = ^05\.\d{2}\.md$` (snapshot 0033 line 52, used at lines 740 and 743; README snapshot 0029 line 69). An N7NN `05.NN.pack.md` page, including this page and 0704, is invisible to that folder scan unless Prime registers it as an exact return file. I wrote that rule before the N7NN tails existed.
+- **Consequence:** reusing these readers as they are produces a desk that hides Colab work and every new-placement return, while looking clean.
+- **Fix:** 0524 states each reused reader's supported forms in its reuse map. Unsupported forms appear as explicit "unsupported by reader X" items, never as silence. Oracle C16 and C17 test this.
+
+**M2 (serious) — desk_state's record would become a second status store.**
+- `desk-state/1` holds lanes, blockers, handoff and review dispositions (snapshot 0022 lines 73–82, 270–287), maintained with `revise`.
+- 0420/01 allows only a hand-maintained catalog that is "an index, not a duplicate authority store".
+- **Fix:** reuse desk_state's *rendering and labels* (separate time labels; null worker means unrecorded; an empty conflicts list is not clearance) but not its record as input. The catalog holds only paths, hashes and supplied labels.
+
+**M3 (serious) — Parallel assignments have no structured source.**
+- Assignment-record v1 allows one `current_work` (0410/01 schema). Today 0524 and 0705 exist as parallel work only in the `waits_on` prose of 0401/06.01 and in 0420/06.02.
+- The design forbids parsing prose into commands. Nothing else records "these are assigned and in flight".
+- **Consequence:** either the catalog silently becomes the assignment authority, or parallel work disappears from the overview.
+- **Fix (minimal, no new authority):** the catalog may list parallel works only with basis `supplied (catalog index)`. Their claim and return state comes only from each page's own Return pointer. A future selector version can carry parallel entries; that is a Director/Prime schema choice, not one for 0524. Tested by C02.
+
+### Important, but not blocking the first use
+**I1 — Reviewed, custody and acceptance stay separate on real pages.**
+- 0521/05.03 and 0522/05.03 both carry full Prime reviews while their pointers say custody pending (snapshot 0012: "Not filed"; 0013: "Custody: PENDING").
+- The overview must show three facts, not one status. Tested by C04 and C06.
+
+**I2 — The selector's `running` rests on supplied words.**
+- 0420/06.02 says "State running is that recorded report, not a live process check", and 0522/05.04's pointer is PENDING.
+- The overview must label that basis. Tested by C09.
+
+**I3 — Source encoding faults are real.**
+- 0401/01.md contains the bytes C3 A2 E2 82 AC three times (displayed `â€`).
+- The view must show the source as it is, with a defect note, and never repair it. Tested by C15. Fixing the page itself is a separate, Prime-owned change.
+
+**I4 — Findings that cross pages.**
+- RL-01 (producer/consumer field semantics) is recorded on both 0521/05.03 and 0522/05.03.
+- A packet for either should link the other. The catalog can declare such links; the tool must not infer them from prose.
+
+### Optional improvements (can wait)
+- **O1.** A typed review record on real pages would let the desk show disposition and next action without quoting prose. This is the 0522 lane's work, and the desk should quote prose until then.
+- **O2.** Observer coverage: registering one local Observer report path in the request is enough for the first slice (C08).
+- **O3.** A view fingerprint (the hash of all source hashes) printed in both view and packet would make C14 a one-line comparison.
+
+## 3. Independent case matrix
+Full cases: `colab/labs/0705.prime-desk-check/pass01/cases.json`. Each case has its sources (path and frozen sha256), setup, expected facts, unknowns, attention and refusals with their basis, forbidden inferences, required evidence and a finish criterion.
+
+| Id | Topic | Kind | Core expectation | Forbidden |
+|---|---|---|---|---|
+| C01 | stale selector | synthetic | selector's choice shown, plus its tension with the page's review | choosing newer 0522/05.04; "fixing" the selector |
+| C02 | two parallel assignments | real | primary from selector; parallel from catalog (supplied); claim state only from pointers | catalog as authority; "running" from "sitting" |
+| C03 | wrong instance, same address | synthetic | cross-instance reference refused or stale, with both identities | mixing instances |
+| C04 | unreviewed return vs completed review | real | return, review state and custody as three facts | reviewed shown as done or approved |
+| C05 | Director words vs interpretation | real | byte-exact quote; interpretation attributed to Prime | paraphrase, normalization |
+| C06 | missing receipt | real | custody unknown or pending, reason quoted | "captured" |
+| C07 | unresolved hold and unrelated work | synthetic | hold always visible; unrelated work unblocked | hidden hold; global block |
+| C08 | unregistered Observer sources | synthetic | "not covered", rule cited | "no findings" |
+| C09 | supplied worker activity | real | "working" is supplied; page PENDING is observed | observed running |
+| C10 | long history and overflow | synthetic | bounded list with overflow count and route; hold shown | silent truncation |
+| C11 | absent dependency | real | named path and expected hash shown as absent; rest intact | reconstruction |
+| C12 | quoted commands in discussion | real | commands stay text; operations only from declared identities | executing or listing quoted commands |
+| C13 | changed source hash | synthetic | both hashes; stale with route | silent repin |
+| C14 | model or process restart | synthetic | same identity, unresolved items and hashes; no source change | memory or cached view as input |
+| C15 | encoding faults | real | bytes shown with a defect note | silent repair |
+| C16 | N7NN tails visible | real | pack, return and review tails listed | invisibility; N1NN lookup |
+| C17 | new-placement member form | synthetic | read, or explicit "unsupported" | silent unprojected |
+| C18 | malformed selector | synthetic | precise refusal citing 0410 schema; partial view | guessing current work |
+
+**Checker evidence** (shape and pins only, not facts):
+- `evidence/return05.01/fixture-check.json`: exit 0, 18 cases, 14 of 14 topics, 31 pins.
+- `fixture-check-mutation.json`: exit 1, a wrong pin and a missing topic both reported.
+- Command: `python -I -B colab/labs/0705.prime-desk-check/pass01/check_fixtures.py --cases <abs>/cases.json --manifest <abs>/evidence/pack05.01/source-manifest.json`.
+
+## 4. How the oracle avoids echoing the tool
+- Expected facts are written from frozen bytes, with the exact line or text cited, before the tool exists.
+- A pass requires the fact, its basis and its source link, plus the absence of each forbidden inference. Matching the tool's summary prose is not evidence.
+- Synthetic setups are declarative mutations of named frozen inputs. Prime or an independent runner builds them in a disposable copy, not the tool's own test harness.
+
+## 5. First real-use rehearsal plan (proposal; not performed)
+**Batch:** 0521.return-placement/05.03. It is a completed workflow batch with a Prime review, a recorded return (submission and manifest hashes), pending custody, and a cross-page finding.
+
+**Steps:**
+1. **Overview, in a new process.** It should show:
+   - the selector primary, 0522/05.04 running (supplied);
+   - 0521/05.03 listed as reviewed: "bounded migration/capture candidate checks passed; live adoption not performed";
+   - custody pending on 0121, not filed;
+   - attention: RL-01 joint-tool finding, linking 0522/05.03;
+   - workers and their bases;
+   - coverage lines.
+2. **Packet for 0521/05.03.** Must recover:
+   - the assignment and criteria (#01–#05);
+   - the allowed writes;
+   - the invocation and claim lines verbatim;
+   - the submission sha256 3705add4…, manifest 964e5be5…;
+   - the Prime review verbatim, including "Joint-tool finding";
+   - the next routes: the review's own instruction, and the selector's current 0522/05.04;
+   - the review home;
+   - "custody pending matching 0121".
+3. **Exact evidence on request.**
+   - **Additional sources Prime must declare** (not in this packet):
+     - `0521.return-placement/evidence/build05.03/submission.md`;
+     - `artifact-manifest.json`;
+     - the Prime review evidence folder for 05.03;
+     - `0521/06.05.md` notes.
+   - The desk links them; it does not crawl for them.
+4. **New process, view again.** Same identity, same unresolved items, same source fingerprint.
+5. **Prime records the manual steps still needed** (0420/01 finish).
+
+**Not done in the rehearsal:**
+- no review or approval;
+- no change to 0521 or any page;
+- no closing of RL-01;
+- no use of the live selector beyond reading it.
+
+**Finish:** Prime can say what 0521/05.03 delivered, what is pending, and where to act, without chat. Any gap is recorded as a manual step, not patched over.
+
+## 6. Recommended next bounded action
+When Grok-1 returns 0524, Prime (or an independent runner) runs this oracle's real-frozen cases (C02, C04, C05, C06, C09, C11, C12, C15, C16) against its view and packet before reviewing the builder's own tests. Then Prime performs the §5 rehearsal.
+- **Mandatory fixes first:** M1, M2, M3.
+- **Can wait:** O1–O3. I1–I4 are verified by the cases.
+
+## Evidence and limitations
+- **Verified by reading frozen bytes:** every cited line and quote.
+- **Executed:** only `check_fixtures.py`, on the fixture file (exit 0) and on a scratch mutation (exit 1).
+- **Not executed:** any desk tool or the rehearsal.
+- **Expected facts are my reading.** A reviewer should spot-check C04 and C05 against the snapshots.
+- **Contextual Colab, not cold.** The prime_support finding (M1) is about my own code.
+
+## Factfind (opinion)
+- The desk's hardest problem is not rendering. It is that the books currently hold three in-flight conventions: old sequential members, matching lines pending migration, and N7NN tails.
+- A first desk that honestly says "unsupported by this reader" for the newer forms is more useful than one that reuses fixture-era readers and looks complete.
+
+## Overflow
+- Whether the overview's 30–60-second target should be checked as a line or character budget in tests (C10 uses an overflow count instead).
+- How the catalog itself is versioned when Prime edits it.
+
+## Unprompted
+- 0410/01 says assignment-record v1 has "no other content". The live selector conforms, so everything about parallel work necessarily lives elsewhere. That is the root of M3, not a 0524 defect.
+
+One thing I would write differently: I would have asked for 0521/05.03's evidence files in the frozen packet, so that the rehearsal plan could name exact hashes instead of paths.

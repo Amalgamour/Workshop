@@ -1,0 +1,35 @@
+{
+  "format_note": "PROPOSED example format for 0710/05.02. SYNTHETIC subject book.",
+  "section": {"page": "0201.person", "face": "02", "heading": "Person", "governing": {"face": "01", "heading": "Person", "state": "synthetic-approved"}},
+  "answers_written_as": {
+    "not_supplied": "key omitted",
+    "null": "JSON null",
+    "empty": "\"\" for text, [] for lists",
+    "value": "a value of the declared shape",
+    "not_applicable": "{\"not_applicable\": \"<why>\"}"
+  },
+  "compute_owned_keys": ["#NN", "item_id", "record_id", "heading", "path", "output_path", "sha256", "hash", "stamp", "date_of_record", "encoding", "layout"],
+  "forms": [
+    {
+      "name": "person-card", "kind": "card", "purpose": "Remind a reader what a person record holds.", "revision": "001",
+      "source": {"ref": "0201/01#Person", "state": "synthetic-approved"},
+      "body": "A record names one person and the page where they first appear. Role, description, aliases and relations are optional."
+    },
+    {
+      "name": "person-create", "kind": "template", "purpose": "Create one person record.", "revision": "001",
+      "source": {"ref": "0201/01#Person", "state": "synthetic-approved"},
+      "encoding": "utf-8",
+      "output": {"rule": "new-section-on-register", "page": "0202.register/01.md", "heading": "from-name-with-collision-suffix", "assigned_by": "compute"},
+      "fields": [
+        {"name": "name", "shape": "text", "required": true, "answers": ["value"], "supplier": "intelligence", "meaning_ground": "0201/01#Person"},
+        {"name": "first_appearance", "job": "which page; compute resolves it", "shape": "address", "required": true, "answers": ["value"], "supplier": "intelligence", "resolve": "page", "meaning_ground": "0201/01#Person"},
+        {"name": "role", "shape": "text", "required": false, "answers": ["value", "not_supplied"], "supplier": "intelligence", "meaning_ground": null},
+        {"name": "description", "shape": "text", "required": false, "answers": ["value", "empty", "not_supplied"], "supplier": "intelligence", "meaning_ground": null},
+        {"name": "aliases", "shape": "text-list", "required": false, "answers": ["value", "empty", "not_supplied"], "supplier": "intelligence", "meaning_ground": null},
+        {"name": "relations", "shape": "relations", "required": false, "answers": ["value", "empty", "not_supplied"], "supplier": "intelligence", "resolve": "record", "meaning_ground": null},
+        {"name": "date_of_death", "job": "null = alive or unknown is not the same as not applicable (a non-human entry)", "shape": "text", "required": false, "answers": ["value", "null", "not_supplied", "not_applicable"], "supplier": "intelligence", "meaning_ground": null}
+      ],
+      "repeat": null
+    }
+  ]
+}

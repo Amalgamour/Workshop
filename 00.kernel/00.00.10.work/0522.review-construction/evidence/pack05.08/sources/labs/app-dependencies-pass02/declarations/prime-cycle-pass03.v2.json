@@ -1,0 +1,475 @@
+{
+ "schema": "module-declaration/2",
+ "declaration_id": "prime-cycle-pass03",
+ "version": 2,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/prime-cycle-pass03/prime_cycle.py",
+  "name": "prime_cycle",
+  "purpose": "Read and record for one registered fixture book. The review-loop entry calls read and record.",
+  "interface": [
+   "read",
+   "record"
+  ],
+  "limits": [
+   "prototype declaration for the review-loop entry only",
+   "a matching digest is not readiness, compatibility, or approval",
+   "not seated and not production runtime",
+   "inspect is on the same main and is not called by the review-loop entry"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+  "bytes": 76045,
+  "basis": {
+   "kind": "observed-file",
+   "repository": "lib-build",
+   "path": "labs/prime-cycle-pass03/prime_cycle.py",
+   "form": "working-tree",
+   "context_head": "960d20c5290656095df8457b1740d2d5e586b111"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "read",
+   "record"
+  ],
+  "method": "Read on 2026-11-01 by Grok-2 for 0525.app-dependencies 05.01. The file was not imported and not executed. Edges are the ones found for the named entry points, with source lines. This is not a complete discovery. Representation corrected for 0525.app-dependencies 05.02. The file was not imported and not executed.",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "construct-pin",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-construction-pass02/construct.py"
+    }
+   },
+   "pin": {
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "bytes": 36188
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "main calls pins before read and record. The check compares sha256 and length.",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "29-31, 296-303, 1646"
+   }
+  },
+  {
+   "id": "prime-review-01-pin",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass01/prime_review.py"
+    }
+   },
+   "pin": {
+    "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "bytes": 58324
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pins checks prime_review pass01. read and record do not launch it.",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "43-45, 304, 1646"
+   }
+  },
+  {
+   "id": "prime-review-02-pin",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass02/prime_review.py"
+    }
+   },
+   "pin": {
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "bytes": 58560
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pins checks prime_review pass02 before dispatch.",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "46-48, 305, 1646"
+   }
+  },
+  {
+   "id": "return-lines-pin",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-lines-pass01/return_lines.py"
+    }
+   },
+   "pin": {
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "bytes": 100897
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pins checks return_lines before dispatch.",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "32-35, 306, 1646"
+   }
+  },
+  {
+   "id": "return-placement-pin",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-placement-pass01/return_placement.py"
+    }
+   },
+   "pin": {
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "bytes": 66097
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pins checks return_placement before dispatch.",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "36-38, 307, 1646"
+   }
+  },
+  {
+   "id": "return-inspect-pin",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_inspect.py"
+    }
+   },
+   "pin": {
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "bytes": 11402
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "pins checks return_inspect before dispatch.",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "39-42, 308, 1646"
+   }
+  },
+  {
+   "id": "return-lines",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-lines-pass01/return_lines.py"
+    }
+   },
+   "pin": {
+    "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "bytes": 100897
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "new-format-verify",
+    "statement": "observe_descriptor launches return_lines verify for a non-legacy custody format",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "a legacy-in-place descriptor takes the inspector path instead",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "337-344, 506-507, 711-722"
+   }
+  },
+  {
+   "id": "return-inspect",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_inspect.py"
+    }
+   },
+   "pin": {
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "bytes": 11402
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "legacy-in-place",
+    "statement": "observe_legacy_in_place launches return_inspect inspect",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "used when the descriptor is legacy-in-place/1",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "759-786"
+   }
+  },
+  {
+   "id": "return-placement",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-placement-pass01/return_placement.py"
+    }
+   },
+   "pin": {
+    "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "bytes": 66097
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "legacy-route",
+    "statement": "observe_legacy_in_place launches return_placement route after an origin is present",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "the route command does not load return_capture.py",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "808-811"
+   }
+  },
+  {
+   "id": "construct",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/review-construction-pass02/construct.py"
+    }
+   },
+   "pin": {
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "bytes": 36188
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "bind-digest",
+    "statement": "read and record call bind_digest, which launches construct bind",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "bind writes a scratch input inside the fixture and checks review-task-binding/2",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "895-919, 1129, 1283-1285, 1513"
+   }
+  },
+  {
+   "id": "prime-review-02",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-review-pass02/prime_review.py"
+    }
+   },
+   "pin": {
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "bytes": 58560
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "record-report",
+    "statement": "record launches prime_review pass02 report",
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "read does not launch prime_review",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "1525-1528"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "The module runs on the caller's interpreter (sys.executable, python -B, PYTHONDONTWRITEBYTECODE=1). This checkout measured CPython 3.14.0. No version is enforced in the source. The measurement is not readiness."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "the interpreter that runs this file",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "337-344"
+   }
+  },
+  {
+   "id": "checkout-root",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "checkout-root",
+     "detail": "The source binds the checkout to the literal path D:\\Git\\lib-build. A matching file digest does not show that this path is present or correct on another machine."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "document",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "a fixed checkout path in source; not probed",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "28"
+   }
+  },
+  {
+   "id": "fixture-root",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "fixture-root",
+     "detail": "prepare, record, render, read, and recover take an absolute disposable fixture root outside D:\\Git\\lib-build and outside the live work book. The root is caller-chosen. Its bytes are not a module pin."
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "read",
+   "condition": {
+    "applies": "conditional",
+    "id": "fixture-mutation",
+    "statement": "prepare, record, render, read, or recover",
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "mutation commands refuse a fixture root inside the checkout or the live work book",
+   "source_ref": {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "lines": "1647"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "assignment",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.04",
+     "file": "05.04.md"
+    },
+    "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+    "commit": null,
+    "status": "pinned",
+    "note": "assignment for the pass03 cycle, pass02 loop, and pass02 constructor"
+   },
+   {
+    "role": "review",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0522.review-construction",
+     "face_or_pass": "05.04",
+     "file": "evidence/prime-review05.04/REVIEW.md"
+    },
+    "sha256": "314ce865e8b32f3c396e072df69ba5e25bbead01290d9552f9afb09fdf0981d3",
+    "commit": null,
+    "status": "pinned",
+    "note": "Prime review of the real-custody loop repair; app entry was still pending on that page"
+   }
+  ],
+  "unknown": [
+   "Measured bytes are the working tree on 2026-11-01. git hash-object does not equal HEAD:labs/prime-cycle-pass03/prime_cycle.py, and git log --find-object found no commit. basis.kind is observed-file, form working-tree. context_head 960d20c5290656095df8457b1740d2d5e586b111 is observation context and does not identify these bytes.",
+   "This record does not follow cycle commands the review-loop entry does not call."
+  ]
+ },
+ "supersedes": {
+  "declaration_id": "prime-cycle-pass03",
+  "version": 1
+ }
+}

@@ -1,0 +1,93 @@
+# Notes — Colab review adapter (0518.colab-review 05.01)
+Date: 2026-10-31
+Recorder: claude-opus-5-5 (Anthropic), the executor this page names as "Claude", in the Claude Code desktop app
+State: written FIRST, before the contract and any code. Nothing else on this page is changed.
+
+## Disclosure
+- This is a long continuing session, not a fresh context. It built 0515 prime-cycle and 0517 dependencies.
+- I did not build the v2 producer (colab-support-pass02), the v2 workflow (colab-workflow-pass02) or the readiness checker in the visible part of this session. Earlier, compacted work may have touched the Colab tools; I treat them as pinned subjects read from the pack.
+
+## Inputs
+I01. **pack05.01:** 65 of 65 snapshots match their pins, equal their committed objects at the accepted cut 92b3fd5, and equal live.
+I02. **EGM assessment and decision** (0411 evidence, reference data only; nothing installed or followed). The four bounded features to adopt:
+- selectable modes and stages;
+- a retained comprehension paraphrase before critique;
+- post-fix simplicity;
+- traceable synthesis that keeps failed reviewers incomplete.
+
+**Not adopted:** a re-audit cap advancing findings to accepted trade-offs.
+I03. **Producer v2** (colab_support.py pass02, 2b720434…, 53892 bytes):
+- request `colab-request/2` with exact keys; `mode` is one of open-design, hostile-read, diagnostic or controlled-experiment;
+- `required_sources` paths read from the same single repository and commit as the targets;
+- the investigation page must be in 0701–0799, and targets may not be the investigation page;
+- preview gives the digest; prepare needs it; verify gives `intact` plus the digest;
+- intake reserves nothing; it captures, verifies and inspects, and proposes placement only.
+I04. **Workflow v2** (colab_workflow.py pass02):
+- `open` (colab-exchange-open/1, with `--closure` pointing at the producer OUT);
+- `attach` (pins the producer, runs its verify, expects the digest);
+- `place-return` (pinned inspector plus helper verify, origin equal to the investigation);
+- `record-review` (colab-exchange-review/1: every finding carries a non-empty `director_reply`, a disposition, and a `source_binding` naming a target; `finish` is refused while anything is unresolved);
+- the projection is `06.NN.review.md`.
+I05. **The full supported route,** as exercised by test_real_handoff.py: reserve, then producer intake, then place-return, then record-review. I follow it rather than invent another.
+I06. **Readiness checker** (0516, accepted after its 05.02 repair): it checks a declared actual delivery and a supplied smoke record. It is not semantic quality or independent execution.
+
+## Choices
+C01. **The seam.** No new review fields can go into `colab-request/2`: its keys are exact, and its `mode` has four fixed values. The review plan, prompts and result template therefore travel as declared `required_sources`, committed in the same disposable source repository and commit as the target, so the producer snapshots, hashes and verifies them unchanged.
+- The adapter only appends those `required_sources` rows and re-pins the commit.
+- The base request (title, question, method and so on) is Prime's, and is not rewritten.
+- `mode` stays Prime's producer choice. The review mode lives in the plan.
+C02. **New, explicitly versioned records, all in the adapter's own output folders (never in a producer OUT):**
+- `colab-review-plan/1` (Prime-supplied);
+- `colab-review-binding/1` (the plan, prompts and template found inside a verified package, by sha);
+- `colab-review-result/1` (reviewer-supplied, travelling as a captured artifact `review-result.json` in an N1 member);
+- `colab-review-intake/1` (derived);
+- `colab-review-synthesis/1` (Prime- or model-supplied);
+- `colab-review-report/1` (derived).
+
+Each binding, intake and report records what the existing verifier actually covered (`covered_by`), and what only the adapter checked.
+C03. **Modes:** `cold-comprehension`, `contextual-critique`, `implementation-check` or `combination`.
+- Cold means no prior conversation was supplied. Every reviewer still records familiarity, host-added context and isolation, as `unverified`, `host-declared` or `unknown`; there is never a "verified" isolation.
+- A cold plan with a reviewer given any conversation is refused.
+- A result whose declared context differs from the plan is a `context-mismatch` finding.
+C04. **Stages:** `comprehension`, `critique`, `simplicity` or `implementation`, each with reviewers, `required`, and an optional order.
+- A stage with no reviewers is refused.
+- A required stage whose result is missing, partial or failed leaves the intake `incomplete`. It is never zero findings.
+- An ordered plan checks capture order using the receipts' `captured_at`.
+- The comprehension paraphrase (proposed, current system, task and authority, handback route) is required on comprehension stages, and kept verbatim even with zero findings.
+- The simplicity stage names its before and after, the fixes under review, the added complexity, the failure it addresses, reuse or duplication, and accepted limitations. No rejection is automatic.
+C05. **Synthesis.**
+- Every original finding id must map exactly once: to a consolidated item, or to a retained disposition (dissent, minority, rejected-with-reason, duplicate-of).
+- Unknown or duplicate ids are refused.
+- The incomplete reviewers must be listed exactly as the intake found them.
+- Disagreements and residual uncertainty are carried as written.
+- `acceptance` must be null. A reached round cap gives `cap-reached`, never acceptance.
+- The report is a new derived file. The original returns stay in N1 and in the workflow page.
+C06. **Launches.** Everything goes through pinned interfaces only: producer v2 preview, prepare and verify; workflow open, attach, place-return and record-review; the helper; the inspector. Every tool is hash-checked before launch. Old producer packages without a plan remain readable (`legacy: no review plan`).
+C07. **Tests and demo:** SYNTHETIC reviewer results only, in a disposable book and disposable source repository, with task-local git identity. No model is launched.
+C08. **Scope:**
+- new labs/colab-review-pass01, this page, and build05.01 evidence;
+- no producer, workflow or core edits; no EGM install; no N7NN trial.
+
+## Disposition — 2026-10-31, claude-opus-5-5
+C01–C08 were built as written. Two changes during the build:
+- **`bind --producer`.** `bind` takes an explicit `--producer` path, because `colab-config/2` has exact keys and cannot carry a v2 producer path. The path is pin-checked before launch, and the contract §4 line says so.
+- **The readiness check was used as the pack asks.** The demo ran it read-only on the exact package bytes, and it reported ready for that declared method, with semantic sufficiency and independent proof `not-established`. The adapter has no readiness code of its own.
+
+**First runs, kept:**
+- run1: 8 of 11 failed on one fixture error. My generated member names (`01_p-01`) break the producer's `01NN.slug` rule; the producer was right. Fixed in the test.
+- The first mutation script never started, because of my own escaping slip (no mutation ran).
+- An earlier draft of that script would have made a temporary sibling folder inside the workshop's `labs/`. I caught that before running it and moved the copies to scratch.
+
+**Results:**
+- 11 tests OK in dev and default mode;
+- 9 of 9 mutations caught;
+- the demo's 13 steps all exited as expected.
+
+**Boundary reported, not bypassed:** workflow v2 places one return per pass. Other reviewers' returns stay in N1 custody, and `intake` reads them all. The smallest follow-up is a reviewed workflow pass for multi-member placement.
+
+**Not done:**
+- no EGM install;
+- no model, reviewer or session;
+- no N7NN trial;
+- no producer, workflow or core edit;
+- the dependency prototype was not consulted (optional).

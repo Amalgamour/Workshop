@@ -1,0 +1,89 @@
+{
+ "schema": "desk-lab-harness/1",
+ "label": "HARNESS RESTART ONLY with SYNTHETIC observations",
+ "expected_sha256": "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+ "reports_identical": true,
+ "check_exit": 1,
+ "run_class": "synthetic-self-test",
+ "desk_verdict": "not-applicable (synthetic self-test)",
+ "blocking": [
+  "synthetic-only or mixed observations: not desk evidence",
+  "adapter-not-connected",
+  "manual: M-01=needs-human-assessment,M-02=needs-human-assessment,M-03=needs-human-assessment,M-04=needs-human-assessment,M-05=needs-human-assessment,M-06=needs-human-assessment,F-C12=needs-human-assessment,F-C15=needs-human-assessment,F-C01=needs-human-assessment,F-C02=needs-human-assessment,F-C03=needs-human-assessment,F-C04=needs-human-assessment,F-C05=needs-human-assessment,F-C06=needs-human-assessment,F-C07=needs-human-assessment,F-C08=needs-human-assessment,F-C09=needs-human-assessment,F-C10=needs-human-assessment,F-C11=needs-human-assessment,F-C13=needs-human-assessment,F-C14=needs-human-assessment,F-C16=needs-human-assessment,F-C17=needs-human-assessment,F-C18=needs-human-assessment"
+ ],
+ "assertions": {
+  "pass": 54,
+  "wrong": 0,
+  "missing": 0,
+  "unsupported": 0,
+  "needs-human-assessment": 0,
+  "not-run": 0,
+  "checker-error": 0
+ },
+ "steps": [
+  {
+   "argv": [
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:/Git/lib-build/00.kernel/00.00.10.work/0705.prime-desk-check/evidence/pack05.02/source-manifest.json",
+    "--out",
+    "<out>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "b2838beabd6ebf8fff6cec50f4f43f02986e137eb4f7d1a4baaff4f6135d53de",
+   "stderr": ""
+  },
+  {
+   "argv": [
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<out>\\fixtures",
+    "--out",
+    "<out>\\obs-synthetic"
+   ],
+   "exit": 0,
+   "stdout_sha256": "916291d635cca48d6bcb016dab0b4e14f6fcff3cf26b754bfedc0b328db4b05a",
+   "stderr": ""
+  },
+  {
+   "argv": [
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<out>\\fixtures",
+    "--observations",
+    "<out>\\obs-synthetic",
+    "--manual-checklist",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\manual-checklist.json"
+   ],
+   "exit": 1,
+   "stdout_sha256": "01b7bc43edda4c1d5dc9b39f37f968101754823b90ae36a5a994dd6c5208470b",
+   "stderr": ""
+  },
+  {
+   "argv": [
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<out>\\fixtures",
+    "--observations",
+    "<out>\\obs-synthetic",
+    "--manual-checklist",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\manual-checklist.json"
+   ],
+   "exit": 1,
+   "stdout_sha256": "01b7bc43edda4c1d5dc9b39f37f968101754823b90ae36a5a994dd6c5208470b",
+   "stderr": ""
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+PASS  P01  PACK     wrong v8 tool hash: a pinned tool (review_loop pass03) altered in the root -> the door refuses before the work
+PASS  P02  PACK     wrong transitive dependency: pass02 / pass03 altered in the root -> refused (door predecessor pins)
+PASS  P03  PACK     wrong schema / unknown key / wrong length in review-loop-v8.json -> refused
+PASS  P04  PACK     missing dependency: prime_cycle pass03 removed from the root -> refused as missing
+PASS  N01  NEW      PRODUCTION pass04 bytes + PRODUCTION v8 declaration in a copied root: the door accepts the pins, the workbook 
+aggregate {'PASS': 5, 'FAIL': 0, 'ERROR': 0, 'SEE': 0}

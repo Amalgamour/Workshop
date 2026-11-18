@@ -1,0 +1,21 @@
+{
+  "commands": [
+    "python -B labs/review-source-capacity-pass03/build_candidate.py",
+    "python -B labs/review-source-capacity-pass03/tests/test_capacity.py"
+  ],
+  "git": {
+    "branch": "workshop",
+    "cached": [],
+    "head": "960d20c5290656095df8457b1740d2d5e586b111",
+    "porcelain_lines": 266
+  },
+  "proof": "python -B app/librarian.py review-loop COMMAND --book ABS --source PAGE --pass 05.NN",
+  "python": "3.14.0",
+  "schema": "command-log/1",
+  "suite": {
+    "exit": 0,
+    "result": "OK",
+    "seconds": 52.854,
+    "tests": 30
+  }
+}

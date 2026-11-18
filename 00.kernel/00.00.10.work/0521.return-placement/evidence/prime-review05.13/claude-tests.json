@@ -1,0 +1,282 @@
+{
+ "schema": "n7-intake-tests/1",
+ "root": "D:\\librarian\\temp\\prime-batch-next-20261103\\claude-tests",
+ "aggregate": {
+  "PASS": 17,
+  "FAIL": 0,
+  "ERROR": 0
+ },
+ "first_failure": null,
+ "rows": [
+  {
+   "id": "G1",
+   "label": "author test",
+   "says": "old N5 Submission / Artifact manifest / Verification / counted forms parse exactly as the pinned pass03 parser does",
+   "status": "PASS",
+   "detail": {
+    "identical": [
+     true,
+     true,
+     true,
+     true
+    ]
+   }
+  },
+  {
+   "id": "G2",
+   "label": "known-failure reproduction + author test",
+   "says": "the real frozen 05.15 pointer: pass03 loses Returned and keeps the comma; the lab parser binds both exactly",
+   "status": "PASS",
+   "detail": {
+    "old_manifest_path": "evidence/design05.15/artifact-manifest.json,",
+    "old_codes": [
+     "submission-not-declared",
+     "unparsed-return-line"
+    ],
+    "new_submission": {
+     "attribution_text": "claude-opus-5-5, 2026-11-03",
+     "bytes": 7929,
+     "declared_form": "n7-returned",
+     "path": "05.15.return.md",
+     "sha256": "bcee3990e6228e06b2291db49bf6b877d9a604a66eb99fe03cc659af26fc3008"
+    },
+    "new_codes": [
+     "unparsed-return-line"
+    ]
+   }
+  },
+  {
+   "id": "G3",
+   "label": "author test",
+   "says": "the same pointer from a CRLF copy of the pack parses identically",
+   "status": "PASS",
+   "detail": {
+    "crlf_bytes": 7217
+   }
+  },
+  {
+   "id": "G4",
+   "label": "author test",
+   "says": "two Returned lines -> ambiguous-submission; nothing bound",
+   "status": "PASS",
+   "detail": {
+    "codes": [
+     "ambiguous-submission"
+    ]
+   }
+  },
+  {
+   "id": "G5",
+   "label": "author test",
+   "says": "Returned plus an N5 Submission line conflict -> ambiguous-submission",
+   "status": "PASS",
+   "detail": {
+    "codes": [
+     "ambiguous-submission"
+    ]
+   }
+  },
+  {
+   "id": "G6",
+   "label": "author test",
+   "says": "N7 and N5 manifest lines together -> ambiguous-manifest",
+   "status": "PASS",
+   "detail": {
+    "codes": [
+     "ambiguous-manifest"
+    ]
+   }
+  },
+  {
+   "id": "G7",
+   "label": "author test",
+   "says": "unrecognized punctuation is refused, never stripped: ';' after a path, double comma, and an N5 path ending in ','",
+   "status": "PASS",
+   "detail": {
+    "semicolon": [
+     "submission-not-declared",
+     "unparsed-return-line"
+    ],
+    "double-comma": [
+     "unrecognized-path-punctuation"
+    ],
+    "n5-trailing-comma": [
+     "submission-not-declared",
+     "unrecognized-path-punctuation"
+    ]
+   }
+  },
+  {
+   "id": "G8",
+   "label": "author test",
+   "says": "a path starting with '.' or '/' does not match the grammar",
+   "status": "PASS",
+   "detail": {
+    "codes": [
+     [
+      "submission-not-declared",
+      "unparsed-return-line"
+     ],
+     [
+      "submission-not-declared",
+      "unparsed-return-line"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H1",
+   "label": "author hostile",
+   "says": "attribution text that smuggles a hash or a label is refused as not descriptive",
+   "status": "PASS",
+   "detail": {
+    "codes": [
+     [
+      "attribution-not-descriptive",
+      "submission-not-declared"
+     ],
+     [
+      "attribution-not-descriptive",
+      "submission-not-declared"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "D2",
+   "label": "author test (hypothesis REFUTED in run01; now asserts the true fact)",
+   "says": "pass03 installs its parser into pass02's namespace too, so intake uses pass03's grammar (counted form reachable)",
+   "status": "PASS",
+   "detail": {
+    "pass03_parses_counted": true,
+    "pass02_parses_counted": true,
+    "intake_build_uses_pass02_parser": true
+   }
+  },
+  {
+   "id": "I1",
+   "label": "author test",
+   "says": "wrong hash on the Returned line -> declared-hash-mismatch, incomplete",
+   "status": "PASS",
+   "detail": {
+    "exit": 0,
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "declared-hash-mismatch",
+     "index-context-bounded",
+     "source-identity-conflict",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   }
+  },
+  {
+   "id": "I2",
+   "label": "author test",
+   "says": "wrong length on the manifest line -> declared-hash-mismatch, incomplete",
+   "status": "PASS",
+   "detail": {
+    "exit": 0,
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "declared-hash-mismatch",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   }
+  },
+  {
+   "id": "I3",
+   "label": "author test",
+   "says": "manifest file missing -> declared-file-missing",
+   "status": "PASS",
+   "detail": {
+    "exit": 0,
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "declared-file-missing",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   }
+  },
+  {
+   "id": "I4",
+   "label": "author test",
+   "says": "one manifest payload missing -> artifact-missing",
+   "status": "PASS",
+   "detail": {
+    "exit": 0,
+    "measurement": "incomplete",
+    "codes": [
+     "artifact-missing",
+     "custody-missing",
+     "index-context-bounded",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   }
+  },
+  {
+   "id": "I5",
+   "label": "author test",
+   "says": "traversal inside an accepted path shape (a/../../x.md) -> malformed-declared-path",
+   "status": "PASS",
+   "detail": {
+    "exit": 0,
+    "measurement": "incomplete",
+    "codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "malformed-declared-path",
+     "unparsed-return-line"
+    ]
+   }
+  },
+  {
+   "id": "H2",
+   "label": "author hostile",
+   "says": "a decoy file literally named 'artifact-manifest.json,' exists: unpatched intake binds the decoy (hash mismatch); the lab parser binds the real manifest and never the decoy",
+   "status": "PASS",
+   "detail": {
+    "unpatched": {
+     "measurement": "incomplete",
+     "codes": [
+      "custody-missing",
+      "declared-hash-mismatch",
+      "submission-not-declared",
+      "unparsed-return-line"
+     ]
+    },
+    "patched": {
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "unparsed-return-line",
+      "verification-not-measured"
+     ]
+    }
+   }
+  },
+  {
+   "id": "I6",
+   "label": "author test (expectation corrected after run01)",
+   "says": "a counted manifest line is parsed by UNPATCHED intake too (only Returned is lost); the patched intake is complete",
+   "status": "PASS",
+   "detail": {
+    "unpatched_codes": [
+     "custody-missing",
+     "index-context-bounded",
+     "submission-not-declared",
+     "unparsed-return-line"
+    ],
+    "patched_measurement": "complete"
+   }
+  }
+ ]
+}

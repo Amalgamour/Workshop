@@ -1,0 +1,217 @@
+{
+  "name": "pack-create",
+  "kind": "template",
+  "purpose": "Build a new pack draft on the linked N5NN pass from its N4NN source.",
+  "revision": "002",
+  "source": {
+    "ref": "0423/01#4",
+    "state": "draft"
+  },
+  "encoding": "utf-8",
+  "output": {
+    "rule": "registered-source-work-relation",
+    "numbering": "next-free-pass",
+    "assigned_by": "compute"
+  },
+  "fields": [
+    {
+      "name": "source",
+      "job": "the N4NN source page chosen",
+      "shape": "address",
+      "required": true,
+      "answers": [
+        "value"
+      ],
+      "supplier": "intelligence",
+      "resolve": "relation",
+      "meaning_ground": "0423/01#2"
+    },
+    {
+      "name": "goal",
+      "job": "what the pass achieves",
+      "shape": "text",
+      "required": true,
+      "answers": [
+        "value"
+      ],
+      "supplier": "intelligence",
+      "meaning_ground": "0423/01#4"
+    },
+    {
+      "name": "scope",
+      "job": "included / excluded / allowed writes",
+      "shape": {
+        "included": "text-list",
+        "excluded": "text-list",
+        "allowed_writes": "text-list"
+      },
+      "required": true,
+      "answers": [
+        "value"
+      ],
+      "subanswers": [
+        "value",
+        "empty"
+      ],
+      "supplier": "intelligence",
+      "meaning_ground": "0423/01#4"
+    },
+    {
+      "name": "finish",
+      "job": "finish criteria",
+      "shape": "text-list",
+      "required": true,
+      "answers": [
+        "value"
+      ],
+      "supplier": "intelligence",
+      "meaning_ground": "0423/01#4"
+    },
+    {
+      "name": "executor",
+      "job": "who builds",
+      "shape": "text",
+      "required": true,
+      "answers": [
+        "value"
+      ],
+      "supplier": "source-or-intelligence",
+      "meaning_ground": "0423/01#4"
+    },
+    {
+      "name": "reviewer",
+      "job": "who reviews",
+      "shape": "text",
+      "required": true,
+      "answers": [
+        "value"
+      ],
+      "supplier": "source-or-intelligence",
+      "meaning_ground": "0423/01#4"
+    },
+    {
+      "name": "note_dispositions",
+      "job": "one disposition per declared note",
+      "shape": "dispositions",
+      "required": true,
+      "answers": [
+        "value",
+        "empty"
+      ],
+      "supplier": "intelligence",
+      "meaning_ground": "0423/01#4"
+    }
+  ],
+  "repeat": {
+    "name": "items",
+    "identity": {
+      "scheme": "#NN",
+      "assigned_by": "compute",
+      "renumber": "never-silent"
+    },
+    "min": 1,
+    "fields": [
+      {
+        "name": "title",
+        "shape": "text",
+        "required": true,
+        "answers": [
+          "value"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": "0423/01#4"
+      },
+      {
+        "name": "purpose",
+        "shape": "text",
+        "required": true,
+        "answers": [
+          "value"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": "0423/01#4"
+      },
+      {
+        "name": "requirements",
+        "shape": "text",
+        "required": true,
+        "answers": [
+          "value"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": "0423/01#4"
+      },
+      {
+        "name": "interfaces",
+        "shape": "text-list",
+        "required": false,
+        "answers": [
+          "value",
+          "empty",
+          "not_supplied"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": null
+      },
+      {
+        "name": "acceptance",
+        "shape": "text",
+        "required": true,
+        "answers": [
+          "value"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": "0423/01#4"
+      },
+      {
+        "name": "breaking_change",
+        "job": "does the item break an existing caller; null = not yet known",
+        "shape": "bool",
+        "required": false,
+        "answers": [
+          "value",
+          "null",
+          "not_supplied"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": null
+      },
+      {
+        "name": "note_refs",
+        "shape": "ref-list",
+        "required": false,
+        "answers": [
+          "value",
+          "empty",
+          "not_supplied"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": null
+      },
+      {
+        "name": "open_choices",
+        "shape": "text-list",
+        "required": false,
+        "answers": [
+          "value",
+          "empty",
+          "not_supplied",
+          "not_applicable"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": null
+      },
+      {
+        "name": "risk_note",
+        "shape": "text",
+        "required": false,
+        "answers": [
+          "value",
+          "not_supplied"
+        ],
+        "supplier": "intelligence",
+        "meaning_ground": null
+      }
+    ]
+  }
+}

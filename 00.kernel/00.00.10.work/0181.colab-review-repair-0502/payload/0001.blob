@@ -1,0 +1,52 @@
+# 06.03 — Keep intake facts visible in the derived report
+
+Date: 2026-10-31. Executor: Grok-1. Reviewer: Codex Prime.
+Session: 01a17ded-90ba-79e3-8b8c-7e1f0005193e. Workspace: D:\Git\lib-build. Branch: workshop.
+
+## Claim
+
+Invocation, recorded exactly: Run this bounded repair: 00.kernel/00.00.10.work/0518.colab-review/05.02.md.
+
+Builder claim: Grok-1 claims 0518.colab-review/05.02, the PR-01 through PR-03 repair only. The reservation submitter is Grok-1. Submission id grok-1-0518-0502. Reserved member 0181.colab-review-repair-0502.
+
+05.02 is an authorization draft. Its header says this draft grants no release. The reservation text is "Reservation only; Director release must be recorded on 0518.colab-review/05.02." This invocation records the claim. It does not approve kernel work, accept a return, or publish one. A later verified receipt is custody.
+
+Observed HEAD when this note opened: 960d20c5290656095df8457b1740d2d5e586b111.
+The pack manifest has no source_commit. Pins were checked against live bytes and snapshot bytes, not against that HEAD.
+Two tracked files were already dirty and are left untouched: 00.kernel/00.00.10.work/0401.goal/06.01.md (12 lines changed in the diff stat) and 00.kernel/00.00.10.work/0518.colab-review/05.01.md (14 lines). The live 05.01.md bytes are the pinned snapshot. 00.kernel/00.00.10.work/0519.desk-app/ is untracked. That lane was not opened.
+
+Familiarity: this session did not build 05.01. Capture 0179 and evidence/build05.01 stay as Prime verified them. The review read here is Codex Prime's.
+
+## Pack pins
+
+evidence/pack05.02/source-manifest.json lists 15 sources. Each live file equals its snapshot and the manifest sha256 and length. Result: 15 matched, 0 bad. Checked before this note.
+
+Custody tools match the frozen pins: return_capture.py 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac (45767 bytes), return_inspect.py 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b (11402 bytes). They stay byte-exact.
+
+## Review read before the repair
+
+Prime's disposition is repair required before routine use. Capture 0179 verified complete, receipt 56506ac5d33fc062de5f052785ce8250847a0686dccb398904211d4d9f748c8c. The supplied suite was 11 passed, zero skips. Three synthetic probes lost facts between intake and the Markdown report. The preserved probe scratch is the counterexample. It is not edited. WinError 5 fixture-directory attempts in that review were environment failures and are not product defects.
+
+PR-01. Intake of a context mismatch exits 1, status incomplete, finding context-mismatch. Synthesis exits 0 and status consistent, then drops that finding. Markdown keeps the intake label and says incomplete reviewers are none and residual uncertainty is none. Mapping consistency is not a completed investigation. The reason has to stay visible. Reporting the incomplete input is allowed.
+
+PR-02. An optional simplicity stage S03 can fail while intake stays complete, because incomplete counts required pairs only. The report then looks like a zero-finding success. Optional status may stay nonblocking. It has to stay visible, including absent, failed, partial, and not-run.
+
+PR-03. A retained finding keeps its original sentence in JSON. Markdown prints only the id, the disposition, and the reason. The probe sentence is "SYNTHETIC ORIGINAL: return recording may lose its evidence." The report has to quote that wording, plus target, location, and the custody reference. Consolidated originals need the same facts.
+
+No automatic semantic judgment. One return per pass stays the workflow limit. Multiple originals remain in N1 custody. This repair does not redesign that.
+
+## How the three facts survive
+
+Mapping consistency, required-review completion, and acceptance stay three different facts.
+
+- Mapping consistency is the synthesis check: every original finding id once, known ids, and the required incomplete list echoed exactly. Report status stays consistent or inconsistent from that check alone. An empty mapping-finding list does not clear intake diagnostics.
+- Required-review completion stays the intake status. It is complete only when intake findings are empty and every required reviewer/stage is completed. A mechanical finding such as context-mismatch keeps it incomplete even when the required incomplete list is empty. The derived report copies intake status, the incomplete list, and the intake findings verbatim.
+- Acceptance stays null. The report still says it is not a review, not acceptance, and not Director approval. A synthesis that sets acceptance is still refused.
+
+Optional reviewer/stage pairs are a fourth visible fact. They do not enter incomplete and do not by themselves change intake status. Every declared pair is listed with required or optional, status, member, and receipt.
+
+Derived records gain an explicit version so the new fields are not a silent digest change. New intake is colab-review-intake/2. New report is colab-review-report/2. The digest rule is the same shape as before: sha256 of the canonical report object before report_digest is added. The domain named in the report is colab-review-report/2. Stored colab-review-intake/1 and colab-review-report/1 files are not rewritten and their digests are not recomputed. Synthesize still reads a /1 intake: it copies that intake's findings, and it records that the /1 intake has no reviewer/stage inventory instead of inventing one. Plan, result, binding, and synthesis schemas stay at /1. Captured review-result.json members stay readable.
+
+## Preserved
+
+05.01, 06.01, 06.02, evidence/build05.01, evidence/pack05.01, evidence/pack05.02, evidence/prime-review05.01, and member 0179 stay unchanged. app/, kernel law, and 0519.desk-app/ are not edited. No Git stage, commit, or push.

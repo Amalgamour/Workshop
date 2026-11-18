@@ -1,0 +1,17 @@
+{
+  "check": "return-line-adopt-journal/1",
+  "command": "rollback-adopt",
+  "correction": "Journaled adoption was reversed. A hash mismatch would have stopped the reversal.",
+  "descriptor": null,
+  "detail": {
+    "acceptance": null,
+    "accepted": false,
+    "approved": false,
+    "marker_sha256": "ab5c0adbaeaf6b899e13e0e03e45a345c1c7108adb4b510662b730c1386998cb",
+    "published": false
+  },
+  "evidence": "adopt-journal.json",
+  "exit": 0,
+  "schema": "return-line-result/1",
+  "state": "complete"
+}

@@ -1,0 +1,589 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "form",
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0707.app-use-check/06.17.review.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "unparsed-return-line",
+          "path": null,
+          "text": "Notes: 06.17.notes.md. Lab: labs/n7-intake-compat-pass02 (v2-run01 12/12; compat17-run01 16/17, G7 revised by K1; flow01 26/26; 0522/05.13 replay identical intake_id). Nonproductio"
+        },
+        {
+          "code": "verification-not-measured",
+          "path": "05.17.return.md"
+        },
+        {
+          "code": "index-context-bounded",
+          "count": 33,
+          "path": "evidence/design05.17/artifact-manifest.json"
+        },
+        {
+          "code": "custody-missing",
+          "path": null
+        }
+      ],
+      "instance_id": "2f37e6d03c07abf3850b9d422a21bc35e7ac612c241416de56be1a0070e3e329",
+      "intake_id": "a0d7da38c5307423b31abf3fd33f9107a72aec4a406e14f7fde42f939c660e9f",
+      "kind": "N7NN",
+      "member": null,
+      "return_path": "0707.app-use-check/05.17.return.md",
+      "rows": [
+        {
+          "bytes": 4535,
+          "declared_path": "0707.app-use-check/05.17.pack.md",
+          "path": "0707.app-use-check/05.17.pack.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "1e9c71ea648bd53f3b6038deb855afe7b06dfdf9b8f95873b92fc33cdebe45d7"
+        },
+        {
+          "bytes": 6703,
+          "declared_bytes": 6703,
+          "declared_path": "05.17.return.md",
+          "declared_sha256": "0a96d5ff9538a7ee6da0cec2bd868d39147ea9d61f294b7d17cd6f6af4638b2f",
+          "path": "0707.app-use-check/05.17.return.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "0a96d5ff9538a7ee6da0cec2bd868d39147ea9d61f294b7d17cd6f6af4638b2f"
+        },
+        {
+          "bytes": 6674,
+          "declared_bytes": 6674,
+          "declared_path": "evidence/design05.17/artifact-manifest.json",
+          "declared_sha256": "49e77dc065100c185c5ed9eeefb0bd0bb99773b3bbba539d0f775df5acac9181",
+          "path": "0707.app-use-check/evidence/design05.17/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "49e77dc065100c185c5ed9eeefb0bd0bb99773b3bbba539d0f775df5acac9181"
+        },
+        {
+          "bytes": 6703,
+          "declared_bytes": 6703,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/05.17.return.md",
+          "declared_sha256": "0a96d5ff9538a7ee6da0cec2bd868d39147ea9d61f294b7d17cd6f6af4638b2f",
+          "path": "0707.app-use-check/05.17.return.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0a96d5ff9538a7ee6da0cec2bd868d39147ea9d61f294b7d17cd6f6af4638b2f"
+        },
+        {
+          "bytes": 4731,
+          "declared_bytes": 4731,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/06.17.notes.md",
+          "declared_sha256": "e0a3c8414844847c6d0130f801b52b04f49d71636f5f8b50533cb8dd2ae18237",
+          "path": "0707.app-use-check/06.17.notes.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e0a3c8414844847c6d0130f801b52b04f49d71636f5f8b50533cb8dd2ae18237"
+        },
+        {
+          "bytes": 4067,
+          "declared_bytes": 4067,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/CLAIMS.md",
+          "declared_sha256": "0240c92fb60dd56149d12ac09936e767483fd706a4744296951726ab7ab8ba09",
+          "path": "0707.app-use-check/evidence/design05.17/CLAIMS.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0240c92fb60dd56149d12ac09936e767483fd706a4744296951726ab7ab8ba09"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/compat17-run01.exit",
+          "declared_sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+          "path": "0707.app-use-check/evidence/design05.17/compat17-run01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3"
+        },
+        {
+          "bytes": 6794,
+          "declared_bytes": 6794,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/compat17-run01.json",
+          "declared_sha256": "45f6e49d58f1780bc17c23249a243c7117d93f9dc055b63da31a00028aed91ad",
+          "path": "0707.app-use-check/evidence/design05.17/compat17-run01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "45f6e49d58f1780bc17c23249a243c7117d93f9dc055b63da31a00028aed91ad"
+        },
+        {
+          "bytes": 2054,
+          "declared_bytes": 2054,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/compat17-run01.stdout",
+          "declared_sha256": "8a0018ced79b2e23c74b484896b0577c037869f39b3e02664df79c54dd8017f8",
+          "path": "0707.app-use-check/evidence/design05.17/compat17-run01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "8a0018ced79b2e23c74b484896b0577c037869f39b3e02664df79c54dd8017f8"
+        },
+        {
+          "bytes": 4072,
+          "declared_bytes": 4072,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/CONTRACT.md",
+          "declared_sha256": "dac3e2a3fb91954f5a1da2d3609b83365835c921b076926cc217a7aaaf4ca007",
+          "path": "0707.app-use-check/evidence/design05.17/CONTRACT.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "dac3e2a3fb91954f5a1da2d3609b83365835c921b076926cc217a7aaaf4ca007"
+        },
+        {
+          "bytes": 108,
+          "declared_bytes": 108,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/flow01-fixture-faithful.stdout",
+          "declared_sha256": "3ff8d2b82d9f422677f3e5f438b9be8cfaaac1a82509d4448c25853e0ff70e0a",
+          "path": "0707.app-use-check/evidence/design05.17/flow01-fixture-faithful.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "3ff8d2b82d9f422677f3e5f438b9be8cfaaac1a82509d4448c25853e0ff70e0a"
+        },
+        {
+          "bytes": 107,
+          "declared_bytes": 107,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/flow01-fixture-noreview.stdout",
+          "declared_sha256": "d83b2a2b6f1468a742d2f4af36539a1651123c64e669c9c4c2a4ed3b03d0bbc2",
+          "path": "0707.app-use-check/evidence/design05.17/flow01-fixture-noreview.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d83b2a2b6f1468a742d2f4af36539a1651123c64e669c9c4c2a4ed3b03d0bbc2"
+        },
+        {
+          "bytes": 15456,
+          "declared_bytes": 15456,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/flow01-runs.json",
+          "declared_sha256": "04342259da212a41fce980e1a4b71e5cc58fce662054d120346261375dc48c0c",
+          "path": "0707.app-use-check/evidence/design05.17/flow01-runs.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "04342259da212a41fce980e1a4b71e5cc58fce662054d120346261375dc48c0c"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/flow01.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.17/flow01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 4684,
+          "declared_bytes": 4684,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/flow01.stdout",
+          "declared_sha256": "691e07daed06bfcbc1e66a2455ae68525f334e95e5cd1bfb3e5a915816ed0191",
+          "path": "0707.app-use-check/evidence/design05.17/flow01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "691e07daed06bfcbc1e66a2455ae68525f334e95e5cd1bfb3e5a915816ed0191"
+        },
+        {
+          "bytes": 3975,
+          "declared_bytes": 3975,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/INTEGRATION.md",
+          "declared_sha256": "98bca066a9d2a44d83fbed8dd12ef9744509ec1ba4eaa38be1644c50e1e4c12e",
+          "path": "0707.app-use-check/evidence/design05.17/INTEGRATION.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "98bca066a9d2a44d83fbed8dd12ef9744509ec1ba4eaa38be1644c50e1e4c12e"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/n5replay-run01.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.17/n5replay-run01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 5698,
+          "declared_bytes": 5698,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/n5replay-run01.json",
+          "declared_sha256": "bfe60cda1ce481936871b15d36090d88589f8b652d16f41d61668da76cb3cf1f",
+          "path": "0707.app-use-check/evidence/design05.17/n5replay-run01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "bfe60cda1ce481936871b15d36090d88589f8b652d16f41d61668da76cb3cf1f"
+        },
+        {
+          "bytes": 1101,
+          "declared_bytes": 1101,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/n5replay-run01.stdout",
+          "declared_sha256": "7218a66ed88864ea9c59a1c30552fd068592c510573e96bac4ff625c7bfa11ff",
+          "path": "0707.app-use-check/evidence/design05.17/n5replay-run01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "7218a66ed88864ea9c59a1c30552fd068592c510573e96bac4ff625c7bfa11ff"
+        },
+        {
+          "bytes": 2232,
+          "declared_bytes": 2232,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/PRIME-USE.md",
+          "declared_sha256": "efac532f9311f29d9001de46f9cf3a550990949a9eb6a9316f388e3773ca3826",
+          "path": "0707.app-use-check/evidence/design05.17/PRIME-USE.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "efac532f9311f29d9001de46f9cf3a550990949a9eb6a9316f388e3773ca3826"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/propcheck-run01.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.17/propcheck-run01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 1958,
+          "declared_bytes": 1958,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/propcheck-run01.json",
+          "declared_sha256": "d2f847ff5174b5150f59776eba826d4ec40a38673b74bc5efe04937d19befc5f",
+          "path": "0707.app-use-check/evidence/design05.17/propcheck-run01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d2f847ff5174b5150f59776eba826d4ec40a38673b74bc5efe04937d19befc5f"
+        },
+        {
+          "bytes": 96,
+          "declared_bytes": 96,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/propcheck-run01.stdout",
+          "declared_sha256": "7c7c035cb3e61162e3fca8e3fd0e70e5e196b17e243cd560e6797e67f9f21b71",
+          "path": "0707.app-use-check/evidence/design05.17/propcheck-run01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "7c7c035cb3e61162e3fca8e3fd0e70e5e196b17e243cd560e6797e67f9f21b71"
+        },
+        {
+          "bytes": 6306,
+          "declared_bytes": 6306,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/proposal/workbook-review-pass04.workbook.py.proposal",
+          "declared_sha256": "bc1ebd16d7bb819e767480e7fe13aa9f919644b38541a0a261bc17fa66d55e50",
+          "path": "0707.app-use-check/evidence/design05.17/proposal/workbook-review-pass04.workbook.py.proposal",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "bc1ebd16d7bb819e767480e7fe13aa9f919644b38541a0a261bc17fa66d55e50"
+        },
+        {
+          "bytes": 7,
+          "declared_bytes": 7,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/v2-run01.exit",
+          "declared_sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+          "path": "0707.app-use-check/evidence/design05.17/v2-run01.exit",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320"
+        },
+        {
+          "bytes": 7163,
+          "declared_bytes": 7163,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/v2-run01.json",
+          "declared_sha256": "e5c31c70e1ebf4aa830fd6d5ac8a14cfece2904a6a9e52b49c1f5bf739b52762",
+          "path": "0707.app-use-check/evidence/design05.17/v2-run01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "e5c31c70e1ebf4aa830fd6d5ac8a14cfece2904a6a9e52b49c1f5bf739b52762"
+        },
+        {
+          "bytes": 1658,
+          "declared_bytes": 1658,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/v2-run01.stdout",
+          "declared_sha256": "245f039c4d3251b4a8acac45a1dd2084d5baf79f10086b1548184dae4630bb4b",
+          "path": "0707.app-use-check/evidence/design05.17/v2-run01.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "245f039c4d3251b4a8acac45a1dd2084d5baf79f10086b1548184dae4630bb4b"
+        },
+        {
+          "bytes": 499,
+          "declared_bytes": 499,
+          "declared_path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/verification.json",
+          "declared_sha256": "734cc3aa3233f09985ede31e02227e5a08e39d5a11091aa30d885cdc4f46f50c",
+          "path": "0707.app-use-check/evidence/design05.17/verification.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "734cc3aa3233f09985ede31e02227e5a08e39d5a11091aa30d885cdc4f46f50c"
+        },
+        {
+          "bytes": 3481,
+          "declared_bytes": 3481,
+          "declared_path": "labs/n7-intake-compat-pass02/compat17/make_fixture.py",
+          "declared_sha256": "3fe35e2cbf90104910af077fbcb75cd482833bf0e57a364944741bed6d28368b",
+          "path": "labs/n7-intake-compat-pass02/compat17/make_fixture.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "3fe35e2cbf90104910af077fbcb75cd482833bf0e57a364944741bed6d28368b"
+        },
+        {
+          "bytes": 865,
+          "declared_bytes": 865,
+          "declared_path": "labs/n7-intake-compat-pass02/compat17/n7compat.py",
+          "declared_sha256": "e6cf3711d337a0e10403f152cf7097dd65823bcc46f40b80eba3bd39dc06e6df",
+          "path": "labs/n7-intake-compat-pass02/compat17/n7compat.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "e6cf3711d337a0e10403f152cf7097dd65823bcc46f40b80eba3bd39dc06e6df"
+        },
+        {
+          "bytes": 13391,
+          "declared_bytes": 13391,
+          "declared_path": "labs/n7-intake-compat-pass02/compat17/tests/test_n7.py",
+          "declared_sha256": "b703b36fbea44680fc3821f6aefb7761dac5b59d0a4ae752ac96c7421d31ce9b",
+          "path": "labs/n7-intake-compat-pass02/compat17/tests/test_n7.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "b703b36fbea44680fc3821f6aefb7761dac5b59d0a4ae752ac96c7421d31ce9b"
+        },
+        {
+          "bytes": 7210,
+          "declared_bytes": 7210,
+          "declared_path": "labs/n7-intake-compat-pass02/n5_replay.py",
+          "declared_sha256": "fa83aa142d6a8f92db9df7a8d109697d9019852c29377e3409af9ab9f10ea5ab",
+          "path": "labs/n7-intake-compat-pass02/n5_replay.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "fa83aa142d6a8f92db9df7a8d109697d9019852c29377e3409af9ab9f10ea5ab"
+        },
+        {
+          "bytes": 7396,
+          "declared_bytes": 7396,
+          "declared_path": "labs/n7-intake-compat-pass02/n7compat2.py",
+          "declared_sha256": "90b59297c32bd4c84cb90bddcfe238f935a9bb10bc186842af995e9477c3485c",
+          "path": "labs/n7-intake-compat-pass02/n7compat2.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "90b59297c32bd4c84cb90bddcfe238f935a9bb10bc186842af995e9477c3485c"
+        },
+        {
+          "bytes": 4249,
+          "declared_bytes": 4249,
+          "declared_path": "labs/n7-intake-compat-pass02/proposal_check.py",
+          "declared_sha256": "432576be9bb15a64c7e0f06db2f8387e6eeb8d32f9e2f1d3a6a1319edc7239bf",
+          "path": "labs/n7-intake-compat-pass02/proposal_check.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "432576be9bb15a64c7e0f06db2f8387e6eeb8d32f9e2f1d3a6a1319edc7239bf"
+        },
+        {
+          "bytes": 7306,
+          "declared_bytes": 7306,
+          "declared_path": "labs/n7-intake-compat-pass02/run_flow2.py",
+          "declared_sha256": "1fda634b020cf55b36b8c8295ecfb32a7b81a3ae6e54dbb18618cb36b2ffc932",
+          "path": "labs/n7-intake-compat-pass02/run_flow2.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "1fda634b020cf55b36b8c8295ecfb32a7b81a3ae6e54dbb18618cb36b2ffc932"
+        },
+        {
+          "bytes": 12422,
+          "declared_bytes": 12422,
+          "declared_path": "labs/n7-intake-compat-pass02/tests/test_n7v2.py",
+          "declared_sha256": "0615a973c73c849fb9ef709c2577b221dca866b6a1e9e1dce092cd79171294c9",
+          "path": "labs/n7-intake-compat-pass02/tests/test_n7v2.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "0615a973c73c849fb9ef709c2577b221dca866b6a1e9e1dce092cd79171294c9"
+        },
+        {
+          "bytes": 6703,
+          "declared_path": "0707.app-use-check/05.17.return.md",
+          "path": "0707.app-use-check/05.17.return.md",
+          "role": "return",
+          "root": "book",
+          "sha256": "0a96d5ff9538a7ee6da0cec2bd868d39147ea9d61f294b7d17cd6f6af4638b2f"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "2f37e6d03c07abf3850b9d422a21bc35e7ac612c241416de56be1a0070e3e329",
+  "intake_id": "a0d7da38c5307423b31abf3fd33f9107a72aec4a406e14f7fde42f939c660e9f",
+  "kind": "N7NN",
+  "missing": [],
+  "page": "0707.app-use-check",
+  "pass": "05.17",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "task_association": "not-established"
+}

@@ -1,0 +1,21 @@
+{
+  "format_note": "EXAMPLE of everything intelligence supplies for one start and two items. SYNTHETIC content drawn from 0423/01 section 7; not a release.",
+  "start": {
+    "source": "0423.dev-authoring",
+    "goal": "Reduce manual pack and review setup.",
+    "scope": {"included": ["source-linked start", "per-item input"], "excluded": ["worker execution", "migration"], "allowed_writes": ["new authoring draft on the linked work page"]},
+    "finish": ["Prime authors one real next pack with the tool."]
+  },
+  "items": [
+    {"title": "Derive registration and source hashes",
+     "purpose": "Derive registration, request and source hashes from explicit work and authority references.",
+     "requirements": "Preserve missing or ambiguous data; never invent it.",
+     "acceptance": "Prime starts from the source page and gets a usable small form with the correct linked pass."},
+    {"title": "Typed fields and UTF-8",
+     "purpose": "Serialize typed fields and UTF-8 consistently; keep refused input with an exact correction.",
+     "requirements": "Prose-only meaning never needs a hand-computed hash or a remembered field type.",
+     "acceptance": "A boolean field given prose is refused at that field, the input is kept, and the correction names the expected shape.",
+     "open_choices": "not-applicable"}
+  ],
+  "not_supplied_by_intelligence": ["N5NN page", "pass 05.NN", "#NN", "output path", "hashes", "date of record", "stamp", "layout", "encoding", "return route"]
+}

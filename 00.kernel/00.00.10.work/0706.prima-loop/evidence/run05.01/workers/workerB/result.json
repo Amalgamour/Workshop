@@ -1,0 +1,84 @@
+{
+  "schema": "prima-worker-result (informal)",
+  "run": "prima-0706-0501 pass 01",
+  "worker": "Prima Worker B",
+  "identity": {
+    "bot_name": "Prima Worker B",
+    "model": "unknown"
+  },
+  "python": {
+    "python_on_path": null,
+    "python3": "/usr/bin/python3",
+    "version": "Python 3.13.5",
+    "note": "observed: `command -v python` printed nothing"
+  },
+  "invocation": {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "app/librarian.py",
+      "review-loop",
+      "describe-legacy",
+      "--book",
+      "/workspace/prima/run05.01/source/00.kernel/00.00.10.work",
+      "--member",
+      "0182.desk-app-integration-design-0501"
+    ],
+    "cwd": "/workspace/prima/run05.01/source",
+    "start": "2026-11-01T12:27:01.424019-06:00",
+    "end": "2026-11-01T12:27:01.507428-06:00",
+    "exit_code": 1
+  },
+  "stdout": {
+    "path": "/workspace/prima/run05.01/workerB/describe.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "/workspace/prima/run05.01/workerB/describe.stderr",
+    "sha256": "e18db17d218a3d789accb5fb962315e48a87df6b6fffdadd427efe692e0e5e16",
+    "bytes": 1173
+  },
+  "fingerprints": {
+    "before": "fingerprint-before.txt",
+    "after": "fingerprint-after.txt",
+    "tree_before": "tree-before.txt",
+    "tree_after": "tree-after.txt",
+    "diff": "fingerprint.diff (empty)",
+    "identical": true,
+    "new_paths_under_SRC": [],
+    "basis": "observed: diff exit 0 for both 67-line fingerprint and 135-entry full tree listing"
+  },
+  "route": {
+    "observed": [
+      "app/librarian.py:98-106 review-loop -> load_module(app/review_loop_tools_v2.py).perform(args, code_root); code_root = SRC (librarian.py:97)",
+      "app/review_loop_tools_v2.py:280-296 perform: parse_call -> forward_args (describe-legacy checks member + absolute --book, :267-270) -> pin_tools(code_root) (relative to code_root, passed) -> subprocess [sys.executable,-B,labs/review-loop-pass02/review_loop.py, describe-legacy, --book, ..., --member, ...] cwd=code_root (:286-292)",
+      "labs/review-loop-pass02/review_loop.py:1021 main calls pin_set() before dispatch; :1022-1023 describe-legacy -> describe_legacy(read_only_book(book), member) at :627",
+      "describe_legacy would run return_inspect inspect (:631) then return_placement route --book/--page/--batch from reservation origin (:647-650); never reached"
+    ]
+  },
+  "outcome": "failed, exit 1 (uncaught exception, not the refusal path; stdout empty)",
+  "first_blocking_path": {
+    "observed_path_string": "D:\\Git\\lib-build/labs/review-construction-pass02/construct.py",
+    "observed_error": "FileNotFoundError [Errno 2] at review_loop.py:143 pin_file -> path.read_bytes(), called from pin_set :151, from main :1021",
+    "source_line": "labs/review-loop-pass02/review_loop.py:27 ROOT = Path(r\"D:\\Git\\lib-build\"); :29 CONSTRUCT = ROOT / 'labs' / ...",
+    "inference": "On Linux Path(r'D:\\Git\\lib-build') is a single relative component, resolved against cwd=SRC, so it looked for SRC/'D:\\Git\\lib-build'/labs/... which does not exist. pin_file only catches size/hash mismatch, so a missing file raises FileNotFoundError past the Refusal handler (:1047), giving exit 1 and no JSON refusal payload."
+  },
+  "proposed_repair (finding only, not applied)": {
+    "smallest": "In labs/review-loop-pass02/review_loop.py replace the hard-coded ROOT (line 27) with the checkout derived from the file location, e.g. ROOT = Path(__file__).resolve().parents[2]. All tool paths (:29-50), LIVE_BOOK (:53), EVIDENCE (:54) and run_tool cwd (:171) derive from ROOT, so this one line covers the describe-legacy route.",
+    "consequence": "This changes review_loop.py's bytes, so its pin (sha256 8082750f..., 47189 bytes) in app/review_loop_tools_v2.py:64-68 and app/review-loop-v2.json:41-45 must be re-pinned in the same reviewed change, or the app door will refuse 'pinned tool hash does not match: review_loop'.",
+    "secondary": "pin_file (:142-145) should convert a missing file into a Refusal so the failure exits 2 with a refusal payload instead of a traceback."
+  },
+  "windows_path_assumptions_seen": [
+    "labs/review-loop-pass02/review_loop.py:27 ROOT = Path(r'D:\\Git\\lib-build') (blocking)",
+    "labs/review-loop-pass02/review_loop.py:102, :845 refusal text names D:\\Git\\lib-build",
+    "labs/review-loop-pass02/review_loop.py:82 and app/review_loop_tools_v2.py:110 REPARSE st_file_attributes check (Windows-only attribute, harmless on Linux via getattr default)",
+    "app/review_loop_tools_v2.py:24-25 CHECKOUT/LIVE_BOOK = D:\\Git\\lib-build (only used by disposable_root for fixture commands, not on the describe-legacy path; on Linux the containment check would compare against a relative path and effectively never match - inference)",
+    "no D:\\ or lib-build strings found in return_inspect.py, return_placement.py, return_lines.py (grep)"
+  ],
+  "placement": {
+    "status": "pending",
+    "note": "Not compared: the route never ran. Member 0182 reservation.json records origin book 00.00.10.work, page 0519.desk-app, batch 05.01 (observed). A grep of 0119.app-entry-0503 for '0519'/'0182' found no matches; I did not establish the 0519/05.01 -> 0119 relationship."
+  },
+  "constraints_kept": "SRC not modified; one invocation, no retry; no Git, installs, patches, bots, routines or subagents."
+}

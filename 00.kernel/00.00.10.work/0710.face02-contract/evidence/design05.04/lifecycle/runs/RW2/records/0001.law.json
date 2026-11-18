@@ -1,0 +1,86 @@
+{
+ "stage": {
+  "staged_sha256": "c7c7059832d14de553d683b54a2da41ae5ac2d4c6bf32d11508b0369bfc0961f",
+  "content_sha256": "df750d538f62c19e37a236129ed5e949c49a747879b87dae634d0b8252b54e89",
+  "source_seat_sha256": "c3ae3cd6298cc87ecf4e0ceb176218f1e3f0471cd0fa93b3c6d1301203088f00"
+ },
+ "sign": {
+  "pre_sign_sha256": "c7c7059832d14de553d683b54a2da41ae5ac2d4c6bf32d11508b0369bfc0961f",
+  "signed_sha256": "f89be634f6ebca489dd157dbb992a7f89fa92adaa90fc35772e36c1063611a53",
+  "content_sha256": "df750d538f62c19e37a236129ed5e949c49a747879b87dae634d0b8252b54e89"
+ },
+ "approve": {
+  "by": "Director (SYNTHETIC fixture record)",
+  "ref": "fixture",
+  "approved_sha256": "f89be634f6ebca489dd157dbb992a7f89fa92adaa90fc35772e36c1063611a53"
+ },
+ "seat": {
+  "plan": {
+   "seat_file": "0001.law/01.md",
+   "warehouse_file": "00.retire.09/0001.law/01.004.09.md",
+   "draft_file": "0001.law/01.005.md",
+   "before": "c3ae3cd6298cc87ecf4e0ceb176218f1e3f0471cd0fa93b3c6d1301203088f00",
+   "approved": "f89be634f6ebca489dd157dbb992a7f89fa92adaa90fc35772e36c1063611a53",
+   "retired": "2a42998e0867368de9a1585da2de1de805150e35523c4635d73c91ce6d60a824",
+   "seated": "76200bce8df6e8941f6e9a3a6504a13303628507a3d331c33d689444101be4fa"
+  },
+  "journal": [
+   {
+    "step": "J1",
+    "status": "done"
+   },
+   {
+    "step": "J2",
+    "status": "done"
+   },
+   {
+    "step": "J3",
+    "status": "done"
+   },
+   {
+    "step": "J4",
+    "status": "done"
+   },
+   {
+    "step": "J5",
+    "status": "done"
+   },
+   {
+    "step": "J6",
+    "status": "done"
+   },
+   {
+    "step": "J7",
+    "status": "done"
+   }
+  ]
+ },
+ "rollback": {
+  "decision": {
+   "by": "Director (SYNTHETIC fixture decision)",
+   "page": "0001.law",
+   "seated_sha256": "76200bce8df6e8941f6e9a3a6504a13303628507a3d331c33d689444101be4fa",
+   "retired_sha256": "2a42998e0867368de9a1585da2de1de805150e35523c4635d73c91ce6d60a824",
+   "restore_seat_sha256": "c3ae3cd6298cc87ecf4e0ceb176218f1e3f0471cd0fa93b3c6d1301203088f00",
+   "restore_draft_sha256": "f89be634f6ebca489dd157dbb992a7f89fa92adaa90fc35772e36c1063611a53"
+  },
+  "journal": [
+   {
+    "step": "R1",
+    "status": "done"
+   },
+   {
+    "step": "R3",
+    "status": "done"
+   },
+   {
+    "step": "R4",
+    "status": "done"
+   },
+   {
+    "step": "R5",
+    "status": "done"
+   }
+  ]
+ }
+}

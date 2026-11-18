@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "collection": "sources",
+      "count": 31,
+      "accepted": true
+    },
+    {
+      "collection": "sources",
+      "count": 32,
+      "accepted": true
+    },
+    {
+      "collection": "sources",
+      "count": 33,
+      "accepted": false,
+      "message": "limit sources: 33 sources exceeds supported limit 32; split the return so one record binds at most 32 sources"
+    },
+    {
+      "collection": "holds",
+      "count": 25,
+      "accepted": false,
+      "message": "limit holds"
+    },
+    {
+      "collection": "answers",
+      "count": 25,
+      "accepted": false,
+      "message": "limit answers"
+    },
+    {
+      "collection": "sources",
+      "count": 0,
+      "accepted": true
+    }
+  ],
+  "scope": "Direct source-specific validator probes, not full record cycles",
+  "max_list_unchanged": true,
+  "max_doc": 262144
+}

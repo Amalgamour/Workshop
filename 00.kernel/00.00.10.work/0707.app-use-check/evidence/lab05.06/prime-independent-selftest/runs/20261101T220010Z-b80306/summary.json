@@ -1,0 +1,58 @@
+{
+  "aggregate": "FAIL",
+  "canonical_paths": {
+    "evidence_root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.06\\prime-independent-selftest\\runs",
+    "fixture_root": "D:\\librarian\\temp\\harness-pass05-review-nov01\\scratch\\out\\20261101T220010Z-b80306",
+    "run_dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.06\\prime-independent-selftest\\runs\\20261101T220010Z-b80306"
+  },
+  "cases": [
+    {
+      "call_anomalies": [
+        "stub-exit-hold-child"
+      ],
+      "error": null,
+      "failed_checks": [
+        "stub exit-hold-child exit 0"
+      ],
+      "id": "S07",
+      "status": "ERROR",
+      "title": "STUB exits 0 and leaves a pipe-holding child"
+    }
+  ],
+  "code_sha256": {
+    "guards.py": "8c2ee220793cdb681342457b5b52f8dea7a40af1b480af1e1bd252da1883fc65",
+    "harness5.py": "1dcd35f60fafd3f589b7e9f71b5478bc64abd762bc81b46a9dd32d0030498bcc",
+    "stub_cases5.py": "8023452f91fd07e32b73ff05a2f3c22b2e89b37f93a926dfeddd754b567b1164",
+    "stubs/STUB5.py": "57bcbdc6b12753d644d8b5ec11d3c29de6087c108a9c234e30cf6e984bbac332",
+    "winjob.py": "c03d63a1c4d954dd537e91b65e52086a1b1ca34b7bbf868bc9de63ca0171f264"
+  },
+  "command": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass05\\harness5.py",
+    "run",
+    "--config",
+    "D:\\librarian\\temp\\harness-pass05-review-nov01\\scratch\\configs\\exit-hold-child.json",
+    "--matrix",
+    "stub",
+    "--evidence",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0707.app-use-check\\evidence\\lab05.06\\prime-independent-selftest\\runs"
+  ],
+  "config_sha256": "7b08a87136e7a8262ab426cd5c24cfebf28ae496ad6a03431e5714cd0ebf5a03",
+  "exit": 1,
+  "kind": "stub",
+  "launches": 1,
+  "loop_evidence": false,
+  "matrix": "stub",
+  "matrix_provenance": {},
+  "preflight": {
+    "candidate": "pinned",
+    "output_root_canonical": "D:\\librarian\\temp\\harness-pass05-review-nov01\\scratch\\out",
+    "reasons": [],
+    "status": "READY"
+  },
+  "run": "20261101T220010Z-b80306",
+  "schema": "acceptance-run/2",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

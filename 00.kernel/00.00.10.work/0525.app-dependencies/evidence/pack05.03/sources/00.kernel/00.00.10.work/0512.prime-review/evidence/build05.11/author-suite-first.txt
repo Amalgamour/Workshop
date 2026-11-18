@@ -1,0 +1,58 @@
+test_author_active_surface_stays (__main__.CapacityAuthor.test_author_active_surface_stays) ... ok
+test_author_case_reconciliation (__main__.CapacityAuthor.test_author_case_reconciliation) ... ok
+test_author_changed_and_missing (__main__.CapacityAuthor.test_author_changed_and_missing) ... ok
+test_author_code_root_is_excluded (__main__.CapacityAuthor.test_author_code_root_is_excluded) ... ok
+test_author_cycle_0509 (__main__.CapacityAuthor.test_author_cycle_0509) ... ok
+test_author_cycle_0510 (__main__.CapacityAuthor.test_author_cycle_0510) ... FAIL
+test_author_cycle_0514 (__main__.CapacityAuthor.test_author_cycle_0514) ... ok
+test_author_document_bound (__main__.CapacityAuthor.test_author_document_bound) ... ok
+test_author_duplicate_and_conflict (__main__.CapacityAuthor.test_author_duplicate_and_conflict) ... ok
+test_author_generated_bounds (__main__.CapacityAuthor.test_author_generated_bounds) ... FAIL
+test_author_historical_modules_stay (__main__.CapacityAuthor.test_author_historical_modules_stay) ... ok
+test_author_historical_replay_refuses_0509 (__main__.CapacityAuthor.test_author_historical_replay_refuses_0509) ... ok
+test_author_holds_stay_24 (__main__.CapacityAuthor.test_author_holds_stay_24) ... ok
+test_author_hostile_count_is_not_trimmed (__main__.CapacityAuthor.test_author_hostile_count_is_not_trimmed) ... ok
+test_author_hostile_document_bound_stays (__main__.CapacityAuthor.test_author_hostile_document_bound_stays) ... ok
+test_author_known_pending_failure_stays_recorded (__main__.CapacityAuthor.test_author_known_pending_failure_stays_recorded) ... ok
+test_author_lab_door_is_not_an_install (__main__.CapacityAuthor.test_author_lab_door_is_not_an_install) ... ok
+test_author_limits_answers_stay_24 (__main__.CapacityAuthor.test_author_limits_answers_stay_24) ... ok
+test_author_linked_candidate_pin (__main__.CapacityAuthor.test_author_linked_candidate_pin) ... ok
+test_author_malformed_row_and_unknown_size (__main__.CapacityAuthor.test_author_malformed_row_and_unknown_size) ... ok
+test_author_naive_external_copy_is_ambiguous (__main__.CapacityAuthor.test_author_naive_external_copy_is_ambiguous) ... ok
+test_author_predecessor_refuses_0510 (__main__.CapacityAuthor.test_author_predecessor_refuses_0510) ... ok
+test_author_semantic_versus_raw (__main__.CapacityAuthor.test_author_semantic_versus_raw) ... ok
+test_author_wrong_pins (__main__.CapacityAuthor.test_author_wrong_pins) ... ok
+test_author_z_no_live_write (__main__.CapacityAuthor.test_author_z_no_live_write) ... ok
+
+======================================================================
+FAIL: test_author_cycle_0510 (__main__.CapacityAuthor.test_author_cycle_0510)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-source-capacity-pass02\tests\test_capacity.py", line 511, in test_author_cycle_0510
+    self.assert_cycle(
+    ~~~~~~~~~~~~~~~~~^
+        "cycle-0510",
+        ^^^^^^^^^^^^^
+    ...<6 lines>...
+        extra_attention=("findings_account is unknown",),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Git\lib-build\labs\review-source-capacity-pass02\tests\test_capacity.py", line 439, in assert_cycle
+    self.assertEqual(recorded.returncode, 0, payload.get("correction") or recorded.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : refused: limit sources[24].content_bytes
+
+======================================================================
+FAIL: test_author_generated_bounds (__main__.CapacityAuthor.test_author_generated_bounds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\review-source-capacity-pass02\tests\test_capacity.py", line 642, in test_author_generated_bounds
+    self.assertIn(STEP64, text)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 'keep every source identity on this record and stop for a versioned successor whose source bound covers the count' not found in '#!/usr/bin/env python3\n"""Source-capacity successor of labs/prime-review-pass02/prime_review.py.\n\nThe historical module stays byte-for-byte. This loader rebinds as_list so only\nthe sources collection uses MAX_SOURCES. MAX_LIST, MAX_DOC, and MAX_TEXT stay\non the historical module. This file does not assign MAX_LIST. The pass01\nsuccessor stays at its own 32-source bound.\n"""\n\nfrom __future__ import annotations\n\nimport hashlib\nimport importlib.util\nimport os\nimport sys\nfrom pathlib import Path\n\nsys.dont_write_bytecode = True\nos.environ["PYTHONDONTWRITEBYTECODE"] = "1"\n\nHELPER = Path(r"D:\\Git\\lib-build")\nPASS02_REL = "labs/prime-review-pass02/prime_review.py"\nPASS02_SHA = "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"\nPASS02_BYTES = 58560\nMAX_SOURCES = 64\nSOURCE_STEP = (\n    "keep every source identity on this record and stop for a versioned successor "\n    "whose source bound covers the count"\n)\n\n\ndef refuse_boot(message: str) -> None:\n    print(f"refused: {message}", file=sys.stderr)\n    raise SystemExit(2)\n\n\ndef load_pass02():\n    path = HELPER / PASS02_REL\n    data = path.read_bytes()\n    if len(data) != PASS02_BYTES or hashlib.sha256(data).hexdigest() != PASS02_SHA:\n        refuse_boot("prime-review pass02 pin mismatch")\n    spec = importlib.util.spec_from_file_location("prime_review_pass02_capacity64", path)\n    if spec is None or spec.loader is None:\n        refuse_boot("prime-review pass02 did not load")\n    module = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(module)\n    return module\n\n\nbase = load_pass02()\n\n\ndef as_list(value, where: str):\n    base.need(isinstance(value, list), f"bad type {where}")\n    if where == "sources":\n        count = len(value)\n        if count > MAX_SOURCES:\n            raise base.Refusal(\n                f"limit sources: {count} sources exceeds supported limit {MAX_SOURCES}; {SOURCE_STEP}"\n            )\n        return value\n    base.need(len(value) <= base.MAX_LIST, f"limit {where}")\n    return value\n\n\nbase.as_list = as_list\n\n\ndef main(argv: list[str] | None = None) -> int:\n    return base.main(argv)\n\n\nif __name__ == "__main__":\n    sys.exit(main())\n'
+
+----------------------------------------------------------------------
+Ran 25 tests in 85.899s
+
+FAILED (failures=2)

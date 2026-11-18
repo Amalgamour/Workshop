@@ -1,0 +1,137 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "clerk-adapter",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/prime-support-pass01/clerk_adapter.py",
+  "name": "clerk_adapter",
+  "purpose": "Reads one registered Clerk job through the accepted inspection/2 projection.",
+  "interface": [
+   "inspect(tool, job)",
+   "subject_for(observation)",
+   "canonical_store",
+   "CLERK_ID"
+  ],
+  "limits": [
+   "never opens a Clerk store or queues work"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+  "bytes": 11774,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+   "path": "labs/prime-support-pass01/clerk_adapter.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "inspect",
+   "subject_for"
+  ],
+  "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "clerk-tool",
+   "kind": "runtime-code",
+   "target": {
+    "external": {
+     "name": "Clerk tool at a caller-supplied path (accepted inspection/2 code)",
+     "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "clerk-job",
+    "statement": "a registered Clerk job is inspected",
+    "status": "unknown"
+   },
+   "availability": "not-applicable",
+   "reason": "launched for show --json after re-hashing to ACCEPTED_CLERK_SHA256",
+   "source_ref": {
+    "path": "labs/prime-support-pass01/clerk_adapter.py",
+    "lines": "22, 51-66, 69-80"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "launches the Clerk tool with sys.executable -I -B",
+   "source_ref": {
+    "path": "labs/prime-support-pass01/clerk_adapter.py",
+    "lines": "70"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [
+   {
+    "role": "source-stated",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0507.prime-support",
+     "face_or_pass": "05.04",
+     "file": "05.04.md"
+    },
+    "sha256": null,
+    "commit": null,
+    "status": "unpinned",
+    "note": "named by the module docstring; not verified here"
+   },
+   {
+    "role": "source-stated",
+    "address": {
+     "repository": "lib-build",
+     "book": "00.00.10.work",
+     "page": "0507.prime-support",
+     "face_or_pass": "05.04",
+     "file": "evidence/build05.04/DESIGN.004.md"
+    },
+    "sha256": null,
+    "commit": null,
+    "status": "unpinned",
+    "note": "contract named by the docstring; not verified here"
+   }
+  ],
+  "unknown": [
+   "the Clerk tool has no module record in this set; only its accepted sha is declared",
+   "the 0507 return and review for these bytes are not in the supplied references"
+  ]
+ },
+ "supersedes": null
+}

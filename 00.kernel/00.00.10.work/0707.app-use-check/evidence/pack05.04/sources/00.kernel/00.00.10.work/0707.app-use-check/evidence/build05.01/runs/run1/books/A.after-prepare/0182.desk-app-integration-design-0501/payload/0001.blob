@@ -1,0 +1,87 @@
+# Notes — Desk app core integration design and lab (0519.desk-app 05.01)
+Date: 2026-10-31
+Recorder: claude-opus-5-5 (Anthropic), the executor this page names as "Claude", in the Claude Code desktop app
+State: written FIRST, before the map, the lab and the design. Later sections are appended, not rewritten.
+
+## Disclosure
+- This is a continuing session, not a fresh context. Earlier in this session I built 0515 prime-cycle (05.01–05.03), 0517 dependencies and 0518/05.01 (the Colab review adapter, now under Grok's 05.02 repair).
+- I wrote prime_cycle.py and prime_support.py. When I map them, I read their code again; I do not rely on memory of writing them.
+- I did not build Clerk, return_capture, batch_observe, capture-handoff, prime_review or the app wrappers.
+
+## Inputs
+I01. **pack05.01:** 51 of 51 snapshots match their pins and equal live. 49 equal HEAD 960d20c. The other two are uncommitted Prime records: 0416.desk-app/01.002.md (untracked) and 0401.goal/06.01.md (modified so it selects this pack).
+I02. **Direction:** 0416.desk-app/01.002.md. The isolation detour is withdrawn. Keep the work-book pack and return route. The first finish line is assignment → retrieve → durable return → Prime retrieves and reviews → next action survives restart. It is for the current Prime first.
+I03. **The live route as practised** (read from pages, not README prose):
+- Prime writes a `05.NN` batch page with `Executor:`, a source manifest, and a reserved `01NN` member. The reservation names the submitter, the reviewer and the expected outputs.
+- The Director releases in chat. The worker copies that release onto the page's Return pointer as `Release:`, then `Claim:`.
+- The worker runs `return_capture capture`, then `verify`. It appends `Execution:` with the receipt.
+- Prime writes `evidence/prime-reviewNN.NN/REVIEW.md` and the page's `## Review — Codex Prime` text, and edits `0401.goal/06.01.md` by hand.
+- prime_cycle's typed review has been used once on live work (0515 actual-use, one work). It is not routine.
+I04. **Members today:** 0101–0182 exist. 0181 (Grok-1, 0518/05.02) and 0182 (this batch) are reserved-only. All others have a receipt.
+
+## Early observations (to verify in the lab, not yet findings)
+O01. `app/librarian.py where` and `validate` exit 2 on the live record: `assignment_state is not a known state`. Prime wrote `prepared`; the app accepts only waiting, released, running, returned, accepted and stopped. The only worker-facing "what is my assignment" command is down. Read-only run, 2026-10-31.
+O02. Prime's 0518/05.01 review exists in evidence/prime-review05.01/REVIEW.md, but that page's Review section still said PENDING when I read it. The review is findable only if you already know the evidence path.
+O03. batch_observe on the live 0519 page: `release_raw` is null and ambiguous. The pack template's own line "Release and claim: recorded in the Return pointer…" matches the `Release` prefix, as does the real `Release:` line. Every page made from this template will read as ambiguous.
+O04. Submitter labels drift for one model: Claude, Claude Builder, Claude Colab/Builder; Grok-1, Grok Builder 1. An exact-label worker query would miss tasks.
+O05. Return band: 17 free numbers (0183–0199). return_capture refuses past 0199 and does not create 0200. At the current rate the band fills in a few working days.
+O06. Two job stores exist: the N1NN reservation/capture path (used for every real return) and Clerk queue/claim/return (fixture-only, never used for a real task). The pack says no parallel custody.
+
+## Choices (planned)
+C01. **No new store.** The assignment is the batch page plus its reservation. The return is the capture. The review is the page Review text, plus the prime_cycle typed record where Prime uses one. The desk view is derived from those on every read.
+C02. **The lab tool is read-only** (`desk_lab.py view`). It enumerates `01NN/reservation.json` files, inspects each member with the pinned `return_inspect`, observes each origin page with the pinned `batch_observe --live`, and optionally merges `prime_cycle read --json`. It derives a per-task state, and who acts next.
+C03. **Clerk is not in slice 1.** It would be a second job ledger beside reservations. It is mapped and kept for later routing.
+C04. **Demo:** a disposable repository and book, the real pinned CLIs in separate processes, and SYNTHETIC tasks and returns only. Cases: one full loop; missing return versus done; repeated and changed handback; supersedes; stale page after review; interrupted capture; restart.
+C05. **Live read-only check:** `view` over the live book, to show it on real records. It writes nothing; the bytes before and after are compared.
+C06. **Scope:** writes only to labs/desk-app-integration-pass01, this page, evidence/build05.01, the claim and pointer on 05.01, and capture 0182. No app/, existing lab or core edits, and no Git stage, commit or push.
+
+## Clarification received during the assignment — 2026-10-31
+I05. **Director, mid-assignment:** "While completing 0519/05.01, also read: 00.kernel/00.00.10.work/0519.desk-app/06.02.md. The Director selected Prime's return-review cycle as the first real app workflow. Include compute construction of its pages/faces from structured inputs. Start with the templates this loop needs; broader face construction follows. Your existing scope and write boundaries remain unchanged."
+- Read: 0519.desk-app/06.02.md (sha256 6c313ceb…68f4) and its decision 0416.desk-app/06.04.md (sha256 00ba3e61…cad). Acknowledged here, and in DESIGN and the return.
+- Neither page was in pack05.01. Both are read as source clarifications. They are not new pins and grant no write.
+
+C07. **Construction joins the lab.** The first workflow is Prime reviewing one builder return. The records the loop hand-types today are:
+- (a) the batch page's Return-pointer lines (Release, Claim, Execution with the receipt);
+- (b) the page's Review section, plus Prime's REVIEW.md;
+- (c) the batch page itself, built from an assignment spec.
+
+prime_cycle already constructs REVIEW.md from a structured record, so that one exists. The lab adds a small template renderer for (a), (b) and (c):
+- It writes into disposable books only.
+- It may only replace a declared placeholder, or append inside a declared section.
+- Any other byte change, including an unexplained removal, is refused.
+- The model supplies only the judgment text.
+- Construction is never a release or an approval.
+
+## Second clarification received — 2026-10-31
+I06. **Director, mid-assignment:** "The Director assigned the independent execution/replay lab to Grok-2 on 0520. Read: 00.kernel/00.00.10.work/0519.desk-app/06.03.md. Focus your remaining effort on the integration design and smallest implementation plan. Run only the small probes needed to resolve design questions; do not duplicate the broad adverse-case lab. Preserve work already completed. Do not wait for Grok-2. Finish and capture your existing 0519 return as assigned."
+- Read: 0519/06.03.md (sha256 d2c006bf…1514) and 0416/06.05.md (sha256 9bc01d57…0ce4). Acknowledged.
+- What was already done stayed as it was: the demo's 36 steps had already run.
+- After this clarification I added no adverse cases. I made one fix to my own output encoding, ran the final runs on the final bytes, and ran one small read-only probe: where the reviews live. I did not read the 0520 lab or its output.
+
+## Disposition — 2026-10-31, claude-opus-5-5
+C01–C07 were built as written. Outputs: DESIGN.md, BUILD-PLAN.md, integration-map.json and runs/ in evidence/build05.01, and labs/desk-app-integration-pass01 (desk_lab.py, demo.py, README.md).
+
+**Runs, kept as they happened:**
+- **run1** (runs/run1-first-failure.txt): 15 of 17 steps held, then the run aborted.
+  - Step 10: my expectation was wrong. prime_cycle reports a registered, reserved-only member as custody-unresolved, not no-return, which is DESIGN F8.
+  - Step 17: my error. prime_cycle requires `--templates` under output_root.
+  - No transcript was written, because the demo did not yet record aborts. Fixed.
+- **run2** (diagnostic, --keep): used to read the kept directory; removed afterwards.
+- **run3** (runs/run3-aborted.txt): 29 of 29 held, then my transcript helper aborted on relpath across drives C: and D:. Fixed.
+- **run4** (runs/run4-one-failure.*): 35 of 36. My interrupted-capture helper passed Path objects; the pinned capture refused and wrote nothing. Fixed to string paths, as the CLI passes them.
+- **run5** (diagnostic, --keep): removed.
+- **Final** (runs/final-demo.*): 36 of 36 held on the final bytes, exit 0.
+- **Live read-only views:**
+  - The first was inconclusive: another lane wrote during it.
+  - The second recorded concurrent writes by other lanes (runs/live-view-run2-concurrent-filediff.json): 70 added and 1 changed, all in the 0181, 0183, 0416, 0518, 0519/06.03 and 0520 lanes, none by this tool.
+  - The third used pre-fix code that wrote cp1252 output: a defect in my lab, fixed with UTF-8 bytes.
+  - The final ran on the final bytes: 27508 files identical before and after (runs/live-view-filediff.json); exit 1 (attention).
+
+**Findings** (DESIGN §12): F1 `where` is down on `prepared`; F2 template Release line ambiguity; F3 reviews at three addresses (10 of 14 apparent awaiting-review are reviewed in evidence/prime-reviewNN); F4 the whole-page review binding conflicts with construction (lab 8b); F5 16 return members left; F6 18 submitter labels; F7 versioned and 07NN page layouts; F8 custody-unresolved before the page names the member.
+
+**Not done:**
+- no app/ or existing lab edits;
+- no Clerk use;
+- no model or session;
+- no Git stage, commit or push;
+- no broad adverse-case lab (Grok-2's).

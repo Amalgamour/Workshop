@@ -1,0 +1,471 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "answers": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "approved": false,
+  "artifacts": {
+    "addressed_sources": {
+      "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+      "bytes": 157007,
+      "bytes_state": "measured",
+      "count": 16,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "addressed-source-paths"
+    },
+    "bytes": 149885,
+    "bytes_state": "declared",
+    "content_blobs": {
+      "assumption": "a 64-character lowercase sha256 proves content equality only",
+      "bytes": 127265,
+      "bytes_state": "measured",
+      "count": 15,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "content-sha256"
+    },
+    "count": 14,
+    "count_state": "declared",
+    "hash_match": 14,
+    "hash_mismatch": 0,
+    "intake_roles": {
+      "bytes": 169310,
+      "bytes_state": "measured",
+      "count": 17,
+      "count_state": "measured",
+      "hash_match": 16,
+      "hash_mismatch": 0,
+      "label": "intake role rows; not a declared artifact total",
+      "not_verified": 1,
+      "provenance": "current-measured",
+      "scope": "full-intake-role-rows"
+    },
+    "integrity_provenance": "current-measured",
+    "integrity_scope": "current-measured-artifact-role-rows",
+    "measured_artifact_rows": {
+      "bytes": 149885,
+      "bytes_state": "measured",
+      "count": 14,
+      "count_state": "measured",
+      "provenance": "current-measured",
+      "scope": "current-measured-artifact-role-rows"
+    },
+    "measured_by": "accepted-intake",
+    "measurement": "complete",
+    "missing": [],
+    "not_verified": 0,
+    "physical_files": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "not-established",
+      "reason": "accepted intake metadata has no physical-file identity; a path and a content hash do not establish one",
+      "scope": "verified-physical-files"
+    },
+    "provenance": "declared",
+    "rows": [
+      {
+        "bytes": 3954,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "0512.prime-review/05.06.md",
+        "role": "assignment",
+        "root": "book",
+        "sha256": "ecd95107fce34a679fc2269a4048eaae5bf5e94f4d0dabf63a0fd455de55e1c2"
+      },
+      {
+        "bytes": 12303,
+        "declared_bytes": 12303,
+        "declared_sha256": "dc5b52a7aeed664dae8e798ed37e7c20f7a1bf1f72ea4c4a77e2233e21cbaf53",
+        "path": "0512.prime-review/evidence/build05.06/submission.md",
+        "role": "submission",
+        "root": "book",
+        "sha256": "dc5b52a7aeed664dae8e798ed37e7c20f7a1bf1f72ea4c4a77e2233e21cbaf53"
+      },
+      {
+        "bytes": 3168,
+        "declared_bytes": 3168,
+        "declared_sha256": "983efc6a8a236456c76c40161fb2024a977e7c39eda5894f1d689920dc748d0a",
+        "path": "0512.prime-review/evidence/build05.06/artifact-manifest.json",
+        "role": "artifact-manifest",
+        "root": "book",
+        "sha256": "983efc6a8a236456c76c40161fb2024a977e7c39eda5894f1d689920dc748d0a"
+      },
+      {
+        "bytes": 6961,
+        "declared_bytes": 6961,
+        "declared_sha256": "2e4c96d051383422ba762e6fd205b3d439b3e8316b429d7039e0c21a6118fc73",
+        "path": "0512.prime-review/06.09.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "2e4c96d051383422ba762e6fd205b3d439b3e8316b429d7039e0c21a6118fc73"
+      },
+      {
+        "bytes": 12396,
+        "declared_bytes": 12396,
+        "declared_sha256": "e5849352644b63c8f249546d4f5bd7ccad575218d9c2062db2f4814a55babc6c",
+        "path": "0512.prime-review/evidence/build05.06/CONTRACT.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "e5849352644b63c8f249546d4f5bd7ccad575218d9c2062db2f4814a55babc6c"
+      },
+      {
+        "bytes": 125,
+        "declared_bytes": 125,
+        "declared_sha256": "8c1cdc46e38fe49286abb1ef882235902573ef9ab6d133df9cad8415ca6046e4",
+        "path": "0512.prime-review/evidence/build05.06/author-suite.txt",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "8c1cdc46e38fe49286abb1ef882235902573ef9ab6d133df9cad8415ca6046e4"
+      },
+      {
+        "bytes": 29742,
+        "declared_bytes": 29742,
+        "declared_sha256": "170028a6a6ee8817ac091d5e2c9642b8c250c32d6ac728fe89a554f526c8a06d",
+        "path": "0512.prime-review/evidence/build05.06/current-review/report-second.stdout",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "170028a6a6ee8817ac091d5e2c9642b8c250c32d6ac728fe89a554f526c8a06d"
+      },
+      {
+        "bytes": 29742,
+        "declared_bytes": 29742,
+        "declared_sha256": "170028a6a6ee8817ac091d5e2c9642b8c250c32d6ac728fe89a554f526c8a06d",
+        "path": "0512.prime-review/evidence/build05.06/current-review/report.json",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "170028a6a6ee8817ac091d5e2c9642b8c250c32d6ac728fe89a554f526c8a06d"
+      },
+      {
+        "bytes": 946,
+        "declared_bytes": 946,
+        "declared_sha256": "b2979deb9f2653a9b8932d067d24bdfdbd7ae8be167744db8d96be51fab371b1",
+        "path": "0512.prime-review/evidence/build05.06/current-review/summary.json",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "b2979deb9f2653a9b8932d067d24bdfdbd7ae8be167744db8d96be51fab371b1"
+      },
+      {
+        "bytes": 10939,
+        "declared_bytes": 10939,
+        "declared_sha256": "1bf87c600af36694498436946c62d6c572115247893c6e30ccd72fdf4d272c5d",
+        "path": "0512.prime-review/evidence/build05.06/hostile/current-changed.json",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "1bf87c600af36694498436946c62d6c572115247893c6e30ccd72fdf4d272c5d"
+      },
+      {
+        "bytes": 953,
+        "declared_bytes": 953,
+        "declared_sha256": "e72b2e2e0b8d8edb8510413eaefa6c7a07e47e442e72878680934de451eacabb",
+        "path": "0512.prime-review/evidence/build05.06/known-failures/identical-files-pass02.json",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "e72b2e2e0b8d8edb8510413eaefa6c7a07e47e442e72878680934de451eacabb"
+      },
+      {
+        "bytes": 12303,
+        "declared_bytes": 12303,
+        "declared_sha256": "dc5b52a7aeed664dae8e798ed37e7c20f7a1bf1f72ea4c4a77e2233e21cbaf53",
+        "path": "0512.prime-review/evidence/build05.06/submission.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "dc5b52a7aeed664dae8e798ed37e7c20f7a1bf1f72ea4c4a77e2233e21cbaf53"
+      },
+      {
+        "bytes": 2443,
+        "declared_bytes": 2443,
+        "declared_sha256": "9b66fed9f86a5f08e4613c4f71e38a7cd4404796089fbfaec5d001d4c677ecbe",
+        "path": "0512.prime-review/evidence/build05.06/verification.json",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "9b66fed9f86a5f08e4613c4f71e38a7cd4404796089fbfaec5d001d4c677ecbe"
+      },
+      {
+        "bytes": 1972,
+        "declared_bytes": 1972,
+        "declared_sha256": "0faa0ddb5029b5b857de5c1847caf8991aa109ca4ea693d4e985958d60b318ee",
+        "path": "labs/review-report-pass03/PRIME-USE.md",
+        "role": "artifact",
+        "root": "code",
+        "sha256": "0faa0ddb5029b5b857de5c1847caf8991aa109ca4ea693d4e985958d60b318ee"
+      },
+      {
+        "bytes": 594,
+        "declared_bytes": 594,
+        "declared_sha256": "7eda7f1b02c79c72d301c411de0de3f6bb98e6ba280cad6663cff69ac09e9cb2",
+        "path": "labs/review-report-pass03/README.md",
+        "role": "artifact",
+        "root": "code",
+        "sha256": "7eda7f1b02c79c72d301c411de0de3f6bb98e6ba280cad6663cff69ac09e9cb2"
+      },
+      {
+        "bytes": 8091,
+        "declared_bytes": 8091,
+        "declared_sha256": "70028dfe97bc6178a3497c814cf585476bb0b41650ce67fc79dd3d5b118dfade",
+        "path": "labs/review-report-pass03/report.py",
+        "role": "artifact",
+        "root": "code",
+        "sha256": "70028dfe97bc6178a3497c814cf585476bb0b41650ce67fc79dd3d5b118dfade"
+      },
+      {
+        "bytes": 32678,
+        "declared_bytes": 32678,
+        "declared_sha256": "f477fd4e4dac922435fac822a5b85ee34b34d731583a730842b08f5c110e18de",
+        "path": "labs/review-report-pass03/tests/test_report.py",
+        "role": "artifact",
+        "root": "code",
+        "sha256": "f477fd4e4dac922435fac822a5b85ee34b34d731583a730842b08f5c110e18de"
+      }
+    ],
+    "scope": "manifest-declared-artifact-entries"
+  },
+  "attention": {
+    "lines": [
+      "agreement.scope is unknown",
+      "agreement.prime_discretion is unknown",
+      "agreement.director_required is unknown",
+      "agreement.finish_criteria is unknown",
+      "agreement.recorded_decisions is unknown"
+    ],
+    "lines_state": "supplied",
+    "source": "journal-checked-record",
+    "state": "measured"
+  },
+  "authority": "none",
+  "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+  "claims": {
+    "limit": "The selected record has no structured claim, case, run, or result rows. Prose in tests_note is not parsed into a pass.",
+    "rows": [],
+    "state": "not-recorded"
+  },
+  "closes_work": false,
+  "code_root": "D:\\librarian\\temp\\0512-0508-report\\candidate",
+  "core": {
+    "inspect_exit": 0,
+    "read_exit": 0,
+    "recover_exit": 0
+  },
+  "custody": "missing",
+  "detail_fields": [
+    "reasons",
+    "findings",
+    "gaps",
+    "answers",
+    "sections",
+    "intake_findings",
+    "artifacts.rows",
+    "render_coverage",
+    "identity",
+    "observation",
+    "interface_gap"
+  ],
+  "director_text": {
+    "state": "none-measured",
+    "text": null
+  },
+  "disposition": "accepted",
+  "eligible_for_custody_completion": false,
+  "evidence_index": {
+    "missing": [],
+    "state": "not-recorded"
+  },
+  "exit": 0,
+  "finding": "Accepted as a bounded staged read-only reporter; addressed files and content blobs are now distinct, physical identity remains unknown.",
+  "findings": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "gaps": {
+    "items": [
+      "Initial restricted runs had nine fixture permission errors; a scoped escalated rerun passes all 18. These are rerun author cases, plus a separately authored count probe.",
+      "Actual review is preliminary; matching-line custody remains missing. Acceptance here is Prime technical assessment, not tool approval or execution release."
+    ],
+    "state": "supplied"
+  },
+  "goal_terminal": "open",
+  "holds": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "identity": {
+    "inspect_current": "wbf38837cf0fa9c6b",
+    "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+    "journal_current": "wbf38837cf0fa9c6b",
+    "judgment_matches_core": true,
+    "read_review_id": "wbf38837cf0fa9c6b",
+    "record_matches_journal": true,
+    "record_sha256": "cbd5d513917ece6945bd904ec00a8fa18f7e4d622763a5ac248dd0f1fa19d2bf",
+    "recover_review_id": "wbf38837cf0fa9c6b",
+    "selected_by": "journal-current"
+  },
+  "instance_id": "fa0b46e8488d03561219a73b3bbc567b2285974355b7e31e0e4c1087483a9921",
+  "intake_findings": [
+    {
+      "code": "index-context-bounded",
+      "count": 14,
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.06/artifact-manifest.json"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0112.prime-review"
+    },
+    {
+      "code": "return-missing",
+      "path": "0112.prime-review/05.06.return.md"
+    }
+  ],
+  "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+  "judgment_recorded": true,
+  "judgment_recoverable": true,
+  "limits": {
+    "state": "unknown",
+    "value": null
+  },
+  "next_action": "Use the staged pass03 standalone reporter for read-only Prime observations. Integrate its core exposure only through a separately reviewed change.",
+  "observation": {
+    "bound": {
+      "digest_kind": "str",
+      "journal_current": "wbf38837cf0fa9c6b",
+      "publication": {
+        "publication": {
+          "after_sha256": "ecd95107fce34a679fc2269a4048eaae5bf5e94f4d0dabf63a0fd455de55e1c2",
+          "before_sha256": "af3164be8824217b2133e0f0f6843da820976c9cbbe232e7f7a610b6d870d033",
+          "rendered_sha256": "76d0f13f9992469d5fe00e3440c1d91241483e6b348cb750b6498b1f03f955c9",
+          "review_id": "wbf38837cf0fa9c6b",
+          "status": "published",
+          "target": "0512.prime-review/05.06.md"
+        },
+        "published_target": {
+          "after_sha256": "ecd95107fce34a679fc2269a4048eaae5bf5e94f4d0dabf63a0fd455de55e1c2",
+          "before_sha256": "af3164be8824217b2133e0f0f6843da820976c9cbbe232e7f7a610b6d870d033",
+          "rendered_sha256": "76d0f13f9992469d5fe00e3440c1d91241483e6b348cb750b6498b1f03f955c9",
+          "review_id": "wbf38837cf0fa9c6b",
+          "status": "published",
+          "target": "0512.prime-review/05.06.md"
+        }
+      },
+      "record_file_sha256": "cbd5d513917ece6945bd904ec00a8fa18f7e4d622763a5ac248dd0f1fa19d2bf",
+      "record_sha256": "cbd5d513917ece6945bd904ec00a8fa18f7e4d622763a5ac248dd0f1fa19d2bf"
+    },
+    "changed": [],
+    "limit": "This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.",
+    "recheck": {
+      "digest_kind": "str",
+      "journal_current": "wbf38837cf0fa9c6b",
+      "publication": {
+        "publication": {
+          "after_sha256": "ecd95107fce34a679fc2269a4048eaae5bf5e94f4d0dabf63a0fd455de55e1c2",
+          "before_sha256": "af3164be8824217b2133e0f0f6843da820976c9cbbe232e7f7a610b6d870d033",
+          "rendered_sha256": "76d0f13f9992469d5fe00e3440c1d91241483e6b348cb750b6498b1f03f955c9",
+          "review_id": "wbf38837cf0fa9c6b",
+          "status": "published",
+          "target": "0512.prime-review/05.06.md"
+        },
+        "published_target": {
+          "after_sha256": "ecd95107fce34a679fc2269a4048eaae5bf5e94f4d0dabf63a0fd455de55e1c2",
+          "before_sha256": "af3164be8824217b2133e0f0f6843da820976c9cbbe232e7f7a610b6d870d033",
+          "rendered_sha256": "76d0f13f9992469d5fe00e3440c1d91241483e6b348cb750b6498b1f03f955c9",
+          "review_id": "wbf38837cf0fa9c6b",
+          "status": "published",
+          "target": "0512.prime-review/05.06.md"
+        }
+      },
+      "record_file_sha256": "cbd5d513917ece6945bd904ec00a8fa18f7e4d622763a5ac248dd0f1fa19d2bf",
+      "record_sha256": "cbd5d513917ece6945bd904ec00a8fa18f7e4d622763a5ac248dd0f1fa19d2bf"
+    },
+    "stable": true,
+    "status": "coherent"
+  },
+  "operation": "continue",
+  "pass": "05.06",
+  "pass_terminal": "finished",
+  "prime_review_effective": "attention",
+  "projection": "schema: review-report/3\nstate: readable\nreview_id: wbf38837cf0fa9c6b\nobservation: coherent\nobservation_stable: true\nselected_digest: cbd5d513917ece6945bd904ec00a8fa18f7e4d622763a5ac248dd0f1fa19d2bf\njudgment_recorded: true\npublication_class: complete\npublication_status: published\nstale: false\ncustody: missing\noperation: continue\ndisposition: accepted\ngoal_terminal: open\npass_terminal: finished\nwork_complete: false\naction_released: false\nauthority: none\ntask_association: not-established\ntests_passed: true\ntests_passed_label: supplied bounded assessment\ntests_note: Initial restricted runs had nine fixture permission errors; a scoped escalated rerun passes all 18. These are rerun author cases, plus a separately authored count probe.\nlimits: unknown\nattention_state: measured\nattention:\n- agreement.scope is unknown\n- agreement.prime_discretion is unknown\n- agreement.director_required is unknown\n- agreement.finish_criteria is unknown\n- agreement.recorded_decisions is unknown\nnext_action: Use the staged pass03 standalone reporter for read-only Prime observations. Integrate its core exposure only through a separately reviewed change.\ndirector_words: none measured\nholds: none supplied\nclaims: not-recorded\nevidence_index: not-recorded\ndeclared_artifacts: count 14, bytes 149885, provenance declared\nmeasured_artifact_rows: count 14, bytes 149885, provenance current-measured\naddressed_sources: count 16, bytes 157007, provenance current-measured, scope addressed-source-paths\ncontent_blobs: count 15, bytes 127265, provenance current-measured, scope content-sha256\nphysical_files: count unknown, bytes unknown, provenance not-established, scope verified-physical-files, reason accepted intake metadata has no physical-file identity; a path and a content hash do not establish one\nintake_role_rows: count 17, bytes 169310, provenance current-measured\nartifact_hash_match: 14\nartifact_hash_mismatch: 0\nartifact_not_verified: 0\nartifact_missing: 0\nmeasurement: complete\nobservation_limit: This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.\ndetail: reasons, findings, gaps, answers, sections, intake_findings, artifacts.rows, render_coverage, identity, observation, interface_gap\nThe stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.\n",
+  "proposed_core_exposure": "Add attention, prime_review_effective, journal current, record digest, and publication identity from the same journal-checked record to inspect, read, and recover.",
+  "publication": {
+    "class": "complete",
+    "rendered_sha256": "76d0f13f9992469d5fe00e3440c1d91241483e6b348cb750b6498b1f03f955c9",
+    "review_id": "wbf38837cf0fa9c6b",
+    "status": "published",
+    "target_state": "section-verified"
+  },
+  "reasons": {
+    "items": [
+      "The disclosed physical-file count defect is repaired with explicitly scoped identities.",
+      "The actual report preserves attention, tests_note, missing custody and no release.",
+      "No app selection or custody was performed."
+    ],
+    "state": "supplied"
+  },
+  "releases_action": false,
+  "render_coverage": {
+    "historical_note": "The stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.",
+    "omitted": [
+      "tests_note",
+      "attention",
+      "gaps"
+    ],
+    "path": "workbook-review/0512.prime-review/05.06/reviews/wbf38837cf0fa9c6b/rendered.md",
+    "rendered_ok": true,
+    "shows_attention_lines": false,
+    "shows_tests_note": false,
+    "shows_tests_passed": true,
+    "stored_render_bytes": 1048,
+    "tests_passed_line": "tests_passed: true"
+  },
+  "review_id": "wbf38837cf0fa9c6b",
+  "schema": "review-report/3",
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": null,
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Use the staged pass03 standalone reporter for read-only Prime observations. Integrate its core exposure only through a separately reviewed change.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "Accepted as a bounded staged read-only reporter; addressed files and content blobs are now distinct, physical identity remains unknown.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "14/14 artifacts match. Eighteen author tests pass on Prime rerun; the independent repeated-role/two-path probe and actual report read pass.",
+    "tests_note": "Initial restricted runs had nine fixture permission errors; a scoped escalated rerun passes all 18. These are rerun author cases, plus a separately authored count probe.",
+    "tests_passed": true,
+    "within_direction": "Bounded technical review. No kernel, authority, custody, migration or release decision."
+  },
+  "source": "0512.prime-review",
+  "stale": false,
+  "state": "readable",
+  "successor_of": null,
+  "task_association": "not-established",
+  "tests_note": {
+    "state": "supplied",
+    "text": "Initial restricted runs had nine fixture permission errors; a scoped escalated rerun passes all 18. These are rerun author cases, plus a separately authored count probe."
+  },
+  "tests_passed": {
+    "label": "supplied bounded assessment",
+    "proof_of_all_tests": false,
+    "proof_of_requirements": false,
+    "state": "supplied",
+    "value": true
+  },
+  "unknowns": [
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ],
+  "work_complete": false
+}

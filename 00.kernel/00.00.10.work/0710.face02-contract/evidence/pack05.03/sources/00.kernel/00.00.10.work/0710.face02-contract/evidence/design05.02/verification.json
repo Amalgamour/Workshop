@@ -1,0 +1,30 @@
+{
+  "schema": "0710-end-verification/2",
+  "pack05_02_inputs": 33,
+  "pack05_02_bad": [],
+  "kernel_targets_present": {
+    "0001.law/01.005.md": false,
+    "0002.schema/01.004.md": false,
+    "0001.law/01.004.09.md": false,
+    "0002.schema/01.003.09.md": false,
+    "00.retire.09": false
+  },
+  "candidates": {
+    "0001.law.01.005.candidate.md": {
+      "sha256": "f46ae1cd5c5cf6df7e5a5bbae847618c071c36009bfde3ce66fccde5522e81d7",
+      "bytes": 7832,
+      "crlf": true
+    },
+    "0002.schema.01.004.candidate.md": {
+      "sha256": "ca7e15acf365738dfbe9dcf74a28dbcbaca0463597f00425a2e89f8b5b8ca7f6",
+      "bytes": 7839,
+      "crlf": true
+    }
+  },
+  "validation": {
+    "cases": 27,
+    "mismatches": 0,
+    "exit": "exit 0"
+  },
+  "scope_note": "Measured: the 33 pack inputs (including the seats of 0001/0002/0018/0022) are byte-unchanged; no candidate or retired name exists at a kernel target; no warehouse exists. Not measured: other kernel files (no Git)."
+}

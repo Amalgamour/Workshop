@@ -1,0 +1,302 @@
+[
+  {
+    "name": "live slot absent before",
+    "ok": true,
+    "detail": "False"
+  },
+  {
+    "name": "import wrote no live slot",
+    "ok": true,
+    "detail": "False"
+  },
+  {
+    "name": "where missing root",
+    "ok": true,
+    "detail": "stop: missing --root\r\n"
+  },
+  {
+    "name": "review-loop v4 pins unchanged",
+    "ok": true,
+    "detail": "matched"
+  },
+  {
+    "name": "junction created",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "ancestor junction does not launch",
+    "ok": true,
+    "detail": "book root ancestor is linked and was not followed"
+  },
+  {
+    "name": "ancestor junction cli",
+    "ok": true,
+    "detail": "stop: book root ancestor is linked and was not followed\r\n"
+  },
+  {
+    "name": "checkout junction created",
+    "ok": true,
+    "detail": "created"
+  },
+  {
+    "name": "checkout alias ancestor refused",
+    "ok": true,
+    "detail": "stop: book root ancestor is linked and was not followed\r\n"
+  },
+  {
+    "name": "direct junction refused",
+    "ok": true,
+    "detail": "stop: book root is not a directory\r\n"
+  },
+  {
+    "name": "file symlink skip",
+    "ok": true,
+    "detail": "WinError 1314"
+  },
+  {
+    "name": "interrupted replace",
+    "ok": true,
+    "detail": "record replace failed; previous record retained; partial record.json.partial-op-interrupt; injected"
+  },
+  {
+    "name": "two reserves differ",
+    "ok": true,
+    "detail": "['05.01', '05.02'] []"
+  },
+  {
+    "name": "first pass start",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"start\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"4759e36db8a012307da6f3564f5f783ee54f855d2d429b9f67a8ca7a5203c5a"
+  },
+  {
+    "name": "pass is 05.01",
+    "ok": true,
+    "detail": "05.01"
+  },
+  {
+    "name": "return occupied",
+    "ok": true,
+    "detail": "{\"intended\": \"0126.dev-authoring\", \"status\": \"occupied\", \"occupants\": [\"0126.boot-members-0509\"], \"linked\": [], \"named_slot_present\": false, \"readiness\": \"blocked\", \"n7nn\": \"page-local\", \"rule\": \"N5NN matches N1NN same NN and subject; N7NN stays page-local\"}"
+  },
+  {
+    "name": "conditional and environment preserved",
+    "ok": true,
+    "detail": "missing labels"
+  },
+  {
+    "name": "start replay",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"start\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"4759e36db8a012307da6f3564f5f783ee54f855d2d429b9f67a8ca7a5203c5a"
+  },
+  {
+    "name": "replay keeps pass",
+    "ok": true,
+    "detail": "05.01"
+  },
+  {
+    "name": "malformed input",
+    "ok": true,
+    "detail": "exit 2 expected 2\nstop: input is not strict json\n\n"
+  },
+  {
+    "name": "typed field",
+    "ok": true,
+    "detail": "exit 2 expected 2\nstop: typed-field: tests_passed expected an absent field; retained input C:\\Users\\misg\\AppData\\Local\\Temp\\author-happy-1e561f6d\\inputs\\bad-type.json. Help: labs/pack-authoring-pass01/PRIME-USE.md\n\n"
+  },
+  {
+    "name": "add item 01",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"add-item\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"17dec16a96d825047e7731da9795ef86c8ae7e6e07daaa873bf3f69565b6"
+  },
+  {
+    "name": "item 01 assigned",
+    "ok": true,
+    "detail": "missing item"
+  },
+  {
+    "name": "item replay",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"add-item\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"17dec16a96d825047e7731da9795ef86c8ae7e6e07daaa873bf3f69565b6"
+  },
+  {
+    "name": "replay does not add item 02",
+    "ok": true,
+    "detail": "item count changed"
+  },
+  {
+    "name": "conflicting retry",
+    "ok": true,
+    "detail": "exit 2 expected 2\nstop: conflicting operation; the record was preserved\n\n"
+  },
+  {
+    "name": "add item 02",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"add-item\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"649e4aca363620c0be60abf13b5bfd65e01d2782dc15a463c41102ebf343"
+  },
+  {
+    "name": "utf-8 item",
+    "ok": true,
+    "detail": "marks missing"
+  },
+  {
+    "name": "add note",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"add-note\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"ef310527c45f79bbaa7ed75649c9e77b12e1db19af10641192dacbf3be7e"
+  },
+  {
+    "name": "note mark preserved",
+    "ok": true,
+    "detail": "note missing"
+  },
+  {
+    "name": "freeze before disposition",
+    "ok": true,
+    "detail": "exit 2 expected 2\nstop: note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md is unresolved\n\n"
+  },
+  {
+    "name": "dispose 06.01",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"revise\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"6d8a2e9a08e4b64d9ef4fd538749434268ba3e122908d81bb5562ff8d716a0"
+  },
+  {
+    "name": "dispose 06.02",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"revise\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"0645ea8edfc115daff27fbcd6767abad35f6e5afc3d1e4b4c0e224dc5655ea"
+  },
+  {
+    "name": "dispose draft note",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"revise\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"4b1f4145840f9862a6be4fb8fec24d668d8664ece5c09128c730304fd93b47"
+  },
+  {
+    "name": "inspect both items",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"inspect\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"4b1f4145840f9862a6be4fb8fec24d668d8664ece5c09128c730304fd93b4"
+  },
+  {
+    "name": "inspect full document",
+    "ok": true,
+    "detail": "inspect mismatch"
+  },
+  {
+    "name": "review wrong bytes",
+    "ok": true,
+    "detail": "exit 2 expected 2\nstop: draft sha256 does not match the rendered draft; retained input C:\\Users\\misg\\AppData\\Local\\Temp\\author-happy-1e561f6d\\inputs\\review.json. Help: labs/pack-authoring-pass01/PRIME-USE.md\n\n"
+  },
+  {
+    "name": "review exact bytes",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"review\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"6b1be1dfa25371075e656d14c3d836559d2782308aba373594175e2b879675"
+  },
+  {
+    "name": "review binds draft",
+    "ok": true,
+    "detail": "6b1be1dfa25371075e656d14c3d836559d2782308aba373594175e2b87967586"
+  },
+  {
+    "name": "freeze prepared page",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"freeze\",\n  \"state\": \"frozen\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"6b1be1dfa25371075e656d14c3d836559d2782308aba373594175e2b87967586"
+  },
+  {
+    "name": "page matches reviewed bytes",
+    "ok": true,
+    "detail": "state frozen"
+  },
+  {
+    "name": "return directory not created",
+    "ok": true,
+    "detail": "created"
+  },
+  {
+    "name": "freeze replay",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"freeze\",\n  \"state\": \"frozen\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-happy-1e561f6d\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"6b1be1dfa25371075e656d14c3d836559d2782308aba373594175e2b87967586"
+  },
+  {
+    "name": "collision reserves 05.02",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"start\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.02\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-collision-nsx4mndx\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.02\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-collision-nsx4mndx\\\\00.kernel\\\\00.00.10.work\\\\0526.dev-authoring\\\\evidence\\\\authoring05.02\\\\draft.md\",\n  \"draft_sha256\": \"ef4700d397bcb8f13d1085287a4191f9579682181323b8c9aa998e9"
+  },
+  {
+    "name": "occupied page preserved",
+    "ok": true,
+    "detail": "05.02"
+  },
+  {
+    "name": "inspect shows source drift",
+    "ok": true,
+    "detail": "{\"source_digest\": \"e3294376a40f8132e2b6080f51b04398bdb4f0ded67f8588332308df6c1f3ee1\", \"recorded_source_digest\": \"e50b69eaaae447a795b2b908e58be7e6f4f650a5971836dfa89e6a0d6d83a93c\", \"source_drift\": true, \"set_sha256\": \"444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\", \"recorded_set_sha256\": \"444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\", \"set_drift\": false}"
+  },
+  {
+    "name": "source drift refuses freeze",
+    "ok": true,
+    "detail": "stop: source-drift\n"
+  },
+  {
+    "name": "typed start reserves nothing",
+    "ok": true,
+    "detail": "stop: typed-field: title expected an absent field; retained input C:\\Users\\misg\\AppData\\Local\\Temp\\author-typed-q067lha7\\bad.json. Help: labs/pack-authoring-pass01/PRIME-USE.md\n"
+  },
+  {
+    "name": "fixture start",
+    "ok": true,
+    "detail": "exit 0 expected 0\n\n{\n  \"schema\": \"authoring-result/1\",\n  \"command\": \"start\",\n  \"state\": \"drafting\",\n  \"pass\": \"05.01\",\n  \"record\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-fixture-4v5tqo29\\\\00.kernel\\\\00.00.10.work\\\\0591.fixture-authoring\\\\evidence\\\\authoring05.01\\\\record.json\",\n  \"draft\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\author-fixture-4v5tqo29\\\\00.kernel\\\\00.00.10.work\\\\0591.fixture-authoring\\\\evidence\\\\authoring05.01\\\\draft.md\",\n  \"draft_sha256\": \"7ef243031ddc50af2d8bdc35a188ae51f29b47d5c6325011d49"
+  },
+  {
+    "name": "raw source stays raw",
+    "ok": true,
+    "detail": "raw or return"
+  },
+  {
+    "name": "stale set visible",
+    "ok": true,
+    "detail": "no drift"
+  },
+  {
+    "name": "stale set refuses freeze",
+    "ok": true,
+    "detail": "stop: stale dependency set\n"
+  },
+  {
+    "name": "missing dependency labelled",
+    "ok": true,
+    "detail": "label"
+  },
+  {
+    "name": "missing dependency refuses freeze",
+    "ok": true,
+    "detail": "stop: dependency lib-build:labs/not-a-declared-module.py is missing\n"
+  },
+  {
+    "name": "stale claim labelled",
+    "ok": true,
+    "detail": " true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n"
+  },
+  {
+    "name": "stale claim refuses freeze",
+    "ok": true,
+    "detail": "stop: dependency lib-build:app/librarian.py is stale\n"
+  },
+  {
+    "name": "two starts one session",
+    "ok": true,
+    "detail": "codes [0, 2] records 1 ['an open session already exists']"
+  },
+  {
+    "name": "live freeze refused",
+    "ok": true,
+    "detail": "stop: freeze on the live checkout is outside this slice\n"
+  },
+  {
+    "name": "live page unchanged",
+    "ok": true,
+    "detail": "ac80298989190fab6aebffcedf28e8dd7e49a98f639f8e6007df7c33daa25b78"
+  },
+  {
+    "name": "live slot absent after",
+    "ok": true,
+    "detail": "False"
+  }
+]

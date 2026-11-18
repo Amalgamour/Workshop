@@ -1,0 +1,144 @@
+{
+ "schema": "harness-hostile/2",
+ "cases": {
+  "HX-1": {
+   "expected": "exit 1, not ready, all blocked",
+   "exit": 1,
+   "ready": false,
+   "verdicts": [
+    "blocked"
+   ],
+   "ok": true
+  },
+  "HX-2": {
+   "expected": "exit 2, refused, no rooms",
+   "exit": 2,
+   "refused": "candidate file differs: app/review_loop_tools_v8.py",
+   "ok": true
+  },
+  "HX-3": {
+   "expected": "exit 2 (pending row with a guessed pin)",
+   "exit": 2,
+   "refused": "inputs malformed: dependency K: pending rows must say files 'PENDING' (got list)",
+   "ok": true
+  },
+  "HX-4": {
+   "expected": "exit 2 (accepted row does not match frozen bytes)",
+   "exit": 2,
+   "refused": "accepted dependency G file differs: labs/workbook-review-pass05/workbook.py",
+   "ok": true
+  },
+  "HX-5": {
+   "expected": "three unit suites exit 0",
+   "units": {
+    "test_verdict.py": {
+     "exit": 0,
+     "tail": "ran 40, expected 40\n"
+    },
+    "test_shapes.py": {
+     "exit": 0,
+     "tail": "ran 24, expected 24\n"
+    },
+    "test_callbacks.py": {
+     "exit": 0,
+     "tail": "ran 29, expected 29\n"
+    }
+   },
+   "exit": 0,
+   "ok": true
+  },
+  "HX-6": {
+   "expected": "capacity-only: NOT READY, scope subset, 32 missing required ids enumerated",
+   "exit": 1,
+   "ready": false,
+   "scope": "subset",
+   "missing": 32,
+   "ok": true
+  },
+  "HX-7": {
+   "expected": "exit 2 (dependencies None)",
+   "exit": 2,
+   "refused": "inputs malformed: dependencies is not a list (got NoneType)",
+   "ok": true
+  },
+  "HX-8": {
+   "expected": "exit 2 (dependencies {})",
+   "exit": 2,
+   "refused": "inputs malformed: dependencies is not a list (got dict)",
+   "ok": true
+  },
+  "HX-9": {
+   "expected": "exit 2 (dependencies string)",
+   "exit": 2,
+   "refused": "inputs malformed: dependencies is not a list (got str)",
+   "ok": true
+  },
+  "HX-10": {
+   "expected": "exit 2 (pending K promoted by a status string only)",
+   "exit": 2,
+   "refused": "inputs malformed: dependency K.files: not a non-empty list (got str); dependency K.review_ref: pin is not an object",
+   "ok": true
+  },
+  "HX-11": {
+   "expected": "exit 2 (accepted G with a wrong frozen review reference)",
+   "exit": 2,
+   "refused": "accepted dependency G: frozen review reference differs: 00.kernel/00.00.10.work/0522.review-construction/06.33.md",
+   "ok": true
+  },
+  "HX-12": {
+   "expected": "exit 2 (unknown suite group)",
+   "exit": 2,
+   "refused": "--suite names unknown groups ['nonexistent']; known: ['capacity', 'instance', 'lifecycle', 'n5-same-cut', 'n7-local', 'n7-valid', 'preservation', 'reconstruction', 'reporter', 'rollback', 'strict-n7']",
+   "ok": true
+  },
+  "HX-13": {
+   "expected": "staged-g strict-n7 subset: every selected case passes; still NOT READY (exit 1, pending deps); subset pass reported",
+   "exit": 1,
+   "ready": false,
+   "verdicts": {
+    "ST-1": "pass",
+    "ST-2": "pass",
+    "ST-3": "pass",
+    "ST-4": "pass"
+   },
+   "subset_pass": true,
+   "ok": true
+  },
+  "HX-14": {
+   "expected": "proto-l strict-n7: ST-1/2/3 fail naming the absent malformed-n7-declaration reason; ST-4 control passes; exit 1",
+   "exit": 1,
+   "verdicts": {
+    "ST-1": "fail",
+    "ST-2": "fail",
+    "ST-3": "fail",
+    "ST-4": "pass"
+   },
+   "reasons": {
+    "ST-1": [
+     "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)",
+     "measurement 'complete' != 'incomplete'",
+     "rejected alternative bound: [{'role': 'artifact-manifest', 'path': '0707.app-use-check/evidence/design05.15/artifact-manifest.json,'}]",
+     "record not refused",
+     "publication not refused",
+     "destination changed"
+    ],
+    "ST-2": [
+     "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)",
+     "rejected alternative bound: [{'role': 'submission', 'path': '0707.app-use-check/06.15.notes.md'}]"
+    ],
+    "ST-3": [
+     "malformed-n7-declaration reason absent (a different blocker does not prove strict parsing)",
+     "measurement 'complete' != 'incomplete'",
+     "record not refused",
+     "publication not refused",
+     "destination changed"
+    ]
+   },
+   "ok": true
+  }
+ },
+ "aggregate": {
+  "ok": 14,
+  "total": 14
+ }
+}

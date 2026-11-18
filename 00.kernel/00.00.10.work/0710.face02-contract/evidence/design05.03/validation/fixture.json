@@ -1,0 +1,43 @@
+{
+  "note": "SYNTHETIC fixture registry for validate2.py (0710/05.03). Derived from the 05.02 fixture; adds resolver states and the register.",
+  "grounds": {
+    "0423/01#2": "draft",
+    "0423/01#3": "draft",
+    "0423/01#4": "draft",
+    "0201/01#Person": "synthetic-approved"
+  },
+  "relations": {
+    "0423.dev-authoring": {
+      "work": "0526.dev-authoring",
+      "next_pass": "05.03"
+    }
+  },
+  "pages": [
+    "10.00.01.people/0301.harbour",
+    "10.00.01.people/0302.market"
+  ],
+  "records": [
+    "0202.register#Tom Wren"
+  ],
+  "notes": [
+    "0423/06.01",
+    "0423/06.02"
+  ],
+  "draft_items": [
+    "#01",
+    "#02"
+  ],
+  "resolver": [
+    {
+      "ref": "lib-build:app/librarian.py",
+      "state": "resolved"
+    },
+    {
+      "ref": "lib-build:labs/review-loop-pass02/review_loop.py",
+      "state": "conditional"
+    }
+  ],
+  "register": [
+    "Tom Wren"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "colab-review-verification/1",
+  "batch": "0518.colab-review/05.02",
+  "executor": "Grok-1",
+  "session": "01a17ded-90ba-79e3-8b8c-7e1f0005193e",
+  "observed_head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "invocation": "Run this bounded repair: 00.kernel/00.00.10.work/0518.colab-review/05.02.md",
+  "draft_grants_release": false,
+  "pack": {
+    "manifest": "00.kernel/00.00.10.work/0518.colab-review/evidence/pack05.02/source-manifest.json",
+    "sources": 15,
+    "bad": 0,
+    "compared_to": "snapshot bytes, manifest sha256, and live file bytes before the repair"
+  },
+  "tests": {
+    "command": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe -B -X dev labs\\colab-review-pass01\\tests\\test_colab_review.py -v",
+    "cwd": "D:\\Git\\lib-build",
+    "interpreter": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "python": "3.14.0",
+    "ran": 17,
+    "skipped": 0,
+    "failed": 0,
+    "seconds": 92.603,
+    "exit": 0,
+    "unittest_result": "OK",
+    "failed_attempts": [],
+    "added": [
+      "test_12_context_mismatch_stays_visible_when_the_mapping_is_consistent",
+      "test_13_optional_statuses_stay_visible_and_do_not_block_required_completion",
+      "test_14_retained_original_text_target_location_and_custody_are_quoted",
+      "test_15_normal_success_quotes_consolidated_and_retained_originals",
+      "test_16_required_missing_and_failed_reviewers_remain_incomplete",
+      "test_17_a_version_1_intake_still_synthesizes_without_an_invented_inventory"
+    ]
+  },
+  "not_run": [
+    "labs/colab-review-pass01/demo.py",
+    "a model or reviewer",
+    "package installation",
+    "held app fixtures",
+    "0519.desk-app",
+    "live prime-cycle"
+  ],
+  "repairs": ["PR-01", "PR-02", "PR-03"],
+  "preserved": [
+    "05.01",
+    "06.01",
+    "06.02",
+    "evidence/build05.01",
+    "evidence/prime-review05.01",
+    "0179"
+  ],
+  "custody_tools_at_suite": {
+    "return_capture_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "return_capture_bytes": 45767,
+    "return_inspect_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "return_inspect_bytes": 11402,
+    "matched_pins": true
+  }
+}

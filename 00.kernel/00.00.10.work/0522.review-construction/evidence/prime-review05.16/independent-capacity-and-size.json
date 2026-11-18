@@ -1,0 +1,38 @@
+{
+  "collection_probes": [
+    {
+      "where": "sources",
+      "count": 44,
+      "accepted": true
+    },
+    {
+      "where": "sources",
+      "count": 64,
+      "accepted": true
+    },
+    {
+      "where": "sources",
+      "count": 65,
+      "accepted": false,
+      "message": "limit sources: 65 sources exceeds supported limit 64; keep every source identity on this record and stop for a versioned successor whose source bound covers the count"
+    },
+    {
+      "where": "holds",
+      "count": 25,
+      "accepted": false,
+      "message": "limit holds"
+    }
+  ],
+  "review_json_bytes": 137328,
+  "document_limit": 262144,
+  "large_source_probes": [
+    {
+      "index": 24,
+      "path": "0512.prime-review/evidence/build05.10/hostile/over-document.json",
+      "content_bytes": 276423,
+      "record_is_null": true,
+      "parse_refusal": "limit sources[24].content_bytes"
+    }
+  ],
+  "scope": "Direct source validator probes, not selected-app success"
+}

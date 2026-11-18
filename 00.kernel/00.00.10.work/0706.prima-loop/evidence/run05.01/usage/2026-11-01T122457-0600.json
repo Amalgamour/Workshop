@@ -1,0 +1,17 @@
+{
+  "schema": "prima-usage-observation/1",
+  "observed_at": "2026-11-01T12:24:57-06:00",
+  "source": "provider-observed (Grok Bot usage report for this account)",
+  "plan": "Super",
+  "pool": "weekly usage limit, shared with other apps on the plan (not only Grok Bot)",
+  "reported_used_percent": 41.4,
+  "derived_remaining_percent": 58.6,
+  "derived": "remaining = 100 - reported used",
+  "reset_reported": "Thursday 2026-11-05 09:42 America/Chicago (reported 'in 3d 21h')",
+  "short_window_meter": "not exposed",
+  "paid_credits": "account has additional usage credits; balance not exposed to Prima; overages not enabled or used by Prima",
+  "reserve_floor_percent": 5,
+  "hold": false,
+  "uncertainty": "pool-wide meter; concurrent bots (Gameatron, others) and other apps share it; no per-assignment attribution",
+  "context": "first observation after Gameatron handoff notice; 05.01 pilot in progress (claim publishing)"
+}

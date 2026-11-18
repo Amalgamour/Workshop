@@ -1,0 +1,9 @@
+PASS A1   exact lookup through law page face 02                                  -> found/
+PASS A2   exact lookup through work page face 02 (same filename, other bytes)    -> found/
+PASS A3   filename alone is ambiguous                                            -> refused/ambiguous-filename
+PASS A4   payload with no attachment is reported                                 -> finding/orphan-payload
+PASS A5   owner with no such attachment                                          -> refused/no-attachment
+PASS A6   same lookup from a row store gives the same result                     -> found/
+PASS A7   row-store and face lookups are identical                               -> equal/
+PASS A8   payload bytes changed after attachment                                 -> finding/payload-bytes-differ
+cases 8 mismatches 0

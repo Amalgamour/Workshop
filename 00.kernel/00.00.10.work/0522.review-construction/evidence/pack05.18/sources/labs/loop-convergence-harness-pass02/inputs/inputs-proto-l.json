@@ -1,0 +1,558 @@
+{
+ "schema": "harness-inputs/2",
+ "made_for": "0707/05.22",
+ "candidate": {
+  "name": "proto-l",
+  "kind": "proto-l",
+  "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+  "files": [
+   {
+    "path": "app/authoring-v2.json",
+    "sha256": "14965030b2344f77e196a1d6a29b8cb74400cc3cf237e4f5ecc44c2adf332d11",
+    "bytes": 2106,
+    "lab": false
+   },
+   {
+    "path": "app/authoring.json",
+    "sha256": "8a59bbd93086ac88c37e1e7a44f7db4b6f3d77fe1294aa67ce559d3550885816",
+    "bytes": 1864,
+    "lab": false
+   },
+   {
+    "path": "app/authoring_tools.py",
+    "sha256": "13cbc91f880c13dfd5b07afe9284092d16bba01afe1a0d5c06b7b3ff35f3ab54",
+    "bytes": 7817,
+    "lab": false
+   },
+   {
+    "path": "app/authoring_tools_v2.py",
+    "sha256": "f191e43337ab9b6ac2c863b0c0f0eb91a0b55d00d2df99c2897a96a0965e1124",
+    "bytes": 8049,
+    "lab": false
+   },
+   {
+    "path": "app/batch-observer.json",
+    "sha256": "d401d3fa1544437e6e4742a0ab2836ff9d5e6cc370f357f74aab322ebb29e054",
+    "bytes": 1111,
+    "lab": false
+   },
+   {
+    "path": "app/batch_tools.py",
+    "sha256": "555cd07daf778f9faaa95fcb5ccdcf0653c9118252a203c748c171f244e0a8be",
+    "bytes": 11299,
+    "lab": false
+   },
+   {
+    "path": "app/boot_tools.py",
+    "sha256": "409901b1f18027b8b42a582cb14c0add82a4f5422aec9f66cda2e7a9efc2deac",
+    "bytes": 9601,
+    "lab": false
+   },
+   {
+    "path": "app/capture-handoff-v2.json",
+    "sha256": "dacbfcb4d2290d51ae7976359d755e7a7a42fccd85bf3013052457d2801c7643",
+    "bytes": 1410,
+    "lab": false
+   },
+   {
+    "path": "app/capture-handoff.json",
+    "sha256": "9e1cdbbf89d9aa9edbb959b2c1c1944777a9420daf5551a510abe38d4f0ab854",
+    "bytes": 894,
+    "lab": false
+   },
+   {
+    "path": "app/clerk-seam.json",
+    "sha256": "309a0618cab6673cd03e8d263ae28e663c855290e7c53822516412ae87f6a88f",
+    "bytes": 195,
+    "lab": false
+   },
+   {
+    "path": "app/clerk_seam.py",
+    "sha256": "038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159",
+    "bytes": 31663,
+    "lab": false
+   },
+   {
+    "path": "app/context.py",
+    "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+    "bytes": 22063,
+    "lab": false
+   },
+   {
+    "path": "app/development-workspace.json",
+    "sha256": "b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018",
+    "bytes": 538,
+    "lab": false
+   },
+   {
+    "path": "app/handoff_tools.py",
+    "sha256": "f1d76a517b64a82ff8e348b811a5c59dfe8870385e6737b67878e0749e705bc2",
+    "bytes": 9901,
+    "lab": false
+   },
+   {
+    "path": "app/handoff_tools_v2.py",
+    "sha256": "7cd5955c74c8993401b99b581f40c152c36e858deafc56fffbc603aade3a8f54",
+    "bytes": 10962,
+    "lab": false
+   },
+   {
+    "path": "app/librarian.py",
+    "sha256": "5bc43806e6189f482b9e23e924e77cd60f9921a1ce94aaf0fe0f5c9278c4ea83",
+    "bytes": 12204,
+    "lab": true
+   },
+   {
+    "path": "app/prime-boot.json",
+    "sha256": "5f8498cdfade721953c6312d669f1c7b1df5e6cccd3a37cfad73b5a7d405a924",
+    "bytes": 1431,
+    "lab": false
+   },
+   {
+    "path": "app/prime-intake.json",
+    "sha256": "998278c445b293bc9df4b5ad2578c7596454ba25fd9a706a1076d79a778d37e6",
+    "bytes": 735,
+    "lab": false
+   },
+   {
+    "path": "app/prime-review.json",
+    "sha256": "dfdab3fa784bd1fb1bfcce4cc594e12278e0bb95eb2848b4754c50dc75743073",
+    "bytes": 403,
+    "lab": false
+   },
+   {
+    "path": "app/prime-tools.json",
+    "sha256": "e70e951cd229da0a3320ccf9a2d3b59e99dacdcf9b6c82c12d275578b62395e8",
+    "bytes": 593,
+    "lab": false
+   },
+   {
+    "path": "app/prime_intake.py",
+    "sha256": "5a06c302dce4d9d6102cc11c78cb9adc961d49c9eb095e4fdd2632e49971611e",
+    "bytes": 8501,
+    "lab": false
+   },
+   {
+    "path": "app/prime_review_tools.py",
+    "sha256": "2a5a59a3fd4cbab97f078c024fc31e2fa0dd34f4aec9ce1d4ebf404961f5246f",
+    "bytes": 10770,
+    "lab": false
+   },
+   {
+    "path": "app/prime_tools.py",
+    "sha256": "4725efba6caeda1589c78a81b26e5bc4cb8b04ddefed1b1916db1a01e3e5640c",
+    "bytes": 7800,
+    "lab": false
+   },
+   {
+    "path": "app/README.md",
+    "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920",
+    "bytes": 39687,
+    "lab": false
+   },
+   {
+    "path": "app/return-lines-v2.json",
+    "sha256": "9fc16cc49d87c7455cc56aebb87897252807a426654dbe45d7e575df5f081e52",
+    "bytes": 1598,
+    "lab": false
+   },
+   {
+    "path": "app/return-lines-v3.json",
+    "sha256": "2e182bd0681cd04b1874fba029da2eab0ebdbe00d98280004303ea7ba69a23c3",
+    "bytes": 1878,
+    "lab": false
+   },
+   {
+    "path": "app/return_line_tools.py",
+    "sha256": "b26a0a36a731f28683a005f227a7f4b0e10bfa32d52afbf1c66b3d9f1c9a9d68",
+    "bytes": 2605,
+    "lab": false
+   },
+   {
+    "path": "app/return_line_tools_v2.py",
+    "sha256": "b8e850ba5bb3b21d7532590817779f317daa01da3ced6e15245c6185eaa69eaf",
+    "bytes": 8977,
+    "lab": false
+   },
+   {
+    "path": "app/return_line_tools_v3.py",
+    "sha256": "8ae3e6f9281667502a5a3573e32234391880a4d8c49033d47c112651b2070616",
+    "bytes": 13435,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v2.json",
+    "sha256": "1a3e12e0b3496a1e14dc07b34efcf0e789b9e38c61c9e6feccb92eac6afb72e3",
+    "bytes": 1892,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v3.json",
+    "sha256": "83184e4f3684a5a8eedf90e8b06b4f5aff9754de998927b9de389f3b12abb393",
+    "bytes": 2346,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v4.json",
+    "sha256": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "bytes": 2519,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v5.json",
+    "sha256": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3",
+    "bytes": 1964,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v6.json",
+    "sha256": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa",
+    "bytes": 2743,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v7.json",
+    "sha256": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8",
+    "bytes": 3515,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop-v8.json",
+    "sha256": "ddbf3c0ffd22e4d9f2139ada6f226a569b131ec02bae79f7b822da8f6a45b765",
+    "bytes": 4046,
+    "lab": true
+   },
+   {
+    "path": "app/review-loop-v9.json",
+    "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656",
+    "bytes": 4670,
+    "lab": false
+   },
+   {
+    "path": "app/review-loop.json",
+    "sha256": "bd3e917fc57ffcc435467cd90e6fa2d13fcf07e8233d1462772cc324365e2aae",
+    "bytes": 1089,
+    "lab": false
+   },
+   {
+    "path": "app/review-report-v1.json",
+    "sha256": "5295f98fe22024524bf9059fee24c3a617da73ed3ed58deff8c726080c64445b",
+    "bytes": 3818,
+    "lab": false
+   },
+   {
+    "path": "app/review-report-v2.json",
+    "sha256": "3e2f41e875c3f04850d5bd7eb1f0e692aeb9d03a186b4665f5764ada421969e4",
+    "bytes": 4080,
+    "lab": false
+   },
+   {
+    "path": "app/review-report-v3.json",
+    "sha256": "a27bf702c0eb87b4608ff60929467126e78fd7e60b7353644321468043a25817",
+    "bytes": 4276,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools.py",
+    "sha256": "b77617c81e073449147c1171aa09bd3c9d4378ff737704ccceec2e3b0bfcecea",
+    "bytes": 6417,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v2.py",
+    "sha256": "e57f7aea3339dad60124f495d974282142902ee078d642230e2315b0c432a408",
+    "bytes": 11126,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v3.py",
+    "sha256": "0a7960a279ece3d60cedc008698e6000a56c4f5d4f1e4029757053f40169dad9",
+    "bytes": 11540,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v4.py",
+    "sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "bytes": 13381,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v5.py",
+    "sha256": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9",
+    "bytes": 7875,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v6.py",
+    "sha256": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94",
+    "bytes": 9175,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v7.py",
+    "sha256": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d",
+    "bytes": 10291,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v8.py",
+    "sha256": "0335da325abf0f0292807ddbcf6f96cc107e8224732ee4afcf3f35470a0f9fc3",
+    "bytes": 11054,
+    "lab": false
+   },
+   {
+    "path": "app/review_loop_tools_v9.py",
+    "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47",
+    "bytes": 11765,
+    "lab": false
+   },
+   {
+    "path": "app/review_report_tools_v1.py",
+    "sha256": "00489768c33874b282a3732709eb40503d0c3ebfad2826a9b3e8be6d832a5e2c",
+    "bytes": 13708,
+    "lab": false
+   },
+   {
+    "path": "app/review_report_tools_v2.py",
+    "sha256": "81993c712d74e1d9e5155011fa949731a492ca6a2c626d27c6bebd9591965aab",
+    "bytes": 13956,
+    "lab": false
+   },
+   {
+    "path": "app/review_report_tools_v3.py",
+    "sha256": "be29de7daa00b84f79a0f403f2c5eaea3cf035d51e1b405d2fbf2f6ba5f7e73f",
+    "bytes": 14156,
+    "lab": false
+   },
+   {
+    "path": "app/worker-bridge.json",
+    "sha256": "94dd3c4770d77f30482f75086d6ebc58335eb51b4a8641c86dcc6d55ce4385ea",
+    "bytes": 1136,
+    "lab": false
+   },
+   {
+    "path": "app/worker_bridge.py",
+    "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e",
+    "bytes": 34532,
+    "lab": false
+   },
+   {
+    "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+    "sha256": "94aed77733db76d88551436adf3004243fd23a65643b90f11696e9e2a7943f9a",
+    "bytes": 9917,
+    "lab": true
+   },
+   {
+    "path": "labs/prime-cycle-pass03/prime_cycle.py",
+    "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "bytes": 76045,
+    "lab": false
+   },
+   {
+    "path": "labs/prime-review-pass02/prime_review.py",
+    "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "bytes": 58560,
+    "lab": false
+   },
+   {
+    "path": "labs/return-access-pass01/return_access.py",
+    "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+    "bytes": 26561,
+    "lab": false
+   },
+   {
+    "path": "labs/review-construction-pass04/construct.py",
+    "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "bytes": 42582,
+    "lab": false
+   },
+   {
+    "path": "labs/review-loop-pass03/review_loop.py",
+    "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "bytes": 55474,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f",
+    "bytes": 4532,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass01/workbook.py",
+    "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "bytes": 79131,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+    "sha256": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645",
+    "bytes": 4532,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass02/workbook.py",
+    "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a",
+    "bytes": 52574,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+    "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b",
+    "bytes": 4532,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass03/workbook.py",
+    "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c",
+    "bytes": 19533,
+    "lab": false
+   },
+   {
+    "path": "labs/workbook-review-pass04/workbook.py",
+    "sha256": "c6be0b97d7274e0393116a4f449848744a2afba0ad9dd694c569276490c62a97",
+    "bytes": 6584,
+    "lab": true
+   }
+  ],
+  "lab_differences": [
+   {
+    "path": "app/review-loop-v8.json",
+    "differs": "05.20 lab declaration: workbook -> overlay (lab bytes)"
+   },
+   {
+    "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+    "differs": "05.20 overlay lab adapter: REPO line, pass04 pin"
+   },
+   {
+    "path": "labs/workbook-review-pass04/workbook.py",
+    "differs": "05.18 lab adapter: REPO line"
+   },
+   {
+    "path": "app/librarian.py",
+    "differs": "05.18 candidate dispatcher (selects v8); not production"
+   }
+  ],
+  "open_entry": "labs/n7-local-lifecycle-pass01/workbook.py"
+ },
+ "dependencies": [
+  {
+   "id": "G",
+   "required": true,
+   "role": "strict N7 parser (pass05, v9 door)",
+   "status": "accepted",
+   "review": "0522.review-construction/06.33.md",
+   "review_ref": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/06.33.md",
+    "sha256": "debbb40515843cd37ffa11e6da8ef75d0159793fa337c0dcd14a3f939464453b",
+    "bytes": 2605
+   },
+   "files": [
+    {
+     "path": "labs/workbook-review-pass05/workbook.py",
+     "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991",
+     "bytes": 6994
+    },
+    {
+     "path": "app/review_loop_tools_v9.py",
+     "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47",
+     "bytes": 11765
+    },
+    {
+     "path": "app/review-loop-v9.json",
+     "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656",
+     "bytes": 4670
+    }
+   ]
+  },
+  {
+   "id": "L",
+   "required": true,
+   "role": "N7-local lifecycle (prototype over pass04)",
+   "status": "accepted",
+   "review": "0707.app-use-check/06.20.review.md",
+   "review_ref": {
+    "path": "00.kernel/00.00.10.work/0707.app-use-check/06.20.review.md",
+    "sha256": "0f547990906bcf6cceef86f2f62db9906b572fde237588615c72141caf1d884e",
+    "bytes": 4331
+   },
+   "files": [
+    {
+     "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+     "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a",
+     "bytes": 9750
+    }
+   ],
+   "limits": "accepted as a bounded prototype; production labels and composition over G pending (06.20.review)"
+  },
+  {
+   "id": "K",
+   "required": true,
+   "role": "record source capacity (source-only bound 64)",
+   "status": "pending",
+   "review": "0512.prime-review/06.18.md (05.10 correction required); 0512/05.11 (Grok-1) not reviewed",
+   "files": "PENDING"
+  },
+  {
+   "id": "I",
+   "required": true,
+   "role": "N5 copied-book instance binding",
+   "status": "pending",
+   "review": "0420.prime-desk/06.48.md; 0522/05.16 (Grok-2) not reviewed",
+   "files": "PENDING"
+  },
+  {
+   "id": "R",
+   "required": true,
+   "role": "reporter observing the combined workbook chain via the dispatcher route 'review-report'",
+   "status": "pending",
+   "review": "06.19.review / 06.20.review / 06.21.review obligations; not assigned",
+   "files": "PENDING"
+  },
+  {
+   "id": "W",
+   "required": true,
+   "role": "combined workbook + door + dispatcher",
+   "status": "pending",
+   "review": "not built; waits for K, I and R",
+   "files": "PENDING"
+  }
+ ],
+ "fixture_source": {
+  "path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/pack05.21/source-manifest.json",
+  "sha256": "ee502ce6150f62229fb76c2bee8953d79f8e5c05e6ee9dce006354d74f6b46dd",
+  "bytes": 200334
+ },
+ "judgments": [
+  {
+   "id": "j-0512-0509",
+   "page": "0512.prime-review",
+   "pass": "05.09",
+   "expected_sources": 29,
+   "review": "0512/06.16",
+   "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/prime-review05.09/core-review/judgment.json",
+   "sha256": "f6815ca48d8a67a23a3d1c46efb2b83eb7c7551b03974468f7a23605997d8efb",
+   "bytes": 2870
+  },
+  {
+   "id": "j-0522-0514",
+   "page": "0522.review-construction",
+   "pass": "05.14",
+   "expected_sources": 20,
+   "review": "0522/06.31",
+   "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/prime-review05.14/core-review/judgment.json",
+   "sha256": "b7249c75467989d0dafe2f39ba4933a35717144c89ce691c232aae141127fe4a",
+   "bytes": 3693
+  },
+  {
+   "id": "j-0512-0510",
+   "page": "0512.prime-review",
+   "pass": "05.10",
+   "expected_sources": 44,
+   "review": "0512/06.18; 0420/06.49 (use judgment-open.json)",
+   "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/prime-review05.10/core-review/judgment-open.json",
+   "sha256": "295de7c887692a4e95c1b492bca973c8b657af6b0277a9bb70ae2158e675ecd3",
+   "bytes": 4031
+  }
+ ]
+}

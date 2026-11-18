@@ -1,0 +1,321 @@
+{
+  "schema": "prima-prime-triage/1",
+  "source_commit": "8da4d5e6e633ed54f219e2eaf106a076eb6a5e49",
+  "findings": [
+    {
+      "finding_id": "A-01",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "confirmed; grammar decision pending",
+      "response": "Prime reproduced the suffix changing N7 manifest path m.json to m.json,. Hold this corner before intake selection; choose an explicit grammar treatment, preserving N5.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "0707 intake followup",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-02",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "contract clarification pending",
+      "response": "Observed valid-versus-rejected declaration behavior. Do not label it silent when findings remain. Decide rejected-labelled-field treatment with A-01; no unilateral new ambiguity policy.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "0707 intake followup",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-03",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "answered; hardening candidate",
+      "response": "Attribution is descriptive data, not an authority source. Narrow pattern matching is not semantic authentication; keep that limit explicit.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "Colab grammar contract",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-04",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "answered; intentional fail-closed",
+      "response": "Duplicate declarations remain ambiguous even if byte-identical. No relaxation is requested.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "none",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-05",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "answered; diagnostic order",
+      "response": "Address validation before a later check does not establish unverified execution. No harmful side effect was demonstrated; keep the ordering observation with the source.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "none",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-06",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "confirmed positive",
+      "response": "Consistent with Prime N5 equivalence probes and actual replay.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "none",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-07",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "confirmed positive",
+      "response": "Consistent with Prime proposal check; this does not establish deployment.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "none",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-08",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "deferred enhancement",
+      "response": "Store runtime/parser identity and form provenance in a future explicit record successor; preserve current source bytes and intake identity.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "record provenance",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A-09",
+      "source": "evidence/run05.02/workers/A-unit1/findings.json",
+      "status": "answered; disclosed scope limit",
+      "response": "Cloud sprint deliberately excluded full native app execution. This is a coverage limit, not failed execution.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "portability backlog",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-01",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "confirmed on synthetic malformed input; repair candidate",
+      "response": "Prime reproduced four rows filtered to one while counters remain measured. Specify invalid-row handling; no claim the current core emits such malformed rows.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-02",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "recorded; validation followup",
+      "response": "Distinguish missing/null size from disagreement and declared versus measured size. Author probe evidence retained; not independently rerun.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-03",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "recorded; validation followup",
+      "response": "Reject/hold negative sizes at the contract boundary. No actual core negative-size output demonstrated.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-04",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "contract provenance followup",
+      "response": "An empty verified manifest can legitimately have zero entries; empty rows alone need the core completeness contract to establish that. Test missing versus verified-empty explicitly.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-05",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "confirmed on synthetic envelope; high-priority repair candidate",
+      "response": "Prime reproduced invalid authority/action types surviving mark_unstable. This is report projection robustness; no actual grant/release bypass was demonstrated. Validate envelope and withhold unverified metadata on a rejected cut.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening before deployment",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-06",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "answered; labels need clarity",
+      "response": "Stale=true may accompany integrity/coherence failure; state/reason distinguish it from superseded history. Keep reasons visible; no evidence old history was deleted.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report terminology",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-07",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "recorded; coherence metadata followup",
+      "response": "Unreadable identity should not be described as a positively proven stable source cut. Examine unknown versus same refusal status.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-08",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "qualified; historical state versus current review",
+      "response": "Frozen builder-time accepted:false/staged wording is not the later Prime technical disposition. Improve the current view/link without rewriting returned evidence.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "desk projection",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-09",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "recorded; validation followup",
+      "response": "Align hash representation validation or explicitly distinguish raw equality from a supported content identity. Author probe retained.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "report hardening",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B-10",
+      "source": "evidence/run05.02/workers/B-unit1/findings.json",
+      "status": "answered; honest unknowns retained",
+      "response": "Uninspected connector/core behavior remains unestablished; later native tests are separate evidence.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "coverage backlog",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-01",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "useful inventory; bounded coverage",
+      "response": "Retain nodes/edges/pins and discovered-versus-declared distinction. This is not a complete runtime reachability or readiness proof.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "dependency design",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-02",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "qualified; room closure versus installed closure",
+      "response": "Absent files in the frozen room do not establish missing installed dependencies. Classify transitive checks and packet omissions before changing the runtime.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "dependency design",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-03",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "document trust boundary; design review",
+      "response": "The selected launcher is a trust root; self-pinning cannot create an independent root of trust. Deployment/commit verification can bind it. Decide an explicit package integrity boundary rather than adding an endless pin chain.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "deployment integrity",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-04",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "confirmed existing limit; current work addresses it",
+      "response": "Fixed/dynamic root split is already documented by 0707/05.18 and its canonical-root guard. Carry the evidence forward; no claim the current app is portable.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "canonical-root staging",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-05",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "qualified; inspect outer verification",
+      "response": "v7 declares the selected form hash. A missing inner check alone does not establish an unverified app path; distinguish direct helper versus validated door invocation.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "dependency design",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-06",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "retained unresolved edges",
+      "response": "Keep dynamic/fixed references unresolved instead of inventing dependencies.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "dependency design",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-07",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "scope exception recorded",
+      "response": "Earlier pilot sources were outside the frozen source room. This cross-reference cannot count as verification from the declared snapshot; preserve the disclosure.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "Prima method followup",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "A2-08",
+      "source": "evidence/run05.02/workers/A-unit2/findings.json",
+      "status": "answered; reachability unknown",
+      "response": "Static edges and pin existence do not prove per-command execution. Native tests remain necessary.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "dependency design",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-01",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "qualified; packet omission",
+      "response": "The original reviewer finding/evidence files exist locally; the audit source bundle omitted them. Repair future review packets, not the old work.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "Colab packet closure",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-02",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "qualified; packet omission",
+      "response": "05.05 and 05.07 manifests exist locally; absence from this packet is not repository loss.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "Colab packet closure",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-03",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "retained provenance gap",
+      "response": "Do not reconstruct authorization from memory or turn none-measured into a quotation. Link actual instruction/release records where available; instruction logging remains a desk deliverable.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "instruction capture",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-04",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "retained provenance limit",
+      "response": "Builder-authored logs are attributed evidence. Prime independent probes are a distinct source and were omitted from this packet.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "Colab packet closure",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-05",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "qualified; historical versus selected state",
+      "response": "Preserve builder-time statements and show the later Prime review as current. Do not rewrite frozen returns to hide history.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "desk projection",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-06",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "partly qualified; preservation strengthened",
+      "response": "The decisive child transcript already exists at 0521/evidence/prime-review05.13/g2-failure-record.json and Prime verified it equals the original JSON. The packet omitted it. Raw run report/transcripts are now additionally preserved with their own manifest; old sealed manifests remain unchanged.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "preservation receipt",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-07",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "qualified; packet omission",
+      "response": "06.25 and the freeze manifest exist locally. The cloud packet cannot prove their absence in the company record.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "Colab packet closure",
+      "original_finding_preserved": true
+    },
+    {
+      "finding_id": "B2-08",
+      "source": "evidence/run05.02/workers/B-unit2/findings.json",
+      "status": "answered; replay portability limit",
+      "response": "Native execution roots are unavailable to the cloud audit by design. Future reproducible packages must carry the required sources and environment contract.",
+      "resolution": "recorded; see status, not automatically closed",
+      "owner_or_followup": "portability and packet closure",
+      "original_finding_preserved": true
+    }
+  ]
+}

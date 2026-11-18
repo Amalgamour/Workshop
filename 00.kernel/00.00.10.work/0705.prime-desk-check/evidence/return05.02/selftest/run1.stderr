@@ -1,0 +1,35 @@
+setUpClass (__main__.OracleIntegrity) ... ERROR
+setUpClass (__main__.PlantedFaults) ... ERROR
+setUpClass (__main__.Verdicts) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.OracleIntegrity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\0705.prime-desk-check\pass02\tests\test_lab.py", line 51, in setUpClass
+    assert p.returncode == 0, p.stderr
+           ^^^^^^^^^^^^^^^^^
+AssertionError: b'Traceback (most recent call last):\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 122, in <module>\r\n    sys.exit(main())\r\n             ~~~~^^\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 111, in main\r\n    obs = build(json.loads(Path(a.expected).read_bytes()), Path(a.fixtures))\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 94, in build\r\n    satisfy(obs, s, fm)\r\n    ~~~~~~~^^^^^^^^^^^^\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 72, in satisfy\r\n    cur = cur[step]\r\n          ~~~^^^^^^\r\nTypeError: list indices must be integers or slices, not dict\r\n'
+
+======================================================================
+ERROR: setUpClass (__main__.PlantedFaults)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\0705.prime-desk-check\pass02\tests\test_lab.py", line 51, in setUpClass
+    assert p.returncode == 0, p.stderr
+           ^^^^^^^^^^^^^^^^^
+AssertionError: b'Traceback (most recent call last):\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 122, in <module>\r\n    sys.exit(main())\r\n             ~~~~^^\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 111, in main\r\n    obs = build(json.loads(Path(a.expected).read_bytes()), Path(a.fixtures))\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 94, in build\r\n    satisfy(obs, s, fm)\r\n    ~~~~~~~^^^^^^^^^^^^\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 72, in satisfy\r\n    cur = cur[step]\r\n          ~~~^^^^^^\r\nTypeError: list indices must be integers or slices, not dict\r\n'
+
+======================================================================
+ERROR: setUpClass (__main__.Verdicts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\0705.prime-desk-check\pass02\tests\test_lab.py", line 51, in setUpClass
+    assert p.returncode == 0, p.stderr
+           ^^^^^^^^^^^^^^^^^
+AssertionError: b'Traceback (most recent call last):\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 122, in <module>\r\n    sys.exit(main())\r\n             ~~~~^^\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 111, in main\r\n    obs = build(json.loads(Path(a.expected).read_bytes()), Path(a.fixtures))\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 94, in build\r\n    satisfy(obs, s, fm)\r\n    ~~~~~~~^^^^^^^^^^^^\r\n  File "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py", line 72, in satisfy\r\n    cur = cur[step]\r\n          ~~~^^^^^^\r\nTypeError: list indices must be integers or slices, not dict\r\n'
+
+----------------------------------------------------------------------
+Ran 0 tests in 4.367s
+
+FAILED (errors=3)

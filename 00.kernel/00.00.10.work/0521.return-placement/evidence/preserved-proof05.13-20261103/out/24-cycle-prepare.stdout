@@ -1,0 +1,259 @@
+{
+  "accepted": false,
+  "allocated": false,
+  "authenticates_actor": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "contract": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+  "current": {
+    "current": false,
+    "director_replies": [],
+    "interpretation": null,
+    "latest_review": null,
+    "next_action": null,
+    "next_action_label": "supplied",
+    "pass_state": "awaiting-review",
+    "questions": [],
+    "render_state": "not-applicable",
+    "task_binding_sha256": "e352fb4921e0eeb4b7ad4754ba74ebc0b234d2365a70c7c7decd805f5c2f0547",
+    "write_token": null
+  },
+  "custody": "not-established",
+  "exit_code": 0,
+  "full_success": false,
+  "historical": null,
+  "mechanical": {
+    "blocker": "target-absent",
+    "route": "none-in-this-entry",
+    "state": "awaiting-review",
+    "target": "absent",
+    "text": "No judgment is recorded. The target is absent, so this entry does not commit one."
+  },
+  "next": "No judgment is recorded. The target is absent, so this entry does not commit one.",
+  "observation": {
+    "custody_member": "0721.connected-local",
+    "custody_verified": true,
+    "descriptor_state": "complete",
+    "filing_claimed": false,
+    "measured": {
+      "custody_present": true,
+      "manifest_bytes": 620,
+      "manifest_sha256": "9c8127a8e1af9dbc91f8e514f4bd3a73c4d8d1c24228c32c3f1e727381c7d9a5",
+      "receipt_bytes": 493,
+      "receipt_sha256": "955a903abc57248a397d3b715891f378c266d03a50eed91bf24eec5f99ed2c36",
+      "return_bytes": 35,
+      "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+      "verification_present": true
+    },
+    "member": null,
+    "placement_status": "final",
+    "reason": null,
+    "state": "complete",
+    "task_association": "not-established",
+    "task_association_reason": "custody records do not name the review task",
+    "validator": {
+      "check": "return-line-capture/1 receipt",
+      "exit": 0,
+      "problems": [],
+      "state": "complete",
+      "tool": "labs/return-lines-pass01/return_lines.py"
+    }
+  },
+  "pass_state": "awaiting-review",
+  "pins": {
+    "construct": {
+      "bytes": 42582,
+      "path": "labs/review-construction-pass04/construct.py",
+      "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+    },
+    "prime_cycle_pass03": {
+      "bytes": 76045,
+      "path": "labs/prime-cycle-pass03/prime_cycle.py",
+      "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+    },
+    "prime_review_pass01": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "prime_review_pass02": {
+      "bytes": 58560,
+      "path": "labs/prime-review-pass02/prime_review.py",
+      "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+    },
+    "return_inspect": {
+      "bytes": 11402,
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_lines": {
+      "bytes": 100897,
+      "path": "labs/return-lines-pass01/return_lines.py",
+      "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    },
+    "return_placement": {
+      "bytes": 66097,
+      "path": "labs/return-placement-pass01/return_placement.py",
+      "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+    },
+    "review_loop": {
+      "bytes": 55474,
+      "path": "labs/review-loop-pass03/review_loop.py",
+      "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+    }
+  },
+  "releases_action": false,
+  "request_sha256": "1f0ef6524cea7f205f2d2aca918cc4bc1cacd0e69c7df0c28c743010732e75cd",
+  "schema": "review-loop-result/2",
+  "supplied_judgment": null,
+  "supplied_next_action": null,
+  "target": {
+    "binding_sha256": null,
+    "rule": "target file is absent; this entry does not create targets (permit_create false)",
+    "schema": "review-target-inspection/1",
+    "section_sha256": null,
+    "state": "absent",
+    "target_bytes": null,
+    "target_sha256": null
+  },
+  "view": {
+    "allocated": false,
+    "attention": [
+      "task association is not established by the custody records",
+      "awaiting-review: a described return has no recorded review"
+    ],
+    "authenticates_actor": false,
+    "authority": "none",
+    "binding": {
+      "agreement_sha256": "dc3ee4634b863f872fc126ed3cfeb031b3df392bedf0e3fcecac0e030ee820de",
+      "direction": {
+        "agreement_sha256": "dc3ee4634b863f872fc126ed3cfeb031b3df392bedf0e3fcecac0e030ee820de",
+        "book": "00.00.10.work",
+        "fields": {
+          "director_required": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "finish_criteria": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "goal": "b4b2c8b1012ee6e23816f32cc41ecf25588b0338572b93305480c66c439a8f72",
+          "prime_discretion": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "recorded_decisions": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "scope": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+        },
+        "review_location": "workbook-review/0721.connected-local/05.01/cycle-records",
+        "schema": "prime-cycle-direction/1"
+      },
+      "expected_prior": null,
+      "fingerprint": "1d93cec406e8a300a3b469b14144653d15ce5428630ad34f52ee88aefe70c502",
+      "goal": {
+        "goal_id": "g1",
+        "goal_sha256": "b6b4fa10b9a7a9712aa71952573d7f6b913426225442b751e7bba5cfa9d95d7d"
+      },
+      "manifest_sha256": "9c8127a8e1af9dbc91f8e514f4bd3a73c4d8d1c24228c32c3f1e727381c7d9a5",
+      "member": null,
+      "origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0721.connected-local"
+      },
+      "page": "0721.connected-local",
+      "pass": "05.01",
+      "receipt_sha256": "955a903abc57248a397d3b715891f378c266d03a50eed91bf24eec5f99ed2c36",
+      "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+      "schema": "prime-cycle-binding/3",
+      "source": {
+        "book": "00.00.10.work",
+        "page": "0721.connected-local",
+        "pass": "05.01"
+      },
+      "submission_id": "s0513n7",
+      "task_binding_sha256": "e352fb4921e0eeb4b7ad4754ba74ebc0b234d2365a70c7c7decd805f5c2f0547",
+      "work_id": "0721.connected-local",
+      "write_token": null
+    },
+    "closes_work": false,
+    "current": false,
+    "custody": "not-established",
+    "director_replies": [],
+    "historical": null,
+    "interpretation": null,
+    "latest_review": null,
+    "member": null,
+    "next_action": null,
+    "observation": {
+      "custody_member": "0721.connected-local",
+      "custody_verified": true,
+      "descriptor_state": "complete",
+      "filing_claimed": false,
+      "measured": {
+        "custody_present": true,
+        "manifest_bytes": 620,
+        "manifest_sha256": "9c8127a8e1af9dbc91f8e514f4bd3a73c4d8d1c24228c32c3f1e727381c7d9a5",
+        "receipt_bytes": 493,
+        "receipt_sha256": "955a903abc57248a397d3b715891f378c266d03a50eed91bf24eec5f99ed2c36",
+        "return_bytes": 35,
+        "return_sha256": "a96afb8e3d89ac7225dd901910860c211a003ac6e0a3cebdb33c8d32ec62f042",
+        "verification_present": true
+      },
+      "member": null,
+      "placement_status": "final",
+      "reason": null,
+      "state": "complete",
+      "task_association": "not-established",
+      "task_association_reason": "custody records do not name the review task",
+      "validator": {
+        "check": "return-line-capture/1 receipt",
+        "exit": 0,
+        "problems": [],
+        "state": "complete",
+        "tool": "labs/return-lines-pass01/return_lines.py"
+      }
+    },
+    "page": "0721.connected-local",
+    "pass": "05.01",
+    "pass_state": "awaiting-review",
+    "pins": {
+      "construct": {
+        "bytes": 36188,
+        "path": "labs/review-construction-pass02/construct.py",
+        "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc"
+      },
+      "prime_cycle_pass03": {
+        "bytes": 76045,
+        "path": "labs/prime-cycle-pass03/prime_cycle.py",
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      "prime_review_pass01": {
+        "bytes": 58324,
+        "path": "labs/prime-review-pass01/prime_review.py",
+        "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+      },
+      "prime_review_pass02": {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      },
+      "return_inspect": {
+        "bytes": 11402,
+        "path": "labs/return-capture-pass01/return_inspect.py",
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+      },
+      "return_lines": {
+        "bytes": 100897,
+        "path": "labs/return-lines-pass01/return_lines.py",
+        "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+      },
+      "return_placement": {
+        "bytes": 66097,
+        "path": "labs/return-placement-pass01/return_placement.py",
+        "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754"
+      }
+    },
+    "questions": [],
+    "releases_action": false,
+    "render_state": "not-applicable",
+    "schema": "prime-cycle-view/4",
+    "task_binding_sha256": "e352fb4921e0eeb4b7ad4754ba74ebc0b234d2365a70c7c7decd805f5c2f0547",
+    "template": null,
+    "work_id": "0721.connected-local",
+    "write_token": null
+  }
+}

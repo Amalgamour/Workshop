@@ -1,0 +1,606 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "form",
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0512.prime-review/05.09.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "index-context-bounded",
+          "count": 36,
+          "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/artifact-manifest.json"
+        },
+        {
+          "code": "custody-missing",
+          "path": "0112.prime-review"
+        },
+        {
+          "code": "return-missing",
+          "path": "0112.prime-review/05.09.return.md"
+        }
+      ],
+      "instance_id": "3dc2cea1a9ed558209121457ea274c6e45bb8169a72e0d88bc9d7d93b6b99e79",
+      "intake_id": "3b7c94c1c6cc1dfc5a0074a95de0c9338c77b9a31cff26f669c4f627a433e5eb",
+      "kind": "N5NN",
+      "member": "0112.prime-review",
+      "return_path": null,
+      "rows": [
+        {
+          "bytes": 6251,
+          "declared_path": "0512.prime-review/05.09.md",
+          "path": "0512.prime-review/05.09.md",
+          "role": "assignment",
+          "root": "book",
+          "sha256": "0f9bb6707060f146c2caf8060f89fdcce6fd92ecfa6c3459808b93a5e76717b6"
+        },
+        {
+          "bytes": 8290,
+          "declared_bytes": 8290,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/submission.md",
+          "declared_sha256": "191779d7d35433d3d3075b393dff10f8b7fde9a09490a2619a137b7ff77cd3a5",
+          "path": "0512.prime-review/evidence/build05.09/submission.md",
+          "role": "submission",
+          "root": "book",
+          "sha256": "191779d7d35433d3d3075b393dff10f8b7fde9a09490a2619a137b7ff77cd3a5"
+        },
+        {
+          "bytes": 7856,
+          "declared_bytes": 7856,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/artifact-manifest.json",
+          "declared_sha256": "c92569bc72f2d4978c37a4220d2acac4c753a3d8b805ec62627fd7e05126670b",
+          "path": "0512.prime-review/evidence/build05.09/artifact-manifest.json",
+          "role": "artifact-manifest",
+          "root": "book",
+          "sha256": "c92569bc72f2d4978c37a4220d2acac4c753a3d8b805ec62627fd7e05126670b"
+        },
+        {
+          "bytes": 5703,
+          "declared_bytes": 5703,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/06.15.md",
+          "declared_sha256": "d7696b73d331dae24f8c59843eb951550ac82839ca5288f160f971f52c8d6e47",
+          "path": "0512.prime-review/06.15.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d7696b73d331dae24f8c59843eb951550ac82839ca5288f160f971f52c8d6e47"
+        },
+        {
+          "bytes": 7827,
+          "declared_bytes": 7827,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/CONTRACT.md",
+          "declared_sha256": "1ac2b93a03e5a17a38c0deb3046b78324d374e3cec9d6239830d006019917f5b",
+          "path": "0512.prime-review/evidence/build05.09/CONTRACT.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "1ac2b93a03e5a17a38c0deb3046b78324d374e3cec9d6239830d006019917f5b"
+        },
+        {
+          "bytes": 2451,
+          "declared_bytes": 2451,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/INTEGRATION.md",
+          "declared_sha256": "932724996497c5d202fa1320c54f839a9f130c0470fec771b2a78f8ac747b6be",
+          "path": "0512.prime-review/evidence/build05.09/INTEGRATION.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "932724996497c5d202fa1320c54f839a9f130c0470fec771b2a78f8ac747b6be"
+        },
+        {
+          "bytes": 2027,
+          "declared_bytes": 2027,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/PRIME-USE.md",
+          "declared_sha256": "50e6a8b3b4f3c167e67d558187ab96e976be1cbef45df2db7c302843ec549fd6",
+          "path": "0512.prime-review/evidence/build05.09/PRIME-USE.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "50e6a8b3b4f3c167e67d558187ab96e976be1cbef45df2db7c302843ec549fd6"
+        },
+        {
+          "bytes": 2512,
+          "declared_bytes": 2512,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/TEST-TABLE.md",
+          "declared_sha256": "80ce965ecd3d569f94ebf3877c11337828e0af6f2d4f0db517cfff8cad71c7ed",
+          "path": "0512.prime-review/evidence/build05.09/TEST-TABLE.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "80ce965ecd3d569f94ebf3877c11337828e0af6f2d4f0db517cfff8cad71c7ed"
+        },
+        {
+          "bytes": 11879,
+          "declared_bytes": 11879,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/author-results.json",
+          "declared_sha256": "978cf606c014acb726e1180b3cbd84df154cef7eaa00fd8dd3b6d23f6d479901",
+          "path": "0512.prime-review/evidence/build05.09/author-results.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "978cf606c014acb726e1180b3cbd84df154cef7eaa00fd8dd3b6d23f6d479901"
+        },
+        {
+          "bytes": 4353,
+          "declared_bytes": 4353,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/author-suite-first.txt",
+          "declared_sha256": "6f85022b64e1f904388e1108abab47dc5634d545618eb619b79f51385f27974b",
+          "path": "0512.prime-review/evidence/build05.09/author-suite-first.txt",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "6f85022b64e1f904388e1108abab47dc5634d545618eb619b79f51385f27974b"
+        },
+        {
+          "bytes": 3113,
+          "declared_bytes": 3113,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/author-suite.txt",
+          "declared_sha256": "a8f5b1e51899e8cd2c0f4537e38150d5f466bd076dd2a0509cd6d32fb871e9e3",
+          "path": "0512.prime-review/evidence/build05.09/author-suite.txt",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "a8f5b1e51899e8cd2c0f4537e38150d5f466bd076dd2a0509cd6d32fb871e9e3"
+        },
+        {
+          "bytes": 46637,
+          "declared_bytes": 46637,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/candidate-index.json",
+          "declared_sha256": "34cd150e8167a80adb668b5c28c7ed2cd0c5a26bc04e7ab175d556d540e77aae",
+          "path": "0512.prime-review/evidence/build05.09/candidate-index.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "34cd150e8167a80adb668b5c28c7ed2cd0c5a26bc04e7ab175d556d540e77aae"
+        },
+        {
+          "bytes": 4395,
+          "declared_bytes": 4395,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/command-log.json",
+          "declared_sha256": "764416bc0256233677ec8bd93e2adccde2ce2468af713553736cee28cffabf9e",
+          "path": "0512.prime-review/evidence/build05.09/command-log.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "764416bc0256233677ec8bd93e2adccde2ce2468af713553736cee28cffabf9e"
+        },
+        {
+          "bytes": 22113,
+          "declared_bytes": 22113,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/current-review/live-0512-05-06.stdout",
+          "declared_sha256": "207fef4235d4f2b2484692618c39cb5910ce0487cac2300ed381440ca7ef4f91",
+          "path": "0512.prime-review/evidence/build05.09/current-review/live-0512-05-06.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "207fef4235d4f2b2484692618c39cb5910ce0487cac2300ed381440ca7ef4f91"
+        },
+        {
+          "bytes": 19924,
+          "declared_bytes": 19924,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/current-review/live-0521-05-13.stdout",
+          "declared_sha256": "59910e74d971c85ebe93bc5f4741a19365afa0f0f0abf35c61289ae63965796c",
+          "path": "0512.prime-review/evidence/build05.09/current-review/live-0521-05-13.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "59910e74d971c85ebe93bc5f4741a19365afa0f0f0abf35c61289ae63965796c"
+        },
+        {
+          "bytes": 13788,
+          "declared_bytes": 13788,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/fixtures/fixture-held-baseline.stdout",
+          "declared_sha256": "61cf3e8de0bd2d832508a1d5853a424685acf9cd663a36d357ad8411427652e2",
+          "path": "0512.prime-review/evidence/build05.09/fixtures/fixture-held-baseline.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "61cf3e8de0bd2d832508a1d5853a424685acf9cd663a36d357ad8411427652e2"
+        },
+        {
+          "bytes": 14164,
+          "declared_bytes": 14164,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/fixtures/fixture-held-installed.stdout",
+          "declared_sha256": "3ab24c4f7b6f621bb49d41893aac79a756d62dba3e2453b82b7b1d980ecfde8e",
+          "path": "0512.prime-review/evidence/build05.09/fixtures/fixture-held-installed.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "3ab24c4f7b6f621bb49d41893aac79a756d62dba3e2453b82b7b1d980ecfde8e"
+        },
+        {
+          "bytes": 11032,
+          "declared_bytes": 11032,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/fixtures/fixture-missing.stdout",
+          "declared_sha256": "69d3b70d4ffdfac4abf766df1978706ffb776b0bb9a1e3fe5e1ea888e50fb57d",
+          "path": "0512.prime-review/evidence/build05.09/fixtures/fixture-missing.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "69d3b70d4ffdfac4abf766df1978706ffb776b0bb9a1e3fe5e1ea888e50fb57d"
+        },
+        {
+          "bytes": 15701,
+          "declared_bytes": 15701,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/fixtures/fixture-stale.stdout",
+          "declared_sha256": "40868cedd95b411c0331a8c7d0696da83ce53286ad1620d1ea0b958f0ad256ad",
+          "path": "0512.prime-review/evidence/build05.09/fixtures/fixture-stale.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "40868cedd95b411c0331a8c7d0696da83ce53286ad1620d1ea0b958f0ad256ad"
+        },
+        {
+          "bytes": 11054,
+          "declared_bytes": 11054,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/fixtures/fixture-unreadable.stdout",
+          "declared_sha256": "d100158f5fbcbf73fb38f22c704a08ef428efd9fa7a94a489102c92aeaa5f14e",
+          "path": "0512.prime-review/evidence/build05.09/fixtures/fixture-unreadable.stdout",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d100158f5fbcbf73fb38f22c704a08ef428efd9fa7a94a489102c92aeaa5f14e"
+        },
+        {
+          "bytes": 116,
+          "declared_bytes": 116,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/hostile/hostile-envelope.json",
+          "declared_sha256": "0695389b0476e11ea5c320dfa80d7a4f80f2692b63642800482f630ad50f4bd4",
+          "path": "0512.prime-review/evidence/build05.09/hostile/hostile-envelope.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0695389b0476e11ea5c320dfa80d7a4f80f2692b63642800482f630ad50f4bd4"
+        },
+        {
+          "bytes": 155,
+          "declared_bytes": 155,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/hostile/hostile-rows.json",
+          "declared_sha256": "4e0cec19a0caa921b38daafbb524b10bd58a68b46bf4bd65e5ca43f8400c1197",
+          "path": "0512.prime-review/evidence/build05.09/hostile/hostile-rows.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "4e0cec19a0caa921b38daafbb524b10bd58a68b46bf4bd65e5ca43f8400c1197"
+        },
+        {
+          "bytes": 2762,
+          "declared_bytes": 2762,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/invalid-held.md",
+          "declared_sha256": "8ae2e72369812dc59ab897b5995053f864b551ddec993844a474b6a49eb676dd",
+          "path": "0512.prime-review/evidence/build05.09/invalid-held.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "8ae2e72369812dc59ab897b5995053f864b551ddec993844a474b6a49eb676dd"
+        },
+        {
+          "bytes": 391,
+          "declared_bytes": 391,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/known-reproductions/b01.json",
+          "declared_sha256": "d56e0c472cc524fe5152b5484306912e69ea2da58a4937080ebfbf3e6e1453b7",
+          "path": "0512.prime-review/evidence/build05.09/known-reproductions/b01.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "d56e0c472cc524fe5152b5484306912e69ea2da58a4937080ebfbf3e6e1453b7"
+        },
+        {
+          "bytes": 587,
+          "declared_bytes": 587,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/known-reproductions/b05.json",
+          "declared_sha256": "3c108dbf0b801cc2e6b0ef1ee510c2ebd76efaddaa4feb48ca344aa4e4da0276",
+          "path": "0512.prime-review/evidence/build05.09/known-reproductions/b05.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "3c108dbf0b801cc2e6b0ef1ee510c2ebd76efaddaa4feb48ca344aa4e4da0276"
+        },
+        {
+          "bytes": 6337,
+          "declared_bytes": 6337,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/no-write.json",
+          "declared_sha256": "9689114dc17ef21fa2de8209c355c457954b7167bfb7e6ddbd12cb6ffda875da",
+          "path": "0512.prime-review/evidence/build05.09/no-write.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "9689114dc17ef21fa2de8209c355c457954b7167bfb7e6ddbd12cb6ffda875da"
+        },
+        {
+          "bytes": 2271,
+          "declared_bytes": 2271,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/pin-delta.json",
+          "declared_sha256": "0d472889f21f3fdd0fc0c0c29aa812722c85b4e718f44925e46d28840399fa72",
+          "path": "0512.prime-review/evidence/build05.09/pin-delta.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "0d472889f21f3fdd0fc0c0c29aa812722c85b4e718f44925e46d28840399fa72"
+        },
+        {
+          "bytes": 12204,
+          "declared_bytes": 12204,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/rollback-librarian.py",
+          "declared_sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+          "path": "0512.prime-review/evidence/build05.09/rollback-librarian.py",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+        },
+        {
+          "bytes": 8290,
+          "declared_bytes": 8290,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/submission.md",
+          "declared_sha256": "191779d7d35433d3d3075b393dff10f8b7fde9a09490a2619a137b7ff77cd3a5",
+          "path": "0512.prime-review/evidence/build05.09/submission.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "191779d7d35433d3d3075b393dff10f8b7fde9a09490a2619a137b7ff77cd3a5"
+        },
+        {
+          "bytes": 1387,
+          "declared_bytes": 1387,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/supported-schema.md",
+          "declared_sha256": "6a765b1e84484371159787cfb13451b0b29248dddce39fe50d03057b29659672",
+          "path": "0512.prime-review/evidence/build05.09/supported-schema.md",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "6a765b1e84484371159787cfb13451b0b29248dddce39fe50d03057b29659672"
+        },
+        {
+          "bytes": 5295,
+          "declared_bytes": 5295,
+          "declared_path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.09/verification.json",
+          "declared_sha256": "3f28525d645c9a17485d997b2334b0497dd38e8b825eeed602dd891fdf32ccf8",
+          "path": "0512.prime-review/evidence/build05.09/verification.json",
+          "role": "artifact",
+          "root": "book",
+          "sha256": "3f28525d645c9a17485d997b2334b0497dd38e8b825eeed602dd891fdf32ccf8"
+        },
+        {
+          "bytes": 4276,
+          "declared_bytes": 4276,
+          "declared_path": "app/review-report-v3.json",
+          "declared_sha256": "a27bf702c0eb87b4608ff60929467126e78fd7e60b7353644321468043a25817",
+          "path": "app/review-report-v3.json",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "a27bf702c0eb87b4608ff60929467126e78fd7e60b7353644321468043a25817"
+        },
+        {
+          "bytes": 14156,
+          "declared_bytes": 14156,
+          "declared_path": "app/review_report_tools_v3.py",
+          "declared_sha256": "be29de7daa00b84f79a0f403f2c5eaea3cf035d51e1b405d2fbf2f6ba5f7e73f",
+          "path": "app/review_report_tools_v3.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "be29de7daa00b84f79a0f403f2c5eaea3cf035d51e1b405d2fbf2f6ba5f7e73f"
+        },
+        {
+          "bytes": 1972,
+          "declared_bytes": 1972,
+          "declared_path": "labs/review-report-hardening-pass01/DISPATCHER.diff",
+          "declared_sha256": "9bc1ef79672e0a67ae1e4d513b523b3dee105c694b0c91aa748cf4f6b9b13b62",
+          "path": "labs/review-report-hardening-pass01/DISPATCHER.diff",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "9bc1ef79672e0a67ae1e4d513b523b3dee105c694b0c91aa748cf4f6b9b13b62"
+        },
+        {
+          "bytes": 2451,
+          "declared_bytes": 2451,
+          "declared_path": "labs/review-report-hardening-pass01/INTEGRATION.md",
+          "declared_sha256": "932724996497c5d202fa1320c54f839a9f130c0470fec771b2a78f8ac747b6be",
+          "path": "labs/review-report-hardening-pass01/INTEGRATION.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "932724996497c5d202fa1320c54f839a9f130c0470fec771b2a78f8ac747b6be"
+        },
+        {
+          "bytes": 2027,
+          "declared_bytes": 2027,
+          "declared_path": "labs/review-report-hardening-pass01/PRIME-USE.md",
+          "declared_sha256": "50e6a8b3b4f3c167e67d558187ab96e976be1cbef45df2db7c302843ec549fd6",
+          "path": "labs/review-report-hardening-pass01/PRIME-USE.md",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "50e6a8b3b4f3c167e67d558187ab96e976be1cbef45df2db7c302843ec549fd6"
+        },
+        {
+          "bytes": 12804,
+          "declared_bytes": 12804,
+          "declared_path": "labs/review-report-hardening-pass01/librarian.py",
+          "declared_sha256": "f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983",
+          "path": "labs/review-report-hardening-pass01/librarian.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983"
+        },
+        {
+          "bytes": 18139,
+          "declared_bytes": 18139,
+          "declared_path": "labs/review-report-hardening-pass01/report.py",
+          "declared_sha256": "27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b",
+          "path": "labs/review-report-hardening-pass01/report.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b"
+        },
+        {
+          "bytes": 54345,
+          "declared_bytes": 54345,
+          "declared_path": "labs/review-report-hardening-pass01/tests/test_hardening.py",
+          "declared_sha256": "dc2cb9564c83a4d8842c46a5e696816783e1c36e4a0aa82e6a51954b1d5c698a",
+          "path": "labs/review-report-hardening-pass01/tests/test_hardening.py",
+          "role": "artifact",
+          "root": "code",
+          "sha256": "dc2cb9564c83a4d8842c46a5e696816783e1c36e4a0aa82e6a51954b1d5c698a"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass03/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+      "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "3dc2cea1a9ed558209121457ea274c6e45bb8169a72e0d88bc9d7d93b6b99e79",
+  "intake_id": "3b7c94c1c6cc1dfc5a0074a95de0c9338c77b9a31cff26f669c4f627a433e5eb",
+  "kind": "N5NN",
+  "missing": [],
+  "page": "0512.prime-review",
+  "pass": "05.09",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "task_association": "not-established"
+}

@@ -1,0 +1,42 @@
+test_pass05_cli_reproduces_traceback_then_pass06_refuses (independent_harness6_tests.H04Reproduce.test_pass05_cli_reproduces_traceback_then_pass06_refuses) ... ok
+test_candidate_path_nul_known_identity (independent_harness6_tests.H04CliNegatives.test_candidate_path_nul_known_identity) ... ok
+test_candidate_path_nul_unknown_identity (independent_harness6_tests.H04CliNegatives.test_candidate_path_nul_unknown_identity) ... ok
+test_config_path_invalid_name (independent_harness6_tests.H04CliNegatives.test_config_path_invalid_name) ... ok
+test_dependency_invalid_name_with_known_stub (independent_harness6_tests.H04CliNegatives.test_dependency_invalid_name_with_known_stub) ... ok
+test_evidence_invalid_name_writes_nothing (independent_harness6_tests.H04CliNegatives.test_evidence_invalid_name_writes_nothing) ... ok
+test_evidence_relative (independent_harness6_tests.H04CliNegatives.test_evidence_relative) ... ok
+test_interpreter_not_executable (independent_harness6_tests.H04CliNegatives.test_interpreter_not_executable) ... ok
+test_interpreter_nul (independent_harness6_tests.H04CliNegatives.test_interpreter_nul) ... ok
+test_output_root_invalid_windows_name (independent_harness6_tests.H04CliNegatives.test_output_root_invalid_windows_name) ... ok
+test_output_root_overlong (independent_harness6_tests.H04CliNegatives.test_output_root_overlong) ... ok
+test_config_path_nul (independent_harness6_tests.H04Direct.test_config_path_nul) ... ok
+test_evidence_nul_writes_nothing (independent_harness6_tests.H04Direct.test_evidence_nul_writes_nothing) ... ok
+test_guard_helpers (independent_harness6_tests.H04Direct.test_guard_helpers) ... ok
+test_run_matrix_config_nul_records_refusal (independent_harness6_tests.H04Direct.test_run_matrix_config_nul_records_refusal) ... ok
+test_mocked_permission_error_is_refused (independent_harness6_tests.H04Mocked.test_mocked_permission_error_is_refused) ... ok
+test_programming_error_is_not_swallowed (independent_harness6_tests.H04Mocked.test_programming_error_is_not_swallowed) ... ok
+test_crash_leaving_child_keeps_traceback (selftest5.H01Timeouts.test_crash_leaving_child_keeps_traceback) ... ok
+test_exit_leaving_detached_child_is_detected_and_cleaned (selftest5.H01Timeouts.test_exit_leaving_detached_child_is_detected_and_cleaned) ... ok
+test_exit_with_pipe_holding_child (selftest5.H01Timeouts.test_exit_with_pipe_holding_child) ... ok
+test_flush_then_timeout_keeps_both_streams_once (selftest5.H01Timeouts.test_flush_then_timeout_keeps_both_streams_once) ... ok
+test_ok_has_no_anomaly (selftest5.H01Timeouts.test_ok_has_no_anomaly) ... ok
+test_timeout_with_pipe_holding_child_kills_it_and_keeps_output (selftest5.H01Timeouts.test_timeout_with_pipe_holding_child_kills_it_and_keeps_output) ... ok
+test_unrelated_process_untouched (selftest5.H01Timeouts.test_unrelated_process_untouched) ... ok
+test_evidence_roots (selftest5.H02Boundaries.test_evidence_roots) ... ok
+test_existing_subdir_through_junction_refused (selftest5.H02Boundaries.test_existing_subdir_through_junction_refused) ... ok
+test_fixture_write_entry_rechecks (selftest5.H02Boundaries.test_fixture_write_entry_rechecks) ... ok
+test_junction_to_checkout_refused_as_output_root (selftest5.H02Boundaries.test_junction_to_checkout_refused_as_output_root) ... ok
+test_lexical_checkout_refused (selftest5.H02Boundaries.test_lexical_checkout_refused) ... ok
+test_occupied_directory_refused (selftest5.H02Boundaries.test_occupied_directory_refused) ... ok
+test_dependencies_null_is_refused_not_unready (selftest5.H03Config.test_dependencies_null_is_refused_not_unready) ... ok
+test_malformed_bytes (selftest5.H03Config.test_malformed_bytes) ... ok
+test_substitution_fuzz (selftest5.H03Config.test_substitution_fuzz) ... ok
+test_kind_matrix_separation (selftest5.Preservation.test_kind_matrix_separation) ... ok
+test_pass04_files_unchanged (selftest5.Preservation.test_pass04_files_unchanged) ... ok
+test_real_matrix_unready_no_launch_and_cases_unchanged (selftest5.Preservation.test_real_matrix_unready_no_launch_and_cases_unchanged) ... ok
+test_unique_runs_preserve_earlier (selftest5.Preservation.test_unique_runs_preserve_earlier) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 16.218s
+
+OK

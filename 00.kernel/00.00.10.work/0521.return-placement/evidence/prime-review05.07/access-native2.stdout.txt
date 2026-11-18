@@ -1,0 +1,171 @@
+{
+  "accepted": false,
+  "approved": false,
+  "check": "return-line-capture/1 receipt",
+  "command": "verify",
+  "correction": "Observed checks passed. This is not acceptance, seating, or publication.",
+  "custody_is_acceptance": false,
+  "descriptor": {
+    "custody_format": "return-line-capture/1",
+    "custody_path": "0121.return-placement/05.02.custody",
+    "manifest_path": "0121.return-placement/05.02.custody/manifest.json",
+    "origin": {
+      "batch": "05.02",
+      "book": "00.00.10.work",
+      "page": "0521.return-placement"
+    },
+    "receipt_path": "0121.return-placement/05.02.custody/receipt.json",
+    "receipt_sha256": "f9e443bb8e4da8fb53af15c2f745336e67043ddf68bc46c0b22463f0f64146d1",
+    "return_bytes": 49,
+    "return_path": "0121.return-placement/05.02.return.md",
+    "return_sha256": "191012aa6b4bc682e613027541ae6f7ce1ff212ff43f9bf4c8e0aca28f3e4621",
+    "route": "matched-workflow-return-line",
+    "schema": "return-line-descriptor/1",
+    "state": "complete",
+    "submission_id": "filing-0521-0502",
+    "target_page": "0121.return-placement",
+    "verification": {
+      "evidence_path": "0121.return-placement/05.02.custody/receipt.json",
+      "result": "complete",
+      "tool_path": "labs/return-lines-pass01/return_lines.py",
+      "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    }
+  },
+  "detail": {
+    "rewritten": false,
+    "sentinel_policy": "not-adopted",
+    "successor_consumed": false,
+    "backend": {
+      "check": "return-line-capture/1 receipt",
+      "command": "lookup",
+      "correction": "Observed checks passed. This is not acceptance, seating, or publication.",
+      "descriptor": {
+        "custody_format": "return-line-capture/1",
+        "custody_path": "0121.return-placement/05.02.custody",
+        "manifest_path": "0121.return-placement/05.02.custody/manifest.json",
+        "origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0521.return-placement"
+        },
+        "receipt_path": "0121.return-placement/05.02.custody/receipt.json",
+        "receipt_sha256": "f9e443bb8e4da8fb53af15c2f745336e67043ddf68bc46c0b22463f0f64146d1",
+        "return_bytes": 49,
+        "return_path": "0121.return-placement/05.02.return.md",
+        "return_sha256": "191012aa6b4bc682e613027541ae6f7ce1ff212ff43f9bf4c8e0aca28f3e4621",
+        "route": "matched-workflow-return-line",
+        "schema": "return-line-descriptor/1",
+        "state": "complete",
+        "submission_id": "filing-0521-0502",
+        "target_page": "0121.return-placement",
+        "verification": {
+          "evidence_path": "0121.return-placement/05.02.custody/receipt.json",
+          "result": "complete",
+          "tool_path": "labs/return-lines-pass01/return_lines.py",
+          "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+        }
+      },
+      "detail": {
+        "problems": [],
+        "acceptance": null,
+        "accepted": false,
+        "approved": false,
+        "published": false,
+        "new_home": {
+          "custody_path": "0121.return-placement/05.02.custody",
+          "logical_return_path": "0121.return-placement/05.02.return.md",
+          "target_page": "0121.return-placement"
+        },
+        "retained_original": {
+          "archived_identity": null,
+          "backup_path": "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\backup",
+          "book_member_present": null,
+          "retired_rel": null,
+          "retired_root": "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\retired",
+          "source_backup": null
+        },
+        "pass02_tool": "labs/return-lines-pass02/return_lines.py",
+        "pass02_tool_sha256": "6691d0587ab97ba24a1709c9950b506961152939e2d112ee608f9dbd23e92908"
+      },
+      "evidence": "0121.return-placement/05.02.custody/receipt.json",
+      "exit": 0,
+      "schema": "return-line-result/1",
+      "state": "complete"
+    },
+    "line_verify": {
+      "check": "return-line-capture/1 receipt",
+      "command": "verify",
+      "correction": "Observed checks passed. This is not acceptance, seating, or publication.",
+      "descriptor": {
+        "custody_format": "return-line-capture/1",
+        "custody_path": "0121.return-placement/05.02.custody",
+        "manifest_path": "0121.return-placement/05.02.custody/manifest.json",
+        "origin": {
+          "batch": "05.02",
+          "book": "00.00.10.work",
+          "page": "0521.return-placement"
+        },
+        "receipt_path": "0121.return-placement/05.02.custody/receipt.json",
+        "receipt_sha256": "f9e443bb8e4da8fb53af15c2f745336e67043ddf68bc46c0b22463f0f64146d1",
+        "return_bytes": 49,
+        "return_path": "0121.return-placement/05.02.return.md",
+        "return_sha256": "191012aa6b4bc682e613027541ae6f7ce1ff212ff43f9bf4c8e0aca28f3e4621",
+        "route": "matched-workflow-return-line",
+        "schema": "return-line-descriptor/1",
+        "state": "complete",
+        "submission_id": "filing-0521-0502",
+        "target_page": "0121.return-placement",
+        "verification": {
+          "evidence_path": "0121.return-placement/05.02.custody/receipt.json",
+          "result": "complete",
+          "tool_path": "labs/return-lines-pass01/return_lines.py",
+          "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+        }
+      },
+      "detail": {
+        "problems": [],
+        "acceptance": null,
+        "accepted": false,
+        "approved": false,
+        "published": false
+      },
+      "evidence": "0121.return-placement/05.02.custody/receipt.json",
+      "exit": 0,
+      "schema": "return-line-result/1",
+      "state": "complete"
+    }
+  },
+  "exit": 0,
+  "legacy": {
+    "called": false,
+    "exit": null,
+    "member": null,
+    "parent": null,
+    "reason": "native line-pass return is not a legacy single-envelope page",
+    "text": null
+  },
+  "missing": [],
+  "partial": false,
+  "published": false,
+  "route": {
+    "custody_path": "0121.return-placement/05.02.custody",
+    "pass": "05.02",
+    "return_path": "0121.return-placement/05.02.return.md",
+    "route": "matched-workflow-return-line",
+    "source_page": "0521.return-placement",
+    "target_page": "0121.return-placement"
+  },
+  "schema": "return-access-result/1",
+  "state": "complete",
+  "task_association": "not-established",
+  "verified": {
+    "pass": "05.02",
+    "return_path": "0121.return-placement/05.02.return.md",
+    "route": "matched-workflow-return-line",
+    "source_page": "0521.return-placement",
+    "target_page": "0121.return-placement",
+    "return_bytes": 49,
+    "return_sha256": "191012aa6b4bc682e613027541ae6f7ce1ff212ff43f9bf4c8e0aca28f3e4621",
+    "receipt_sha256": "f9e443bb8e4da8fb53af15c2f745336e67043ddf68bc46c0b22463f0f64146d1"
+  }
+}

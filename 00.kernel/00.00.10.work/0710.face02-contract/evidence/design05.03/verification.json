@@ -1,0 +1,33 @@
+{
+  "schema": "0710-end-verification/3",
+  "pack05_03_inputs": 65,
+  "pack05_03_bad": [],
+  "kernel_targets_present": {
+    "0001.law/01.005.md": false,
+    "0002.schema/01.004.md": false,
+    "0001.law/01.004.09.md": false,
+    "0002.schema/01.003.09.md": false,
+    "00.retire.09": false
+  },
+  "candidate_0002": {
+    "sha256": "d16f05b2b7ed240038ddb84dbdaf55b4cd979b3938d1cb488bdb607f2ef6b8c5",
+    "bytes": 8586,
+    "crlf_only": true
+  },
+  "candidate_0001": "unchanged 05.02 file, sha256 f46ae1cd5c5cf6df7e5a5bbae847618c071c36009bfde3ce66fccde5522e81d7",
+  "runs": {
+    "attach": {
+      "cases": 8,
+      "mismatches": 0
+    },
+    "validate2": {
+      "cases": 50,
+      "mismatches": 0
+    },
+    "lifecycle": {
+      "cases": 13,
+      "mismatches": 0
+    }
+  },
+  "scope_note": "Measured: 65 pack inputs (incl. 0001/0002/0018 seats, 0018/01.011.md and the prior 0710 files the pack pins) byte-unchanged; no kernel target exists. Not measured: other kernel files (no Git)."
+}

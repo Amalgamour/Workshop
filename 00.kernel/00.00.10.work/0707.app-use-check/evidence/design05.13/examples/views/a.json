@@ -1,0 +1,134 @@
+{
+ "example": "a bounded authorized task",
+ "measured": {
+  "pack_cut": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "df860dc0b89b050b87607368cf8ae3e558d2c344048e8c2bbf104d95579251d9",
+   "bytes": 1407
+  },
+  "goal": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Goal",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "17c0bcd7271e2ae3757525c93713c1db01cec212417027e01bbefc73d6c31f69",
+     "bytes": 47
+    }
+   }
+  ],
+  "scope": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Scope",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "9f96985e5de4a617fa31712f34bf2a3c1c3fe54782111d9d269170e230ced2ac",
+     "bytes": 105
+    }
+   }
+  ],
+  "finish_criteria": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Finish",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "87855685dfaaedb14daccd880fbf45f1829c19e36f6f00a714a54251b10a556b",
+     "bytes": 1121
+    }
+   }
+  ],
+  "prime_discretion": [
+   {
+    "path": "0412x.standing/01.md",
+    "kind": "heading",
+    "heading": "Local work agreement",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "271a2095cf25cce20d3fc1e10a78f5fd880bb2f113cfb71d59fc277093e7cd27",
+     "bytes": 145
+    }
+   },
+   {
+    "path": "0412x.standing/evidence/director-agreement.md",
+    "kind": "whole",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "61737228ee93c59f6a7ea0f9c1311c970e146991dc1557bb2f94ac7d2e3e809e",
+     "bytes": 244
+    }
+   }
+  ],
+  "director_required": [
+   {
+    "path": "0412x.standing/evidence/director-agreement.md",
+    "kind": "whole",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "61737228ee93c59f6a7ea0f9c1311c970e146991dc1557bb2f94ac7d2e3e809e",
+     "bytes": 244
+    }
+   }
+  ],
+  "recorded_decisions": [
+   {
+    "record": "0599.fixture-task/06.02.decisions.md",
+    "verbatim_cut": "Director - verbatim",
+    "interpretation_cut": "Prime - exact proposal this reply approves",
+    "answers_cut": "Prime - exact proposal this reply approves",
+    "answers_scope": "only the cited proposal",
+    "verbatim": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "5524adba62072a5c283ed26db6c5cfe861885675c210ef5579745d24845b5564",
+     "bytes": 46
+    },
+    "interpretation": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "ed0b3b238eae30dc28766c5cd7828c88ca3e8d7b07eb7b58b5e3287713e9471c",
+     "bytes": 108
+    },
+    "answers": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "ed0b3b238eae30dc28766c5cd7828c88ca3e8d7b07eb7b58b5e3287713e9471c",
+     "bytes": 108
+    },
+    "distinct_cuts": true
+   }
+  ]
+ },
+ "specified_NOT_RUN": {
+  "states": {
+   "goal": "cited",
+   "scope": "cited",
+   "finish_criteria": "cited",
+   "prime_discretion": "cited",
+   "director_required": "cited",
+   "recorded_decisions": "cited"
+  },
+  "may_continue": [
+   "record, inspect and publish a review",
+   "Prime operations within the cited scope"
+  ],
+  "must_wait": [
+   "builder execution: still needs the named Director invocation of the pack; 'Ok pack it' approved packaging of the cited proposal only"
+  ],
+  "unknown": []
+ }
+}

@@ -1,0 +1,38 @@
+# 05.13 - Actual return intake and canonical source binding repair
+date: 2026-11-02
+who: Codex Prime
+executor: Grok-1
+reviewer: Codex Prime
+state: PREPARED; execute on named Director invocation only
+
+## Goal / method
+Finish the approved 0412/06.06 operator cycle by correcting K1/K2 on 06.24. Verify evidence/pack05.13/source-manifest.json; claim/notes in NEW 06.25.md. Reproduce the frozen actual 0521/05.10 intake failure and the disclosed valid role-overlap record failure BEFORE repair; preserve first failures. These are now known-failure reproductions, not independent coverage. Remaining Claude acceptance cases and unfinished Grok-2 repair stay unread. Notes and precise API/delta contract first, reread and integrate after testing.
+
+## #01 - Resolve the actual declared return formats
+NEW labs/workbook-review-pass03, app/review_loop_tools_v7.py and review-loop-v7.json; preserve predecessors byte-for-byte and keep v4 compatibility scoped. Select only the review-loop branch and narrow documentation; no return/backend/authoring selection, whole dispatcher restore or other builder edits.
+
+Carry explicit source page and declared reference context through resolution. Support the actual source-page-relative 'evidence/build05.10/...' pointer, known book-relative references and qualified repository references, with measured root/path identity. Do not search folders or guess whichever file exists first. Define contextual bases unambiguously; competing valid candidates must be an explicit ambiguity unless a recorded grammar establishes their distinct namespaces. Same resolved file can have several roles, but is one physical identity. Keep containment/link/escape checks and source-book identity.
+
+Recognize the actual 'bytes, 16 files. Excludes itself and this page.' manifest suffix as well as the prior 'bytes.' form. Narrow known syntax, not an unbounded permissive regex. Duplicate labels, conflicting declarations and malformed identities remain findings/holds. No historic pack/submission/manifest rewriting to fit the parser. The real thin submission's separate Verification/schema/hash/bytes lines are input, not proof of successful verification; retrieve its declared substantive verification through an explicit checked parser or declared artifact index and report the exact coverage/limits. Unknown text cannot silently discard other valid pointer fields.
+
+## #02 - Canonicalize physical source identities without losing roles
+Keep the full selected dependency/role inventory, but assemble unique validator source IDs for the same resolved physical file. Submission/verification may also appear as artifacts in one valid manifest. Do not emit duplicate IDs to prime_review; retain all roles and binding/accountability in the intake. Contradictory declared hashes/lengths or same address in different book instances are not deduped as equivalent. Canonicalization must be consistent for preliminary and filed paths and preserve existing source freshness and cycle ownership rules.
+
+## #03 - Regression and real operator preparation
+Tests use retained ordinary copies: exact real 0521/05.10 pointer/submission/manifest; a positive manifest containing submission AND verification as artifacts; same-file alias versus truly conflicting declared roots/identities; existing missing/malformed inputs; normal/blocked preliminary publication; stale selected source/read/recover; tampered render before replay; own-pointer freshness; source-scoped filed identities. Reuse accepted helpers and focus tests on changed behavior plus preserved critical seams. No broad unrelated reruns or new workflow engine.
+
+Through the actual app, show prepare/form -> supplied judgment -> record -> inspect -> publish -> new-process read/recover on a small valid copied real-format source. Distinguish authoritative state and all J/P/C/W/R meanings. No fake custody or grant. Missing scope/Director records remain explicit unknowns; do not infer consent from a heading. A compliant preliminary judgment must be preserved without inventing a receipt; a real authority conflict blocks only its dependent action. Report every remaining manual reconstruction step.
+
+Current book: READ-ONLY prepare/form/inspect of frozen real 0521/05.10 (not PENDING). Show substantive submission and full artifact binding plus any real mismatches. No live judgment publication by builder. Prime independently reviews this repair, then performs the real-use gate on a selected actual return; do not claim that gate passed from copies. Preserve original historic manifest bytes when changed artifacts make an old return stale.
+
+## Outputs / boundaries
+NEW successor module/facade/declaration/tests/docs, narrow review-loop selection/docs, NEW 06.25.md/evidence/build05.13, this pack Return pointer, retained external fixtures only. No predecessor/source/capture edits, live judgment/receipt/migration/archive/layout/authority, current assignment/kernel/00.live/N3NN, unfinished builder code, Git/network/install/models/bots or AR-01.
+
+Return Did/Blocked/Need, K1/K2 dispositions, actual API/forms/pins/ownership, claim -> case/result/limits with known-reproduction vs new-author cases separate, first failures/raw outputs, manual-step inventory, Factfind/Hostile/Overflow/Unprompted, reread corrections and artifact manifest excluding itself. Matching 0122 custody pending. Stop for Prime review; no adoption, closure or release.
+
+## Return pointer
+Submission: 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/submission.md sha256 0bf16292a0a10f4cd2120cf3f20915db9ab1d57c48da6609b25a699973ec49e5, 25656 bytes.
+Artifact manifest: 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/artifact-manifest.json sha256 e806c09a08b5596d25e62efc1988188fb64ca064bb05545abda911a75f61fe04, 6704 bytes. The manifest lists 29 files and excludes itself.
+
+## Review - Codex Prime
+PENDING.

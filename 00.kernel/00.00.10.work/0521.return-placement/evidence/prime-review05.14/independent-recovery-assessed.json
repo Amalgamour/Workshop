@@ -1,0 +1,21 @@
+{
+  "first": {
+    "exit": 1,
+    "render_result": "rendered",
+    "apply_called": true
+  },
+  "second": {
+    "exit": 0,
+    "render_result": "already-rendered",
+    "apply_called": false
+  },
+  "target_sha256_stable": "66b30232469c651229e8db1e8818769ed9a562441896dd02155ddbd5c4510234",
+  "existing_review": {
+    "exit": 2,
+    "preserved": true
+  },
+  "reviewer_correction": "Initial probe wrongly assumed exit 0 was required for a successful mechanical recovery. Exit 1 retains attention; actual render result and page/check evidence establish creation. First traceback/output preserved.",
+  "authority": "none",
+  "closes_work": false,
+  "releases_action": false
+}

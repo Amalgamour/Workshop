@@ -1,0 +1,113 @@
+{
+  "accepted": false,
+  "approved": false,
+  "check": "return-access-status/1",
+  "command": "status",
+  "correction": "Status is read-only. Custody is not acceptance. Supported-route closure is prepared and not selected. A reader result does not establish task association.",
+  "custody_is_acceptance": false,
+  "descriptor": null,
+  "detail": {
+    "app_selected": false,
+    "rewritten": false,
+    "selected_backend": {
+      "bytes": 12124,
+      "path": "labs/return-lines-pass04/return_lines.py",
+      "sha256": "708443c5b3af457f930e8751be4224234d1494f2a2b4e18e3cf08bd7a7af1df6"
+    },
+    "sentinel_policy": "not-adopted",
+    "successor_consumed": false,
+    "authority": {
+      "established": false,
+      "live_release": false,
+      "requirement": "Canonical writes use the pass04 recorded-release validator. A synthetic fixture return-line-authorization/1 is copy evidence only. No live release exists. A reader result does not establish task association or approval.",
+      "successor_consumed": false
+    },
+    "incomplete_closure": "not-established",
+    "incomplete_findings": [
+      {
+        "completed_by_this_tool": false,
+        "member": "0154.colab-support-first-0501",
+        "source_page": "0510.colab-tools",
+        "state": "incomplete"
+      }
+    ],
+    "layout": {
+      "allocation": "line-pass",
+      "bytes": 216,
+      "path": "return-line-layout.json",
+      "present": true,
+      "sequential_allocation": false,
+      "sha256": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804"
+    },
+    "legacy_writer_closure": "supported-routes-prepared",
+    "legacy_writers": [
+      {
+        "allocates": true,
+        "command": "reserve",
+        "disposition": "historical-script-remains-runnable",
+        "later_change": "Selected closure is labs/return-capture-guard-pass01/return_capture_guard.py when a caller selects that guard. The historical script remains directly runnable. This reader does not select it.",
+        "path": "labs/return-capture-pass01/return_capture.py",
+        "route": "return_capture reserve",
+        "writes_custody": true
+      },
+      {
+        "allocates": true,
+        "command": "reserve",
+        "disposition": "unselected-historical-fixture",
+        "later_change": "Unselected historical fixture. A later supported reserve demo would be a new file. This file stays runnable and is not edited.",
+        "path": "labs/capture-handoff-pass01/demo.py",
+        "route": "capture-handoff demo",
+        "writes_custody": true
+      },
+      {
+        "allocates": true,
+        "command": "reserve",
+        "disposition": "unselected-historical-fixture",
+        "later_change": "Unselected historical fixture. A later supported rehearsal would be a new file. This file stays runnable and is not edited.",
+        "path": "labs/capture-flow-rehearsal-pass01/rehearse.py",
+        "route": "capture-flow rehearsal",
+        "writes_custody": true
+      },
+      {
+        "allocates": false,
+        "command": "capture",
+        "disposition": "prepared-not-selected",
+        "later_change": "Prepared successor is labs/capture-handoff-guard-pass01/handoff.py when app/handoff_tools_v2.py is selected. The sealed handoff remains directly runnable. The app has not selected the successor.",
+        "path": "labs/capture-handoff-pass01/handoff.py",
+        "route": "librarian capture-return",
+        "writes_custody": true
+      },
+      {
+        "allocates": false,
+        "command": "inspect",
+        "disposition": "not-repinned",
+        "later_change": "Boot stays inspect-only on the old helper sibling pin. This build does not repin it.",
+        "path": "labs/prime-boot-pass01/prime_boot.py",
+        "route": "librarian boot",
+        "writes_custody": false
+      },
+      {
+        "allocates": false,
+        "command": "inspect",
+        "disposition": "not-repinned",
+        "later_change": "Batch observation stays inspect-only on the old helper sibling pin. This build does not repin it.",
+        "path": "labs/batch-observation-pass01/batch_observe.py",
+        "route": "librarian batch-observe",
+        "writes_custody": false
+      }
+    ]
+  },
+  "exit": 0,
+  "legacy": null,
+  "missing": [],
+  "partial": false,
+  "published": false,
+  "route": null,
+  "schema": "return-access-result/1",
+  "state": "reported",
+  "task_association": "not-established",
+  "verified": {
+    "layout_sha256": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804",
+    "layout_bytes": 216
+  }
+}

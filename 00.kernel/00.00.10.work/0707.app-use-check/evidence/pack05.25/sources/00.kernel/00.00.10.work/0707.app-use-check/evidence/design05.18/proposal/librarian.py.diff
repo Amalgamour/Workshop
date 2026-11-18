@@ -1,0 +1,20 @@
+--- app/librarian.py	2026-11-03 10:46:56.978124400 -0600
++++ labs/review-entry-integration-pass01/candidate/app/librarian.py	2026-11-03 17:13:25.646271100 -0600
+@@ -7,7 +7,7 @@
+ pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
+ prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
+ prime-review, prime-guard, and prime-check-next call the pinned read-only Prime review tool on one explicit input.
+-review-loop forwards workbook prepare, form, record, inspect, publish, read, and recover to the pinned v7 door. The v4 fixture commands stay on the pinned v4 door. reproduce is not an app command.
++review-loop forwards workbook prepare, form, record, inspect, publish, read, and recover to the pinned v8 door. The v4 fixture commands stay on the pinned v4 door. reproduce is not an app command.
+ authoring forwards form, start, add-note, add-item, revise, inspect, review, and freeze to the pinned authoring v2 door.
+ return-lines forwards status, lookup, and verify to the pinned return-access adapter, and reserve and capture to the pinned pass03 door.
+ boot-prepare, boot-check, boot-judge, and boot-show forward explicit arguments to the pinned recorded-boot tool.
+@@ -100,7 +100,7 @@
+     command = args.pop(0)
+     code_root = Path(__file__).resolve().parent.parent
+     if command == "review-loop":
+-        door = load_module(Path(__file__).resolve().parent / "review_loop_tools_v7.py", "librarian_review_loop_tools_v7")
++        door = load_module(Path(__file__).resolve().parent / "review_loop_tools_v8.py", "librarian_review_loop_tools_v8")
+         try:
+             code = door.perform(args, code_root)
+         except door.Refuse as exc:

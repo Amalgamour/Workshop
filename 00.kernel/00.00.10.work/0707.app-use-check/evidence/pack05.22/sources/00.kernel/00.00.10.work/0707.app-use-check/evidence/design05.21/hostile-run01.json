@@ -1,0 +1,50 @@
+{
+ "schema": "harness-hostile/1",
+ "cases": {
+  "HX-1": {
+   "expected": "exit 1, not ready, all blocked",
+   "exit": 1,
+   "ready": false,
+   "verdicts": [
+    "blocked"
+   ],
+   "ok": true
+  },
+  "HX-2": {
+   "expected": "exit 2, refused, no rooms",
+   "exit": 2,
+   "stdout": "REFUSED: candidate file differs: app/review_loop_tools_v8.py\n",
+   "rooms_created": false,
+   "ok": true
+  },
+  "HX-3": {
+   "expected": "exit 2 (pending row with a guessed pin)",
+   "exit": 2,
+   "stdout": "REFUSED: dependency K is pending but carries pins; pending rows must say PENDING\n",
+   "ok": true
+  },
+  "HX-4": {
+   "expected": "exit 2 (accepted row does not match frozen bytes)",
+   "exit": 2,
+   "stdout": "REFUSED: accepted dependency G file differs: labs/workbook-review-pass05/workbook.py\n",
+   "ok": true
+  },
+  "HX-5": {
+   "expected": "16 unit tests pass, exit 0",
+   "exit": 0,
+   "tail": "dy) ... ok\ntest_unknown_verdict_not_ready (__main__.Aggregate.test_unknown_verdict_not_ready) ... ok\n\n----------------------------------------------------------------------\nRan 16 tests in 0.001s\n\nOK\n",
+   "ok": true
+  },
+  "HX-6": {
+   "expected": "capacity-only suite: exit 1, not ready",
+   "exit": 1,
+   "ready": false,
+   "records": 6,
+   "ok": true
+  }
+ },
+ "aggregate": {
+  "ok": 6,
+  "total": 6
+ }
+}

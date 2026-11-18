@@ -1,0 +1,42 @@
+{
+  "aggregate": "PASS",
+  "cases": [
+    {
+      "error": null,
+      "failed_checks": [],
+      "id": "S01",
+      "status": "PASS",
+      "title": "STUB ok"
+    }
+  ],
+  "code_sha256": {
+    "cases.py": "e7b63dc79b29566850c6f4664af20b50aecd2035a41866fb2480d4095674fdf4",
+    "fixtures.py": "698dbff979eb761f050a992d9525da03f2fafc4b7ca541e092f3f53ced44a08a",
+    "harness.py": "c890fe4c2cb174e46ff37d6ea9868f268d0dfad84297275520614823aa1fff5f",
+    "stub_cases.py": "ba6285d6488abc65b125127ae85be462f333ff114d8c70db8a9155ea78a141af",
+    "stubs/STUB_loop.py": "86e245ff034d23af2c8d17a52c49ad3bdd874e02559acd77294283845e29c604"
+  },
+  "command": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0707.app-use-check\\pass04\\harness.py",
+    "run",
+    "--matrix",
+    "stub"
+  ],
+  "config_sha256": "23c4381a64b4a93c21e25abf7ff4e035f04d1d55a5f2373820b28d668d076418",
+  "exit": 0,
+  "kind": "stub",
+  "launches": 1,
+  "loop_evidence": false,
+  "matrix": "stub",
+  "preflight": {
+    "candidate": "pinned",
+    "reasons": [],
+    "status": "READY"
+  },
+  "run": "20261101T214419Z-d62c3d",
+  "schema": "acceptance-run/1",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

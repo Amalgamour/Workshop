@@ -1,0 +1,100 @@
+--- pass03
+
++++ pass04
+
+@@ -1,12 +1,12 @@
+
+ #!/usr/bin/env python3
+ """Render a full Prime assessment into a workflow review section.
+ 
+-Successor of labs/review-construction-pass02/construct.py.
+-Base sha256 b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc, 36188 bytes.
+-Delta: review-construction/2 supplied review state, source-hash display for
+-recorded decisions on that version, null versus empty-list wording on that
+-version only, and read-only inspect. review-construction/1 rendering and the
+-task-binding inputs stay compatible with pass02. ROOT stays D:\\Git\\lib-build.
++Successor of labs/review-construction-pass03/construct.py.
++Base sha256 6eec5653c6818cfdeb98ffcd929cdf26f0ddf15c3121c703ce795abea6eb755d, 42216 bytes.
++Delta: task_binding is read by splitting the located section on the newline_of
++separator, and supplied enum values are checked as strings before membership.
++Rendering, envelope keys, and task-binding inputs stay compatible with pass03.
++ROOT stays D:\\Git\\lib-build.
+ 
+ Preview writes nothing. Apply writes only inside a disposable fixture root
+ outside D:\\Git\\lib-build. Inspect writes nothing. Judgment words come from a
+@@ -323,14 +323,18 @@
+
+     )
+ 
+ 
++def supplied_enum(value, allowed: set[str], field: str) -> None:
++    need(isinstance(value, str) and value in allowed, f"bad supplied_review_state.{field}")
++
++
+ def parse_supplied(raw) -> dict:
+     exact(raw, SUPPLIED_KEYS, "supplied_review_state")
+     need(raw["schema"] == SUPPLIED_SCHEMA, "bad supplied_review_state schema")
+     need(raw["source"] == SUPPLIED_SOURCE, "bad supplied_review_state source")
+-    need(raw["disposition"] in DISPOSITIONS, "bad supplied_review_state.disposition")
+-    need(raw["pass_terminal"] in PASS_TERMINALS, "bad supplied_review_state.pass_terminal")
+-    need(raw["goal_terminal"] in GOAL_TERMINALS, "bad supplied_review_state.goal_terminal")
+-    need(raw["outcome"] in OUTCOMES, "bad supplied_review_state.outcome")
++    supplied_enum(raw["disposition"], DISPOSITIONS, "disposition")
++    supplied_enum(raw["pass_terminal"], PASS_TERMINALS, "pass_terminal")
++    supplied_enum(raw["goal_terminal"], GOAL_TERMINALS, "goal_terminal")
++    supplied_enum(raw["outcome"], OUTCOMES, "outcome")
+     return {
+         "schema": raw["schema"],
+         "source": raw["source"],
+@@ -932,19 +936,31 @@
+
+     }
+ 
+ 
++def binding_line(section: bytes, sep: bytes) -> str | None:
++    found = None
++    for line in split_lines(section, sep):
++        try:
++            text = line.decode("utf-8")
++        except UnicodeDecodeError:
++            raise Refusal("unsupported format: not utf-8") from None
++        match = re.fullmatch(r"task_binding: ([0-9a-f]{64})", text)
++        if match is not None and found is None:
++            found = match.group(1)
++    return found
++
++
+ def command_show(root: Path, rel: str) -> dict:
+     target = under(root, rel, "target")
+     data = read_regular(target, "target")
+     sep = newline_of(data)
+     _prefix, current, _suffix = locate(data, sep)
+-    text = current.decode("utf-8")
+-    match = re.search(r"(?m)^task_binding: ([0-9a-f]{64})$", text)
+-    need(match is not None, "rendered review has no task binding")
++    found = binding_line(current, sep)
++    need(found is not None, "rendered review has no task binding")
+     return {
+         "schema": "review-construction-show/1",
+-        "binding_sha256": match.group(1),
++        "binding_sha256": found,
+         "section_sha256": sha256_bytes(current),
+-        "section": text,
++        "section": current.decode("utf-8"),
+     }
+ 
+ 
+@@ -974,11 +990,10 @@
+
+         sep = newline_of(data)
+         _prefix, current, _suffix = locate(data, sep)
+         text = current.decode("utf-8")
++        found = binding_line(current, sep)
+     except Refusal as exc:
+         return {**base, "state": "unsupported", "rule": exc.message}
+     section_sha = sha256_bytes(current)
+-    match = re.search(r"(?m)^task_binding: ([0-9a-f]{64})$", text)
+-    found = match.group(1) if match else None
+     if text.strip() in {"PENDING", "PENDING."}:
+         return {
+             **base,

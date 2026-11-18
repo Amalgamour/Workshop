@@ -1,0 +1,173 @@
+{
+  "schema": "review-construction/1",
+  "source_kind": "N5NN",
+  "page": "00.kernel/00.00.10.work/0599.synth-lab/05.01.md",
+  "pass": "05.01",
+  "target": "0588.wrong-page/05.01.md",
+  "expect_sha256": "c37a58b3fa229d3c36c1e33adfcd963fa6a8b9368d98036c982dde5319ea2542",
+  "permit_create": false,
+  "review_identity": "r1",
+  "task": {
+    "task_id": "synth-task",
+    "assignment_path": "assignment.txt"
+  },
+  "evidence": [
+    {
+      "logical_path": "piece.txt",
+      "label": "synthetic"
+    }
+  ],
+  "agreement": {
+    "director_required": "A design change is not in this grant.",
+    "finish_criteria": [
+      {
+        "id": "piece",
+        "text": "The synthetic piece stays one file."
+      }
+    ],
+    "goal": "Review one synthetic piece.",
+    "prime_discretion": "Prime may record a judgment inside that grant.",
+    "recorded_decisions": [
+      {
+        "id": "D1",
+        "source_sha256": "86ae35d58a6aa3b5742df94ef9d7162219f0106a911ae1954c1f0604aaec805d",
+        "text": "The synthetic pack was supplied for this lab."
+      }
+    ],
+    "scope": "The disposable fixture only."
+  },
+  "receipt": {
+    "placement": "n5nn-matching-line",
+    "member": "0199.synth-lab",
+    "page_local": null,
+    "submission_id": "synthetic-0522",
+    "receipt_path": "receipt.json",
+    "return_path": "return.md",
+    "manifest_path": "manifest.json",
+    "status": "complete",
+    "label": "synthetic"
+  },
+  "record": {
+    "schema": "prime-review-record/1",
+    "attribution": {
+      "actor_label": "Grok-2 lab (SUPPLIED)",
+      "role": "prime",
+      "evidence": "SUPPLIED synthetic judgment. The label is not authentication."
+    },
+    "sources": [
+      {
+        "bind": false,
+        "content_bytes": 39,
+        "content_sha256": "f49a4a18ef257ed0c03ef8429dedb4b6a65c771d70dfcc648e5abfe62e5eda11",
+        "identity": {
+          "schema": "page-bytes/1"
+        },
+        "kind": "page",
+        "logical_path": "assignment.txt",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "Synthetic assignment. Write one piece.\n",
+        "transport_bytes": 39,
+        "transport_sha256": "f49a4a18ef257ed0c03ef8429dedb4b6a65c771d70dfcc648e5abfe62e5eda11"
+      },
+      {
+        "bind": false,
+        "content_bytes": 16,
+        "content_sha256": "4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29",
+        "identity": {
+          "schema": "supplied-text/1",
+          "label": "SYNTHETIC"
+        },
+        "kind": "supplied-text",
+        "logical_path": "piece.txt",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "synthetic piece\n",
+        "transport_bytes": 16,
+        "transport_sha256": "4bedbe4b007b0cbdc2d10beeeeb844d261171af410e3be1d950f0dd8e82d1c29"
+      },
+      {
+        "bind": false,
+        "content_bytes": 23,
+        "content_sha256": "51ac04c660695dae7c8570f855263bb2e6c6c28ecdefe995be56eda3ecd77700",
+        "identity": {
+          "schema": "return-capture/1",
+          "member": "0199.synth-lab",
+          "submission_id": "synthetic-0522",
+          "receipt_sha256": "a28e393f2c175aeb86a2ce4f471abaa914d9828ee642730c02513e4d15f53451",
+          "origin": {
+            "book": "00.00.10.work",
+            "page": "0599.synth-lab",
+            "batch": "05.01"
+          }
+        },
+        "kind": "capture",
+        "logical_path": "return.md",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "Did.\nSynthetic return.\n",
+        "transport_bytes": 23,
+        "transport_sha256": "51ac04c660695dae7c8570f855263bb2e6c6c28ecdefe995be56eda3ecd77700"
+      }
+    ],
+    "agreement": {
+      "director_required": "A design change is not in this grant.",
+      "finish_criteria": [
+        {
+          "id": "piece",
+          "text": "The synthetic piece stays one file."
+        }
+      ],
+      "goal": "Review one synthetic piece.",
+      "prime_discretion": "Prime may record a judgment inside that grant.",
+      "recorded_decisions": [
+        {
+          "id": "D1",
+          "source_sha256": "86ae35d58a6aa3b5742df94ef9d7162219f0106a911ae1954c1f0604aaec805d",
+          "text": "The synthetic pack was supplied for this lab."
+        }
+      ],
+      "scope": "The disposable fixture only."
+    },
+    "holds": [],
+    "answers": [],
+    "review_passes": [],
+    "gaps": [],
+    "judgment": {
+      "outcome": "continue",
+      "finding": "No findings.",
+      "reasons": [
+        "The supplied return names the piece."
+      ],
+      "semantic_conflict": false,
+      "design_fork": null,
+      "next_action": "Pack one bounded correction for the synthetic piece.",
+      "sections": {
+        "affected": null,
+        "assumptions": null,
+        "consequences": null,
+        "exploration": null,
+        "findings_account": null,
+        "finish_assessments": null,
+        "for_model": null,
+        "issue": null,
+        "learning": null,
+        "limits": null,
+        "next_bounded_action": "Hand back one correction pack.",
+        "open_questions": null,
+        "options": null,
+        "outcome_evidence": null,
+        "preservation": null,
+        "prime_finding": "No findings.",
+        "proposed_plan": null,
+        "question": null,
+        "recommendation": null,
+        "remaining_choices": null,
+        "return_result": "The builder returned the synthetic piece.",
+        "tests_note": null,
+        "tests_passed": null,
+        "within_direction": "This stays inside the synthetic grant."
+      }
+    }
+  }
+}

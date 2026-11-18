@@ -1,0 +1,701 @@
+{
+ "schema": "prima-gameatron-handoff-evidence/1",
+ "generated": "2026-11-01T12:30-06:00 (America/Chicago, CST)",
+ "verifier": "Prima executor subagent (read-only via cursor-github as user)",
+ "rules_source": {
+  "repo": "Amalgamour/Librarian",
+  "ref": "566d7eb969243761e550f98f50f649f2173442e4",
+  "checks": [
+   {
+    "check": "prima/GAMEATRON.md sha256 vs notices.json",
+    "status": "verified",
+    "sha256": "6dec635b9f4c7b3915d965c79164866b9e84446e982bc50ec0ca1ba75cb2a0ca",
+    "bytes": 4730
+   },
+   {
+    "check": "prima/USAGE.md sha256 vs notices.json",
+    "status": "verified",
+    "sha256": "1faa46043f2febf2768e35616ce12c9157a7c37d73c9006949a14ab2fb54f06e",
+    "bytes": 3299
+   },
+   {
+    "check": "prima/notices.json read",
+    "status": "verified",
+    "sha256": "6bd0ffebbadd9b5b3c8c2f4043d80394b13ac28fcc1a532c8370ae830deac7ad",
+    "bytes": 889
+   },
+   {
+    "check": "00.kernel/00.00.10.work/0422.prima/06.03.md exists",
+    "status": "verified",
+    "sha256": "71a5d9c4bb4674a72ccf073c797a7af976183de87ad6bc413368ffa10f1eccaf",
+    "bytes": 630,
+    "director_verbatim": "I'm giving prima control of Gameatron.  So Prima is responsible for returning Gameatron's work."
+   }
+  ]
+ },
+ "branch_heads_observed_2026-11-01T12:2x-06:00": {
+  "sof/gm-kit": {
+   "sha": "1de02a74de17f8d6030dcbe8c8306ec523242b98",
+   "status": "verified",
+   "note": "head == pinned source; author Mathias 2026-11-01T17:47:43Z = 11:47:43 CST; msg \"Prepare staged Gameatron boot and 300-turn Colab\"; parent c4d04b1c"
+  },
+  "colab/gameatron": {
+   "sha": "d2046aa46dc1f2cd4c40f5e5f0a33108bf657d0f",
+   "status": "verified"
+  }
+ },
+ "pack": {
+  "path": "colab/packs/0009-boot-and-300.md@1de02a74",
+  "bytes": 13361,
+  "sha256": "cea8f9f58469dbeb39cd95add53d3731a3ca800b7d738932651d34e426ac5247",
+  "status": "verified (matches candidate)"
+ },
+ "candidate": {
+  "path": "colab/candidates/0009-boot-and-300.json@1de02a74",
+  "bytes": 1195,
+  "sha256": "d170bd217fe2f23ed7cf3862416e3d9e5be7e3e7bc7b25b011625f88d2d2ecfc",
+  "status": "verified (matches Gameatron RUN-START-RECORD)"
+ },
+ "commits": [
+  {
+   "sha": "c3888c836a9333ab2fe13bba3e16f97a25cc88f8",
+   "status": "verified",
+   "on_colab_gameatron": true,
+   "parent": "5004538204988d99c4bd9a6477ec0aac22685816",
+   "parent_claim_status": "verified",
+   "author": "Cursor Agent <cursoragent@cursor.com>",
+   "author_date_utc": "2026-11-01T18:15:40Z",
+   "author_date_chicago": "2026-11-01 12:15:40 CST",
+   "message": "Colab0009 boot-and-300 return (partial 112/300) / Model: Gameatron (Grok Bot) / Co-authored-by: Mathias",
+   "files_added": 1885,
+   "files_count_status": "verified (tree diff vs parent: 1885 added, 0 modified/removed, all under colab/returns/0009-boot-and-300/; get_commit lists only first 300)",
+   "return_path_preexisted_in_parent": false
+  },
+  {
+   "sha": "d2046aa46dc1f2cd4c40f5e5f0a33108bf657d0f",
+   "status": "verified",
+   "on_colab_gameatron": "head",
+   "parent": "c3888c836a9333ab2fe13bba3e16f97a25cc88f8",
+   "author": "Cursor Agent <cursoragent@cursor.com>",
+   "author_date_utc": "2026-11-01T18:15:56Z",
+   "author_date_chicago": "2026-11-01 12:15:56 CST",
+   "files_added": [
+    "colab/returns/0009-boot-and-300/publisher-verification.md"
+   ],
+   "additions": 11
+  },
+  {
+   "sha": "5004538204988d99c4bd9a6477ec0aac22685816",
+   "note": "Colab0007 long-run-100 publisher verification, 2026-10-30T18:53:01Z = 13:53:01 CDT"
+  }
+ ],
+ "artifacts": [
+  {
+   "path": "colab/returns/0009-boot-and-300/artifact-manifest.json",
+   "git_blob_tree": "74d36b05a0ca62264c895ef550ae0a94b7970a32",
+   "bytes_tree": 323867,
+   "manifest": null,
+   "gameatron_claim": {
+    "sha256": "e22bdba0bc16fb158ca19eaae474e5c35dd9e62eaf0b65417b8804d1255c2a6c",
+    "bytes": 323867
+   },
+   "status": "verified-by-Prima-API",
+   "sha256_fetched": "e22bdba0bc16fb158ca19eaae474e5c35dd9e62eaf0b65417b8804d1255c2a6c",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest (if listed) and Gameatron claim (if made).",
+   "bytes_fetched": 323867
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/artifacts/adventure-book.zip",
+   "git_blob_tree": "7cbb97d08d898f24f1e9b0e06c8a4b2b5b8f4c8a",
+   "bytes_tree": 3902653,
+   "manifest": {
+    "sha256": "b3a2b87f666e2e06c8d7f347b22493b172401a41faa30b3802d8fa2ff454b1cc",
+    "bytes": 3902653
+   },
+   "gameatron_claim": {
+    "sha256": "b3a2b87f666e2e06c8d7f347b22493b172401a41faa30b3802d8fa2ff454b1cc",
+    "bytes": 3902653
+   },
+   "status": "verified-by-Prima-launched-git-agent",
+   "sha256_fetched": null,
+   "evidence": "get_file_contents returns binary as lossy text (PDF fetch: 660836 bytes, 81645 U+FFFD, git blob 46c0a58… != tree f172cab…); no blob/raw API in connector; repo private so no unauthenticated curl. Byte length matches tree size; sha256 is claimed-only (manifest + Gameatron agree). | Prima API fetch was lossy; bytes verified by git agent bc-9949730d (blob 7cbb97d08d898f24f1e9b0e06c8a4b2b5b8f4c8a).",
+   "bytes_status": "verified (tree size)",
+   "sha256_git_agent": "b3a2b87f666e2e06c8d7f347b22493b172401a41faa30b3802d8fa2ff454b1cc",
+   "bytes_git_agent": 3902653
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/artifacts/world-and-adventure.pdf",
+   "git_blob_tree": "f172cab1dcd86a92ffb7f221f9f3b0d38f53ffaa",
+   "bytes_tree": 500739,
+   "manifest": {
+    "sha256": "28460c27e3a5261063fda9f0c2cbfc45fabb37f5307f2c7765499fb9e1e312ac",
+    "bytes": 500739
+   },
+   "gameatron_claim": {
+    "sha256": "28460c27e3a5261063fda9f0c2cbfc45fabb37f5307f2c7765499fb9e1e312ac",
+    "bytes": 500739
+   },
+   "status": "verified-by-Prima-launched-git-agent",
+   "sha256_fetched": null,
+   "evidence": "get_file_contents returns binary as lossy text (PDF fetch: 660836 bytes, 81645 U+FFFD, git blob 46c0a58… != tree f172cab…); no blob/raw API in connector; repo private so no unauthenticated curl. Byte length matches tree size; sha256 is claimed-only (manifest + Gameatron agree). | Prima API fetch was lossy; bytes verified by git agent bc-9949730d (blob f172cab1dcd86a92ffb7f221f9f3b0d38f53ffaa).",
+   "bytes_status": "verified (tree size)",
+   "sha256_git_agent": "28460c27e3a5261063fda9f0c2cbfc45fabb37f5307f2c7765499fb9e1e312ac",
+   "bytes_git_agent": 500739
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/RUN-START-RECORD.md",
+   "git_blob_tree": "32a8cababec15540b25955fce7bfe38c61b5197f",
+   "bytes_tree": 2170,
+   "manifest": {
+    "sha256": "58391ab804bc2acc1222e16f7d8d59eb5989a93db0928e01d666bc09824c103b",
+    "bytes": 2170
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "58391ab804bc2acc1222e16f7d8d59eb5989a93db0928e01d666bc09824c103b",
+   "bytes_fetched": 2170,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/calls/0581-commit-evt-0095.in0.json",
+   "git_blob_tree": "bb939c0cd7e15995661874b76590c95327a97a6e",
+   "bytes_tree": 1953,
+   "manifest": {
+    "sha256": "034d54949c7aa0ab28052da72866b00d81cf9aa278968e86ee8a4714ffdff12b",
+    "bytes": 1953
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "034d54949c7aa0ab28052da72866b00d81cf9aa278968e86ee8a4714ffdff12b",
+   "bytes_fetched": 1953,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/cp-000/checkpoint.json",
+   "git_blob_tree": "6c949185648e17d299aee5d264541519ae348837",
+   "bytes_tree": 2300,
+   "manifest": {
+    "sha256": "c299d5c9c941a255ca219ef4739dd54b0cc43ea12a38c4da0c088634170a4c10",
+    "bytes": 2300
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "c299d5c9c941a255ca219ef4739dd54b0cc43ea12a38c4da0c088634170a4c10",
+   "bytes_fetched": 2300,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/cp-010/checkpoint.json",
+   "git_blob_tree": "26cec3870bc2d88d8eb68adae2ae0b72d8593cc6",
+   "bytes_tree": 2419,
+   "manifest": {
+    "sha256": "691a65f244e235db204e90464dad74c7cd650a0a00f72ad796454d17838f1b6d",
+    "bytes": 2419
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "691a65f244e235db204e90464dad74c7cd650a0a00f72ad796454d17838f1b6d",
+   "bytes_fetched": 2419,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/cp-050/checkpoint.json",
+   "git_blob_tree": "7931073ebef0230b39f4f7d99dfa352dfac0ab5a",
+   "bytes_tree": 6627,
+   "manifest": {
+    "sha256": "d0110eb3dc8b223f4acdaf4607871aa645de59e95ec249141649648405fb0bf3",
+    "bytes": 6627
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "d0110eb3dc8b223f4acdaf4607871aa645de59e95ec249141649648405fb0bf3",
+   "bytes_fetched": 6627,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/cp-100/checkpoint.json",
+   "git_blob_tree": "a467bd347292944c60ea130adcc52d3a67a2a896",
+   "bytes_tree": 11776,
+   "manifest": {
+    "sha256": "e0eb95bb4a6a2a31f40063622f2ec1bab1ea2af9f195cd9b62f89ec26a5e64ab",
+    "bytes": 11776
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "e0eb95bb4a6a2a31f40063622f2ec1bab1ea2af9f195cd9b62f89ec26a5e64ab",
+   "bytes_fetched": 11776,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/cp-112/checkpoint.json",
+   "git_blob_tree": "3688af396a7f098de293f4ddfd0293398f8c4651",
+   "bytes_tree": 12155,
+   "manifest": {
+    "sha256": "423a2ff0a4ee7f48875865d726bc638109f36df56ff73cb977061fc91046776d",
+    "bytes": 12155
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "423a2ff0a4ee7f48875865d726bc638109f36df56ff73cb977061fc91046776d",
+   "bytes_fetched": 12155,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/resume-112/resume-card.json",
+   "git_blob_tree": "b6be176e942f7eaa52c70d1cef6155a610b74c9d",
+   "bytes_tree": 2266,
+   "manifest": {
+    "sha256": "ee9638e77cdc700df4326b8698b1c0edc7c10adf50c5caf87c56a900c4ff2f5d",
+    "bytes": 2266
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "ee9638e77cdc700df4326b8698b1c0edc7c10adf50c5caf87c56a900c4ff2f5d",
+   "bytes_fetched": 2266,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/checkpoints/turn-10-gate.json",
+   "git_blob_tree": "00917e98f6a3b5a288bd6ace8f5134af3c30c2f3",
+   "bytes_tree": 1691,
+   "manifest": {
+    "sha256": "8448f0befa79055b5c72dba0531d5f198df03d684b8a90c33afa1b46bf7ba9ab",
+    "bytes": 1691
+   },
+   "gameatron_claim": {
+    "sha256": "8448f0befa79055b5c72dba0531d5f198df03d684b8a90c33afa1b46bf7ba9ab",
+    "bytes": 1691
+   },
+   "sha256_fetched": "8448f0befa79055b5c72dba0531d5f198df03d684b8a90c33afa1b46bf7ba9ab",
+   "bytes_fetched": 1691,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/logs/operation-log.jsonl",
+   "git_blob_tree": "e1d3bd90572c04467b8feedb5dcea49224ebf0ed",
+   "bytes_tree": 799089,
+   "manifest": {
+    "sha256": "9d6f486288819abe77f87497b9e4633095c5ceaf03415b8a6ec0c4837dc95ef2",
+    "bytes": 799089
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "9d6f486288819abe77f87497b9e4633095c5ceaf03415b8a6ec0c4837dc95ef2",
+   "bytes_fetched": 799089,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/pdf-qa/QA.md",
+   "git_blob_tree": "c56519cf77ea28dfdc752abdf4ff447248d2867a",
+   "bytes_tree": 677,
+   "manifest": {
+    "sha256": "551bb208cc39ebb60cb69d990b2dd94e5dd513ed58c6c906ef3ac3fa641faf62",
+    "bytes": 677
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "551bb208cc39ebb60cb69d990b2dd94e5dd513ed58c6c906ef3ac3fa641faf62",
+   "bytes_fetched": 677,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/pdf-qa/pdfinfo.txt",
+   "git_blob_tree": "2bcd0604be5a5fb218e59eb90743db35049dc336",
+   "bytes_tree": 640,
+   "manifest": {
+    "sha256": "1e5e5cf15ed4887c5b7200f05132c6b5a3c9ea89218dc78aa1c8e6f4674bd149",
+    "bytes": 640
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "1e5e5cf15ed4887c5b7200f05132c6b5a3c9ea89218dc78aa1c8e6f4674bd149",
+   "bytes_fetched": 640,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/turns/evt-0112.json",
+   "git_blob_tree": "7eb3f7cc40326344b5efe544d10ba90830c42b0a",
+   "bytes_tree": 383,
+   "manifest": {
+    "sha256": "ac6141335014f78d3348a62779d5c253208d3db9b2d9363a3937e657ef5ff4bb",
+    "bytes": 383
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "ac6141335014f78d3348a62779d5c253208d3db9b2d9363a3937e657ef5ff4bb",
+   "bytes_fetched": 383,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/evidence/zip-inspection.json",
+   "git_blob_tree": "754f68b56c40ad8a2599b46b5327f7019de0a81c",
+   "bytes_tree": 611870,
+   "manifest": {
+    "sha256": "6b5b536141e5b20d9622afdbb295cac710d8eeefd979fbde460a118fd840d560",
+    "bytes": 611870
+   },
+   "gameatron_claim": null,
+   "sha256_fetched": "6b5b536141e5b20d9622afdbb295cac710d8eeefd979fbde460a118fd840d560",
+   "bytes_fetched": 611870,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/report/appendix.md",
+   "git_blob_tree": "4b024686bac0fbf64511dd3de32d16b4d551b0bd",
+   "bytes_tree": 3541,
+   "manifest": {
+    "sha256": "641188895a393692fbe041423f9195750ce9dd8eb1b292c1c35b6245febc86bf",
+    "bytes": 3541
+   },
+   "gameatron_claim": {
+    "sha256": "641188895a393692fbe041423f9195750ce9dd8eb1b292c1c35b6245febc86bf",
+    "bytes": 3541
+   },
+   "sha256_fetched": "641188895a393692fbe041423f9195750ce9dd8eb1b292c1c35b6245febc86bf",
+   "bytes_fetched": 3541,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/report/build_report.py",
+   "git_blob_tree": "b47a53d49cd600eef5ff0ed0b0d878676fb1a0be",
+   "bytes_tree": 12341,
+   "manifest": {
+    "sha256": "82940ec8ec76fe71b351ae4277a44f0a3448e0a5c9d6f8b96c82fe983d7e45bd",
+    "bytes": 12341
+   },
+   "gameatron_claim": {
+    "sha256": "82940ec8ec76fe71b351ae4277a44f0a3448e0a5c9d6f8b96c82fe983d7e45bd",
+    "bytes": 12341
+   },
+   "sha256_fetched": "82940ec8ec76fe71b351ae4277a44f0a3448e0a5c9d6f8b96c82fe983d7e45bd",
+   "bytes_fetched": 12341,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/report/part-c.md",
+   "git_blob_tree": "fe97191b7d23e7e920fca4bb66fa9695946c94fd",
+   "bytes_tree": 7828,
+   "manifest": {
+    "sha256": "31e6a48d723a81e3442c2a0d55c5438cc76b2145865d77a9fc1a3bc0afc8bfc6",
+    "bytes": 7828
+   },
+   "gameatron_claim": {
+    "sha256": "31e6a48d723a81e3442c2a0d55c5438cc76b2145865d77a9fc1a3bc0afc8bfc6",
+    "bytes": 7828
+   },
+   "sha256_fetched": "31e6a48d723a81e3442c2a0d55c5438cc76b2145865d77a9fc1a3bc0afc8bfc6",
+   "bytes_fetched": 7828,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/report/world-and-adventure.html",
+   "git_blob_tree": "0ae9dc2773e56b95a5958cc878159267dad05774",
+   "bytes_tree": 96895,
+   "manifest": {
+    "sha256": "562ead67c07913507ebbd0813985b85ffb740c6968b0229308f69103f84d45a2",
+    "bytes": 96895
+   },
+   "gameatron_claim": {
+    "sha256": "562ead67c07913507ebbd0813985b85ffb740c6968b0229308f69103f84d45a2",
+    "bytes": 96895
+   },
+   "sha256_fetched": "562ead67c07913507ebbd0813985b85ffb740c6968b0229308f69103f84d45a2",
+   "bytes_fetched": 96895,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/report/world-and-adventure.md",
+   "git_blob_tree": "58dfa826a5e55da64c6f7bf19ac0713014213160",
+   "bytes_tree": 86752,
+   "manifest": {
+    "sha256": "f2adcc563495caec3c93fdf6839a6956875db672dbd32754da953b598dd85a6e",
+    "bytes": 86752
+   },
+   "gameatron_claim": {
+    "sha256": "f2adcc563495caec3c93fdf6839a6956875db672dbd32754da953b598dd85a6e",
+    "bytes": 86752
+   },
+   "sha256_fetched": "f2adcc563495caec3c93fdf6839a6956875db672dbd32754da953b598dd85a6e",
+   "bytes_fetched": 86752,
+   "status": "verified-by-Prima-API",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest and Gameatron claim."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/return.md",
+   "git_blob_tree": "f4337dfc2a1c5a6ad60b605fba3bb7303e6c6782",
+   "bytes_tree": 5280,
+   "manifest": {
+    "sha256": "341525761199ace10f7f037c5b127522e37180693e94d9c62b675bf485df3581",
+    "bytes": 5280
+   },
+   "gameatron_claim": {
+    "sha256": "341525761199ace10f7f037c5b127522e37180693e94d9c62b675bf485df3581",
+    "bytes": 5280
+   },
+   "status": "verified-by-Prima-API",
+   "sha256_fetched": "341525761199ace10f7f037c5b127522e37180693e94d9c62b675bf485df3581",
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest (if listed) and Gameatron claim (if made).",
+   "bytes_fetched": 5280
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/START-HERE.md",
+   "git_blob_tree": "bd79d783ad3cd8ca4d4cd8036d81ec7917d32157",
+   "bytes_tree": 714,
+   "manifest": {
+    "sha256": "ad941d06c40ff639674b72231fe866534a7abf74e232bd38b9c12806123d1c7d",
+    "bytes": 714
+   },
+   "gameatron_claim": null,
+   "status": "verified-by-Prima-API",
+   "sha256_fetched": "ad941d06c40ff639674b72231fe866534a7abf74e232bd38b9c12806123d1c7d",
+   "bytes_fetched": 714,
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest (if listed) and Gameatron claim (if made)."
+  },
+  {
+   "path": "colab/returns/0009-boot-and-300/publisher-verification.md",
+   "git_blob_tree": "8c555c65ce3688e71f5368ff92260bf65daae251",
+   "bytes_tree": 544,
+   "manifest": null,
+   "gameatron_claim": null,
+   "status": "verified-by-Prima-API",
+   "sha256_fetched": "a353d6211eaff684c6763c0f14eddbcf570d046ace79c46300e6f8b527a07c2c",
+   "bytes_fetched": 544,
+   "evidence": "Fetched bytes reproduce git blob SHA-1 from tree d2046aa; sha256 computed locally and compared to manifest (if listed) and Gameatron claim (if made)."
+  }
+ ],
+ "manifest_vs_tree": {
+  "status": "verified",
+  "manifest_entries": 1884,
+  "tree_blobs_in_return_after_d2046aa": 1886,
+  "extra_in_tree": [
+   "artifact-manifest.json (self-excluded per pack)",
+   "publisher-verification.md (later commit)"
+  ],
+  "missing_from_tree": 0,
+  "byte_length_mismatches": 0,
+  "note": "All 1884 manifest byte lengths equal git tree sizes. sha256 independently recomputed from blob-verified bytes for a sample of 21 of 1884 manifest entries (all match); sample includes 1 random call record. Binary entries (ZIP, PDF, PNGs, preflight smoke PDF) not byte-verified.",
+  "git_agent_full_check": "1884/1884 sha256+size matched (verified-by-Prima-launched-git-agent)"
+ },
+ "source_kit": {
+  "v4_zip": {
+   "path": "colab/bundles/gm-loop-colab-v4.zip@1de02a74",
+   "expected_sha256": "c2de0d559fcb7313716e5c3162c9ebc0b10f83fd714f6cab97e1fe4d48c0cc1f",
+   "candidate_sha256": "c2de0d559fcb7313716e5c3162c9ebc0b10f83fd714f6cab97e1fe4d48c0cc1f",
+   "candidate_matches_GAMEATRON_md": "verified",
+   "tree_size": 108710,
+   "tree_blob": "a9a7a97365680b8de38e8206d6574d75fe9fe1a6",
+   "actual_sha256": null,
+   "status": "verified-by-Prima-launched-git-agent",
+   "evidence": "Lossy text fetch: 193180 bytes, blob eafdb51… != a9a7a97…. Gameatron also did not verify it (declared in RUN-START-RECORD and return.md).",
+   "actual_sha256_git_agent": "c2de0d559fcb7313716e5c3162c9ebc0b10f83fd714f6cab97e1fe4d48c0cc1f",
+   "prima_api_note": "Prima API fetch lossy (193180 bytes); not verified by Prima directly"
+  },
+  "v4_text_mirror_manifest": {
+   "path": "colab/bundles/gm-loop-colab-v4/MANIFEST.json@1de02a74",
+   "sha256": "8152eb4f7d0c85084ee32b44ee8a1ef0feedcc51a6fd1da175e976050c04ba3d",
+   "bytes": 11623,
+   "status": "verified (matches candidate and Gameatron claim)",
+   "rows": 41,
+   "row_sizes_vs_tree": "41/41 match; per-row sha256 not recomputed by verifier (claimed-only: Gameatron says 41/41)"
+  }
+ },
+ "turns": {
+  "claimed": 112,
+  "status": "verified (evidence-internal)",
+  "evidence": [
+   "evidence/turns/evt-0001..evt-0112.json = 112 files in tree",
+   "operation-log.jsonl (blob-verified): 731 ops, op_seq contiguous, 0 non-zero exits, 112 commit ops with turn_committed, seq 0->112 stepwise, head chain contiguous, final head 315a7bf1…44be",
+   "cp-112 checkpoint: sequence 112, distinct_event_ids 112, head_sequence_equals_distinct_events true",
+   "zip-inspection.json: book_events_in_zip 112, 3606 entries"
+  ],
+  "caveat": "Counts come from Gameatron-produced logs whose bytes are verified; the book itself inside the ZIP was not opened by the verifier (ZIP bytes unavailable)."
+ },
+ "checkpoints": {
+  "cp-000": {
+   "status": "verified-evidence-present",
+   "utc": "2026-11-01T17:52:46Z",
+   "chicago": "11:52:46 CST",
+   "sequence": 0
+  },
+  "cp-010": {
+   "status": "verified-evidence-present",
+   "utc": "17:54:55Z",
+   "chicago": "11:54:55 CST",
+   "sequence": 10,
+   "distinct": 10,
+   "turn10_gate": "PASS (dice check VACUOUS: 0 dice refs) - self-reported"
+  },
+  "cp-050": {
+   "status": "verified-evidence-present",
+   "chicago": "12:01:00 CST",
+   "sequence": 50,
+   "distinct": 50,
+   "dice_refs": 10,
+   "note": "checkpoint.v1-checker-bug.json preserved"
+  },
+  "cp-100": {
+   "status": "verified-evidence-present",
+   "chicago": "12:08:23 CST",
+   "sequence": 100,
+   "distinct": 100,
+   "dice_refs": 23,
+   "resume-100": "resume-card present; new-process resume claimed passed"
+  },
+  "cp-112": {
+   "status": "verified-evidence-present",
+   "chicago": "12:10:08 CST",
+   "sequence": 112,
+   "distinct": 112,
+   "dice_refs": 24,
+   "resume-112": "resume-card present"
+  },
+  "cp-200": {
+   "status": "not reached (declared partial)"
+  },
+  "cp-300": {
+   "status": "not reached (declared partial)"
+  },
+  "note": "\"Passed\" is Gameatron self-check (same-model, not independent). Rules hash acccae27… identical at all 5 checkpoints; identity hash constant."
+ },
+ "pdf": {
+  "tree_bytes": 500739,
+  "claimed_pages": 22,
+  "pages_status": "verified-by-Prima-launched-git-agent: 22 pages, title \"The Salt Lantern of Dunmarrow - Colab0009 PARTIAL 112/300\"; also in Gameatron pdfinfo.txt",
+  "visual_qa": "Gameatron viewed 4/22 pages (declared)",
+  "source_md_structure": "verified: Part A, Part B (11 chapters evt-0001..0112), Part C, Appendix"
+ },
+ "zip": {
+  "tree_bytes": 3902653,
+  "entries_claimed": 3606,
+  "status": "verified-by-Prima-launched-git-agent: sha256/size match, 3606 entries, unzip -t no errors"
+ },
+ "observations_for_prime": [
+  "Run speed: first kit op 17:51:33Z, 112 commits between 17:53:33Z and 18:09:56Z (~16.4 min, median 7.9 s/commit, min 0.34 s). Pack requires one model-supplied exchange per commit and forbids bulk generation; logs cannot prove authoring cadence either way. evt-0002/0003 batching self-reported.",
+  "Only 8 retrieve ops in 731; Gameatron self-reports reliance on own session memory (#07).",
+  "return.md #NN items have no severity labels (pack: findings with severity); no hostile/factfind/overflow/unprompted-learning section found by grep.",
+  "Git write capability not self-confirmed in preflight (pack Stage 0); publish via cloud-agent publisher bc-34efb2e1… (claimed).",
+  "Upload tar 84fbc66b… / SHA256SUMS (1885 lines) not committed - claimed-only.",
+  "return.md contains literal \"Publisher commit SHA: PLACEHOLDER\" (handled by separate publisher-verification.md, as pack prescribes).",
+  "colab/gameatron lineage differs from sof/gm-kit (16 non-return paths differ, 1405 sof/gm-kit paths absent) - pre-existing branch state, not touched by c3888c8/d2046aa."
+ ],
+ "path_conflicts": "none: return path absent in parent 5004538; both commits add-only.",
+ "pack_requirements_missing_or_incomplete": [
+  "checkpoints 200/300 (partial, declared)",
+  "fresh-model resumption NOT PERFORMED (declared; allowed)",
+  "PDF visual QA 18/22 pages unviewed (declared)",
+  "severity on #NN findings absent",
+  "hostile/factfind/overflow/unprompted learning not found in return.md",
+  "v4 ZIP not verified by Gameatron (text mirror used; pack permits mirror); verified afterwards by Prima-launched git agent"
+ ],
+ "status_reply_claims": "see artifacts[].gameatron_claim; all text claims verified; ZIP/PDF sha256 claimed-only (manifest-consistent), lengths verified; parent SHA verified; mirror manifest sha verified; turn-10-gate verified.",
+ "upload_tar": {
+  "path": "0009-boot-and-300.tar (+SHA256SUMS, 1885 lines)",
+  "sha256": "84fbc66bccb611214517c7df5495058232801ded11da477ab36e13b051c4e851",
+  "bytes": 15124480,
+  "status": "worker-claim-only (not committed)"
+ },
+ "status_key": {
+  "verified-by-Prima-API": "exact bytes via GitHub API; git blob SHA-1 reproduced; sha256 computed by Prima",
+  "verified-by-Prima-launched-git-agent": "git cat-file bytes checked by read-only agent bc-9949730d; agent-reported",
+  "worker-claim-only": "stated by Gameatron, not independently checked"
+ },
+ "binary_check": {
+  "agent": "Cursor cloud agent bc-9949730d-fe0e-564d-90b5-7016713c4071",
+  "launched_by": "Prima",
+  "mode": "read-only (git cat-file); final git status clean; no commits/branches/pushes/PRs/edits (agent-reported)",
+  "finished": "~2026-11-01T12:33-06:00",
+  "report_file_sha256": "21196c4f315af6f5706bac2be544cc08f413348258a4ec4608bb59682273f5b1",
+  "note": "Agent-reported results from Git bytes; Prima did not run these commands itself.",
+  "remote_heads": {
+   "colab/gameatron": "d2046aa46dc1f2cd4c40f5e5f0a33108bf657d0f",
+   "sof/gm-kit": "1de02a74de17f8d6030dcbe8c8306ec523242b98"
+  },
+  "c3888c8_ancestor_of_colab_gameatron": true,
+  "results": [
+   {
+    "path": "c3888c8:colab/returns/0009-boot-and-300/artifacts/adventure-book.zip",
+    "sha256": "b3a2b87f666e2e06c8d7f347b22493b172401a41faa30b3802d8fa2ff454b1cc",
+    "bytes": 3902653,
+    "blob": "7cbb97d08d898f24f1e9b0e06c8a4b2b5b8f4c8a",
+    "match": true,
+    "zip_entries": 3606,
+    "uncompressed_bytes": 9356427,
+    "unzip_t": "No errors detected",
+    "testzip": null
+   },
+   {
+    "path": "c3888c8:colab/returns/0009-boot-and-300/artifacts/world-and-adventure.pdf",
+    "sha256": "28460c27e3a5261063fda9f0c2cbfc45fabb37f5307f2c7765499fb9e1e312ac",
+    "bytes": 500739,
+    "blob": "f172cab1dcd86a92ffb7f221f9f3b0d38f53ffaa",
+    "match": true,
+    "pdf_version": "1.4",
+    "title": "The Salt Lantern of Dunmarrow - Colab0009 PARTIAL 112/300",
+    "pages": 22,
+    "page_method": "Python stdlib parse; root /Count 22 (pdfinfo absent on agent)"
+   },
+   {
+    "path": "1de02a74:colab/bundles/gm-loop-colab-v4.zip",
+    "sha256": "c2de0d559fcb7313716e5c3162c9ebc0b10f83fd714f6cab97e1fe4d48c0cc1f",
+    "bytes": 108710,
+    "blob": "a9a7a97365680b8de38e8206d6574d75fe9fe1a6",
+    "match": true,
+    "zip_entries": 42,
+    "uncompressed_bytes": 399731,
+    "unzip_t": "No errors detected",
+    "testzip": null
+   }
+  ],
+  "full_manifest": {
+   "file": "artifact-manifest.json@c3888c8",
+   "bytes": 323867,
+   "file_count": 1884,
+   "matched": 1884,
+   "mismatches": 0,
+   "missing": 0
+  }
+ },
+ "contact": {
+  "route": "bot-to-bot",
+  "asked": "~2026-11-01T12:25-06:00",
+  "replied": "~2026-11-01T12:26-06:00",
+  "reply_file": "2026-11-01T1233-0600-gameatron-reply.md",
+  "status": "worked"
+ },
+ "usage": {
+  "source": "provider-observed",
+  "pool": "Super plan weekly limit, shared with other apps",
+  "observations": [
+   {
+    "at": "2026-11-01T12:24:57-06:00",
+    "used_reported": 41.4,
+    "remaining_derived": 58.6
+   },
+   {
+    "at": "2026-11-01T12:28:01-06:00",
+    "used_reported": 42.4,
+    "remaining_derived": 57.6
+   }
+  ],
+  "reset_reported": "2026-11-05T09:42-06:00",
+  "reserve_floor_percent": 5,
+  "hold": false,
+  "attribution": "pool-wide; Prima, workers, Gameatron, other apps; unknown split"
+ },
+ "gameatron_state": {
+  "state": "idle, partial-returned",
+  "last_checkpoint": "cp-112",
+  "turns": "112/300 PARTIAL",
+  "continuation_authorized_by_prima": false,
+  "waiting_on": "Prime/Director direction"
+ },
+ "prima_non_actions": "No SoF writes; no relocation/copy/republish of Gameatron bytes; original return remains on SoF colab/gameatron",
+ "record_time": "2026-11-01T12:33:45-06:00",
+ "generated_note": "merged from verification.json (12:30 CST) + git-agent binary check"
+}

@@ -1,0 +1,9 @@
+V1-held accepted-by-cycle  OK
+V2-correction-required accepted-by-cycle  OK
+V3-accepted-open accepted-by-cycle  OK
+V4-accepted-complete accepted-by-cycle  OK
+V5-held-director-input accepted-by-cycle  OK
+N1-held-finished refused-by-cycle a held review keeps the pass and the goal open OK
+N2-director-input-accepted refused-by-cycle director-input requires disposition held OK
+N3-complete-without-evidence refused-by-cycle a completed goal needs at least one evidence reference OK
+N4-unknown-disposition refused-by-cycle judgment.disposition must be accepted, held or correction-required OK

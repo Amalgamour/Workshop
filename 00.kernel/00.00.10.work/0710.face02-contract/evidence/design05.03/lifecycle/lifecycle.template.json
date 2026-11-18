@@ -1,0 +1,72 @@
+{
+  "schema": "face-lifecycle-template/1",
+  "format_note": "PROPOSED nonproduction lifecycle contract, 0710/05.03. Not an authority source: each stage cites the law that owns it. Fixture approvals are SYNTHETIC.",
+  "governing": {
+    "draft": "00.00.01.law/0021.write/01#Order; 0060.drafting/01#Next",
+    "number": "00.00.01.law/0024.version/01#Number",
+    "sign": "00.00.01.law/0060.drafting/01#Align; 0021.write/01#Name",
+    "approve_and_seat": "00.00.01.law/0022.approve/01#Seat",
+    "retire": "00.00.01.law/0009.retire/01#Transition",
+    "lock_promote": "00.00.01.law/0023.promote/01 (separate; not in this template)"
+  },
+  "identities": {
+    "staged_sha256": "bytes of the candidate as staged (compute)",
+    "content_sha256": "bytes with the mutable stamp lines removed: lines beginning 'Authorization:' and 'state:' in the header before the first '## ' (compute)",
+    "signed_sha256": "bytes after the sign stamp (compute)",
+    "approved_sha256": "the signed_sha256 the Director's approval names (Director record; compute verifies)",
+    "seated_sha256": "bytes after the approved stamp (compute)",
+    "retired_sha256": "the old seat's bytes after the retired stamp (compute)",
+    "seat_before_sha256": "the old seat's bytes before any change (compute; rollback target)"
+  },
+  "mechanical_transitions": {
+    "allowed": "only the two mutable stamp lines change; content_sha256 must be equal before and after",
+    "stamps": {
+      "sign": {"Authorization": "signed — {date}", "state": "signed. {by}; compute checks passed. Not approved."},
+      "approve": {"Authorization": "approved — {date}", "state": "approved"},
+      "retire": {"Authorization": "retired — {date}, by version {new}", "state": "retired"}
+    }
+  },
+  "warehouse": {
+    "proposal": "00.retire.09/{PPPP.title}/{FF}.{VVV}.09.md inside the book; the page folder keeps the originating identity so equal FF.VVV names from different pages cannot collide",
+    "ledger": "00.retire.09/09.md, one line per retirement: page, face, retired file, version retired, retired by version, seat_before_sha256, retired_sha256, approval ref, date",
+    "law_status": "0009 says move the face into this book's 00.retire.09 and is silent on its layout; the page subfolder is a proposal needing approval, not an existing permission"
+  },
+  "inputs": {
+    "page": "book/PPPP.title (intelligence names it; compute resolves it)",
+    "face": "FF",
+    "candidate_file": "the reviewed candidate bytes (from the work page evidence)",
+    "reviewed_sha256": "the sha256 the reviewer recorded",
+    "source_seat_sha256": "the seat the candidate was drafted from",
+    "grounds": "the work references: decision, review and job pages",
+    "release": "the pair or set of faces that seat together"
+  },
+  "stages": [
+    {"id": "stage", "owner": "model or Prime under a job; compute writes",
+     "requires": ["candidate-matches-reviewed", "seat-matches-source", "draft-name-free"],
+     "emits": "stage record {page, face, draft_file, staged_sha256, content_sha256, source_seat_sha256, grounds}",
+     "writes": "{page}/{FF}.{VVV}.md, exclusive create",
+     "held_on": [], "correction": "re-stage only to a free draft name; never overwrite"},
+    {"id": "sign", "owner": "model requests; compute checks and stamps",
+     "requires": ["staged", "draft-bytes-equal-staged", "align-checks"],
+     "emits": "sign record {signed_sha256, content_sha256, checks, requested_by}",
+     "writes": "stamp lines only",
+     "held_on": [], "correction": "a failed align check leaves the draft unsigned; fix by a new draft"},
+    {"id": "approve", "owner": "Director (fixture: SYNTHETIC record)",
+     "requires": ["signed", "approval-names-signed-sha", "draft-bytes-equal-signed"],
+     "emits": "approval record {by, words, ref, approved_sha256}",
+     "writes": "nothing in the book",
+     "held_on": ["approval-missing"], "correction": "the Director records a new approval of the exact signed bytes"},
+    {"id": "seat", "owner": "compute, recorded by Prime",
+     "requires": ["approved", "draft-bytes-equal-approved", "seat-unchanged", "warehouse-name-free", "pair-approved"],
+     "emits": "journal entries J1-J5 and a seat record {seated_sha256, retired_sha256, warehouse_file}",
+     "writes": "J1 journal; J2 warehouse page folder and ledger line; J3 rename the seat into the warehouse, then the retired stamp; J4 rename the draft to FF, then the approved stamp; J5 read back",
+     "held_on": ["approval-missing", "half-seated"],
+     "correction": "restart from the journal: each step checks the actual source and destination hashes; a step label alone never authorizes a rename"},
+    {"id": "rollback", "owner": "Director decides; compute executes",
+     "requires": ["seated", "journal-complete"],
+     "emits": "rollback record; both versions restored and kept",
+     "writes": "move the retired face back and restore seat_before bytes; rename the seat back to its draft name and restore the signed bytes; the ledger line is struck, not deleted",
+     "held_on": [], "correction": "none silent"}
+  ],
+  "not_in_this_template": ["lock", "promote", "any approval by a model", "any copy in place of a rename"]
+}

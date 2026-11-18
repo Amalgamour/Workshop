@@ -1,0 +1,120 @@
+{
+  "mutation_triggered": true,
+  "dispatcher_state": "measured",
+  "routes": {
+    "return-lines": {
+      "declaration_matches_contract": true,
+      "dependencies": [
+        {
+          "bytes": 26561,
+          "matches_contract": true,
+          "path": "labs/return-access-pass01/return_access.py",
+          "role": "adapter",
+          "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+          "state": "file"
+        },
+        {
+          "bytes": 33349,
+          "matches_contract": true,
+          "path": "labs/return-lines-pass03/return_lines.py",
+          "role": "backend",
+          "sha256": "78cc4d8679bb6e54b3f2456ce777643da7a9a650ef5c79c216abd38a4c209c63",
+          "state": "file"
+        },
+        {
+          "bytes": 82908,
+          "matches_contract": true,
+          "path": "labs/return-lines-pass02/return_lines.py",
+          "role": "pass02",
+          "sha256": "6691d0587ab97ba24a1709c9950b506961152939e2d112ee608f9dbd23e92908",
+          "state": "file"
+        },
+        {
+          "bytes": 100897,
+          "matches_contract": true,
+          "path": "labs/return-lines-pass01/return_lines.py",
+          "role": "pass01",
+          "sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+          "state": "file"
+        },
+        {
+          "bytes": 66097,
+          "matches_contract": true,
+          "path": "labs/return-placement-pass01/return_placement.py",
+          "role": "placement",
+          "sha256": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+          "state": "file"
+        },
+        {
+          "bytes": 45767,
+          "matches_contract": true,
+          "path": "labs/return-capture-pass01/return_capture.py",
+          "role": "reader",
+          "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+          "state": "file"
+        }
+      ],
+      "facade_matches_contract": true,
+      "mismatches": [],
+      "predecessor_matches_contract": true,
+      "predecessor_present": false,
+      "selected_facade": "app/return_line_tools_v2.py",
+      "selector": "old",
+      "staged_notes": [],
+      "state": "selected-valid",
+      "successor_matches_contract": true,
+      "successor_path": "app/return_line_tools_v3.py",
+      "successor_staged": true
+    },
+    "capture-return": {
+      "declaration_matches_contract": true,
+      "dependencies": [
+        {
+          "bytes": 51828,
+          "matches_contract": true,
+          "path": "labs/capture-handoff-pass01/handoff.py",
+          "role": "handoff",
+          "sha256": "a8380136a84469b8975b38f084a4d34802ccf079ed69cf85d107f6ca3643426a",
+          "state": "file"
+        },
+        {
+          "bytes": 52279,
+          "matches_contract": true,
+          "path": "labs/clerk-handoff-pass02/clerk.py",
+          "role": "clerk",
+          "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+          "state": "file"
+        },
+        {
+          "bytes": 45767,
+          "matches_contract": true,
+          "path": "labs/return-capture-pass01/return_capture.py",
+          "role": "return_capture",
+          "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+          "state": "file"
+        },
+        {
+          "bytes": 11402,
+          "matches_contract": true,
+          "path": "labs/return-capture-pass01/return_inspect.py",
+          "role": "return_inspect",
+          "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+          "state": "file"
+        }
+      ],
+      "facade_matches_contract": true,
+      "mismatches": [],
+      "predecessor_matches_contract": true,
+      "predecessor_present": false,
+      "selected_facade": "app/handoff_tools.py",
+      "selector": "old",
+      "staged_notes": [],
+      "state": "selected-valid",
+      "successor_matches_contract": true,
+      "successor_path": "app/handoff_tools_v2.py",
+      "successor_staged": true
+    }
+  },
+  "measured_dispatcher_sha256": "826167161000ac3eab78c466ae47e31b37ff435ea33f4104caf7651ecd21436e",
+  "end_dispatcher_sha256": "89c84f3a8a162383da5ab38a74d441a6dc309c5158f5b05d313f6db802e8c270"
+}

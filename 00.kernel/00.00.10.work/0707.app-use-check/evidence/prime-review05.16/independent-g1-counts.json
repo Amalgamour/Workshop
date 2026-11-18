@@ -1,0 +1,29 @@
+{
+  "addressed": {
+    "bytes": 8,
+    "bytes_state": "measured",
+    "count": 2,
+    "count_state": "measured",
+    "provenance": "current-measured",
+    "scope": "addressed-source-paths",
+    "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution"
+  },
+  "content": {
+    "bytes": 4,
+    "bytes_state": "measured",
+    "count": 1,
+    "count_state": "measured",
+    "provenance": "current-measured",
+    "scope": "content-sha256",
+    "assumption": "a 64-character lowercase sha256 proves content equality only"
+  },
+  "physical": {
+    "bytes": null,
+    "bytes_state": "unknown",
+    "count": null,
+    "count_state": "unknown",
+    "provenance": "not-established",
+    "reason": "accepted intake metadata has no physical-file identity; a path and a content hash do not establish one",
+    "scope": "verified-physical-files"
+  }
+}

@@ -1,0 +1,53 @@
+# Commands — 0521.return-placement/05.08
+
+Date: 2026-11-02. Executor: Grok-2.
+Working directory: D:\Git\lib-build
+Environment: PYTHONDONTWRITEBYTECODE=1
+Interpreter: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+
+This file is a print summary of the official rehearsal. It is not a byte copy of the terminal log. Full argv and stdout sha256 are in commands.json. Stderr bytes are recorded there too.
+
+Official command:
+
+C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe -B labs\return-capture-guard-pass01\tests\run_suite.py
+
+Exit: 0
+Work root: D:\librarian\temp\0521-0508\20261102T203503318464Z-suite
+This rehearsal does not delete that root, the two earlier roots, or the unit-test directories under D:\librarian\temp.
+
+Earlier stops, retained under evidence/build05.08/earlier/:
+
+20261102T203103Z-suite stopped at unit exit 1. The conflict assertion looked for the word differ. The refusal text says the layout conflicts with the accepted declaration. The assertion was corrected. The contract files were not edited. The retained stderr is 20261102T203103Z-unit-stderr.txt. It keeps the CR bytes the interpreter wrote.
+
+20261102T203318Z-suite stopped at pass04 init exit 2. The reviewed parser requires --authorization, --audit, --plan, --backup, --staging, and --retired. The next run passed unused path labels. A doorless copy does not open them. They were not created.
+
+Print summary of the official run:
+
+unit exit 0, 6 tests
+live layout absent at the end
+logged commands 23
+stderr bytes 0 on every logged command
+reader lookup state complete
+historical writer on a declared copy exit 0
+handoff first perform result attention
+handoff retry result attention, failure log retained
+OK D:\librarian\temp\0521-0508\20261102T203503318464Z-suite
+
+Phase exits from commands.json:
+
+clerk.py queue 0 once
+clerk.py claim 0 once
+clerk.py return 0 once
+return_access.py lookup 0 once
+return_capture.py reserve 0 once
+return_capture_guard.py reserve 0 four times, and 2 five times
+return_capture_guard.py capture 0 once, and 2 twice
+return_capture_guard.py verify 0 twice
+return_inspect.py inspect 0 once
+return_lines.py init 0 once
+return_lines.py reserve 1 once
+return_lines.py capture 0 once
+
+The four guard reserve exits 0 are the undeclared book, its repeat, the completed book, and the handoff book before the layout was written. The five guard reserve exits 2 are the declared repeat, the malformed layout, the conflicting layout, the hard-linked layout, and the migrated copy. The guard capture exit 0 is the undeclared completed member. The two guard capture exits 2 are that member after declaration and the unfinished member after declaration. The pass04 reserve exit 1 is the line-pass reservation, which is stored and not complete. The direct return_capture.py reserve exit 0 is the historical script on a declared disposable copy.
+
+unit-stdout.txt is empty. unit-stderr.txt keeps the 5 CR bytes the interpreter wrote for the official unit run. It was not normalized. commands.json and the other files this build authored use LF.

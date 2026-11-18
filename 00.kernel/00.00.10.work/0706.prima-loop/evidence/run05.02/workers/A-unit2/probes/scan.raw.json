@@ -1,0 +1,4930 @@
+{
+ "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/proposal/workbook-review-pass04.workbook.py.proposal": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 16
+   },
+   {
+    "name": "contextvars",
+    "line": 18
+   },
+   {
+    "name": "hashlib",
+    "line": 19
+   },
+   {
+    "name": "importlib.util",
+    "line": 20
+   },
+   {
+    "name": "os",
+    "line": 21
+   },
+   {
+    "name": "re",
+    "line": 22
+   },
+   {
+    "name": "sys",
+    "line": 23
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 24
+   }
+  ],
+  "strings": [
+   {
+    "value": "labs/workbook-review-pass03/workbook.py",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 29,
+    "in": "<module>"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c",
+    "line": 31,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'workbook_review_pass03'",
+     "path"
+    ],
+    "line": 48,
+    "in": "load_pass03"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 50,
+    "in": "load_pass03"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 29,
+    "in": "<module>"
+   }
+  ]
+ },
+ "app/librarian.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 25
+   },
+   {
+    "name": "importlib.util",
+    "line": 27
+   },
+   {
+    "name": "os",
+    "line": 28
+   },
+   {
+    "name": "sys",
+    "line": 29
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 30
+   }
+  ],
+  "strings": [
+   {
+    "value": "context.py",
+    "line": 181,
+    "in": "main"
+   },
+   {
+    "value": "review_loop_tools_v7.py",
+    "line": 103,
+    "in": "main"
+   },
+   {
+    "value": "authoring_tools_v2.py",
+    "line": 112,
+    "in": "main"
+   },
+   {
+    "value": "return_line_tools_v2.py",
+    "line": 121,
+    "in": "main"
+   },
+   {
+    "value": "boot_tools.py",
+    "line": 130,
+    "in": "main"
+   },
+   {
+    "value": "prime_intake.py",
+    "line": 139,
+    "in": "main"
+   },
+   {
+    "value": "prime_review_tools.py",
+    "line": 148,
+    "in": "main"
+   },
+   {
+    "value": "batch_tools.py",
+    "line": 157,
+    "in": "main"
+   },
+   {
+    "value": "handoff_tools.py",
+    "line": 166,
+    "in": "main"
+   },
+   {
+    "value": "prime_tools.py",
+    "line": 175,
+    "in": "main"
+   },
+   {
+    "value": "development-workspace.json",
+    "line": 256,
+    "in": "main"
+   },
+   {
+    "value": "fixture.json",
+    "line": 263,
+    "in": "main"
+   },
+   {
+    "value": "development-workspace.json",
+    "line": 187,
+    "in": "main"
+   },
+   {
+    "value": "worker_bridge.py",
+    "line": 209,
+    "in": "main"
+   },
+   {
+    "value": "clerk_seam.py",
+    "line": 232,
+    "in": "main"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "name",
+     "path"
+    ],
+    "line": 37,
+    "in": "load_module"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 41,
+    "in": "load_module"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'context.py'",
+     "'librarian_context'"
+    ],
+    "line": 181,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'review_loop_tools_v7.py'",
+     "'librarian_review_loop_tools_v7'"
+    ],
+    "line": 103,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'authoring_tools_v2.py'",
+     "'librarian_authoring_tools_v2'"
+    ],
+    "line": 112,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'return_line_tools_v2.py'",
+     "'librarian_return_line_tools_v2'"
+    ],
+    "line": 121,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'boot_tools.py'",
+     "'librarian_boot_tools'"
+    ],
+    "line": 130,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'prime_intake.py'",
+     "'librarian_prime_intake'"
+    ],
+    "line": 139,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'prime_review_tools.py'",
+     "'librarian_prime_review_tools'"
+    ],
+    "line": 148,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'batch_tools.py'",
+     "'librarian_batch_tools'"
+    ],
+    "line": 157,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'handoff_tools.py'",
+     "'librarian_handoff_tools'"
+    ],
+    "line": 166,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'prime_tools.py'",
+     "'librarian_prime_tools'"
+    ],
+    "line": 175,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "runner_path",
+     "'librarian_runner_003'"
+    ],
+    "line": 276,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'worker_bridge.py'",
+     "'librarian_worker_bridge'"
+    ],
+    "line": 209,
+    "in": "main"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "Path(__file__).resolve().parent / 'clerk_seam.py'",
+     "'librarian_clerk_seam'"
+    ],
+    "line": 232,
+    "in": "main"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": []
+ },
+ "app/review_loop_tools_v4.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 14
+   },
+   {
+    "name": "hashlib",
+    "line": 16
+   },
+   {
+    "name": "json",
+    "line": 17
+   },
+   {
+    "name": "os",
+    "line": 18
+   },
+   {
+    "name": "stat",
+    "line": 19
+   },
+   {
+    "name": "subprocess",
+    "line": 20
+   },
+   {
+    "name": "sys",
+    "line": 21
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 22
+   }
+  ],
+  "strings": [
+   {
+    "value": "review-loop-v4.json",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 28,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-construction-pass04/construct.py",
+    "line": 34,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-construction-pass02/construct.py",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 44,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-review-pass01/prime_review.py",
+    "line": 49,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-review-pass02/prime_review.py",
+    "line": 54,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-capture-pass01/return_inspect.py",
+    "line": 59,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-lines-pass01/return_lines.py",
+    "line": 64,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-placement-pass01/return_placement.py",
+    "line": 69,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-loop-pass03/review_loop.py",
+    "line": 74,
+    "in": "<module>"
+   },
+   {
+    "value": "fixture root must stay outside D:\\Git\\lib-build",
+    "line": 259,
+    "in": "disposable_root"
+   },
+   {
+    "value": "fixture root must stay outside D:\\Git\\lib-build",
+    "line": 266,
+    "in": "disposable_root"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "line": 35,
+    "in": "<module>"
+   },
+   {
+    "value": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "line": 40,
+    "in": "<module>"
+   },
+   {
+    "value": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "line": 45,
+    "in": "<module>"
+   },
+   {
+    "value": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "line": 50,
+    "in": "<module>"
+   },
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 55,
+    "in": "<module>"
+   },
+   {
+    "value": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "line": 60,
+    "in": "<module>"
+   },
+   {
+    "value": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "line": 65,
+    "in": "<module>"
+   },
+   {
+    "value": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "line": 70,
+    "in": "<module>"
+   },
+   {
+    "value": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "line": 75,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', os.fspath(pinned['review_loop']), *forwarded]"
+    ],
+    "line": 344,
+    "in": "perform"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 28,
+    "in": "<module>"
+   }
+  ]
+ },
+ "app/review_loop_tools_v5.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "hashlib",
+    "line": 11
+   },
+   {
+    "name": "json",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "stat",
+    "line": 14
+   },
+   {
+    "name": "subprocess",
+    "line": 15
+   },
+   {
+    "name": "sys",
+    "line": 16
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 17
+   },
+   {
+    "name": "importlib.util",
+    "line": 145
+   }
+  ],
+  "strings": [
+   {
+    "value": "review-loop-v5.json",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": "review_loop_tools_v4.py",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "review-loop-v4.json",
+    "line": 130,
+    "in": "pin_v4"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "line": 28,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'librarian_review_loop_tools_v4'",
+     "path"
+    ],
+    "line": 146,
+    "in": "load_v4"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 150,
+    "in": "load_v4"
+   }
+  ],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', os.fspath(script), *args]"
+    ],
+    "line": 160,
+    "in": "workbook_call"
+   }
+  ],
+  "fixed_roots": []
+ },
+ "app/review_loop_tools_v6.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 10
+   },
+   {
+    "name": "hashlib",
+    "line": 12
+   },
+   {
+    "name": "json",
+    "line": 13
+   },
+   {
+    "name": "os",
+    "line": 14
+   },
+   {
+    "name": "stat",
+    "line": 15
+   },
+   {
+    "name": "subprocess",
+    "line": 16
+   },
+   {
+    "name": "sys",
+    "line": 17
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 18
+   },
+   {
+    "name": "importlib.util",
+    "line": 175
+   }
+  ],
+  "strings": [
+   {
+    "value": "review-loop-v6.json",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "review_loop_tools_v4.py",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v4.py",
+    "line": 164,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review-loop-v4.json",
+    "line": 165,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review_loop_tools_v5.py",
+    "line": 166,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review-loop-v5.json",
+    "line": 167,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "labs/workbook-review-pass01/workbook.py",
+    "line": 168,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "line": 169,
+    "in": "pin_predecessors"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "line": 27,
+    "in": "<module>"
+   },
+   {
+    "value": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "line": 29,
+    "in": "<module>"
+   },
+   {
+    "value": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3",
+    "line": 33,
+    "in": "<module>"
+   },
+   {
+    "value": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "line": 35,
+    "in": "<module>"
+   },
+   {
+    "value": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f",
+    "line": 37,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'librarian_review_loop_tools_v4'",
+     "path"
+    ],
+    "line": 176,
+    "in": "load_v4"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 180,
+    "in": "load_v4"
+   }
+  ],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', os.fspath(script), *args]"
+    ],
+    "line": 190,
+    "in": "workbook_call"
+   }
+  ],
+  "fixed_roots": []
+ },
+ "app/review_loop_tools_v7.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 10
+   },
+   {
+    "name": "hashlib",
+    "line": 12
+   },
+   {
+    "name": "json",
+    "line": 13
+   },
+   {
+    "name": "os",
+    "line": 14
+   },
+   {
+    "name": "stat",
+    "line": 15
+   },
+   {
+    "name": "subprocess",
+    "line": 16
+   },
+   {
+    "name": "sys",
+    "line": 17
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 18
+   },
+   {
+    "name": "importlib.util",
+    "line": 195
+   }
+  ],
+  "strings": [
+   {
+    "value": "review-loop-v7.json",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "review_loop_tools_v4.py",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v4.py",
+    "line": 180,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review-loop-v4.json",
+    "line": 181,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review_loop_tools_v5.py",
+    "line": 182,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review-loop-v5.json",
+    "line": 183,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review_loop_tools_v6.py",
+    "line": 184,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "app/review-loop-v6.json",
+    "line": 185,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "labs/workbook-review-pass01/workbook.py",
+    "line": 186,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "line": 187,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "labs/workbook-review-pass02/workbook.py",
+    "line": 188,
+    "in": "pin_predecessors"
+   },
+   {
+    "value": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+    "line": 189,
+    "in": "pin_predecessors"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "line": 27,
+    "in": "<module>"
+   },
+   {
+    "value": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "line": 29,
+    "in": "<module>"
+   },
+   {
+    "value": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3",
+    "line": 33,
+    "in": "<module>"
+   },
+   {
+    "value": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94",
+    "line": 35,
+    "in": "<module>"
+   },
+   {
+    "value": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa",
+    "line": 37,
+    "in": "<module>"
+   },
+   {
+    "value": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f",
+    "line": 41,
+    "in": "<module>"
+   },
+   {
+    "value": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a",
+    "line": 43,
+    "in": "<module>"
+   },
+   {
+    "value": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645",
+    "line": 45,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'librarian_review_loop_tools_v4'",
+     "path"
+    ],
+    "line": 196,
+    "in": "load_v4"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 200,
+    "in": "load_v4"
+   }
+  ],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', os.fspath(script), *args]"
+    ],
+    "line": 210,
+    "in": "workbook_call"
+   }
+  ],
+  "fixed_roots": []
+ },
+ "app/review_report_tools_v1.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "hashlib",
+    "line": 11
+   },
+   {
+    "name": "json",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "re",
+    "line": 14
+   },
+   {
+    "name": "stat",
+    "line": 15
+   },
+   {
+    "name": "subprocess",
+    "line": 16
+   },
+   {
+    "name": "sys",
+    "line": 17
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 18
+   }
+  ],
+  "strings": [
+   {
+    "value": "review-report-v1.json",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-report-pass03/report.py",
+    "line": 33,
+    "in": "<module>"
+   },
+   {
+    "value": "app/librarian.py",
+    "line": 35,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v4.json",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v5.json",
+    "line": 43,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v6.json",
+    "line": 47,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 51,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v4.py",
+    "line": 55,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v5.py",
+    "line": 59,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v6.py",
+    "line": 63,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v7.py",
+    "line": 67,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 71,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-review-pass02/prime_review.py",
+    "line": 75,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-access-pass01/return_access.py",
+    "line": 79,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-construction-pass04/construct.py",
+    "line": 83,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-loop-pass03/review_loop.py",
+    "line": 87,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-report-pass01/report.py",
+    "line": 91,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-report-pass02/report.py",
+    "line": 95,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-report-pass03/report.py",
+    "line": 99,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "line": 103,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass01/workbook.py",
+    "line": 107,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+    "line": 111,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass02/workbook.py",
+    "line": 115,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+    "line": 119,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass03/workbook.py",
+    "line": 123,
+    "in": "<module>"
+   },
+   {
+    "value": "review_report_tools_v1.py",
+    "line": 320,
+    "in": "seating"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "line": 37,
+    "in": "<module>"
+   },
+   {
+    "value": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "line": 41,
+    "in": "<module>"
+   },
+   {
+    "value": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3",
+    "line": 45,
+    "in": "<module>"
+   },
+   {
+    "value": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa",
+    "line": 49,
+    "in": "<module>"
+   },
+   {
+    "value": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8",
+    "line": 53,
+    "in": "<module>"
+   },
+   {
+    "value": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "line": 57,
+    "in": "<module>"
+   },
+   {
+    "value": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9",
+    "line": 61,
+    "in": "<module>"
+   },
+   {
+    "value": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94",
+    "line": 65,
+    "in": "<module>"
+   },
+   {
+    "value": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d",
+    "line": 69,
+    "in": "<module>"
+   },
+   {
+    "value": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "line": 73,
+    "in": "<module>"
+   },
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 77,
+    "in": "<module>"
+   },
+   {
+    "value": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+    "line": 81,
+    "in": "<module>"
+   },
+   {
+    "value": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "line": 85,
+    "in": "<module>"
+   },
+   {
+    "value": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "line": 89,
+    "in": "<module>"
+   },
+   {
+    "value": "72e9bda15c5f3ca844350be5dae2fcfcf4e7c609c262b8f7e702d64467eb94cc",
+    "line": 93,
+    "in": "<module>"
+   },
+   {
+    "value": "d13d8d4f54d79cbdb22e1a40fdffb89bd26b85a611bf8620dc36854be9eb852e",
+    "line": 97,
+    "in": "<module>"
+   },
+   {
+    "value": "70028dfe97bc6178a3497c814cf585476bb0b41650ce67fc79dd3d5b118dfade",
+    "line": 101,
+    "in": "<module>"
+   },
+   {
+    "value": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f",
+    "line": 105,
+    "in": "<module>"
+   },
+   {
+    "value": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "line": 109,
+    "in": "<module>"
+   },
+   {
+    "value": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645",
+    "line": 113,
+    "in": "<module>"
+   },
+   {
+    "value": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a",
+    "line": 117,
+    "in": "<module>"
+   },
+   {
+    "value": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b",
+    "line": 121,
+    "in": "<module>"
+   },
+   {
+    "value": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c",
+    "line": 125,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "argv"
+    ],
+    "line": 350,
+    "in": "_launch"
+   }
+  ],
+  "fixed_roots": []
+ },
+ "labs/connected-return-review-pass02/drive.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "datetime",
+    "line": 11
+   },
+   {
+    "name": "hashlib",
+    "line": 12
+   },
+   {
+    "name": "importlib.util",
+    "line": 13
+   },
+   {
+    "name": "json",
+    "line": 14
+   },
+   {
+    "name": "os",
+    "line": 15
+   },
+   {
+    "name": "re",
+    "line": 16
+   },
+   {
+    "name": "subprocess",
+    "line": 17
+   },
+   {
+    "name": "sys",
+    "line": 18
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 19
+   }
+  ],
+  "strings": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "source-manifest.json",
+    "line": 32,
+    "in": "<module>"
+   },
+   {
+    "value": "01.md",
+    "line": 38,
+    "in": "<module>"
+   },
+   {
+    "value": "/06.01.review.md",
+    "line": 42,
+    "in": "<module>"
+   },
+   {
+    "value": "return.md",
+    "line": 75,
+    "in": "<module>"
+   },
+   {
+    "value": "receipt.json",
+    "line": 75,
+    "in": "<module>"
+   },
+   {
+    "value": "manifest.json",
+    "line": 75,
+    "in": "<module>"
+   },
+   {
+    "value": "librarian.py",
+    "line": 389,
+    "in": "main"
+   },
+   {
+    "value": "return_capture_guard.py",
+    "line": 390,
+    "in": "main"
+   },
+   {
+    "value": "return_capture.py",
+    "line": 391,
+    "in": "main"
+   },
+   {
+    "value": "return_inspect.py",
+    "line": 392,
+    "in": "main"
+   },
+   {
+    "value": "return_lines.py",
+    "line": 393,
+    "in": "main"
+   },
+   {
+    "value": "clerk.py",
+    "line": 394,
+    "in": "main"
+   },
+   {
+    "value": "readiness.py",
+    "line": 395,
+    "in": "main"
+   },
+   {
+    "value": "return_lines.py",
+    "line": 396,
+    "in": "main"
+   },
+   {
+    "value": "readiness.py",
+    "line": 397,
+    "in": "main"
+   },
+   {
+    "value": "review_loop.py",
+    "line": 398,
+    "in": "main"
+   },
+   {
+    "value": "witness-return.md",
+    "line": 425,
+    "in": "main"
+   },
+   {
+    "value": "job.json",
+    "line": 516,
+    "in": "main"
+   },
+   {
+    "value": "audit.json",
+    "line": 565,
+    "in": "main"
+   },
+   {
+    "value": "plan.json",
+    "line": 567,
+    "in": "main"
+   },
+   {
+    "value": "authorization.json",
+    "line": 580,
+    "in": "main"
+   },
+   {
+    "value": "return-line-layout.json",
+    "line": 607,
+    "in": "main"
+   },
+   {
+    "value": "binding.json",
+    "line": 637,
+    "in": "main"
+   },
+   {
+    "value": "intent.json",
+    "line": 639,
+    "in": "main"
+   },
+   {
+    "value": "05.01.return.md",
+    "line": 724,
+    "in": "main"
+   },
+   {
+    "value": "n7.return.md",
+    "line": 726,
+    "in": "main"
+   },
+   {
+    "value": "receipt.json",
+    "line": 746,
+    "in": "main"
+   },
+   {
+    "value": "judgment-0501.json",
+    "line": 769,
+    "in": "main"
+   },
+   {
+    "value": "receipt.json",
+    "line": 849,
+    "in": "main"
+   },
+   {
+    "value": "judgment-n7.json",
+    "line": 859,
+    "in": "main"
+   },
+   {
+    "value": "request.json",
+    "line": 892,
+    "in": "main"
+   },
+   {
+    "value": "live-book-authorization.json",
+    "line": 1005,
+    "in": "main"
+   },
+   {
+    "value": "05.04.md",
+    "line": 120,
+    "in": "load_release_text"
+   },
+   {
+    "value": "review_loop_tools_v7.py",
+    "line": 147,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "authoring_tools_v2.py",
+    "line": 147,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "review_loop_tools_v7.py",
+    "line": 154,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "review_loop_tools_v7.py",
+    "line": 154,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "authoring_tools_v2.py",
+    "line": 156,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "authoring_tools_v2.py",
+    "line": 156,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "librarian.py",
+    "line": 159,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0521-0513",
+    "line": 360,
+    "in": "main"
+   },
+   {
+    "value": "return_lines.py",
+    "line": 388,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 489,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 504,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 509,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 546,
+    "in": "main"
+   },
+   {
+    "value": "01.md",
+    "line": 610,
+    "in": "main"
+   },
+   {
+    "value": "05.01.md",
+    "line": 714,
+    "in": "main"
+   },
+   {
+    "value": "05.01.pack.md",
+    "line": 719,
+    "in": "main"
+   },
+   {
+    "value": "request.json",
+    "line": 902,
+    "in": "main"
+   },
+   {
+    "value": "registration.json",
+    "line": 902,
+    "in": "main"
+   },
+   {
+    "value": "descriptor.json",
+    "line": 902,
+    "in": "main"
+   },
+   {
+    "value": "construct.py",
+    "line": 934,
+    "in": "main"
+   },
+   {
+    "value": "prime_cycle.py",
+    "line": 935,
+    "in": "main"
+   },
+   {
+    "value": "workbook.py",
+    "line": 937,
+    "in": "main"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 949,
+    "in": "main"
+   },
+   {
+    "value": "labs/review-loop-pass03/review_loop.py",
+    "line": 950,
+    "in": "main"
+   },
+   {
+    "value": "labs/workbook-review-pass02/workbook.py",
+    "line": 951,
+    "in": "main"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 952,
+    "in": "main"
+   },
+   {
+    "value": "n7-diagnosis.json",
+    "line": 967,
+    "in": "main"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0521-0512\\20261103T173827361432Z",
+    "line": 1052,
+    "in": "main"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0521-0512\\20261103T174140129061Z",
+    "line": 1053,
+    "in": "main"
+   },
+   {
+    "value": "run-report.json",
+    "line": 1064,
+    "in": "main"
+   },
+   {
+    "value": "app/librarian.py",
+    "line": 131,
+    "in": "copy_closure"
+   },
+   {
+    "value": "app/README.md",
+    "line": 131,
+    "in": "copy_closure"
+   },
+   {
+    "value": "librarian.py",
+    "line": 141,
+    "in": "write_dispatcher"
+   },
+   {
+    "value": "librarian.py",
+    "line": 380,
+    "in": "main"
+   },
+   {
+    "value": "README.md",
+    "line": 383,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 533,
+    "in": "main"
+   },
+   {
+    "value": "missing return.md",
+    "line": 630,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 658,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 658,
+    "in": "main"
+   },
+   {
+    "value": "librarian.py",
+    "line": 1018,
+    "in": "main"
+   },
+   {
+    "value": "README.md",
+    "line": 1021,
+    "in": "main"
+   },
+   {
+    "value": "app/",
+    "line": 129,
+    "in": "copy_closure"
+   },
+   {
+    "value": "labs/",
+    "line": 129,
+    "in": "copy_closure"
+   },
+   {
+    "value": "return-line-layout.json",
+    "line": 382,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 444,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 646,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 646,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 646,
+    "in": "main"
+   },
+   {
+    "value": "receipt.json",
+    "line": 673,
+    "in": "main"
+   },
+   {
+    "value": "receipt.json",
+    "line": 706,
+    "in": "main"
+   },
+   {
+    "value": "05.01.md",
+    "line": 823,
+    "in": "main"
+   },
+   {
+    "value": "05.01.md",
+    "line": 823,
+    "in": "main"
+   },
+   {
+    "value": "registration.json",
+    "line": 918,
+    "in": "main"
+   },
+   {
+    "value": "return-line-layout.json",
+    "line": 1020,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 445,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 550,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 552,
+    "in": "main"
+   },
+   {
+    "value": "registration.json",
+    "line": 919,
+    "in": "main"
+   },
+   {
+    "value": "return.md",
+    "line": 552,
+    "in": "main"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "line": 35,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'return_lines_pass02_release'",
+     "pass02"
+    ],
+    "line": 114,
+    "in": "load_release_text"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 118,
+    "in": "load_release_text"
+   }
+  ],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "argv"
+    ],
+    "line": 189,
+    "in": "run"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0521-0513",
+    "line": 360,
+    "in": "main"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0521-0512\\20261103T173827361432Z",
+    "line": 1052,
+    "in": "main"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0521-0512\\20261103T174140129061Z",
+    "line": 1053,
+    "in": "main"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/compat17/make_fixture.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 12
+   },
+   {
+    "name": "argparse",
+    "line": 14
+   },
+   {
+    "name": "hashlib",
+    "line": 15
+   },
+   {
+    "name": "json",
+    "line": 16
+   },
+   {
+    "name": "shutil",
+    "line": 17
+   },
+   {
+    "name": "sys",
+    "line": 18
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 19
+   }
+  ],
+  "strings": [
+   {
+    "value": "00.kernel/00.00.10.work/0707.app-use-check",
+    "line": 23,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 55,
+    "in": "main"
+   },
+   {
+    "value": "05.15.pack.md",
+    "line": 58,
+    "in": "main"
+   },
+   {
+    "value": "06.15.review.md",
+    "line": 58,
+    "in": "main"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 55,
+    "in": "main"
+   },
+   {
+    "value": "/evidence/design05.15/artifact-manifest.json",
+    "line": 64,
+    "in": "main"
+   },
+   {
+    "value": "evidence/design05.15/artifact-manifest.json",
+    "line": 64,
+    "in": "main"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 55,
+    "in": "main"
+   },
+   {
+    "value": "06.15.review.md",
+    "line": 59,
+    "in": "main"
+   },
+   {
+    "value": "fixture-manifest.json",
+    "line": 69,
+    "in": "main"
+   },
+   {
+    "value": "source-manifest.json",
+    "line": 41,
+    "in": "main"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 54,
+    "in": "main"
+   },
+   {
+    "value": "evidence/design05.15/artifact-manifest.json",
+    "line": 63,
+    "in": "main"
+   },
+   {
+    "value": "/evidence/design05.15/artifact-manifest.json",
+    "line": 65,
+    "in": "main"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 22,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/compat17/n7compat.py": {
+  "imports": [
+   {
+    "name": "sys",
+    "line": 9
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 10
+   },
+   {
+    "name": "n7compat2",
+    "line": 14
+   }
+  ],
+  "strings": [],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [],
+  "fixed_roots": []
+ },
+ "labs/n7-intake-compat-pass02/compat17/tests/test_n7.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 11
+   },
+   {
+    "name": "argparse",
+    "line": 13
+   },
+   {
+    "name": "hashlib",
+    "line": 14
+   },
+   {
+    "name": "json",
+    "line": 15
+   },
+   {
+    "name": "os",
+    "line": 16
+   },
+   {
+    "name": "re",
+    "line": 17
+   },
+   {
+    "name": "subprocess",
+    "line": 18
+   },
+   {
+    "name": "sys",
+    "line": 19
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 20
+   },
+   {
+    "name": "n7compat",
+    "line": 27
+   }
+  ],
+  "strings": [
+   {
+    "value": "00.kernel/00.00.10.work/0707.app-use-check",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "05.15.pack.md",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "05.15.pack.md",
+    "line": 154,
+    "in": "set_pointer"
+   },
+   {
+    "value": "evidence/design05.15/artifact-manifest.json",
+    "line": 219,
+    "in": "i6"
+   },
+   {
+    "value": "05.15.return.md",
+    "line": 71,
+    "in": "g2"
+   },
+   {
+    "value": "evidence/design05.15/artifact-manifest.json",
+    "line": 72,
+    "in": "g2"
+   },
+   {
+    "value": "make_fixture.py",
+    "line": 149,
+    "in": "fixture"
+   },
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 164,
+    "in": "prepare"
+   },
+   {
+    "value": "Returned: 05.15.return.md",
+    "line": 200,
+    "in": "<module>"
+   },
+   {
+    "value": "Returned: a/../../05.15.return.md",
+    "line": 200,
+    "in": "<module>"
+   },
+   {
+    "value": "n7compat.py",
+    "line": 163,
+    "in": "prepare"
+   },
+   {
+    "value": "evidence/design05.15/artifact-manifest.json",
+    "line": 196,
+    "in": "<module>"
+   },
+   {
+    "value": "evidence/design05.15/COMPAT.md",
+    "line": 198,
+    "in": "<module>"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(LAB / 'make_fixture.py'), '--room', str(r / 'fx')]"
+    ],
+    "line": 149,
+    "in": "fixture"
+   },
+   {
+    "call": "subprocess.run",
+    "args": [
+     "argv"
+    ],
+    "line": 165,
+    "in": "prepare"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 25,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/n5_replay.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 18
+   },
+   {
+    "name": "argparse",
+    "line": 20
+   },
+   {
+    "name": "hashlib",
+    "line": 21
+   },
+   {
+    "name": "json",
+    "line": 22
+   },
+   {
+    "name": "os",
+    "line": 23
+   },
+   {
+    "name": "re",
+    "line": 24
+   },
+   {
+    "name": "subprocess",
+    "line": 25
+   },
+   {
+    "name": "sys",
+    "line": 26
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 27
+   }
+  ],
+  "strings": [
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 32,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/n7-intake-compat-pass02",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 65,
+    "in": "main"
+   },
+   {
+    "value": "*.md",
+    "line": 69,
+    "in": "main"
+   },
+   {
+    "value": "05.13.md",
+    "line": 68,
+    "in": "main"
+   },
+   {
+    "value": "app/librarian.py",
+    "line": 107,
+    "in": "main"
+   },
+   {
+    "value": "n7compat2.py",
+    "line": 108,
+    "in": "main"
+   },
+   {
+    "value": "n7compat2.py",
+    "line": 109,
+    "in": "main"
+   },
+   {
+    "value": "n7compat2.py",
+    "line": 110,
+    "in": "main"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 64,
+    "in": "main"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', *map(str, argv)]"
+    ],
+    "line": 90,
+    "in": "run"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 30,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/n7compat2.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 18
+   },
+   {
+    "name": "contextvars",
+    "line": 20
+   },
+   {
+    "name": "hashlib",
+    "line": 21
+   },
+   {
+    "name": "importlib.util",
+    "line": 22
+   },
+   {
+    "name": "json",
+    "line": 23
+   },
+   {
+    "name": "re",
+    "line": 24
+   },
+   {
+    "name": "sys",
+    "line": 25
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 26
+   }
+  ],
+  "strings": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 29,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/0707.app-use-check/evidence/pack05.17/source-manifest.json",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 43,
+    "in": "load_pass03"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'workbook_review_pass03'",
+     "path"
+    ],
+    "line": 50,
+    "in": "load_pass03"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "mod"
+    ],
+    "line": 52,
+    "in": "load_pass03"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 29,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/proposal_check.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 11
+   },
+   {
+    "name": "argparse",
+    "line": 13
+   },
+   {
+    "name": "importlib.util",
+    "line": 14
+   },
+   {
+    "name": "json",
+    "line": 15
+   },
+   {
+    "name": "os",
+    "line": 16
+   },
+   {
+    "name": "subprocess",
+    "line": 17
+   },
+   {
+    "name": "sys",
+    "line": 18
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 19
+   },
+   {
+    "name": "importlib.machinery",
+    "line": 54
+   },
+   {
+    "name": "test_n7v2",
+    "line": 57
+   }
+  ],
+  "strings": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/n7-intake-compat-pass02",
+    "line": 23,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/0707.app-use-check/evidence/design05.17/proposal/workbook-review-pass04.workbook.py.proposal",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": ".child.py",
+    "line": 70,
+    "in": "main"
+   },
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 75,
+    "in": "main"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [
+   {
+    "call": "loader.exec_module",
+    "args": [
+     "mod"
+    ],
+    "line": 32,
+    "in": "load_proposal"
+   }
+  ],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(child), str(PROPOSAL), repo, 'prepare', '--book', str(Path(repo) / '00.kernel/00.00.10.work'), '--source', src, '--pass', pas]"
+    ],
+    "line": 75,
+    "in": "main"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 22,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/run_flow2.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "argparse",
+    "line": 11
+   },
+   {
+    "name": "hashlib",
+    "line": 12
+   },
+   {
+    "name": "json",
+    "line": 13
+   },
+   {
+    "name": "os",
+    "line": 14
+   },
+   {
+    "name": "subprocess",
+    "line": 15
+   },
+   {
+    "name": "sys",
+    "line": 16
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 17
+   }
+  ],
+  "strings": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 20,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/n7-intake-compat-pass02",
+    "line": 21,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/0707.app-use-check/evidence/pack05.17/source-manifest.json",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 76,
+    "in": "main"
+   },
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 77,
+    "in": "main"
+   },
+   {
+    "value": "app/librarian.py",
+    "line": 78,
+    "in": "main"
+   },
+   {
+    "value": "n7compat2.py",
+    "line": 79,
+    "in": "main"
+   },
+   {
+    "value": ".json",
+    "line": 100,
+    "in": "main"
+   },
+   {
+    "value": "runs.json",
+    "line": 115,
+    "in": "main"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', *map(str, argv)]"
+    ],
+    "line": 62,
+    "in": "step"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 20,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/n7-intake-compat-pass02/tests/test_n7v2.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 10
+   },
+   {
+    "name": "argparse",
+    "line": 12
+   },
+   {
+    "name": "hashlib",
+    "line": 13
+   },
+   {
+    "name": "json",
+    "line": 14
+   },
+   {
+    "name": "os",
+    "line": 15
+   },
+   {
+    "name": "subprocess",
+    "line": 16
+   },
+   {
+    "name": "sys",
+    "line": 17
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 18
+   },
+   {
+    "name": "n7compat2",
+    "line": 25
+   },
+   {
+    "name": "n7compat",
+    "line": 28
+   }
+  ],
+  "strings": [
+   {
+    "value": "00.kernel/00.00.10.work/0707.app-use-check",
+    "line": 38,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 23,
+    "in": "<module>"
+   },
+   {
+    "value": "05.15.pack.md",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 152,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "artifact.md",
+    "line": 156,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "Submission: 0599.fixture-n5/evidence/b/return.md",
+    "line": 163,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "labs/n7-intake-compat-pass01",
+    "line": 27,
+    "in": "<module>"
+   },
+   {
+    "value": "05.15.return.md",
+    "line": 106,
+    "in": "p3"
+   },
+   {
+    "value": "evidence/design05.15/artifact-manifest.json",
+    "line": 107,
+    "in": "p3"
+   },
+   {
+    "value": "m.json",
+    "line": 107,
+    "in": "p3"
+   },
+   {
+    "value": "return.md",
+    "line": 158,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "artifact-manifest.json",
+    "line": 160,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "m.json",
+    "line": 85,
+    "in": "kr2"
+   },
+   {
+    "value": "05.01.md",
+    "line": 167,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "N5 page with REAL legal files return.md",
+    "line": 204,
+    "in": "<module>"
+   },
+   {
+    "value": " and artifact-manifest.json",
+    "line": 204,
+    "in": "<module>"
+   },
+   {
+    "value": "compat17/make_fixture.py",
+    "line": 150,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "00.kernel/00.00.10.work",
+    "line": 173,
+    "in": "prepare"
+   },
+   {
+    "value": "n7compat2.py",
+    "line": 172,
+    "in": "prepare"
+   },
+   {
+    "value": "0599.fixture-n5/evidence/b/artifact.md",
+    "line": 161,
+    "in": "n5_fixture"
+   },
+   {
+    "value": "return.md",
+    "line": 199,
+    "in": "fn"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(LAB / 'compat17/make_fixture.py'), '--room', str(r / 'fx')]"
+    ],
+    "line": 150,
+    "in": "n5_fixture"
+   },
+   {
+    "call": "subprocess.run",
+    "args": [
+     "argv"
+    ],
+    "line": 174,
+    "in": "prepare"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 23,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/prime-cycle-pass03/prime_cycle.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 16
+   },
+   {
+    "name": "argparse",
+    "line": 18
+   },
+   {
+    "name": "hashlib",
+    "line": 19
+   },
+   {
+    "name": "json",
+    "line": 20
+   },
+   {
+    "name": "os",
+    "line": 21
+   },
+   {
+    "name": "re",
+    "line": 22
+   },
+   {
+    "name": "stat",
+    "line": 23
+   },
+   {
+    "name": "subprocess",
+    "line": 24
+   },
+   {
+    "name": "sys",
+    "line": 25
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 26
+   }
+  ],
+  "strings": [
+   {
+    "value": "labs/return-lines-pass01/return_lines.py",
+    "line": 35,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-capture-pass01/return_inspect.py",
+    "line": 42,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 28,
+    "in": "<module>"
+   },
+   {
+    "value": "construct.py",
+    "line": 29,
+    "in": "<module>"
+   },
+   {
+    "value": "return_lines.py",
+    "line": 32,
+    "in": "<module>"
+   },
+   {
+    "value": "return_placement.py",
+    "line": 36,
+    "in": "<module>"
+   },
+   {
+    "value": "return_inspect.py",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "prime_review.py",
+    "line": 43,
+    "in": "<module>"
+   },
+   {
+    "value": "prime_review.py",
+    "line": 46,
+    "in": "<module>"
+   },
+   {
+    "value": "scratch/bind-input.json",
+    "line": 917,
+    "in": "bind_digest"
+   },
+   {
+    "value": "rendered.json",
+    "line": 1083,
+    "in": "render_state_of"
+   },
+   {
+    "value": "supplied-record.json",
+    "line": 1525,
+    "in": "record_review"
+   },
+   {
+    "value": "fixture root must stay outside D:\\Git\\lib-build",
+    "line": 264,
+    "in": "fixture_root"
+   },
+   {
+    "value": "labs/review-construction-pass02/construct.py",
+    "line": 311,
+    "in": "pins"
+   },
+   {
+    "value": "labs/prime-review-pass01/prime_review.py",
+    "line": 313,
+    "in": "pins"
+   },
+   {
+    "value": "labs/prime-review-pass02/prime_review.py",
+    "line": 318,
+    "in": "pins"
+   },
+   {
+    "value": "labs/return-placement-pass01/return_placement.py",
+    "line": 324,
+    "in": "pins"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 330,
+    "in": "pins"
+   },
+   {
+    "value": ".md",
+    "line": 375,
+    "in": "address_of"
+   },
+   {
+    "value": ".review.md",
+    "line": 388,
+    "in": "address_of"
+   },
+   {
+    "value": ".return.md",
+    "line": 399,
+    "in": "address_of"
+   },
+   {
+    "value": "reservation.json",
+    "line": 556,
+    "in": "chain_problem_body"
+   },
+   {
+    "value": "return.md",
+    "line": 567,
+    "in": "chain_problem_body"
+   },
+   {
+    "value": ".return.md",
+    "line": 880,
+    "in": "constructor_receipt"
+   },
+   {
+    "value": "COMMITTED.json",
+    "line": 968,
+    "in": "scan_reviews"
+   },
+   {
+    "value": "prime_cycle.py",
+    "line": 1630,
+    "in": "main"
+   },
+   {
+    "value": "relocation.json",
+    "line": 594,
+    "in": "chain_problem_body"
+   },
+   {
+    "value": "/receipt.json",
+    "line": 717,
+    "in": "observe_descriptor"
+   },
+   {
+    "value": "/manifest.json",
+    "line": 717,
+    "in": "observe_descriptor"
+   },
+   {
+    "value": "/return.md",
+    "line": 784,
+    "in": "observe_legacy_in_place"
+   },
+   {
+    "value": "/receipt.json",
+    "line": 784,
+    "in": "observe_legacy_in_place"
+   },
+   {
+    "value": "/manifest.json",
+    "line": 784,
+    "in": "observe_legacy_in_place"
+   },
+   {
+    "value": "REVIEW.md",
+    "line": 979,
+    "in": "scan_reviews"
+   },
+   {
+    "value": "record.json",
+    "line": 978,
+    "in": "scan_reviews"
+   },
+   {
+    "value": "REVIEW.md",
+    "line": 979,
+    "in": "scan_reviews"
+   },
+   {
+    "value": "record.json",
+    "line": 1562,
+    "in": "record_review"
+   },
+   {
+    "value": "REVIEW.md",
+    "line": 1563,
+    "in": "record_review"
+   },
+   {
+    "value": "envelope.json",
+    "line": 1564,
+    "in": "record_review"
+   },
+   {
+    "value": "COMMITTED.json",
+    "line": 1566,
+    "in": "record_review"
+   },
+   {
+    "value": "render-conflict.json",
+    "line": 1231,
+    "in": "derive"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "line": 33,
+    "in": "<module>"
+   },
+   {
+    "value": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "line": 37,
+    "in": "<module>"
+   },
+   {
+    "value": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "line": 40,
+    "in": "<module>"
+   },
+   {
+    "value": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "line": 44,
+    "in": "<module>"
+   },
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 47,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(path), *args]"
+    ],
+    "line": 340,
+    "in": "run_tool"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 28,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/prime-review-pass02/prime_review.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 19
+   },
+   {
+    "name": "argparse",
+    "line": 21
+   },
+   {
+    "name": "hashlib",
+    "line": 22
+   },
+   {
+    "name": "json",
+    "line": 23
+   },
+   {
+    "name": "os",
+    "line": 24
+   },
+   {
+    "name": "re",
+    "line": 25
+   },
+   {
+    "name": "stat",
+    "line": 26
+   },
+   {
+    "name": "sys",
+    "line": 27
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 28
+   }
+  ],
+  "strings": [],
+  "hex_pins": [],
+  "loaders": [],
+  "subprocess": [],
+  "fixed_roots": []
+ },
+ "labs/return-access-pass01/return_access.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 8
+   },
+   {
+    "name": "hashlib",
+    "line": 10
+   },
+   {
+    "name": "importlib.util",
+    "line": 11
+   },
+   {
+    "name": "json",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "sys",
+    "line": 14
+   }
+  ],
+  "strings": [
+   {
+    "value": "labs/return-lines-pass03/return_lines.py",
+    "line": 20,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-lines-pass02/return_lines.py",
+    "line": 23,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-lines-pass01/return_lines.py",
+    "line": 26,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-placement-pass01/return_placement.py",
+    "line": 29,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-capture-pass01/return_capture.py",
+    "line": 32,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/capture-handoff-pass01/demo.py",
+    "line": 64,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/capture-flow-rehearsal-pass01/rehearse.py",
+    "line": 72,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/capture-handoff-pass01/handoff.py",
+    "line": 80,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-boot-pass01/prime_boot.py",
+    "line": 88,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/batch-observation-pass01/batch_observe.py",
+    "line": 96,
+    "in": "<module>"
+   },
+   {
+    "value": "receipt.json",
+    "line": 324,
+    "in": "partial_custody"
+   },
+   {
+    "value": "reservation.json",
+    "line": 366,
+    "in": "legacy_places"
+   },
+   {
+    "value": "return-line-layout.json",
+    "line": 558,
+    "in": "layout_report"
+   },
+   {
+    "value": "return-line-layout.json",
+    "line": 559,
+    "in": "layout_report"
+   },
+   {
+    "value": "manifest.json",
+    "line": 328,
+    "in": "partial_custody"
+   },
+   {
+    "value": "return.md",
+    "line": 329,
+    "in": "partial_custody"
+   },
+   {
+    "value": "return-line-migration.json",
+    "line": 336,
+    "in": "retired_root"
+   },
+   {
+    "value": "retirement-pointer.json",
+    "line": 340,
+    "in": "retired_root"
+   },
+   {
+    "value": "return-line-index.json",
+    "line": 539,
+    "in": "incomplete_findings"
+   },
+   {
+    "value": "relocation.json",
+    "line": 255,
+    "in": "scan_claims"
+   },
+   {
+    "value": "reservation.json",
+    "line": 256,
+    "in": "scan_claims"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "78cc4d8679bb6e54b3f2456ce777643da7a9a650ef5c79c216abd38a4c209c63",
+    "line": 21,
+    "in": "<module>"
+   },
+   {
+    "value": "6691d0587ab97ba24a1709c9950b506961152939e2d112ee608f9dbd23e92908",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "line": 27,
+    "in": "<module>"
+   },
+   {
+    "value": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "line": 33,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "name",
+     "path"
+    ],
+    "line": 129,
+    "in": "load_module"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 133,
+    "in": "load_module"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "PASS03_PATH",
+     "PASS03_SHA",
+     "PASS03_BYTES",
+     "'return_lines_pass03_pinned'"
+    ],
+    "line": 142,
+    "in": "load_pass03"
+   },
+   {
+    "call": "load_module",
+    "args": [
+     "READER_PATH",
+     "READER_SHA",
+     "READER_BYTES",
+     "'return_capture_pinned'"
+    ],
+    "line": 150,
+    "in": "load_reader"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": []
+ },
+ "labs/review-construction-pass04/construct.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 19
+   },
+   {
+    "name": "hashlib",
+    "line": 21
+   },
+   {
+    "name": "json",
+    "line": 22
+   },
+   {
+    "name": "os",
+    "line": 23
+   },
+   {
+    "name": "re",
+    "line": 24
+   },
+   {
+    "name": "stat",
+    "line": 25
+   },
+   {
+    "name": "subprocess",
+    "line": 26
+   },
+   {
+    "name": "sys",
+    "line": 27
+   },
+   {
+    "name": "tempfile",
+    "line": 28
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 29
+   },
+   {
+    "name": "argparse",
+    "line": 1032
+   }
+  ],
+  "strings": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "prime_review.py",
+    "line": 32,
+    "in": "<module>"
+   },
+   {
+    "value": ".review.md",
+    "line": 283,
+    "in": "derive_address"
+   },
+   {
+    "value": "record.json",
+    "line": 787,
+    "in": "write_support"
+   },
+   {
+    "value": "binding.json",
+    "line": 788,
+    "in": "write_support"
+   },
+   {
+    "value": "fixture root must stay outside D:\\Git\\lib-build",
+    "line": 175,
+    "in": "fixture_root"
+   },
+   {
+    "value": ".md",
+    "line": 266,
+    "in": "derive_address"
+   },
+   {
+    "value": ".json",
+    "line": 526,
+    "in": "call_prime_review"
+   },
+   {
+    "value": "/record.json",
+    "line": 586,
+    "in": "render_review"
+   },
+   {
+    "value": ".md",
+    "line": 809,
+    "in": "save_partial"
+   },
+   {
+    "value": "construct.py",
+    "line": 1033,
+    "in": "main"
+   },
+   {
+    "value": ".return.md",
+    "line": 285,
+    "in": "derive_address"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 33,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(TOOL), 'report', '--input', str(path), '--json']"
+    ],
+    "line": 533,
+    "in": "call_prime_review"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 31,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/review-loop-pass03/review_loop.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 14
+   },
+   {
+    "name": "argparse",
+    "line": 16
+   },
+   {
+    "name": "hashlib",
+    "line": 17
+   },
+   {
+    "name": "json",
+    "line": 18
+   },
+   {
+    "name": "os",
+    "line": 19
+   },
+   {
+    "name": "re",
+    "line": 20
+   },
+   {
+    "name": "shutil",
+    "line": 21
+   },
+   {
+    "name": "stat",
+    "line": 22
+   },
+   {
+    "name": "subprocess",
+    "line": 23
+   },
+   {
+    "name": "sys",
+    "line": 24
+   },
+   {
+    "name": "tempfile",
+    "line": 25
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 26
+   }
+  ],
+  "strings": [
+   {
+    "value": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.08/CONTRACT.md",
+    "line": 29,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-lines-pass01/return_lines.py",
+    "line": 48,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-capture-pass01/return_inspect.py",
+    "line": 55,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 28,
+    "in": "<module>"
+   },
+   {
+    "value": "construct.py",
+    "line": 30,
+    "in": "<module>"
+   },
+   {
+    "value": "review_loop.py",
+    "line": 33,
+    "in": "<module>"
+   },
+   {
+    "value": "prime_review.py",
+    "line": 36,
+    "in": "<module>"
+   },
+   {
+    "value": "prime_review.py",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "prime_cycle.py",
+    "line": 42,
+    "in": "<module>"
+   },
+   {
+    "value": "return_lines.py",
+    "line": 45,
+    "in": "<module>"
+   },
+   {
+    "value": "return_placement.py",
+    "line": 49,
+    "in": "<module>"
+   },
+   {
+    "value": "return_inspect.py",
+    "line": 52,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-loop-pass02/review_loop.py",
+    "line": 1167,
+    "in": "reproduce"
+   },
+   {
+    "value": "envelope.json",
+    "line": 442,
+    "in": "witness_envelope"
+   },
+   {
+    "value": "scratch/envelope.json",
+    "line": 445,
+    "in": "witness_envelope"
+   },
+   {
+    "value": "envelope.json",
+    "line": 677,
+    "in": "record"
+   },
+   {
+    "value": "render-input.json",
+    "line": 824,
+    "in": "render_committed"
+   },
+   {
+    "value": "fixture root must stay outside D:\\Git\\lib-build",
+    "line": 108,
+    "in": "fixture_root"
+   },
+   {
+    "value": "labs/review-loop-pass03/review_loop.py",
+    "line": 165,
+    "in": "pin_set"
+   },
+   {
+    "value": ".return.md",
+    "line": 292,
+    "in": "receipt_of"
+   },
+   {
+    "value": "/record.json",
+    "line": 483,
+    "in": "verify_committed"
+   },
+   {
+    "value": "/COMMITTED.json",
+    "line": 484,
+    "in": "verify_committed"
+   },
+   {
+    "value": "/envelope.json",
+    "line": 485,
+    "in": "verify_committed"
+   },
+   {
+    "value": "record.json does not hash to COMMITTED.json",
+    "line": 490,
+    "in": "verify_committed"
+   },
+   {
+    "value": "/envelope.json",
+    "line": 514,
+    "in": "verify_committed"
+   },
+   {
+    "value": "/render-conflict.json",
+    "line": 786,
+    "in": "render_committed"
+   },
+   {
+    "value": "/rendered.json",
+    "line": 798,
+    "in": "render_committed"
+   },
+   {
+    "value": "/envelope.json",
+    "line": 820,
+    "in": "render_committed"
+   },
+   {
+    "value": "review_loop.py",
+    "line": 1174,
+    "in": "main"
+   },
+   {
+    "value": "*.json",
+    "line": 933,
+    "in": "trace"
+   },
+   {
+    "value": "receipt.json",
+    "line": 1059,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "return.md",
+    "line": 1060,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "manifest.json",
+    "line": 1061,
+    "in": "describe_legacy"
+   },
+   {
+    "value": ".json",
+    "line": 934,
+    "in": "trace"
+   },
+   {
+    "value": "/rendered.json",
+    "line": 767,
+    "in": "finish_render"
+   },
+   {
+    "value": "/receipt.json",
+    "line": 1090,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "/reservation.json",
+    "line": 1090,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "/return.md",
+    "line": 1096,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "/receipt.json",
+    "line": 1098,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "/manifest.json",
+    "line": 1099,
+    "in": "describe_legacy"
+   },
+   {
+    "value": "/render-conflict.json",
+    "line": 738,
+    "in": "finish_render"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "8082750fc6ecc740bee3a193bbc357242164913337bbbe7be4f3779d499fedf7",
+    "line": 34,
+    "in": "<module>"
+   },
+   {
+    "value": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+    "line": 37,
+    "in": "<module>"
+   },
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 40,
+    "in": "<module>"
+   },
+   {
+    "value": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "line": 43,
+    "in": "<module>"
+   },
+   {
+    "value": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a",
+    "line": 46,
+    "in": "<module>"
+   },
+   {
+    "value": "db96f7023c73dcececba0e7d42b821da8193af7534a4bdf8cd2e5d6cd53d0754",
+    "line": 50,
+    "in": "<module>"
+   },
+   {
+    "value": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "line": 53,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(path), *args]"
+    ],
+    "line": 175,
+    "in": "run_tool"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 28,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/review-report-pass01/report.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "hashlib",
+    "line": 11
+   },
+   {
+    "name": "json",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "re",
+    "line": 14
+   },
+   {
+    "name": "stat",
+    "line": 15
+   },
+   {
+    "name": "subprocess",
+    "line": 16
+   },
+   {
+    "name": "sys",
+    "line": 17
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 18
+   }
+  ],
+  "strings": [
+   {
+    "value": "app/librarian.py",
+    "line": 54,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v7.py",
+    "line": 55,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v7.json",
+    "line": 56,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v6.py",
+    "line": 57,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v6.json",
+    "line": 58,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v5.py",
+    "line": 59,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v5.json",
+    "line": 60,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review_loop_tools_v4.py",
+    "line": 61,
+    "in": "<module>"
+   },
+   {
+    "value": "app/review-loop-v4.json",
+    "line": 62,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass03/workbook.py",
+    "line": 63,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+    "line": 64,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass02/workbook.py",
+    "line": 65,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+    "line": 66,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass01/workbook.py",
+    "line": 67,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "line": 68,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-access-pass01/return_access.py",
+    "line": 69,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-loop-pass03/review_loop.py",
+    "line": 70,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-construction-pass04/construct.py",
+    "line": 71,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 72,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-review-pass02/prime_review.py",
+    "line": 73,
+    "in": "<module>"
+   },
+   {
+    "value": "/rendered.md",
+    "line": 357,
+    "in": "render_coverage"
+   },
+   {
+    "value": "journal.json",
+    "line": 579,
+    "in": "checked_record"
+   },
+   {
+    "value": "record.json",
+    "line": 592,
+    "in": "checked_record"
+   },
+   {
+    "value": "journal.json",
+    "line": 606,
+    "in": "journal_expected"
+   },
+   {
+    "value": "librarian.py",
+    "line": 161,
+    "in": "core_call"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9",
+    "line": 54,
+    "in": "<module>"
+   },
+   {
+    "value": "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d",
+    "line": 55,
+    "in": "<module>"
+   },
+   {
+    "value": "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8",
+    "line": 56,
+    "in": "<module>"
+   },
+   {
+    "value": "e2a5df36efe29f9dad8abd8fa0f842fd98941d58ca1eb3cd4be5227e20420a94",
+    "line": 57,
+    "in": "<module>"
+   },
+   {
+    "value": "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa",
+    "line": 58,
+    "in": "<module>"
+   },
+   {
+    "value": "b1192daf5d265c66f10adfe2125ff0c92a08ccd3c797d229698ecc20e2fdeed9",
+    "line": 59,
+    "in": "<module>"
+   },
+   {
+    "value": "eaa9120bba2c7274f2218c875ec3ecfc84d291188557049240c30a1c2a430de3",
+    "line": 60,
+    "in": "<module>"
+   },
+   {
+    "value": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "line": 61,
+    "in": "<module>"
+   },
+   {
+    "value": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "line": 62,
+    "in": "<module>"
+   },
+   {
+    "value": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c",
+    "line": 63,
+    "in": "<module>"
+   },
+   {
+    "value": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b",
+    "line": 64,
+    "in": "<module>"
+   },
+   {
+    "value": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a",
+    "line": 65,
+    "in": "<module>"
+   },
+   {
+    "value": "66b3f8f70f8e5d2f940296918767ff0e712e7e144378ad8653259e83d3284645",
+    "line": 66,
+    "in": "<module>"
+   },
+   {
+    "value": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "line": 67,
+    "in": "<module>"
+   },
+   {
+    "value": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f",
+    "line": 68,
+    "in": "<module>"
+   },
+   {
+    "value": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+    "line": 69,
+    "in": "<module>"
+   },
+   {
+    "value": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "line": 70,
+    "in": "<module>"
+   },
+   {
+    "value": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "line": 71,
+    "in": "<module>"
+   },
+   {
+    "value": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "line": 72,
+    "in": "<module>"
+   },
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 73,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(code_root / 'app' / 'librarian.py'), 'review-loop', command, '--book', book, '--source', source, '--pass', pass_id]"
+    ],
+    "line": 157,
+    "in": "core_call"
+   }
+  ],
+  "fixed_roots": []
+ },
+ "labs/review-report-pass02/report.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 10
+   },
+   {
+    "name": "importlib.util",
+    "line": 12
+   },
+   {
+    "name": "json",
+    "line": 13
+   },
+   {
+    "name": "os",
+    "line": 14
+   },
+   {
+    "name": "sys",
+    "line": 15
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 16
+   }
+  ],
+  "strings": [
+   {
+    "value": "report.py",
+    "line": 21,
+    "in": "<module>"
+   },
+   {
+    "value": "journal.json",
+    "line": 137,
+    "in": "read_cut"
+   },
+   {
+    "value": "journal.json",
+    "line": 372,
+    "in": "checked_record"
+   },
+   {
+    "value": "record.json",
+    "line": 388,
+    "in": "checked_record"
+   },
+   {
+    "value": "record.json",
+    "line": 147,
+    "in": "read_cut"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'review_report_pass01'",
+     "_PASS01"
+    ],
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "call": "_SPEC.loader.exec_module",
+    "args": [
+     "p1"
+    ],
+    "line": 24,
+    "in": "<module>"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": []
+ },
+ "labs/review-report-pass03/report.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "importlib.util",
+    "line": 11
+   },
+   {
+    "name": "os",
+    "line": 12
+   },
+   {
+    "name": "sys",
+    "line": 13
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 14
+   }
+  ],
+  "strings": [
+   {
+    "value": "report.py",
+    "line": 19,
+    "in": "<module>"
+   }
+  ],
+  "hex_pins": [],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'review_report_pass02_for_pass03'",
+     "_PASS02"
+    ],
+    "line": 20,
+    "in": "<module>"
+   },
+   {
+    "call": "_SPEC.loader.exec_module",
+    "args": [
+     "p2"
+    ],
+    "line": 22,
+    "in": "<module>"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": []
+ },
+ "labs/review-report-pass03/tests/test_report.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 8
+   },
+   {
+    "name": "hashlib",
+    "line": 10
+   },
+   {
+    "name": "importlib.util",
+    "line": 11
+   },
+   {
+    "name": "json",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "shutil",
+    "line": 14
+   },
+   {
+    "name": "subprocess",
+    "line": 15
+   },
+   {
+    "name": "sys",
+    "line": 16
+   },
+   {
+    "name": "tempfile",
+    "line": 17
+   },
+   {
+    "name": "unittest",
+    "line": 18
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 19
+   },
+   {
+    "name": "report",
+    "line": 25
+   }
+  ],
+  "strings": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 21,
+    "in": "<module>"
+   },
+   {
+    "value": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0512-0506-report",
+    "line": 27,
+    "in": "<module>"
+   },
+   {
+    "value": "identical-files-pass02.json",
+    "line": 28,
+    "in": "<module>"
+   },
+   {
+    "value": "source-manifest.json",
+    "line": 31,
+    "in": "<module>"
+   },
+   {
+    "value": "CONTRACT.md",
+    "line": 32,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/workbook-review/0522.review-construction/05.13/intake.json",
+    "line": 51,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/workbook-review/0522.review-construction/05.13/journal.json",
+    "line": 52,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/workbook-review/0522.review-construction/05.13/reviews/w4c5ae945c250d823/judgment.json",
+    "line": 53,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/workbook-review/0522.review-construction/05.13/reviews/w4c5ae945c250d823/record.json",
+    "line": 54,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/workbook-review/0522.review-construction/05.13/reviews/w4c5ae945c250d823/rendered.md",
+    "line": 55,
+    "in": "<module>"
+   },
+   {
+    "value": "app/README.md",
+    "line": 56,
+    "in": "<module>"
+   },
+   {
+    "value": "independent-artifact-count.json",
+    "line": 58,
+    "in": "<module>"
+   },
+   {
+    "value": "independent-identical-files.json",
+    "line": 59,
+    "in": "<module>"
+   },
+   {
+    "value": "other.md",
+    "line": 508,
+    "in": "test_author_finish_recheck_withholds_attention"
+   },
+   {
+    "value": "other.md",
+    "line": 509,
+    "in": "test_author_finish_recheck_withholds_attention"
+   },
+   {
+    "value": ".md",
+    "line": 82,
+    "in": "publication"
+   },
+   {
+    "value": "current-changed.json",
+    "line": 487,
+    "in": "test_author_journal_current_changed_during_read"
+   },
+   {
+    "value": "journal.json",
+    "line": 506,
+    "in": "test_author_finish_recheck_withholds_attention"
+   },
+   {
+    "value": "app/README.md",
+    "line": 602,
+    "in": "test_live_0522_05_13_pair_matches_and_does_not_write"
+   },
+   {
+    "value": "journal.json",
+    "line": 182,
+    "in": "plant"
+   },
+   {
+    "value": "record.json",
+    "line": 183,
+    "in": "plant"
+   },
+   {
+    "value": "report.py",
+    "line": 248,
+    "in": "test_known_failure_identical_files_are_not_independent_coverage"
+   },
+   {
+    "value": "journal.json",
+    "line": 477,
+    "in": "mutate"
+   },
+   {
+    "value": "current-changed.json",
+    "line": 486,
+    "in": "test_author_journal_current_changed_during_read"
+   },
+   {
+    "value": "report.json",
+    "line": 666,
+    "in": "test_live_0522_05_13_pair_matches_and_does_not_write"
+   },
+   {
+    "value": "summary.json",
+    "line": 701,
+    "in": "test_live_0522_05_13_pair_matches_and_does_not_write"
+   },
+   {
+    "value": "journal.json",
+    "line": 444,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   },
+   {
+    "value": "journal.json",
+    "line": 452,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   },
+   {
+    "value": "journal.json",
+    "line": 458,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   },
+   {
+    "value": "report.py",
+    "line": 604,
+    "in": "test_live_0522_05_13_pair_matches_and_does_not_write"
+   },
+   {
+    "value": "record.json",
+    "line": 465,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   },
+   {
+    "value": "journal.json",
+    "line": 466,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   },
+   {
+    "value": "record.json",
+    "line": 467,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   },
+   {
+    "value": "report.py",
+    "line": 542,
+    "in": "test_author_refusal_does_not_call_the_core"
+   },
+   {
+    "value": "report.py",
+    "line": 553,
+    "in": "test_author_refusal_does_not_call_the_core"
+   },
+   {
+    "value": "README.md",
+    "line": 614,
+    "in": "test_live_0522_05_13_pair_matches_and_does_not_write"
+   },
+   {
+    "value": "journal.json",
+    "line": 450,
+    "in": "test_author_digest_mismatch_before_missing_record"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "e5849352644b63c8f249546d4f5bd7ccad575218d9c2062db2f4814a55babc6c",
+    "line": 36,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'review_report_pass02_known_case'",
+     "ROOT / 'labs' / 'review-report-pass02' / 'report.py'"
+    ],
+    "line": 246,
+    "in": "test_known_failure_identical_files_are_not_independent_coverage"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 251,
+    "in": "test_known_failure_identical_files_are_not_independent_coverage"
+   }
+  ],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "args"
+    ],
+    "line": 134,
+    "in": "run"
+   },
+   {
+    "call": "subprocess.CompletedProcess",
+    "args": [
+     "[]",
+     "0",
+     "pretty(payload)",
+     "b''"
+    ],
+    "line": 221,
+    "in": "core_call"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 21,
+    "in": "<module>"
+   },
+   {
+    "value": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\librarian\\temp\\0512-0506-report",
+    "line": 27,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/workbook-review-pass01/workbook.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 8
+   },
+   {
+    "name": "hashlib",
+    "line": 10
+   },
+   {
+    "name": "json",
+    "line": 11
+   },
+   {
+    "name": "os",
+    "line": 12
+   },
+   {
+    "name": "re",
+    "line": 13
+   },
+   {
+    "name": "stat",
+    "line": 14
+   },
+   {
+    "name": "subprocess",
+    "line": 15
+   },
+   {
+    "name": "sys",
+    "line": 16
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 17
+   }
+  ],
+  "strings": [
+   {
+    "value": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/return-access-pass01/return_access.py",
+    "line": 33,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-loop-pass03/review_loop.py",
+    "line": 38,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/review-construction-pass04/construct.py",
+    "line": 43,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-cycle-pass03/prime_cycle.py",
+    "line": 48,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/prime-review-pass02/prime_review.py",
+    "line": 53,
+    "in": "<module>"
+   },
+   {
+    "value": "intake.json",
+    "line": 937,
+    "in": "read_stored_intake"
+   },
+   {
+    "value": ".json",
+    "line": 947,
+    "in": "save_failed"
+   },
+   {
+    "value": "prime-input.json",
+    "line": 1106,
+    "in": "call_prime"
+   },
+   {
+    "value": "journal.json",
+    "line": 1330,
+    "in": "journal_path"
+   },
+   {
+    "value": "record.json",
+    "line": 1348,
+    "in": "record_path"
+   },
+   {
+    "value": "rendered.md",
+    "line": 1642,
+    "in": "do_publish"
+   },
+   {
+    "value": "rendered.md",
+    "line": 1745,
+    "in": "revalidate"
+   },
+   {
+    "value": ".review.md",
+    "line": 583,
+    "in": "address_of"
+   },
+   {
+    "value": ".return.md",
+    "line": 589,
+    "in": "address_of"
+   },
+   {
+    "value": "/decision.json",
+    "line": 1114,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "/descriptor.json",
+    "line": 1115,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "/registration.json",
+    "line": 1116,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "/request.json",
+    "line": 1117,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/",
+    "line": 1133,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": ".md",
+    "line": 1133,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/",
+    "line": 1136,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": ".pack.md",
+    "line": 1136,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": "/record.json",
+    "line": 1262,
+    "in": "attempt_cycle"
+   },
+   {
+    "value": "judgment.json",
+    "line": 1504,
+    "in": "do_record"
+   },
+   {
+    "value": "record.json",
+    "line": 1505,
+    "in": "do_record"
+   },
+   {
+    "value": "rendered.md",
+    "line": 1506,
+    "in": "do_record"
+   },
+   {
+    "value": ".md",
+    "line": 571,
+    "in": "address_of"
+   },
+   {
+    "value": ".return.md",
+    "line": 577,
+    "in": "address_of"
+   },
+   {
+    "value": ".pack.md",
+    "line": 582,
+    "in": "address_of"
+   },
+   {
+    "value": ".md",
+    "line": 582,
+    "in": "address_of"
+   },
+   {
+    "value": "intake.json",
+    "line": 1425,
+    "in": "do_record"
+   },
+   {
+    "value": ".md",
+    "line": 570,
+    "in": "address_of"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5",
+    "line": 34,
+    "in": "<module>"
+   },
+   {
+    "value": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "line": 39,
+    "in": "<module>"
+   },
+   {
+    "value": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "line": 44,
+    "in": "<module>"
+   },
+   {
+    "value": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+    "line": 49,
+    "in": "<module>"
+   },
+   {
+    "value": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e",
+    "line": 54,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [],
+  "subprocess": [
+   {
+    "call": "subprocess.run",
+    "args": [
+     "[sys.executable, '-B', str(script), *args]"
+    ],
+    "line": 614,
+    "in": "call_json"
+   }
+  ],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 22,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/workbook-review-pass02/workbook.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "hashlib",
+    "line": 11
+   },
+   {
+    "name": "importlib.util",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "sys",
+    "line": 14
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 15
+   }
+  ],
+  "strings": [
+   {
+    "value": "labs/workbook-review-pass01/workbook.py",
+    "line": 21,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass02/forms/workbook-review-v1.json",
+    "line": 24,
+    "in": "<module>"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 20,
+    "in": "<module>"
+   },
+   {
+    "value": "rendered.md",
+    "line": 782,
+    "in": "rendering_holds"
+   },
+   {
+    "value": "/decision.json",
+    "line": 548,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "/descriptor.json",
+    "line": 549,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "/registration.json",
+    "line": 550,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "/request.json",
+    "line": 551,
+    "in": "cycle_paths"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/",
+    "line": 569,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": ".md",
+    "line": 569,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": "00.kernel/00.00.10.work/",
+    "line": 572,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": ".pack.md",
+    "line": 572,
+    "in": "write_cycle_inputs"
+   },
+   {
+    "value": "/record.json",
+    "line": 677,
+    "in": "attempt_cycle"
+   },
+   {
+    "value": "judgment.json",
+    "line": 940,
+    "in": "do_record"
+   },
+   {
+    "value": "record.json",
+    "line": 941,
+    "in": "do_record"
+   },
+   {
+    "value": "rendered.md",
+    "line": 942,
+    "in": "do_record"
+   },
+   {
+    "value": "intake.json",
+    "line": 842,
+    "in": "do_record"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a",
+    "line": 22,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'workbook_review_pass01'",
+     "path"
+    ],
+    "line": 44,
+    "in": "load_pass01"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 48,
+    "in": "load_pass01"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 20,
+    "in": "<module>"
+   }
+  ]
+ },
+ "labs/workbook-review-pass03/workbook.py": {
+  "imports": [
+   {
+    "name": "__future__",
+    "level": 0,
+    "line": 9
+   },
+   {
+    "name": "hashlib",
+    "line": 11
+   },
+   {
+    "name": "importlib.util",
+    "line": 12
+   },
+   {
+    "name": "os",
+    "line": 13
+   },
+   {
+    "name": "re",
+    "line": 14
+   },
+   {
+    "name": "sys",
+    "line": 15
+   },
+   {
+    "name": "pathlib",
+    "level": 0,
+    "line": 16
+   }
+  ],
+  "strings": [
+   {
+    "value": "labs/workbook-review-pass02/workbook.py",
+    "line": 22,
+    "in": "<module>"
+   },
+   {
+    "value": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+    "line": 25,
+    "in": "<module>"
+   },
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 21,
+    "in": "<module>"
+   }
+  ],
+  "hex_pins": [
+   {
+    "value": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a",
+    "line": 23,
+    "in": "<module>"
+   }
+  ],
+  "loaders": [
+   {
+    "call": "importlib.util.spec_from_file_location",
+    "args": [
+     "'workbook_review_pass02'",
+     "path"
+    ],
+    "line": 56,
+    "in": "load_pass02"
+   },
+   {
+    "call": "spec.loader.exec_module",
+    "args": [
+     "module"
+    ],
+    "line": 60,
+    "in": "load_pass02"
+   }
+  ],
+  "subprocess": [],
+  "fixed_roots": [
+   {
+    "value": "D:\\Git\\lib-build",
+    "line": 21,
+    "in": "<module>"
+   }
+  ]
+ }
+}

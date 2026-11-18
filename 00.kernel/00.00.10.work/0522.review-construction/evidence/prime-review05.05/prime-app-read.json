@@ -1,0 +1,52 @@
+{
+  "command": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\Git\\lib-build\\app\\librarian.py",
+    "review-loop",
+    "describe-legacy",
+    "--book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "--member",
+    "0182.desk-app-integration-design-0501"
+  ],
+  "exit": 0,
+  "source_unchanged": true,
+  "state": "complete",
+  "descriptor": {
+    "custody_format": "legacy-in-place/1",
+    "custody_path": "0182.desk-app-integration-design-0501",
+    "manifest_path": "0182.desk-app-integration-design-0501/manifest.json",
+    "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0519.desk-app"
+    },
+    "placement": {
+      "intended_return_path": "0119.desk-app/05.01.return.md",
+      "intended_target_page": "0119.desk-app",
+      "occupancy": null,
+      "relocation_record_path": null,
+      "status": "pending"
+    },
+    "receipt_path": "0182.desk-app-integration-design-0501/receipt.json",
+    "receipt_sha256": "f4fd548fb83e33c9d0b21ed997089c4b9c7b9f628c1177432b6a9aeff3713401",
+    "return_bytes": 3187,
+    "return_path": "0182.desk-app-integration-design-0501/return.md",
+    "return_sha256": "73e928719064c6d2e6a8b0761d9769c9a147c92f8d2ca9abcbfd952fc10f5464",
+    "route": "matched-workflow-return-line",
+    "schema": "return-line-descriptor/2",
+    "state": "complete",
+    "submission_id": "claude-0519-0501",
+    "target_page": "0182.desk-app-integration-design-0501",
+    "verification": {
+      "evidence_path": "0182.desk-app-integration-design-0501/receipt.json",
+      "result": "complete",
+      "tool_path": "labs/return-capture-pass01/return_inspect.py",
+      "tool_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    }
+  },
+  "qualification": "actual read-only app use, not a new semantic review or live render"
+}

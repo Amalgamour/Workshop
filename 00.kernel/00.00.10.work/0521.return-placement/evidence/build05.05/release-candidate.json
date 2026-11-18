@@ -1,0 +1,41 @@
+{
+  "active": false,
+  "audit_bytes": 391778,
+  "audit_sha256": "c3bf8c1e25bfd1a59ce40230d87f650897f3105691db732eadfe5abf4e275606",
+  "backup_root": "D:\\librarian\\return-placement\\0521-backup",
+  "book": "00.00.10.work",
+  "book_path": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+  "executor": "Codex Prime",
+  "layout_sha256": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804",
+  "operations": [
+    "init",
+    "reserve",
+    "capture",
+    "stage",
+    "stage-resume",
+    "rollback-stage",
+    "reconstruct",
+    "reconstruct-resume",
+    "publish",
+    "publish-resume",
+    "retire",
+    "retire-resume",
+    "rollback-publish",
+    "rollback-retire"
+  ],
+  "plan_bytes": 789717,
+  "plan_sha256": "52951e1dbc0f37fa7f8c76be390a9510999a6944d7dc9f4e20c00c365f326f66",
+  "release_text": "CANDIDATE only. The Director has not released execution of this plan.\n",
+  "retired_root": "D:\\Git\\lib-build\\00.archive\\0521.return-lines",
+  "schema": "return-line-release-candidate/1",
+  "staging_root": "D:\\librarian\\return-placement\\0521-staging",
+  "unresolved": [
+    "Director has not approved the staging, backup, or retirement paths.",
+    "This invocation is not an execution release, and Prime has not recorded one.",
+    "The executing identity is not recorded for a live cutover.",
+    "0154.colab-support-first-0501 stays incomplete. No return is invented.",
+    "Pending captures 0121 through 0126 have no receipt and no task association.",
+    "Retained bytes are split across occupants and originals. The historical reader has no adapter.",
+    "Old sequential reserve closure is not built. The allocation-lock sentinel is not adopted."
+  ]
+}

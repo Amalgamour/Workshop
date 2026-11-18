@@ -1,0 +1,228 @@
+{
+  "attention": [],
+  "catalog": {
+    "items": [
+      {
+        "address": "0524.prime-desk/05.03",
+        "basis": "observed",
+        "label": "disposable copy",
+        "provenance": "disposable index; not a selection",
+        "provenance_basis": "supplied",
+        "work_id": "work-0524-0503"
+      }
+    ],
+    "source": {
+      "basis": "observed",
+      "bytes": 236,
+      "path": "catalog.json",
+      "sha256": "b55ecfa314f1a0e8f756b298a3eae41f9c108e9396c461cb904fe2bb8574a72a",
+      "status": "matched"
+    },
+    "used_for_selection": false
+  },
+  "check": "prime-desk-request/2",
+  "command": "view",
+  "correction": "Read the gaps and open attention. Keep the canonical assignment. Do not treat a supplied label or a legacy selector as the current work. Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+  "coverage": {
+    "changed": 0,
+    "declared": 6,
+    "matched": 6,
+    "missing": 0,
+    "outside": 0,
+    "stale": 0,
+    "statement": "Declared request paths only. Unregistered sources were not searched.",
+    "unreadable": 0
+  },
+  "exit": 1,
+  "foreign": [],
+  "gaps": [
+    {
+      "basis": "unknown",
+      "check": "0124.prime-desk/05.03.return.md",
+      "kind": "return-undeclared",
+      "message": "The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.",
+      "path": "0124.prime-desk/05.03.return.md"
+    }
+  ],
+  "inspectability": {
+    "basis_legend": "observed = declared bytes matched; supplied = caller label; unknown = not present; stale = different bytes withheld; changed = bytes moved during the read and were withheld",
+    "escalation": "Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+    "fingerprint": "8e982608b628bb4e918c3c56ff7a06b0e1cd0576d83b7715d371094ddae088e3",
+    "request_sha256": "45bd63a4421041818f974a6290356aa4b35b4b9f59b11892ed6d5200b596cad9"
+  },
+  "instance": {
+    "basis": "observed",
+    "book": "00.00.10.work",
+    "role": "prime",
+    "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0524.prime-desk\\evidence\\build05.04\\run\\stale-book",
+    "tools_root": "D:\\Git\\lib-build"
+  },
+  "legacy": [],
+  "not_selected": [],
+  "observed_at": "2026-11-01T18:40:12Z",
+  "operations": [
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "review-loop-integration",
+      "limitation": "Pending. Successor modules were not imported.",
+      "limitation_basis": "tool",
+      "name": "review-loop",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": null
+    }
+  ],
+  "packet": null,
+  "record": {
+    "assignment_reader": [
+      {
+        "fields": {
+          "assignment_state": "returned",
+          "basis": "observed",
+          "current_work": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "next": "review",
+          "next_limit": "the record next field is not a command and is not the selected next route",
+          "pack": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+          "updated": "2026-11-01",
+          "waits_on": "none"
+        },
+        "limit": "assignment_state is a record field, not a live process check. validate_context was not called.",
+        "reader": "app-context.parse_assignment",
+        "source": {
+          "basis": "observed",
+          "bytes": 353,
+          "path": "0401.goal/06.01.md",
+          "sha256": "15ab8321f8a33982e8b5eff811664a8e53e7be8c78b34370994882d27ccb9172",
+          "status": "matched"
+        }
+      }
+    ],
+    "attribution": [],
+    "history": [],
+    "history_inlined": false,
+    "references": [
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "goal",
+        "label": "disposable goal",
+        "label_basis": "supplied",
+        "role": "goal",
+        "source": {
+          "basis": "observed",
+          "bytes": 16,
+          "path": "goal.md",
+          "sha256": "832a18ef8941160d58ce82e78141db0701506d0e0a518e875a6ba83ff9c55d88",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0524-0503"
+        },
+        "for_selected": true,
+        "id": "ver",
+        "label": "disposable verification",
+        "label_basis": "supplied",
+        "role": "verification",
+        "source": {
+          "basis": "observed",
+          "bytes": 20,
+          "path": "verified.md",
+          "sha256": "3a633402509f71eb9592f42669f19c19ca8365c66df5701f35af823f765c9f58",
+          "status": "matched"
+        }
+      }
+    ],
+    "supplied_without_worker": [],
+    "talk_parsed": false
+  },
+  "schema": "prime-desk-view/3",
+  "selected": {
+    "address": "0524.prime-desk/05.03",
+    "basis": "observed",
+    "checkpoint": {
+      "basis": "unknown",
+      "source": null
+    },
+    "current_work": "00.kernel/00.00.10.work/0524.prime-desk/05.03.md",
+    "id": "work-0524-0503",
+    "legacy_selector": {
+      "agrees": null,
+      "basis": "unknown",
+      "limit": "no legacy selector was declared. hint only. prime-desk-selector/1 does not choose current work. This tool does not write a selector.",
+      "present": false,
+      "selected_work_id": null,
+      "source": null,
+      "unused_fields": []
+    },
+    "next_route": {
+      "basis": "unknown",
+      "limit": "no work-bound next route is declared",
+      "source": null
+    },
+    "record_path": "0401.goal/06.01.md",
+    "route": {
+      "band": "N5NN",
+      "limit": "Review identity is this source page. The review section was not parsed. The return line is a separate path.",
+      "return_line": {
+        "address": "0124.prime-desk/05.03.return",
+        "basis": "unknown",
+        "custody": "unknown",
+        "file": "undeclared",
+        "judgment": "unknown",
+        "kind": "return",
+        "limit": "The return path is not a declared source. This tool did not search and did not create it. Custody is unknown.",
+        "path": "0124.prime-desk/05.03.return.md",
+        "source": null
+      },
+      "review": {
+        "address": "0524.prime-desk/05.03",
+        "basis": "observed",
+        "custody": null,
+        "file": "matched",
+        "judgment": "unknown",
+        "kind": "review",
+        "limit": "The review identity is this source page. Its review section was not parsed. A pending return does not hide this page.",
+        "path": "0524.prime-desk/05.03.md",
+        "source": {
+          "basis": "observed",
+          "bytes": 8326,
+          "path": "0524.prime-desk/05.03.md",
+          "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+          "status": "matched"
+        }
+      },
+      "source_kind": "work",
+      "source_path": "0524.prime-desk/05.03.md"
+    },
+    "rule": "assignment-record/v1",
+    "source": {
+      "basis": "observed",
+      "bytes": 8326,
+      "path": "0524.prime-desk/05.03.md",
+      "sha256": "c8851a91f7dfbcadd13124988fae7057ff94b7dbef5971effc9aebb9c9123dc7",
+      "status": "matched"
+    },
+    "verified_result": {
+      "basis": "observed",
+      "limit": "a matching hash proves these bytes, not acceptance or process freshness",
+      "source": {
+        "basis": "observed",
+        "bytes": 20,
+        "path": "verified.md",
+        "sha256": "3a633402509f71eb9592f42669f19c19ca8365c66df5701f35af823f765c9f58",
+        "status": "matched"
+      }
+    }
+  },
+  "state": "attention",
+  "workers": []
+}

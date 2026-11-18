@@ -1,0 +1,551 @@
+{
+  "schema": "authoring-forms/1",
+  "form_id": "build-pack-v1",
+  "source_contract": "00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md",
+  "meaning": "Named forms for this build-pack template and the two existing profiles. Not a generic face engine.",
+  "owners": {
+    "intelligence": "goal, scope, finish, executor, reviewer, item meaning, note text, disposition, and review assessment",
+    "compute": "pass, item number, candidate identity, final document identity, UTF-8, dependency lookup, and the return directory name",
+    "source": "the declared profile mapping, the registered notes, and the readable template bytes"
+  },
+  "forms": {
+    "intent": {
+      "id": "build-pack-v1.intent",
+      "meaning": "The goal and scope of this draft. One object, not a pack document.",
+      "not_submitted": ["pass", "item number", "candidate_sha256", "final_sha256"],
+      "example_input": {
+        "goal": "Example goal sentence.",
+        "scope": {
+          "included": "Example included work.",
+          "excluded": "Example excluded work.",
+          "allowed_writes": "Example allowed writes."
+        },
+        "finish": "Example finish condition.",
+        "executor": "Example executor.",
+        "reviewer": "Example reviewer."
+      },
+      "correction_help": {
+        "route": "labs/pack-authoring-pass02/PRIME-USE.md",
+        "states": ["absent", "null", "empty", "wrong-type", "extra"],
+        "example": {
+          "field": "goal",
+          "state": "empty",
+          "correction": "Supply a non-empty string. Null is not a goal."
+        }
+      },
+      "fields": [
+        {
+          "name": "goal",
+          "meaning": "What this draft is for.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example goal sentence."
+        },
+        {
+          "name": "scope",
+          "meaning": "What the draft includes, excludes, and may write.",
+          "type": "object",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "fields": [
+            {
+              "name": "included",
+              "meaning": "Work inside this draft.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "Example included work."
+            },
+            {
+              "name": "excluded",
+              "meaning": "Work outside this draft.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "Example excluded work."
+            },
+            {
+              "name": "allowed_writes",
+              "meaning": "Where this draft may write.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "Example allowed writes."
+            }
+          ]
+        },
+        {
+          "name": "finish",
+          "meaning": "How the caller knows the draft is ready to review.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example finish condition."
+        },
+        {
+          "name": "executor",
+          "meaning": "Who supplies the draft meaning.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example executor."
+        },
+        {
+          "name": "reviewer",
+          "meaning": "Who supplies the semantic review.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example reviewer."
+        }
+      ]
+    },
+    "item": {
+      "id": "build-pack-v1.item",
+      "meaning": "One item of meaning. Compute assigns the item number.",
+      "not_submitted": ["id", "revision", "pass", "candidate_sha256", "final_sha256"],
+      "example_input": {
+        "title": "Example item title",
+        "purpose": "Example purpose. The mark is meaning, not a command.",
+        "requirements": ["The caller does not choose the item number."],
+        "interfaces": ["authoring add-item"],
+        "acceptance": ["Inspect shows this purpose under the computed number."],
+        "note_refs": [],
+        "open_choices": [],
+        "dependency_refs": []
+      },
+      "correction_help": {
+        "route": "labs/pack-authoring-pass02/PRIME-USE.md",
+        "states": ["absent", "null", "empty", "wrong-type", "extra", "not-applicable"],
+        "example": {
+          "field": "requirements",
+          "state": "empty",
+          "correction": "Supply at least one non-empty string. An empty list is not acceptance of the item."
+        }
+      },
+      "fields": [
+        {
+          "name": "title",
+          "meaning": "Short name of this item.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example item title"
+        },
+        {
+          "name": "purpose",
+          "meaning": "What this item says. Prose is data.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example purpose."
+        },
+        {
+          "name": "requirements",
+          "meaning": "What must be true for this item.",
+          "type": "string-list",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "min_items": 1,
+          "max_items": 32,
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": ["The caller does not choose the item number."]
+        },
+        {
+          "name": "interfaces",
+          "meaning": "Commands or surfaces this item names.",
+          "type": "string-list",
+          "presence": "required",
+          "null": "refused",
+          "empty": "allowed",
+          "min_items": 0,
+          "max_items": 32,
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": ["authoring add-item"]
+        },
+        {
+          "name": "acceptance",
+          "meaning": "What inspect must show.",
+          "type": "string-list",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "min_items": 1,
+          "max_items": 32,
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": ["Inspect shows this purpose under the computed number."]
+        },
+        {
+          "name": "note_refs",
+          "meaning": "Declared or draft note ids this item uses.",
+          "type": "string-list",
+          "presence": "required",
+          "null": "refused",
+          "empty": "allowed",
+          "min_items": 0,
+          "max_items": 32,
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000, "note_id": true},
+          "example": []
+        },
+        {
+          "name": "open_choices",
+          "meaning": "Choices left for a later review.",
+          "type": "string-list",
+          "presence": "required",
+          "null": "refused",
+          "empty": "allowed",
+          "min_items": 0,
+          "max_items": 32,
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": []
+        },
+        {
+          "name": "dependency_refs",
+          "meaning": "Declared module references. Compute looks them up and does not treat the lookup as closure.",
+          "type": "object-list",
+          "presence": "required",
+          "null": "refused",
+          "empty": "allowed",
+          "min_items": 0,
+          "max_items": 32,
+          "owner": "intelligence",
+          "item_fields": [
+            {
+              "name": "repository",
+              "meaning": "Repository label.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "lib-build"
+            },
+            {
+              "name": "path",
+              "meaning": "Book-relative or repository-relative path.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000, "book_path": true},
+              "example": "app/librarian.py"
+            },
+            {
+              "name": "claimed_sha256",
+              "meaning": "Optional claimed implementation digest. Absent means no claim.",
+              "type": "string",
+              "presence": "optional",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"hex64": true},
+              "example": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "meaning": "A new relationship. Compute stores it as unresolved-not-in-set and does not write the declaration set.",
+          "type": "object",
+          "presence": "optional",
+          "null": "not-applicable",
+          "empty": "refused",
+          "owner": "intelligence",
+          "fields": [
+            {
+              "name": "target_repository",
+              "meaning": "Target repository label.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "lib-build"
+            },
+            {
+              "name": "target_path",
+              "meaning": "Target path.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000, "book_path": true},
+              "example": "app/librarian.py"
+            },
+            {
+              "name": "meaning",
+              "meaning": "Why the relationship is asserted.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "Example relationship meaning."
+            }
+          ]
+        },
+        {
+          "name": "condition",
+          "meaning": "A condition on a declared module. Compute does not decide that the condition is satisfied.",
+          "type": "object",
+          "presence": "optional",
+          "null": "not-applicable",
+          "empty": "refused",
+          "owner": "intelligence",
+          "fields": [
+            {
+              "name": "module",
+              "meaning": "REPOSITORY:PATH.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000, "module_key": true},
+              "example": "lib-build:app/librarian.py"
+            },
+            {
+              "name": "id",
+              "meaning": "Condition id.",
+              "type": "string",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "owner": "intelligence",
+              "constraints": {"max_chars": 4000},
+              "example": "render-or-recover"
+            },
+            {
+              "name": "state",
+              "meaning": "Supplied applicability.",
+              "type": "enum",
+              "presence": "required",
+              "null": "refused",
+              "empty": "refused",
+              "values": ["applicable", "inapplicable", "unknown"],
+              "owner": "intelligence",
+              "example": "unknown"
+            }
+          ]
+        }
+      ]
+    },
+    "note": {
+      "id": "build-pack-v1.note",
+      "meaning": "One draft note. Compute assigns dNN. The mark is optional and only the three declared values.",
+      "not_submitted": ["id", "disposition", "hashes"],
+      "example_input": {
+        "text": "Example note text.",
+        "attribution": "Example author.",
+        "source": "Example source label."
+      },
+      "correction_help": {
+        "route": "labs/pack-authoring-pass02/PRIME-USE.md",
+        "states": ["absent", "null", "empty", "wrong-type", "extra"],
+        "example": {
+          "field": "mark",
+          "state": "wrong-type",
+          "correction": "Omit mark, or use discussion, proposal, or recorded-decision."
+        }
+      },
+      "fields": [
+        {
+          "name": "text",
+          "meaning": "The note text.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example note text."
+        },
+        {
+          "name": "attribution",
+          "meaning": "Who the note is attributed to.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example author."
+        },
+        {
+          "name": "source",
+          "meaning": "Where the note came from.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "source",
+          "constraints": {"max_chars": 4000},
+          "example": "Example source label."
+        },
+        {
+          "name": "mark",
+          "meaning": "Optional mark. Absent means no mark.",
+          "type": "enum",
+          "presence": "optional",
+          "null": "refused",
+          "empty": "refused",
+          "values": ["discussion", "proposal", "recorded-decision"],
+          "owner": "intelligence",
+          "example": "recorded-decision"
+        }
+      ]
+    },
+    "disposition": {
+      "id": "build-pack-v1.disposition",
+      "meaning": "One note disposition. Unresolved is the compute starting state and is not a submitted value.",
+      "not_submitted": ["note id", "unresolved"],
+      "example_input": {
+        "disposition": "integrated",
+        "item": "01"
+      },
+      "correction_help": {
+        "route": "labs/pack-authoring-pass02/PRIME-USE.md",
+        "states": ["absent", "null", "empty", "wrong-type", "extra"],
+        "example": {
+          "field": "why",
+          "state": "absent",
+          "correction": "A deferred or rejected disposition needs why. An integrated disposition leaves why absent and supplies item."
+        }
+      },
+      "fields": [
+        {
+          "name": "disposition",
+          "meaning": "integrated, deferred, or rejected.",
+          "type": "enum",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "values": ["integrated", "deferred", "rejected"],
+          "owner": "intelligence",
+          "example": "integrated"
+        },
+        {
+          "name": "item",
+          "meaning": "Existing item id. Required for integrated and absent otherwise.",
+          "type": "string",
+          "presence": "required-when",
+          "when": {"field": "disposition", "values": ["integrated"]},
+          "otherwise": "absent",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"existing_item": true},
+          "example": "01"
+        },
+        {
+          "name": "why",
+          "meaning": "Reason. Required for deferred or rejected and absent otherwise.",
+          "type": "string",
+          "presence": "required-when",
+          "when": {"field": "disposition", "values": ["deferred", "rejected"]},
+          "otherwise": "absent",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example reason for deferring the note."
+        }
+      ]
+    },
+    "review": {
+      "id": "build-pack-v1.review",
+      "meaning": "Semantic review of the inspected candidate. Do not include either document hash in this object.",
+      "not_submitted": ["candidate_sha256", "final_sha256", "approval", "release", "pass"],
+      "example_input": {
+        "assessment": "Example assessment of the inspected candidate.",
+        "unresolved_issues": "Example unresolved issue.",
+        "stop_conditions": "Example stop condition."
+      },
+      "correction_help": {
+        "route": "labs/pack-authoring-pass02/PRIME-USE.md",
+        "states": ["absent", "null", "empty", "wrong-type", "extra"],
+        "example": {
+          "field": "candidate_sha256",
+          "state": "extra",
+          "correction": "Leave the hash out of the JSON. Pass the candidate sha256 from inspect as --draft-sha256."
+        }
+      },
+      "fields": [
+        {
+          "name": "assessment",
+          "meaning": "The semantic judgment of the inspected candidate.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example assessment of the inspected candidate."
+        },
+        {
+          "name": "unresolved_issues",
+          "meaning": "What remains unresolved.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example unresolved issue."
+        },
+        {
+          "name": "stop_conditions",
+          "meaning": "What would stop the draft.",
+          "type": "string",
+          "presence": "required",
+          "null": "refused",
+          "empty": "refused",
+          "owner": "intelligence",
+          "constraints": {"max_chars": 4000},
+          "example": "Example stop condition."
+        }
+      ]
+    }
+  }
+}

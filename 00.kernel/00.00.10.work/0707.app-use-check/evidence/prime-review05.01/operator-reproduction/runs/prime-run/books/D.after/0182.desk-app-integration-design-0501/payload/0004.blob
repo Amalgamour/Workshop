@@ -1,0 +1,400 @@
+{
+ "schema": "desk-integration-verification/1",
+ "batch": "0519.desk-app/05.01",
+ "who": "claude-opus-5-5 (Claude)",
+ "date": "2026-10-31",
+ "authority": "none; evidence of what ran, not acceptance",
+ "environment": {
+  "python": "3.14.0",
+  "platform": "win32",
+  "git_head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "interpreter_flags": "-I -B (PYTHONDONTWRITEBYTECODE=1 for children)"
+ },
+ "pack_check": {
+  "command": "scratch verify_pack.py over evidence/pack05.01/source-manifest.json",
+  "result": "51/51 snapshot sha256+bytes match; 51/51 equal live; 49/51 equal HEAD (0416.desk-app/01.002.md untracked, 0401.goal/06.01.md modified by Prime)"
+ },
+ "clarifications_read": {
+  "0519.desk-app/06.02.md": "6c313ceb90bffac232b9f08f8658566a9c2ec1ddae1870dfa165ac3943e568f4",
+  "0416.desk-app/06.04.md": "00ba3e61409badfbbfeafee5725649051d5cebd2015be5edcc9f22eb95798cad",
+  "0519.desk-app/06.03.md": "d2c006bf939ac5870ffc70276dc2c374f087ddaa4b4c2ca176e4a67ff70f1514",
+  "0416.desk-app/06.05.md": "9bc01d5790111ad2086eff3611ccaf8766e5df303f03b2554515bf8df6f80ce4"
+ },
+ "live_read_only_commands": [
+  {
+   "argv": "python -I -B app/librarian.py where --root D:/Git/lib-build",
+   "exit": 2,
+   "stderr": "stop: assignment_state is not a known state"
+  },
+  {
+   "argv": "python -I -B app/librarian.py validate --root D:/Git/lib-build",
+   "exit": 2,
+   "stderr": "stop: assignment_state is not a known state"
+  },
+  {
+   "argv": "python -I -B labs/batch-observation-pass01/batch_observe.py observe --json --repo D:/Git/lib-build --live --path 00.kernel/00.00.10.work/0519.desk-app/05.01.md",
+   "exit": 1,
+   "note": "release_raw null; release_lines include the template line 12 and the real line 100"
+  },
+  {
+   "argv": "python -I -B labs/return-capture-pass01/return_inspect.py inspect --book <book> --member 0182.desk-app-integration-design-0501 --json",
+   "exit": 1,
+   "status": "reserved"
+  },
+  {
+   "argv": "python -I -B labs/return-capture-pass01/return_inspect.py inspect --book <book> --member 0179.colab-review-integration-0501 --json",
+   "exit": 0,
+   "status": "complete"
+  },
+  {
+   "argv": "python -I -B labs/desk-app-integration-pass01/desk_lab.py view --repo D:/Git/lib-build --json (final bytes)",
+   "exit": 1,
+   "summary": {
+    "tasks": 83,
+    "by_state": {
+     "historical-capture": 8,
+     "reviewed-untyped": 58,
+     "awaiting-review": 14,
+     "awaiting-release": 2,
+     "claimed": 1
+    },
+    "by_actor": {
+     "Codex Prime": 13,
+     "Matthew Fisher": 1,
+     "director": 2,
+     "Claude": 1
+    }
+   },
+   "return_band_free": 16,
+   "state_digest": "64409982262cf1fce92187e7a0f63dde9402927a11e3d5c8acd0874c3d5602dc",
+   "files_before_after": {
+    "added": [],
+    "removed": [],
+    "changed": []
+   },
+   "files_scanned": 27508
+  }
+ ],
+ "probe": {
+  "name": "review-address-probe",
+  "file": "runs/review-address-probe.json",
+  "with_evidence_review": 10,
+  "with_06_review_only": 3,
+  "neither": [
+   "0172.prime-replay-codex-01"
+  ],
+  "rows": 14
+ },
+ "demo_runs": [
+  {
+   "run": "run1",
+   "file": "runs/run1-first-failure.txt",
+   "result": "15 of 17 steps held, then aborted; step 10 wrong expectation (prime_cycle custody-unresolved), step 17 my --templates path outside output_root; no transcript (abort not recorded yet)"
+  },
+  {
+   "run": "run2",
+   "result": "diagnostic --keep run; temp directory inspected and removed; not kept"
+  },
+  {
+   "run": "run3",
+   "file": "runs/run3-aborted.txt",
+   "result": "29 of 29 held, then aborted in my transcript helper (relpath across drives)"
+  },
+  {
+   "run": "run4",
+   "file": "runs/run4-one-failure.json",
+   "held": 35,
+   "steps": 36,
+   "result": "step 31 failed: my helper passed Path objects; pinned capture refused, wrote nothing"
+  },
+  {
+   "run": "run5",
+   "result": "diagnostic --keep run; removed"
+  },
+  {
+   "run": "final",
+   "file": "runs/final-demo.json",
+   "held": 36,
+   "steps": 36,
+   "aborted": null,
+   "exit": 0,
+   "steps_summary": [
+    {
+     "n": 1,
+     "step": "1a Prime: construct batch page A from a structured spec",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 2,
+     "step": "1b Prime: reserve member A (existing helper)",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 3,
+     "step": "2  worker view: assigned, not released",
+     "exit": 0,
+     "held": true,
+     "check": "0101.demo-a-0501: awaiting-release, actor director, next: record the Director's release on the page"
+    },
+    {
+     "n": 4,
+     "step": "2b construct batch page A again (exists) is refused",
+     "exit": 2,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 5,
+     "step": "3a record the Director release (constructed line)",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 6,
+     "step": "3b worker view: released",
+     "exit": 0,
+     "held": true,
+     "check": "0101.demo-a-0501: released, actor Builder-X (SYNTHETIC), next: claim on the page, then do the work"
+    },
+    {
+     "n": 7,
+     "step": "3c stale compare-and-swap: claim with an old page hash is refused",
+     "exit": 2,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 8,
+     "step": "3d worker claims (compute binds the assignment hash)",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 9,
+     "step": "4a worker view: claimed, no return (not done)",
+     "exit": 0,
+     "held": true,
+     "check": "0101.demo-a-0501: claimed, actor Builder-X (SYNTHETIC), next: capture and verify the return into this member"
+    },
+    {
+     "n": 10,
+     "step": "4b prime_cycle read: claimed work is not awaiting review or reviewed",
+     "exit": 1,
+     "held": true,
+     "check": "custody-unresolved (custody unresolved: registered member 0101.demo-a-0501 is not named by the page)"
+    },
+    {
+     "n": 11,
+     "step": "5a worker captures the return (existing helper)",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 12,
+     "step": "5b verify in a fresh process",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 13,
+     "step": "5c compute writes the Execution line from the inspected receipt",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 14,
+     "step": "6a identical handback: already-captured, nothing written",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 15,
+     "step": "6b changed handback under the same submission: conflict, nothing written",
+     "exit": 2,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 16,
+     "step": "7a Prime view: awaiting review",
+     "exit": 0,
+     "held": true,
+     "check": "0101.demo-a-0501: awaiting-review, actor Codex Prime (SYNTHETIC), next: verify the member, review the return, record the judgment"
+    },
+    {
+     "n": 17,
+     "step": "7b prime_cycle read writes the decision template",
+     "exit": 1,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 18,
+     "step": "7c Prime records the typed review (prime_cycle record)",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 19,
+     "step": "7d view after the typed review: reviewed, next action shown",
+     "exit": 0,
+     "held": true,
+     "check": "0101.demo-a-0501: reviewed, actor Codex Prime (SYNTHETIC), next: Pack 05.02: add the second change."
+    },
+    {
+     "n": 20,
+     "step": "8a compute writes the page Review section from record.json",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 21,
+     "step": "8b FINDING: writing the Review section makes the typed review stale (whole-page binding)",
+     "exit": 0,
+     "held": true,
+     "check": "0101.demo-a-0501: review-stale, actor Codex Prime (SYNTHETIC), next: re-read and record a successor review"
+    },
+    {
+     "n": 22,
+     "step": "8c a second Review construction over existing text is refused (no silent rewrite)",
+     "exit": 2,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 23,
+     "step": "9a restart: fresh-process view 1",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 24,
+     "step": "9b restart: fresh-process view 2",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 25,
+     "step": "10a Prime: construct batch page B",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 26,
+     "step": "10b reserve member B",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 27,
+     "step": "10c construct B release",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 28,
+     "step": "10c construct B claim",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 29,
+     "step": "10d assignment edited after claim: attention, stays claimed",
+     "exit": 1,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 30,
+     "step": "10e interrupted capture (helper's own before-receipt point): partial retained",
+     "exit": 2,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 31,
+     "step": "10f view: partial capture is a custody problem, not a return",
+     "exit": 1,
+     "held": true,
+     "check": "0102.demo-b-0501: custody-problem, actor prime, next: inspect the member; partial captures are evidence, not returns"
+    },
+    {
+     "n": 32,
+     "step": "10g amended return: new submission supersedes A",
+     "exit": 0,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 33,
+     "step": "10h view: A's first member is superseded, successor waits for capture",
+     "exit": 1,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 34,
+     "step": "11 construct into the shared checkout is refused",
+     "exit": 2,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 35,
+     "step": "12 final human view",
+     "exit": 1,
+     "held": true,
+     "check": null
+    },
+    {
+     "n": 36,
+     "step": "12b final text view",
+     "exit": 1,
+     "held": true,
+     "check": null
+    }
+   ]
+  }
+ ],
+ "lab_code_final_sha256": {
+  "demo.py": "79db81bb1266f2de0a807da6897209cc650d44c6b10f47af1f5a2f088321c6b9",
+  "desk_lab.py": "db115e77e457fca3debd9d25e4e4a34d28d50fad8413befc8053df534bde697d",
+  "README.md": "11fa016c06867c4a0ec247c731f1786a7c120d47e6fcd8da9cc073a3de7ff391"
+ },
+ "live_view_runs_not_used_as_evidence": [
+  "run1 of view: concurrent writes by other lanes during the run",
+  "run3 of view: pre-fix code wrote cp1252 output (fixed); its file diff was empty"
+ ],
+ "not_run": [
+  "app test suites",
+  "inventory/bridge fixtures",
+  "AR-01 race tests",
+  "broad adverse-case replay (Grok-2's 0520)",
+  "any model, reviewer or session",
+  "Clerk"
+ ],
+ "limits": [
+  "SYNTHETIC tasks, returns and decisions",
+  "labels are not authentication",
+  "same-user, no OS sandbox",
+  "the restart demonstrated is fresh processes, not a killed process"
+ ]
+}

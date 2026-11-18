@@ -1,0 +1,19 @@
+{
+  "schema": "librarian-prime-intake",
+  "version": 1,
+  "_note": "Development wiring for the accepted read-only Prime status tool. Not kernel law. A status result is not authority and is not release readiness.",
+  "tools": {
+    "prime_support": {
+      "path": "labs/prime-support-pass01/prime_support.py",
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70"
+    },
+    "clerk_adapter": {
+      "path": "labs/prime-support-pass01/clerk_adapter.py",
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4"
+    },
+    "clerk": {
+      "path": "labs/clerk-handoff-pass02/clerk.py",
+      "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+    }
+  }
+}

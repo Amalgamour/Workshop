@@ -1,0 +1,268 @@
+{
+  "claims": [
+    {
+      "case": "source-audit",
+      "claim": "The tool source is a bounded standard-library recognizer with no public injection flag.",
+      "detail": "",
+      "id": "C01",
+      "limit": "The audit is a source scan, not a proof about every future edit.",
+      "result": "passed"
+    },
+    {
+      "case": "pin-preflight",
+      "claim": "Frozen manifest rows and the adapter declaration pin match the disk.",
+      "detail": "",
+      "id": "C02",
+      "limit": "The predecessor snapshot is provenance and is not the live dispatcher.",
+      "result": "passed"
+    },
+    {
+      "case": "recognizer-limits",
+      "claim": "The activation guard is not selection, and unsupported shapes are not guessed.",
+      "detail": "",
+      "id": "C03",
+      "limit": "Matching the static pattern does not prove runtime behavior.",
+      "result": "passed"
+    },
+    {
+      "case": "old-staged",
+      "claim": "The predecessor snapshot selects both old routes while the reviewed successors are staged.",
+      "detail": "",
+      "id": "C04",
+      "limit": "Other dispatch branches are not classified.",
+      "result": "passed"
+    },
+    {
+      "case": "both-new",
+      "claim": "Both reviewed substitutions select the new routes without using the whole-file hash as a pin.",
+      "detail": "",
+      "id": "C05",
+      "limit": "The copied dispatcher stays in the suite root.",
+      "result": "passed"
+    },
+    {
+      "case": "one-route",
+      "claim": "One reviewed substitution leaves the other route on its old selector.",
+      "detail": "",
+      "id": "C06",
+      "limit": "A partial selection is not readiness for both routes.",
+      "result": "passed"
+    },
+    {
+      "case": "missing-facade",
+      "claim": "A missing selected facade is selected-but-invalid and the command still exits 0.",
+      "detail": "",
+      "id": "C07",
+      "limit": "Exit 0 is an observation, not approval.",
+      "result": "passed"
+    },
+    {
+      "case": "changed-facade",
+      "claim": "A changed selected facade is selected-but-invalid.",
+      "detail": "",
+      "id": "C08",
+      "limit": "The declaration pin is a separate check.",
+      "result": "passed"
+    },
+    {
+      "case": "changed-dependency",
+      "claim": "A changed selected dependency is selected-but-invalid while its declaration hash is unchanged.",
+      "detail": "",
+      "id": "C09",
+      "limit": "Dependency paths come from the versioned contract.",
+      "result": "passed"
+    },
+    {
+      "case": "staged-drift",
+      "claim": "Staged successor drift does not invalidate a matching old selection.",
+      "detail": "",
+      "id": "C10",
+      "limit": "The staged note is not a mismatch.",
+      "result": "passed"
+    },
+    {
+      "case": "comment-docstring",
+      "claim": "A successor filename in a docstring and a comment is not selection.",
+      "detail": "",
+      "id": "C11",
+      "limit": "The recognizer reads the syntax tree, not comments.",
+      "result": "passed"
+    },
+    {
+      "case": "duplicate-branch",
+      "claim": "Two simple branches for one command are ambiguous, including an appended branch.",
+      "detail": "",
+      "id": "C12",
+      "limit": "Unreachable duplicates still count.",
+      "result": "passed"
+    },
+    {
+      "case": "dynamic-branch",
+      "claim": "A non-literal load filename is unsupported.",
+      "detail": "",
+      "id": "C13",
+      "limit": "The other route can still be measured.",
+      "result": "passed"
+    },
+    {
+      "case": "unknown-route",
+      "claim": "A literal outside the reviewed pair stays unknown and is not adopted.",
+      "detail": "",
+      "id": "C14",
+      "limit": "There is no rescan and no new contract.",
+      "result": "passed"
+    },
+    {
+      "case": "tampered-declaration",
+      "claim": "A tampered declaration path is not followed outside the code root.",
+      "detail": "",
+      "id": "C15",
+      "limit": "The tool hashes the contract path and does not parse a destination out of the declaration.",
+      "result": "passed"
+    },
+    {
+      "case": "malformed-dispatcher",
+      "claim": "A dispatcher that does not parse is malformed, and its routes are unsupported.",
+      "detail": "",
+      "id": "C16",
+      "limit": "A syntax error is not a route result.",
+      "result": "passed"
+    },
+    {
+      "case": "missing-dispatcher",
+      "claim": "A missing dispatcher leaves both routes absent.",
+      "detail": "",
+      "id": "C17",
+      "limit": "Absent is distinct from selected false.",
+      "result": "passed"
+    },
+    {
+      "case": "layouts",
+      "claim": "Malformed, duplicate-key, conflicting, and wrong-type layouts stay distinct and undeclared.",
+      "detail": "",
+      "id": "C18",
+      "limit": "Duplicate keys are malformed. A parseable non-canonical body is conflicting.",
+      "result": "passed"
+    },
+    {
+      "case": "door-file",
+      "claim": "A regular file where the band directory is required is a wrong-type door.",
+      "detail": "",
+      "id": "C19",
+      "limit": "The page inside that path is not read.",
+      "result": "passed"
+    },
+    {
+      "case": "valid-book",
+      "claim": "A present door and the canonical layout are a declaration without authority.",
+      "detail": "",
+      "id": "C20",
+      "limit": "declared does not mean the migration ran.",
+      "result": "passed"
+    },
+    {
+      "case": "new-and-declared",
+      "claim": "Selected successors plus a valid declaration still leave authority not-assessed.",
+      "detail": "",
+      "id": "C21",
+      "limit": "The tool does not search for a release.",
+      "result": "passed"
+    },
+    {
+      "case": "fault-dispatcher",
+      "claim": "A dispatcher that changes between the two reads is unstable and the cuts are not combined.",
+      "detail": "",
+      "id": "H01",
+      "limit": "Unit fault injection at read_bytes. The public command has no injection flag.",
+      "result": "passed"
+    },
+    {
+      "case": "bom-layout",
+      "claim": "A canonical layout with a UTF-8 BOM is not valid and does not crash.",
+      "detail": "",
+      "id": "H02",
+      "limit": "The BOM is a hostile byte prefix, not a second layout dialect.",
+      "result": "passed"
+    },
+    {
+      "case": "fault-dependency",
+      "claim": "A dependency that changes between its two reads blanks both routes.",
+      "detail": "",
+      "id": "H04",
+      "limit": "Unit fault injection. A stable sibling route is not kept from the first cut.",
+      "result": "passed"
+    },
+    {
+      "case": "hardlink-dependency",
+      "claim": "A selected dependency with link count other than 1 is selected-but-invalid.",
+      "detail": "",
+      "id": "H03",
+      "limit": "os.link failure is an environment skip, not a product failure.",
+      "result": "passed"
+    },
+    {
+      "case": "cli",
+      "claim": "The public command projects one observation and refuses every other invocation shape.",
+      "detail": "",
+      "id": "C22",
+      "limit": "Refusal is exit 2 with empty stdout. A linked root is checked only when the process can create a directory symlink.",
+      "result": "passed"
+    },
+    {
+      "case": "live",
+      "claim": "The live code root and live book select both old routes, stage the reviewed successors, and do not authorize migration.",
+      "detail": "",
+      "id": "C23",
+      "limit": "The read set is the known old closure plus staged facade and declaration files, the layout path, and the door page. The repository was not walked.",
+      "result": "passed"
+    },
+    {
+      "case": "",
+      "claim": "Prime independent probes",
+      "detail": "",
+      "id": "N01",
+      "limit": "Prime runs probes later. This suite does not invent them.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "App selection",
+      "detail": "",
+      "id": "N02",
+      "limit": "No substitution is applied to the shared dispatcher.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Live migration",
+      "detail": "",
+      "id": "N03",
+      "limit": "No book is migrated and no root is created.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Review-loop classification",
+      "detail": "",
+      "id": "N04",
+      "limit": "The review-loop implementation stays unread and unclassified.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Historical demo.py and rehearse.py execution",
+      "detail": "",
+      "id": "N05",
+      "limit": "Those scripts are not started.",
+      "result": "not-run"
+    }
+  ],
+  "detail": "",
+  "exit": 0,
+  "failed": 0,
+  "not_run": 5,
+  "passed": 27,
+  "schema": "return-route-readiness-claims/0510",
+  "skipped_environment": 0,
+  "suite": "D:\\librarian\\temp\\0521-0510\\20261102T222239061199Z-suite"
+}

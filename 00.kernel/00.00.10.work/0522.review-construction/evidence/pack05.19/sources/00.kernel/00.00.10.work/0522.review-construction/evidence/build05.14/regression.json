@@ -1,0 +1,482 @@
+{
+  "cases_17": {
+    "aggregate": {
+      "ERROR": 0,
+      "FAIL": 4,
+      "PASS": 13
+    },
+    "exit": 1,
+    "failures": [
+      {
+        "detail": {
+          "double-comma": [],
+          "n5-trailing-comma": [],
+          "semicolon": [
+            "submission-not-declared",
+            "unparsed-return-line"
+          ]
+        },
+        "id": "G7",
+        "status": "FAIL"
+      },
+      {
+        "detail": {
+          "codes": [
+            "ambiguous-declared-root",
+            "custody-missing",
+            "index-context-bounded",
+            "unparsed-return-line",
+            "verification-not-measured"
+          ],
+          "exit": 0,
+          "measurement": "incomplete"
+        },
+        "id": "I4",
+        "status": "FAIL"
+      },
+      {
+        "detail": {
+          "patched": {
+            "codes": [
+              "ambiguous-declared-root",
+              "custody-missing",
+              "index-context-bounded",
+              "unparsed-return-line",
+              "verification-not-measured"
+            ],
+            "measurement": "incomplete"
+          },
+          "unpatched": {
+            "codes": [
+              "custody-missing",
+              "declared-hash-mismatch",
+              "submission-not-declared",
+              "unparsed-return-line"
+            ],
+            "measurement": "incomplete"
+          }
+        },
+        "id": "H2",
+        "status": "FAIL"
+      },
+      {
+        "detail": {
+          "patched_measurement": "incomplete",
+          "unpatched_codes": [
+            "custody-missing",
+            "index-context-bounded",
+            "submission-not-declared",
+            "unparsed-return-line"
+          ]
+        },
+        "id": "I6",
+        "status": "FAIL"
+      }
+    ],
+    "first_failure": "G7",
+    "stderr_tail": ""
+  },
+  "cases_v2": {
+    "aggregate": {
+      "ERROR": 0,
+      "FAIL": 0,
+      "PASS": 12
+    },
+    "exit": 0,
+    "failures": [],
+    "first_failure": null,
+    "stderr_tail": ""
+  },
+  "hostile": {
+    "copied-workbook": {
+      "exit": 2,
+      "ok": true,
+      "sentinel_unchanged": true,
+      "stderr_tail": "refused: workbook pass04 is not at its canonical root\r\n"
+    },
+    "stale-intake": {
+      "altered_bytes_kept": true,
+      "correction": "The artifact measurement is incomplete. The judgment was not recorded.",
+      "ok": true,
+      "prepare_exit": 0,
+      "record_exit": 2,
+      "review_absent": true
+    }
+  },
+  "lifecycle": {
+    "n5": {
+      "assignment_sha_after": "335a53673aa0a1cc05a525684af95fe336de60855d0cd4d007346fb4f4f00dd3",
+      "assignment_sha_before": "ddf6c1aa58c1b84f93652bf2ce43a74d419c0f42619c4bc72f872f9ff78cc5c0",
+      "assignment_unchanged": false,
+      "judgment_preserved": true,
+      "measurement": "complete",
+      "steps": {
+        "form": {
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "inspect": {
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "prepare": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "publish": {
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": true,
+          "recorded": null,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "read": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "read-after": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "read-again": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "record": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": {
+            "called": false,
+            "committed": false,
+            "error": null
+          },
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": true,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "recover": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "recover-again": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "w3b3e85214b88fc55",
+          "stderr_tail": ""
+        },
+        "stored_cycle": {
+          "called": false,
+          "committed": false,
+          "mode": "preliminary"
+        }
+      },
+      "target_existed_before": false,
+      "target_exists_after": false,
+      "target_unchanged": true
+    },
+    "n7": {
+      "judgment_preserved": true,
+      "measurement": "complete",
+      "steps": {
+        "form": {
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "inspect": {
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "prepare": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": null,
+          "flags_ok": true,
+          "measurement": "complete",
+          "mode": null,
+          "next_action": null,
+          "published": null,
+          "recorded": null,
+          "review_id": null,
+          "stderr_tail": ""
+        },
+        "publish": {
+          "correction": null,
+          "custody": null,
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": true,
+          "recorded": null,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "read": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "read-after": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "read-again": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "record": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": {
+            "called": false,
+            "committed": false,
+            "error": null
+          },
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": "preliminary",
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": true,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "recover": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "recover-again": {
+          "correction": null,
+          "custody": "missing",
+          "cycle": null,
+          "exit": 0,
+          "finding": "Supplied test data for the 0522/05.14 disposable cycle.",
+          "flags_ok": true,
+          "measurement": null,
+          "mode": null,
+          "next_action": "Prime reviews the staged v8 intake. This sentence is supplied test data.",
+          "published": null,
+          "recorded": null,
+          "review_id": "wde5cd375678372ad",
+          "stderr_tail": ""
+        },
+        "stored_cycle": {
+          "called": false,
+          "committed": false,
+          "mode": "preliminary"
+        }
+      },
+      "target_existed_before": false,
+      "target_exists_after": true,
+      "target_unchanged": false
+    }
+  },
+  "manual": {
+    "bytes_unchanged": true,
+    "correction": "manual-review",
+    "ok": true,
+    "publish_exit": 1,
+    "published": false
+  },
+  "pins": {
+    "missing-prime-cycle": {
+      "exit": 2,
+      "expect": "pinned tool is missing: labs/prime-cycle-pass03/prime_cycle.py",
+      "ok": true,
+      "stderr_tail": "refused: pinned tool is missing: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+    },
+    "pass03-tamper": {
+      "exit": 2,
+      "expect": "pass03 pin mismatch",
+      "ok": true,
+      "stderr_tail": "refused: pass03 pin mismatch\r\n"
+    },
+    "schema": {
+      "exit": 2,
+      "expect": "schema is not review-loop-pins/6",
+      "ok": true,
+      "stderr_tail": "refused: review loop declaration schema is not review-loop-pins/6\r\n"
+    },
+    "workbook-bytes": {
+      "exit": 2,
+      "expect": "pinned tool hash does not match: labs/workbook-review-pass04/workbook.py",
+      "ok": true,
+      "stderr_tail": "refused: pinned tool hash does not match: labs/workbook-review-pass04/workbook.py\r\n"
+    }
+  },
+  "schema": "v8-review-intake-regression/0514",
+  "stamp": "D:\\librarian\\temp\\0522-0514\\20261103T235828680Z"
+}

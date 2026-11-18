@@ -1,0 +1,51 @@
+{
+ "schema": "task-agreement-compare/1",
+ "page": "0599.fixture-task",
+ "pass": "05.02",
+ "pack_cut": {
+  "status": "current"
+ },
+ "refs": [
+  {
+   "field": "goal",
+   "ref": "goal[0]",
+   "status": "current"
+  },
+  {
+   "field": "scope",
+   "ref": "scope[0]",
+   "status": "current"
+  },
+  {
+   "field": "finish_criteria",
+   "ref": "finish_criteria[0]",
+   "status": "current"
+  },
+  {
+   "field": "prime_discretion",
+   "ref": "prime_discretion[0]",
+   "status": "current"
+  },
+  {
+   "field": "director_required",
+   "ref": "director_required[0]",
+   "status": "current"
+  },
+  {
+   "field": "recorded_decisions",
+   "ref": "decision[0].verbatim",
+   "status": "current"
+  },
+  {
+   "field": "recorded_decisions",
+   "ref": "decision[0].interpretation",
+   "status": "current"
+  },
+  {
+   "field": "recorded_decisions",
+   "ref": "decision[0].answers",
+   "status": "current"
+  }
+ ],
+ "note": "read-only; nothing rebound; context-changed means applicability is unconfirmed until reconciled"
+}

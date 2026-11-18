@@ -1,0 +1,373 @@
+{
+ "schema": "harness-probe/1",
+ "candidate": "D:/librarian/temp/lch2-0522/cand-proto-l",
+ "records": [
+  {
+   "id": "CAP-4",
+   "mode": "probe",
+   "readiness": "not assessed: dependency gate bypassed; never readiness",
+   "needs": [
+    "K"
+   ],
+   "candidate_kind": "proto-l",
+   "requirement": "declared bound: 64 harness-counted sources record and read back equal; 65 refuse with an explicit 'sources' diagnostic; separately, MAX_LIST 24 (25 reasons refused) and the 262144-byte document bound still hold with few sources",
+   "expected": {
+    "64": "record + read equal",
+    "65": "refused 'sources'",
+    "list 25": "refused 'limit reasons'",
+    "doc > 262144": "refused (document bound)"
+   },
+   "observed": {
+    "at_bound": {
+     "harness_count": 64,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: limit sources\" | ",
+     "stderr": "",
+     "judgment_bytes": 1299
+    },
+    "over_bound": {
+     "harness_count": 65,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: limit sources\" | ",
+     "stderr": "",
+     "judgment_bytes": 1299
+    },
+    "list25": {
+     "harness_count": 3,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: limit reasons\" | ",
+     "stderr": "",
+     "judgment_bytes": 1773
+    },
+    "doc": {
+     "harness_count": 3,
+     "measurement": "complete",
+     "exit": 2,
+     "record_exit": 2,
+     "diagnostic": "\"refused: input: input exceeds 262144 bytes\" | ",
+     "stderr": "",
+     "judgment_bytes": 265605
+    },
+    "judge_reasons": [
+     "64-source judgment not recorded",
+     "64-source judgment not read back canonically equal"
+    ]
+   },
+   "verdict": "fail"
+  },
+  {
+   "id": "RP-1",
+   "mode": "probe",
+   "readiness": "not assessed: dependency gate bypassed; never readiness",
+   "needs": [
+    "R"
+   ],
+   "candidate_kind": "proto-l",
+   "requirement": "review-report (candidate route) agrees with the core: published N7 current -> readable/stale false; changed return -> stale; incomplete intake -> held; N7 exchange state/chronology/n1_custody, custody and review_id equal to the core; authority none and accepted/work_complete/action_released/releases_action false",
+   "expected": {
+    "current": "readable/stale false",
+    "stale": "stale/true",
+    "held": "held",
+    "exchange": "equal to core",
+    "flags": {
+     "authority": "none",
+     "accepted": false,
+     "work_complete": false,
+     "action_released": false,
+     "releases_action": false
+    }
+   },
+   "observed": {
+    "current": {
+     "core": {
+      "exit": 0,
+      "stale": false,
+      "review_id": "w1fd7e9770149411b",
+      "custody": "missing",
+      "exchange": {
+       "book": "D:\\librarian\\temp\\lch2-0522\\probe-proto-l-01\\RP-1-current\\00.kernel\\00.00.10.work",
+       "chronology": "recorded-before-return",
+       "declared_submission": [
+        "0799.n7-local-lab/05.01.return.md"
+       ],
+       "destination": "0799.n7-local-lab/06.01.review.md",
+       "n1_custody": "not-applicable",
+       "open_record": {
+        "note": "observed by this command at this moment; not a historical timestamp",
+        "pack_body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+        "pack_path": "0799.n7-local-lab/05.01.pack.md",
+        "page": "0799.n7-local-lab",
+        "pass": "05.01",
+        "return_present": false,
+        "schema": "n7-local-open/0"
+       },
+       "pack": {
+        "body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+        "bound_sha256": "f81edcff44d0c3073241d2798e40425821708e94d6958cee80ce4bf7d248a99a",
+        "path": "0799.n7-local-lab/05.01.pack.md",
+        "present": true,
+        "sha256": "6ac1d519c61fd5ec3ac6a4f97204a945b2797e8b7a9364bf94956689974a98c9"
+       },
+       "page": "0799.n7-local-lab",
+       "pass": "05.01",
+       "return": {
+        "path": "0799.n7-local-lab/05.01.return.md",
+        "present": true,
+        "sha256": "55f8fa9176df097253da3d699b6da6d9d16547a550fb5fe88961861942dd9b9b"
+       },
+       "route": "n7-local",
+       "schema": "n7-local-exchange/0",
+       "state": "matched",
+       "unfiled_return_preserved": false
+      },
+      "measurement": "complete"
+     },
+     "report": {
+      "exit": 2,
+      "body": null,
+      "stderr": "stop: normal run is not activated\r\n"
+     }
+    },
+    "stale": {
+     "core": {
+      "exit": 1,
+      "stale": true,
+      "review_id": "w4da67a83c022af38",
+      "custody": "missing",
+      "exchange": {
+       "book": "D:\\librarian\\temp\\lch2-0522\\probe-proto-l-01\\RP-1-stale\\00.kernel\\00.00.10.work",
+       "chronology": "recorded-before-return",
+       "declared_submission": [
+        "0799.n7-local-lab/05.01.return.md"
+       ],
+       "destination": "0799.n7-local-lab/06.01.review.md",
+       "n1_custody": "not-applicable",
+       "open_record": {
+        "note": "observed by this command at this moment; not a historical timestamp",
+        "pack_body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+        "pack_path": "0799.n7-local-lab/05.01.pack.md",
+        "page": "0799.n7-local-lab",
+        "pass": "05.01",
+        "return_present": false,
+        "schema": "n7-local-open/0"
+       },
+       "pack": {
+        "body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+        "bound_sha256": "f81edcff44d0c3073241d2798e40425821708e94d6958cee80ce4bf7d248a99a",
+        "path": "0799.n7-local-lab/05.01.pack.md",
+        "present": true,
+        "sha256": "6ac1d519c61fd5ec3ac6a4f97204a945b2797e8b7a9364bf94956689974a98c9"
+       },
+       "page": "0799.n7-local-lab",
+       "pass": "05.01",
+       "return": {
+        "path": "0799.n7-local-lab/05.01.return.md",
+        "present": true,
+        "sha256": "dcbe4211eb280fb51c2d184edfa51f05bc49f621ddb701ff190d55706f05566b"
+       },
+       "route": "n7-local",
+       "schema": "n7-local-exchange/0",
+       "state": "matched",
+       "unfiled_return_preserved": false
+      },
+      "measurement": "incomplete"
+     },
+     "report": {
+      "exit": 2,
+      "body": null,
+      "stderr": "stop: normal run is not activated\r\n"
+     }
+    },
+    "held": {
+     "core": {
+      "exit": 2,
+      "stale": null,
+      "review_id": null,
+      "custody": null,
+      "exchange": {
+       "book": "D:\\librarian\\temp\\lch2-0522\\probe-proto-l-01\\RP-1-held\\00.kernel\\00.00.10.work",
+       "chronology": "recorded-before-return",
+       "declared_submission": [
+        "0799.n7-local-lab/05.01.return.md"
+       ],
+       "destination": "0799.n7-local-lab/06.01.review.md",
+       "n1_custody": "not-applicable",
+       "open_record": {
+        "note": "observed by this command at this moment; not a historical timestamp",
+        "pack_body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+        "pack_path": "0799.n7-local-lab/05.01.pack.md",
+        "page": "0799.n7-local-lab",
+        "pass": "05.01",
+        "return_present": false,
+        "schema": "n7-local-open/0"
+       },
+       "pack": {
+        "body_sha256": "42d4be44babc8ca086918b38ea632e111e3c6d7eaac9b8319837a298a6224256",
+        "bound_sha256": "f81edcff44d0c3073241d2798e40425821708e94d6958cee80ce4bf7d248a99a",
+        "path": "0799.n7-local-lab/05.01.pack.md",
+        "present": true,
+        "sha256": "6ac1d519c61fd5ec3ac6a4f97204a945b2797e8b7a9364bf94956689974a98c9"
+       },
+       "page": "0799.n7-local-lab",
+       "pass": "05.01",
+       "return": {
+        "path": "0799.n7-local-lab/05.01.return.md",
+        "present": true,
+        "sha256": "55f8fa9176df097253da3d699b6da6d9d16547a550fb5fe88961861942dd9b9b"
+       },
+       "route": "n7-local",
+       "schema": "n7-local-exchange/0",
+       "state": "matched",
+       "unfiled_return_preserved": false
+      },
+      "measurement": "incomplete"
+     },
+     "report": {
+      "exit": 2,
+      "body": null,
+      "stderr": "stop: normal run is not activated\r\n"
+     }
+    },
+    "judge_reasons": [
+     "current: reporter gave no JSON body (unimplemented operation; exit 2)",
+     "stale: reporter gave no JSON body (unimplemented operation; exit 2)",
+     "held: reporter gave no JSON body (unimplemented operation; exit 2)"
+    ]
+   },
+   "verdict": "fail"
+  },
+  {
+   "id": "RP-2",
+   "mode": "probe",
+   "readiness": "not assessed: dependency gate bypassed; never readiness",
+   "needs": [
+    "R"
+   ],
+   "candidate_kind": "proto-l",
+   "requirement": "review-report refuses (nonzero, no traceback) a wrong dispatcher pin, a wrong chain (workbook) pin and malformed envelopes (unknown flag, repeated flag, relative book, bad pass, missing source), after an untampered positive control succeeds",
+   "expected": {
+    "control": "exit 0",
+    "wrong-dispatcher": "refused (nonzero, no traceback)",
+    "wrong-chain-pin": "refused (nonzero, no traceback)",
+    "unknown-flag": "refused (nonzero, no traceback)",
+    "repeated-flag": "refused (nonzero, no traceback)",
+    "relative-book": "refused (nonzero, no traceback)",
+    "bad-pass": "refused (nonzero, no traceback)",
+    "missing-source": "refused (nonzero, no traceback)"
+   },
+   "observed": {
+    "control": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "wrong-dispatcher": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "wrong-chain-pin": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "unknown-flag": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "repeated-flag": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "relative-book": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "bad-pass": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "missing-source": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "control_after": {
+     "exit": 2,
+     "body": null,
+     "stderr": "stop: normal run is not activated\r\n"
+    },
+    "judge_reasons": [
+     "positive control: untampered report did not succeed (exit 2); refusals prove nothing without it"
+    ]
+   },
+   "verdict": "fail"
+  },
+  {
+   "id": "IN-2",
+   "mode": "probe",
+   "readiness": "not assessed: dependency gate bypassed; never readiness",
+   "needs": [
+    "I"
+   ],
+   "candidate_kind": "proto-l",
+   "requirement": "N5 foreign copied book: the copy's current applicability is held (positive evidence: nonzero read, stale or applicable=false), the historical judgment stays available (read or recover), publish is refused with no destination; the original stays current and byte-unchanged",
+   "expected": {
+    "original": "current before/after; bytes unchanged",
+    "copy": "not current (held/stale); judgment retained; publish refused"
+   },
+   "observed": {
+    "a_record_exit": 0,
+    "a_read_before": {
+     "exit": 0,
+     "stale": false,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "a_read_after": {
+     "exit": 0,
+     "stale": false,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "a_bytes_unchanged": true,
+    "b_read": {
+     "exit": 0,
+     "stale": false,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "b_recover": {
+     "exit": 0,
+     "stale": false,
+     "applicable": null,
+     "judgment": "(equal to the lab judgment)",
+     "stderr": ""
+    },
+    "b_publish": {
+     "exit": 0,
+     "stderr": ""
+    },
+    "b_destination_created": true,
+    "judge_reasons": [
+     "copy has no positive hold evidence: it reads current, or gives no correctly typed stale/applicability field",
+     "copy publish not refused, or a destination appeared"
+    ]
+   },
+   "verdict": "fail"
+  }
+ ]
+}

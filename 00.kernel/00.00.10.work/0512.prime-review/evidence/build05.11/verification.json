@@ -1,0 +1,66 @@
+{
+  "accepted": false,
+  "activated": false,
+  "allocated": "not used",
+  "author_suite": {
+    "command": "python -B labs/review-source-capacity-pass02/tests/test_capacity.py",
+    "exit": 0,
+    "first_failure_log": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.11/author-suite-first.txt",
+    "first_failure_sha256": "887b8ee1a6c120466a6a052e89b5d3c9a268e84fbda6b7b02b79d7b1c259de96",
+    "independent": false,
+    "limit": "Author cases. Prime's future independent probes were not run. The pre-code contract body was not revised after the notes. The reread is an appendix.",
+    "passing_log": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.11/author-suite.txt",
+    "passing_sha256": "c8e35f2bcf1e7eff475229c2c27a3e002162bb661e46457c0070593055a48d6b",
+    "python": "3.14.0",
+    "result": "OK",
+    "seconds": 201.252,
+    "tests": 25
+  },
+  "branch": "workshop",
+  "candidate_librarian": {
+    "bytes": 12246,
+    "sha256": "a4e0ec03095a43291a997fbf9e9899f89409863a3df718c7ba9e219ed63ea6bf"
+  },
+  "committed_by_this_builder": false,
+  "contract_evidence": {
+    "bytes": 2285,
+    "sha256": "9f8b7b0d32e2994587d1e6c6d2a249b30eb4c59e862027ea76d7faf34713e032"
+  },
+  "contract_notes_pre_reread": {
+    "bytes": 6615,
+    "sha256": "9fc131516219761802819dfa0b2e35cd7daab2bdc3ab82d78831d92aeeadcfbf"
+  },
+  "contract_notes_with_reread": {
+    "bytes": 7614,
+    "sha256": "8272d2c9957a8d19445fa35a9aa14a74129b99170053e91ea496672f8c4f7520"
+  },
+  "custody": "pending",
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "index_empty": true,
+  "librarian_py": {
+    "bytes": 12204,
+    "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "matching_line": "0112.prime-review unfiled",
+  "observed_return": {
+    "content_bytes": 276423,
+    "correction": "refused: limit sources[24].content_bytes",
+    "document_bytes": 137328,
+    "recorded": false,
+    "sources": 44
+  },
+  "readme": {
+    "bytes": 39687,
+    "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "receipt": null,
+  "schema": "review-report-verification/2",
+  "seated": false,
+  "selected_app_route": false,
+  "submission_bytes": 7354,
+  "submission_sha256": "c38bc59eae83fab4a18b5e9e6f60f7e331366507f293bcc51b57444b244f0317",
+  "successor": {
+    "bytes": 2160,
+    "sha256": "32567d68ccd6dc838c175af078610c53e4ec777d7c2f5eddb9d6ea8ea9c4644f"
+  }
+}

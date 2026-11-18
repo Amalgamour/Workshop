@@ -1,0 +1,482 @@
+[
+  {
+    "page": "0504.app-entry",
+    "expected": "0104.app-entry",
+    "actual": "0104.app-entry",
+    "matches": true
+  },
+  {
+    "page": "1504.app-entry",
+    "expected": "1104.app-entry",
+    "actual": "1104.app-entry",
+    "matches": true
+  },
+  {
+    "page": "1702.design",
+    "expected": "1702.design",
+    "actual": "1702.design",
+    "matches": true
+  },
+  {
+    "probe": "occupied-line-plan",
+    "actual_number_conflicts": [
+      {
+        "target": "0104.app-entry",
+        "occupied_same_number": [
+          "0104.app-entry-0508"
+        ]
+      },
+      {
+        "target": "0107.prime-support",
+        "occupied_same_number": [
+          "0107.clerk-types-0505"
+        ]
+      },
+      {
+        "target": "0108.return-capture",
+        "occupied_same_number": [
+          "0108.backfill-plan-0503"
+        ]
+      },
+      {
+        "target": "0105.observer-design",
+        "occupied_same_number": [
+          "0105.prime-clerk-0504"
+        ]
+      },
+      {
+        "target": "0102.workflow-start",
+        "occupied_same_number": [
+          "0102.prime-support-0501"
+        ]
+      },
+      {
+        "target": "0106.clerk-handoff",
+        "occupied_same_number": [
+          "0106.entry-regression-0509"
+        ]
+      },
+      {
+        "target": "0109.pack-assembly",
+        "occupied_same_number": [
+          "0109.clerk-seam-0510"
+        ]
+      },
+      {
+        "target": "0110.colab-tools",
+        "occupied_same_number": [
+          "0110.return-inspection-0504"
+        ]
+      },
+      {
+        "target": "0111.workflow-colab",
+        "occupied_same_number": [
+          "0111.prime-boot-design-0506"
+        ]
+      },
+      {
+        "target": "0112.prime-review",
+        "occupied_same_number": [
+          "0112.seam-io-0511"
+        ]
+      },
+      {
+        "target": "0113.bench-build",
+        "occupied_same_number": [
+          "0113.prime-boot-0507"
+        ]
+      },
+      {
+        "target": "0114.review-packet",
+        "occupied_same_number": [
+          "0114.inspection-range-0505"
+        ]
+      },
+      {
+        "target": "0115.prime-cycle",
+        "occupied_same_number": [
+          "0115.observer-pilot-0501"
+        ]
+      },
+      {
+        "target": "0116.colab-readiness",
+        "occupied_same_number": [
+          "0116.backfill-run-0506"
+        ]
+      },
+      {
+        "target": "0117.dependencies",
+        "occupied_same_number": [
+          "0117.bridge-parent-0512"
+        ]
+      },
+      {
+        "target": "0118.colab-review",
+        "occupied_same_number": [
+          "0118.workflow-start-0501"
+        ]
+      },
+      {
+        "target": "0119.desk-app",
+        "occupied_same_number": [
+          "0119.app-entry-0503"
+        ]
+      },
+      {
+        "target": "0120.desk-loop-lab",
+        "occupied_same_number": [
+          "0120.backfill-run-0507"
+        ]
+      }
+    ],
+    "reported_collisions": [
+      {
+        "kind": "occupied-line",
+        "number": "0104",
+        "occupants": [
+          "0104.app-entry-0508"
+        ],
+        "old_members": [
+          "0101.app-entry-0506",
+          "0104.app-entry-0508",
+          "0106.entry-regression-0509",
+          "0109.clerk-seam-0510",
+          "0112.seam-io-0511",
+          "0117.bridge-parent-0512",
+          "0119.app-entry-0503",
+          "0122.bridge-overlap-0513",
+          "0127.prime-intake-0514",
+          "0130.boot-entry-0515",
+          "0137.capture-handoff-design-0516",
+          "0139.capture-handoff-0517",
+          "0143.handoff-failure-repair-0518",
+          "0146.capture-flow-rehearsal-0519",
+          "0149.capture-handoff-entry-0520"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0104.app-entry"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0107",
+        "occupants": [
+          "0107.clerk-types-0505"
+        ],
+        "old_members": [
+          "0102.prime-support-0501",
+          "0105.prime-clerk-0504",
+          "0107.clerk-types-0505",
+          "0111.prime-boot-design-0506",
+          "0113.prime-boot-0507",
+          "0123.boot-validation-0508",
+          "0126.boot-members-0509",
+          "0131.realbook-rehearsal-0510",
+          "0134.state-reconcile-0511",
+          "0136.state-projection-0512",
+          "0141.prime-brief-fixtures-0513",
+          "0145.real-reader-brief-0514",
+          "0148.prime-packet-candidate-0515",
+          "0151.prime-final-test-bundle-0516",
+          "0153.prime-orientation-trial-t2"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0107.prime-support"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0108",
+        "occupants": [
+          "0108.backfill-plan-0503"
+        ],
+        "old_members": [
+          "0103.return-capture-0502",
+          "0108.backfill-plan-0503",
+          "0110.return-inspection-0504",
+          "0114.inspection-range-0505",
+          "0116.backfill-run-0506",
+          "0120.backfill-run-0507",
+          "0121.archive-resolution-0508",
+          "0125.mapping-capture-0509",
+          "0129.assembly-capture-0510",
+          "0132.return-capture-origin-0501",
+          "0133.original-capture-0511",
+          "0135.return-shape-corpus-0512",
+          "0138.batch-reader-0513",
+          "0140.batch-reader-repair-0514",
+          "0142.batch-reader-header-0515",
+          "0144.batch-reader-entry-0516",
+          "0147.cold-prime-plan-0517",
+          "0150.cold-prime-plan-revision-0518",
+          "0152.desk-state-view-0519",
+          "0169.desk-state-preservation-0520"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0108.return-capture"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0105",
+        "occupants": [
+          "0105.prime-clerk-0504"
+        ],
+        "old_members": [
+          "0115.observer-pilot-0501"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0105.observer-design"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0102",
+        "occupants": [
+          "0102.prime-support-0501"
+        ],
+        "old_members": [
+          "0118.workflow-start-0501"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0102.workflow-start"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0106",
+        "occupants": [
+          "0106.entry-regression-0509"
+        ],
+        "old_members": [
+          "0124.clerk-seam-design-0503"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0106.clerk-handoff"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0109",
+        "occupants": [
+          "0109.clerk-seam-0510"
+        ],
+        "old_members": [
+          "0128.pack-assembly-0501"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0109.pack-assembly"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0110",
+        "occupants": [
+          "0110.return-inspection-0504"
+        ],
+        "old_members": [
+          "0154.colab-support-first-0501",
+          "0155.colab-n7nn-module-0502",
+          "0159.colab-exchange-layout-0503",
+          "0160.colab-checker-repair-0504"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0110.colab-tools"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0111",
+        "occupants": [
+          "0111.prime-boot-design-0506"
+        ],
+        "old_members": [
+          "0156.colab-workflow-0501",
+          "0158.colab-workflow-repair-0502",
+          "0161.colab-exchange-workflow-0503"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0111.workflow-colab"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0112",
+        "occupants": [
+          "0112.seam-io-0511"
+        ],
+        "old_members": [
+          "0157.prime-review-0501",
+          "0162.prime-review-entry-0502",
+          "0164.prime-entry-pin-repair-0503"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0112.prime-review"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0113",
+        "occupants": [
+          "0113.prime-boot-0507"
+        ],
+        "old_members": [
+          "0163.prime-bench-harness-0501",
+          "0166.prime-bench-controls-0502"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0113.bench-build"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0114",
+        "occupants": [
+          "0114.inspection-range-0505"
+        ],
+        "old_members": [
+          "0167.review-packet-0501"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0114.review-packet"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0115",
+        "occupants": [
+          "0115.observer-pilot-0501"
+        ],
+        "old_members": [
+          "0170.prime-cycle-integration-0501",
+          "0171.prime-cycle-binding-log-0502",
+          "0175.prime-reader-diagnostics-0503"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0115.prime-cycle"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0116",
+        "occupants": [
+          "0116.backfill-run-0506"
+        ],
+        "old_members": [
+          "0176.colab-readiness-checker-0501",
+          "0177.colab-readiness-repair-0502"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0116.colab-readiness"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0117",
+        "occupants": [
+          "0117.bridge-parent-0512"
+        ],
+        "old_members": [
+          "0178.module-dependencies-prototype-0501",
+          "0180.module-dependencies-repair-0502"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0117.dependencies"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0118",
+        "occupants": [
+          "0118.workflow-start-0501"
+        ],
+        "old_members": [
+          "0179.colab-review-integration-0501",
+          "0181.colab-review-repair-0502"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0118.colab-review"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0119",
+        "occupants": [
+          "0119.app-entry-0503"
+        ],
+        "old_members": [
+          "0182.desk-app-integration-design-0501"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0119.desk-app"
+      },
+      {
+        "kind": "occupied-line",
+        "number": "0120",
+        "occupants": [
+          "0120.backfill-run-0507"
+        ],
+        "old_members": [
+          "0183.desk-loop-independent-lab-0501"
+        ],
+        "overwrite": false,
+        "retirement": "not performed",
+        "staging_required": true,
+        "target_page": "0120.desk-loop-lab"
+      }
+    ],
+    "filing_0121": {
+      "allowed": false,
+      "blockers": [
+        "0121.archive-resolution-0508"
+      ],
+      "creates": false,
+      "number": "0121",
+      "page": "0121.return-placement",
+      "schema": "return-placement-filing-check/1"
+    }
+  },
+  {
+    "probe": "missing-receipt",
+    "output": {
+      "complete": false,
+      "exit": 1,
+      "items": [
+        {
+          "old_member": "0101.synthetic",
+          "acceptance": null,
+          "approved": false,
+          "accepted": false,
+          "published": false,
+          "copy_progress": "copied",
+          "custody_valid": false,
+          "line_adoption": false,
+          "reason": "missing manifest.json",
+          "replay": null,
+          "return_path": "0121.return-placement/05.01.return.md",
+          "status": "copied-incomplete"
+        }
+      ],
+      "journal": "placement-journal.json"
+    },
+    "source_receipt_exists": false
+  }
+]

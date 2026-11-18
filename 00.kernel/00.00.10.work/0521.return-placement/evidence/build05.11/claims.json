@@ -1,0 +1,300 @@
+{
+  "claims": [
+    {
+      "case": "source-audit",
+      "claim": "The successor source loads pass01, has no public injection flag, and does not reimplement the recognizer.",
+      "class": "author",
+      "detail": "",
+      "id": "K01",
+      "limit": "The audit is a source scan.",
+      "result": "passed"
+    },
+    {
+      "case": "pins",
+      "claim": "The pack05.11 rows, the pass01 pins, and the saved known-failure files still match.",
+      "class": "author",
+      "detail": "",
+      "id": "K02",
+      "limit": "The manifest is not refreshed.",
+      "result": "passed"
+    },
+    {
+      "case": "pass01-t1",
+      "claim": "Unmodified pass01 still crashes on a stable non-UTF-8 dispatcher.",
+      "class": "known-failure",
+      "detail": "",
+      "id": "K03",
+      "limit": "This is the known failure. The successor is a different command.",
+      "result": "passed"
+    },
+    {
+      "case": "pass01-t2",
+      "claim": "Unmodified pass01 still reports selected-valid when the dispatcher changes after its adjacent pair.",
+      "class": "known-failure",
+      "detail": "",
+      "id": "K04",
+      "limit": "The return-lines-only substitution is the frozen end hash. Unit seam only.",
+      "result": "passed"
+    },
+    {
+      "case": "pass02-t1",
+      "claim": "The successor returns an observation for that same non-UTF-8 dispatcher.",
+      "class": "repair",
+      "detail": "",
+      "id": "A01",
+      "limit": "Route selection stays unknown. Exit 0 is not approval.",
+      "result": "passed"
+    },
+    {
+      "case": "pass02-t2",
+      "claim": "The successor marks both routes unstable when that same late dispatcher change happens.",
+      "class": "repair",
+      "detail": "",
+      "id": "A02",
+      "limit": "One final re-read. No lock and no retry.",
+      "result": "passed"
+    },
+    {
+      "case": "late-dependency",
+      "claim": "An earlier dependency that changes during a later read makes the whole observation unstable.",
+      "class": "repair",
+      "detail": "",
+      "id": "A03",
+      "limit": "Unit seam on a copy. The public command has no injection flag.",
+      "result": "passed"
+    },
+    {
+      "case": "layout-appears",
+      "claim": "A layout that is missing and then appears is unstable, not a valid declaration.",
+      "class": "repair",
+      "detail": "",
+      "id": "A04",
+      "limit": "Unit seam on a copy.",
+      "result": "passed"
+    },
+    {
+      "case": "disappear",
+      "claim": "A measured dependency that disappears before the final check is unstable.",
+      "class": "repair",
+      "detail": "",
+      "id": "A05",
+      "limit": "The first-cut route details are not kept.",
+      "result": "passed"
+    },
+    {
+      "case": "wrong-type",
+      "claim": "A measured file replaced by a directory before the final check is unstable.",
+      "class": "repair",
+      "detail": "",
+      "id": "A06",
+      "limit": "Wrong-type is explicit.",
+      "result": "passed"
+    },
+    {
+      "case": "stable-old",
+      "claim": "A stable predecessor snapshot still reports both old routes and a matched final check.",
+      "class": "author",
+      "detail": "",
+      "id": "A08",
+      "limit": "Other branches stay unclassified.",
+      "result": "passed"
+    },
+    {
+      "case": "stable-new",
+      "claim": "A stable selected successor still reports selected-valid, and the whole-file hash is not a pin.",
+      "class": "author",
+      "detail": "",
+      "id": "A09",
+      "limit": "The copied dispatcher stays in the suite root.",
+      "result": "passed"
+    },
+    {
+      "case": "separate",
+      "claim": "A later separate inspection can see an other-branch edit and still report selected-valid.",
+      "class": "author",
+      "detail": "",
+      "id": "A10",
+      "limit": "An earlier hash does not become a permanent pin.",
+      "result": "passed"
+    },
+    {
+      "case": "layouts",
+      "claim": "Missing, malformed, and valid declarations stay distinct, and a valid declaration is not authority.",
+      "class": "author",
+      "detail": "",
+      "id": "A11",
+      "limit": "declared does not mean the migration ran.",
+      "result": "passed"
+    },
+    {
+      "case": "bad-declaration",
+      "claim": "A non-UTF-8 selected declaration is selected-but-invalid and the command exits 0.",
+      "class": "author",
+      "detail": "",
+      "id": "A12",
+      "limit": "The bytes are not replaced with an empty file.",
+      "result": "passed"
+    },
+    {
+      "case": "bad-dependency",
+      "claim": "A non-UTF-8 selected dependency is selected-but-invalid.",
+      "class": "author",
+      "detail": "",
+      "id": "A13",
+      "limit": "The dependency is not executed.",
+      "result": "passed"
+    },
+    {
+      "case": "door-bytes",
+      "claim": "A non-UTF-8 door page is recorded and does not crash.",
+      "class": "author",
+      "detail": "",
+      "id": "A14",
+      "limit": "The page is not decoded as a route.",
+      "result": "passed"
+    },
+    {
+      "case": "door-disappears",
+      "claim": "A door page that disappears after it was measured makes the observation unstable.",
+      "class": "repair",
+      "detail": "",
+      "id": "A15",
+      "limit": "Unit seam on a copy.",
+      "result": "passed"
+    },
+    {
+      "case": "syntax",
+      "claim": "A syntax error that still decodes stays malformed and unsupported.",
+      "class": "author",
+      "detail": "",
+      "id": "A16",
+      "limit": "Invalid UTF-8 is the encoding case. A syntax error is not reclassified as unknown.",
+      "result": "passed"
+    },
+    {
+      "case": "missing-dispatcher",
+      "claim": "A missing dispatcher stays absent.",
+      "class": "author",
+      "detail": "",
+      "id": "A17",
+      "limit": "Absent is distinct from unknown.",
+      "result": "passed"
+    },
+    {
+      "case": "oserror",
+      "claim": "An OSError while reading the dispatcher is an explicit unknown observation.",
+      "class": "repair",
+      "detail": "",
+      "id": "A18",
+      "limit": "Unit seam. There is no catch-all.",
+      "result": "passed"
+    },
+    {
+      "case": "programmer",
+      "claim": "A programmer exception still propagates.",
+      "class": "author",
+      "detail": "",
+      "id": "A19",
+      "limit": "The tool does not report success for an unexpected exception.",
+      "result": "passed"
+    },
+    {
+      "case": "pre-gap",
+      "claim": "A dispatcher change between the pre-read and the pass01 cut is not reported as matched.",
+      "class": "repair",
+      "detail": "",
+      "id": "A20",
+      "limit": "The pre-read is one extra pair, not a lock.",
+      "result": "passed"
+    },
+    {
+      "case": "cli",
+      "claim": "The public command projects one observation and refuses every other invocation shape.",
+      "class": "author",
+      "detail": "",
+      "id": "A21",
+      "limit": "A linked root is checked only when the process can create a directory symlink.",
+      "result": "passed"
+    },
+    {
+      "case": "live",
+      "claim": "The live code root and live book select both old routes, match the final check, and do not authorize migration.",
+      "class": "author",
+      "detail": "",
+      "id": "A22",
+      "limit": "The read set is the pass01 closure plus the layout path and the door page. The tool creates no file.",
+      "result": "passed"
+    },
+    {
+      "case": "hardlink",
+      "claim": "A measured file whose link count changes before the final check is unstable.",
+      "class": "repair",
+      "detail": "",
+      "id": "A07",
+      "limit": "os.link failure is an environment skip, not a product failure.",
+      "result": "passed"
+    },
+    {
+      "case": "",
+      "claim": "Prime independent probes",
+      "class": "not-run",
+      "detail": "",
+      "id": "N01",
+      "limit": "Prime runs probes later. This suite does not invent them.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "App selection",
+      "class": "not-run",
+      "detail": "",
+      "id": "N02",
+      "limit": "No substitution is applied to the shared dispatcher.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Live migration",
+      "class": "not-run",
+      "detail": "",
+      "id": "N03",
+      "limit": "No book is migrated and no root is created.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Review-loop classification",
+      "class": "not-run",
+      "detail": "",
+      "id": "N04",
+      "limit": "The review-loop implementation stays unread and unclassified.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Custody filing",
+      "class": "not-run",
+      "detail": "",
+      "id": "N05",
+      "limit": "Matching 0121.return-placement stays pending.",
+      "result": "not-run"
+    },
+    {
+      "case": "",
+      "claim": "Historical demo.py and rehearse.py execution",
+      "class": "not-run",
+      "detail": "",
+      "id": "N06",
+      "limit": "Those scripts are not started.",
+      "result": "not-run"
+    }
+  ],
+  "detail": "",
+  "exit": 0,
+  "failed": 0,
+  "not_run": 6,
+  "passed": 26,
+  "schema": "return-route-readiness-claims/0511",
+  "skipped_environment": 0,
+  "suite": "D:\\librarian\\temp\\0521-0511\\20261102T230437660010Z-suite"
+}

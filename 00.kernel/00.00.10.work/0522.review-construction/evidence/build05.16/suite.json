@@ -1,0 +1,192 @@
+{
+  "cases": [
+    {
+      "detail": {
+        "prepare_exit": 0,
+        "stdout_equal": true
+      },
+      "name": "same-instance-prepare-form",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "read_exit": 0,
+        "record_exit": 0,
+        "stderr": ""
+      },
+      "name": "same-instance-read",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "variants": [
+          {
+            "exit": 0,
+            "held": false,
+            "resolved_equal": true,
+            "stale": false,
+            "variant": "D:/librarian/temp/0522-0516/suite-20261104/life"
+          },
+          {
+            "exit": 0,
+            "held": false,
+            "resolved_equal": true,
+            "stale": false,
+            "variant": "D:\\librarian\\temp\\0522-0516\\suite-20261104\\life\\"
+          },
+          {
+            "exit": 0,
+            "held": false,
+            "resolved_equal": true,
+            "stale": false,
+            "variant": "D:\\Librarian\\temp\\0522-0516\\suite-20261104\\life"
+          }
+        ]
+      },
+      "name": "same-root-spelling",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "exit": 0,
+        "stale": false
+      },
+      "name": "baseline-copy-still-current",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "form_has_hold": false,
+        "original_unchanged": true,
+        "publish_correction": "Publication is blocked because the selected source changed after intake.",
+        "reason": "different-root",
+        "recover_equal": true,
+        "repin_correction": "The stored intake was kept. This entry does not repin."
+      },
+      "name": "candidate-copy-held",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "copy_publish_exit": 1,
+        "publish_exit": 0,
+        "stderr": ""
+      },
+      "name": "same-instance-publish-then-copy-holds",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "copy": "Publication is blocked because the selected source changed after intake.",
+        "same": "manual-review"
+      },
+      "name": "manual-review-preserved",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "left": "wfa30da4da2b8d684",
+        "left_record": 0,
+        "right": "w91c213f4cff20a3a",
+        "right_record": 0
+      },
+      "name": "independent-books",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "measurement": "incomplete",
+        "reason": "different-root"
+      },
+      "name": "changed-source-after-copy",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "exit": 1,
+        "reason": "unbound"
+      },
+      "name": "missing-instance-field",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "exit": 1,
+        "reason": "identifier-disagreement"
+      },
+      "name": "H1-book-rewritten-instance-kept",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "exit": 1,
+        "reason": "identifier-disagreement"
+      },
+      "name": "H2-instance-rewritten-book-kept",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "exit": 1,
+        "reason": "relocation-or-clone"
+      },
+      "name": "relocation-or-clone",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "exit": 1,
+        "reason": "unbound"
+      },
+      "name": "unbound-book-spelling",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "bad_codes": [
+          "custody-missing",
+          "malformed-n7-declaration",
+          "unparsed-return-line"
+        ],
+        "bad_record": "The artifact measurement is incomplete. The judgment was not recorded.",
+        "copy_stale": false,
+        "n7_codes": [
+          "custody-missing",
+          "thin-submission"
+        ]
+      },
+      "name": "n7-baseline-unchanged",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "copied_door": 2,
+        "copied_workbook": 2,
+        "missing": "review loop declaration is missing",
+        "schema": "review loop declaration schema is not review-loop-pins/8",
+        "tamper": "review-instance pin mismatch",
+        "tool": "pinned tool is missing: app/review_loop_tools_v4.py"
+      },
+      "name": "dependency-and-root-refusals",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "changed": []
+      },
+      "name": "frozen-inputs-unchanged",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "cr": []
+      },
+      "name": "authored-lf",
+      "status": "PASS"
+    }
+  ],
+  "failed": 0,
+  "passed": 18,
+  "schema": "review-instance-binding-suite/1",
+  "stamp": "D:\\librarian\\temp\\0522-0516\\suite-20261104"
+}

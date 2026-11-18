@@ -1,0 +1,28 @@
+Interpreter: C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+Working directory: D:\Git\lib-build
+Environment: PYTHONDONTWRITEBYTECODE=1
+Git writes: none. git cat-file blob was read-only, for HEAD 960d20c5290656095df8457b1740d2d5e586b111.
+
+The driver was:
+python -B colab/labs/0708.colab-capability/pass01/probe.py
+
+First preview, preserved under evidence/build05.01/first-failure:
+python -B labs/colab-support-pass02/colab_support.py preview --request evidence/build05.01/first-failure/request-two-dot-page.json --config evidence/build05.01/fixtures/config.json --json
+exit 2
+
+Second run, stdout/stderr/exit under evidence/build05.01/run:
+preview exit 0
+prepare --output C:\Users\misg\AppData\Local\Temp\0708-colab-capability\out --digest 058fed372869e9c47512a11addd27a88b7ffaf33433c4c1c964e88da9b9dd277 exit 0
+verify --output that directory exit 0
+handoff_check.py check --expected-digest that digest exit 0
+handoff_check.py check on the tampered copy exit 1
+preview of fixtures/request-trigger.json exit 2
+preview of fixtures/request-overlap.json exit 2
+colab_workflow.py open --book the disposable book --sources D:\Git\lib-build exit 0
+colab_workflow.py attach --expect-digest that digest exit 0
+colab_workflow.py append-note exit 0
+colab_workflow.py record-review exit 2
+colab_workflow.py show exit 0
+colab_workflow.py open with fixtures/open-exposure.json exit 2
+
+Not run: intake, place-return, return_capture.py, return_inspect.py, and the full test suites.

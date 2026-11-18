@@ -1,0 +1,87 @@
+--- app/review_loop_tools_v7.py	2026-11-03 10:46:56.972123200 -0600
++++ labs/review-entry-integration-pass01/candidate/app/review_loop_tools_v8.py	2026-11-03 17:13:13.224572600 -0600
+@@ -1,10 +1,10 @@
+ #!/usr/bin/env python3
+-"""Pinned front door for the 05.13 return-intake repair.
++"""Pinned front door for the N7 return-intake repair (0707/05.17 contract, 0707/05.18 candidate).
+ 
+ librarian.py loads this module for the review-loop command only.
+-Workbook commands call labs/workbook-review-pass03/workbook.py.
++Workbook commands call labs/workbook-review-pass04/workbook.py.
+ Fixture-root commands are forwarded to app/review_loop_tools_v4.py unchanged.
+-Pass02, pass01, v6, and v5 stay pinned and are not the selected door.
++Pass03, pass02, pass01, v7, v6, and v5 stay pinned and are not the selected door.
+ """
+ 
+ from __future__ import annotations
+@@ -20,9 +20,9 @@
+ sys.dont_write_bytecode = True
+ os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+ 
+-SCHEMA = "review-loop-pins/5"
++SCHEMA = "review-loop-pins/6"
+ VERSION = 1
+-DECLARATION_NAME = "review-loop-v7.json"
++DECLARATION_NAME = "review-loop-v8.json"
+ V4_NAME = "review_loop_tools_v4.py"
+ V4_SHA = "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296"
+ V4_BYTES = 13381
+@@ -36,6 +36,12 @@
+ V6_BYTES = 9175
+ V6_JSON_SHA = "c7f95d16f91644c6465fd3483e3db4d6fb9b9115aa6e20fc09a194fc5bb1f0aa"
+ V6_JSON_BYTES = 2743
++V7_SHA = "93a89939b6e6143eaffbb75c3b7cb60c38c60ad91902bd15d0b48c5bb35c382d"
++V7_BYTES = 10291
++V7_JSON_SHA = "bf12aa7cdf67cc6f8e6ae9d674aa39929933293495c6857dc423dab4c1cab8f8"
++V7_JSON_BYTES = 3515
++PASS03_SHA = "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
++PASS03_BYTES = 19533
+ PASS01_SHA = "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+ PASS01_BYTES = 79131
+ PASS01_FORM_SHA = "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+@@ -62,9 +68,12 @@
+     "review_loop_v5_json",
+     "review_loop_v6",
+     "review_loop_v6_json",
++    "review_loop_v7",
++    "review_loop_v7_json",
+     "workbook",
+     "workbook_pass01",
+     "workbook_pass02",
++    "workbook_pass03",
+ }
+ WORKBOOK = {"prepare", "form", "record", "inspect", "publish", "read", "recover"}
+ V4_COMMANDS = {"describe-legacy", "prepare", "record", "render", "read", "recover", "reproduce", "run"}
+@@ -81,10 +90,13 @@
+     "workbook",
+     "workbook_pass01",
+     "workbook_pass02",
++    "workbook_pass03",
+     "review_loop_v5",
+     "review_loop_v5_json",
+     "review_loop_v6",
+     "review_loop_v6_json",
++    "review_loop_v7",
++    "review_loop_v7_json",
+ )
+ 
+ 
+@@ -138,7 +150,7 @@
+     if not isinstance(document, dict) or set(document) != TOP_KEYS:
+         refuse("review loop declaration does not match the pinned tools")
+     if document["schema"] != SCHEMA or document["version"] != VERSION:
+-        refuse("review loop declaration schema is not review-loop-pins/5")
++        refuse("review loop declaration schema is not review-loop-pins/6")
+     if not isinstance(document["_note"], str) or document["_note"].strip() == "":
+         refuse("review loop declaration does not match the pinned tools")
+     tools = document["tools"]
+@@ -187,6 +199,9 @@
+     pin_named(code_root, "labs/workbook-review-pass01/forms/workbook-review-v1.json", PASS01_FORM_SHA, PASS01_FORM_BYTES, "pass01 form")
+     pin_named(code_root, "labs/workbook-review-pass02/workbook.py", PASS02_SHA, PASS02_BYTES, "pass02")
+     pin_named(code_root, "labs/workbook-review-pass02/forms/workbook-review-v1.json", PASS02_FORM_SHA, PASS02_FORM_BYTES, "pass02 form")
++    pin_named(code_root, "app/review_loop_tools_v7.py", V7_SHA, V7_BYTES, "v7")
++    pin_named(code_root, "app/review-loop-v7.json", V7_JSON_SHA, V7_JSON_BYTES, "v7")
++    pin_named(code_root, "labs/workbook-review-pass03/workbook.py", PASS03_SHA, PASS03_BYTES, "pass03")
+ 
+ 
+ def load_v4(code_root: Path):

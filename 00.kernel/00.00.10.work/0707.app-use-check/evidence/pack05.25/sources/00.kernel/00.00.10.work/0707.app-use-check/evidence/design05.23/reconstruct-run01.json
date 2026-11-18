@@ -1,0 +1,63 @@
+{
+ "builder_frozen": true,
+ "build": {
+  "argv": [
+   "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\make_candidate.py",
+   "--kind",
+   "proto-l",
+   "--root",
+   "D:\\librarian\\temp\\fbt-0523\\recon-01\\cand-proto-l"
+  ],
+  "exit": 0,
+  "stdout_tail": "{\"root\": \"D:\\\\librarian\\\\temp\\\\fbt-0523\\\\recon-01\\\\cand-proto-l\", \"kind\": \"proto-l\", \"files\": 68, \"candidate_sha256\": \"172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af\"}\n",
+  "stderr_tail": ""
+ },
+ "candidate_identity_equal": true,
+ "run": {
+  "argv": [
+   "D:\\Git\\lib-build\\labs\\freshness-boundary-tests-pass01\\run.py",
+   "--candidate",
+   "D:\\librarian\\temp\\fbt-0523\\recon-01\\cand-proto-l",
+   "--identity",
+   "D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass02\\inputs\\inputs-proto-l.json",
+   "--rooms",
+   "D:\\librarian\\temp\\fbt-0523\\recon-01\\rooms",
+   "--out",
+   "D:\\librarian\\temp\\fbt-0523\\recon-01\\result.json",
+   "--cases",
+   "M1-N7,F1b,R0,C1"
+  ],
+  "exit": 1,
+  "stdout_tail": "fail         M1-N7  missing-intake  after M1: read is not held/stale/refused (it reads current or crashed)\npass         R0     pack-region     \nfail         F1b    pack-region     a meaningful change kept the review current (freshness exemption granted)\nfail         C1     composition     the byte-copied book reads the foreign review current\nNOT ALL REQUIRED PASS {'fail': 3, 'pass': 1}\n",
+  "stderr_tail": ""
+ },
+ "verdicts": {
+  "M1-N7": {
+   "first": "fail",
+   "second": "fail"
+  },
+  "R0": {
+   "first": "pass",
+   "second": "pass"
+  },
+  "F1b": {
+   "first": "fail",
+   "second": "fail"
+  },
+  "C1": {
+   "first": "fail",
+   "second": "fail"
+  }
+ },
+ "verdicts_equal": true,
+ "old_harness_byte_identical": {
+  "rows": 26,
+  "drift": []
+ },
+ "app": {
+  "frozen_rows": 219,
+  "drift": [],
+  "modified_after_pack05.23": []
+ },
+ "ok": true
+}

@@ -1,0 +1,51 @@
+{
+  "aggregate": "FAIL",
+  "cases": [
+    {
+      "error": null,
+      "failed_checks": [],
+      "id": "S01",
+      "status": "PASS",
+      "title": "STUB ok"
+    },
+    {
+      "error": null,
+      "failed_checks": [
+        "expects exit 0 (stub deliberately exits 3)"
+      ],
+      "id": "S02",
+      "status": "FAIL",
+      "title": "STUB failing expectation"
+    },
+    {
+      "error": null,
+      "failed_checks": [],
+      "id": "S03",
+      "status": "ERROR",
+      "title": "STUB timeout with grandchild"
+    },
+    {
+      "error": null,
+      "failed_checks": [
+        "expects exit 0 (stub deliberately crashes)"
+      ],
+      "id": "S04",
+      "status": "FAIL",
+      "title": "STUB crash keeps traceback"
+    }
+  ],
+  "config_sha256": "56f2726ad922591af9a55a0b2a276d222b232f9d76b5f7760839896088c8271e",
+  "exit": 1,
+  "kind": "stub",
+  "launches": 4,
+  "loop_evidence": false,
+  "matrix": "stub",
+  "preflight": {
+    "candidate": "pinned",
+    "reasons": [],
+    "status": "READY"
+  },
+  "run": "20261101T212703Z-eabfff",
+  "schema": "acceptance-run/1",
+  "statement": "execution status of this harness only; not acceptance, review or release"
+}

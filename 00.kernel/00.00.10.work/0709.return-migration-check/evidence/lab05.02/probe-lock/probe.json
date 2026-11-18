@@ -1,0 +1,172 @@
+{
+  "schema": "0709-lock-probe/1",
+  "root": "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4",
+  "sentinel_sha256": "3e4fa0d4529084ec1be19395bc904bc79662809bbfbcf64dc10f39833e0af665",
+  "steps": [
+    {
+      "label": "h4-01-helper-reserve-inflight",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--submission",
+        "probe-inflight",
+        "--name",
+        "inflight-0507",
+        "--origin-page",
+        "0507.beta",
+        "--origin-batch",
+        "05.01",
+        "--origin-book",
+        "00.00.10.work",
+        "--submitter",
+        "probe",
+        "--reviewer",
+        "probe",
+        "--release",
+        "SYNTHETIC probe"
+      ],
+      "exit": 0,
+      "seconds": 0.22,
+      "out": "member 0101.inflight-0507\r\nsubmission probe-inflight\r\nresult reserved\r\n"
+    },
+    {
+      "label": "h4-02-helper-reserve-new",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--submission",
+        "probe-new",
+        "--name",
+        "new-0508",
+        "--origin-page",
+        "0508.gamma",
+        "--origin-batch",
+        "05.01",
+        "--origin-book",
+        "00.00.10.work",
+        "--submitter",
+        "probe",
+        "--reviewer",
+        "probe",
+        "--release",
+        "SYNTHETIC probe"
+      ],
+      "exit": 2,
+      "seconds": 6.15,
+      "out": "allocation lock held: D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book\\0100.band.returns\\.allocation.lock\r\nresult refused\r\n"
+    },
+    {
+      "label": "h4-03-helper-reserve-inflight-again",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--submission",
+        "probe-inflight",
+        "--name",
+        "inflight-0507",
+        "--origin-page",
+        "0507.beta",
+        "--origin-batch",
+        "05.01",
+        "--origin-book",
+        "00.00.10.work",
+        "--submitter",
+        "probe",
+        "--reviewer",
+        "probe",
+        "--release",
+        "SYNTHETIC probe"
+      ],
+      "exit": 2,
+      "seconds": 5.22,
+      "out": "allocation lock held: D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book\\0100.band.returns\\.allocation.lock\r\nresult refused\r\n"
+    },
+    {
+      "label": "h4-04-helper-capture-inflight",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "capture",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--submission",
+        "probe-inflight",
+        "--return-file",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\src\\return.md",
+        "--source-root",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\src"
+      ],
+      "exit": 0,
+      "seconds": 1.17,
+      "out": "capture 0101.inflight-0507\r\nmanifest 24a41461f093087ef52de5af4430eccc4092462bbf91f805a5bc0640a70c0a88\r\nreceipt 86fff18517317e3c1a39e89276bf543548bfde1e4dd0dfeb322414cf8372b09a\r\nresult captured\r\n"
+    },
+    {
+      "label": "h4-05-helper-verify-inflight",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--member",
+        "0101.inflight-0507"
+      ],
+      "exit": 0,
+      "seconds": 0.22,
+      "out": "reservation a2c852ee5f38a554ee8a15b671f6e6d919400c75ac1664c260aaa9b151c2f0c3\r\nmanifest 24a41461f093087ef52de5af4430eccc4092462bbf91f805a5bc0640a70c0a88\r\nreceipt 86fff18517317e3c1a39e89276bf543548bfde1e4dd0dfeb322414cf8372b09a\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n"
+    },
+    {
+      "label": "h4-06-inspect-inflight",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+        "inspect",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--member",
+        "0101.inflight-0507",
+        "--json"
+      ],
+      "exit": 0,
+      "seconds": 1.14,
+      "out": ",\"source_commit\":null,\"submission_id\":\"probe-inflight\"},\"member\":\"0101.inflight-0507\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"inflight-0507\",\"path\":\"0101.inflight-0507\"},\"expected_outputs\":[],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0507.beta\"},\"release\":\"SYNTHETIC probe\",\"reservation_sha256\":\"a2c852ee5f38a554ee8a15b671f6e6d919400c75ac1664c260aaa9b151c2f0c3\",\"reserved_at\":\"2026-11-02T16:55:52.289291Z\",\"reviewer\":\"probe\",\"submission_id\":\"probe-inflight\",\"submitter\":\"probe\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n"
+    },
+    {
+      "label": "h4-07-line-init-door-present",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass01\\return_lines.py",
+        "init",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502\\20261102T165426Z-h4\\book",
+        "--name",
+        "00.00.10.work"
+      ],
+      "exit": 2,
+      "seconds": 0.24,
+      "out": "{\n  \"check\": \"live book\",\n  \"command\": \"init\",\n  \"correction\": \"Do not mutate a book that still has the return door. Rehearse on a copy that omits it. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority.\",\n  \"descriptor\": null,\n  \"detail\": {\n    \"acceptance\": null,\n    \"accepted\": false,\n    \"approved\": false,\n    \"published\": false\n  },\n  \"evidence\": null,\n  \"exit\": 2,\n  \"schema\": \"return-line-result/1\",\n  \"state\": \"refused\"\n}\n"
+    }
+  ],
+  "lock_still_present": true,
+  "lock_bytes_unchanged": true,
+  "book_dirs": [
+    "0100.band.returns",
+    "0101.inflight-0507"
+  ]
+}

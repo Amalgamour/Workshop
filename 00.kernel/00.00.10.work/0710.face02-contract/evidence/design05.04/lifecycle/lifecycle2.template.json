@@ -1,0 +1,78 @@
+{
+  "schema": "face-lifecycle-template/2",
+  "format_note": "PROPOSED nonproduction lifecycle contract, 0710/05.04. Successor of design05.03 lifecycle.template.json (preserved). Not an authority source: each stage cites the law that owns it. Fixture approvals and rollback decisions are SYNTHETIC.",
+  "governing": {
+    "draft": "00.00.01.law/0021.write/01#Order; 0060.drafting/01#Next",
+    "number": "00.00.01.law/0024.version/01#Number",
+    "sign": "00.00.01.law/0060.drafting/01#Align; 0021.write/01#Name",
+    "approve_and_seat": "00.00.01.law/0022.approve/01#Seat",
+    "retire": "00.00.01.law/0009.retire/01#Transition",
+    "lock_promote": "00.00.01.law/0023.promote/01 (separate; refused here)"
+  },
+  "identities": {
+    "staged": "candidate bytes as staged",
+    "signed": "bytes after the sign stamp",
+    "approved": "the signed bytes the Director's approval names",
+    "before": "the old seat's raw bytes before seating (rollback target)",
+    "retired": "before + the retired stamp",
+    "seated": "approved + the approved stamp",
+    "content": "bytes with the mutable stamp lines removed; equal across every mechanical transition"
+  },
+  "mechanical_transitions": {
+    "mutable_stamp_lines": ["Authorization", "state"],
+    "rule": "only these lines change between staged, signed, approved, seated and retired; content must be equal. Whether version or who also change at seating is NOT assumed and needs approval before a real tool"
+  },
+  "raw_images": "every identity above is kept as raw bytes keyed by sha256 before the step that replaces it; restore always writes a retained image, never a reconstructed stamp",
+  "stages": [
+    {"id": "stage", "owner": "model or Prime under a job; compute writes", "requires": ["candidate-matches-reviewed", "seat-matches-source", "draft-name-free"]},
+    {"id": "sign", "owner": "model requests; compute checks and stamps", "requires": ["staged", "draft-bytes-equal-staged", "align-checks"]},
+    {"id": "approve", "owner": "Director (fixture: SYNTHETIC)", "requires": ["signed", "approval-names-signed-sha", "draft-bytes-equal-signed"], "held_on": ["approval-missing"]},
+    {"id": "seat", "owner": "compute, recorded by Prime", "requires": ["approved", "draft-bytes-equal-approved", "seat-unchanged", "warehouse-name-free", "pair-approved"], "held_on": ["approval-missing", "half-seated"]}
+  ],
+  "seat_plan": "J1 records {seat_file, warehouse_file, draft_file, before, approved, retired, seated} and stores each as a raw image before any move",
+  "seat_steps": [
+    {"id": "J1", "does": "write the plan and raw images"},
+    {"id": "J2", "does": "ledger line `planned` (never implies a move)"},
+    {"id": "J3", "does": "rename the seat into the warehouse"},
+    {"id": "J4", "does": "write the retired image over the moved file (partial file, then replace)"},
+    {"id": "J5", "does": "rename the draft to the seat name"},
+    {"id": "J6", "does": "write the seated image (partial file, then replace)"},
+    {"id": "J7", "does": "ledger line `retired`; completion"}
+  ],
+  "seat_states": {
+    "basis": "(seat_file, warehouse_file, draft_file) observed sha256, compared with the plan",
+    "S-ready": ["before", null, "approved"],
+    "S-moved": [null, "before", "approved"],
+    "S-retired": [null, "retired", "approved"],
+    "S-installed": ["approved", "retired", null],
+    "S-seated": ["seated", "retired", null],
+    "partial_files": "a `.partial` file is accepted only if its bytes equal the planned image for the state it completes",
+    "any_other": "held: restart-state-unknown, or completed-drift when J7 is recorded; no write"
+  },
+  "rollback": {
+    "decision": {"by": "Director", "names": ["page", "seated_sha256", "retired_sha256", "restore_seat_sha256", "restore_draft_sha256"]},
+    "preflight_before_first_write": ["journal well-formed", "decision present", "decision names the planned identities", "seat = seated", "warehouse = retired", "draft name free", "raw images for before and approved present and intact"],
+    "held_codes": ["rollback-decision-missing", "rollback-decision-mismatch", "rollback-current-changed", "rollback-retired-changed", "destination-occupied", "before-image-missing", "rollback-state-unknown"]
+  },
+  "rollback_steps": [
+    {"id": "R1", "does": "record the decision and ledger line `rollback-planned`"},
+    {"id": "R2", "does": "rename the seated face to its draft name"},
+    {"id": "R3", "does": "write the approved (signed) image there"},
+    {"id": "R4", "does": "rename the retired face back to the seat name"},
+    {"id": "R5", "does": "write the before image there"},
+    {"id": "R6", "does": "ledger line `rolled-back`; the seated bytes stay as a raw image"}
+  ],
+  "rollback_states": {
+    "R-ready": ["seated", "retired", null],
+    "R-moved": [null, "retired", "seated"],
+    "R-draft": [null, "retired", "approved"],
+    "R-returned": ["retired", null, "approved"],
+    "R-restored": ["before", null, "approved"],
+    "any_other": "held: rollback-state-unknown; no write"
+  },
+  "ledger": {"file": "00.retire.09/09.md", "append_only": true, "kinds": ["planned", "retired", "rollback-planned", "rolled-back"]},
+  "warehouse": {"proposal": "00.retire.09/{PPPP.title}/{FF}.{VVV}.09.md", "law_status": "0009 is silent on layout; proposal only"},
+  "supported_interruptions": "a stop after any seat step J1-J6 or rollback step R1-R5, including inside J4 and J6 between the partial write and the replace, in this fixture's single-process model",
+  "not_supported": ["power loss inside a rename or replace (an OS guarantee, not shown here)", "two seating processes at once (no lock modelled)", "a release of more than two faces", "changes to stamp lines other than Authorization and state", "lock and promote"],
+  "not_in_this_template": ["lock", "promote", "any approval by a model", "any copy in place of a rename"]
+}

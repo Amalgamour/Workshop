@@ -1,0 +1,87 @@
+{
+  "schema": "return-placement-verification/1",
+  "batch": "0521.return-placement/05.01",
+  "executor": "Grok-1",
+  "interpreter": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "python": "3.14.0",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "flags": "-B",
+    "tee": false
+  },
+  "tests": {
+    "command": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe -B -m unittest -v labs.return-placement-pass01.tests.test_return_placement",
+    "cwd": "D:\\Git\\lib-build",
+    "exit": 0,
+    "ran": 19,
+    "passed": 18,
+    "skipped": 1,
+    "failed": 0,
+    "failed_attempts": 0,
+    "skip": "test_symlink_refused_or_skipped: symlink privilege WinError 1314",
+    "output": "test_cli_route ... ok\ntest_colab_equal_and_conflict ... ok\ntest_duplicate_origin_copies_neither ... ok\ntest_filing_check_blocks_until_occupant_is_gone ... ok\ntest_hard_link_refused ... ok\ntest_idempotent_and_changed_bytes ... ok\ntest_interrupt_resume_and_hash_mismatch ... ok\ntest_lookup_by_member_origin_and_return_path ... ok\ntest_missing_return_stays_incomplete ... ok\ntest_module_does_not_call_reserve ... ok\ntest_multiple_passes_share_one_line_and_preserve_bytes ... ok\ntest_occupied_target_and_legacy_neighbor ... ok\ntest_path_escape_and_door_refuse_before_journal ... ok\ntest_plan_is_read_only_and_reports_drift ... ok\ntest_rollback_keeps_sources_and_refuses_mismatch ... ok\ntest_route_n5_and_n7_and_unknown ... ok\ntest_symlink_refused_or_skipped ... skipped 'symlink privilege WinError 1314'\ntest_unknown_bands_place_nothing ... ok\ntest_unresolved_source_ignores_slug ... ok\n\nRan 19 tests in 0.654s\n\nOK (skipped=1)\n"
+  },
+  "plan": {
+    "command": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe -B labs\\return-placement-pass01\\return_placement.py plan --book D:\\Git\\lib-build\\00.kernel\\00.00.10.work --audit D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0417.return-placement\\evidence\\audit-corrected.json --out D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0521.return-placement\\evidence\\build05.01\\migration-plan.json",
+    "cwd": "D:\\Git\\lib-build",
+    "exit": 0,
+    "stdout": {
+      "bytes": 676860,
+      "changes": 0,
+      "collisions": 0,
+      "exit": 0,
+      "items": 83,
+      "live_moves": false,
+      "lowest_capture": "0101.app-entry-0506",
+      "schema": "return-placement-plan/1",
+      "sha256": "1ee6bc165b1312ae6670e519d117c41a1d333d17e93af7d88208f13dca477cb7",
+      "unresolved": 0,
+      "wrote": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0521.return-placement\\evidence\\build05.01\\migration-plan.json"
+    },
+    "audit_sha256": "c3bf8c1e25bfd1a59ce40230d87f650897f3105691db732eadfe5abf4e275606",
+    "audit_unchanged": true,
+    "directories_added": [],
+    "directories_removed": [],
+    "verify_reexecuted": false,
+    "file_rows": 1204,
+    "matched_files": 1204,
+    "status_counts": {
+      "planned": 77,
+      "incomplete": 1,
+      "verified-equal": 5
+    },
+    "lowest_capture": "0101.app-entry-0506",
+    "lowest_return": "0104.app-entry/05.06.return.md",
+    "last_capture": "0183.desk-loop-independent-lab-0501",
+    "last_return": "0120.desk-loop-lab/05.01.return.md",
+    "incomplete": "0154.colab-support-first-0501",
+    "verified_equal": [
+      "0165.bench-method-colab-0501",
+      "0168.desk-state-colab-0501",
+      "0172.prime-replay-codex-01",
+      "0173.prime-replay-grok-02",
+      "0174.prime-replay-claude-03"
+    ],
+    "changes_since_audit": 0,
+    "collisions": 0,
+    "unresolved": 0,
+    "members_not_in_audit": [],
+    "audit_members_missing": [],
+    "directories_0184": [],
+    "filing_0121_allowed": false,
+    "filing_0121_blockers": ["0121.archive-resolution-0508"]
+  },
+  "limitations": [
+    "Symlink refusal was not executed. os.symlink raised WinError 1314 and that test was skipped. Hard-link refusal ran and passed.",
+    "return_capture.py verify was not re-executed. The plan rehashed the 1204 audited files. All 1204 matched, so the pinned verify_exit still describes those bytes.",
+    "No live capture was moved, renamed, or deleted. The directory list of the work book was unchanged around the plan command.",
+    "No AR-01 inventory or bridge fixture, no broad app suite, and no race probe was run.",
+    "Sequential reserve was not called and is not retired.",
+    "Pinned modules and app doors were not edited."
+  ],
+  "pinned_helper_rechecked": {
+    "path": "labs/return-capture-pass01/return_capture.py",
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": 45767
+  }
+}

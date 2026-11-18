@@ -1,0 +1,958 @@
+{
+ "schema": "harness-result/1",
+ "inputs": "labs/loop-convergence-harness-pass01/inputs/inputs-proto-l.json",
+ "inputs_sha256": "b72d686b116ef507d7e222e5b4d273777f8f3bcae997d0e6fee3793192d84347",
+ "candidate": "D:\\librarian\\temp\\lch-0721\\cand-proto-l",
+ "ready": false,
+ "aggregate": {
+  "ready": false,
+  "reasons": [
+   "required case N5-2: error",
+   "required case ST-1: fail",
+   "required case ST-3: fail",
+   "required case CAP-0: error",
+   "required case CAP-1: blocked",
+   "required case CAP-2: blocked",
+   "required case CAP-3: blocked",
+   "required case CAP-4: blocked",
+   "required case RP-1: blocked",
+   "required case RP-2: blocked",
+   "required case IN-2: blocked",
+   "case N5-2 crashed",
+   "case CAP-0 crashed",
+   "dependency K is pending",
+   "dependency I is pending",
+   "dependency R is pending",
+   "dependency W is pending"
+  ],
+  "counts": {
+   "pass": 24,
+   "error": 2,
+   "fail": 2,
+   "blocked": 7,
+   "known-failure-reproduced": 3
+  },
+  "required": 35
+ },
+ "records": [
+  {
+   "id": "N5-1",
+   "group": "n5-same-cut",
+   "requirement": "N5 0512/05.06: candidate prepare equals the faithful pass03 baseline on the same root (intake_id, rows, cuts, findings)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "baseline == candidate",
+   "observed": {
+    "diff": {},
+    "candidate": {
+     "exit": 0,
+     "intake_id": "98805a3fef95fe55faa947f461522dedb86f37b11bdffd27fcfe7f776f8ebd37",
+     "measurement": "complete",
+     "codes": [
+      "custody-missing",
+      "index-context-bounded",
+      "return-missing"
+     ],
+     "rows_sha": "ab38bd81b3d42d4349391102a1f0bd0e35ee1d66ecad039cf78deb2a1dd933c1",
+     "cuts_sha": "ef01738d7417d59e97d8ce21f498cd37ee4170c5013371ec651690a04905e639"
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\N5-1"
+  },
+  {
+   "id": "N5-2",
+   "group": "n5-same-cut",
+   "requirement": "N5 0522/05.13: same-state equality with the baseline; the declared selection-induced change (app/librarian.py artifact) appears iff the dispatcher differs from c3a5be3b",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "Refused: root already holds different bytes at app/librarian.py",
+   "verdict": "error",
+   "evidence": "Traceback (most recent call last):\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 775, in main\n    expected, observed, verdict = c[\"fn\"](ctx)\n                                  ~~~~~~~^^^^^\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 266, in n5_2\n    build_fixture(root, \"n5-0522-0513\")\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 152, in build_fixture\n    put_source(root, row[\"path\"], row[\"sha256\"], row[\"bytes\"])\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 117, in put_source\n    raise Refused(f\"root already holds different bytes at {rel}\")\nRefused: root already holds different bytes at app/librarian.py\n"
+  },
+  {
+   "id": "N5-3",
+   "group": "n5-same-cut",
+   "requirement": "N5 legitimate filename punctuation (return.md, / ; / ) ) binds as before (candidate == baseline, file resolved)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "equal and complete for , ; )",
+   "observed": {
+    ",": {
+     "equal": true,
+     "measurement": "complete"
+    },
+    ";": {
+     "equal": true,
+     "measurement": "complete"
+    },
+    ")": {
+     "equal": true,
+     "measurement": "complete"
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\N5-3"
+  },
+  {
+   "id": "N7-1",
+   "group": "n7-valid",
+   "requirement": "N7 0707/05.15: complete, 26/26 artifacts, local pair matched, N1 not applicable",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "artifacts": 26,
+    "manifest_rows_counted_by_harness": 26,
+    "exchange": "matched",
+    "n1_custody": "not-applicable"
+   },
+   "observed": {
+    "measurement": "complete",
+    "artifacts": 26,
+    "exchange_state": "matched",
+    "n1_custody": "not-applicable",
+    "chronology": "unverified",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\N7-1"
+  },
+  {
+   "id": "N7-2",
+   "group": "n7-valid",
+   "requirement": "N7 0707/05.17: complete, 33/33 artifacts, local pair matched, N1 not applicable",
+   "required": true,
+   "needs": [
+    "G",
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "artifacts": 33,
+    "manifest_rows_counted_by_harness": 33,
+    "exchange": "matched",
+    "n1_custody": "not-applicable"
+   },
+   "observed": {
+    "measurement": "complete",
+    "artifacts": 33,
+    "exchange_state": "matched",
+    "n1_custody": "not-applicable",
+    "chronology": "unverified",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ]
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\N7-2"
+  },
+  {
+   "id": "ST-1",
+   "group": "strict-n7",
+   "requirement": "trailing-text manifest line with a self-consistent decoy 'artifact-manifest.json,' blocks intake/record/publication",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "intake incomplete; record refused; nothing published",
+   "observed": {
+    "measurement": "complete",
+    "codes": [
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ],
+    "record_exit": 0,
+    "publish_exit": 0,
+    "destination_unchanged": false
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\ST-1"
+  },
+  {
+   "id": "ST-2",
+   "group": "strict-n7",
+   "requirement": "a refused declaration (hash in attribution) beside a valid alternative Returned line blocks",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "intake incomplete; record refused; nothing published",
+   "observed": {
+    "measurement": "incomplete",
+    "codes": [
+     "attribution-not-descriptive",
+     "index-context-bounded",
+     "n1-not-applicable",
+     "n7-exchange-return-not-local",
+     "unparsed-return-line"
+    ],
+    "record_exit": 2,
+    "publish_exit": 2,
+    "destination_unchanged": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\ST-2"
+  },
+  {
+   "id": "ST-3",
+   "group": "strict-n7",
+   "requirement": "an incomplete recognized label ('Verification:' with no value) blocks",
+   "required": true,
+   "needs": [
+    "G"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "intake incomplete; record refused; nothing published",
+   "observed": {
+    "measurement": "complete",
+    "codes": [
+     "index-context-bounded",
+     "n1-not-applicable",
+     "unparsed-return-line",
+     "verification-not-measured"
+    ],
+    "record_exit": 0,
+    "publish_exit": 0,
+    "destination_unchanged": false
+   },
+   "verdict": "fail",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\ST-3"
+  },
+  {
+   "id": "LR-1",
+   "group": "n7-local",
+   "requirement": "orphan return (no pack): not matched; record refused; return bytes kept",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "state": "orphan-return",
+    "record": "refused",
+    "bytes_kept": true
+   },
+   "observed": {
+    "state": "orphan-return",
+    "measurement": "incomplete",
+    "record_exit": 2,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-1"
+  },
+  {
+   "id": "LR-2",
+   "group": "n7-local",
+   "requirement": "wrong pass: pack 05.02 pointing at the 05.01 return is not a local match",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "state": "return-not-local",
+    "measurement": "incomplete"
+   },
+   "observed": {
+    "state": "return-not-local",
+    "measurement": "incomplete"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-2"
+  },
+  {
+   "id": "LR-3",
+   "group": "n7-local",
+   "requirement": "wrong page: a return copied to another N7 page with no pack does not borrow a nearby pack",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "state": "orphan-return"
+   },
+   "observed": {
+    "state": "orphan-return",
+    "assignment": null,
+    "measurement": "incomplete"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-3"
+  },
+  {
+   "id": "LR-4",
+   "group": "n7-local",
+   "requirement": "foreign book: an N7 record copied into another book instance is not current there",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "read in the copy: not current (exit != 0 or stale)",
+   "observed": {
+    "exit": 1,
+    "stale": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-4"
+  },
+  {
+   "id": "LR-5",
+   "group": "n7-local",
+   "requirement": "existing history (0707/05.15): matched with chronology 'unverified' (Director 06.20)",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "state": "matched",
+    "chronology": "unverified"
+   },
+   "observed": {
+    "state": "matched",
+    "chronology": "unverified"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-5"
+  },
+  {
+   "id": "LR-6",
+   "group": "n7-local",
+   "requirement": "new work: pack observed before return -> chronology 'recorded-before-return'; same .NN throughout",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "open_exit": 0,
+    "chronology": "recorded-before-return",
+    "return": "0799.n7-local-lab/05.01.return.md"
+   },
+   "observed": {
+    "open_exit": 0,
+    "state": "matched",
+    "chronology": "recorded-before-return",
+    "return": "0799.n7-local-lab/05.01.return.md",
+    "destination": "0799.n7-local-lab/06.01.review.md"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-6"
+  },
+  {
+   "id": "LR-7",
+   "group": "n7-local",
+   "requirement": "second pass binds only itself; the first pass's files and record stay byte-equal and current",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "pass 2 matched and published to 06.02; pass 1 unchanged and current",
+   "observed": {
+    "pass2_state": "matched",
+    "pass2_publish": 0,
+    "pass2_target": true,
+    "pass1_kept": true,
+    "pass1_read": 0,
+    "pass1_review_id_same": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LR-7"
+  },
+  {
+   "id": "CAP-0",
+   "group": "capacity",
+   "requirement": "harness self-check: independently counted emitted sources equal Prime's measured 29 / 20 / 44",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "Refused: root already holds different bytes at app/review-loop-v8.json",
+   "verdict": "error",
+   "evidence": "Traceback (most recent call last):\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 775, in main\n    expected, observed, verdict = c[\"fn\"](ctx)\n                                  ~~~~~~~^^^^^\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 455, in cap_0\n    fx = build_fixture(root, key)\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 152, in build_fixture\n    put_source(root, row[\"path\"], row[\"sha256\"], row[\"bytes\"])\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Git\\lib-build\\labs\\loop-convergence-harness-pass01\\harness.py\", line 117, in put_source\n    raise Refused(f\"root already holds different bytes at {rel}\")\nRefused: root already holds different bytes at app/review-loop-v8.json\n"
+  },
+  {
+   "id": "CAP-1",
+   "group": "capacity",
+   "requirement": "retained 29-source judgment (0512/05.09) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "CAP-2",
+   "group": "capacity",
+   "requirement": "retained 20-source judgment (0522/05.14) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "CAP-3",
+   "group": "capacity",
+   "requirement": "retained 44-source judgment (0512/05.10, judgment-open) records and reads back canonically equal",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "CAP-4",
+   "group": "capacity",
+   "requirement": "declared bound: 64 sources record, 65 refuse with an explicit diagnostic; unrelated list limits unchanged",
+   "required": true,
+   "needs": [
+    "K"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['K']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-CAP",
+   "group": "capacity",
+   "requirement": "KNOWN FAILURE (baseline): the 29- and 44-source retained judgments are refused 'limit sources' at the old 24 bound",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "both refused 'limit sources'",
+   "observed": {
+    "29": {
+     "measurement": "complete",
+     "record_exit": 2,
+     "correction": "refused: limit sources",
+     "judgment_canonically_equal": false
+    },
+    "44": {
+     "measurement": "complete",
+     "record_exit": 2,
+     "correction": "refused: limit sources",
+     "judgment_canonically_equal": false
+    }
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\KF-CAP"
+  },
+  {
+   "id": "LC-1",
+   "group": "lifecycle",
+   "requirement": "prepare/form -> record (supplied judgment) -> inspect checkpoint (full rendered output) -> SEPARATE publish -> read/recover x2 equal, no writes; no approval/release",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "complete cycle; checkpoint stored before publish",
+   "observed": {
+    "form_exit": 0,
+    "record_exit": 0,
+    "inspect_rendered_present": true,
+    "publish_exit": 0,
+    "target": true,
+    "reads": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "repeat_equal": true,
+    "no_writes": true,
+    "judgment_equal": true,
+    "flags": {
+     "accepted": false,
+     "approved": false,
+     "authority": "none",
+     "closes_work": false,
+     "releases_action": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\LC-1"
+  },
+  {
+   "id": "PR-1",
+   "group": "preservation",
+   "requirement": "manual text present at the destination: publish held, bytes preserved, judgment retained",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "held; preserved; judgment equal",
+   "observed": {
+    "publish_exit": 1,
+    "correction": "manual-review",
+    "bytes_kept": true,
+    "judgment_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-1"
+  },
+  {
+   "id": "PR-2",
+   "group": "preservation",
+   "requirement": "a destination file appearing between inspect and publish: held, bytes preserved",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "held; preserved",
+   "observed": {
+    "publish_exit": 1,
+    "bytes_kept": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-2"
+  },
+  {
+   "id": "PR-3",
+   "group": "preservation",
+   "requirement": "pack task-body change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-3"
+  },
+  {
+   "id": "PR-4",
+   "group": "preservation",
+   "requirement": "return change after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "stale; held",
+   "observed": {
+    "read_exit": 1,
+    "stale": true,
+    "publish_exit": 1,
+    "target": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-4"
+  },
+  {
+   "id": "PR-5",
+   "group": "preservation",
+   "requirement": "declared artifact changed or missing after record: stale; publication held",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "stale; held (both)",
+   "observed": {
+    "changed": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    },
+    "missing": {
+     "read_exit": 1,
+     "stale": true,
+     "publish_exit": 1,
+     "target": false
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-5"
+  },
+  {
+   "id": "PR-6",
+   "group": "preservation",
+   "requirement": "review-region-only pack edit after publish keeps the exchange current; a task edit does not",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": {
+    "review_edit": "current",
+    "task_edit": "stale"
+   },
+   "observed": {
+    "review_edit": {
+     "exit": 0,
+     "stale": false
+    },
+    "task_edit": {
+     "exit": 1,
+     "stale": true
+    }
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-6"
+  },
+  {
+   "id": "PR-7",
+   "group": "preservation",
+   "requirement": "missing or altered pinned tool refuses before work (door pin)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "exit 2 with a pin refusal",
+   "observed": {
+    "exit": 2,
+    "stderr": "stop: pinned tool hash does not match: labs/prime-cycle-pass03/prime_cycle.py\r\n"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\PR-7"
+  },
+  {
+   "id": "CTX-1",
+   "group": "preservation",
+   "requirement": "source-kind context resets: in-process N5 -> N7 -> N5 intakes equal fresh-process prepares",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "in-process ids == fresh-process ids",
+   "observed": {
+    "fresh": [
+     "ba6feccfe60af9ce649b7a41f48f5877357c7bc6f313fabc7e7bb4fa2460f859",
+     "35e36e951204699a72af7ff9f817ffcb99c3c579b4d80f91aa914638c26a724f",
+     "ba6feccfe60af9ce649b7a41f48f5877357c7bc6f313fabc7e7bb4fa2460f859"
+    ],
+    "in_process": [
+     "ba6feccfe60af9ce649b7a41f48f5877357c7bc6f313fabc7e7bb4fa2460f859",
+     "35e36e951204699a72af7ff9f817ffcb99c3c579b4d80f91aa914638c26a724f",
+     "ba6feccfe60af9ce649b7a41f48f5877357c7bc6f313fabc7e7bb4fa2460f859"
+    ],
+    "workbook": "labs/n7-local-lifecycle-pass01/workbook.py"
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\CTX-1"
+  },
+  {
+   "id": "RP-1",
+   "group": "reporter",
+   "requirement": "review-report on the combined chain: matched published N7 current; stale and held agree with the core; authority/action fields none/false",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "RP-2",
+   "group": "reporter",
+   "requirement": "the combined reporter refuses a wrong dispatcher or chain pin; envelope hardening intact",
+   "required": true,
+   "needs": [
+    "R"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['R']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-RP",
+   "group": "reporter",
+   "requirement": "KNOWN FAILURE (baseline): the frozen reporter v3 refuses this candidate's dispatcher (pins only f1d23d45)",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "refusal",
+   "observed": {
+    "note": "candidate dispatcher has no review-report route at all"
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\KF-RP"
+  },
+  {
+   "id": "IN-1",
+   "group": "instance",
+   "requirement": "N5 same book: record then read is current (exit 0, not stale)",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "current",
+   "observed": {
+    "record_exit": 0,
+    "read_exit": 0,
+    "stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\IN-1"
+  },
+  {
+   "id": "IN-2",
+   "group": "instance",
+   "requirement": "N5 foreign copied book: current applicability held, history retained",
+   "required": true,
+   "needs": [
+    "I"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "-",
+   "observed": "dependencies not accepted: ['I']",
+   "verdict": "blocked",
+   "evidence": "inputs manifest"
+  },
+  {
+   "id": "KF-IN",
+   "group": "instance",
+   "requirement": "KNOWN FAILURE (baseline): an N5 record in a byte-copied book reads current in the copy",
+   "required": false,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "copy reads current (defect)",
+   "observed": {
+    "exit": 0,
+    "stale": false
+   },
+   "verdict": "known-failure-reproduced",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\KF-IN"
+  },
+  {
+   "id": "RC-1",
+   "group": "reconstruction",
+   "requirement": "a NEW root rebuilt by the declared builder from frozen sources has the identical candidate file list, and reproduces N7-1 rows",
+   "required": true,
+   "needs": [],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "identical files; identical rows/cuts",
+   "observed": {
+    "files_equal": true,
+    "rows_equal": true,
+    "cuts_equal": true
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\RC-1"
+  },
+  {
+   "id": "RB-1",
+   "group": "rollback",
+   "requirement": "restore the v7 dispatcher on a copy: new N7 records are kept byte-equal and reported non-current (held), not silently fresh; re-selecting restores current",
+   "required": true,
+   "needs": [
+    "L"
+   ],
+   "candidate": {
+    "candidate_json_sha256": "172ec4e9f22bb7a2c921915703a5e8e67ac2f58222f4a331fad5b6ae57b6f9af",
+    "kind": "proto-l"
+   },
+   "provenance": "harness case (Claude, 0707/05.21); not independent Prime review",
+   "expected": "v7: non-current; records kept; reselect current",
+   "observed": {
+    "v7_read_exit": 1,
+    "v7_stale": true,
+    "records_kept": true,
+    "reselect_exit": 0,
+    "reselect_stale": false
+   },
+   "verdict": "pass",
+   "evidence": "D:\\librarian\\temp\\lch-0721\\run-proto-l-01\\RB-1"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "provenance": {
+    "attribution {actor_label, role, evidence}": "template keys; values from PILOT supplied-judgment.json example",
+    "capture identity {schema, member=derived line, submission_id, receipt_sha256, origin}": "code: pilot.py build_decision; PILOT.md names the derived member only",
+    "decision top-level keys": "template (prime-cycle-decision/3 offered by prepare)",
+    "judgment keys incl. 24 sections": "template",
+    "judgment.disposition values": "code: prime_cycle.py check_judgment",
+    "judgment.next_action {action_id, text, authorized_in_grant}": "code: pilot.py build_decision; prime_cycle.py check_judgment",
+    "judgment.outcome values": "code: prime_cycle.py check_judgment",
+    "judgment.pass_terminal / goal.terminal values and their coupling": "code: prime_cycle.py check_judgment",
+    "judgment.source_refs content": "code: pilot.py build_decision (['assignment.txt'])",
+    "supplied_record schema prime-review-record/1 and keys": "code: pilot.py build_decision",
+    "supplied_record.agreement == registration.agreement": "code: pilot.py; prime_cycle.py align_supplied",
+    "supplied_record.judgment mirrors judgment (next_action as text)": "code: prime_cycle.py align_supplied",
+    "supplied_record.sources rows (bind, content/transport hashes, record text, identity)": "code: pilot.py source_row"
+  }
+}

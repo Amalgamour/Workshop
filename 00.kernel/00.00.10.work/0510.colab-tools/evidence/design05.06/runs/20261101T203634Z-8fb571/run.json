@@ -1,0 +1,38 @@
+{
+  "interpreter": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "version": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "run": "20261101T203634Z-8fb571",
+  "steps": [
+    {
+      "step": "P1-pass01-crlf",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "-c",
+        "\nimport sys, json\nsys.dont_write_bytecode = True\nsys.path.insert(0, sys.argv[1])\nimport reserved_rules as Q\nraw = open(sys.argv[1] + '/examples/05.01.return.SYNTHETIC.md', 'rb').read().replace(b'\\r\\n', b'\\n')\nrows = []\nfor name, data in (('LF', raw), ('CRLF', raw.replace(b'\\n', b'\\r\\n'))):\n    try:\n        Q.first_findings(data); rows.append({'case': name, 'observed': 'accepted'})\n    except Exception as exc:\n        rows.append({'case': name, 'observed': type(exc).__name__ + ': ' + str(exc)})\nprint(json.dumps(rows, indent=2))\n",
+        "D:\\Git\\lib-build\\colab\\labs\\0510-reserved-review\\pass01"
+      ],
+      "exit": 0
+    },
+    {
+      "step": "P2-tests",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\colab\\labs\\0510-reserved-review\\pass02\\test_rules2.py"
+      ],
+      "exit": 1
+    },
+    {
+      "step": "P3-examples",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\colab\\labs\\0510-reserved-review\\pass02\\examples.py",
+        "--write",
+        "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0510.colab-tools\\evidence\\design05.06\\runs\\20261101T203634Z-8fb571\\examples"
+      ],
+      "exit": 0
+    }
+  ]
+}

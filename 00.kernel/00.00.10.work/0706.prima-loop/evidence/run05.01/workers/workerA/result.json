@@ -1,0 +1,59 @@
+{
+  "task": "prima-0706-0501 pass 01, portable custody read",
+  "identity": {
+    "bot": "Prima Worker A",
+    "model": "unknown"
+  },
+  "interpreter": {
+    "command -v python": "not found (exit 1)",
+    "command -v python3": "/usr/bin/python3",
+    "version": "Python 3.13.5",
+    "chosen": "/usr/bin/python3"
+  },
+  "wrapper": "workerA/run_wrapper.py (python3 subprocess, list argv, shell=False)",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "labs/return-capture-pass01/return_inspect.py",
+    "inspect",
+    "--book",
+    "/workspace/prima/run05.01/source/00.kernel/00.00.10.work",
+    "--member",
+    "0182.desk-app-integration-design-0501",
+    "--json"
+  ],
+  "cwd": "/workspace/prima/run05.01/source",
+  "start": "2026-11-01T12:26:30,453374543-06:00",
+  "end": "2026-11-01T12:26:30,493472216-06:00",
+  "exit": 0,
+  "invocations": 1,
+  "stdout": {
+    "path": "workerA/inspect.stdout",
+    "sha256": "286d13e5a1631f578bbb647392eb0aaba9a9c69a15822621d9fd95d19608ccaf",
+    "bytes": 2958
+  },
+  "stderr": {
+    "path": "workerA/inspect.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "fingerprint": {
+    "before_sha256": "510a93f049cfcfa3c9c6345f73848fd60ce374a10a37602803f17f0937760f1e",
+    "after_sha256": "510a93f049cfcfa3c9c6345f73848fd60ce374a10a37602803f17f0937760f1e",
+    "identical": true,
+    "files": 20
+  },
+  "observed": {
+    "inspect_status": "complete",
+    "problems": [],
+    "schema": "return-capture-inspection/1",
+    "payload_and_manifest_receipt_reservation_return_sha256_in_stdout_match_fingerprint": true,
+    "source_commit": null,
+    "return.includes_prime_review": false,
+    "retrospective": false
+  },
+  "interpretation": "Capture integrity: complete. One run, exit 0, empty stderr, inspector reported status complete with no problems, and the source tree was unchanged before vs after. This says nothing about design correctness, acceptance or release; reservation text itself says Director release must be recorded on 0519.desk-app/05.01.",
+  "inference": [
+    "That source_commit=null and includes_prime_review=false are expected for this capture is not verified by me; flagged only as worth noting."
+  ]
+}

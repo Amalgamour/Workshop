@@ -1,0 +1,140 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-loop"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "selected-app-librarian",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "app/librarian.py",
+      "repository": "lib-build"
+    },
+    "bytes": 12204,
+    "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-loop"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "selected app file",
+      "does not load v9, the instance door, or the reporter"
+    ],
+    "name": "librarian",
+    "path": "app/librarian.py",
+    "purpose": "Selected app dispatcher. review-loop loads the v7 door from the app directory.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.35",
+          "file": "06.35.md",
+          "page": "0522.review-construction",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "I is accepted and the candidate is not selected",
+        "role": "review",
+        "sha256": "507b9c101c2b165ac6e7cc92e2c7909a98c2d80fed15c44bbde7b027efd2f0f2",
+        "status": "pinned"
+      },
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "W and reporter-on-W remain pending",
+        "role": "source-stated",
+        "sha256": "7948480497821a986eecd5413b85747893e90e50c025512f369150fd2ca5b39a",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "selected-v7",
+      "kind": "runtime-code",
+      "mechanism": "dynamic-import",
+      "pin": null,
+      "pin_required": false,
+      "reason": "review-loop loads the sibling v7 door by path. The load has no digest and no length.",
+      "source_ref": {
+        "lines": "102-103",
+        "path": "app/librarian.py"
+      },
+      "target": {
+        "module": {
+          "path": "app/review_loop_tools_v7.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "102-102",
+        "path": "app/librarian.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "authoring, return-lines, and the rest of the dispatcher are outside this preflight",
+      "what": "other app commands"
+    }
+  ]
+}

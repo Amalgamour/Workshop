@@ -1,0 +1,31 @@
+{
+  "schema": "0707-lab-supplied-judgment/1",
+  "filled_by": "SUPPLIED",
+  "note": "SUPPLIED sample judgment for the 0707 pass01 lab. Test data for the mechanism only. Not Codex Prime's judgment, not Director approval, not a semantic assessment of the 0519 design. The material is a copy of Claude's own return (self-review conflict, disclosed).",
+  "attribution": {
+    "actor_label": "Claude (SUPPLIED sample, 0707 lab)",
+    "role": "prime",
+    "evidence": "SUPPLIED sample for 0707/05.01. The actor label is not authentication. The writer authored the reviewed return. This is not acceptance."
+  },
+  "record_judgment": {
+    "outcome": "continue",
+    "disposition": "held",
+    "finding": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+    "reasons": [
+      "Custody of the disposable copy was verified by the pinned inspector (describe-legacy state complete); that is capture integrity only.",
+      "Task association is not-established: the custody records do not name this review task.",
+      "The writer of this sample authored the reviewed return, so it cannot stand as a review of it."
+    ],
+    "semantic_conflict": false,
+    "design_fork": null,
+    "next_action_id": "prime-real-judgment",
+    "next_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+    "sections_text": {
+      "return_result": "SAMPLE: return.md 73e92871... (3187 bytes) and receipt.json f4fd548f... are present in the disposable copy.",
+      "prime_finding": "SAMPLE: the copied 0182 return and its receipt are present and match the inspected custody; no semantic judgment of the 0519 design is made here.",
+      "within_direction": "Inside the 0707/05.01 lab only: a disposable book, a synthetic PENDING target, SUPPLIED words.",
+      "next_bounded_action": "Codex Prime supplies its own judgment before any live review of 0519.desk-app/05.01.",
+      "limits": "Self-review conflict: the sample writer authored the return. Task association not-established. Placement pending; derived line 0119.desk-app is intended, not filed. Disposition held, not accepted."
+    }
+  }
+}

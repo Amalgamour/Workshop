@@ -1,0 +1,359 @@
+{
+  "accepted": false,
+  "action_released": false,
+  "answers": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "approved": false,
+  "artifacts": {
+    "addressed_sources": {
+      "assumption": "exact root string plus exact path string; no slash folding, no case folding, and no dot-segment resolution",
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "current-measured",
+      "reason": "measurement is not complete, so addressed-source identity is not established",
+      "scope": "addressed-source-paths"
+    },
+    "bytes": null,
+    "bytes_state": "unknown",
+    "content_blobs": {
+      "assumption": "a 64-character lowercase sha256 proves content equality only",
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "current-measured",
+      "reason": "measurement is not complete, so content-blob identity is not established",
+      "scope": "content-sha256"
+    },
+    "count": null,
+    "count_state": "unknown",
+    "hash_match": null,
+    "hash_mismatch": null,
+    "intake_roles": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "hash_match": null,
+      "hash_mismatch": null,
+      "label": "intake role rows; not a declared artifact total",
+      "not_verified": null,
+      "provenance": "current-measured",
+      "scope": "full-intake-role-rows"
+    },
+    "integrity_provenance": "current-measured",
+    "integrity_scope": "current-measured-artifact-role-rows",
+    "measured_artifact_rows": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "current-measured",
+      "scope": "current-measured-artifact-role-rows"
+    },
+    "measured_by": "accepted-intake",
+    "measurement": "incomplete",
+    "missing": [],
+    "not_verified": null,
+    "physical_files": {
+      "bytes": null,
+      "bytes_state": "unknown",
+      "count": null,
+      "count_state": "unknown",
+      "provenance": "not-established",
+      "reason": "accepted intake metadata has no physical-file identity; a path and a content hash do not establish one",
+      "scope": "verified-physical-files"
+    },
+    "provenance": "declared",
+    "rows": [
+      {
+        "bytes": 1322,
+        "declared_bytes": null,
+        "declared_sha256": null,
+        "path": "0584.hardening-stale/05.84.md",
+        "role": "assignment",
+        "root": "book",
+        "sha256": "19480ed11abfe633c1ab8dfd2d6e7db1dbda5108785d9be2cfb5cf2927c58f42"
+      },
+      {
+        "bytes": 87,
+        "declared_bytes": 87,
+        "declared_sha256": "fb9b60f72183203eb17776a54bddef627e755b31c660815cc818a5503e8df1e5",
+        "path": "evidence/submission.md",
+        "role": "submission",
+        "root": "book",
+        "sha256": "fb9b60f72183203eb17776a54bddef627e755b31c660815cc818a5503e8df1e5"
+      },
+      {
+        "bytes": 193,
+        "declared_bytes": 193,
+        "declared_sha256": "2f8d14296dd0ebeeec38cfc68c3745d82008df43cdf80fd44bc39e4f7e47b7e4",
+        "path": "evidence/artifact-manifest.json",
+        "role": "artifact-manifest",
+        "root": "book",
+        "sha256": "2f8d14296dd0ebeeec38cfc68c3745d82008df43cdf80fd44bc39e4f7e47b7e4"
+      },
+      {
+        "bytes": 13,
+        "declared_bytes": 9,
+        "declared_sha256": "c6b0707c58b2934ac3d3a0fbf43cbf8836c914c33f9937266c9621ce83b467ec",
+        "path": "note.md",
+        "role": "artifact",
+        "root": "book",
+        "sha256": "f6dc3c8f7536271b2a518892f9a909e20916abb50fba8e98749924c25af94b13"
+      }
+    ],
+    "scope": "manifest-declared-artifact-entries"
+  },
+  "attention": {
+    "lines": [],
+    "lines_state": "none-supplied",
+    "source": "journal-checked-record",
+    "state": "measured"
+  },
+  "authority": "none",
+  "book": "D:\\librarian\\temp\\0512-0509-report\\books\\stale",
+  "claims": {
+    "limit": "The selected record has no structured claim, case, run, or result rows. Prose in tests_note is not parsed into a pass.",
+    "rows": [],
+    "state": "not-recorded"
+  },
+  "closes_work": false,
+  "code_root": "D:\\librarian\\temp\\0512-0509-report\\candidate",
+  "core": {
+    "inspect_exit": 0,
+    "read_exit": 1,
+    "recover_exit": 1
+  },
+  "custody": "missing",
+  "detail_fields": [
+    "reasons",
+    "findings",
+    "gaps",
+    "answers",
+    "sections",
+    "intake_findings",
+    "artifacts.rows",
+    "render_coverage",
+    "identity",
+    "observation",
+    "interface_gap"
+  ],
+  "director_text": {
+    "state": "supplied",
+    "text": "Pack it up."
+  },
+  "disposition": "held",
+  "eligible_for_custody_completion": false,
+  "evidence_index": {
+    "missing": [],
+    "state": "not-recorded"
+  },
+  "exit": 1,
+  "finding": "The disposable note is present.",
+  "findings": {
+    "items": [
+      {
+        "disposition": "answered",
+        "finding_id": "note#1",
+        "text": "The note is named by the return."
+      }
+    ],
+    "state": "supplied"
+  },
+  "gaps": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "goal_terminal": "open",
+  "holds": {
+    "items": [],
+    "state": "none-supplied"
+  },
+  "identity": {
+    "inspect_current": "wef8ae61da216b1bd",
+    "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+    "journal_current": "wef8ae61da216b1bd",
+    "judgment_matches_core": true,
+    "read_review_id": "wef8ae61da216b1bd",
+    "record_matches_journal": true,
+    "record_sha256": "abca8cbbabbf4e3c6ccb5238cbfc65b30aae3008ebf1e883b0522841f11256c4",
+    "recover_review_id": "wef8ae61da216b1bd",
+    "selected_by": "journal-current"
+  },
+  "instance_id": "b94d4fcf326338db3638c4ad4f8ff1be02ffab8f7216cc3a2f8d345055507e87",
+  "intake_findings": [
+    {
+      "code": "verification-not-measured",
+      "path": "evidence/submission.md"
+    },
+    {
+      "code": "thin-submission",
+      "path": "evidence/submission.md"
+    },
+    {
+      "code": "artifact-hash-mismatch",
+      "measured_bytes": 13,
+      "measured_sha256": "f6dc3c8f7536271b2a518892f9a909e20916abb50fba8e98749924c25af94b13",
+      "path": "note.md"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0184.hardening-stale"
+    },
+    {
+      "code": "return-missing",
+      "path": "0184.hardening-stale/05.84.return.md"
+    }
+  ],
+  "interface_gap": "inspect, read, and recover do not return record.attention or prime_review_effective. Those fields are read from record.json only after the journal record_sha256 matches and the judgment matches the core. Those three results also omit one bound token of journal current, record digest, and publication identity. This reader measures that token from journal.json before and after the three calls. A mismatch leaves record metadata unexposed.",
+  "judgment_recorded": true,
+  "judgment_recoverable": true,
+  "limits": {
+    "state": "unknown",
+    "value": null
+  },
+  "next_action": "Hand back one correction for the disposable note.",
+  "observation": {
+    "bound": {
+      "digest_kind": "str",
+      "journal_current": "wef8ae61da216b1bd",
+      "publication": {
+        "publication": {
+          "after_sha256": "19480ed11abfe633c1ab8dfd2d6e7db1dbda5108785d9be2cfb5cf2927c58f42",
+          "before_sha256": "59f73048ab7852cf3056a38f10785123634e9f57e70dd99738bb30b04d25c181",
+          "rendered_sha256": "8676e6cfa1ed92c66e7112ca506e683f6547288bf032fd078057ff8f3d61ec2e",
+          "review_id": "wef8ae61da216b1bd",
+          "status": "published",
+          "target": "0584.hardening-stale/05.84.md"
+        },
+        "published_target": {
+          "after_sha256": "19480ed11abfe633c1ab8dfd2d6e7db1dbda5108785d9be2cfb5cf2927c58f42",
+          "before_sha256": "59f73048ab7852cf3056a38f10785123634e9f57e70dd99738bb30b04d25c181",
+          "rendered_sha256": "8676e6cfa1ed92c66e7112ca506e683f6547288bf032fd078057ff8f3d61ec2e",
+          "review_id": "wef8ae61da216b1bd",
+          "status": "published",
+          "target": "0584.hardening-stale/05.84.md"
+        }
+      },
+      "record_file_sha256": "abca8cbbabbf4e3c6ccb5238cbfc65b30aae3008ebf1e883b0522841f11256c4",
+      "record_sha256": "abca8cbbabbf4e3c6ccb5238cbfc65b30aae3008ebf1e883b0522841f11256c4"
+    },
+    "changed": [],
+    "limit": "This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.",
+    "recheck": {
+      "digest_kind": "str",
+      "journal_current": "wef8ae61da216b1bd",
+      "publication": {
+        "publication": {
+          "after_sha256": "19480ed11abfe633c1ab8dfd2d6e7db1dbda5108785d9be2cfb5cf2927c58f42",
+          "before_sha256": "59f73048ab7852cf3056a38f10785123634e9f57e70dd99738bb30b04d25c181",
+          "rendered_sha256": "8676e6cfa1ed92c66e7112ca506e683f6547288bf032fd078057ff8f3d61ec2e",
+          "review_id": "wef8ae61da216b1bd",
+          "status": "published",
+          "target": "0584.hardening-stale/05.84.md"
+        },
+        "published_target": {
+          "after_sha256": "19480ed11abfe633c1ab8dfd2d6e7db1dbda5108785d9be2cfb5cf2927c58f42",
+          "before_sha256": "59f73048ab7852cf3056a38f10785123634e9f57e70dd99738bb30b04d25c181",
+          "rendered_sha256": "8676e6cfa1ed92c66e7112ca506e683f6547288bf032fd078057ff8f3d61ec2e",
+          "review_id": "wef8ae61da216b1bd",
+          "status": "published",
+          "target": "0584.hardening-stale/05.84.md"
+        }
+      },
+      "record_file_sha256": "abca8cbbabbf4e3c6ccb5238cbfc65b30aae3008ebf1e883b0522841f11256c4",
+      "record_sha256": "abca8cbbabbf4e3c6ccb5238cbfc65b30aae3008ebf1e883b0522841f11256c4"
+    },
+    "stable": true,
+    "status": "coherent"
+  },
+  "operation": "continue",
+  "pass": "05.84",
+  "pass_terminal": "open",
+  "prime_review_effective": "continue",
+  "projection": "schema: review-report/3\nstate: stale\nreview_id: wef8ae61da216b1bd\nobservation: coherent\nobservation_stable: true\nselected_digest: abca8cbbabbf4e3c6ccb5238cbfc65b30aae3008ebf1e883b0522841f11256c4\njudgment_recorded: true\npublication_class: complete\npublication_status: published\nstale: true\ncustody: missing\noperation: continue\ndisposition: held\ngoal_terminal: open\npass_terminal: open\nwork_complete: false\naction_released: false\nauthority: none\ntask_association: not-established\ntests_passed: unknown\ntests_passed_label: unknown\ntests_note: unknown\nlimits: unknown\nattention_state: measured\nattention: none supplied\nnext_action: Hand back one correction for the disposable note.\ndirector_words: Pack it up.\nholds: none supplied\nclaims: not-recorded\nevidence_index: not-recorded\ndeclared_artifacts: count unknown, bytes unknown, provenance declared\nmeasured_artifact_rows: count unknown, bytes unknown, provenance current-measured\naddressed_sources: count unknown, bytes unknown, provenance current-measured, scope addressed-source-paths, reason measurement is not complete, so addressed-source identity is not established\ncontent_blobs: count unknown, bytes unknown, provenance current-measured, scope content-sha256, reason measurement is not complete, so content-blob identity is not established\nphysical_files: count unknown, bytes unknown, provenance not-established, scope verified-physical-files, reason accepted intake metadata has no physical-file identity; a path and a content hash do not establish one\nintake_role_rows: count unknown, bytes unknown, provenance current-measured\nartifact_hash_match: unknown\nartifact_hash_mismatch: unknown\nartifact_not_verified: unknown\nartifact_missing: 0\nmeasurement: incomplete\nobservation_limit: This observation binds journal current, record digest, and publication identity, then runs inspect, read, and recover, then rechecks that binding before reading record metadata and again before the projection is attached. The reporter has no lock, no concurrency control, and no power-loss guarantee. A change that lands after the final recheck is outside this observation. A coherent change that is already stable at the start of a later observation is a new measured cut. A change during this observation stays out of the emitted judgment, attention, and custody.\ndetail: reasons, findings, gaps, answers, sections, intake_findings, artifacts.rows, render_coverage, identity, observation, interface_gap\nThe stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.\n",
+  "proposed_core_exposure": "Add attention, prime_review_effective, journal current, record digest, and publication identity from the same journal-checked record to inspect, read, and recover.",
+  "publication": {
+    "class": "complete",
+    "rendered_sha256": "8676e6cfa1ed92c66e7112ca506e683f6547288bf032fd078057ff8f3d61ec2e",
+    "review_id": "wef8ae61da216b1bd",
+    "status": "published",
+    "target_state": "section-verified"
+  },
+  "reasons": {
+    "items": [
+      "The return text names the note."
+    ],
+    "state": "supplied"
+  },
+  "releases_action": false,
+  "render_coverage": {
+    "historical_note": "The stored render is the historical published bytes. This projection is a separate reader view and does not replace rendered.md.",
+    "omitted": [],
+    "path": "workbook-review/0584.hardening-stale/05.84/reviews/wef8ae61da216b1bd/rendered.md",
+    "rendered_ok": true,
+    "shows_attention_lines": true,
+    "shows_tests_note": null,
+    "shows_tests_passed": true,
+    "stored_render_bytes": 701,
+    "tests_passed_line": "tests_passed: none supplied"
+  },
+  "review_id": "wef8ae61da216b1bd",
+  "schema": "review-report/3",
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": [
+      {
+        "finding_id": "note#1",
+        "status": "accepted"
+      }
+    ],
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Hand back one correction for the disposable note.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "The disposable note is present.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "The builder returned the disposable note.",
+    "tests_note": null,
+    "tests_passed": null,
+    "within_direction": "This stays inside the supplied grant."
+  },
+  "source": "0584.hardening-stale",
+  "stale": true,
+  "state": "stale",
+  "successor_of": null,
+  "task_association": "not-established",
+  "tests_note": {
+    "state": "unknown",
+    "text": null
+  },
+  "tests_passed": {
+    "label": null,
+    "proof_of_all_tests": false,
+    "proof_of_requirements": false,
+    "state": "unknown",
+    "value": null
+  },
+  "unknowns": [
+    "receipt"
+  ],
+  "work_complete": false
+}

@@ -1,0 +1,232 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "workbook"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "source-capacity-workbook",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-source-capacity-pass03/workbook.py",
+      "repository": "lib-build"
+    },
+    "bytes": 3126,
+    "sha256": "fe887c0f378fc1da3f5e778ac4642c907f713614040d5ebf3b74272b02512b1f"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "workbook"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "accepted K adapter"
+    ],
+    "name": "capacity_workbook",
+    "path": "labs/review-source-capacity-pass03/workbook.py",
+    "purpose": "Accepted K adapter. It pair-pins pass03 at the helper root and its sibling prime_review.py.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.22",
+          "file": "06.22.md",
+          "page": "0512.prime-review",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "Prime accepted this capacity repair",
+        "role": "review",
+        "sha256": "b3bf76d560457f438d78243c0cff8d2ac90d115ac3a6fa53ec71956547be5e2a",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "pass03-workbook",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 19533,
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      },
+      "pin_required": true,
+      "reason": "load_pass03 compares sha256 and byte length at HELPER D:\\Git\\lib-build.",
+      "source_ref": {
+        "lines": "44-48",
+        "path": "labs/review-source-capacity-pass03/workbook.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass03/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "capacity-validator",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 6136,
+        "sha256": "c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab"
+      },
+      "pin_required": true,
+      "reason": "main compares the sibling prime_review.py sha256 and byte length.",
+      "source_ref": {
+        "lines": "75-75",
+        "path": "labs/review-source-capacity-pass03/workbook.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/review-source-capacity-pass03/prime_review.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "26-26",
+        "path": "labs/review-source-capacity-pass03/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "26-26",
+        "path": "labs/review-source-capacity-pass03/workbook.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "HELPER is D:\\Git\\lib-build. At this lab path, parents[1] is the same checkout. This preflight did not execute the adapter.",
+          "name": "canonical-helper-root"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-w",
+        "statement": "Combined workbook W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-w",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "Combined workbook W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "conditional",
+        "id": "pending-reporter",
+        "statement": "reporter-on-W has no accepted path and no accepted hash.",
+        "status": "unknown"
+      },
+      "id": "pending-reporter",
+      "kind": "evidence",
+      "mechanism": "document",
+      "pin": null,
+      "pin_required": false,
+      "reason": "reporter-on-W has no accepted path and no accepted hash.",
+      "source_ref": {
+        "lines": "1-5",
+        "path": "00.kernel/00.00.10.work/0420.prime-desk/06.56.md"
+      },
+      "target": {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": []
+}

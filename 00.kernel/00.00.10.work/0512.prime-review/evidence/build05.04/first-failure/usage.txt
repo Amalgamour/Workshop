@@ -1,0 +1,10 @@
+First author run of labs/review-report-pass01/tests/test_report.py.
+14 tests, 42.543s. Hostile newer-folder and prose-pass passed and were saved under hostile-first.
+test_usage_and_pin_refusal exited 1. report.py raised KeyError pass_terminal while building the refused report.
+The blank report omitted pass_terminal. Readable reports set it only after a checked judgment.
+Traceback:
+  File labs/review-report-pass01/report.py, line 755, in projection_of
+    f"pass_terminal: {word(report['pass_terminal'])}"
+KeyError: 'pass_terminal'
+The same crash made changed-record, missing-record, another-book, and missing-evidence return non-JSON stdout.
+Repair stays in the lab. The contract was not revised.

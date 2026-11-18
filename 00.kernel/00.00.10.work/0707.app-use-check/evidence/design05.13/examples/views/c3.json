@@ -1,0 +1,133 @@
+{
+ "example": "c3 scope conflicts with the decision",
+ "measured": {
+  "pack_cut": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "d5e7612abfc718a9156b8e68ba48d5057c2da2054d571bfc27127207c94beb53",
+   "bytes": 1316
+  },
+  "goal": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Goal",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "1824129a611d3e6917bfc08eb07da2ad79655170b786972b81a70055d8d81f17",
+     "bytes": 32
+    }
+   }
+  ],
+  "scope": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Scope",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "6758825f02420b3deb53864d2977d37f6dc710fd3ce8f9976ed9faf059745313",
+     "bytes": 52
+    }
+   }
+  ],
+  "finish_criteria": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Finish",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "2c494a7bcacd20e7345c394a0f56497e55477a9813d0e8e7961c30e14a1008e4",
+     "bytes": 1102
+    }
+   }
+  ],
+  "prime_discretion": [
+   {
+    "path": "0412x.standing/01.md",
+    "kind": "heading",
+    "heading": "Local work agreement",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "271a2095cf25cce20d3fc1e10a78f5fd880bb2f113cfb71d59fc277093e7cd27",
+     "bytes": 145
+    }
+   },
+   {
+    "path": "0412x.standing/evidence/director-agreement.md",
+    "kind": "whole",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "61737228ee93c59f6a7ea0f9c1311c970e146991dc1557bb2f94ac7d2e3e809e",
+     "bytes": 244
+    }
+   }
+  ],
+  "director_required": [
+   {
+    "path": "0412x.standing/evidence/director-agreement.md",
+    "kind": "whole",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "61737228ee93c59f6a7ea0f9c1311c970e146991dc1557bb2f94ac7d2e3e809e",
+     "bytes": 244
+    }
+   }
+  ],
+  "recorded_decisions": [
+   {
+    "record": "0597.fixture-conflict/06.01.decisions.md",
+    "verbatim_cut": "Director - verbatim",
+    "interpretation_cut": "Prime - exact proposal this reply approves",
+    "answers_cut": "Prime - exact proposal this reply approves",
+    "answers_scope": "only the cited proposal",
+    "verbatim": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "fc3d38af35c598cd90c02b7eadcdd01e93db942ddef02c3042ebe2e810c9033f",
+     "bytes": 69
+    },
+    "interpretation": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "eec3c0509fdac0049fbeb2cde44a034234a4c4259d12b4fcc525634c6404c6af",
+     "bytes": 77
+    },
+    "answers": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "eec3c0509fdac0049fbeb2cde44a034234a4c4259d12b4fcc525634c6404c6af",
+     "bytes": 77
+    },
+    "distinct_cuts": true
+   }
+  ]
+ },
+ "specified_NOT_RUN": {
+  "states": {
+   "scope": "conflict",
+   "recorded_decisions": "conflict"
+  },
+  "both_cuts_kept": [
+   "0597.fixture-conflict/05.01.md#Scope ('Excluded: app edits')",
+   "0597.fixture-conflict/06.01.decisions.md#Director - verbatim ('change the app entry too')"
+  ],
+  "routed_to": "Director judgment",
+  "must_wait": [
+   "any app edit"
+  ],
+  "may_continue": [
+   "labs-only work inside both cuts"
+  ]
+ }
+}

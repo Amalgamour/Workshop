@@ -1,0 +1,84 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "describe exit 0 with a descriptor",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare offers a template",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "prepare target.state pending",
+      "expected": null,
+      "observed": "pending",
+      "ok": true
+    },
+    {
+      "check": "prepare mechanical.route record",
+      "expected": null,
+      "observed": {
+        "blocker": null,
+        "route": "record",
+        "state": "awaiting-review",
+        "target": "pending",
+        "text": "Supply the typed judgment, then record."
+      },
+      "ok": true
+    },
+    {
+      "check": "record exit 0, recorded",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "render exit 0, rendered",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "read reviewed",
+      "expected": null,
+      "observed": "reviewed",
+      "ok": true
+    },
+    {
+      "check": "read committed_check verified",
+      "expected": null,
+      "observed": "verified-against-committed-record",
+      "ok": true
+    },
+    {
+      "check": "page shows 'review_disposition (supplied): held'",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "page shows 'pass_terminal (supplied): open'",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "page shows 'goal_terminal (supplied): open'",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "page shows 'It is not Director acceptance'",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    }
+  ],
+  "error": null
+}

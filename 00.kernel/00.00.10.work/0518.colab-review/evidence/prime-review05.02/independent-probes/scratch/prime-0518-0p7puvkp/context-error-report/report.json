@@ -1,0 +1,114 @@
+{
+ "by": "Codex Prime independent SYNTHETIC probe",
+ "comprehension": [
+  {
+   "comprehension": {
+    "current_system": "SYNTHETIC: nothing exists yet.",
+    "handback_route": "SYNTHETIC: one return in the reserved member.",
+    "proposed": "SYNTHETIC R01: the page proposes a fixture design.",
+    "task_authority": "SYNTHETIC: Prime reviews; the Director decides forks."
+   },
+   "findings": 0,
+   "member": "0101.context-error-01",
+   "reviewer": "R01",
+   "stage": "S01"
+  },
+  {
+   "comprehension": {
+    "current_system": "SYNTHETIC: nothing exists yet.",
+    "handback_route": "SYNTHETIC: one return in the reserved member.",
+    "proposed": "SYNTHETIC R02: the page proposes a fixture design.",
+    "task_authority": "SYNTHETIC: Prime reviews; the Director decides forks."
+   },
+   "findings": 0,
+   "member": "0102.context-error-02",
+   "reviewer": "R02",
+   "stage": "S01"
+  }
+ ],
+ "disagreements": [],
+ "distinctions": {
+  "acceptance": null,
+  "mapping": "consistent",
+  "required_review": "incomplete"
+ },
+ "findings": [],
+ "incomplete": [],
+ "intake_findings": [
+  {
+   "declared_in_plan": {
+    "conversation_supplied": "none",
+    "familiarity": "SYNTHETIC: none",
+    "host_context": "SYNTHETIC: none declared",
+    "isolation": "unknown"
+   },
+   "declared_in_result": {
+    "conversation_supplied": "full",
+    "familiarity": "SYNTHETIC: none",
+    "host_context": "SYNTHETIC: none declared",
+    "isolation": "unknown"
+   },
+   "finding": "context-mismatch",
+   "member": "0101.context-error-01"
+  }
+ ],
+ "intake_sha256": "47f54e44eedcd1753a1eace8852f3b02e22d4a57c4add429453228029358238f",
+ "intake_status": "incomplete",
+ "items": [],
+ "label": "SYNTHETIC",
+ "plan_id": "plan-1",
+ "report_digest": "3c8f2ae26f3b5cb80b6080790cc4837bbb260d6772cd831a1fd84f8092cf8a71",
+ "residual_uncertainty": [],
+ "retained": [],
+ "round": {
+  "cap": 2,
+  "cap_reached": false,
+  "number": 1
+ },
+ "schema": "colab-review-report/2",
+ "stage_status": [
+  {
+   "member": "0101.context-error-01",
+   "receipt_sha256": "15eccce7711ada7f15b4f572a31386e2fff17c495e80c38639b2225b52ab7999",
+   "required": true,
+   "reviewer": "R01",
+   "stage": "S01",
+   "status": "completed"
+  },
+  {
+   "member": "0102.context-error-02",
+   "receipt_sha256": "f39f3a8de548823bf05f382e1a2fe5d446e45ca3b05e46529bb99ef64a10744a",
+   "required": true,
+   "reviewer": "R02",
+   "stage": "S01",
+   "status": "completed"
+  },
+  {
+   "member": "0103.context-error-03",
+   "receipt_sha256": "86dbeb84ebba1c5e2a0ad9c374a8e12bb40569801aa4e90c230689cc0565eb87",
+   "required": true,
+   "reviewer": "R01",
+   "stage": "S02",
+   "status": "completed"
+  },
+  {
+   "member": "0104.context-error-04",
+   "receipt_sha256": "4c46a9caf53de0b6780844d92a2a0ebe0362cc5e1f97f6159bac9051279b495b",
+   "required": true,
+   "reviewer": "R02",
+   "stage": "S02",
+   "status": "completed"
+  },
+  {
+   "member": null,
+   "receipt_sha256": null,
+   "required": false,
+   "reviewer": "R01",
+   "stage": "S03",
+   "status": "absent"
+  }
+ ],
+ "stage_status_note": null,
+ "statement": "derived; originals are in N1 custody and the workflow page; not a review, not acceptance, not Director approval",
+ "status": "consistent"
+}

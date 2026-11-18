@@ -1,0 +1,48 @@
+[01] ok   exit 0 (want 0)  1a Prime: construct batch page A from a structured spec
+[02] ok   exit 0 (want 0)  1b Prime: reserve member A (existing helper)
+[03] ok   exit 0 (want (0, 1))  2  worker view: assigned, not released  -- 0101.demo-a-0501: awaiting-release, actor director, next: record the Director's release on the page
+[04] ok   exit 2 (want 2)  2b construct batch page A again (exists) is refused
+[05] ok   exit 0 (want 0)  3a record the Director release (constructed line)
+[06] ok   exit 0 (want (0, 1))  3b worker view: released  -- 0101.demo-a-0501: released, actor Builder-X (SYNTHETIC), next: claim on the page, then do the work
+[07] ok   exit 2 (want 2)  3c stale compare-and-swap: claim with an old page hash is refused
+[08] ok   exit 0 (want 0)  3d worker claims (compute binds the assignment hash)
+[09] ok   exit 0 (want (0, 1))  4a worker view: claimed, no return (not done)  -- 0101.demo-a-0501: claimed, actor Builder-X (SYNTHETIC), next: capture and verify the return into this member
+[10] ok   exit 1 (want (0, 1))  4b prime_cycle read: claimed work is not awaiting review or reviewed  -- custody-unresolved (custody unresolved: registered member 0101.demo-a-0501 is not named by the page)
+[11] ok   exit 0 (want 0)  5a worker captures the return (existing helper)
+[12] ok   exit 0 (want 0)  5b verify in a fresh process
+[13] ok   exit 0 (want 0)  5c compute writes the Execution line from the inspected receipt
+[14] ok   exit 0 (want 0)  6a identical handback: already-captured, nothing written
+[15] ok   exit 2 (want 2)  6b changed handback under the same submission: conflict, nothing written
+[16] ok   exit 0 (want (0, 1))  7a Prime view: awaiting review  -- 0101.demo-a-0501: awaiting-review, actor Codex Prime (SYNTHETIC), next: verify the member, review the return, record the judgment
+[17] ok   exit 1 (want (0, 1))  7b prime_cycle read writes the decision template
+[18] ok   exit 0 (want (0, 1))  7c Prime records the typed review (prime_cycle record)
+[19] ok   exit 0 (want (0, 1))  7d view after the typed review: reviewed, next action shown  -- 0101.demo-a-0501: reviewed, actor Codex Prime (SYNTHETIC), next: Pack 05.02: add the second change.
+[20] ok   exit 0 (want 0)  8a compute writes the page Review section from record.json
+[21] ok   exit 0 (want (0, 1))  8b FINDING: writing the Review section makes the typed review stale (whole-page binding)  -- 0101.demo-a-0501: review-stale, actor Codex Prime (SYNTHETIC), next: re-read and record a successor review
+[22] ok   exit 2 (want 2)  8c a second Review construction over existing text is refused (no silent rewrite)
+[23] ok   exit 0 (want (0, 1))  9a restart: fresh-process view 1
+[24] ok   exit 0 (want (0, 1))  9b restart: fresh-process view 2
+[25] ok   exit 0 (want 0)  10a Prime: construct batch page B
+[26] ok   exit 0 (want 0)  10b reserve member B
+[27] ok   exit 0 (want 0)  10c construct B release
+[28] ok   exit 0 (want 0)  10c construct B claim
+[29] ok   exit 1 (want 1)  10d assignment edited after claim: attention, stays claimed
+[30] ok   exit 2 (want 2)  10e interrupted capture (helper's own before-receipt point): partial retained
+[31] ok   exit 1 (want 1)  10f view: partial capture is a custody problem, not a return  -- 0102.demo-b-0501: custody-problem, actor prime, next: inspect the member; partial captures are evidence, not returns
+[32] ok   exit 0 (want 0)  10g amended return: new submission supersedes A
+[33] ok   exit 1 (want (0, 1))  10h view: A's first member is superseded, successor waits for capture
+[34] ok   exit 2 (want 2)  11 construct into the shared checkout is refused
+[35] ok   exit 1 (want (0, 1))  12 final human view
+[36] ok   exit 1 (want (0, 1))  12b final text view
+desk view of 00.kernel/00.00.10.work  (authority: none; derived now from reservations, custody, pages)
+return band free: 96   state digest: 9d464aac22fc0848   prime_cycle: merged
+- 0101.demo-a-0501  [superseded]  submitter=Builder-X (SYNTHETIC)  actor=None
+    page 0598.demo-loop/05.01  next: read 0103.demo-a-0501-r2 instead
+- 0102.demo-b-0501  [custody-problem]  submitter=Builder-X (SYNTHETIC)  actor=prime
+    page 0597.demo-stale/05.01  next: inspect the member; partial captures are evidence, not returns
+    ! assignment-changed-after-claim: claim line 33 binds 5834d98f14a4, page assignment is now 66047d7b2f14
+- 0103.demo-a-0501-r2  [claimed]  submitter=Builder-X (SYNTHETIC)  actor=Builder-X (SYNTHETIC)
+    page 0598.demo-loop/05.01  next: capture and verify the return into this member
+summary: {"tasks": 3, "by_state": {"superseded": 1, "custody-problem": 1, "claimed": 1}, "by_actor": {"prime": 1, "Builder-X (SYNTHETIC)": 1}}
+
+expectations held: 36 of 36

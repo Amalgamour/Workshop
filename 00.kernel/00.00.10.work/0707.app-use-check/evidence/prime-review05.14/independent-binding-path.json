@@ -1,0 +1,23 @@
+{
+  "args": [
+    "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\task-agreement-reference-pass01\\ta.py",
+    "compare",
+    "--binding",
+    "D:\\librarian\\temp\\claude-agreement-review-0514\\changed-binding.json",
+    "--book",
+    "D:\\librarian\\temp\\claude-agreement-review-0514\\author-suite-copy\\T01\\book\\00.00.10.work"
+  ],
+  "exit": 0,
+  "refused": false,
+  "goal_refs": [
+    {
+      "field": "goal",
+      "ref": "goal[0]",
+      "status": "current"
+    }
+  ],
+  "expected": "refuse out-of-book reference path on compare, not current",
+  "prime_setup_correction": "First probe stopped before target invocation because Prime used parent book rather than nested 00.00.10.work. Corrected to actual authored fixture root; no target code or source expectations changed."
+}

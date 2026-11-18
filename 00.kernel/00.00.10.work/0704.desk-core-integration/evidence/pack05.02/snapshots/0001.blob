@@ -1,0 +1,300 @@
+# 05.01.return — One operating desk core: convergence review
+date: 2026-10-31
+who: claude-opus-5-5 (Claude), Colab; reviewer Codex Prime
+pack: 05.01.pack.md · notes: 06.01.notes.md · evidence: evidence/return05.01/source-check.json
+state: advisory Colab return. Not acceptance, not a decision, not an implementation.
+context: not cold. I wrote the 0519 design under review (snapshots 0005–0007), prime_cycle and prime_support. See 06.01.notes.md.
+
+## Did
+- Verified pack05.01: 23 of 23 snapshots match their pins and equal live; only 0411/01.md equals HEAD 960d20c.
+- Recorded the invocation, my claim and my prior involvement on the pack.
+- Wrote notes first.
+- Read in the pack's order: product understanding, routing, the seam, the four Prime assessments, the three active assignments, and the 0521/0522/0523 contracts. I read the frozen cloud `identity.py`, `face.py`, and the review, derive, revise and pending paths of `engine.py`.
+- Traced 0524.example/05.01 on paper.
+- Attacked the joints and produced 12 findings, a compatibility map, one smallest route, an inspectability specification with a fixture design, and Director choices.
+
+## Blocked
+Nothing blocks this return. I executed nothing. Every behaviour I attribute to code comes from reading the frozen snapshot, at the line cited. None of it was run. Three statements come from earlier reading in this session, outside the packet, and are marked [prior, unfrozen].
+
+## Need
+- **Prime:** decide whether to write a short shared **seam v2** before 0521/05.03 and 0522/05.03 freeze. It would carry the review binding, an in-place legacy descriptor, a successor-review rule, outcome classes and a trace record. Then hold one integration pack that reviews one real legacy return without waiting for migration.
+- **Director:** DC1–DC3 below.
+
+## 1. Comprehension (in my words; full version in 06.01.notes.md)
+- **The loop:** Prime records a bounded N5NN pass. The Director's words release it. A worker claims, then returns. Compute seals the return on the matching N1NN line (one tail per pass) or the N7NN page-local tail. Prime retrieves by page and pass, supplies typed judgment, and compute renders the full review on the source batch. Records alone give the pending state and next action after restart.
+- **Who does what:** compute constructs, seals, checks and refuses with a reason. Models judge. The Director releases and decides.
+- **Built:** placement (0521/05.02) and review construction (0522/05.02), both accepted as bounded candidates, plus a separate synthetic cloud loop that needs repair (0523/05.01).
+- **Assigned:** the return-line writer, reader and migration; the stable cycle and loop adapter; the cloud repair.
+- **Proposed:** seam v1 and the corrected 0519 plan.
+
+## 2. Workflow trace — 0524.example, pass 05.01 → 0124.example; held judgment with an unresolved Director question
+A paper trace. Nothing was executed. "Local" means the 0521/0522 lanes plus existing tools. "Cloud" means desk_core e94ca698.
+
+| Stage | Owner (existing / planned) | Authoritative record | Schema / identity | Evidence status |
+|---|---|---|---|---|
+| T1 task construction | **Local:** Prime writes `0524.example/05.01.md` by hand and updates 0401/06.01 by hand (R3). No accepted local task constructor; the 0519 `batch-page/1` is lab only. **Cloud:** `record-task` writes `05.01.task.json` plus `desk-core-face/1` | Local: the page's assignment bytes. Cloud: task.json (the face is a projection) | Local: none until review time (review-task-binding/2 binds `assignment_path` and bytes). Cloud: `desk-core-task-binding/1`, content only, no address (CC-04) | Local: practice only. Cloud: Linux demo; Windows fails (CC-01) |
+| T2 worker instruction | **Local:** reads the page. 0520 demonstrated Clerk queue/claim of supplied instructions. `where` reads the selector. Release and Claim lines are typed. **Cloud:** `register` + `show` | Local: page lines, or a Clerk job (a third record). Cloud: `release.json`, `claim.json` | Local claim: free text. Cloud: claim binds task binding/1 | 0520 accepted as evidence of existing behaviour, in the old layout |
+| T3 return / custody | **Local, planned:** 0521/05.03 return-lines tool writes `0124.example/05.01.return.md` + `05.01.custody/` and emits a `return-line-descriptor/1`. **Cloud:** `submit-return` writes `0124.example/05.01.return.md` + `05.01.receipt.json` + `05.01.artifacts/` | Local: `return-line-capture/1` (schema not yet in the frozen sources). Cloud: `desk-core-receipt/1` | Seam v1 `custody_format` ∈ {legacy-relocated/1, return-line-capture/1} | Local: not built. Cloud: Linux only. **In the live book 0124 holds an older sequential member [prior, unfrozen], so a real 0524 return is blocked behind migration (0521/05.02: 18 occupied lines, 77 blocked captures)** |
+| T4 template + held judgment | **Local, planned:** 0522/05.03 cycle pass02 reads the descriptor, derives the template, and the model supplies a held judgment. Holds are carried by prime_review report and check-next. **Cloud:** `review` input has `unresolved_questions` strings and a required `next_action` {actor, action} | Local: cycle record (versioned successor of `prime-cycle-review/2`). Cloud: `desk-core-review/1` | Local binding: review-task-binding/2. Cloud: `desk-core-review-binding/1` | Local: not built. The constructor accepts held judgments (0522/05.02) |
+| T5 full review on 0524/05.01 | **Local:** 0522 constructor renders under `## Review — Codex Prime` (either dash) and keeps support `record.json` + `binding.json`. **Cloud:** splices the body under the hyphen heading only | Local: the page section (R2) plus the typed record. Cloud: review.json (the face is a projection) | Destination derived from page and pass (RC-01) | Local: accepted for space 0. Cloud: Linux |
+| T6 restart | **Local, planned:** cycle pass02 read. **Cloud:** `recover` = `show` from records | As above | Binding/2 stable across the render (accepted in the constructor; cycle integration pending) | Local: not built |
+| T7 pending next action | Held: the next action is the Director's answer. **Local:** prime_cycle `director-input` with holds bound to a question sha; next_action null [prior, unfrozen: labs/prime-cycle-pass01/tests/fixture.py]. **Cloud:** next actor is whatever was supplied; state `reviewed`, `complete` true | Hold record versus stored text | n/a | **Neither path can record the post-answer successor review on the page (F5)** |
+
+## 3. Findings
+Severity: **H** blocks one coherent workflow, **M** leaves a consequential gap, **L** small. Each finding is distinct from the assigned CC-01..04 and RP/RC items unless it says otherwise.
+
+**F1 (H) — There are four task authorities.**
+- The four:
+  - the page assignment region: 0522 CONTRACT RC-03 binds `assignment_path` and its bytes;
+  - a Clerk job (0520 review, "Queue/claim of supplied instructions");
+  - cloud `05.PP.task.json` (0523 CONTRACT, "Records and projections": the face is a projection);
+  - the desk-wide selector 0401/06.01 (R3).
+- **Consequence:** a revision recorded in one is invisible to the others, and each lane binds a different object.
+- **Repair:** for real work, the page's assignment bytes are the task. A structured spec is construction input; keep it as evidence with its hash. A Clerk instruction, if used, must name the page path and assignment sha256, not carry its own text. The selector points at page and pass and is checked, not replaced.
+
+**F2 (H) — Three custody formats would write the same N1NN line.**
+- The three: `return-capture/1` (relocated legacy), `return-line-capture/1` (0521/05.03; schema undocumented in this packet), and `desk-core-receipt/1` (cloud, with `05.PP.receipt.json` and `05.PP.artifacts/`).
+- 0521 uses a `05.NN.custody/` directory instead. Seam v1 (0417 evidence) allows only the first two.
+- **Consequence:** two writers on one line give incompatible tails, and consumers would need two readers.
+- **Repair:** one custody writer for the work book, the 0521 tool. Cloud custody stays experimental, and the seam keeps refusing it.
+
+**F3 (H) — There is no descriptor for an unmigrated legacy member, and current returns are not sealed.**
+- Seam v1 has no `custody_format` value for a `return-capture/1` member still at its old `01NN` address.
+- Every pointer written since the placement correction (0521/05.02, 0522/05.02, 0523/05.01) says "custody pending matching line".
+- **Consequence:**
+  - The first real review through the new route waits for staged migration: 18 occupancy conflicts, adoption and retirement.
+  - Meanwhile new returns live only as mutable page-local files.
+- **Repair:**
+  - a read-only `legacy-in-place/1` descriptor (old member id, pinned `return_inspect`, its route marked pending) so that Prime can review existing sealed returns now;
+  - an interim seal decision for new returns (DC2).
+
+**F4 (M) — There are four binding preimages for one concept.**
+- The four: prime_cycle /2 (whole page; known); `review-task-binding/2` (0522); `desk-core-task-binding/1` and `desk-core-review-binding/1` (cloud identity.py, `task_binding`, `review_binding`).
+- Seam v1 carries custody identity only.
+- **Consequence:** the lanes cannot check each other's freshness, and an adapter must recompute.
+- **Repair:** seam v2 names review-task-binding/2 as the single review binding, and its descriptor consumer computes it. The cloud core adopts it or stays separate.
+
+**F5 (H for the supplied example) — A successor review after the Director answers is refused by both renderers, with no route.**
+- **Cloud:** `engine.py` refuses any different second review for a pass with `review-conflict` (line 1145). It also requires a `next_action` object (line 1090), so "no next action until the Director answers" cannot be expressed. The judgment is forced to invent one.
+- **Constructor:** `CONTRACT.md` ("Writes that stay") refuses a different substantive section with "a successor process is required". No frozen source defines that process.
+- **Consequence:** a legitimate judgment is refused mechanically without a help route. The readable home stays frozen at the held review, and the Director's answer cannot reach the page. This is exactly the #03 question.
+- **Repair:** define successor rendering:
+  - the new review is added inside the same section as `### Successor review <id> (supersedes <id>)`;
+  - prior text is kept byte for byte;
+  - the typed record carries `supersedes`;
+  - hold resolution binds the question sha256 and the Director reply, recorded verbatim.
+
+**F6 (M) — "Held" and "complete" do not mean the same thing across lanes.**
+- **Cloud:** `derive` gives state `reviewed` and the supplied actor whenever the review binding is fresh (line 392). `complete` is capture-verified (line 458), whatever unresolved questions remain. There are no hold or dependent-scope semantics.
+- **Local:** prime_review has holds and check-next.
+- **Consequence:** the view can say reviewed and complete while dependent work is blocked on the Director. It is a competing next-action authority (beyond CC-03's stale-return case).
+- **Repair:**
+  - an open hold outranks a recorded next action;
+  - state `held-director-input`;
+  - split `complete` into `capture_complete` and `pass_terminal`.
+
+**F7 (M) — The cloud core renders the review before writing the record.**
+- `review()` splices the face (lines 1148–1155) before `05.PP.review.json` is created exclusively (line 1161).
+- `face.replace_body` (face.py line 248) replaces any body; it does not check for PENDING.
+- **Consequence:** if interrupted between those writes, the page shows a full review and the record is absent, so `derive` says awaiting-review. A *different* retry then overwrites the first judgment's only durable copy on the face.
+- This is not in CC-01..04. 0522/05.03 #03 already requires record, then render, with render-pending, so keep that order and do not port this one.
+
+**F8 (L/M) — Derived freshness is written into durable pages.**
+- The cloud review body writes the literal `stale: no` (face.py line 157).
+- `revise_task` keeps the suffix while replacing the prefix (engine.py line 625), so an old review keeps claiming `stale: no` after the task changes.
+- My own 0519 lab review-section also writes a static "Next action:" line [prior, unfrozen: labs/desk-app-integration-pass01/desk_lab.py `render_review`].
+- **Repair:** rendered pages carry binding hashes, never a freshness verdict. Freshness lives only in the derived read and `explain` (§6).
+
+**F9 (M) — Status readers multiply.**
+- Planned or existing: cycle pass02 read; the 0522 review-loop adapter; the 0521 journal lookup; cloud `derive`/`pending`; the 0519 lab view; prime_support status; Clerk `show`; the hand selector.
+- R6 asks for no new engine without naming the reader it uses.
+- **Repair:** one reader, cycle pass02 read (0522 lane), over a bounded list taken from the selector and descriptors. Adopt cloud `derive`'s state vocabulary as a specification (`said-done-without-capture`, `partial`, `assignment-conflict`, `release-stale`), not its code.
+
+**F10 (M) — Refusal shapes differ, and none names its rule or route.**
+- The shapes:
+  - cloud: `Refused(code, message, **extra)`;
+  - constructor: `refused:` on stderr, exit 2;
+  - return_capture: `result refused`;
+  - prime_cycle: `refused:` lines.
+- None gives a contract version and section, an outcome class or a correction route, which 0416/01.003 requires.
+- 0523/05.02 #05 asks the cloud core for a trace. There is no shared shape across lanes.
+- **Repair:** §6.
+
+**F11 (L) — Heading spelling.**
+- The cloud writes and reads only `## Review - Codex Prime`, with an exact line match (face.py `section_span`). The 0522 constructor accepts both dashes. Existing pages use the em dash (the 0519 snapshot).
+- The cloud cannot splice existing pages, and its PRIME-USE says so. This matters only if the cloud writer is integrated.
+
+**F12 (M) — Occupancy policies differ.**
+- The cloud refuses `return-line-occupied`. 0521 stages and retires after acceptance.
+- **Consequence:** the cloud cannot participate in the migrated book without adopting 0521's staging, which reinforces F2.
+
+**Answers to the #03 questions:**
+- *Can a current plan mark work complete or fresh despite a stale source, hidden disagreement or missing record?*
+  - **Cloud:** yes. CC-03 is assigned; F6 and F7 are not.
+  - **Local:** the constructor reports `custody: not-established`. 0521 needs adoption for `complete`. The whole-page stale binding is assigned (0522/05.03).
+- *Is there a legitimate request that mechanical rules reject without an explanation route?* Yes:
+  - F5, the successor review;
+  - cloud's mandatory next_action;
+  - nonzero N in the old prime_review pin (assigned in 0522/05.03 #04).
+- *Can /1 captures and new lines be read without relabelling?*
+  - Relocated captures: yes, through `legacy-relocated/1` with provenance.
+  - In-place captures: no descriptor (F3).
+  - New lines: the schema is not yet in the packet.
+
+## 4. Compatibility map
+| Joint | Local (0521 / 0522 / existing) | Cloud desk-core/1 | Compatible? | Adapter owner |
+|---|---|---|---|---|
+| Routing N5→N1, N7 local | 0521 route `return-placement-route/1`, any leading N | `identity.place`, leading 0 only (CC-04) | Same rule; cloud narrower | none: the 0521 rule governs |
+| Task record | page assignment bytes (+ Clerk job in 0520) | task.json + face projection | **No** (F1) | Prime seam v2: page is the task |
+| Release / claim | page lines (text) | release.json / claim.json bound to task/1 | Partly | defer; record as lines with assignment sha |
+| Custody | return-capture/1, return-line-capture/1 | desk-core-receipt/1 | **No** (F2) | 0521 is the only writer |
+| Descriptor | return-line-descriptor/1 | none | n/a | 0521 emits; add legacy-in-place (F3) |
+| Review binding | review-task-binding/2 | desk-core-review-binding/1 | **No** (F4) | 0522 cycle pass02 computes /2 |
+| Review record | cycle successor record + constructor support record | review.json | **No**; local has two candidate records | 0522/05.03: one typed record; the support record is evidence |
+| Review page | constructor, either dash, no overwrite | splice, hyphen only, overwrite possible (F7) | Partly | constructor + successor rule (F5) |
+| Holds / next action | prime_review holds, check-next | strings + mandatory next_action | **No** (F6) | cycle pass02 |
+| State reader | cycle read (planned) + others | derive/pending | Overlapping (F9) | cycle pass02 read; cloud vocabulary as specification |
+| Refusal | per-tool text | Refused code + extra | **No** (F10) | seam v2 refusal/trace object |
+
+## 5. Smallest route for the current Prime's real return review
+**Principle.** One writer per record, and one reader. Use the frozen local lanes. Keep the cloud core as a reference prototype. Do not build a fourth engine. Do not rewrite the kernel.
+
+**Reuse as they are:**
+- `labs/return-capture-pass01/return_capture.py` and `return_inspect.py`: legacy /1 reads;
+- `labs/batch-observation-pass01/batch_observe.py`: page lines;
+- `labs/prime-review-pass01/prime_review.py`: report and holds (0-space).
+
+**Adopt as the integration target, once accepted:**
+- `labs/return-lines-pass01`: the only custody writer and reader, plus descriptor and lookup (0521/05.03);
+- `labs/prime-cycle-pass02` + `labs/review-loop-pass01`: the one typed review record and the one reader (0522/05.03);
+- `labs/review-construction-pass01/construct.py`: the page renderer.
+
+**Adapt (small):**
+- seam v1 → v2: binding, `legacy-in-place/1`, a successor-review rule, outcome classes, a trace record;
+- the constructor: successor rendering (F5);
+- cycle pass02: hold precedence and the `complete` split (F6).
+
+**Leave experimental:**
+- `app/desk_core` (cloud): do not wire its custody, task ledger or review JSON into the work book. Its state vocabulary, column-0 indentation safety and `said-done-without-capture`/`partial` states are worth porting as a specification.
+- My 0519 `desk_lab.py`: superseded by R1/R6.
+
+**Defer:**
+- Clerk routing;
+- task construction from a spec (Prime keeps hand-writing pages for the first real review);
+- the pending view across the whole band;
+- nonzero workflow spaces;
+- 0401 auto-construction;
+- the browser UI;
+- cheap-model dispatch;
+- a universal face builder.
+
+**Necessary versus nice:**
+- *Necessary:* seam v2; a descriptor for in-place legacy members; cycle pass02 with binding/2 and holds; the constructor's successor rule; `explain` over trace records.
+- *Nice:* everything in Defer, and the cloud repair's completion.
+
+**Sequence, aware of dependencies:**
+1. Prime writes seam v2 (shared contract; Prime owns it).
+2. In parallel, within the active packs: 0521/05.03 adds read-only `legacy-in-place/1` emission; 0522/05.03 consumes descriptors, applies hold precedence and orders record then render.
+3. The constructor gets the successor rule. Its owner is the 0522 lane, and it needs a new pass because the constructor bytes are preserved in 05.03.
+4. One single-owner integration pack (R4) owns `app/librarian.py` and the pins. It adds a single command that runs, in order: lookup → descriptor → cycle read/template → record → render → read.
+5. Current Prime reviews one **real** legacy-in-place return, for example the awaiting-review case named in 0519 BUILD-PLAN G1, if it is still unreviewed. No migration is needed for this step.
+6. Migration adoption (0521). New work is captured on matching lines. Task construction comes after.
+
+**Shared-file ownership:**
+- `app/librarian.py` and `app/*.json` pins: the integration owner only.
+- The seam document: Prime.
+- `return-lines-pass01`: 0521.
+- `prime-cycle-pass02`, `review-loop-pass01`, the constructor successor pass: 0522.
+- `app/desk_core`: 0523, experimental.
+
+## 6. Inspectability (deliverable)
+**Trace record `operation-trace/1`.** One JSON per write operation, written last on success. On refusal it is written beside the preserved request. Read-only operations print the same object and write nothing.
+
+- **Location:** `<source page>/evidence/trace/05.NN/<op_id>.json`. It is page-local, so a fresh reader finds it from the page.
+- **Keys:**
+  - `op_id`, `operation`, `prior_trace`;
+  - `contract` {name, version, doc_path, section};
+  - `request` {sha256, preserved_path};
+  - `sources` [{path, sha256, role}];
+  - `checks` [{check_id, rule_ref, expected, observed, result}];
+  - `outcome_class`;
+  - `judgment_ref` {path, sha256} | null;
+  - `changes` [{path, before_sha256, after_sha256}];
+  - `decision_ref`;
+  - `next_route` {actor, action, help_ref}.
+
+**Outcome classes (never collapsed):**
+- `success`;
+- `mechanical-refusal`: shape, address or hash, with the rule cited;
+- `incomplete-evidence`: missing receipt or bytes;
+- `identity-conflict`: same identity, different bytes;
+- `unknown-capability`: for example nonzero N against the old pin;
+- `missing-authority`: no release, or no Director answer to a hold;
+- `semantic-disagreement`: routed to Prime or the Director, **never emitted by compute as a refusal**;
+- `unexpected-failure`: OSError, interruption;
+- `expected-negative`: test only.
+
+**Mapping today's codes (reading only).**
+- Cloud `wrong-source-hash` is mechanical; `release-missing` is missing-authority; `review-conflict` conflates identity-conflict with the legitimate successor case (F5); `synthetic` is unknown-capability (the prototype guard).
+- Constructor `existing review conflicts` is the same conflation.
+
+**Command.** `explain --page P --pass 05.NN [--op ID]` follows `prior_trace` links and prints each step with links to the durable files. It is a reader, not a service.
+
+**Minimal fixture design (for a later builder; not executed here).** One disposable book with page 0524.example/05.01. Each case asserts on `explain` output:
+- **S:** the full loop with a held judgment, then the Director's answer recorded as a successor review. explain shows both reviews, the hold's question sha, and the next route moving from director to the supplied action.
+- **R1:** wrong line (0125.example) gives mechanical-refusal citing seam v2 §route, with the request preserved.
+- **R2:** receipt missing gives incomplete-evidence. State is never complete.
+- **R3:** no Release line, then capture, gives missing-authority.
+- **R4:** a different review without `supersedes` gives identity-conflict, and the first review's bytes are unchanged.
+- **R5:** an interruption after the record and before the render gives unexpected-failure and render-pending. Recovery renders and the trace links both operations.
+
+**Acceptance:** for every case, a fresh process reaches the governing document section, the preserved bytes and the next route from `explain` alone.
+
+**Pack thickness:**
+- *Too thin:* no pack owns the cross-lane joints that seam v1 omits (binding, review record, next action, refusal, trace). Nothing owns the post-answer successor review.
+- *Overbuilt for the first target:* the cloud core rebuilds the whole stack (task ledger, custody, review, view). 0521/05.03 bundles the new-work route, full staged migration and an integration patch in one pack; the in-place legacy descriptor would let real review start before the migration half finishes. My own 0519 G2 batch-page template is not needed for the first real review.
+
+## 7. Open Director choices
+- **DC1. Integration target.**
+  - *Recommend:* the local lanes (0521 custody, 0522 review) are the one workflow. Cloud desk_core stays a reference prototype; its 0523/05.02 repair continues or pauses at the Director's call.
+  - *Alternative:* make the cloud core the target. That requires replacing its custody, task and review records with the local ones, which amounts to a rewrite.
+- **DC2. Interim custody for returns made before migration adoption.**
+  - *Recommend:* seal them now in the return-line format at a declared staging location, with recorded relocation later, because page-local returns are mutable.
+  - *Alternative:* wait for adoption, accepting the preservation gap.
+- **DC3. Where the Director's answer to a held review is recorded.**
+  - *Recommend:* verbatim on the source batch inside the successor review, plus the typed answer binding the question sha256 (F5).
+  - *Alternative:* a separate Director page that the review points to.
+
+## 8. One bounded next action
+Prime drafts **seam v2**, one page. It extends 0417 integration-seam-v1 with:
+- review-task-binding/2 as the binding;
+- `legacy-in-place/1`;
+- the successor-review rule;
+- `operation-trace/1` and the outcome classes.
+
+Prime sends it to the 0521/05.03 and 0522/05.03 lanes before they freeze.
+
+## Factfind (opinion on how to solve)
+- The fastest path to "Prime reviews a real return through the tools" does not pass through migration. It passes through a read-only in-place legacy descriptor and the 0522 cycle and constructor.
+- Migration is necessary for new work, but it should not gate the first usable review.
+- The cloud prototype's best contribution is a clear state vocabulary and a test list. Neither depends on its storage.
+
+## Overflow (parked, not developed)
+- Clerk's place once routing returns: probably as a pointer to page and pass, never as a text carrier (F1).
+- How 0401/06.01 should express several parallel lanes (R3 keeps the selector; its one-current shape is unchanged).
+- Seat-label cleanup (R: later).
+- Whether `operation-trace/1` should also cover read-only refusals persistently.
+
+## Unprompted observations
+- **U1.** 0416/01.003 ("no … further Claude work") and the 0519 review ("No further Claude assignment") conflict with this Director-requested pass. Recorded, not resolved (notes N01).
+- **U2.** The cloud core requires `synthetic: true` on every input. That is the right guard for a prototype, and it also means it cannot record one real task without a deliberate change: another reason it is not the integration target today.
+
+## Verified reading versus unexecuted claims
+- **Verified by reading frozen bytes:** every finding citing `engine.py`, `face.py`, `identity.py`, the contracts, the seam and the Prime assessments.
+- **Not executed:** all behaviour. The example trace is on paper. The fixture design has not run.
+- **[prior, unfrozen]:**
+  - 0124's live occupant;
+  - prime_cycle `director-input` with next_action null;
+  - the 0519 lab line about a static "Next action:" line (my own code).
+
+One thing I would write differently: I would have drafted seam v2 as a concrete diff to seam v1 rather than prose, because the joints here are field-level, and a diff is what the two lanes could check against.

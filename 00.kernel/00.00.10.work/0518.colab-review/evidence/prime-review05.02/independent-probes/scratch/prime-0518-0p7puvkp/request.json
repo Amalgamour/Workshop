@@ -1,0 +1,91 @@
+{
+ "author": "Codex Prime (SYNTHETIC fixture)",
+ "binding": {
+  "investigation": {
+   "book": "00.00.10.work",
+   "page": "0702.colab-review-fixture",
+   "pass": "05.01"
+  },
+  "schema": "colab-binding/1",
+  "targets": [
+   {
+    "book": "00.00.10.work",
+    "file": "01.md",
+    "id": "T01",
+    "page": "0599.synthetic-subject",
+    "section": null,
+    "source": {
+     "commit": "097d48bcf207da28eaf58041263de3fc88291052",
+     "path": "00.kernel/00.00.10.work/0599.synthetic-subject/01.md",
+     "repository": "fixture",
+     "sha256": "b9684e5f78a5aceb82d04bf2a27f3f43792b866db228dfd9431af747c7ac3b6c"
+    }
+   }
+  ]
+ },
+ "built_state": "Nothing is built; this is a fixture.",
+ "cases": [
+  {
+   "id": "C01",
+   "text": "Explain what the subject proposes, then list findings, if any."
+  }
+ ],
+ "context": "A SYNTHETIC fixture design page. The review plan and prompts are included as required sources.",
+ "date": "2026-10-31",
+ "director_replies": [],
+ "environment": {
+  "execute": "nothing is required",
+  "kind": "zip-only",
+  "network": "not required",
+  "read": "the files in this package only",
+  "write": "your one return file"
+ },
+ "known_gaps": [
+  "SYNTHETIC fixture only."
+ ],
+ "method": "Read COMPREHENSION.md and answer it before any finding; fill RESULT-TEMPLATE.json.",
+ "mode": "open-design",
+ "permissions": [
+  "Read every file in the package."
+ ],
+ "preparation_notes": [
+  "SYNTHETIC fixture request for the colab-review adapter tests."
+ ],
+ "prior_involvement": "None for a SYNTHETIC fixture reviewer.",
+ "question": "Explain the design first, then report findings, following the review plan.",
+ "recipient": "SYNTHETIC reviewer, unassigned",
+ "required_sources": [
+  {
+   "path": "reviews/plan-1/review-plan.json",
+   "role": "review plan (colab-review-plan/1) for plan plan-1"
+  },
+  {
+   "path": "reviews/plan-1/COMPREHENSION.md",
+   "role": "review COMPREHENSION.md for plan plan-1"
+  },
+  {
+   "path": "reviews/plan-1/SIMPLICITY.md",
+   "role": "review SIMPLICITY.md for plan plan-1"
+  },
+  {
+   "path": "reviews/plan-1/RESULT-TEMPLATE.json",
+   "role": "review RESULT-TEMPLATE.json for plan plan-1"
+  }
+ ],
+ "return_route": {
+  "destination": "the reserved N1 member for this pass",
+  "submission_hint": "SYNTHETIC"
+ },
+ "reviewer": "Codex Prime",
+ "schema": "colab-request/2",
+ "scoring": {
+  "state": "unscored"
+ },
+ "stop": [
+  "Stop if a snapshot does not match its sha256."
+ ],
+ "title": "SYNTHETIC review of a fixture design page",
+ "unavailable": [],
+ "why": "Fixture: proves the review plan and prompts survive preparation and verification.",
+ "withheld": []
+}

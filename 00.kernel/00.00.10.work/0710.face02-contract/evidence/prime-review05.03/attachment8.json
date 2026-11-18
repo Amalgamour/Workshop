@@ -1,0 +1,155 @@
+{
+ "schema": "0710-attach-lookup/1",
+ "book": "D:\\librarian\\temp\\prime-cycle4-nov02\\attach-book",
+ "cases": [
+  {
+   "id": "A1",
+   "says": "exact lookup through law page face 02",
+   "expect": {
+    "result": "found"
+   },
+   "actual": {
+    "result": "found",
+    "owner": "00.00.01.law/0304.check/02#Check",
+    "file": "00.00.01.law/0304.check/02.check.001.py",
+    "revision": "001",
+    "state": "draft",
+    "sha256": "c663909c7f90703ec0e94fa2bc469ddbffc03ca377a9d7ab0eff308c1e5d0eab",
+    "invoke": {
+     "runner": "python -B",
+     "args": [
+      "--artifact",
+      "<absolute path>"
+     ],
+     "permission": "not granted by this attachment"
+    }
+   },
+   "match": true,
+   "note": "invoke is data; nothing was run"
+  },
+  {
+   "id": "A2",
+   "says": "exact lookup through work page face 02 (same filename, other bytes)",
+   "expect": {
+    "result": "found"
+   },
+   "actual": {
+    "result": "found",
+    "owner": "00.00.10.work/0526.dev-authoring/02#Pack",
+    "file": "00.00.10.work/0526.dev-authoring/02.check.001.py",
+    "revision": "001",
+    "state": "draft",
+    "sha256": "dcb60116cea59e2b2db5cdb7f11438e8f4a03b2e981b12879e5b1e70871fb71c",
+    "invoke": {
+     "runner": "python -B",
+     "args": [
+      "--artifact",
+      "<absolute path>"
+     ],
+     "permission": "not granted by this attachment"
+    }
+   },
+   "match": true,
+   "note": "invoke is data; nothing was run"
+  },
+  {
+   "id": "A3",
+   "says": "filename alone is ambiguous",
+   "expect": {
+    "result": "refused",
+    "code": "ambiguous-filename"
+   },
+   "actual": {
+    "result": "refused",
+    "code": "ambiguous-filename",
+    "owners": [
+     "00.00.01.law/0304.check",
+     "00.00.10.work/0526.dev-authoring"
+    ]
+   },
+   "match": true
+  },
+  {
+   "id": "A4",
+   "says": "payload with no attachment is reported",
+   "expect": {
+    "result": "finding",
+    "code": "orphan-payload"
+   },
+   "actual": {
+    "result": "finding",
+    "code": "orphan-payload",
+    "files": [
+     "00.00.10.work/0527.orphan/02.check.001.py"
+    ]
+   },
+   "match": true
+  },
+  {
+   "id": "A5",
+   "says": "owner with no such attachment",
+   "expect": {
+    "result": "refused",
+    "code": "no-attachment"
+   },
+   "actual": {
+    "result": "refused",
+    "code": "no-attachment",
+    "count": 0
+   },
+   "match": true
+  },
+  {
+   "id": "A6",
+   "says": "same lookup from a row store gives the same result",
+   "expect": {
+    "result": "found"
+   },
+   "actual": {
+    "result": "found",
+    "owner": "00.00.10.work/0526.dev-authoring/02#Pack",
+    "file": "00.00.10.work/0526.dev-authoring/02.check.001.py",
+    "revision": "001",
+    "state": "draft",
+    "sha256": "dcb60116cea59e2b2db5cdb7f11438e8f4a03b2e981b12879e5b1e70871fb71c",
+    "invoke": {
+     "runner": "python -B",
+     "args": [
+      "--artifact",
+      "<absolute path>"
+     ],
+     "permission": "not granted by this attachment"
+    }
+   },
+   "match": true,
+   "note": "invoke is data; nothing was run"
+  },
+  {
+   "id": "A7",
+   "says": "row-store and face lookups are identical",
+   "expect": {
+    "result": "equal"
+   },
+   "actual": {
+    "result": "equal"
+   },
+   "match": true
+  },
+  {
+   "id": "A8",
+   "says": "payload bytes changed after attachment",
+   "expect": {
+    "result": "finding",
+    "code": "payload-bytes-differ"
+   },
+   "actual": {
+    "result": "finding",
+    "code": "payload-bytes-differ",
+    "expected": "dcb60116cea5",
+    "observed": "5a6054c42646"
+   },
+   "match": true
+  }
+ ],
+ "mismatches": 0
+}

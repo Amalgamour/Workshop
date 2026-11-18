@@ -1,0 +1,36 @@
+test_real_cases_have_no_code_errors (__main__.CaseCodeSmoke.test_real_cases_have_no_code_errors) ... FAIL
+test_books (__main__.Fixtures.test_books) ... ok
+test_decide_recipe_reproduces_recorded_0501_decision (__main__.Fixtures.test_decide_recipe_reproduces_recorded_0501_decision) ... ok
+test_existing_book_is_refused (__main__.Fixtures.test_existing_book_is_refused) ... ok
+test_candidate_pin_mismatch_refused (__main__.Preflight.test_candidate_pin_mismatch_refused) ... ok
+test_dependency_pin_mismatch_refused (__main__.Preflight.test_dependency_pin_mismatch_refused) ... ok
+test_interpreter_version_mismatch_refused (__main__.Preflight.test_interpreter_version_mismatch_refused) ... ok
+test_output_root_inside_checkout_refused (__main__.Preflight.test_output_root_inside_checkout_refused) ... ok
+test_real_matrix_with_null_candidate_runs_nothing (__main__.Preflight.test_real_matrix_with_null_candidate_runs_nothing) ... ok
+test_stub_kind_cannot_run_real_matrix (__main__.Preflight.test_stub_kind_cannot_run_real_matrix) ... ok
+test_unknown_candidate_is_unready_and_unread (__main__.Preflight.test_unknown_candidate_is_unready_and_unread) ... ok
+test_mixed_failures_aggregate_and_timeout_kills_only_its_tree (__main__.StubRuns.test_mixed_failures_aggregate_and_timeout_kills_only_its_tree) ... ok
+test_stub_pass_is_never_loop_evidence (__main__.StubRuns.test_stub_pass_is_never_loop_evidence) ... ok
+test_unique_runs_preserve_earlier_evidence (__main__.StubRuns.test_unique_runs_preserve_earlier_evidence) ... ok
+
+======================================================================
+FAIL: test_real_cases_have_no_code_errors (__main__.CaseCodeSmoke.test_real_cases_have_no_code_errors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\0707.app-use-check\pass04\selftest.py", line 170, in test_real_cases_have_no_code_errors
+    self.assertEqual(bugs, [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: Lists differ: ["A13: FileNotFoundError: [Errno 2] No suc[257 chars]on'"] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+"A13: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--Git-Librarian\\\\313e7ce7-27d2-405b-881d-6a16a47199dc\\\\scratchpad\\\\lab0504-selftest\\\\20261101T212645Z-9b40b7\\\\20261101T212645Z-abb5a1\\\\A13\\\\book\\\\decision.json'"
+
++ []
+- ['A13: FileNotFoundError: [Errno 2] No such file or directory: '
+-  "'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--Git-Librarian\\\\313e7ce7-27d2-405b-881d-6a16a47199dc\\\\scratchpad\\\\lab0504-selftest\\\\20261101T212645Z-9b40b7\\\\20261101T212645Z-abb5a1\\\\A13\\\\book\\\\decision.json'"]
+
+----------------------------------------------------------------------
+Ran 14 tests in 4.582s
+
+FAILED (failures=1)

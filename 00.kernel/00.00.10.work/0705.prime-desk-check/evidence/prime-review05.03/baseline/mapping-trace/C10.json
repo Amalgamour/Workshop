@@ -1,0 +1,452 @@
+{
+ "case": "C10",
+ "adapter": "0705-pass03-adapter/1",
+ "view_stdout_sha256": "bbacdabe335322f260dd240fbd29e29da64dc00903cec022657b65d7aabbccde",
+ "trace": [
+  {
+   "field": "instance.selected",
+   "raw": "/instance/root",
+   "transform": "root path -> fixture instance label by exact path equality"
+  },
+  {
+   "field": "selected.work_ref",
+   "raw": "/selected/address",
+   "transform": "copy"
+  },
+  {
+   "field": "selected.basis",
+   "raw": "/selected/basis",
+   "transform": "copy verbatim (no upgrade)"
+  },
+  {
+   "field": "attention.items[0]",
+   "raw": "/gaps/0",
+   "transform": "gap kind checkpoint -> coverage-gap; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[1]",
+   "raw": "/gaps/1",
+   "transform": "gap kind verification -> coverage-gap; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[2]",
+   "raw": "/gaps/2",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[3]",
+   "raw": "/gaps/3",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[4]",
+   "raw": "/gaps/4",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[5]",
+   "raw": "/gaps/5",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[6]",
+   "raw": "/gaps/6",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[7]",
+   "raw": "/gaps/7",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[8]",
+   "raw": "/gaps/8",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[9]",
+   "raw": "/gaps/9",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[10]",
+   "raw": "/gaps/10",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[11]",
+   "raw": "/gaps/11",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[12]",
+   "raw": "/gaps/12",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[13]",
+   "raw": "/gaps/13",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[14]",
+   "raw": "/gaps/14",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[15]",
+   "raw": "/gaps/15",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[16]",
+   "raw": "/gaps/16",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[17]",
+   "raw": "/gaps/17",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[18]",
+   "raw": "/gaps/18",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[19]",
+   "raw": "/gaps/19",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[20]",
+   "raw": "/gaps/20",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[21]",
+   "raw": "/gaps/21",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[22]",
+   "raw": "/gaps/22",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[23]",
+   "raw": "/gaps/23",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[24]",
+   "raw": "/gaps/24",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[25]",
+   "raw": "/gaps/25",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[26]",
+   "raw": "/gaps/26",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[27]",
+   "raw": "/gaps/27",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[28]",
+   "raw": "/gaps/28",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[29]",
+   "raw": "/gaps/29",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[30]",
+   "raw": "/gaps/30",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[31]",
+   "raw": "/gaps/31",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[32]",
+   "raw": "/gaps/32",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[33]",
+   "raw": "/gaps/33",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[34]",
+   "raw": "/gaps/34",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[35]",
+   "raw": "/gaps/35",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[36]",
+   "raw": "/gaps/36",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[37]",
+   "raw": "/gaps/37",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[38]",
+   "raw": "/gaps/38",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[39]",
+   "raw": "/gaps/39",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[40]",
+   "raw": "/gaps/40",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[41]",
+   "raw": "/gaps/41",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.total/shown",
+   "raw": "/attention + /gaps",
+   "transform": "count of mapped items; the candidate shows every declared item (no overflow concept)"
+  },
+  {
+   "field": "sources[0]",
+   "raw": "/selected/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[1]",
+   "raw": "/not_selected/0/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[2]",
+   "raw": "/not_selected/1/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[3]",
+   "raw": "/not_selected/2/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[4]",
+   "raw": "/not_selected/3/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[5]",
+   "raw": "/not_selected/4/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[6]",
+   "raw": "/not_selected/5/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[7]",
+   "raw": "/not_selected/6/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[8]",
+   "raw": "/not_selected/7/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[9]",
+   "raw": "/not_selected/8/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[10]",
+   "raw": "/not_selected/9/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[11]",
+   "raw": "/not_selected/10/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[12]",
+   "raw": "/not_selected/11/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[13]",
+   "raw": "/not_selected/12/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[14]",
+   "raw": "/not_selected/13/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[15]",
+   "raw": "/not_selected/14/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[16]",
+   "raw": "/not_selected/15/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[17]",
+   "raw": "/not_selected/16/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[18]",
+   "raw": "/not_selected/17/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[19]",
+   "raw": "/not_selected/18/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[20]",
+   "raw": "/not_selected/19/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[21]",
+   "raw": "/not_selected/20/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[22]",
+   "raw": "/not_selected/21/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[23]",
+   "raw": "/not_selected/22/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[24]",
+   "raw": "/not_selected/23/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[25]",
+   "raw": "/not_selected/24/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[26]",
+   "raw": "/not_selected/25/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[27]",
+   "raw": "/not_selected/26/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[28]",
+   "raw": "/not_selected/27/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[29]",
+   "raw": "/not_selected/28/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[30]",
+   "raw": "/not_selected/29/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[31]",
+   "raw": "/not_selected/30/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[32]",
+   "raw": "/not_selected/31/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[33]",
+   "raw": "/not_selected/32/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[34]",
+   "raw": "/not_selected/33/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[35]",
+   "raw": "/not_selected/34/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[36]",
+   "raw": "/not_selected/35/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[37]",
+   "raw": "/not_selected/36/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[38]",
+   "raw": "/not_selected/37/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[39]",
+   "raw": "/not_selected/38/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[40]",
+   "raw": "/not_selected/39/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[41]",
+   "raw": "/record/references/0/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "identity_fingerprint",
+   "raw": "/inspectability/fingerprint",
+   "transform": "copy"
+  }
+ ]
+}

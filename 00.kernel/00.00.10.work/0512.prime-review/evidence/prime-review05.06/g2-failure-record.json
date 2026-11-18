@@ -1,0 +1,195 @@
+{
+  "binding_sha256": "6ea4ae7c8e0ffdde2acf96cb8b605961ff56fd0ed7134c267e95174913ff0919",
+  "capture": {
+    "attempted": true,
+    "child": "returned",
+    "stdout": "check: return-line-layout/1\nstate: refused\nwriter_started: false\nline-pass protection: declared\nsequential_allocation: not-used\ncorrection: Use the line-pass route. This legacy writer does not reserve or capture on a declared book. No receipt was written.\nresult refused\n"
+  },
+  "inspect": {
+    "book": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+    "capture": null,
+    "member": "0103.historical-eligible",
+    "problems": [
+      "reservation only"
+    ],
+    "reservation": {
+      "destination": {
+        "member": "0103",
+        "name": "historical-eligible",
+        "path": "0103.historical-eligible"
+      },
+      "expected_outputs": [
+        "return.md",
+        "piece.txt"
+      ],
+      "origin": {
+        "batch": "05.08",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+      },
+      "release": "historical-eligible",
+      "reservation_sha256": "0666aa3a168dff6774f39f3c7ad7e805e828af4cb46949e5d9d5aab14b4a869c",
+      "reserved_at": "2026-11-03T21:48:35.999283Z",
+      "reviewer": "Codex Prime",
+      "submission_id": "hist-eligible",
+      "submitter": "Grok-2",
+      "supersedes": null
+    },
+    "schema": "return-capture-inspection/1",
+    "status": "reserved"
+  },
+  "inspection": {
+    "checks": {
+      "artifacts": "ok",
+      "completion": "ok",
+      "events": "ok",
+      "instructions": "usable"
+    },
+    "claim": {
+      "by": "fixture-builder",
+      "token": "c8754b0a2eced6a8015d7f190e1a42ae"
+    },
+    "job": {
+      "assignee": "fixture-builder",
+      "expected_outputs": [
+        "return.md",
+        "piece.txt"
+      ],
+      "instructions": {
+        "path": "task.txt",
+        "sha256": "a9ae53f4cafe005290bd04c254c816d1c3063d59a03116530a8f9c05ef87bbc8"
+      },
+      "job_id": "fixture-0513",
+      "release": "fixture job label; not a release",
+      "reviewer": "fixture-reviewer",
+      "routed_by": "fixture-router"
+    },
+    "job_id": "fixture-0513",
+    "problems": [],
+    "returned": {
+      "artifacts": [
+        {
+          "bytes": 30,
+          "path": "return.md",
+          "sha256": "04fb0577b5b7289369f922e07c6aa80f72b378db702aca41d8bcc57cbe3e0857"
+        },
+        {
+          "bytes": 20,
+          "path": "piece.txt",
+          "sha256": "2f3286acef494dda557d3e481738eecc57fc5fee2e73f7cd4c25300bfc2b3c71"
+        }
+      ],
+      "by": "fixture-builder",
+      "delivery": "fixture-delivery",
+      "event_sha256": "eac41835180ff07c9f39f0449b97caad98b57be0a44bb446f8130dcf680b57bf",
+      "evidence": "transport line only"
+    },
+    "schema": "clerk-handoff-inspection/2",
+    "state": "returned"
+  },
+  "member_state": "absent",
+  "observations": [
+    {
+      "at": "2026-11-03T21:48:37.436529Z",
+      "inspect": {
+        "book": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "capture": null,
+        "member": "0103.historical-eligible",
+        "problems": [
+          "reservation only"
+        ],
+        "reservation": {
+          "destination": {
+            "member": "0103",
+            "name": "historical-eligible",
+            "path": "0103.historical-eligible"
+          },
+          "expected_outputs": [
+            "return.md",
+            "piece.txt"
+          ],
+          "origin": {
+            "batch": "05.08",
+            "book": "00.00.10.work",
+            "page": "0504.app-entry"
+          },
+          "release": "historical-eligible",
+          "reservation_sha256": "0666aa3a168dff6774f39f3c7ad7e805e828af4cb46949e5d9d5aab14b4a869c",
+          "reserved_at": "2026-11-03T21:48:35.999283Z",
+          "reviewer": "Codex Prime",
+          "submission_id": "hist-eligible",
+          "submitter": "Grok-2",
+          "supersedes": null
+        },
+        "schema": "return-capture-inspection/1",
+        "status": "reserved"
+      },
+      "phase": "before-capture",
+      "status": "reserved"
+    },
+    {
+      "attempted": true,
+      "child": "returned",
+      "phase": "capture",
+      "stdout": "check: return-line-layout/1\nstate: refused\nwriter_started: false\nline-pass protection: declared\nsequential_allocation: not-used\ncorrection: Use the line-pass route. This legacy writer does not reserve or capture on a declared book. No receipt was written.\nresult refused\n"
+    },
+    {
+      "at": "2026-11-03T21:48:37.554011Z",
+      "custody": "reserved",
+      "files": [
+        "01.md",
+        "reservation.json"
+      ],
+      "inspect": {
+        "book": "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\book",
+        "capture": null,
+        "member": "0103.historical-eligible",
+        "problems": [
+          "reservation only"
+        ],
+        "reservation": {
+          "destination": {
+            "member": "0103",
+            "name": "historical-eligible",
+            "path": "0103.historical-eligible"
+          },
+          "expected_outputs": [
+            "return.md",
+            "piece.txt"
+          ],
+          "origin": {
+            "batch": "05.08",
+            "book": "00.00.10.work",
+            "page": "0504.app-entry"
+          },
+          "release": "historical-eligible",
+          "reservation_sha256": "0666aa3a168dff6774f39f3c7ad7e805e828af4cb46949e5d9d5aab14b4a869c",
+          "reserved_at": "2026-11-03T21:48:35.999283Z",
+          "reviewer": "Codex Prime",
+          "submission_id": "hist-eligible",
+          "submitter": "Grok-2",
+          "supersedes": null
+        },
+        "schema": "return-capture-inspection/1",
+        "status": "reserved"
+      },
+      "member_state": "absent",
+      "phase": "after-capture"
+    }
+  ],
+  "reason": "capture did not complete",
+  "reporting_error": null,
+  "retained": [
+    "D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\record\\intent.json"
+  ],
+  "schema": "clerk-capture-handoff-failure/1",
+  "tool_stdout": [
+    "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"fixture-builder\",\"token\":\"c8754b0a2eced6a8015d7f190e1a42ae\"},\"job\":{\"assignee\":\"fixture-builder\",\"expected_outputs\":[\"return.md\",\"piece.txt\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"a9ae53f4cafe005290bd04c254c816d1c3063d59a03116530a8f9c05ef87bbc8\"},\"job_id\":\"fixture-0513\",\"release\":\"fixture job label; not a release\",\"reviewer\":\"fixture-reviewer\",\"routed_by\":\"fixture-router\"},\"job_id\":\"fixture-0513\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":30,\"path\":\"return.md\",\"sha256\":\"04fb0577b5b7289369f922e07c6aa80f72b378db702aca41d8bcc57cbe3e0857\"},{\"bytes\":20,\"path\":\"piece.txt\",\"sha256\":\"2f3286acef494dda557d3e481738eecc57fc5fee2e73f7cd4c25300bfc2b3c71\"}],\"by\":\"fixture-builder\",\"delivery\":\"fixture-delivery\",\"event_sha256\":\"eac41835180ff07c9f39f0449b97caad98b57be0a44bb446f8130dcf680b57bf\",\"evidence\":\"transport line only\"},\"schema\":\"clerk-handoff-inspection/2\",\"state\":\"returned\"}\n",
+    "{\"book\":\"D:\\\\librarian\\\\temp\\\\0521-0513\\\\20261103T214834952429Z\\\\book\",\"capture\":null,\"member\":\"0103.historical-eligible\",\"problems\":[\"reservation only\"],\"reservation\":{\"destination\":{\"member\":\"0103\",\"name\":\"historical-eligible\",\"path\":\"0103.historical-eligible\"},\"expected_outputs\":[\"return.md\",\"piece.txt\"],\"origin\":{\"batch\":\"05.08\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"historical-eligible\",\"reservation_sha256\":\"0666aa3a168dff6774f39f3c7ad7e805e828af4cb46949e5d9d5aab14b4a869c\",\"reserved_at\":\"2026-11-03T21:48:35.999283Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"hist-eligible\",\"submitter\":\"Grok-2\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"reserved\"}\n",
+    "check: return-line-layout/1\nstate: refused\nwriter_started: false\nline-pass protection: declared\nsequential_allocation: not-used\ncorrection: Use the line-pass route. This legacy writer does not reserve or capture on a declared book. No receipt was written.\nresult refused\n",
+    "{\"book\":\"D:\\\\librarian\\\\temp\\\\0521-0513\\\\20261103T214834952429Z\\\\book\",\"capture\":null,\"member\":\"0103.historical-eligible\",\"problems\":[\"reservation only\"],\"reservation\":{\"destination\":{\"member\":\"0103\",\"name\":\"historical-eligible\",\"path\":\"0103.historical-eligible\"},\"expected_outputs\":[\"return.md\",\"piece.txt\"],\"origin\":{\"batch\":\"05.08\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"historical-eligible\",\"reservation_sha256\":\"0666aa3a168dff6774f39f3c7ad7e805e828af4cb46949e5d9d5aab14b4a869c\",\"reserved_at\":\"2026-11-03T21:48:35.999283Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"hist-eligible\",\"submitter\":\"Grok-2\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"reserved\"}\n"
+  ],
+  "writes": [
+    "intent D:\\librarian\\temp\\0521-0513\\20261103T214834952429Z\\handoff\\record\\intent.json"
+  ]
+}

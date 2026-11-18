@@ -1,0 +1,131 @@
+{
+  "schema": "review-loop-app-boundary-verification/1",
+  "pass": "0522.review-construction/05.10",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "custody": "pending",
+  "matching_line": "0122.review-construction",
+  "receipt": null,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "index": "empty",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "pack_inputs_before_edit": {
+    "schema": "prime-pack-inputs/1",
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/pack05.10/source-manifest.json",
+    "sha256": "46bab6eb0346412526c43464abf15a05a69c46d54d5e0d262a9bf353eb6ec21c",
+    "bytes": 56438,
+    "files": 148,
+    "bad": 0,
+    "missing": 0,
+    "live_bytes": 1989625
+  },
+  "pack_inputs_after_edit": {
+    "files": 148,
+    "bad": 2,
+    "missing": 0,
+    "repinned": false,
+    "drift": [
+      "app/librarian.py",
+      "app/README.md"
+    ],
+    "note": "The snapshot remains the before-edit freeze. Those two live files differ because this slice edited them. No other frozen row drifted."
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.10/CONTRACT.md",
+    "sha256": "d4dc94d0dcf0c8aa768502451bcf88e3bcf830c0614b007ff099e125bd2df1e1",
+    "bytes": 9727,
+    "revised_after_commands": false
+  },
+  "selected_door": {
+    "path": "app/review_loop_tools_v4.py",
+    "sha256": "0769179366a6c1659f38cb2c79c51981d5cb76fa8d48ee7325f9eaf00d14c296",
+    "bytes": 13381,
+    "declaration": "app/review-loop-v4.json",
+    "declaration_sha256": "769f81321e19a9f3296020e3b0b4a4905ec1b3a66c1629bf53d9548b7182d723",
+    "declaration_bytes": 2519
+  },
+  "librarian": {
+    "path": "app/librarian.py",
+    "sha256": "f3dc2108dfff2bade5db4e7354b31b94b5a53e423bbe4fff1071a4a9cd1d42a9",
+    "bytes": 11037
+  },
+  "readme": {
+    "path": "app/README.md",
+    "sha256": "69584469c654f5d7fcd4993dc36b01afc87434be33a7c2ae60741473af6f7e86",
+    "bytes": 31547
+  },
+  "loop_unchanged": {
+    "path": "labs/review-loop-pass03/review_loop.py",
+    "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+    "bytes": 55474
+  },
+  "construct_pass04_unchanged": {
+    "path": "labs/review-construction-pass04/construct.py",
+    "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "bytes": 42582
+  },
+  "construct_pass02_unchanged": {
+    "path": "labs/review-construction-pass02/construct.py",
+    "sha256": "b82413ffcb388658bb6fe6aaa7028d573c918108e7feb7c15664c8a8a34eb3cc",
+    "bytes": 36188
+  },
+  "v3_door_unchanged": {
+    "path": "app/review_loop_tools_v3.py",
+    "sha256": "0a7960a279ece3d60cedc008698e6000a56c4f5d4f1e4029757053f40169dad9",
+    "bytes": 11540
+  },
+  "workflow_pass04_not_selected": {
+    "path": "labs/colab-workflow-pass04/colab_workflow.py",
+    "sha256": "8ec953c503edbb9a890216b3cdb6630062967c7c4113fbd9b9304ace83bc9d7d",
+    "bytes": 74884
+  },
+  "cited_run": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.10/runs/20261102T161326Z-053960ec",
+    "command": "python -B app/tests/test_review_loop_entry_v4.py",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "seconds": 175.988,
+    "suite_seconds": 175.985,
+    "exit": 0,
+    "calls": 63,
+    "exit_0": 42,
+    "exit_1": 6,
+    "exit_2": 15
+  },
+  "junction_no_launch": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.10/runs/20261102T161326Z-053960ec/junction-no-launch.json",
+    "checkout_parent": {
+      "v3_static": "ACCEPTED",
+      "resolved": "D:\\Git\\lib-build\\labs",
+      "v4_message": "fixture root ancestor is linked and was not followed",
+      "subprocess_calls": 0,
+      "pin_tools_calls": 0,
+      "librarian_exit": 2,
+      "writes_through_alias": false
+    },
+    "external_parent": {
+      "v3_static": "ACCEPTED",
+      "target_outside_checkout": true,
+      "v4_message": "fixture root ancestor is linked and was not followed",
+      "subprocess_calls": 0,
+      "pin_tools_calls": 0,
+      "librarian_exit": 2,
+      "writes_through_alias": false
+    },
+    "limits": "The hook rebinds the loaded v4 module. It is not an OS sandbox. The librarian process is separate evidence. Trace absence is not sufficient by itself."
+  },
+  "skip": {
+    "test": "test_linked_declaration_is_not_followed",
+    "reason": "WinError 1314",
+    "protection_claimed": false,
+    "directory_junction_coverage": false
+  },
+  "a24": "MANUAL",
+  "sandbox_claim": false,
+  "direct_loop_lexical_limit_unchanged": true
+}

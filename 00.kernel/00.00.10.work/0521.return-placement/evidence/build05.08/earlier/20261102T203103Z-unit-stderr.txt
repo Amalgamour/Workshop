@@ -1,0 +1,14 @@
+..F...
+======================================================================
+FAIL: test_malformed_and_conflict_do_not_allocate (__main__.GuardTests.test_malformed_and_conflict_do_not_allocate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\return-capture-guard-pass01\tests\test_guard.py", line 117, in test_malformed_and_conflict_do_not_allocate
+    self.assertIn("differ", text)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 'differ' not found in 'check: return-line-layout/1\nstate: attention\nwriter_started: false\nline-pass protection: not-declared\nsequential_allocation: not-used\ncorrection: The layout conflicts with the accepted line-pass declaration. Sequential allocation was not used.\nresult refused\n'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.048s
+
+FAILED (failures=1)

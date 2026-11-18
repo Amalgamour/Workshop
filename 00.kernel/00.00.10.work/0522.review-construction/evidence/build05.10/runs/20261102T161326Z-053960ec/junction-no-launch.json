@@ -1,0 +1,67 @@
+[
+  {
+    "case": "direct-link-and-lexical-roots",
+    "limits": "The in-process hook rebinds subprocess and pin_tools on the loaded v4 module only. A call increments a counter and raises. That hook is not an OS sandbox and does not cover the separate librarian process. The librarian check is that process: exit 2, empty stdout, and stderr containing stop: and the refusal. Trace absence under the alias is recorded and is not sufficient by itself, because this test does not place request.json there. A file-symlink permission skip is not coverage of these junctions.",
+    "cases": [
+      {
+        "fixture_root": "D:\\Git\\lib-build",
+        "message": "fixture root must stay outside D:\\Git\\lib-build",
+        "subprocess_calls": 0
+      },
+      {
+        "fixture_root": "D:\\Git",
+        "message": "fixture root must stay outside D:\\Git\\lib-build",
+        "subprocess_calls": 0
+      },
+      {
+        "fixture_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-directparent-9o0l18ib\\root-link",
+        "message": "fixture root is not a directory",
+        "subprocess_calls": 0
+      },
+      {
+        "fixture_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-direct-j5t4j5dx\\..\\rc0510-direct-j5t4j5dx",
+        "message": "unsafe path fixture root",
+        "subprocess_calls": 0
+      }
+    ],
+    "librarian_exit": 2,
+    "librarian_stdout_empty": true,
+    "librarian_stderr": "stop: fixture root must stay outside D:\\Git\\lib-build\r\n"
+  },
+  {
+    "case": "checkout-parent-junction",
+    "limits": "The in-process hook rebinds subprocess and pin_tools on the loaded v4 module only. A call increments a counter and raises. That hook is not an OS sandbox and does not cover the separate librarian process. The librarian check is that process: exit 2, empty stdout, and stderr containing stop: and the refusal. Trace absence under the alias is recorded and is not sufficient by itself, because this test does not place request.json there. A file-symlink permission skip is not coverage of these junctions.",
+    "v3_static": "ACCEPTED",
+    "v3_returned": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-alias-4y9h8p9r\\checkout-alias\\labs",
+    "lexical": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-alias-4y9h8p9r\\checkout-alias\\labs",
+    "resolved": "D:\\Git\\lib-build\\labs",
+    "v3_loop_launched": false,
+    "subprocess_calls": 0,
+    "pin_tools_calls": 0,
+    "v4_message": "fixture root ancestor is linked and was not followed",
+    "librarian_exit": 2,
+    "librarian_stdout_empty": true,
+    "librarian_stderr": "stop: fixture root ancestor is linked and was not followed\r\n",
+    "loop_sha_unchanged": true,
+    "writes_through_alias": false,
+    "v4_refused_before_subprocess": true
+  },
+  {
+    "case": "external-parent-junction",
+    "limits": "The in-process hook rebinds subprocess and pin_tools on the loaded v4 module only. A call increments a counter and raises. That hook is not an OS sandbox and does not cover the separate librarian process. The librarian check is that process: exit 2, empty stdout, and stderr containing stop: and the refusal. Trace absence under the alias is recorded and is not sufficient by itself, because this test does not place request.json there. A file-symlink permission skip is not coverage of these junctions.",
+    "v3_static": "ACCEPTED",
+    "v3_returned": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-extalias-amhyhzg5\\scratch-alias\\child\\grand",
+    "lexical": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-extalias-amhyhzg5\\scratch-alias\\child\\grand",
+    "resolved": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0510-scratch-owr58he7\\child\\grand",
+    "v3_loop_launched": false,
+    "target_outside_checkout": true,
+    "subprocess_calls": 0,
+    "pin_tools_calls": 0,
+    "v4_message": "fixture root ancestor is linked and was not followed",
+    "librarian_exit": 2,
+    "librarian_stdout_empty": true,
+    "librarian_stderr": "stop: fixture root ancestor is linked and was not followed\r\n",
+    "writes_through_alias": false,
+    "v4_refused_before_subprocess": true
+  }
+]

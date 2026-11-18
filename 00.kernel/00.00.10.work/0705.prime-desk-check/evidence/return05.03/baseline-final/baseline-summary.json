@@ -1,0 +1,103 @@
+{
+ "schema": "desk-baseline-run/1",
+ "label": "REAL pinned-candidate execution on lab fixtures (SYNTHETIC request artifacts)",
+ "python": "3.14.0",
+ "pins": {
+  "labs/prime-desk-pass01/prime_desk.py": "b047a30324b2a764298ec69daafb9621606bdc10fe5fc45e042105f5c1f10b20",
+  "app/context.py": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+  "colab/labs/0705.prime-desk-check/pass02/build_fixture.py": "e189d5e28469e59799b6991c3f33b24fb79308b353fbd0197b54cd86a5249ede",
+  "colab/labs/0705.prime-desk-check/pass02/cases.json": "dcb4cb27691fc8e20c96a2147aa4e4a1a68a785bd0fcbf5ef4381c70fad7bc9c",
+  "colab/labs/0705.prime-desk-check/pass02/check.py": "37c2fe6b3ded6ec82dd73a0a0c81fbc3401ad30fb5b4a8c2dd1207dc7c0b692d",
+  "colab/labs/0705.prime-desk-check/pass02/expected.json": "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+  "colab/labs/0705.prime-desk-check/pass02/manual-checklist.json": "18d8f1d163a84403a4d5f699a34266ef2353ed7eb33e8d0f93b778ff1c0860be"
+ },
+ "candidate_sha256": "b047a30324b2a764298ec69daafb9621606bdc10fe5fc45e042105f5c1f10b20",
+ "fixture_source_manifest_sha256": "e539e5cb30a5bb59c6fbe3ac4edb8582fc7f193ee36662b4165515f0ac6f2aaa",
+ "steps": [
+  {
+   "step": "build fixtures (pinned pass02 builder)",
+   "exit": 0,
+   "stderr": ""
+  },
+  {
+   "step": "C01: view exit 1, packet exit 1; adapted; conflicts 1"
+  },
+  {
+   "step": "C02: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C03: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C04: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C05: view exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C06: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C07: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C08: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C09: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C10: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C11: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C13: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C14: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C16: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C17: view exit 1, packet exit 1; adapted; conflicts 0"
+  },
+  {
+   "step": "C18: adapter refused: view: raw stdout is not JSON: Expecting value: line 1 column 1 (char 0)"
+  }
+ ],
+ "shadow_selector_rule": {
+  "work_ref": "0522.review-construction/05.04",
+  "from": "pinned pack05.02 snapshot of 0401/06.01 (R1); same for every case"
+ },
+ "check": {
+  "exit": 1,
+  "stdout_sha256": "d762f5cf56e3fff80bdcaedb57a55d1ca5cfe9dc9e21c946d30e9ff843cdb686",
+  "run_class": "candidate",
+  "desk_verdict": "not-passed",
+  "assertions": {
+   "defined": 54,
+   "evaluated": 54,
+   "by_status": {
+    "pass": 12,
+    "wrong": 9,
+    "missing": 0,
+    "unsupported": 29,
+    "needs-human-assessment": 0,
+    "not-run": 4,
+    "checker-error": 0
+   }
+  },
+  "manual": {
+   "pass": 0,
+   "wrong": 0,
+   "missing": 0,
+   "unsupported": 0,
+   "needs-human-assessment": 24,
+   "not-run": 0,
+   "checker-error": 0
+  }
+ }
+}

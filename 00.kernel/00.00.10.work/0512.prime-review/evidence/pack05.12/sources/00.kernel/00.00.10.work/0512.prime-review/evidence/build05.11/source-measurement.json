@@ -1,0 +1,48 @@
+{
+  "accepted": false,
+  "blocked_record": {
+    "content_bytes": 276423,
+    "correction": "refused: limit sources[24].content_bytes",
+    "document_bytes": 137328,
+    "logical_path": "0512.prime-review/evidence/build05.10/hostile/over-document.json",
+    "recorded": false,
+    "source_index": 24,
+    "sources": 44
+  },
+  "prime_frozen_count": {
+    "document_bytes": 136624,
+    "sources": 44
+  },
+  "regeneration": {
+    "document_bytes": 137328,
+    "document_sha256": "79bdae35350bf05319c632b416b882b07a607aa2954512bd2b119f7c89fb95b1",
+    "emitted": 44,
+    "findings": [
+      {
+        "code": "index-context-bounded",
+        "count": 92,
+        "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.10/artifact-manifest.json"
+      },
+      {
+        "code": "custody-missing",
+        "path": "0112.prime-review"
+      },
+      {
+        "code": "return-missing",
+        "path": "0112.prime-review/05.10.return.md"
+      }
+    ],
+    "measurement": "complete",
+    "record_null": 9,
+    "record_present": 35,
+    "roles": {
+      "book:artifact": 43,
+      "book:artifact-manifest": 1,
+      "book:assignment": 1,
+      "book:submission": 1,
+      "code:artifact": 49
+    },
+    "row_count": 95,
+    "unique_logical_paths": 44
+  }
+}

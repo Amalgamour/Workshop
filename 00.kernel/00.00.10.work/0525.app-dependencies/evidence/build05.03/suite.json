@@ -1,0 +1,93 @@
+{
+  "failures": [],
+  "frozen": {
+    "app/README.md": {
+      "bytes": 39687,
+      "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+    },
+    "app/librarian.py": {
+      "bytes": 12204,
+      "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+    },
+    "app/review_loop_tools_v9.py": {
+      "bytes": 11765,
+      "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47"
+    },
+    "labs/module-dependencies-pass01/depdecl.py": {
+      "bytes": 48898,
+      "sha256": "be32e7be8b481d7439f9f884f3cc709841964c807c8274f68bed7a3ce12567f0"
+    },
+    "labs/module-dependencies-pass02/depdecl.py": {
+      "bytes": 53693,
+      "sha256": "a517b0ec3906589e16e2df9bcfb6b3e21a5dd0bd3ef1099d59bf95c0f15ff4e7"
+    },
+    "labs/n7-local-lifecycle-pass01/workbook.py": {
+      "bytes": 9750,
+      "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a"
+    },
+    "labs/review-instance-binding-pass01/workbook.py": {
+      "bytes": 5916,
+      "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"
+    },
+    "labs/review-report-hardening-pass01/report.py": {
+      "bytes": 18139,
+      "sha256": "27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b"
+    },
+    "labs/review-source-capacity-pass03/workbook.py": {
+      "bytes": 3126,
+      "sha256": "fe887c0f378fc1da3f5e778ac4642c907f713614040d5ebf3b74272b02512b1f"
+    },
+    "labs/workbook-review-pass05/workbook.py": {
+      "bytes": 6994,
+      "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+    }
+  },
+  "reconstruct": "D:\\librarian\\temp\\0525-0503\\reconstruct-20261104b",
+  "results": [
+    {
+      "case": "positive",
+      "exit": 0,
+      "faults": []
+    },
+    {
+      "case": "digest-only",
+      "exit": 0,
+      "pin_form": "digest-only"
+    },
+    {
+      "case": "wrong-digest",
+      "exit": 1
+    },
+    {
+      "case": "wrong-length",
+      "exit": 1
+    },
+    {
+      "case": "missing-record",
+      "exit": 1
+    },
+    {
+      "case": "missing-file",
+      "exit": 2
+    },
+    {
+      "case": "hostile-digest-length",
+      "exit": 1
+    },
+    {
+      "case": "hostile-git-blob",
+      "exit": 0
+    },
+    {
+      "case": "reconstruct",
+      "negative_exit": 1,
+      "positive_exit": 0
+    },
+    {
+      "case": "reader-regression",
+      "exit": 0
+    }
+  ],
+  "schema": "app-dependency-preflight-suite/1",
+  "stamp": "D:\\librarian\\temp\\0525-0503\\run-20261104b"
+}

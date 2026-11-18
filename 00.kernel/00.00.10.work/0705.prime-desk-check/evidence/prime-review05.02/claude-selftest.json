@@ -1,0 +1,605 @@
+{
+ "schema": "desk-lab-selftest/1",
+ "label": "SYNTHETIC checker self-tests; not desk evidence",
+ "python": "3.12.14",
+ "tests_run": 20,
+ "failures": 0,
+ "errors": 0,
+ "skipped": 0,
+ "runs": [
+  {
+   "label": "build all fixtures",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0705.prime-desk-check\\evidence\\pack05.02\\source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "3438a130c6366b3f28cc181879f2add3deb3969f52d6ceb1ce5020132e592e10",
+   "stderr": ""
+  },
+  {
+   "label": "materialize synthetic observations",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--out",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 0,
+   "stdout_sha256": "cec643774289bdd6d41f7eb018c100cc4e6bedff81605434fdd95c13d35237a0",
+   "stderr": ""
+  },
+  {
+   "label": "builder: occupied output",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0705.prime-desk-check\\evidence\\pack05.02\\source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 2,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr": "refused: Refused: --out C:\\Users\\misg\\AppData\\Local\\Temp\\desk-0705-7ww3al03\\fixtures already exists; refusing to reuse or remove it\r\n"
+  },
+  {
+   "label": "builder: output inside checkout",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0705.prime-desk-check\\evidence\\pack05.02\\source-manifest.json",
+    "--out",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\SHOULD-NOT-EXIST"
+   ],
+   "exit": 2,
+   "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stderr": "refused: Refused: --out must be outside the checkout D:\\Git\\lib-build\r\n"
+  },
+  {
+   "label": "changed expected value",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "<tmp>\\expected-changed.json",
+    "--expected-sha256",
+    "2a4d0f755528b6b38b29604d4102c7a6342705bc1d1db7fe8fdb2f923593e759",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "e9f3419f51133ec449acb6b3790a5f8aae7cf8362faaec53245df806cd04b9de",
+   "stderr": ""
+  },
+  {
+   "label": "fixture manifest missing",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures-partial",
+    "--observations",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "eda04966e42b4245d14a961f2ee64d9eda6ebe92ef6d8f35f16c3813a239e49d",
+   "stderr": ""
+  },
+  {
+   "label": "tampered expected, old pin",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "<tmp>\\expected-tampered.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 2,
+   "stdout_sha256": "4e476159317f94e15ff28f269331e7949e19169a6446b8eefbd18e16bea1ae74",
+   "stderr": ""
+  },
+  {
+   "label": "tampered expected, new pin (visible)",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "<tmp>\\expected-tampered.json",
+    "--expected-sha256",
+    "421687b274681caff928b95ffb06f4ee5f16c974c64dba5b80dd922c05b10e9c",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "1ee4244686532839df9c1a6368098bd9904fc146516261fb5bba5d6d3ee1add5",
+   "stderr": ""
+  },
+  {
+   "label": "build all fixtures",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0705.prime-desk-check\\evidence\\pack05.02\\source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "89b2be7883dcefb27eb092b8ce0d1d309a0c45224451d754f21fc820510186ef",
+   "stderr": ""
+  },
+  {
+   "label": "materialize synthetic observations",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--out",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 0,
+   "stdout_sha256": "ff9babd0670c97a9b979dfebdcd916c4fef4298b15864c1068c015fbb98531ca",
+   "stderr": ""
+  },
+  {
+   "label": "C02 absent, C18 malformed",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-001"
+   ],
+   "exit": 1,
+   "stdout_sha256": "67464b85079c5a727375f2e8b9fb4eb3d14e14263fcdd4bdd2e56c4ecfa574e0",
+   "stderr": ""
+  },
+  {
+   "label": "changed hash reported ok",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-002"
+   ],
+   "exit": 1,
+   "stdout_sha256": "e5bdb7b26d42843a0273005b75d7043d09bc8a985455f2e7ef4206f27c60e0a0",
+   "stderr": ""
+  },
+  {
+   "label": "supplied running shown as observed",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-003"
+   ],
+   "exit": 1,
+   "stdout_sha256": "2504734defacda083fe4bf53d95865724380927f6921663f5b8044b7bd896e4d",
+   "stderr": ""
+  },
+  {
+   "label": "overflow hidden without route",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-004"
+   ],
+   "exit": 1,
+   "stdout_sha256": "60c8de60c0d976bf0916c1c2fd12d7da278aa44138b9d9be2079af311327d7ec",
+   "stderr": ""
+  },
+  {
+   "label": "custody shown complete",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-005"
+   ],
+   "exit": 1,
+   "stdout_sha256": "35d09ea9c2311343cb16b94fd762af7c254b71ed41b68e8dddae3fab4db39d25",
+   "stderr": ""
+  },
+  {
+   "label": "omitted hold H1",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-006"
+   ],
+   "exit": 1,
+   "stdout_sha256": "03611581f27f3f2349d76388b2c668e827b1251a591de0f9484f3ad2b041d655",
+   "stderr": ""
+  },
+  {
+   "label": "omitted hold H9",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-007"
+   ],
+   "exit": 1,
+   "stdout_sha256": "cb4b0f0ea7ba2f4837c0cd9d2e64071bb1588975f41abb8a64dab69855dd0ee4",
+   "stderr": ""
+  },
+  {
+   "label": "C14 second absent",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-008"
+   ],
+   "exit": 1,
+   "stdout_sha256": "89ba47c0a0f48c7acc2482a9f9f505f9b16f6373ec9cb1e206aa3bff6f23ed56",
+   "stderr": ""
+  },
+  {
+   "label": "C14 second differs",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-009"
+   ],
+   "exit": 1,
+   "stdout_sha256": "16687218420131e847900331dbf54d7ae45d0dd87383dbdc159786747a13828e",
+   "stderr": ""
+  },
+  {
+   "label": "return form silently dropped",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-010"
+   ],
+   "exit": 1,
+   "stdout_sha256": "e5decaa79da8e833f4547ea30ed3b1be76a031e5b1d4f318217162ac3bcaf4b2",
+   "stderr": ""
+  },
+  {
+   "label": "Director words attributed to Prime",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-011"
+   ],
+   "exit": 1,
+   "stdout_sha256": "c3fef30481408170f25925c59da62f1c8d1a28d4708c0cd6e4c7ac1e217d72ab",
+   "stderr": ""
+  },
+  {
+   "label": "adapter declares holds unmapped",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-012"
+   ],
+   "exit": 1,
+   "stdout_sha256": "a8ed0bfeb3cf38504bf253cd6e39fc39488a681e7ef1f6bf814bbb6e75dd7588",
+   "stderr": ""
+  },
+  {
+   "label": "wrong instance selected",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-013"
+   ],
+   "exit": 1,
+   "stdout_sha256": "6c680def86497060dff2f208f4a4489c8ee4fa8ce7cbdb6871442cff379afef4",
+   "stderr": ""
+  },
+  {
+   "label": "wrong selected work",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-014"
+   ],
+   "exit": 1,
+   "stdout_sha256": "a6f092ff42dad4e2d674a6466bda9a86f81bbc29e435dc8193076932c43d94d1",
+   "stderr": ""
+  },
+  {
+   "label": "build all fixtures",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\build_fixture.py",
+    "--cases",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\cases.json",
+    "--manifest",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0705.prime-desk-check\\evidence\\pack05.02\\source-manifest.json",
+    "--out",
+    "<tmp>\\fixtures"
+   ],
+   "exit": 0,
+   "stdout_sha256": "a8ebff8eee2e727f9f46bfef7110266cc8c210846ae4f70983012a7dc9fc170a",
+   "stderr": ""
+  },
+  {
+   "label": "materialize synthetic observations",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\synth_obs.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--out",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 0,
+   "stdout_sha256": "0406f18e2c0d332e385277c36d42a89907218e835c5fff956a849f28ecf57c41",
+   "stderr": ""
+  },
+  {
+   "label": "synthetic positive",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-positive"
+   ],
+   "exit": 1,
+   "stdout_sha256": "49321606db92b24f65d0f9796f0f58e05c0b9b737f6d983de1ae25d63d44101a",
+   "stderr": ""
+  },
+  {
+   "label": "candidate label, adapter not connected",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-001",
+    "--manual-checklist",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\manual-checklist.json"
+   ],
+   "exit": 1,
+   "stdout_sha256": "97e29eaf4e2701a38fb4357f1d0e07e74b0633bc15312f5bbfefb052e6d97f37",
+   "stderr": ""
+  },
+  {
+   "label": "verdict logic: all gates satisfied (forged labels in a test)",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-002",
+    "--manual-checklist",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\manual-checklist.json",
+    "--manual-results",
+    "<tmp>\\manual-all-yes.json"
+   ],
+   "exit": 0,
+   "stdout_sha256": "73aa6c1d04928c08a2cb30abbbe1f45951784c4a08d5e8f427695532936a24cf",
+   "stderr": ""
+  },
+  {
+   "label": "verdict logic: one manual item unattributed",
+   "argv": [
+    "python.exe",
+    "-I",
+    "-B",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\check.py",
+    "--expected",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\expected.json",
+    "--expected-sha256",
+    "d44d237aa77b35b9e5728d5abdf43e705b0f850153a7761536861f55850d8e09",
+    "--fixtures",
+    "<tmp>\\fixtures",
+    "--observations",
+    "<tmp>\\obs-002",
+    "--manual-checklist",
+    "D:\\Git\\lib-build\\colab\\labs\\0705.prime-desk-check\\pass02\\manual-checklist.json",
+    "--manual-results",
+    "<tmp>\\manual-one-unattributed.json"
+   ],
+   "exit": 1,
+   "stdout_sha256": "ab0a8d2cb657d4049cee9db59e23fe97c665c0e6715e27b62e3557afac286c8d",
+   "stderr": ""
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+over-document
+path D:\Git\lib-build\00.kernel\00.00.10.work\0512.prime-review\evidence\build05.10\hostile\over-document.json
+
+over-document bytes
+276423
+
+over-document sha256
+203565f92dace2f3474dadca0f054129e98d6abf1037dabdc0a069f50f1dc1ac
+
+call sites
+197: def count(value, where: str) -> int:
+243: def read_regular(path: Path, where: str) -> bytes:
+380: data = read_regular(candidate, source["logical_path"])
+395: content_bytes = count(raw["content_bytes"], f"{where}.content_bytes")
+396: transport_bytes = count(raw["transport_bytes"], f"{where}.transport_bytes")
+524: def parse_account(value):
+580: "findings_account": parse_account(raw["findings_account"]),
+1372: return read_regular(path, "input")
+
+gate A content
+refused: limit sources[24].content_bytes
+
+gate A transport
+refused: limit sources[24].transport_bytes
+
+gate A parse_source bind false
+refused: limit sources[24].content_bytes
+
+pass02 successor count
+refused: limit sources[24].content_bytes
+
+gate B read_regular
+refused: gate-b/fixture.bin: input exceeds 262144 bytes
+
+gate B bind_file
+refused: fixture.bin: input exceeds 262144 bytes
+
+json load_input
+refused: input: input exceeds 262144 bytes
+
+json strict_json
+refused: input: input exceeds 262144 bytes
+
+bool
+refused: bad type sources[0].content_bytes
+
+inline
+refused: text limit inline

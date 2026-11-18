@@ -1,0 +1,72 @@
+{
+ "case": "C02",
+ "adapter": "0705-pass03-adapter/1",
+ "view_stdout_sha256": "d3e43dcbc9df841f006669f0ff045c5a539ba72542604af08ac177d92cbf3c32",
+ "trace": [
+  {
+   "field": "instance.selected",
+   "raw": "/instance/root",
+   "transform": "root path -> fixture instance label by exact path equality"
+  },
+  {
+   "field": "selected.work_ref",
+   "raw": "/selected/address",
+   "transform": "copy"
+  },
+  {
+   "field": "selected.basis",
+   "raw": "/selected/basis",
+   "transform": "copy verbatim (no upgrade)"
+  },
+  {
+   "field": "attention.items[0]",
+   "raw": "/gaps/0",
+   "transform": "gap kind checkpoint -> coverage-gap; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[1]",
+   "raw": "/gaps/1",
+   "transform": "gap kind verification -> coverage-gap; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[2]",
+   "raw": "/gaps/2",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.items[3]",
+   "raw": "/gaps/3",
+   "transform": "gap kind catalog-not-chosen -> conflict; ref via request path->address join"
+  },
+  {
+   "field": "attention.total/shown",
+   "raw": "/attention + /gaps",
+   "transform": "count of mapped items; the candidate shows every declared item (no overflow concept)"
+  },
+  {
+   "field": "sources[0]",
+   "raw": "/selected/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[1]",
+   "raw": "/not_selected/0/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[2]",
+   "raw": "/not_selected/1/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "sources[3]",
+   "raw": "/record/references/0/source",
+   "transform": "status map; expected_sha256 from the request this adapter wrote"
+  },
+  {
+   "field": "identity_fingerprint",
+   "raw": "/inspectability/fingerprint",
+   "transform": "copy"
+  }
+ ]
+}

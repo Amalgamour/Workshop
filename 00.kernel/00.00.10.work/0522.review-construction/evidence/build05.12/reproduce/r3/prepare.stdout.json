@@ -1,0 +1,263 @@
+{
+  "accepted": false,
+  "approved": false,
+  "authority": "none",
+  "closes_work": false,
+  "command": "prepare",
+  "custody": "missing",
+  "cuts": [
+    {
+      "encoding": "utf-8",
+      "path": "0796.prime-probe/05.01.pack.md",
+      "role": "assignment",
+      "text": "# Synthetic reviewer probe\r\n## Goal\r\nPreserve a supplied review judgment and detect changed evidence.\r\n## Scope\r\nDisposable reviewer fixture only.\r\n## Prime discretion\r\nRecord a preliminary judgment only.\r\n## Director required\r\nRelease and design changes require Director input.\r\n## Finish\r\n- evidence: Stored judgment survives and changed sources are stale.\r\n## Director - verbatim\r\nSYNTHETIC: no re",
+      "truncated": true
+    },
+    {
+      "encoding": "utf-8",
+      "path": "0796.prime-probe/05.01.return.md",
+      "role": "return",
+      "text": "Synthetic return. No custody or release. Evidence version ONE.\r\n",
+      "truncated": false
+    }
+  ],
+  "destination": "0796.prime-probe/06.01.review.md",
+  "director_text": null,
+  "eligible_for_custody_completion": false,
+  "exit": 0,
+  "findings": [
+    {
+      "code": "return-pointer-absent",
+      "path": null
+    },
+    {
+      "code": "custody-missing",
+      "path": null
+    }
+  ],
+  "form": {
+    "bindings": {
+      "custody": "missing",
+      "destination": "0796.prime-probe/06.01.review.md",
+      "director_text": null,
+      "findings": [
+        {
+          "code": "return-pointer-absent",
+          "path": null
+        },
+        {
+          "code": "custody-missing",
+          "path": null
+        }
+      ],
+      "instance_id": "8e271105a0d0e0c45e3da2400f4f75894283ac919027a523063389ba03860d9e",
+      "intake_id": "ac77f4bd2acc2baac161362542f86dede39c8ec6f3bf46091707fcac380e33d5",
+      "kind": "N7NN",
+      "member": null,
+      "return_path": "0796.prime-probe/05.01.return.md",
+      "rows": [
+        {
+          "bytes": 445,
+          "path": "0796.prime-probe/05.01.pack.md",
+          "role": "assignment",
+          "sha256": "ea6a0f98b82d4b15446d9202ff2b687ca14679cbde9da9200117f20e54709ca5"
+        },
+        {
+          "bytes": 64,
+          "path": "0796.prime-probe/05.01.return.md",
+          "role": "return",
+          "sha256": "a154653bbd194b6a7896f37b282ea9d0c73214fa9c278ed094a9c53ae30c5fbe"
+        }
+      ],
+      "unknowns": [
+        "agreement.goal",
+        "agreement.scope",
+        "recorded_decisions",
+        "receipt"
+      ]
+    },
+    "correction_help": {
+      "route": "labs/workbook-review-pass01/PRIME-USE.md",
+      "states": [
+        "absent",
+        "null",
+        "empty",
+        "wrong-type",
+        "extra",
+        "conflict"
+      ]
+    },
+    "declaration": {
+      "bytes": 4532,
+      "path": "labs/workbook-review-pass01/forms/workbook-review-v1.json",
+      "sha256": "152b436bda8e19d15f252bb5208791c8eefd9a658789e2ab6e9789ffa362b49f"
+    },
+    "fields": [
+      {
+        "empty": "refused",
+        "meaning": "Prime's finding about the measured return.",
+        "name": "finding",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "Evidence-based reasons. An explicit empty list is a supplied empty account, not a default.",
+        "name": "reasons",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "continue, director-input, develop, or complete. Not a command.",
+        "name": "operation",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "continue",
+          "director-input",
+          "develop",
+          "complete"
+        ]
+      },
+      {
+        "meaning": "accepted, held, or correction-required. Accepted is not Director consent.",
+        "name": "disposition",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "accepted",
+          "held",
+          "correction-required"
+        ]
+      },
+      {
+        "meaning": "finished or open.",
+        "name": "pass_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "finished",
+          "open"
+        ]
+      },
+      {
+        "meaning": "completed or open. Completed is allowed only with operation complete.",
+        "name": "goal_terminal",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "enum",
+        "values": [
+          "completed",
+          "open"
+        ]
+      },
+      {
+        "empty": "refused",
+        "meaning": "The next action Prime supplies. Compute does not invent one.",
+        "name": "next_action",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "string"
+      },
+      {
+        "meaning": "True, false, or null. Null is the legal unknown. Omission is a missing field, not false.",
+        "name": "semantic_conflict",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "boolean-or-null"
+      },
+      {
+        "meaning": "Null, or an object with id and text.",
+        "name": "design_fork",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object-or-null"
+      },
+      {
+        "meaning": "Each finding Prime is accounting. Disposition is answered, fixed, or elevated. None are dropped.",
+        "name": "findings",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "The prime-review section object. Unknown section values stay null. tests_passed null is not passed.",
+        "name": "sections",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "object"
+      },
+      {
+        "meaning": "Director holds Prime is recording. An explicit empty list means none are supplied.",
+        "name": "holds",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Replies Prime supplies. A reply does not close a finding by itself.",
+        "name": "answers",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Linked review passes. Explicit empty is supplied. Two unresolved passes are not closed here.",
+        "name": "review_passes",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      },
+      {
+        "meaning": "Gaps Prime names. These are copied to the cycle unresolved list. They are not invented.",
+        "name": "gaps",
+        "null": "refused",
+        "owner": "intelligence",
+        "presence": "required",
+        "type": "list"
+      }
+    ],
+    "form_id": "workbook-review-v1",
+    "not_submitted": [
+      "intake_id",
+      "review_id",
+      "sha256",
+      "registration",
+      "receipt",
+      "descriptor",
+      "agreement"
+    ],
+    "schema": "workbook-review-form/1"
+  },
+  "instance_id": "8e271105a0d0e0c45e3da2400f4f75894283ac919027a523063389ba03860d9e",
+  "intake_id": "ac77f4bd2acc2baac161362542f86dede39c8ec6f3bf46091707fcac380e33d5",
+  "kind": "N7NN",
+  "live_intake_id": "ac77f4bd2acc2baac161362542f86dede39c8ec6f3bf46091707fcac380e33d5",
+  "missing": [],
+  "page": "0796.prime-probe",
+  "pass": "05.01",
+  "published_work": false,
+  "releases_action": false,
+  "schema": "workbook-review-result/1",
+  "stale": false,
+  "stored_intake_id": null,
+  "task_association": "not-established",
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

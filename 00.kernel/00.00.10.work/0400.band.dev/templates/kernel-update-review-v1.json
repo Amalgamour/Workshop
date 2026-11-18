@@ -1,0 +1,122 @@
+{
+  "schema": "kernel-update-review-template/1",
+  "revision": "001",
+  "authority": "00.00.10.work/0400.band.dev/06.01",
+  "scope": "Future critical kernel updates in this workshop; no candidate approval or execution release inferred",
+  "runtime_enforced": false,
+  "stage_states": [
+    "not-started",
+    "in-progress",
+    "held",
+    "complete"
+  ],
+  "colab_trigger": [
+    "stuck",
+    "ready-for-testing-before-release"
+  ],
+  "stages": [
+    {
+      "number": "01",
+      "id": "establish-change-set",
+      "required_records": [
+        "problem",
+        "book_instance",
+        "selected_sources",
+        "selected_candidates",
+        "authority_scope",
+        "affected_connections",
+        "joint_release_members"
+      ],
+      "actual_evidence_required": true
+    },
+    {
+      "number": "02",
+      "id": "account-for-meaning",
+      "required_records": [
+        "section_dispositions",
+        "reasons",
+        "authorizing_work",
+        "destinations",
+        "preservation_impact"
+      ],
+      "actual_evidence_required": true
+    },
+    {
+      "number": "03",
+      "id": "director-review",
+      "required_records": [
+        "numbered_review_items",
+        "current_proposed_difference",
+        "examples",
+        "prime_recommendation",
+        "director_verbatim",
+        "separate_interpretation",
+        "finding_dispositions"
+      ],
+      "actual_evidence_required": true
+    },
+    {
+      "number": "04",
+      "id": "revise-demonstrate",
+      "required_records": [
+        "notes_first",
+        "second_pass",
+        "candidate_history",
+        "mechanical_checks",
+        "meaning_review",
+        "tests_with_first_failures",
+        "colab_trigger_and_result",
+        "limitations"
+      ],
+      "actual_evidence_required": true
+    },
+    {
+      "number": "05",
+      "id": "sign-approve",
+      "required_records": [
+        "model_sign_request",
+        "compute_check_evidence",
+        "signed_candidate_identity",
+        "director_exact_approval",
+        "mechanical_transition_rules"
+      ],
+      "actual_evidence_required": true
+    },
+    {
+      "number": "06",
+      "id": "verified-seat",
+      "required_records": [
+        "reviewed_tool",
+        "execution_release",
+        "predecessor_and_candidate_check",
+        "qualified_archive_destination",
+        "raw_images",
+        "journal",
+        "postchecks",
+        "partial_recovery_hold",
+        "separate_lock_promotion"
+      ],
+      "actual_evidence_required": true
+    },
+    {
+      "number": "07",
+      "id": "preserve-reuse",
+      "required_records": [
+        "history_links",
+        "decisions_and_director_words",
+        "reusable_05_instructions",
+        "dependency_applicability",
+        "remaining_holds"
+      ],
+      "actual_evidence_required": true
+    }
+  ],
+  "preservation": [
+    "Director words verbatim",
+    "Prime interpretation separate",
+    "earlier candidates and failed evidence retained",
+    "no deletion authority from consolidation"
+  ],
+  "identity_rule": "Explicit selected revisions and measured bytes; no newest-file authority; signing/approval/stamp transitions remain distinct",
+  "seating_rule": "Verified supported procedure and explicit release; partial completion is held; lock/promotion separate"
+}

@@ -1,0 +1,503 @@
+{
+  "schema": "authoring-record/1",
+  "profile_id": "0423-to-0526",
+  "book": "D:\\Git\\lib-build",
+  "pass": "05.02",
+  "work_home": "00.kernel/00.00.10.work/0526.dev-authoring",
+  "state": "drafting",
+  "stamp": "draft",
+  "intent": {
+    "goal": "Supplied synthetic preview of the authoring command. Not a release and not the Prime pilot.",
+    "scope": {
+      "included": "one unreleased draft after 05.01",
+      "excluded": "freeze, release, and return filing",
+      "allowed_writes": "evidence/authoring05.NN under 0526.dev-authoring"
+    },
+    "finish": "Prime can inspect the draft with the actual command",
+    "executor": "Grok-1",
+    "reviewer": "Codex Prime"
+  },
+  "declared_notes": [
+    {
+      "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+      "kind": "declared-source",
+      "path": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+      "sha256": "7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe",
+      "bytes": 2261,
+      "disposition": "integrated",
+      "integrated_item": "01",
+      "why": null
+    },
+    {
+      "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+      "kind": "declared-source",
+      "path": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+      "sha256": "b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e",
+      "bytes": 788,
+      "disposition": "deferred",
+      "integrated_item": null,
+      "why": "Supplied synthetic: this preview does not decide the draft review."
+    }
+  ],
+  "draft_notes": [],
+  "items": [
+    {
+      "title": "Show the source form",
+      "purpose": "Supplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.",
+      "requirements": [
+        "The model does not choose the pass or the item number."
+      ],
+      "interfaces": [
+        "authoring start"
+      ],
+      "acceptance": [
+        "Inspect shows this meaning under the computed item number."
+      ],
+      "note_refs": [
+        "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md"
+      ],
+      "open_choices": [
+        "Prime replaces this synthetic item in a later pilot."
+      ],
+      "dependency_refs": [],
+      "relationship": null,
+      "condition": null,
+      "id": "01",
+      "revision": 1
+    },
+    {
+      "title": "Keep the second meaning separate",
+      "purpose": "Supplied synthetic demonstration. A second item is meaning only, including the mark Δ.",
+      "requirements": [
+        "UTF-8 text is stored as text."
+      ],
+      "interfaces": [
+        "authoring add-item"
+      ],
+      "acceptance": [
+        "Inspect shows both items in one draft."
+      ],
+      "note_refs": [
+        "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md"
+      ],
+      "open_choices": [],
+      "dependency_refs": [],
+      "relationship": null,
+      "condition": null,
+      "id": "02",
+      "revision": 1
+    }
+  ],
+  "revisions": [],
+  "review": null,
+  "review_history": [],
+  "sources": [
+    {
+      "role": "source",
+      "path": "00.kernel/00.00.10.work/0423.dev-authoring/01.md",
+      "sha256": "8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411",
+      "bytes": 8719,
+      "utf8": true
+    },
+    {
+      "role": "work-note",
+      "path": "00.kernel/00.00.10.work/0526.dev-authoring/01.md",
+      "sha256": "21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d",
+      "bytes": 474,
+      "utf8": true
+    },
+    {
+      "role": "template",
+      "path": "00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md",
+      "sha256": "9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0",
+      "bytes": 1394,
+      "utf8": true
+    },
+    {
+      "role": "declared-note",
+      "path": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+      "sha256": "7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe",
+      "bytes": 2261,
+      "utf8": true
+    },
+    {
+      "role": "declared-note",
+      "path": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+      "sha256": "b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e",
+      "bytes": 788,
+      "utf8": true
+    }
+  ],
+  "template_schema": {
+    "path": "labs/pack-authoring-pass01/template/build-pack-v1.json",
+    "sha256": "9e92ee322c5c4e20bb0006e2f92ab9f1fd1308f2812ab70b34c248ddebb5bdcc",
+    "bytes": 1008
+  },
+  "dependency": {
+    "queries": [
+      {
+        "command": "validate",
+        "module": null,
+        "condition": [],
+        "exit": 0,
+        "status": "valid",
+        "finding_counts": {},
+        "labels": []
+      },
+      {
+        "command": "requires",
+        "module": "lib-build:app/librarian.py",
+        "condition": [],
+        "exit": 0,
+        "status": "complete-for-declared-coverage",
+        "finding_counts": {
+          "environment-unverified": 1
+        },
+        "labels": [
+          "environment"
+        ]
+      },
+      {
+        "command": "requires",
+        "module": "lib-build:labs/review-loop-pass02/review_loop.py",
+        "condition": [
+          "render-or-recover=inapplicable"
+        ],
+        "exit": 0,
+        "status": "complete-for-declared-coverage",
+        "finding_counts": {
+          "condition-inapplicable": 1,
+          "environment-unverified": 4
+        },
+        "labels": [
+          "conditional",
+          "environment"
+        ]
+      }
+    ],
+    "item_refs": [],
+    "set": {
+      "path": "labs/app-dependencies-pass02/set.json",
+      "root": "code",
+      "sha256": "444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706",
+      "bytes": 7054,
+      "label": "measured-file",
+      "form": "working-tree"
+    }
+  },
+  "return_intent": {
+    "intended": "0126.dev-authoring",
+    "status": "occupied",
+    "occupants": [
+      "0126.boot-members-0509"
+    ],
+    "linked": [],
+    "named_slot_present": false,
+    "readiness": "blocked",
+    "n7nn": "page-local",
+    "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+  },
+  "operations": {
+    "prime-start-01": {
+      "command": "start",
+      "request_sha256": "3955217f6ade532cc54c0c6fa10ec9bcf492ddb10cc77ba068e83e73389cad61",
+      "exit": 0,
+      "result": {
+        "schema": "authoring-result/1",
+        "command": "start",
+        "state": "drafting",
+        "pass": "05.02",
+        "record": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\record.json",
+        "draft": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\draft.md",
+        "draft_sha256": "0475c2896a97922381345dabccafdd352a90d27aeb00a93c4c7663dc082fa5b5",
+        "draft_text": "# 05.02 - authored draft\nprofile: 0423-to-0526\npass: 05.02\napproval: false\nrelease: false\nauthority: authoring record; this face is derived\nlabel: the meaning below is supplied by the caller\n\n## Intent\ngoal: \nfinish: \nexecutor: \nreviewer: \nscope.included: \nscope.excluded: \nscope.allowed_writes: \n\n## Declared notes\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition unresolved item - why -\n  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition unresolved item - why -\n  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788\n\n## Draft notes\n- none\n\n## Items\nnone\n## Dependencies\nset-path: labs/app-dependencies-pass02/set.json\nset-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\nset-label: measured-file\nset-form: working-tree\ncomplete_claim: false\nquery validate module - exit 0 status valid labels -\nquery requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment\nquery requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment\n\n## Return\nintended: 0126.dev-authoring\nstatus: occupied\noccupants: 0126.boot-members-0509\nreadiness: blocked\nn7nn: page-local\n\n## Review\nreview: absent\n\n## Sources\n- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true\n- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true\n- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n",
+        "next": "Prime can inspect this draft. Freeze on the live checkout is refused. This is not the Prime pilot.",
+        "missing": [
+          "goal",
+          "finish",
+          "executor",
+          "reviewer",
+          "scope.included",
+          "scope.excluded",
+          "scope.allowed_writes",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+          "item",
+          "review",
+          "return readiness"
+        ],
+        "return_intent": {
+          "intended": "0126.dev-authoring",
+          "status": "occupied",
+          "occupants": [
+            "0126.boot-members-0509"
+          ],
+          "linked": [],
+          "named_slot_present": false,
+          "readiness": "blocked",
+          "n7nn": "page-local",
+          "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+        },
+        "derived_conflict": false,
+        "page": null,
+        "page_matches_draft": false,
+        "coverage": [
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+            "disposition": "unresolved"
+          },
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+            "disposition": "unresolved"
+          }
+        ]
+      }
+    },
+    "prime-item-01": {
+      "command": "add-item",
+      "request_sha256": "502c741c480e7f2fb721e2a68eb46944fac7d391596976d6742f830298f6faa0",
+      "exit": 0,
+      "result": {
+        "schema": "authoring-result/1",
+        "command": "add-item",
+        "state": "drafting",
+        "pass": "05.02",
+        "record": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\record.json",
+        "draft": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\draft.md",
+        "draft_sha256": "66c84293bdfadd78099257d15b55b238688e548abad4ad7102d818099386051f",
+        "draft_text": "# 05.02 - authored draft\nprofile: 0423-to-0526\npass: 05.02\napproval: false\nrelease: false\nauthority: authoring record; this face is derived\nlabel: the meaning below is supplied by the caller\n\n## Intent\ngoal: \nfinish: \nexecutor: \nreviewer: \nscope.included: \nscope.excluded: \nscope.allowed_writes: \n\n## Declared notes\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition unresolved item - why -\n  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition unresolved item - why -\n  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788\n\n## Draft notes\n- none\n\n## Items\n## #01 - Show the source form\nSupplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.\nrequirements:\n- The model does not choose the pass or the item number.\ninterfaces:\n- authoring start\nacceptance:\n- Inspect shows this meaning under the computed item number.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md\nopen-choices:\n- Prime replaces this synthetic item in a later pilot.\ndependency-refs:\n- none\n\n## Dependencies\nset-path: labs/app-dependencies-pass02/set.json\nset-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\nset-label: measured-file\nset-form: working-tree\ncomplete_claim: false\nquery validate module - exit 0 status valid labels -\nquery requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment\nquery requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment\n\n## Return\nintended: 0126.dev-authoring\nstatus: occupied\noccupants: 0126.boot-members-0509\nreadiness: blocked\nn7nn: page-local\n\n## Review\nreview: absent\n\n## Sources\n- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true\n- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true\n- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n",
+        "next": "Prime can inspect this draft. Freeze on the live checkout is refused. This is not the Prime pilot.",
+        "missing": [
+          "goal",
+          "finish",
+          "executor",
+          "reviewer",
+          "scope.included",
+          "scope.excluded",
+          "scope.allowed_writes",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+          "review",
+          "return readiness"
+        ],
+        "return_intent": {
+          "intended": "0126.dev-authoring",
+          "status": "occupied",
+          "occupants": [
+            "0126.boot-members-0509"
+          ],
+          "linked": [],
+          "named_slot_present": false,
+          "readiness": "blocked",
+          "n7nn": "page-local",
+          "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+        },
+        "derived_conflict": true,
+        "page": null,
+        "page_matches_draft": false,
+        "coverage": [
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+            "disposition": "unresolved"
+          },
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+            "disposition": "unresolved"
+          }
+        ]
+      }
+    },
+    "prime-item-02": {
+      "command": "add-item",
+      "request_sha256": "2c4a1d1d71c25183397b25fe86a7e3cf0143dd628fae66739a7da930cd434ca3",
+      "exit": 0,
+      "result": {
+        "schema": "authoring-result/1",
+        "command": "add-item",
+        "state": "drafting",
+        "pass": "05.02",
+        "record": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\record.json",
+        "draft": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\draft.md",
+        "draft_sha256": "b985bce002c065155704ec6e9bb7b97e05cce6c9de5d9849895be26c2bb4421e",
+        "draft_text": "# 05.02 - authored draft\nprofile: 0423-to-0526\npass: 05.02\napproval: false\nrelease: false\nauthority: authoring record; this face is derived\nlabel: the meaning below is supplied by the caller\n\n## Intent\ngoal: \nfinish: \nexecutor: \nreviewer: \nscope.included: \nscope.excluded: \nscope.allowed_writes: \n\n## Declared notes\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition unresolved item - why -\n  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition unresolved item - why -\n  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788\n\n## Draft notes\n- none\n\n## Items\n## #01 - Show the source form\nSupplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.\nrequirements:\n- The model does not choose the pass or the item number.\ninterfaces:\n- authoring start\nacceptance:\n- Inspect shows this meaning under the computed item number.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md\nopen-choices:\n- Prime replaces this synthetic item in a later pilot.\ndependency-refs:\n- none\n\n## #02 - Keep the second meaning separate\nSupplied synthetic demonstration. A second item is meaning only, including the mark Δ.\nrequirements:\n- UTF-8 text is stored as text.\ninterfaces:\n- authoring add-item\nacceptance:\n- Inspect shows both items in one draft.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md\nopen-choices:\n- none\ndependency-refs:\n- none\n\n## Dependencies\nset-path: labs/app-dependencies-pass02/set.json\nset-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\nset-label: measured-file\nset-form: working-tree\ncomplete_claim: false\nquery validate module - exit 0 status valid labels -\nquery requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment\nquery requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment\n\n## Return\nintended: 0126.dev-authoring\nstatus: occupied\noccupants: 0126.boot-members-0509\nreadiness: blocked\nn7nn: page-local\n\n## Review\nreview: absent\n\n## Sources\n- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true\n- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true\n- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n",
+        "next": "Prime can inspect this draft. Freeze on the live checkout is refused. This is not the Prime pilot.",
+        "missing": [
+          "goal",
+          "finish",
+          "executor",
+          "reviewer",
+          "scope.included",
+          "scope.excluded",
+          "scope.allowed_writes",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+          "review",
+          "return readiness"
+        ],
+        "return_intent": {
+          "intended": "0126.dev-authoring",
+          "status": "occupied",
+          "occupants": [
+            "0126.boot-members-0509"
+          ],
+          "linked": [],
+          "named_slot_present": false,
+          "readiness": "blocked",
+          "n7nn": "page-local",
+          "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+        },
+        "derived_conflict": true,
+        "page": null,
+        "page_matches_draft": false,
+        "coverage": [
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+            "disposition": "unresolved"
+          },
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+            "disposition": "unresolved"
+          }
+        ]
+      }
+    },
+    "prime-intent-01": {
+      "command": "revise",
+      "request_sha256": "e262258067f5395b3d7c2ea761c55422ccec3fbc90b1279c278edb82df1b91ba",
+      "exit": 0,
+      "result": {
+        "schema": "authoring-result/1",
+        "command": "revise",
+        "state": "drafting",
+        "pass": "05.02",
+        "record": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\record.json",
+        "draft": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\draft.md",
+        "draft_sha256": "81df1d6d2e336f62b4e1fc93b1a21b7d89a41f9090810735bc10c08645d09cd9",
+        "draft_text": "# 05.02 - authored draft\nprofile: 0423-to-0526\npass: 05.02\napproval: false\nrelease: false\nauthority: authoring record; this face is derived\nlabel: the meaning below is supplied by the caller\n\n## Intent\ngoal: Supplied synthetic preview of the authoring command. Not a release and not the Prime pilot.\nfinish: Prime can inspect the draft with the actual command\nexecutor: Grok-1\nreviewer: Codex Prime\nscope.included: one unreleased draft after 05.01\nscope.excluded: freeze, release, and return filing\nscope.allowed_writes: evidence/authoring05.NN under 0526.dev-authoring\n\n## Declared notes\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition unresolved item - why -\n  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition unresolved item - why -\n  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788\n\n## Draft notes\n- none\n\n## Items\n## #01 - Show the source form\nSupplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.\nrequirements:\n- The model does not choose the pass or the item number.\ninterfaces:\n- authoring start\nacceptance:\n- Inspect shows this meaning under the computed item number.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md\nopen-choices:\n- Prime replaces this synthetic item in a later pilot.\ndependency-refs:\n- none\n\n## #02 - Keep the second meaning separate\nSupplied synthetic demonstration. A second item is meaning only, including the mark Δ.\nrequirements:\n- UTF-8 text is stored as text.\ninterfaces:\n- authoring add-item\nacceptance:\n- Inspect shows both items in one draft.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md\nopen-choices:\n- none\ndependency-refs:\n- none\n\n## Dependencies\nset-path: labs/app-dependencies-pass02/set.json\nset-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\nset-label: measured-file\nset-form: working-tree\ncomplete_claim: false\nquery validate module - exit 0 status valid labels -\nquery requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment\nquery requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment\n\n## Return\nintended: 0126.dev-authoring\nstatus: occupied\noccupants: 0126.boot-members-0509\nreadiness: blocked\nn7nn: page-local\n\n## Review\nreview: absent\n\n## Sources\n- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true\n- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true\n- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n",
+        "next": "Prime can inspect this draft. Freeze on the live checkout is refused. This is not the Prime pilot.",
+        "missing": [
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+          "review",
+          "return readiness"
+        ],
+        "return_intent": {
+          "intended": "0126.dev-authoring",
+          "status": "occupied",
+          "occupants": [
+            "0126.boot-members-0509"
+          ],
+          "linked": [],
+          "named_slot_present": false,
+          "readiness": "blocked",
+          "n7nn": "page-local",
+          "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+        },
+        "derived_conflict": true,
+        "page": null,
+        "page_matches_draft": false,
+        "coverage": [
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+            "disposition": "unresolved"
+          },
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+            "disposition": "unresolved"
+          }
+        ]
+      }
+    },
+    "prime-disp-01": {
+      "command": "revise",
+      "request_sha256": "7eaf85852ea71607f4d7469470186fc7dbf69de7764f253b4037d87381000189",
+      "exit": 0,
+      "result": {
+        "schema": "authoring-result/1",
+        "command": "revise",
+        "state": "drafting",
+        "pass": "05.02",
+        "record": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\record.json",
+        "draft": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\draft.md",
+        "draft_sha256": "1159c0e4b44db1b97e8bd55256a23bbd5df2c97952e2ef2182885b67a122e2a4",
+        "draft_text": "# 05.02 - authored draft\nprofile: 0423-to-0526\npass: 05.02\napproval: false\nrelease: false\nauthority: authoring record; this face is derived\nlabel: the meaning below is supplied by the caller\n\n## Intent\ngoal: Supplied synthetic preview of the authoring command. Not a release and not the Prime pilot.\nfinish: Prime can inspect the draft with the actual command\nexecutor: Grok-1\nreviewer: Codex Prime\nscope.included: one unreleased draft after 05.01\nscope.excluded: freeze, release, and return filing\nscope.allowed_writes: evidence/authoring05.NN under 0526.dev-authoring\n\n## Declared notes\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition integrated item 01 why -\n  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition unresolved item - why -\n  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788\n\n## Draft notes\n- none\n\n## Items\n## #01 - Show the source form\nSupplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.\nrequirements:\n- The model does not choose the pass or the item number.\ninterfaces:\n- authoring start\nacceptance:\n- Inspect shows this meaning under the computed item number.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md\nopen-choices:\n- Prime replaces this synthetic item in a later pilot.\ndependency-refs:\n- none\n\n## #02 - Keep the second meaning separate\nSupplied synthetic demonstration. A second item is meaning only, including the mark Δ.\nrequirements:\n- UTF-8 text is stored as text.\ninterfaces:\n- authoring add-item\nacceptance:\n- Inspect shows both items in one draft.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md\nopen-choices:\n- none\ndependency-refs:\n- none\n\n## Dependencies\nset-path: labs/app-dependencies-pass02/set.json\nset-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\nset-label: measured-file\nset-form: working-tree\ncomplete_claim: false\nquery validate module - exit 0 status valid labels -\nquery requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment\nquery requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment\n\n## Return\nintended: 0126.dev-authoring\nstatus: occupied\noccupants: 0126.boot-members-0509\nreadiness: blocked\nn7nn: page-local\n\n## Review\nreview: absent\n\n## Sources\n- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true\n- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true\n- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n",
+        "next": "Prime can inspect this draft. Freeze on the live checkout is refused. This is not the Prime pilot.",
+        "missing": [
+          "disposition 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+          "review",
+          "return readiness"
+        ],
+        "return_intent": {
+          "intended": "0126.dev-authoring",
+          "status": "occupied",
+          "occupants": [
+            "0126.boot-members-0509"
+          ],
+          "linked": [],
+          "named_slot_present": false,
+          "readiness": "blocked",
+          "n7nn": "page-local",
+          "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+        },
+        "derived_conflict": true,
+        "page": null,
+        "page_matches_draft": false,
+        "coverage": [
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+            "disposition": "integrated"
+          },
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+            "disposition": "unresolved"
+          }
+        ]
+      }
+    },
+    "prime-disp-02": {
+      "command": "revise",
+      "request_sha256": "cead7da8e46e1bdf598caa6d383e863ed22726eca43f0debfc741d7624793e9c",
+      "exit": 0,
+      "result": {
+        "schema": "authoring-result/1",
+        "command": "revise",
+        "state": "drafting",
+        "pass": "05.02",
+        "record": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\record.json",
+        "draft": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0526.dev-authoring\\evidence\\authoring05.02\\draft.md",
+        "draft_sha256": "547c3ae566323d6f821abed79a004a08a143f0246f14d110476560e1eee98cf3",
+        "draft_text": "# 05.02 - authored draft\nprofile: 0423-to-0526\npass: 05.02\napproval: false\nrelease: false\nauthority: authoring record; this face is derived\nlabel: the meaning below is supplied by the caller\n\n## Intent\ngoal: Supplied synthetic preview of the authoring command. Not a release and not the Prime pilot.\nfinish: Prime can inspect the draft with the actual command\nexecutor: Grok-1\nreviewer: Codex Prime\nscope.included: one unreleased draft after 05.01\nscope.excluded: freeze, release, and return filing\nscope.allowed_writes: evidence/authoring05.NN under 0526.dev-authoring\n\n## Declared notes\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md disposition integrated item 01 why -\n  sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md disposition deferred item - why Supplied synthetic: this preview does not decide the draft review.\n  sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788\n\n## Draft notes\n- none\n\n## Items\n## #01 - Show the source form\nSupplied synthetic demonstration. Load the registered 0423 source and reserve the next pass.\nrequirements:\n- The model does not choose the pass or the item number.\ninterfaces:\n- authoring start\nacceptance:\n- Inspect shows this meaning under the computed item number.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md\nopen-choices:\n- Prime replaces this synthetic item in a later pilot.\ndependency-refs:\n- none\n\n## #02 - Keep the second meaning separate\nSupplied synthetic demonstration. A second item is meaning only, including the mark Δ.\nrequirements:\n- UTF-8 text is stored as text.\ninterfaces:\n- authoring add-item\nacceptance:\n- Inspect shows both items in one draft.\nnote-refs:\n- 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md\nopen-choices:\n- none\ndependency-refs:\n- none\n\n## Dependencies\nset-path: labs/app-dependencies-pass02/set.json\nset-sha256: 444dba1589c0d6a0204e7a3d6be334b3135d524e4b376e7e92eb8fb434e6f706\nset-label: measured-file\nset-form: working-tree\ncomplete_claim: false\nquery validate module - exit 0 status valid labels -\nquery requires module lib-build:app/librarian.py exit 0 status complete-for-declared-coverage labels environment\nquery requires module lib-build:labs/review-loop-pass02/review_loop.py exit 0 status complete-for-declared-coverage labels conditional,environment\n\n## Return\nintended: 0126.dev-authoring\nstatus: occupied\noccupants: 0126.boot-members-0509\nreadiness: blocked\nn7nn: page-local\n\n## Review\nreview: absent\n\n## Sources\n- source 00.kernel/00.00.10.work/0423.dev-authoring/01.md sha256 8c2b430c02f9eef74e9ea05976071e6bf24bd29b1809dd8491d0d8072188e411 bytes 8719 utf8 true\n- work-note 00.kernel/00.00.10.work/0526.dev-authoring/01.md sha256 21f8106f9722fd9c8f168ffd6a9de9e8c4f5ed6086d2a4f0937caf51f6b4d44d bytes 474 utf8 true\n- template 00.kernel/00.00.10.work/0423.dev-authoring/templates/build-pack-v1.draft.md sha256 9cea6540155a59b470adcd2dab93d0e674b379478f311113271e632aa58e9fd0 bytes 1394 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.01.md sha256 7a81cb8b1db369a39014cd0025780d4ef9c3812f624a5ffd1761b83073504cfe bytes 2261 utf8 true\n- declared-note 00.kernel/00.00.10.work/0423.dev-authoring/06.02.md sha256 b4bc1a36c165545f47a82569ad2dcbabd4ea252443489dc452f1ccf39ee3190e bytes 788 utf8 true\n\nFreeze emits these bytes unchanged. Approval and release stay separate.\n",
+        "next": "Prime can inspect this draft. Freeze on the live checkout is refused. This is not the Prime pilot.",
+        "missing": [
+          "review",
+          "return readiness"
+        ],
+        "return_intent": {
+          "intended": "0126.dev-authoring",
+          "status": "occupied",
+          "occupants": [
+            "0126.boot-members-0509"
+          ],
+          "linked": [],
+          "named_slot_present": false,
+          "readiness": "blocked",
+          "n7nn": "page-local",
+          "rule": "N5NN matches N1NN same NN and subject; N7NN stays page-local"
+        },
+        "derived_conflict": true,
+        "page": null,
+        "page_matches_draft": false,
+        "coverage": [
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.01.md",
+            "disposition": "integrated"
+          },
+          {
+            "id": "00.kernel/00.00.10.work/0423.dev-authoring/06.02.md",
+            "disposition": "deferred"
+          }
+        ]
+      }
+    }
+  }
+}

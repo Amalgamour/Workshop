@@ -1,0 +1,32 @@
+[
+  {
+    "outcome": "held",
+    "code": "completed-drift",
+    "label": "original completed restart probe",
+    "tree_unchanged": true,
+    "expected_hold": true
+  },
+  {
+    "outcome": "held",
+    "code": "rollback-current-changed",
+    "label": "original rollback drift probe",
+    "tree_unchanged": true,
+    "expected_hold": true
+  },
+  {
+    "returned": "verified-complete",
+    "label": "page 0001 journal supplied with page 0002 plan",
+    "tree_unchanged": true,
+    "expected_hold": true
+  },
+  {
+    "returned": {
+      "seat_restored": true,
+      "draft_restored": true,
+      "seated_image_kept": true
+    },
+    "label": "rollback decision changes after interrupted R1",
+    "tree_unchanged": false,
+    "expected_hold": true
+  }
+]

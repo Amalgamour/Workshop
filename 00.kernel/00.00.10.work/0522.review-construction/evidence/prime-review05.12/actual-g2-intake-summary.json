@@ -1,0 +1,34 @@
+{
+  "measurement": "incomplete",
+  "findings": [
+    {
+      "code": "unparsed-return-line",
+      "path": null,
+      "text": "Artifact manifest: evidence/build05.10/artifact-manifest.json sha256 bbd4e5a33279105f0177491c7eff2ecfa70e172cd0fd6a266d70c2c3b93e809d, 3867 bytes, 16 files. Excludes itself and thi"
+    },
+    {
+      "code": "declared-file-missing",
+      "path": "evidence/build05.10/submission.md"
+    },
+    {
+      "code": "custody-missing",
+      "path": "0121.return-placement"
+    },
+    {
+      "code": "return-missing",
+      "path": "0121.return-placement/05.10.return.md"
+    }
+  ],
+  "cuts": [
+    [
+      "assignment",
+      "0521.return-placement/05.10.md"
+    ]
+  ],
+  "unknowns": [
+    "agreement.goal",
+    "agreement.scope",
+    "recorded_decisions",
+    "receipt"
+  ]
+}

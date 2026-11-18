@@ -1,0 +1,15 @@
+AS-PREDICTED C1: measurement complete, book sources 29, record exit 2 refused: limit sources
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\loop-convergence-design-pass01\inv1_capacity.py", line 152, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "D:\Git\lib-build\labs\loop-convergence-design-pass01\inv1_capacity.py", line 122, in main
+    res[k] = record_case(root.path, fx, jf)
+             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\loop-convergence-design-pass01\inv1_capacity.py", line 41, in record_case
+    p = rie.app(root, *lcd.args(root, key, "prepare"))
+                       ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\loop-convergence-design-pass01\lcd.py", line 91, in args
+    fx = FIX[key] if key in FIX else key
+                     ^^^^^^^^^^
+TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')

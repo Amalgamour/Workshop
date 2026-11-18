@@ -1,0 +1,14 @@
+tool labs/module-dependencies-pass02/depdecl.py
+tool_sha256 a517b0ec3906589e16e2df9bcfb6b3e21a5dd0bd3ef1099d59bf95c0f15ff4e7
+tool_bytes 53693
+python 3.14.0
+cwd D:\Git\lib-build
+python -B labs/module-dependencies-pass02/depdecl.py validate --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json  exit 0
+python -B labs/module-dependencies-pass02/depdecl.py requires --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json --module lib-build:app/librarian.py --transitive  exit 0
+python -B labs/module-dependencies-pass02/depdecl.py requires --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json --module lib-build:app/librarian.py --transitive --depth 2  exit 1
+python -B labs/module-dependencies-pass02/depdecl.py identity --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json  exit 0
+python -B labs/module-dependencies-pass02/depdecl.py explain --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json --module lib-build:app/librarian.py --to lib-build:labs/return-capture-pass01/return_capture.py  exit 0
+python -B labs/module-dependencies-pass02/depdecl.py impacted --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json --module lib-build:labs/return-capture-pass01/return_capture.py --depth 1  exit 1
+python -B labs/module-dependencies-pass02/depdecl.py impacted --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json --module lib-build:labs/return-capture-pass01/return_capture.py --depth 8  exit 0
+python -B labs/module-dependencies-pass02/depdecl.py impacted --set D:\Git\lib-build\labs\app-dependencies-pass02\set.json --module lib-build:labs/return-capture-pass01/return_capture.py --implementation 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac --depth 8  exit 0
+python -B labs/module-dependencies-pass02/depdecl.py requires --set D:\Git\lib-build\00.kernel\00.00.10.work\0525.app-dependencies\evidence\build05.02\negative-missing\set.json --module lib-build:app/librarian.py --transitive  exit 1

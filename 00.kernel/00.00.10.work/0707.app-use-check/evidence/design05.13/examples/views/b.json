@@ -1,0 +1,133 @@
+{
+ "example": "b N7NN hold, reply and successor",
+ "measured": {
+  "pack_cut": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "9cc53c69a7eb03ba476a1a2226d8a974d8173eaf87193e1fab4b3c897f301db1",
+   "bytes": 1335
+  },
+  "goal": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Goal",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "6b667a07b898cb914ea0dd88a97a0674412c7258fc7cafe6992225f36522427c",
+     "bytes": 35
+    }
+   }
+  ],
+  "scope": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Scope",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "f29167ee0572c8a45f41473a2441d91cdc16669ea6921acb0cdb5c79c220b053",
+     "bytes": 32
+    }
+   }
+  ],
+  "finish_criteria": [
+   {
+    "path": "self",
+    "kind": "heading",
+    "heading": "Finish",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "5d2aa6be2e21d236217c9c4116f3eb8a3fc3176d3ce0a5b0286f326d250a7fbd",
+     "bytes": 1135
+    }
+   }
+  ],
+  "prime_discretion": [
+   {
+    "path": "0412x.standing/01.md",
+    "kind": "heading",
+    "heading": "Local work agreement",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "271a2095cf25cce20d3fc1e10a78f5fd880bb2f113cfb71d59fc277093e7cd27",
+     "bytes": 145
+    }
+   },
+   {
+    "path": "0412x.standing/evidence/director-agreement.md",
+    "kind": "whole",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "61737228ee93c59f6a7ea0f9c1311c970e146991dc1557bb2f94ac7d2e3e809e",
+     "bytes": 244
+    }
+   }
+  ],
+  "director_required": [
+   {
+    "path": "0412x.standing/evidence/director-agreement.md",
+    "kind": "whole",
+    "applicability": "standing",
+    "measured": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "61737228ee93c59f6a7ea0f9c1311c970e146991dc1557bb2f94ac7d2e3e809e",
+     "bytes": 244
+    }
+   }
+  ],
+  "recorded_decisions": [
+   {
+    "record": "0799.fixture-colab/06.02.decisions.md",
+    "verbatim_cut": "Director - verbatim",
+    "interpretation_cut": "Prime - interpretation",
+    "answers_cut_record": "0799.fixture-colab/06.01.review.md",
+    "answers_cut": "Question Q1",
+    "answers_scope": "only the cited question",
+    "verbatim": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "60cae60a494eaa7177ecd54c308a27b9c2bd6421805c3cd13f9c49d9ba55fe4a",
+     "bytes": 85
+    },
+    "interpretation": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "72590804dc0b8baf643e7403a77501b3e0eb29bd3fa252210d0f1a1faf5bf3d5",
+     "bytes": 92
+    },
+    "answers": {
+     "resolved": true,
+     "count": 1,
+     "sha256": "3128cfb79e2b8cfbe6475a9dbd490d5e283e4ff65609640c78552dd25737bdab",
+     "bytes": 70
+    },
+    "distinct_cuts": true
+   }
+  ]
+ },
+ "specified_NOT_RUN": {
+  "states": {
+   "recorded_decisions": "cited"
+  },
+  "resolves": [
+   "hold Q1 (location question) only"
+  ],
+  "must_wait": [
+   "D1: execution needs a released pack; the reply does not release it"
+  ],
+  "may_continue": [
+   "I1",
+   "a successor review on the same pass recording Q1 as answered"
+  ],
+  "separation": "the Director verbatim cut and the Prime interpretation cut are distinct and both bound"
+ }
+}

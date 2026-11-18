@@ -1,0 +1,188 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "review-report"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "review-report-hardening",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-report-hardening-pass01/report.py",
+      "repository": "lib-build"
+    },
+    "bytes": 18139,
+    "sha256": "27e513f462b241e9c7298d3077d50d08ea5ac703a6f2d0769dc5935fcb51b58b"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "review-report"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "existing reporter reference",
+      "not reporter-on-W"
+    ],
+    "name": "review_report_hardening",
+    "path": "labs/review-report-hardening-pass01/report.py",
+    "purpose": "Existing reporter reference. It is not reporter-on-W and it is not loaded by the selected app.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.56",
+          "file": "06.56.md",
+          "page": "0420.prime-desk",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "reporter-on-W remains pending",
+        "role": "source-stated",
+        "sha256": "7948480497821a986eecd5413b85747893e90e50c025512f369150fd2ca5b39a",
+        "status": "pinned"
+      }
+    ],
+    "unknown": [
+      "A Prime acceptance of reporter-on-W was not supplied to this preflight."
+    ]
+  },
+  "requirements": [
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "helper-pass03",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 19533,
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      },
+      "pin_required": true,
+      "reason": "PINS pair-checks labs/workbook-review-pass03/workbook.py.",
+      "source_ref": {
+        "lines": "114-117",
+        "path": "labs/review-report-hardening-pass01/report.py"
+      },
+      "target": {
+        "module": {
+          "path": "labs/workbook-review-pass03/workbook.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "not-applicable",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "selected-app-pin",
+      "kind": "runtime-code",
+      "mechanism": "hash-check",
+      "pin": {
+        "bytes": 12804,
+        "sha256": "f1d23d455f20319e3f430d345b2893bda039fd8c84be4f3691b4e4be123b8983"
+      },
+      "pin_required": true,
+      "reason": "PINS pair-checks the path app/librarian.py against the inert hardening dispatcher bytes, not against the selected app measurement.",
+      "source_ref": {
+        "lines": "28-114",
+        "path": "labs/review-report-hardening-pass01/report.py"
+      },
+      "target": {
+        "module": {
+          "path": "app/librarian.py",
+          "repository": "lib-build"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "24-24",
+        "path": "labs/review-report-hardening-pass01/report.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "24-24",
+        "path": "labs/review-report-hardening-pass01/report.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "HELPER_ROOT is D:\\Git\\lib-build. check_pins uses the code_root it is given. This preflight did not execute the reporter.",
+          "name": "canonical-helper-root"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "The rest of the PINS table is outside this subset.",
+      "what": "remaining PINS rows"
+    },
+    {
+      "reason": "labs/review-report-hardening-pass01/librarian.py is another unselected dispatcher and is not reporter-on-W.",
+      "what": "hardening librarian"
+    }
+  ]
+}

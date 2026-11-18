@@ -1,0 +1,30 @@
+{
+  "schema": "prima-operating-notices/1",
+  "notices": [
+    {
+      "id": "prima-usage-reserve-2026-11-01",
+      "kind": "director-operating-instruction",
+      "path": "prima/USAGE.md",
+      "sha256": "1faa46043f2febf2768e35616ce12c9157a7c37d73c9006949a14ab2fb54f06e",
+      "minimum_remaining_percent": 5,
+      "applies": "next safe checkpoint and all new work; no pilot restart",
+      "evidence_prefix": "00.kernel/00.00.10.work/0706.prima-loop/evidence/run05.01/usage/"
+    },
+    {
+      "id": "prima-gameatron-handoff-2026-11-01",
+      "kind": "director-worker-handoff",
+      "path": "prima/GAMEATRON.md",
+      "sha256": "6dec635b9f4c7b3915d965c79164866b9e84446e982bc50ec0ca1ba75cb2a0ca",
+      "applies": "existing Gameatron task; confirm current state, do not restart",
+      "evidence_prefix": "00.kernel/00.00.10.work/0422.prima/evidence/gameatron-handoff/"
+    },
+    {
+      "id": "prima-pilot-prime-review-2026-11-01",
+      "kind": "prime-review-advisory",
+      "path": "00.kernel/00.00.10.work/0706.prima-loop/06.01.review.md",
+      "sha256": "0bbf621ac34ac7a4d810c8abb265da0b7e235fc4c7ab5f0c6704fa59a38a031a",
+      "applies": "read dispositions; do not rerun pilot or start an unassigned repair",
+      "next": "await original SoF review; keep authorized routine/usage/coordination duties"
+    }
+  ]
+}

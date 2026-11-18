@@ -1,0 +1,125 @@
+{
+  "coverage": {
+    "complete_claim": false,
+    "entry_points": [
+      "prime-review"
+    ],
+    "method": "Read on 2026-11-04 for 0525.app-dependencies 05.03. The file was not imported and not executed. Edges are the caller checks named in 06.05. This is not a complete discovery."
+  },
+  "declaration_id": "source-capacity-prime-review",
+  "implementation": {
+    "basis": {
+      "context_head": null,
+      "form": "working-tree",
+      "kind": "observed-file",
+      "path": "labs/review-source-capacity-pass03/prime_review.py",
+      "repository": "lib-build"
+    },
+    "bytes": 6136,
+    "sha256": "c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab"
+  },
+  "module": {
+    "home": {
+      "book": "00.00.10.work",
+      "face_or_pass": "01",
+      "file": "01.001.md",
+      "page": "0316.dependencies",
+      "repository": "lib-build"
+    },
+    "interface": [
+      "prime-review"
+    ],
+    "limits": [
+      "prototype declaration for this preflight subset",
+      "a matching digest is not activation, compatibility, or release",
+      "complete_claim is false",
+      "accepted K validator"
+    ],
+    "name": "capacity_prime_review",
+    "path": "labs/review-source-capacity-pass03/prime_review.py",
+    "purpose": "Accepted K validator. Its own predecessor pins are withheld from this subset.",
+    "repository": "lib-build"
+  },
+  "no_requirements": false,
+  "provenance": {
+    "links": [
+      {
+        "address": {
+          "book": "00.00.10.work",
+          "face_or_pass": "06.22",
+          "file": "06.22.md",
+          "page": "0512.prime-review",
+          "repository": "lib-build"
+        },
+        "commit": null,
+        "note": "Prime accepted this validator",
+        "role": "review",
+        "sha256": "b3bf76d560457f438d78243c0cff8d2ac90d115ac3a6fa53ec71956547be5e2a",
+        "status": "pinned"
+      }
+    ],
+    "unknown": []
+  },
+  "requirements": [
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "python",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "interpreter that would run this file; not executed by this preflight",
+      "source_ref": {
+        "lines": "29-29",
+        "path": "labs/review-source-capacity-pass03/prime_review.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "The file runs on the caller interpreter. This pass measured CPython 3.14.0. The source does not enforce that version. The measurement is not readiness.",
+          "name": "python"
+        }
+      }
+    },
+    {
+      "availability": "unverified",
+      "condition": {
+        "applies": "always",
+        "id": null,
+        "statement": null,
+        "status": "applicable"
+      },
+      "id": "canonical-helper-root",
+      "kind": "environment",
+      "mechanism": "path-reference",
+      "pin": null,
+      "pin_required": false,
+      "reason": "The fixed helper root was read in source and was not executed.",
+      "source_ref": {
+        "lines": "29-29",
+        "path": "labs/review-source-capacity-pass03/prime_review.py"
+      },
+      "target": {
+        "environment": {
+          "detail": "HELPER is D:\\Git\\lib-build. This preflight did not execute the validator.",
+          "name": "canonical-helper-root"
+        }
+      }
+    }
+  ],
+  "schema": "module-declaration/2",
+  "status": "prototype",
+  "supersedes": null,
+  "version": 1,
+  "withheld": [
+    {
+      "reason": "pair pins of labs/prime-review-pass02/prime_review.py and the capacity pass01 and pass02 prime_review files are outside this subset",
+      "what": "predecessor pins"
+    }
+  ]
+}

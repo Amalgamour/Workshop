@@ -1,0 +1,80 @@
+{
+  "schema": "review-construction-verification/1",
+  "pass": "0522.review-construction/05.07",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "pack_inputs": {
+    "schema": "prime-pack-inputs/1",
+    "files": 142,
+    "bad": 0,
+    "manifest_sha256": "29cb96a8705edccb1f0aed9054c7abe86ee78fcb2e8e8fa04ac70b0e1fe22fde",
+    "manifest_bytes": 53926,
+    "rechecked_immediately_before_verification": true
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.07/CONTRACT.md",
+    "sha256": "d112ad4abe02fe9eea79708d06f01f380648d7a66b7ebb9bf4ce43514a4d4251",
+    "bytes": 4424,
+    "contract_revised_after_commands": false
+  },
+  "predecessor": {
+    "path": "labs/review-construction-pass03/construct.py",
+    "sha256": "6eec5653c6818cfdeb98ffcd929cdf26f0ddf15c3121c703ce795abea6eb755d",
+    "bytes": 42216,
+    "edited": false
+  },
+  "constructor": {
+    "path": "labs/review-construction-pass04/construct.py",
+    "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20",
+    "bytes": 42582
+  },
+  "cycle_rerun": false,
+  "app_edited": false,
+  "reproduction": {
+    "command": "python -B 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.07/reproduce/run.py",
+    "runner_exit": 0,
+    "runner_exit_means": "Prime findings reproduced",
+    "separate_from_candidate_tests": true,
+    "g01_lf_state": "constructed-same-binding",
+    "g01_crlf_state": "existing-review",
+    "g01_crlf_binding_sha256": null,
+    "g01_crlf_show_exit": 2,
+    "g02_preview_exit": 1,
+    "g02_typeerror": "cannot use 'list' as a set element (unhashable type: 'list')",
+    "target_unchanged": true,
+    "fixture_bytes": "raw"
+  },
+  "candidate_tests": {
+    "command": "python -B labs/review-construction-pass04/tests/test_pass04.py",
+    "cwd": "D:/Git/lib-build",
+    "ran": 12,
+    "passed": 11,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "seconds": "6.521",
+    "exit": 0,
+    "log": "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.07/tests/suite.stderr",
+    "log_newlines": "lf",
+    "runner_wrote": "crlf",
+    "text_and_exit_unchanged": true
+  },
+  "skipped": [
+    {
+      "name": "test_symlink_is_refused",
+      "reason": "WinError 1314, privilege not held; no symlink was created"
+    }
+  ],
+  "custody": "pending",
+  "matching_line": "0122.review-construction",
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "receipt": null,
+  "note": "Exit 0 is not Prime review, seating, or app activation. Envelope and bind interfaces are unchanged. pass04 is not selected."
+}

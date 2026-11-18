@@ -1,0 +1,227 @@
+{
+ "schema": "lcd-inv1/1",
+ "rooms": "D:\\librarian\\temp\\lcd-0719\\inv1-run02",
+ "aggregate": {
+  "as_predicted": 4,
+  "total": 5
+ },
+ "cases": {
+  "C1": {
+   "expected": "complete prepare; record refused 'limit sources'; no review stored; Prime's exact judgment kept in failed/",
+   "observed": "measurement complete, book sources 29, record exit 2 refused: limit sources",
+   "as_predicted": true,
+   "detail": {
+    "prepare_exit": 0,
+    "measurement": "complete",
+    "book_sources": 29,
+    "row_count": 39,
+    "record_exit": 2,
+    "recorded": false,
+    "review_id": null,
+    "correction": "refused: limit sources",
+    "mode": null,
+    "stored": [],
+    "failed": {
+     "failed_file": "failed/f6815ca48d8a67a2.json",
+     "supplied_judgment_found_intact": true,
+     "failed_keys": [
+      "answers",
+      "design_fork",
+      "disposition",
+      "finding",
+      "findings",
+      "gaps",
+      "goal_terminal",
+      "holds",
+      "next_action",
+      "operation",
+      "pass_terminal",
+      "reasons",
+      "review_passes",
+      "sections",
+      "semantic_conflict"
+     ]
+    },
+    "record_stderr": ""
+   }
+  },
+  "C2": {
+   "expected": "sources = K + 2 (assignment, submission); <= 24 records, 25 refuses",
+   "observed": "{21: (23, 0, None), 22: (24, 0, None), 23: (25, 2, 'refused: limit sources')}",
+   "as_predicted": true,
+   "detail": {
+    "21": {
+     "prepare_exit": 0,
+     "measurement": "complete",
+     "book_sources": 23,
+     "row_count": 24,
+     "record_exit": 0,
+     "recorded": true,
+     "review_id": "w85ed500172356cc5",
+     "correction": null,
+     "mode": "preliminary",
+     "stored": [
+      "reviews/w85ed500172356cc5/judgment.json",
+      "reviews/w85ed500172356cc5/record.json",
+      "reviews/w85ed500172356cc5/rendered.md"
+     ],
+     "failed": null,
+     "record_stderr": ""
+    },
+    "22": {
+     "prepare_exit": 0,
+     "measurement": "complete",
+     "book_sources": 24,
+     "row_count": 25,
+     "record_exit": 0,
+     "recorded": true,
+     "review_id": "wf16136b46f226fa6",
+     "correction": null,
+     "mode": "preliminary",
+     "stored": [
+      "reviews/wf16136b46f226fa6/judgment.json",
+      "reviews/wf16136b46f226fa6/record.json",
+      "reviews/wf16136b46f226fa6/rendered.md"
+     ],
+     "failed": null,
+     "record_stderr": ""
+    },
+    "23": {
+     "prepare_exit": 0,
+     "measurement": "complete",
+     "book_sources": 25,
+     "row_count": 26,
+     "record_exit": 2,
+     "recorded": false,
+     "review_id": null,
+     "correction": "refused: limit sources",
+     "mode": null,
+     "stored": [],
+     "failed": {
+      "failed_file": "failed/34809336c9cfc5b9.json",
+      "supplied_judgment_found_intact": true,
+      "failed_keys": [
+       "answers",
+       "design_fork",
+       "disposition",
+       "finding",
+       "findings",
+       "gaps",
+       "goal_terminal",
+       "holds",
+       "next_action",
+       "operation",
+       "pass_terminal",
+       "reasons",
+       "review_passes",
+       "sections",
+       "semantic_conflict"
+      ]
+     },
+     "record_stderr": ""
+    }
+   }
+  },
+  "C3": {
+   "expected": "40 code-root artifacts: complete, sources = 2, records preliminary",
+   "observed": "measurement complete, book sources 2, record exit 0 mode preliminary",
+   "as_predicted": true,
+   "detail": {
+    "prepare_exit": 0,
+    "measurement": "complete",
+    "book_sources": 2,
+    "row_count": 43,
+    "record_exit": 0,
+    "recorded": true,
+    "review_id": "w5042bac15016fa24",
+    "correction": null,
+    "mode": "preliminary",
+    "stored": [
+     "reviews/w5042bac15016fa24/judgment.json",
+     "reviews/w5042bac15016fa24/record.json",
+     "reviews/w5042bac15016fa24/rendered.md"
+    ],
+    "failed": null,
+    "record_stderr": ""
+   }
+  },
+  "C4": {
+   "expected": "prediction: N7 0517 parsed complete by v8, record refused 'limit sources' (25 book artifacts)",
+   "observed": "measurement complete, book sources 26, record exit 2 refused: limit sources",
+   "as_predicted": true,
+   "detail": {
+    "prepare_exit": 0,
+    "measurement": "complete",
+    "book_sources": 26,
+    "row_count": 37,
+    "record_exit": 2,
+    "recorded": false,
+    "review_id": null,
+    "correction": "refused: limit sources",
+    "mode": null,
+    "stored": [],
+    "failed": {
+     "failed_file": "failed/34809336c9cfc5b9.json",
+     "supplied_judgment_found_intact": true,
+     "failed_keys": [
+      "answers",
+      "design_fork",
+      "disposition",
+      "finding",
+      "findings",
+      "gaps",
+      "goal_terminal",
+      "holds",
+      "next_action",
+      "operation",
+      "pass_terminal",
+      "reasons",
+      "review_passes",
+      "sections",
+      "semantic_conflict"
+     ]
+    },
+    "record_stderr": ""
+   }
+  },
+  "C5": {
+   "expected": "control: 0522/05.14 records preliminary (as Prime's live core run)",
+   "observed": "measurement incomplete, book sources 20, record exit 2 mode None",
+   "as_predicted": false,
+   "detail": {
+    "prepare_exit": 0,
+    "measurement": "incomplete",
+    "book_sources": 20,
+    "row_count": 31,
+    "record_exit": 2,
+    "recorded": false,
+    "review_id": null,
+    "correction": "The artifact measurement is incomplete. The judgment was not recorded.",
+    "mode": null,
+    "stored": [],
+    "failed": {
+     "failed_file": "failed/34809336c9cfc5b9.json",
+     "supplied_judgment_found_intact": true,
+     "failed_keys": [
+      "answers",
+      "design_fork",
+      "disposition",
+      "finding",
+      "findings",
+      "gaps",
+      "goal_terminal",
+      "holds",
+      "next_action",
+      "operation",
+      "pass_terminal",
+      "reasons",
+      "review_passes",
+      "sections",
+      "semantic_conflict"
+     ]
+    },
+    "record_stderr": ""
+   }
+  }
+ }
+}

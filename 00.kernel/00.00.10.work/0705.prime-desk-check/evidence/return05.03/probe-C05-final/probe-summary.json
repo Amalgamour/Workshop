@@ -1,0 +1,30 @@
+{
+ "schema": "desk-supplementary-probe/1",
+ "label": "SUPPLEMENTARY PROBE: fixture-completed copy (added 0522/05.04 snapshot bytes)",
+ "c05_rows": [
+  {
+   "id": "A-C05-01",
+   "case": "C05",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'verbatim', 'attributed_to': 'Director', 'source_path': '00.kernel/00.00.10.work/0420.prime-desk/06.01.md', 'quote_sha256': 'cefa10fdb3572b1a32c91118b668b71cdb3f86a302a87aad6fd0e0ea71fcba0f'}",
+   "mandatory": true
+  },
+  {
+   "id": "A-C05-02",
+   "case": "C05",
+   "status": "wrong",
+   "detail": "no item matching {'kind': 'interpretation', 'attributed_to': 'Codex Prime', 'source_path': '00.kernel/00.00.10.work/0420.prime-desk/06.01.md'}",
+   "mandatory": true
+  }
+ ],
+ "quotes_mapped": [
+  {
+   "kind": "verbatim",
+   "attributed_to": "Director",
+   "source_path": "00.kernel/00.00.10.work/0420.prime-desk/06.01.md",
+   "quote_sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342"
+  }
+ ],
+ "derived_expected_quote_sha256": "cefa10fdb3572b1a32c91118b668b71cdb3f86a302a87aad6fd0e0ea71fcba0f",
+ "note": "only C05 rows are meaningful; every other case is not-run here by design"
+}

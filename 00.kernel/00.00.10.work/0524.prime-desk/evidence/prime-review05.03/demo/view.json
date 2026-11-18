@@ -1,0 +1,680 @@
+{
+  "attention": [
+    {
+      "id": "hold-live",
+      "kind": "hold",
+      "label": "live desk activation is not approved",
+      "label_basis": "supplied",
+      "open": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 4153,
+        "path": "0420.prime-desk/01.md",
+        "sha256": "557226b48a2773a9ef30eb0662ce9a08018797679cb3a8e3cbb5b79cb027d989",
+        "status": "matched"
+      }
+    }
+  ],
+  "catalog": {
+    "items": [
+      {
+        "address": "0522.review-construction/05.04",
+        "basis": "observed",
+        "label": "supplied index",
+        "provenance": "index note only; not a selection",
+        "provenance_basis": "supplied",
+        "work_id": "work-0522-0504"
+      }
+    ],
+    "source": {
+      "basis": "observed",
+      "bytes": 243,
+      "path": "catalog.json",
+      "sha256": "2b9e592b6d735d8b485ac4ee2d9c65acb82d9693ab4bf8e6ecc14544cb24f82f",
+      "status": "matched"
+    },
+    "used_for_selection": false
+  },
+  "check": "prime-desk-request/2",
+  "command": "view",
+  "correction": "Read the gaps and open attention. Keep the canonical assignment. Do not treat a supplied label or a legacy selector as the current work. Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+  "coverage": {
+    "changed": 0,
+    "declared": 24,
+    "matched": 23,
+    "missing": 1,
+    "outside": 0,
+    "stale": 0,
+    "statement": "Declared request paths only. Unregistered sources were not searched.",
+    "unreadable": 0
+  },
+  "exit": 1,
+  "foreign": [],
+  "gaps": [
+    {
+      "basis": "observed",
+      "check": "prime-desk-selector/1",
+      "kind": "selector-disagreement",
+      "message": "legacy selector names work-0522-0504; canonical assignment names work-0521-0503. The canonical assignment is kept.",
+      "path": "selector.json"
+    },
+    {
+      "basis": "unknown",
+      "check": "references:ret-line",
+      "kind": "missing",
+      "message": "declared file is absent",
+      "path": "0121.return-placement/05.03.return.md"
+    },
+    {
+      "basis": "unknown",
+      "check": "references:ret-line",
+      "kind": "return",
+      "message": "return is missing",
+      "path": "0121.return-placement/05.03.return.md"
+    },
+    {
+      "basis": "unknown",
+      "check": "0121.return-placement/05.03.return.md",
+      "kind": "custody-pending",
+      "message": "The declared return file is absent. Custody stays pending. No receipt is fabricated. This does not change the review file.",
+      "path": "0121.return-placement/05.03.return.md"
+    },
+    {
+      "basis": "observed",
+      "check": "prime-desk-catalog/2",
+      "kind": "catalog-not-chosen",
+      "message": "catalog names work-0522-0504; canonical assignment names work-0521-0503. The catalog was not used to choose the work.",
+      "path": "catalog.json"
+    },
+    {
+      "basis": "unknown",
+      "check": "workers:grok-2",
+      "kind": "worker-unknown",
+      "message": "no recorded evidence file; process activity is unknown",
+      "path": null
+    }
+  ],
+  "inspectability": {
+    "basis_legend": "observed = declared bytes matched; supplied = caller label; unknown = not present; stale = different bytes withheld; changed = bytes moved during the read and were withheld",
+    "escalation": "Escalation: Codex Prime on 0524.prime-desk/05.03. This tool does not decide meaning, acceptance, or live authority.",
+    "fingerprint": "140122b746da0cdd39e2ea8dbc99fbd238da18fc068ce2c06ba5880126af840c",
+    "request_sha256": "d7971cbd567791bee464015d82c74200de9ca9af81a0d8fc9250cf64c31daaf9"
+  },
+  "instance": {
+    "basis": "observed",
+    "book": "00.00.10.work",
+    "role": "prime",
+    "root": "D:\\librarian\\temp\\desk-pass03-review-nov01\\demo\\book",
+    "tools_root": "D:\\Git\\lib-build"
+  },
+  "legacy": [],
+  "not_selected": [
+    {
+      "address": "0522.review-construction/05.04",
+      "basis": "observed",
+      "executable": true,
+      "id": "work-0522-0504",
+      "kind": "work",
+      "reason": "not the canonical assignment record",
+      "source": {
+        "basis": "observed",
+        "bytes": 10802,
+        "path": "0522.review-construction/05.04.md",
+        "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+        "status": "matched"
+      }
+    },
+    {
+      "address": "0522.review-construction/05.03",
+      "basis": "observed",
+      "executable": true,
+      "id": "work-0522-0503",
+      "kind": "work",
+      "reason": "not the canonical assignment record",
+      "source": {
+        "basis": "observed",
+        "bytes": 11318,
+        "path": "0522.review-construction/05.03.md",
+        "sha256": "e0eda780e0c3eb71ed4875b8927096c967a75eb64fe8e2e47f32c6ca241b7a4f",
+        "status": "matched"
+      }
+    },
+    {
+      "address": "1599.synth-lab/05.01",
+      "basis": "observed",
+      "executable": true,
+      "id": "work-1599-0501",
+      "kind": "work",
+      "reason": "not the canonical assignment record",
+      "source": {
+        "basis": "observed",
+        "bytes": 80,
+        "path": "1599.synth-lab/05.01.md",
+        "sha256": "3e658fee12461727b222c819efc38e4e98ec4ebb9a95ee84eeb7451cc589c527",
+        "status": "matched"
+      }
+    },
+    {
+      "address": "1705.prime-desk-check/05.01.pack",
+      "basis": "observed",
+      "executable": true,
+      "id": "work-1705-0501",
+      "kind": "pack",
+      "reason": "not the canonical assignment record",
+      "source": {
+        "basis": "observed",
+        "bytes": 81,
+        "path": "1705.prime-desk-check/05.01.pack.md",
+        "sha256": "3c87606956225a678f2a749093faf73f9cae3b78faf635a954a79c0bf52769e2",
+        "status": "matched"
+      }
+    }
+  ],
+  "observed_at": "2026-11-01T18:22:29Z",
+  "operations": [
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "desk-state",
+      "limitation": "view launches subprocesses; this desk does not call it",
+      "limitation_basis": "supplied",
+      "name": "desk-state",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 55144,
+        "path": "labs/desk-state-pass01/desk_state.py",
+        "sha256": "4d924bf6549fe37b229962d4f3a81924109a879a8206ea95066f4bfde11701b4",
+        "status": "matched"
+      }
+    },
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "prime-brief",
+      "limitation": "build was not called",
+      "limitation_basis": "supplied",
+      "name": "prime-brief",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 22747,
+        "path": "labs/prime-brief-pass01/prime_brief.py",
+        "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+        "status": "matched"
+      }
+    },
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "state-projection",
+      "limitation": "project and inspect were not called",
+      "limitation_basis": "supplied",
+      "name": "state-projection",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 20338,
+        "path": "labs/state-projection-pass01/state_projection.py",
+        "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+        "status": "matched"
+      }
+    },
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "prime-support",
+      "limitation": "status uses Git; this desk does not call it",
+      "limitation_basis": "supplied",
+      "name": "prime-support",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": {
+        "basis": "observed",
+        "bytes": 59791,
+        "path": "labs/prime-support-pass01/prime_support.py",
+        "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+        "status": "matched"
+      }
+    },
+    {
+      "activation": "unknown",
+      "activation_basis": "unknown",
+      "executed": false,
+      "id": "review-loop-integration",
+      "limitation": "Pending. Successor modules were not imported.",
+      "limitation_basis": "tool",
+      "name": "review-loop",
+      "past_tests": "unknown",
+      "past_tests_basis": "unknown",
+      "recognized_token": true,
+      "source": null
+    }
+  ],
+  "packet": null,
+  "record": {
+    "assignment_reader": [
+      {
+        "fields": {
+          "assignment_state": "returned",
+          "basis": "observed",
+          "current_work": "00.kernel/00.00.10.work/0521.return-placement/05.03.md",
+          "next": "review",
+          "next_limit": "the record next field is not a command and is not the selected next route",
+          "pack": "00.kernel/00.00.10.work/0521.return-placement/05.03.md",
+          "updated": "2026-11-01",
+          "waits_on": "none"
+        },
+        "limit": "assignment_state is a record field, not a live process check. validate_context was not called.",
+        "reader": "app-context.parse_assignment",
+        "source": {
+          "basis": "observed",
+          "bytes": 365,
+          "path": "0401.goal/06.01.md",
+          "sha256": "8e1242b90a9f9c417cf60db9c1fbd48956e2036785aea9aa0a940d6e4006fd02",
+          "status": "matched"
+        }
+      }
+    ],
+    "attribution": [
+      {
+        "ambiguous": false,
+        "author": "director",
+        "binding": {
+          "scope": "desk"
+        },
+        "end": 403,
+        "id": "dir",
+        "quoted": true,
+        "reason": null,
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        },
+        "start": 111,
+        "text": "> I like it.  I can't think of anything to change so lets go with it.  Add to our deliverables so we are moving this forward I think we can start to get the core working for you today.\n>\n> Then if you are good pack it for work to be done.\n>\n> We have claude and grok-1 sitting at the moment.\n"
+      },
+      {
+        "ambiguous": false,
+        "author": "model",
+        "binding": {
+          "scope": "desk"
+        },
+        "end": 834,
+        "id": "mod",
+        "quoted": true,
+        "reason": null,
+        "source": {
+          "basis": "observed",
+          "bytes": 834,
+          "path": "0420.prime-desk/06.01.md",
+          "sha256": "2e5fe132ea0b4e943daa078dd1c1cf20c63bd4d7a882b64079e738512d39e342",
+          "status": "matched"
+        },
+        "start": 430,
+        "text": "The proposed Prime desk overview and selected-task working packet are approved\nas deliverables. Prepare Grok-1 implementation and Claude independent Colab. This\nis not permission to migrate live returns, seat kernel, activate workers, replace\nan authority record, or claim today's finish before measured use. Director/model\nwording stays separate. Scope below is the first read-only text implementation.\n"
+      }
+    ],
+    "history": [
+      {
+        "id": "hist-0419",
+        "inlined": false,
+        "source": {
+          "basis": "observed",
+          "bytes": 4405,
+          "path": "0419.work-history/01.md",
+          "sha256": "51a55a7ad8f402360b3fcb79abf8a32ab6ae8132326d7d0218127399043fdbc4",
+          "status": "matched"
+        }
+      }
+    ],
+    "history_inlined": false,
+    "references": [
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "goal",
+        "label": "goal page",
+        "label_basis": "supplied",
+        "role": "goal",
+        "source": {
+          "basis": "observed",
+          "bytes": 5914,
+          "path": "0401.goal/01.md",
+          "sha256": "20f23f4cfed6aed2dd032c7d686f1e28a0a6af51d5932444f5667718d8b5eaaf",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "scope",
+        "label": "seats page",
+        "label_basis": "supplied",
+        "role": "scope",
+        "source": {
+          "basis": "observed",
+          "bytes": 2031,
+          "path": "0408.seats/01.md",
+          "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "authority",
+        "label": "desk-app direction",
+        "label_basis": "supplied",
+        "role": "authority",
+        "source": {
+          "basis": "observed",
+          "bytes": 4617,
+          "path": "0416.desk-app/01.003.md",
+          "sha256": "d432c796404feaa738c445891f0375afaa17a5b73133b1ae3b4aeb4fc79a38ce",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "for_selected": true,
+        "id": "policy",
+        "label": "reporting policy",
+        "label_basis": "supplied",
+        "role": "dependency",
+        "source": {
+          "basis": "observed",
+          "bytes": 2044,
+          "path": "0412.prime-review/06.02.md",
+          "sha256": "28e9afeb62638d17ce2bbba15cf7e13bb05074a8bf655bdcefd6cc546fdfbeac",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0521-0503"
+        },
+        "for_selected": true,
+        "id": "crit-0521",
+        "label": "0521 task",
+        "label_basis": "supplied",
+        "role": "criteria",
+        "source": {
+          "basis": "observed",
+          "bytes": 9801,
+          "path": "0521.return-placement/05.03.md",
+          "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0522-0504"
+        },
+        "for_selected": false,
+        "id": "crit-0522",
+        "label": "0522 task",
+        "label_basis": "supplied",
+        "role": "criteria",
+        "source": {
+          "basis": "observed",
+          "bytes": 10802,
+          "path": "0522.review-construction/05.04.md",
+          "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0522-0504"
+        },
+        "for_selected": false,
+        "id": "ret-0522",
+        "label": "0522 return",
+        "label_basis": "supplied",
+        "role": "return",
+        "source": {
+          "basis": "observed",
+          "bytes": 10802,
+          "path": "0522.review-construction/05.04.md",
+          "sha256": "efe9ae39305f9a9c38416ee4a4e817f8245d58c6fa9a727f69a283cb32705e49",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0521-0503"
+        },
+        "for_selected": true,
+        "id": "check",
+        "label": "checkpoint",
+        "label_basis": "supplied",
+        "role": "checkpoint",
+        "source": {
+          "basis": "observed",
+          "bytes": 11,
+          "path": "checkpoint.md",
+          "sha256": "a252f87b9c2c34a647b34d77d08f3ce2491f24e3fe1df75bfe607d70d374803a",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0521-0503"
+        },
+        "for_selected": true,
+        "id": "ver",
+        "label": "verification",
+        "label_basis": "supplied",
+        "role": "verification",
+        "source": {
+          "basis": "observed",
+          "bytes": 9,
+          "path": "verified.md",
+          "sha256": "8f5a1374b3eb9532a67c0de915a0810ea089fc304c33a44642a7f4878984803e",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "desk",
+          "work_id": null
+        },
+        "executable": false,
+        "for_selected": true,
+        "id": "talk",
+        "label": "quoted command",
+        "label_basis": "supplied",
+        "limit": "talk is not parsed and is not executable",
+        "parsed": false,
+        "role": "talk",
+        "source": {
+          "basis": "observed",
+          "bytes": 26,
+          "path": "talk.md",
+          "sha256": "0185bd2253517ec1c247652c50e972ada7411e248a031906e1f5413b2400a312",
+          "status": "matched"
+        }
+      },
+      {
+        "binding": {
+          "scope": "work",
+          "work_id": "work-0521-0503"
+        },
+        "for_selected": true,
+        "id": "ret-line",
+        "label": "declared return line absent",
+        "label_basis": "supplied",
+        "role": "return",
+        "source": {
+          "basis": "unknown",
+          "bytes": null,
+          "path": "0121.return-placement/05.03.return.md",
+          "sha256": null,
+          "status": "missing"
+        }
+      }
+    ],
+    "supplied_without_worker": [],
+    "talk_parsed": false
+  },
+  "schema": "prime-desk-view/3",
+  "selected": {
+    "address": "0521.return-placement/05.03",
+    "basis": "observed",
+    "checkpoint": {
+      "basis": "observed",
+      "source": {
+        "basis": "observed",
+        "bytes": 11,
+        "path": "checkpoint.md",
+        "sha256": "a252f87b9c2c34a647b34d77d08f3ce2491f24e3fe1df75bfe607d70d374803a",
+        "status": "matched"
+      }
+    },
+    "current_work": "00.kernel/00.00.10.work/0521.return-placement/05.03.md",
+    "id": "work-0521-0503",
+    "legacy_selector": {
+      "agrees": false,
+      "basis": "observed",
+      "limit": "hint only. prime-desk-selector/1 does not choose current work. This tool does not write a selector.",
+      "present": true,
+      "selected_work_id": "work-0522-0504",
+      "source": {
+        "basis": "observed",
+        "bytes": 151,
+        "path": "selector.json",
+        "sha256": "abccc07e95392d6e21e60d88546b59f7da62321b6299ef14df3e164909722a24",
+        "status": "matched"
+      },
+      "unused_fields": []
+    },
+    "next_route": {
+      "basis": "unknown",
+      "limit": "no work-bound next route is declared",
+      "source": null
+    },
+    "record_path": "0401.goal/06.01.md",
+    "route": {
+      "band": "N5NN",
+      "limit": "Review identity is this source page. The review section was not parsed. The return line is a separate path.",
+      "return_line": {
+        "address": "0121.return-placement/05.03.return",
+        "basis": "unknown",
+        "custody": "pending",
+        "file": "missing",
+        "judgment": "unknown",
+        "kind": "return",
+        "limit": "The declared return file is absent. Custody stays pending. No receipt is fabricated. This does not change the review file.",
+        "path": "0121.return-placement/05.03.return.md",
+        "source": {
+          "basis": "unknown",
+          "bytes": null,
+          "path": "0121.return-placement/05.03.return.md",
+          "sha256": null,
+          "status": "missing"
+        }
+      },
+      "review": {
+        "address": "0521.return-placement/05.03",
+        "basis": "observed",
+        "custody": null,
+        "file": "matched",
+        "judgment": "unknown",
+        "kind": "review",
+        "limit": "The review identity is this source page. Its review section was not parsed. A pending return does not hide this page.",
+        "path": "0521.return-placement/05.03.md",
+        "source": {
+          "basis": "observed",
+          "bytes": 9801,
+          "path": "0521.return-placement/05.03.md",
+          "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+          "status": "matched"
+        }
+      },
+      "source_kind": "work",
+      "source_path": "0521.return-placement/05.03.md"
+    },
+    "rule": "assignment-record/v1",
+    "source": {
+      "basis": "observed",
+      "bytes": 9801,
+      "path": "0521.return-placement/05.03.md",
+      "sha256": "dead6cd8129e3f1b67f58b33b746803fe0ec27ebff72077b042181352650a410",
+      "status": "matched"
+    },
+    "verified_result": {
+      "basis": "observed",
+      "limit": "a matching hash proves these bytes, not acceptance or process freshness",
+      "source": {
+        "basis": "observed",
+        "bytes": 9,
+        "path": "verified.md",
+        "sha256": "8f5a1374b3eb9532a67c0de915a0810ea089fc304c33a44642a7f4878984803e",
+        "status": "matched"
+      }
+    }
+  },
+  "state": "attention",
+  "workers": [
+    {
+      "association_basis": "supplied",
+      "association_limit": "the declared work id is not proof of task association beyond this request",
+      "declared_on_selected": true,
+      "evidence": {
+        "basis": "unknown",
+        "bytes": null,
+        "note": null,
+        "path": null,
+        "process_activity": "unknown",
+        "recorded_state": null,
+        "sha256": null,
+        "status": "absent"
+      },
+      "id": "grok-2",
+      "process_activity": "unknown",
+      "process_basis": "unknown",
+      "supplied": [
+        {
+          "basis": "supplied",
+          "id": "sup-grok-2",
+          "limit": "supplied label, not a live process check",
+          "speaker": "codex-prime",
+          "text": "Director says the worker is running"
+        }
+      ],
+      "work_id": "work-0521-0503"
+    }
+  ]
+}

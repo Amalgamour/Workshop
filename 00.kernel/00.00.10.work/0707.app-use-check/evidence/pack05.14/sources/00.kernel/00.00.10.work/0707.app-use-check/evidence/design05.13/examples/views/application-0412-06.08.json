@@ -1,0 +1,86 @@
+{
+ "note": "DESIGN APPLICATION, not an active grant mutation. Measured read-only at design time.",
+ "binding": {
+  "page": "0707.app-use-check",
+  "pass": "05.13",
+  "pack_cut": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "0401f9111e4850d1804905d34773051da81d5f44ed5f6951772cd092e33d9948",
+   "bytes": 5498
+  }
+ },
+ "goal": {
+  "cite": "05.13.pack.md#Question / selected evidence",
+  "measured": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "24e711363af1a75c28f2de8f80cdea89024f2d08c8f45ffd3a58a49462e09633",
+   "bytes": 667
+  }
+ },
+ "scope": {
+  "cite": "05.13.pack.md#Deliverables / boundaries",
+  "measured": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "dc02be995dc3aea78832892fd4b01ae0e2d83e483b6ad3f9ab163b20a4729c6a",
+   "bytes": 1061
+  }
+ },
+ "finish_criteria": {
+  "cite": "05.13.pack.md#Deliverables / boundaries (Return line)",
+  "measured": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "dc02be995dc3aea78832892fd4b01ae0e2d83e483b6ad3f9ab163b20a4729c6a",
+   "bytes": 1061
+  },
+  "note": "the same cut as scope; a dedicated '## Finish' heading in future packs would separate them"
+ },
+ "prime_discretion": {
+  "cite": "0412.prime-review/01.md#Local work agreement (standing)",
+  "measured": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "b03ca6c2627da10c06c68d77405efd8bf7cc696359810c6ee0da2cfb144aa1c9",
+   "bytes": 350
+  }
+ },
+ "director_required": {
+  "cite": "0412.prime-review/evidence/director-agreement.md (whole, standing)",
+  "measured": {
+   "resolved": true,
+   "count": 1,
+   "sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136",
+   "bytes": 1823
+  }
+ },
+ "recorded_decisions": [
+  {
+   "record": "0412.prime-review/06.08.md",
+   "verbatim": {
+    "resolved": true,
+    "count": 1,
+    "sha256": "808e07977214965a55316079f7041edd72d8c421ee645bba69e79b6a2e0da1c9",
+    "bytes": 35
+   },
+   "interpretation_and_answers": {
+    "resolved": true,
+    "count": 1,
+    "sha256": "4bf05b02bcba4444aa6e50b70af19cf52873ddece97f759654456c14db2068c4",
+    "bytes": 755
+   },
+   "answers_scope": "only the cited proposal ('Claude designs explicit source-bound task-agreement references ... without production code or invented authority')"
+  }
+ ],
+ "specified_NOT_RUN": {
+  "states": "all cited",
+  "may_continue": [
+   "this design return"
+  ],
+  "must_wait": [
+   "any production build: not covered by 'Ok pack it' for this item"
+  ]
+ }
+}

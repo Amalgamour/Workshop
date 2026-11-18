@@ -1,0 +1,22 @@
+PASS  KR-tilde           known-failure reproduction     J1 tilde fence: pass01 counts a fenced Goal (count 2); pass02 selects 
+PASS  KR-long_backtick   known-failure reproduction     J1 long_backtick fence: pass01 counts a fenced Goal (count 2); pass02 
+PASS  KR-indented        known-failure reproduction     J1 indented fence: pass01 counts a fenced Goal (count 2); pass02 selec
+PASS  KR-pointer         known-failure reproduction     J1 consequence: a fenced '## Return pointer' truncates the pass01 pack
+PASS  KR-binding-path    known-failure reproduction     J2: a binding ref path changed to ../outside-source.md: pass01 compare
+PASS  A-pack-path        author test                    J2: a binding whose pack path points elsewhere (../x/05.02.md) is refu
+PASS  A-binding-shape    author test                    J2: missing field, unsupported schema version and record_basis on a no
+PASS  A-unclosed         author test                    J1: an unclosed fence is refused before any heading is selected
+PASS  A-longer-close     author test                    J1: a fence closed by a LONGER run of the same character closes; a sho
+PASS  A-indented-heading author test                    J1: an indented (1-3 spaces) line equal to the cited heading is refuse
+PASS  A-room             author test                    J3: outside-room, sibling-prefix and source-book outputs are refused b
+PASS  A-mock-checkout    author test (mocked boundary)  J3: a lab root inside a MOCKED checkout (.git and 00.kernel markers in
+PASS  A-junction         author test                    J2/J3: a junction in a source path or an output path is refused (SKIP 
+PASS  A-readonly         author test                    inspect and compare create nothing and need no lab root
+PASS  W-flow             author test                    whole flow in a lab room: construct -> assemble -> freeze-copy -> bind
+PASS  C-lf-six           compat observation             LF legacy page: the helper observes all six fields (first paragraphs, 
+PASS  C-crlf             compat observation             the SAME page with CRLF: the frozen helper observes NOTHING (all six N
+PASS  C-absent-empty     compat observation             absent vs explicit-empty: Finish absent -> None, Finish present withou
+PASS  C-hyphen           compat observation             the hyphen variant '## Director - verbatim' is observed the same way a
+PASS  C-fenced-goal      compat observation             a fenced '## Goal' before the real one: the helper takes the FENCED te
+PASS  C-helper-pin       compat observation             the adapter refuses a helper whose bytes differ from the pin and recor
+aggregate {'PASS': 21, 'FAIL': 0, 'ERROR': 0, 'SKIP': 0} first failure None

@@ -1,0 +1,116 @@
+{
+  "steps": [
+    {
+      "args": [
+        "review-loop",
+        "describe-legacy",
+        "--book",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-w1tcvyq1",
+        "--member",
+        "0182.desk-app-integration-design-0501"
+      ],
+      "exit": 0,
+      "name": "describe-legacy"
+    },
+    {
+      "args": [
+        "review-loop",
+        "prepare",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-w1tcvyq1",
+        "--request",
+        "request.json"
+      ],
+      "exit": 0,
+      "name": "success-prepare"
+    },
+    {
+      "args": [
+        "review-loop",
+        "record",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-w1tcvyq1",
+        "--request",
+        "request.json",
+        "--decision",
+        "decision.json"
+      ],
+      "exit": 0,
+      "name": "success-record"
+    },
+    {
+      "args": [
+        "review-loop",
+        "render",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-w1tcvyq1",
+        "--request",
+        "request.json"
+      ],
+      "exit": 0,
+      "name": "success-render"
+    },
+    {
+      "args": [
+        "review-loop",
+        "read",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-w1tcvyq1",
+        "--request",
+        "request.json"
+      ],
+      "exit": 0,
+      "name": "success-read"
+    },
+    {
+      "args": [
+        "review-loop",
+        "describe-legacy",
+        "--book",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-ax2914e_",
+        "--member",
+        "0182.desk-app-integration-design-0501"
+      ],
+      "exit": 0,
+      "name": "conflict-describe"
+    },
+    {
+      "args": [
+        "review-loop",
+        "prepare",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-ax2914e_",
+        "--request",
+        "request.json"
+      ],
+      "exit": 0,
+      "name": "conflict-prepare"
+    },
+    {
+      "args": [
+        "review-loop",
+        "record",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-ax2914e_",
+        "--request",
+        "request.json",
+        "--decision",
+        "decision.json"
+      ],
+      "exit": 0,
+      "name": "conflict-record"
+    },
+    {
+      "args": [
+        "review-loop",
+        "render",
+        "--fixture-root",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\pilot0505-ax2914e_",
+        "--request",
+        "request.json"
+      ],
+      "exit": 2,
+      "name": "conflict-render"
+    }
+  ]
+}

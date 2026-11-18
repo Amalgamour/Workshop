@@ -1,0 +1,147 @@
+{
+  "schema": "colab-workflow-pass03-verification/1",
+  "pass": "0511.workflow-colab/05.04",
+  "accepted": false,
+  "seated": false,
+  "committed_by_this_builder": false,
+  "contract_revised_after_commands": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "branch": "workshop",
+  "python": "3.14.0",
+  "python_path": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "pack_inputs": {
+    "schema": "prime-pack-inputs/1",
+    "files": 40,
+    "bad": 0,
+    "manifest_sha256": "d30a0492adf17b7480ad719119dfcc8b0ccd8d4b7f1b06d8359bfb97ca7e2a70",
+    "manifest_bytes": 13741,
+    "rechecked_immediately_before_verification": true
+  },
+  "contract": {
+    "path": "00.kernel/00.00.10.work/0511.workflow-colab/evidence/build05.04/CONTRACT.md",
+    "sha256": "8b05292bcee82877975519ae9473a2cf0a7feb8888dc966fda50161cfc7d8273",
+    "bytes": 10094
+  },
+  "failure": {
+    "path": "00.kernel/00.00.10.work/0511.workflow-colab/evidence/build05.04/FAILURE.md",
+    "sha256": "3cca7a114d630b9b12159701285904f863e6423221968e00e8acf8feb2d1c4df",
+    "bytes": 3691
+  },
+  "predecessor": {
+    "path": "labs/colab-workflow-pass02/colab_workflow.py",
+    "sha256": "4a2ece9e646224468b36ce63947c739d8ecd73155fbb62fb34f0442cbd2dceec",
+    "bytes": 47247,
+    "edited": false
+  },
+  "producer": {
+    "path": "labs/colab-support-pass02/colab_support.py",
+    "sha256": "2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b",
+    "bytes": 53892,
+    "edited": false
+  },
+  "workflow": {
+    "path": "labs/colab-workflow-pass03/colab_workflow.py",
+    "sha256": "fc469af91f8bdcbaa980457535b7276a5c4e2421a81ad861e93ff750a511c944",
+    "bytes": 68410
+  },
+  "products": [
+    {
+      "path": "labs/colab-workflow-pass03/colab_workflow.py",
+      "sha256": "fc469af91f8bdcbaa980457535b7276a5c4e2421a81ad861e93ff750a511c944",
+      "bytes": 68410
+    },
+    {
+      "path": "labs/colab-workflow-pass03/README.md",
+      "sha256": "28e779be4320da39f40174c2b6491d9cb37ef117344985e64390a21d31b9fd53",
+      "bytes": 986
+    },
+    {
+      "path": "labs/colab-workflow-pass03/tests/run_suite.py",
+      "sha256": "946565937858a652b721c262183b0b019115f7c5c85a9443b4f99aa5bee51c8f",
+      "bytes": 875
+    },
+    {
+      "path": "labs/colab-workflow-pass03/tests/test_pass03.py",
+      "sha256": "42d349a2345f7b9aed0c03f4dc9ce89d2fe0bc007949cbb9220f106580b42dce",
+      "bytes": 42127
+    },
+    {
+      "path": "labs/colab-workflow-pass03/tests/test_real_two_pass.py",
+      "sha256": "c9f34688a7b87edfd1741d5981fe798cf49e54e9f3df17771d9c79715d8fbe9f",
+      "bytes": 13810
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0511.workflow-colab/06.04.md",
+      "sha256": "3b57a5a0e8959c065ccb8c841b9227ec350a8ec6134ccdf557fe24f208f2aab4",
+      "bytes": 8262
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0511.workflow-colab/evidence/build05.04/PRIME-USE.md",
+      "sha256": "637e825c01afaed4394c8e87da67e3c0c4d2381fc9afce2c1f41ad995b56f165",
+      "bytes": 3504
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0511.workflow-colab/evidence/build05.04/commands.txt",
+      "sha256": "5715d11498199e8f687fad10fb1b2371b6eb2bfbb92a8846aca25a8d2d6de55c",
+      "bytes": 726
+    }
+  ],
+  "suite": {
+    "command": "python -B labs/colab-workflow-pass03/tests/run_suite.py",
+    "cwd": "D:/Git/lib-build",
+    "env": "PYTHONDONTWRITEBYTECODE=1",
+    "exit": 0,
+    "log": "00.kernel/00.00.10.work/0511.workflow-colab/evidence/build05.04/runs/20261101T211832Z",
+    "log_newlines": "lf",
+    "runner_stdout_cr": 29,
+    "runner_stderr_cr": 0,
+    "text_and_exit_unchanged": true,
+    "children": [
+      {
+        "name": "test_pass03.py",
+        "exit": 0,
+        "executed": 10,
+        "skipped": 1,
+        "failed": 0,
+        "synthetic": true
+      },
+      {
+        "name": "test_real_two_pass.py",
+        "exit": 0,
+        "synthetic": false
+      }
+    ]
+  },
+  "skipped": [
+    {
+      "name": "test_symlink_refusal",
+      "reason": "WinError 1314, privilege not held; no symlink was created"
+    }
+  ],
+  "real_tool": {
+    "envelope": "00.kernel/00.00.10.work/0511.workflow-colab/evidence/real-producer-v2-05.03",
+    "envelope_unchanged": true,
+    "page": "0701.colab-exchange-layout",
+    "digest_05_01": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+    "digest_05_02": "933171c1201b91ddf8f87a00179ec23a3fe83dcc0ce440cd6614b68494af4b0e",
+    "actions": [
+      "open",
+      "attach",
+      "seal-return",
+      "review",
+      "open-pass",
+      "attach",
+      "seal-return",
+      "review"
+    ]
+  },
+  "custody": "pending",
+  "matching_line": "0111.workflow-colab",
+  "allocator": "not-used",
+  "allocated_0184": false,
+  "receipt": null,
+  "capture_slot": null,
+  "app_edited_by_this_builder": false,
+  "note": "Exit 0 is not Prime review, seating, or app activation. pass03 is not selected. A recomputed transition chain with a matching seal is outside the checkpoint."
+}

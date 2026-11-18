@@ -1,0 +1,60 @@
+{
+  "finding": "Capacity repair needs one bounded successor: support the observed complete return and fix post-filing regression.",
+  "reasons": [
+    "92 artifacts and 148 source/live-snapshot inputs verified. Prime rerun: 18 author tests, 17 pass, 1 failure at test_author_active_surface_stays because legitimate filing replaces PENDING. Independent probes verify source-only 32 bound and unchanged other-list 24 bound. Read-only actual generation for this new return: 44 sources, 136624-byte prime record, beyond candidate capacity 32.",
+    "32 was sufficient for the previous 29-source example but this actual assigned return needs 44; shrinking or splitting historical evidence to fit would avoid the goal.",
+    "The repeated PENDING-only assertion tests an obsolete lifecycle state, not current production immutability."
+  ],
+  "operation": "continue",
+  "disposition": "correction-required",
+  "pass_terminal": "finished",
+  "goal_terminal": "open",
+  "next_action": "Build a versioned capacity successor supporting the observed 44-source return with an explicit tested source-only bound of 64, retain document/other-list limits, and make tests valid after filing/review-region updates.",
+  "semantic_conflict": false,
+  "design_fork": null,
+  "findings": [
+    {
+      "finding_id": "C1#current-return-capacity",
+      "disposition": "answered",
+      "text": "44 emitted sources exceed supported 32; versioned successor must support this measured return."
+    },
+    {
+      "finding_id": "C2#post-filing-test",
+      "disposition": "answered",
+      "text": "Author suite fails its PENDING assertion after valid filing; preserve original failure and test lifecycle-aware immutability."
+    }
+  ],
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": null,
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": "Current selected core also refuses recording this larger review. Preserve judgment locally; no false publication. No app selection or new lifecycle integration.",
+    "next_bounded_action": "Build a versioned capacity successor supporting the observed 44-source return with an explicit tested source-only bound of 64, retain document/other-list limits, and make tests valid after filing/review-region updates.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "Correction required before integration: bounded source-only mechanism is useful but does not support this completed 44-source return; post-filing author suite also fails.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "92 artifacts and 148 source/live-snapshot inputs verified. Prime rerun: 18 author tests, 17 pass, 1 failure at test_author_active_surface_stays because legitimate filing replaces PENDING. Independent probes verify source-only 32 bound and unchanged other-list 24 bound. Read-only actual generation for this new return: 44 sources, 136624-byte prime record, beyond candidate capacity 32.",
+    "tests_note": "92 artifacts and 148 source/live-snapshot inputs verified. Prime rerun: 18 author tests, 17 pass, 1 failure at test_author_active_surface_stays because legitimate filing replaces PENDING. Independent probes verify source-only 32 bound and unchanged other-list 24 bound. Read-only actual generation for this new return: 44 sources, 136624-byte prime record, beyond candidate capacity 32.",
+    "tests_passed": false,
+    "within_direction": "Versioned narrow repair; preserve every source, existing document bound, old code/evidence and Director decisions."
+  },
+  "holds": [],
+  "answers": [],
+  "review_passes": [],
+  "gaps": [
+    "Core record blocked by existing 24-source validator; no publication.",
+    "No selection or combined integration proof."
+  ]
+}

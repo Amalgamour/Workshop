@@ -1,0 +1,321 @@
+{
+  "candidate": {
+    "builder": {
+      "args": [],
+      "bytes": 34337,
+      "path": "labs/review-loop-convergence-pass03/make_candidate.py",
+      "sha256": "cd2ed04b1d4524f695be0f51cd1d4a908cb86291afa15751b30844919fe2224e"
+    },
+    "candidate_json_sha256": "d35fdb2ed4c62964ad21098182482e9ab4767d1d1abf985d7fbd0cdb3e2c45cf",
+    "entry": "app/librarian.py",
+    "files": [
+      {
+        "bytes": 14577,
+        "path": "app/librarian.py",
+        "role": "entry",
+        "sha256": "3522243ed6e5c9c610ae49630867bc6198a788c734a0a52618c4a60468298aa0"
+      },
+      {
+        "bytes": 76045,
+        "path": "labs/prime-cycle-pass03/prime_cycle.py",
+        "role": "dependency",
+        "sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c"
+      },
+      {
+        "bytes": 58560,
+        "path": "labs/prime-review-pass02/prime_review.py",
+        "role": "dependency",
+        "sha256": "80836a13278365de863ed8231cb8118ad14ddbad672dd02ec2ebf69beff3b44e"
+      },
+      {
+        "bytes": 26561,
+        "path": "labs/return-access-pass01/return_access.py",
+        "role": "dependency",
+        "sha256": "501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5"
+      },
+      {
+        "bytes": 42582,
+        "path": "labs/review-construction-pass04/construct.py",
+        "role": "dependency",
+        "sha256": "6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20"
+      },
+      {
+        "bytes": 12605,
+        "path": "labs/review-loop-convergence-pass03/report.py",
+        "role": "reporter",
+        "sha256": "7731b3a85d2d1c03ac6f71a6ed4ea8d16fd268850bf719077d5205cd7928f1aa"
+      },
+      {
+        "bytes": 842,
+        "path": "labs/review-loop-convergence-pass03/review-loop.json",
+        "role": "declaration",
+        "sha256": "c7f7a6e161618f85fe15642d342c7e877934ad7ad71c4bb8ebde74e56f25c7c5"
+      },
+      {
+        "bytes": 3545,
+        "path": "labs/review-loop-convergence-pass03/review_loop_tools.py",
+        "role": "adapter",
+        "sha256": "31bc15fcaca771bfdf2aee52c7e607cf8f357e6fab23353f3a625e1b17c0a0ef"
+      },
+      {
+        "bytes": 5530,
+        "path": "labs/review-loop-convergence-pass03/review_report_tools.py",
+        "role": "adapter",
+        "sha256": "b38bac548e63f752aae5fae08ac54fb41e7e7caad7a2ccde7a6add7f5291fd08"
+      },
+      {
+        "bytes": 478,
+        "path": "labs/review-loop-convergence-pass03/trust-anchor.json",
+        "role": "data",
+        "sha256": "af20cf6b04534039f1088942b375997363ceb1c331c8bc9fac180560298ded3c"
+      },
+      {
+        "bytes": 4097,
+        "path": "labs/review-loop-convergence-pass03/workbook.py",
+        "role": "workbook",
+        "sha256": "4e9026cdbbf87496721eca689179e8f2fcbbf5cda01fe79e33afae182dccc515"
+      },
+      {
+        "bytes": 55474,
+        "path": "labs/review-loop-pass03/review_loop.py",
+        "role": "dependency",
+        "sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b"
+      },
+      {
+        "bytes": 6136,
+        "path": "labs/review-source-capacity-pass03/prime_review.py",
+        "role": "dependency",
+        "sha256": "c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab"
+      },
+      {
+        "bytes": 4532,
+        "path": "labs/workbook-review-pass03/forms/workbook-review-v1.json",
+        "role": "dependency",
+        "sha256": "4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b"
+      }
+    ],
+    "kind": "combined",
+    "lab_differences": [
+      {
+        "differs": "trust anchor is checked before either door loads",
+        "path": "app/librarian.py"
+      },
+      {
+        "differs": "inspect current, inspect stale, and prepare exit gate a current judgment",
+        "path": "labs/review-loop-convergence-pass03/report.py"
+      },
+      {
+        "differs": "REPO is the candidate root and build_intake is exported",
+        "path": "labs/review-loop-convergence-pass03/workbook.py"
+      }
+    ],
+    "name": "review-loop-convergence-pass03",
+    "open_entry": "labs/review-loop-convergence-pass03/workbook.py",
+    "reporter_entry": "labs/review-loop-convergence-pass03/report.py",
+    "schema": "candidate-identity/1",
+    "workbook_entry": "labs/review-loop-convergence-pass03/workbook.py"
+  },
+  "dependencies": [
+    {
+      "files": [
+        {
+          "bytes": 6994,
+          "path": "labs/workbook-review-pass05/workbook.py",
+          "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+        },
+        {
+          "bytes": 11765,
+          "path": "app/review_loop_tools_v9.py",
+          "sha256": "b9a8b9fe5920430b966aae761c5374aa121a060c4074f260cb4ebf89d00f4c47"
+        },
+        {
+          "bytes": 4670,
+          "path": "app/review-loop-v9.json",
+          "sha256": "f22063a0e4e5648ba8f018ee252f52b726480b0a1b39f2332611f6dd8b408656"
+        }
+      ],
+      "id": "G",
+      "required": true,
+      "review": "0522.review-construction/06.33.md",
+      "review_ref": {
+        "bytes": 2605,
+        "path": "00.kernel/00.00.10.work/0522.review-construction/06.33.md",
+        "sha256": "debbb40515843cd37ffa11e6da8ef75d0159793fa337c0dcd14a3f939464453b"
+      },
+      "role": "strict N7 parser (pass05, v9 door)",
+      "status": "accepted"
+    },
+    {
+      "files": [
+        {
+          "bytes": 9750,
+          "path": "labs/n7-local-lifecycle-pass01/workbook.py",
+          "sha256": "43995fc72db252c22baeadb1e7c3b16012125eb286ce4f2356ff96e051044d2a"
+        }
+      ],
+      "id": "L",
+      "required": true,
+      "review": "0707.app-use-check/06.20.review.md",
+      "review_ref": {
+        "bytes": 4331,
+        "path": "00.kernel/00.00.10.work/0707.app-use-check/06.20.review.md",
+        "sha256": "0f547990906bcf6cceef86f2f62db9906b572fde237588615c72141caf1d884e"
+      },
+      "role": "N7-local lifecycle (prototype over pass04)",
+      "status": "accepted"
+    },
+    {
+      "files": [
+        {
+          "bytes": 6136,
+          "path": "labs/review-source-capacity-pass03/prime_review.py",
+          "sha256": "c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab"
+        }
+      ],
+      "id": "K",
+      "required": true,
+      "review": "0512.prime-review/06.22.md",
+      "review_ref": {
+        "bytes": 2130,
+        "path": "00.kernel/00.00.10.work/0512.prime-review/06.22.md",
+        "sha256": "b3bf76d560457f438d78243c0cff8d2ac90d115ac3a6fa53ec71956547be5e2a"
+      },
+      "role": "record source capacity (source-only bound 64, external bind 16777216)",
+      "status": "accepted"
+    },
+    {
+      "files": [
+        {
+          "bytes": 5916,
+          "path": "labs/review-instance-binding-pass01/workbook.py",
+          "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"
+        }
+      ],
+      "id": "I",
+      "required": true,
+      "review": "0522.review-construction/06.35.md",
+      "review_ref": {
+        "bytes": 1622,
+        "path": "00.kernel/00.00.10.work/0522.review-construction/06.35.md",
+        "sha256": "507b9c101c2b165ac6e7cc92e2c7909a98c2d80fed15c44bbde7b027efd2f0f2"
+      },
+      "role": "N5 copied-book instance binding",
+      "status": "accepted"
+    },
+    {
+      "files": "PENDING",
+      "id": "R",
+      "required": true,
+      "review": "0522/05.19 built the reporter successor. Prime has not accepted it. An accepted row would declare interface.route review-report.",
+      "role": "reporter observing the combined workbook chain via the dispatcher route review-report",
+      "status": "pending"
+    },
+    {
+      "files": "PENDING",
+      "id": "W",
+      "required": true,
+      "review": "0522/05.19 built the external candidate. Prime has not accepted it.",
+      "role": "combined workbook, doors, reporter, and dispatcher in one disposable root",
+      "status": "pending"
+    }
+  ],
+  "fixture_source": {
+    "bytes": 200334,
+    "path": "00.kernel/00.00.10.work/0707.app-use-check/evidence/pack05.21/source-manifest.json",
+    "sha256": "ee502ce6150f62229fb76c2bee8953d79f8e5c05e6ee9dce006354d74f6b46dd"
+  },
+  "judgments": [
+    {
+      "bytes": 2870,
+      "expected_sources": 29,
+      "id": "j-0512-0509",
+      "page": "0512.prime-review",
+      "pass": "05.09",
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/prime-review05.09/core-review/judgment.json",
+      "review": "0512/06.16",
+      "sha256": "f6815ca48d8a67a23a3d1c46efb2b83eb7c7551b03974468f7a23605997d8efb"
+    },
+    {
+      "bytes": 3693,
+      "expected_sources": 20,
+      "id": "j-0522-0514",
+      "page": "0522.review-construction",
+      "pass": "05.14",
+      "path": "00.kernel/00.00.10.work/0522.review-construction/evidence/prime-review05.14/core-review/judgment.json",
+      "review": "0522/06.31",
+      "sha256": "b7249c75467989d0dafe2f39ba4933a35717144c89ce691c232aae141127fe4a"
+    },
+    {
+      "bytes": 4031,
+      "expected_sources": 44,
+      "id": "j-0512-0510",
+      "page": "0512.prime-review",
+      "pass": "05.10",
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/prime-review05.10/core-review/judgment-open.json",
+      "review": "0512/06.18; 0420/06.49 (use judgment-open.json)",
+      "sha256": "295de7c887692a4e95c1b492bca973c8b657af6b0277a9bb70ae2158e675ecd3"
+    }
+  ],
+  "made_for": "0522/05.19 proposed successor inputs. R and W are pending. This is not an accepted combined row and it is not full readiness.",
+  "proposed_identities": {
+    "candidate_json": {
+      "bytes": 6421,
+      "sha256": "d35fdb2ed4c62964ad21098182482e9ab4767d1d1abf985d7fbd0cdb3e2c45cf"
+    },
+    "note": "Builder-measured hashes for the next Prime acceptance of R and W. These hashes are not a review_ref and they do not accept the rows.",
+    "proposal_workbook": {
+      "bytes": 4097,
+      "path": "labs/review-loop-convergence-pass03/workbook.py",
+      "sha256": "4e9026cdbbf87496721eca689179e8f2fcbbf5cda01fe79e33afae182dccc515"
+    },
+    "transitive_dependencies": [
+      {
+        "bytes": 5916,
+        "path": "labs/review-instance-binding-pass01/workbook.py",
+        "sha256": "3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba"
+      },
+      {
+        "bytes": 20034,
+        "path": "labs/review-loop-convergence-pass01/workbook.py",
+        "sha256": "ef021d4ae4066f97bfb21017d5a7952ac5161dce82e82ebec1ca756e3f58f9d9"
+      },
+      {
+        "bytes": 6613,
+        "path": "labs/review-loop-convergence-pass02/workbook.py",
+        "sha256": "a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f"
+      },
+      {
+        "bytes": 6136,
+        "path": "labs/review-source-capacity-pass03/prime_review.py",
+        "sha256": "c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab"
+      },
+      {
+        "bytes": 79131,
+        "path": "labs/workbook-review-pass01/workbook.py",
+        "sha256": "60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a"
+      },
+      {
+        "bytes": 52574,
+        "path": "labs/workbook-review-pass02/workbook.py",
+        "sha256": "6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a"
+      },
+      {
+        "bytes": 19533,
+        "path": "labs/workbook-review-pass03/workbook.py",
+        "sha256": "9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c"
+      },
+      {
+        "bytes": 6508,
+        "path": "labs/workbook-review-pass04/workbook.py",
+        "sha256": "b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2"
+      },
+      {
+        "bytes": 6994,
+        "path": "labs/workbook-review-pass05/workbook.py",
+        "sha256": "86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991"
+      }
+    ]
+  },
+  "readiness": "blocked on pending R and pending W",
+  "schema": "harness-inputs/3"
+}

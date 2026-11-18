@@ -1,0 +1,17 @@
+PASS  P01  PACK     wrong v8 tool hash: a pinned tool (review_loop pass03) altered in the root -> the door refuses before the work
+PASS  P02  PACK     wrong transitive dependency: pass02 / pass03 altered in the root -> refused (door predecessor pins)
+PASS  P03  PACK     wrong schema / unknown key / wrong length in review-loop-v8.json -> refused
+PASS  P04  PACK     missing dependency: prime_cycle pass03 removed from the root -> refused as missing
+PASS  P05  PACK     missing / tampered manifest artifact on the real N7 0517 copy -> artifact-missing / artifact-hash-mismatch, in
+PASS  P06  PACK     conflicting duplicate pointer (two Returned lines) on the real N7 page -> ambiguous-submission, nothing bound
+PASS  P07  PACK     illegal traversal inside an accepted path shape (Returned: a/../../x.md) -> malformed-declared-path
+PASS  P08  PACK     misleading attribution (a hash / a label inside the parentheses) -> attribution-not-descriptive, not bound
+PASS  P09  PACK     source change between prepare and record -> record refused (the intake no longer matches)
+SEE   P10  PACK     existing manual review: see lifecycle L3 (06.15.review.md preserved, publish held manual-review)
+PASS  P11  PACK     a manual target appears between record and publish -> publish held, the manual text preserved byte-for-byte
+PASS  P12  PACK     stale selection after rollback: v8 files left inert, v7 dispatcher selected -> review-loop runs the v7 door (N
+PASS  P13  PACK     LF vs CRLF pack page on the real N7 entry -> identical declared/artifact rows (assignment bytes differ by desi
+PASS  N01  NEW      PRODUCTION pass04 bytes + PRODUCTION v8 declaration in a copied root: the door accepts the pins, the workbook 
+PASS  N02  NEW      a decoy file literally named 'artifact-manifest.json,' beside the real manifest on the real N7 entry: the deco
+PASS  D01  DISPATCH authoring / return-lines / review-loop / unknown command: harmless no-argument calls give identical exit, stdo
+aggregate {'PASS': 15, 'FAIL': 0, 'ERROR': 0, 'SEE': 1}

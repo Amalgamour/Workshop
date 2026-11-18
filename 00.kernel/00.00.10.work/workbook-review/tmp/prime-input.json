@@ -1,0 +1,265 @@
+{
+  "agreement": {
+    "director_required": null,
+    "finish_criteria": null,
+    "goal": null,
+    "prime_discretion": null,
+    "recorded_decisions": null,
+    "scope": null
+  },
+  "answers": [],
+  "attribution": {
+    "actor_label": "Codex Prime (supplied)",
+    "evidence": "The actor label is not authentication.",
+    "role": "prime"
+  },
+  "gaps": [],
+  "holds": [],
+  "judgment": {
+    "design_fork": null,
+    "finding": "The combined candidate has a reproducible local entry and requires dispatcher pin enforcement before acceptance.",
+    "next_action": "Pin each door before loading it and prove refusal on the actual disposable entry. Reconcile the independent suite results before accepting R or W.",
+    "outcome": "continue",
+    "reasons": [
+      "949 frozen inputs, 12 artifacts, 8 lab-index files and the candidate descriptor, 6 local files and 13 dependency pins verify. Prime independently appended a comment to the declared loop door on a disposable copy. Prepare still exited 0 and Python audit output showed the changed door executing. This is a runtime pin gap. The copied candidate still relies on pinned canonical predecessors, as documented by the builder."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Pin each door before loading it and prove refusal on the actual disposable entry. Reconcile the independent suite results before accepting R or W.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "The combined candidate has a reproducible local entry and requires dispatcher pin enforcement before acceptance.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "949 frozen inputs, 12 artifacts, 8 lab-index files and the candidate descriptor, 6 local files and 13 dependency pins verify. Prime independently appended a comment to the declared loop door on a disposable copy. Prepare still exited 0 and Python audit output showed the changed door executing. This is a runtime pin gap. The copied candidate still relies on pinned canonical predecessors, as documented by the builder.",
+      "tests_note": "949 frozen inputs, 12 artifacts, 8 lab-index files and the candidate descriptor, 6 local files and 13 dependency pins verify. Prime independently appended a comment to the declared loop door on a disposable copy. Prepare still exited 0 and Python audit output showed the changed door executing. This is a runtime pin gap. The copied candidate still relies on pinned canonical predecessors, as documented by the builder.",
+      "tests_passed": false,
+      "within_direction": null
+    },
+    "semantic_conflict": false
+  },
+  "review_passes": [],
+  "schema": "prime-review-record/1",
+  "sources": [
+    {
+      "bind": true,
+      "content_bytes": 5960,
+      "content_sha256": "259db68ef7f39ecf6f67768df976eb4792bc7484424cee710cf8dd106310ca04",
+      "identity": {
+        "schema": "page-bytes/1"
+      },
+      "kind": "page",
+      "logical_path": "0522.review-construction/05.18.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# 05.18 - Repair reporter observations and make the combined candidate testable\n\ndate: 2026-11-04\nwho: Codex Prime\nexecutor: Grok-1\nreviewer: Codex Prime\nstate: PREPARED; execute on Director handoff; final bounded pass tonight\nmatching_return_line: 0122.review-construction (custody pending)\nsource_review: 05.17; 06.38.md; 0420.prime-desk/06.57.md\n\n## #01 - Freeze, notes, first failures\nVerify evidence/pack05.18/source-manifest.json/snapshots. Write NEW 06.39.md BEFORE code. Preserve the first PENDING-only suite failure, reporter probe counterexamples, candidate identity refusal and four successful lifecycle cases. NEW labs/review-loop-convergence-pass02 only; previous lab/code/candidates/declarations/return/evidence stay byte-identical. Claude's unfinished adapters and Grok-2's dependency preflight are out of scope and unreadable for this job.\n\n## #02 - Reporter correctness, retaining accepted hardening\nReporter must validate the actual observed envelope, field types, exits, selected review identity and currentness across its command observations. Writing false flags into its own output does not validate contradictory input authority/acceptance. Preserve accepted envelope_supported behavior from review-report-hardening-pass01 while observing the actual combined chain. Positive control first, then unsupported authority/accepted flags, missing required envelope fields, wrong types, missing/mismatched read/recover id, recover stale/nonzero versus current read, malformed core response and empty/no-prior-review cases. Unsupported/unstable observations refuse cleanly or withhold ALL current judgment/action/authority fields under a truthful noncurrent state, preserving raw/historical observations where safe. No normal 'readable/current' result carrying a current judgment from unsupported or contradictory inputs. History is not approval. Keep N7 not-applicable and N5 actual custody, raw malformed-row retention and unknown size counts. Do not weaken frozen judges or rename fields to evade tests.\n\n## #03 - Complete actual execution identity / test roots\nFollow 0420/06.57 exactly. Supply NEW reproducible make_candidate with an explicit NEW output root; refuse an occupied output rather than overwrite artifacts. Include actual entry, workbook_entry and open_entry if supported, with complete executed dependency/adapter pin closure. Use a separately indexed lab adapter if old canonical-root modules require it; do not claim copied but unused files are executed. No canonical delivered module mutation for any tamper test. Root/pin tests must target disposable files actually loaded by the candidate. Proposal versus adapter transformations and root constraints must be explicit, deterministic and reconstructible. Do not edit old helpers to make copies import. The harness's old filename regex is not a design requirement: use the new explicit contract, no fake vN filename inserted solely to satisfy introspection.\n\n## #04 - Boundaries and lifecycle-aware tests\nFix supported fenced examples coherently: backtick and tilde forms, closing-fence rules, heading-prefix lookalikes, duplicate/missing/ambiguous boundaries. Meaningful task/pointer/return/artifact edits hold; valid Review-only edits stay current. Preserve the missing/non-object comparison-intake holds, explicit malformed-JSON refusal, N5 foreign-root guard, strict malformed N7 declarations, historical unverified pairing, recorded-before-return flow and all unrelated capacity/document/list limits. Reuse accepted logic, do not expand kernel grammar.\n\nNEW tests distinguish immutable task body from legitimate Return-pointer and Prime Review updates. No assertion that a correctly filed pack remains PENDING. Demonstrate tests before/after filing and review-region update using disposable copies; never mock a real filed pack back to PENDING. Rerun prior 12 cases with honest reconciliation and add independent author hostile cases. Full inspect text must be captured; publication remains a separate command; automated checkpoints remain lab provenance. Test reporter-controlled observations separately from actual command-driven runtime/pin tests. Run direct meaningful candidate tests on fresh roots; R/W stay pending in proposed harness inputs until Prime acceptance. No fake accepted review refs or combined readiness claims.\n\n## #05 - Return and stop\nNEW evidence/build05.18 and 06.39 notes: Did/Blocked/Need, minimal delta, candidate/proposal/adapter/runtime identity index, strict reporter outcomes, actual-entry lifecycle results, first failures and case provenance, reproducible external-root recipe, PRIME-USE, honest limits/rollback. Manifest excludes itself; complete pinned code index is allowed but verify its transitive rows. Do not include every disposable book in the repo. Reverify inputs and post-filing test behavior; use a new supplement if needed rather than altering sealed artifacts. Fill this pack Submission/Artifact manifest SHA/length pointer. Native matching 0122 only if supported; otherwise custody pending, no allocator or fake receipt. Stop after this one pass for Prime review.\n\nAllowed: named NEW lab/candidate/external rooms, NEW 06.39.md, evidence/build05.18 and Return pointer. No active app/README, old modules/evidence/candidates, actual workbook reviews/journals/custody, 01NN repair/kernel/Git/network/install/models/bots/other-worker writes. No production selection/approval/release. Current session, normal reserve, no burn-down or second wave.\n\n## Return pointer\nSubmission: 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/submission.md sha256 1c26ed5e21bcf6a1eae73c2d049c23a1659d940831e84ef685ff12620d268347, 6602 bytes.\nArtifact manifest: 00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/artifact-manifest.json sha256 5de7e79069074099ce5897a19e58c8b7e5e36a10225837902121a45e09e6632e, 2706 bytes. The manifest lists 12 files and excludes itself.\n\n## Review - Codex Prime\nPENDING.\n",
+      "transport_bytes": 5960,
+      "transport_sha256": "259db68ef7f39ecf6f67768df976eb4792bc7484424cee710cf8dd106310ca04"
+    },
+    {
+      "bind": true,
+      "content_bytes": 6602,
+      "content_sha256": "1c26ed5e21bcf6a1eae73c2d049c23a1659d940831e84ef685ff12620d268347",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/submission.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Submission — 0522.review-construction/05.18\n\nSchema: `convergence-candidate-submission/0518`\nDate: 2026-11-04\nExecutor: Grok-1\nReviewer: Codex Prime\nSource pack: `0522.review-construction/05.18.md`\nSource review: `0522.review-construction/05.17.md` sha256 `44cb0263537b0220a8b50463ae80d938244da3b0d6cb89892a7b26fce5ab4929`, 8926 bytes; `06.38.md`; `0420.prime-desk/06.57.md`\nNotes: `0522.review-construction/06.39.md` sha256 `ecea4e1d57fc5ca321537d6aa4780af2ab8cf30969bfb3c9f21b4546c766a737`, 9395 bytes\nExternal books: `D:\\librarian\\temp\\0522-0518-report`\n\n## Did\n\nThe pack freeze was rechecked at filing. Schema `prime-pack-inputs/1`, 949 files, bad 0. `05.18.md` and `06.39.md` are outside that manifest. The active app stayed `app/librarian.py` sha256 `c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9`, 12204 bytes, and `app/README.md` sha256 `3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920`, 39687 bytes.\n\nThe unselected successor is `labs/review-loop-convergence-pass02`. It loads the frozen pass01 workbook by absolute pin. The author suite exited 0, sixteen cases passed, none failed. The log is `suite.log` sha256 `e81b19b1235cfe85bc2ffa33d2860cbc036899c5b471516a07a88a794b0d9ecd`, 1164 bytes. `n7-cycle` recorded review id `w3b1f662fdaf63192`. The candidate identity is schema `convergence-candidate/2`, sha256 `9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d`, 4872 bytes, with 6 executed files and 13 dependency pins. `selected` is false.\n\nThe 05.10 open judgment recorded through the candidate entry: 44 sources. The finished-terminal judgment was refused with correction `a held review keeps the pass and the goal open`. N7 record custody is `not-applicable`. N5 same-instance custody stays `missing`. A copied N5 book is held with reason `different-root`.\n\nProposed harness inputs: `labs/review-loop-convergence-pass02/harness-inputs.json` sha256 `b7d6a7ab11ff71c7233f9e6195f715a43c79ff2cd69116a9c1b68424991d7f86`, 10033 bytes, schema `harness-inputs/2`. G, L, K, and I are accepted. K names `0512.prime-review/06.22.md`. I names `0522.review-construction/06.35.md`. R and W are pending, with no review_ref and with files PENDING.\n\n## Blocked\n\nNative custody for matching line `0122.review-construction` is pending. That member directory is absent. The legacy allocator was not called. No receipt was invented. No Git commit was made. At filing, `git rev-parse HEAD` was `960d20c5290656095df8457b1740d2d5e586b111` on branch `workshop`. The staged diff was empty. `git status --porcelain` reported 275 paths. This builder did not stage or commit them. The live work book was not a record or publish target. The frozen harness was not edited. Full harness readiness is not claimed while R and W are pending.\n\nSame-path replacement of a book that keeps the same stored state is not detected. `instance_id` follows the path, the page, and the pass. No registry was added.\n\nThe frozen harness selects a workbook by scanning the dispatcher for `review_loop_tools_vN.py`. This dispatcher does not contain that filename. Identity verify checks declared door bytes. The librarian does not hash the door, and the author suite did not append bytes to a door.\n\n## Need\n\nCodex Prime review of this return. Acceptance of R and of W, if Prime accepts them, is a separate review. App selection is a separate decision.\n\n## Factfind\n\nInspection checkpoints in the author suite are lab provenance. They are not human review. The comparison-intake hold uses state `unknown` on the applicability object, with reason `comparison-intake-missing` or `comparison-intake-not-object`. The read is stale and the stored judgment remains. Invalid comparison JSON refuses through `strict_json`. A new book with no current review is not held.\n\nAn absent N7 target is created by the separate publish command. Record does not create it. A non-empty file that appears before publish is kept. The obsolete absent-target refusal in `labs/n7-first-review-pass01` is not imported.\n\nA disposable filed pointer is no longer PENDING. A review-only edit stays current. A task-body edit reads stale. Appending the declared return file makes the reporter state `held` because the measurement is incomplete. Equal bytes at two roots still bind the external book copy through the frozen pass01 helper. Unequal bytes stay ambiguous.\n\n## Hostile\n\n`hostile-fenced-boundary` keeps a fenced sample in the pack. A real pointer edit, an unclosed fence, and a duplicate review heading each read stale. `hostile-missing-intake` deletes `intake.json` after a record. The read is stale, applicability reason `comparison-intake-missing`, the judgment remains, and publish does not create the target. A JSON array is `comparison-intake-not-object`. A single `{` refuses.\n\n## Reporter\n\nPositive command output is schema `review-report-convergence/2`, state `readable`, stale false, authority `none`, accepted false, work_complete false, action_released false, and releases_action false. Unsupported authority, a missing field, a wrong type, a missing or mismatched id, a stale recover, and a nonzero recover are state `noncurrent`, with judgment and authority null. A consistent stale cut stays state `stale` with authority `none` and judgment null. A consistent incomplete measurement stays state `held` with authority `none` and judgment null. An empty review is state `not-recorded` and does not claim stale false. Malformed core input refuses. History stays under `historical_supplied` and is not approval.\n\n## Overflow\n\nDisposable books stay under `D:\\librarian\\temp\\0522-0518-report`. They are not in this evidence set. First failures are in `FAILURES.md` sha256 `c31b1bf760eca24c255ea9596b2b394fd851d1b4fcf154d573802e7c4442bfc1`, 1939 bytes.\n\n## Evidence hashes\n\n- `INDEX.md` sha256 `5869731ed97f79570a259b2f8882f75c1a5236039f65eade168e92c4de248fcf`, 1962 bytes\n- `CONTRACT.md` sha256 `69eaaa8df9119a9aa7adbf1d345dfcaf827ac9dae40c6d74b1a9b4d2b8969069`, 598 bytes\n- `INTEGRATION.md` sha256 `5841cc94368ebf6c82e026f20149eadc20ee44460585787d56e68ad1a3edf903`, 2110 bytes\n- `PINS.md` sha256 `c901766289e743fb6968fb0f855ab8e293bf1835671d0eed2eb591df86f9cf0a`, 5015 bytes\n- `RECONSTRUCTION.md` sha256 `3108c86857156e397645acb62a3440beadc740e661850489af05aad8da2fa034`, 1565 bytes\n- `PRIME-USE.md` sha256 `c6a7b60943d4478331629f9759dc6c4ebecde40c7818de75ad2ee6c0f04d0f40`, 1241 bytes\n- `SELECTION.md` sha256 `ad9160a6cc1db2241276d9502bf95471bfc3833681cf953410019e54b883632d`, 1054 bytes\n- `lab-files.json` sha256 `2cf0949d3e2993cdb09fc1bf477597ff3ba874777dc6f3bf97bad1026d49a809`, 5258 bytes\n",
+      "transport_bytes": 6602,
+      "transport_sha256": "1c26ed5e21bcf6a1eae73c2d049c23a1659d940831e84ef685ff12620d268347"
+    },
+    {
+      "bind": true,
+      "content_bytes": 598,
+      "content_sha256": "69eaaa8df9119a9aa7adbf1d345dfcaf827ac9dae40c6d74b1a9b4d2b8969069",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/CONTRACT.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Contract record for 0522/05.18\n\nThe pack remains `state: PREPARED; execute on Director handoff; final bounded pass tonight` until Prime reviews the return. This evidence does not select the app.\n\nThe successor is `labs/review-loop-convergence-pass02`. It loads the frozen pass01 workbook by absolute pin and observes that chain. The pass01 lab, its candidate, its return, and the active app stay at their filed bytes.\n\nThe author suite ran through the generated entry `D:\\librarian\\temp\\0522-0518-report\\candidate\\app\\librarian.py`. External books are under `D:\\librarian\\temp\\0522-0518-report`.\n",
+      "transport_bytes": 598,
+      "transport_sha256": "69eaaa8df9119a9aa7adbf1d345dfcaf827ac9dae40c6d74b1a9b4d2b8969069"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1939,
+      "content_sha256": "c31b1bf760eca24c255ea9596b2b394fd851d1b4fcf154d573802e7c4442bfc1",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/FAILURES.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# First failures retained\n\nThese are the failures this successor was required to preserve. The passing author suite does not erase them. Historical modules were not edited.\n\n1. The unmodified `labs/review-loop-convergence-pass01` author suite stops in `fresh_app` because the filed 05.17 pointer is no longer PENDING. It also expects the Review section to stay PENDING. That expectation fails after a normal Prime review, and no app case runs in that invocation. This successor leaves 05.17 and 05.18 as they are. The preserved record is `00.kernel/00.00.10.work/0522.review-construction/evidence/prime-review05.17/suite-first-failure.txt`.\n2. Independent function probes of the pass01 reporter returned exit 0, state `readable`, and a current LAB-ONLY judgment for unsupported authority, a recover result that disagreed on stale, and a missing recover id. The record is `evidence/prime-review05.17/independent-reporter-probes.json`. The pass02 reporter withholds those cuts as state `noncurrent`.\n3. The accepted freshness runner refused the pass01 candidate because `open_entry` `labs/review-loop-convergence-pass01/workbook.py` was not a declared candidate file. The record is `evidence/prime-review05.17/combined-run.json`. The pass02 identity declares the entry, the workbook, and the open entry inside the disposable root.\n4. A reporter tamper aimed at the delivered canonical workbook was stopped by filesystem permissions. That was not a pin test. This suite tampers disposable copies and checks that the canonical pass01 workbook hash is unchanged.\n\n## Preserved Prime cases\n\nPrime reran four author cases in new external rooms: N7 lifecycle, fenced-boundary, missing-intake hold, and N5 copied-instance hold. That is not a 12/12 Prime pass. `tests_passed` on 06.38 remains false. The pass01 product failures stay in `evidence/build05.17/FAILURES.md`.\n\nThe pass02 author suite then exited 0 with `FAILED 0`. Sixteen cases passed.\n",
+      "transport_bytes": 1939,
+      "transport_sha256": "c31b1bf760eca24c255ea9596b2b394fd851d1b4fcf154d573802e7c4442bfc1"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1962,
+      "content_sha256": "5869731ed97f79570a259b2f8882f75c1a5236039f65eade168e92c4de248fcf",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/INDEX.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Evidence index\n\nHashes below exclude the submission, the verification file, and the artifact manifest.\n\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/CONTRACT.md` sha256 `69eaaa8df9119a9aa7adbf1d345dfcaf827ac9dae40c6d74b1a9b4d2b8969069`, 598 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/FAILURES.md` sha256 `c31b1bf760eca24c255ea9596b2b394fd851d1b4fcf154d573802e7c4442bfc1`, 1939 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/INTEGRATION.md` sha256 `5841cc94368ebf6c82e026f20149eadc20ee44460585787d56e68ad1a3edf903`, 2110 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/lab-files.json` sha256 `2cf0949d3e2993cdb09fc1bf477597ff3ba874777dc6f3bf97bad1026d49a809`, 5258 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/PINS.md` sha256 `c901766289e743fb6968fb0f855ab8e293bf1835671d0eed2eb591df86f9cf0a`, 5015 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/PRIME-USE.md` sha256 `c6a7b60943d4478331629f9759dc6c4ebecde40c7818de75ad2ee6c0f04d0f40`, 1241 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/RECONSTRUCTION.md` sha256 `3108c86857156e397645acb62a3440beadc740e661850489af05aad8da2fa034`, 1565 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/SELECTION.md` sha256 `ad9160a6cc1db2241276d9502bf95471bfc3833681cf953410019e54b883632d`, 1054 bytes\n- `00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/suite.log` sha256 `e81b19b1235cfe85bc2ffa33d2860cbc036899c5b471516a07a88a794b0d9ecd`, 1164 bytes\n\nNotes `06.39.md` sha256 `ecea4e1d57fc5ca321537d6aa4780af2ab8cf30969bfb3c9f21b4546c766a737`, 9395 bytes. The notes do not carry the return hashes.\nFreeze `evidence/pack05.18/source-manifest.json` sha256 `da2ecde8219de8d9e3a4416b1c91c8070479465e1a9563b635c43a0c2eb8e74e`, 949 files, bad 0 on this filing check.\n",
+      "transport_bytes": 1962,
+      "transport_sha256": "5869731ed97f79570a259b2f8882f75c1a5236039f65eade168e92c4de248fcf"
+    },
+    {
+      "bind": true,
+      "content_bytes": 2110,
+      "content_sha256": "5841cc94368ebf6c82e026f20149eadc20ee44460585787d56e68ad1a3edf903",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/INTEGRATION.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Code path\n\nThe generated `candidate/app/librarian.py` loads two doors from the candidate root.\n\n- `review-loop` calls `labs/review-loop-convergence-pass02/review_loop_tools.py`. The door refuses a declaration whose workbook path is anything other than `labs/review-loop-convergence-pass02/workbook.py`, then runs that file. Fixture commands and unknown commands refuse. A missing door refuses. There is no live-app fallback.\n- `review-report` calls `labs/review-loop-convergence-pass02/review_report_tools.py`. That door pins the candidate librarian, the candidate workbook, and the candidate reporter, then calls `report.py`.\n\n`workbook.py` loads `labs/review-loop-convergence-pass01/workbook.py` by its absolute pin and refuses on mismatch. It replaces fence classification and pointer extraction on that loaded module. Pass01 still loads the instance workbook, which loads pass05, pass04, pass03, pass02, and pass01. `pin_file(\"prime_review\")` remains the capacity successor. The N7 prototype is not imported.\n\nFence classification accepts a backtick run and a tilde run. A closing run must be the same marker, at least as long as the opener, and nothing else. An unclosed fence, a missing heading, a review before the pointer, or two real headings stays ambiguous or missing. `## Reviewer`, `## Reviews`, and `## Return pointer example` are not boundaries. The classifier does not choose the last heading.\n\nThe reporter schema is `review-report-convergence/2`. It validates the observed inspect, read, and recover envelope before emitting flags. An unsupported or cross-command-inconsistent observation is state `noncurrent`: judgment, next action, and the current authority fields are null, and the raw values stay under `historical_supplied`. A consistent stale cut stays `stale`. A consistent incomplete measurement stays `held`. An empty review stays `not-recorded`. A malformed core response refuses with exit 2.\n\nN7 custody stays `not-applicable` on the recorded chain. N5 custody stays `missing` on the synthetic same-instance record. A copied N5 book reads with instance reason `different-root`.\n",
+      "transport_bytes": 2110,
+      "transport_sha256": "5841cc94368ebf6c82e026f20149eadc20ee44460585787d56e68ad1a3edf903"
+    },
+    {
+      "bind": true,
+      "content_bytes": 5015,
+      "content_sha256": "c901766289e743fb6968fb0f855ab8e293bf1835671d0eed2eb591df86f9cf0a",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/PINS.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Pins for the unselected convergence successor\n\nHelper root is `D:\\Git\\lib-build`. The candidate root is `D:\\librarian\\temp\\0522-0518-report\\candidate`. The candidate is unselected. R and W stay pending.\n\n## Active surface, unchanged\n\n- `app/librarian.py` sha256 `c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9`, 12204 bytes\n- `app/README.md` sha256 `3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920`, 39687 bytes\n\n## This lab\n\n- `labs/review-loop-convergence-pass02/harness-inputs.json` sha256 `b7d6a7ab11ff71c7233f9e6195f715a43c79ff2cd69116a9c1b68424991d7f86`, 10033 bytes\n- `labs/review-loop-convergence-pass02/make_candidate.py` sha256 `c8e5797d842e45789929fead4bf673c0e28ac2859c1ab5dd2d0a9bac8f5f8ea6`, 25179 bytes\n- `labs/review-loop-convergence-pass02/report.py` sha256 `d17da33c4ea7a8b3ab65c16b0b339b4485010b3e938dfb8c42e2408652f6bc38`, 11434 bytes\n- `labs/review-loop-convergence-pass02/review-loop.json` sha256 `d7b1b6297c12d618a3a452f71e14fc4b326a94fcd39a96bca81984b011b421b8`, 746 bytes\n- `labs/review-loop-convergence-pass02/review_loop_tools.py` sha256 `7a5b0d362ad163a60ec3bb64826b471080829a4da6e10b41e5e26d28b8301b6d`, 3557 bytes\n- `labs/review-loop-convergence-pass02/review_report_tools.py` sha256 `0c532322ce8cffeb4ff116215d7b3cd62c57e5bd2d6078975a43b4cd5f48ad3c`, 4573 bytes\n- `labs/review-loop-convergence-pass02/tests/test_convergence.py` sha256 `54290a79fc05b6bcf7822a787a210e78a0bfd3b7935e5e222f4ed3d004c15070`, 50960 bytes\n- `labs/review-loop-convergence-pass02/workbook.py` sha256 `a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f`, 6613 bytes\n\n## Executed candidate files\n\n`CANDIDATE.json` sha256 `9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d`, 4872 bytes. These six files are the executed closure inside the candidate root. The workbook, reporter, doors, and declaration match the lab bytes. The librarian is generated only in that root.\n\n- `app/librarian.py` sha256 `dab1ab2e03ca779be5266a78d56f429878b93ce72d870fc3a40b702aa7973d10`, 13055 bytes\n- `labs/review-loop-convergence-pass02/report.py` sha256 `d17da33c4ea7a8b3ab65c16b0b339b4485010b3e938dfb8c42e2408652f6bc38`, 11434 bytes\n- `labs/review-loop-convergence-pass02/review-loop.json` sha256 `d7b1b6297c12d618a3a452f71e14fc4b326a94fcd39a96bca81984b011b421b8`, 746 bytes\n- `labs/review-loop-convergence-pass02/review_loop_tools.py` sha256 `7a5b0d362ad163a60ec3bb64826b471080829a4da6e10b41e5e26d28b8301b6d`, 3557 bytes\n- `labs/review-loop-convergence-pass02/review_report_tools.py` sha256 `0c532322ce8cffeb4ff116215d7b3cd62c57e5bd2d6078975a43b4cd5f48ad3c`, 4573 bytes\n- `labs/review-loop-convergence-pass02/workbook.py` sha256 `a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f`, 6613 bytes\n\n## Executed dependencies\n\nThese live at the helper root. They are pinned and they are not copied into the candidate.\n\n- `labs/prime-cycle-pass03/prime_cycle.py` sha256 `496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c`, 76045 bytes\n- `labs/return-access-pass01/return_access.py` sha256 `501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5`, 26561 bytes\n- `labs/review-construction-pass04/construct.py` sha256 `6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20`, 42582 bytes\n- `labs/review-instance-binding-pass01/workbook.py` sha256 `3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba`, 5916 bytes\n- `labs/review-loop-convergence-pass01/workbook.py` sha256 `ef021d4ae4066f97bfb21017d5a7952ac5161dce82e82ebec1ca756e3f58f9d9`, 20034 bytes\n- `labs/review-loop-pass03/review_loop.py` sha256 `47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b`, 55474 bytes\n- `labs/review-source-capacity-pass03/prime_review.py` sha256 `c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab`, 6136 bytes\n- `labs/workbook-review-pass01/workbook.py` sha256 `60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a`, 79131 bytes\n- `labs/workbook-review-pass02/workbook.py` sha256 `6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a`, 52574 bytes\n- `labs/workbook-review-pass03/forms/workbook-review-v1.json` sha256 `4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b`, 4532 bytes\n- `labs/workbook-review-pass03/workbook.py` sha256 `9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c`, 19533 bytes\n- `labs/workbook-review-pass04/workbook.py` sha256 `b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2`, 6508 bytes\n- `labs/workbook-review-pass05/workbook.py` sha256 `86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991`, 6994 bytes\n\n## Accepted inputs named by the proposed harness file\n\nG, L, K, and I are accepted rows in `labs/review-loop-convergence-pass02/harness-inputs.json`.\nG names `0522.review-construction/06.33.md`. L names `0707.app-use-check/06.20.review.md`. K names `0512.prime-review/06.22.md`. I names `0522.review-construction/06.35.md`.\nR and W have status pending, files PENDING, and no review_ref.\n",
+      "transport_bytes": 5015,
+      "transport_sha256": "c901766289e743fb6968fb0f855ab8e293bf1835671d0eed2eb591df86f9cf0a"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1241,
+      "content_sha256": "c6a7b60943d4478331629f9759dc6c4ebecde40c7818de75ad2ee6c0f04d0f40",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/PRIME-USE.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# PRIME-USE\n\nRerun the author suite with Python 3.14, `python -B`, and `PYTHONDONTWRITEBYTECODE=1`:\n\n`python -B labs/review-loop-convergence-pass02/tests/test_convergence.py`\n\nThe passing log in this directory is the builder's run, not an independent Prime run. The external root `D:\\librarian\\temp\\0522-0518-report` may be recreated by that command. The command also rewrites the generated lab doors and `harness-inputs.json`.\n\nThe candidate librarian is `D:\\librarian\\temp\\0522-0518-report\\candidate\\app\\librarian.py` after that command. The active `app/librarian.py` and `app/README.md` were not edited. This page does not select a route, accept the return, or close the pack.\n\nA later harness run needs Prime acceptance of R and W before it can treat the combined candidate as ready. The proposed inputs record builder-measured identities under `proposed_identities` and leave both rows pending.\n\nSame-path clone detection is not claimed. The frozen harness looks for a `review_loop_tools_vN.py` filename in the dispatcher. This dispatcher does not contain that filename. Full harness readiness is not claimed. Identity verify checks a door pin. The librarian does not hash the door, and the author suite did not append bytes to a door.\n",
+      "transport_bytes": 1241,
+      "transport_sha256": "c6a7b60943d4478331629f9759dc6c4ebecde40c7818de75ad2ee6c0f04d0f40"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1565,
+      "content_sha256": "3108c86857156e397645acb62a3440beadc740e661850489af05aad8da2fa034",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/RECONSTRUCTION.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Reconstruction\n\nFrom `D:\\Git\\lib-build`, with `PYTHONDONTWRITEBYTECODE=1`:\n\n1. `python -B labs/review-loop-convergence-pass02/make_candidate.py --output <empty directory outside D:\\Git\\lib-build>` writes a new root. It refuses an existing output and it refuses an output inside the repo. It refuses unless `app/librarian.py` is still sha256 `c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9`, 12204 bytes.\n2. The passing suite command is `python -B labs/review-loop-convergence-pass02/tests/test_convergence.py`. It rebuilds `D:\\librarian\\temp\\0522-0518-report\\candidate`, refuses an occupied sample root, and writes books under `D:\\librarian\\temp\\0522-0518-report`. Those books are not part of this evidence set. The same command rewrites the lab doors, `review-loop.json`, and `harness-inputs.json` from the current proposal.\n3. The sealed candidate identity is `CANDIDATE.json` sha256 `9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d`, 4872 bytes, at the suite root above. An unused `labs/decoy-workbook.py` may sit beside it. That file is not declared and it is not executed.\n\nThe proposed harness inputs are `labs/review-loop-convergence-pass02/harness-inputs.json`, schema `harness-inputs/2`, sha256 `b7d6a7ab11ff71c7233f9e6195f715a43c79ff2cd69116a9c1b68424991d7f86`, 10033 bytes. They were checked with `labs/loop-convergence-harness-pass02/inputs_check.py` `shape_problems` when `make_candidate.py` wrote them. The frozen harness was not edited. R and W are pending, so a harness run that honors those rows stays blocked.\n",
+      "transport_bytes": 1565,
+      "transport_sha256": "3108c86857156e397645acb62a3440beadc740e661850489af05aad8da2fa034"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1054,
+      "content_sha256": "ad9160a6cc1db2241276d9502bf95471bfc3833681cf953410019e54b883632d",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/SELECTION.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "# Selection delta and rollback\n\nNo app file changes in this return. A later selection would be a Prime decision to load the pass02 doors from a new app declaration. That decision is not made here. `selected` on the candidate identity is false.\n\nRollback of the active surface is the current pair:\n\n- `app/librarian.py` sha256 `c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9`, 12204 bytes\n- `app/README.md` sha256 `3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920`, 39687 bytes\n\nHistorical manifests are not repinned. A manifest whose mutable selection point would change when this candidate is selected becomes stale at that later selection. Records written by this chain can carry fields an older validator does not read. This return does not promise that an older validator can read every new record.\n\nThe pass01 workbook, the N7 prototype, pass05, the capacity successor, and the instance workbook stay at their pinned bytes. The candidate calls the ones it executes. It does not replace them in the historical labs.\n",
+      "transport_bytes": 1054,
+      "transport_sha256": "ad9160a6cc1db2241276d9502bf95471bfc3833681cf953410019e54b883632d"
+    },
+    {
+      "bind": true,
+      "content_bytes": 5258,
+      "content_sha256": "2cf0949d3e2993cdb09fc1bf477597ff3ba874777dc6f3bf97bad1026d49a809",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/lab-files.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"candidate_files\": [\n    {\n      \"bytes\": 13055,\n      \"path\": \"app/librarian.py\",\n      \"sha256\": \"dab1ab2e03ca779be5266a78d56f429878b93ce72d870fc3a40b702aa7973d10\"\n    },\n    {\n      \"bytes\": 11434,\n      \"path\": \"labs/review-loop-convergence-pass02/report.py\",\n      \"sha256\": \"d17da33c4ea7a8b3ab65c16b0b339b4485010b3e938dfb8c42e2408652f6bc38\"\n    },\n    {\n      \"bytes\": 746,\n      \"path\": \"labs/review-loop-convergence-pass02/review-loop.json\",\n      \"sha256\": \"d7b1b6297c12d618a3a452f71e14fc4b326a94fcd39a96bca81984b011b421b8\"\n    },\n    {\n      \"bytes\": 3557,\n      \"path\": \"labs/review-loop-convergence-pass02/review_loop_tools.py\",\n      \"sha256\": \"7a5b0d362ad163a60ec3bb64826b471080829a4da6e10b41e5e26d28b8301b6d\"\n    },\n    {\n      \"bytes\": 4573,\n      \"path\": \"labs/review-loop-convergence-pass02/review_report_tools.py\",\n      \"sha256\": \"0c532322ce8cffeb4ff116215d7b3cd62c57e5bd2d6078975a43b4cd5f48ad3c\"\n    },\n    {\n      \"bytes\": 6613,\n      \"path\": \"labs/review-loop-convergence-pass02/workbook.py\",\n      \"sha256\": \"a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f\"\n    }\n  ],\n  \"candidate_json\": {\n    \"bytes\": 4872,\n    \"path\": \"D:/librarian/temp/0522-0518-report/candidate/CANDIDATE.json\",\n    \"sha256\": \"9232557d1107917b9fecfddebd0ca78fcda3de2129f653402fca94d1dad0d96d\"\n  },\n  \"executed_dependencies\": [\n    {\n      \"bytes\": 76045,\n      \"path\": \"labs/prime-cycle-pass03/prime_cycle.py\",\n      \"sha256\": \"496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c\"\n    },\n    {\n      \"bytes\": 26561,\n      \"path\": \"labs/return-access-pass01/return_access.py\",\n      \"sha256\": \"501d40d7c7b08720d3ae061441284ac26d544e7b80100059b2ddce25f67358f5\"\n    },\n    {\n      \"bytes\": 42582,\n      \"path\": \"labs/review-construction-pass04/construct.py\",\n      \"sha256\": \"6d541d4225ed0f9ccdb6263b475a79f55e4312be80a7e9a810a3622e5bd8df20\"\n    },\n    {\n      \"bytes\": 5916,\n      \"path\": \"labs/review-instance-binding-pass01/workbook.py\",\n      \"sha256\": \"3f8118ccdc2c7afc4abdca2d52c3510864f159642ed06aee52a485709be55aba\"\n    },\n    {\n      \"bytes\": 20034,\n      \"path\": \"labs/review-loop-convergence-pass01/workbook.py\",\n      \"sha256\": \"ef021d4ae4066f97bfb21017d5a7952ac5161dce82e82ebec1ca756e3f58f9d9\"\n    },\n    {\n      \"bytes\": 55474,\n      \"path\": \"labs/review-loop-pass03/review_loop.py\",\n      \"sha256\": \"47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b\"\n    },\n    {\n      \"bytes\": 6136,\n      \"path\": \"labs/review-source-capacity-pass03/prime_review.py\",\n      \"sha256\": \"c15cbd2460200583cab0518e2ac16f4a95356a779edb4b1978dfb4afc2a3e7ab\"\n    },\n    {\n      \"bytes\": 79131,\n      \"path\": \"labs/workbook-review-pass01/workbook.py\",\n      \"sha256\": \"60e040fa30f61348adac76a4f3bdfbfdb9aba859f25bacadf317937c167e9b0a\"\n    },\n    {\n      \"bytes\": 52574,\n      \"path\": \"labs/workbook-review-pass02/workbook.py\",\n      \"sha256\": \"6ce4a5ff2e7505a8b56a13c05af3f5f2e9d8648112a6bf67c0e6392ab043a49a\"\n    },\n    {\n      \"bytes\": 4532,\n      \"path\": \"labs/workbook-review-pass03/forms/workbook-review-v1.json\",\n      \"sha256\": \"4b8cf0e8c81cc421fd0212ae169ba1557998bf526c5f6d87ee170c9d038cbb0b\"\n    },\n    {\n      \"bytes\": 19533,\n      \"path\": \"labs/workbook-review-pass03/workbook.py\",\n      \"sha256\": \"9e66d7e4413e8f0aedcc4ff416080c549ce435b10103149ef73de493b245ff8c\"\n    },\n    {\n      \"bytes\": 6508,\n      \"path\": \"labs/workbook-review-pass04/workbook.py\",\n      \"sha256\": \"b7b8776c0da775509b21614fadc1b51a39123a946add76d0dfcc9ad3fe3016e2\"\n    },\n    {\n      \"bytes\": 6994,\n      \"path\": \"labs/workbook-review-pass05/workbook.py\",\n      \"sha256\": \"86f40268fe2f45005fd0f037f69e2d0ecb854041f6f5d59b61beeb085c09c991\"\n    }\n  ],\n  \"files\": [\n    {\n      \"bytes\": 10033,\n      \"path\": \"labs/review-loop-convergence-pass02/harness-inputs.json\",\n      \"sha256\": \"b7d6a7ab11ff71c7233f9e6195f715a43c79ff2cd69116a9c1b68424991d7f86\"\n    },\n    {\n      \"bytes\": 25179,\n      \"path\": \"labs/review-loop-convergence-pass02/make_candidate.py\",\n      \"sha256\": \"c8e5797d842e45789929fead4bf673c0e28ac2859c1ab5dd2d0a9bac8f5f8ea6\"\n    },\n    {\n      \"bytes\": 11434,\n      \"path\": \"labs/review-loop-convergence-pass02/report.py\",\n      \"sha256\": \"d17da33c4ea7a8b3ab65c16b0b339b4485010b3e938dfb8c42e2408652f6bc38\"\n    },\n    {\n      \"bytes\": 746,\n      \"path\": \"labs/review-loop-convergence-pass02/review-loop.json\",\n      \"sha256\": \"d7b1b6297c12d618a3a452f71e14fc4b326a94fcd39a96bca81984b011b421b8\"\n    },\n    {\n      \"bytes\": 3557,\n      \"path\": \"labs/review-loop-convergence-pass02/review_loop_tools.py\",\n      \"sha256\": \"7a5b0d362ad163a60ec3bb64826b471080829a4da6e10b41e5e26d28b8301b6d\"\n    },\n    {\n      \"bytes\": 4573,\n      \"path\": \"labs/review-loop-convergence-pass02/review_report_tools.py\",\n      \"sha256\": \"0c532322ce8cffeb4ff116215d7b3cd62c57e5bd2d6078975a43b4cd5f48ad3c\"\n    },\n    {\n      \"bytes\": 50960,\n      \"path\": \"labs/review-loop-convergence-pass02/tests/test_convergence.py\",\n      \"sha256\": \"54290a79fc05b6bcf7822a787a210e78a0bfd3b7935e5e222f4ed3d004c15070\"\n    },\n    {\n      \"bytes\": 6613,\n      \"path\": \"labs/review-loop-convergence-pass02/workbook.py\",\n      \"sha256\": \"a013e4466c79794eb62c7f697d222e693d8453af91571a404fedb0b4dcc4ef3f\"\n    }\n  ],\n  \"schema\": \"convergence-lab-files/1\",\n  \"selected\": false\n}\n",
+      "transport_bytes": 5258,
+      "transport_sha256": "2cf0949d3e2993cdb09fc1bf477597ff3ba874777dc6f3bf97bad1026d49a809"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1164,
+      "content_sha256": "e81b19b1235cfe85bc2ffa33d2860cbc036899c5b471516a07a88a794b0d9ecd",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/suite.log",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "PASS fences tilde and backtick fences; lookalikes; unclosed; duplicate; missing\nPASS reporter-observations positive then withhold; malformed refuses\nPASS identity external identity verified; purported workbook refused\nPASS n7-cycle w3b1f662fdaf63192\nPASS region-and-rows review current; reviewer, pointer, and artifact stale\nPASS lifecycle-filing filed copy is not pending; review current; task stale; return held\nPASS hostile-fenced-boundary hostile-fenced-boundary\nPASS hostile-missing-intake hostile-missing-intake\nPASS malformed-and-mismatch malformed refused; mismatch refused; historical unverified recorded\nPASS target-guards manual and appeared targets kept\nPASS n5-instance N5 same current; copy held; N5 custody missing\nPASS same-path-limit instance id follows the path; same-path clone detection is not claimed\nPASS copied-workbook frozen pass01 copy refused; pass02 copy ran from an external path\nPASS limits 64 recorded; 65, list, document, and 16MiB+1 refused; 16MiB recorded\nPASS replay-0510 44-source open judgment recorded; finished terminal refused; record null\nPASS reporter reporter agrees; disposable pins refuse; v3 baseline refuses\nFAILED 0\n",
+      "transport_bytes": 1164,
+      "transport_sha256": "e81b19b1235cfe85bc2ffa33d2860cbc036899c5b471516a07a88a794b0d9ecd"
+    },
+    {
+      "bind": true,
+      "content_bytes": 1340,
+      "content_sha256": "0b6b9ccec2cadf1ef8f0d9d3232bd0bbaae877e34b9868f4bb8d70cb363ab577",
+      "identity": {
+        "label": "SUPPLIED",
+        "schema": "supplied-text/1"
+      },
+      "kind": "supplied-text",
+      "logical_path": "0522.review-construction/evidence/build05.18/verification.json",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "{\n  \"accepted\": false,\n  \"activated\": false,\n  \"allocated\": \"not used\",\n  \"author_suite\": {\n    \"command\": \"python -B labs/review-loop-convergence-pass02/tests/test_convergence.py\",\n    \"exit\": 0,\n    \"failed\": 0,\n    \"first_failures\": \"00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/FAILURES.md\",\n    \"independent\": false,\n    \"passed\": 16,\n    \"passing_log\": \"00.kernel/00.00.10.work/0522.review-construction/evidence/build05.18/suite.log\",\n    \"python\": \"3.14.0\",\n    \"result\": \"FAILED 0\"\n  },\n  \"branch\": \"workshop\",\n  \"committed_by_this_builder\": false,\n  \"custody\": \"pending\",\n  \"head\": \"960d20c5290656095df8457b1740d2d5e586b111\",\n  \"index_empty\": true,\n  \"librarian_py\": {\n    \"bytes\": 12204,\n    \"path\": \"app/librarian.py\",\n    \"sha256\": \"c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9\"\n  },\n  \"matching_line\": \"0122.review-construction unfiled\",\n  \"member_directory_present\": false,\n  \"porcelain_count\": 275,\n  \"readme\": {\n    \"bytes\": 39687,\n    \"path\": \"app/README.md\",\n    \"sha256\": \"3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920\"\n  },\n  \"receipt\": null,\n  \"schema\": \"review-report-verification/2\",\n  \"seated\": false,\n  \"selected_app_route\": false,\n  \"submission_bytes\": 6602,\n  \"submission_sha256\": \"1c26ed5e21bcf6a1eae73c2d049c23a1659d940831e84ef685ff12620d268347\"\n}\n",
+      "transport_bytes": 1340,
+      "transport_sha256": "0b6b9ccec2cadf1ef8f0d9d3232bd0bbaae877e34b9868f4bb8d70cb363ab577"
+    }
+  ]
+}

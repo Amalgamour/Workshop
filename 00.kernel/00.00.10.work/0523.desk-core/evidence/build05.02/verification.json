@@ -1,0 +1,51 @@
+{
+  "schema": "desk-core-verification/1",
+  "contract": "desk-core/2",
+  "interpreter": "Python 3.11.2",
+  "interpreter_command": "python3.11",
+  "python3_also_present": "Python 3.10.22",
+  "python3_10_supplement": {
+    "command": "python3 -B -m unittest app.desk_core.test_loop app.desk_core.test_repair -v",
+    "ran": 15,
+    "failed": 0,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.02/unittest-py310.txt",
+    "note": "extra Linux host check; not Windows acceptance"
+  },
+  "python_3_12": "not installed; no installation performed; Windows acceptance pending Prime",
+  "windows": "not run; pending Prime",
+  "runtime_dependencies": ["python-stdlib"],
+  "runtime_imports_of_pinned_modules": [],
+  "tests": {
+    "command": "python3.11 -B -m unittest app.desk_core.test_loop app.desk_core.test_repair -v",
+    "cwd": "repository root",
+    "ran": 15,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 0,
+    "elapsed_seconds": 6.98,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.02/unittest.txt"
+  },
+  "demo": {
+    "command": "python3.11 -B -m app.desk_core.demo --transcript <absolute path>",
+    "exit": 0,
+    "step_exits": [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+    "interrupt_exit": 3,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.02/demo-transcript.txt"
+  },
+  "pins": {
+    "command": "python3.11 -B -m app.desk_core pins",
+    "matched": 33,
+    "sources": 33,
+    "transcript": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.02/pins.txt",
+    "pack05.02": {
+      "matched": 16,
+      "sources": 16,
+      "record": "00.kernel/00.00.10.work/0523.desk-core/evidence/build05.02/pin-verification.json"
+    }
+  },
+  "implementation_commit": "bb64c537f01c370b5bd9aaf925db63a55bc5b406",
+  "fast_forward_base": "5e0040e1598db3b9d9b6584e4d0b19a629356ad1",
+  "not_production_ready": true,
+  "accepted": false,
+  "live_custody": false
+}

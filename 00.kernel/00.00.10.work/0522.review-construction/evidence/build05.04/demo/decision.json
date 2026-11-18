@@ -1,0 +1,237 @@
+{
+  "attribution": {
+    "actor_label": "Codex Prime (SUPPLIED)",
+    "evidence": "SUPPLIED demonstration judgment. The label is not authentication and this is not acceptance.",
+    "role": "prime"
+  },
+  "binding": {
+    "agreement_sha256": "05bc845f506b07a28e47109973e582d3576645bf87a17c73bfafad19a8592b8b",
+    "direction": {
+      "agreement_sha256": "05bc845f506b07a28e47109973e582d3576645bf87a17c73bfafad19a8592b8b",
+      "book": "00.00.10.work",
+      "fields": {
+        "director_required": "3d120c2c45ce9b3943a623348a53c60ba425f74f7b696723a950a8762475dad5",
+        "finish_criteria": "52219018bb0f631784c21f09200fe0138bf47d71ba1c6ca8bf33ea3c49a42a42",
+        "goal": "e4b5763865592aac88aadaed30ab34524b0289519dc536071be5acee8bcb31d4",
+        "prime_discretion": "1654a53a28c29bf3ec40577dc268150f48ee9cca76269f907cd8ccd9e0edbd04",
+        "recorded_decisions": "b3fad59ec90e998efe975753778838799e4e46a1197470f3d68641162c75fb18",
+        "scope": "7e3338104654861bfd2b54d8b63ec5f26d2a7c4a5e200b7c389fe45b95bc74a2"
+      },
+      "review_location": "cycle",
+      "schema": "prime-cycle-direction/1"
+    },
+    "expected_prior": null,
+    "fingerprint": "03f87f36f3452a0395307fa84b76246673f80fa5b2ce453ec4373131c0ae6451",
+    "goal": {
+      "goal_id": "g-synth",
+      "goal_sha256": "dbbe5df95873589b782ca70581f4c1b2e49d826d5a3fd0a24ea3a3e78d9134ff"
+    },
+    "manifest_sha256": "c77146206a47dbb8fc31e8a32303fd6d7d26c2013d3adbc10f4f76d3f27c761f",
+    "member": "0199.synth-lab",
+    "origin": {
+      "batch": "05.01",
+      "book": "00.00.10.work",
+      "page": "0599.synth-lab"
+    },
+    "page": "0599.synth-lab",
+    "pass": "05.01",
+    "receipt_sha256": "9665e06a0fae82a6cfb8be2795a9ef5e6693429ad4838a7e20748f670a48d30b",
+    "return_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e",
+    "schema": "prime-cycle-binding/3",
+    "source": {
+      "book": "00.00.10.work",
+      "page": "0599.synth-lab",
+      "pass": "05.01"
+    },
+    "submission_id": "repro-0504",
+    "task_binding_sha256": "36b91d656bf4c0fd59939a5013993e8b884fd1c503b9345b235bc734045b8e28",
+    "work_id": "repro-0599",
+    "write_token": {
+      "bytes": 110,
+      "path": "0599.synth-lab/05.01.md",
+      "schema": "review-write-token/1",
+      "sha256": "c37a58b3fa229d3c36c1e33adfcd963fa6a8b9368d98036c982dde5319ea2542"
+    }
+  },
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "accepted",
+    "finding": "The disposable note is present.",
+    "goal": {
+      "evidence": [],
+      "goal_id": "g-synth",
+      "goal_sha256": "dbbe5df95873589b782ca70581f4c1b2e49d826d5a3fd0a24ea3a3e78d9134ff",
+      "terminal": "open"
+    },
+    "holds": [],
+    "next_action": {
+      "action_id": "pack-correction",
+      "authorized_in_grant": false,
+      "text": "Pack one bounded correction for the disposable capture."
+    },
+    "outcome": "continue",
+    "pass_terminal": "open",
+    "reasons": [
+      "The captured return names the note."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Hand back one correction pack.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "The disposable note is present.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "The builder returned the disposable note.",
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": "This stays inside the supplied grant."
+    },
+    "semantic_conflict": false,
+    "source_refs": [
+      "assignment.txt"
+    ],
+    "unresolved": []
+  },
+  "recovers": null,
+  "review_id": "05.01-r1",
+  "schema": "prime-cycle-decision/3",
+  "supersedes": null,
+  "supplied_record": {
+    "agreement": {
+      "director_required": "A design change is not in this grant.",
+      "finish_criteria": [
+        {
+          "id": "piece",
+          "text": "The disposable note stays one file."
+        }
+      ],
+      "goal": "Review one disposable capture.",
+      "prime_discretion": "Prime may record a judgment inside that grant.",
+      "recorded_decisions": [
+        {
+          "id": "D1",
+          "source_sha256": "86ae35d58a6aa3b5742df94ef9d7162219f0106a911ae1954c1f0604aaec805d",
+          "text": "The disposable pack was supplied for this lab."
+        }
+      ],
+      "scope": "The disposable fixture only."
+    },
+    "answers": [],
+    "attribution": {
+      "actor_label": "Codex Prime (SUPPLIED)",
+      "evidence": "SUPPLIED demonstration judgment. The label is not authentication and this is not acceptance.",
+      "role": "prime"
+    },
+    "gaps": [],
+    "holds": [],
+    "judgment": {
+      "design_fork": null,
+      "finding": "The disposable note is present.",
+      "next_action": "Pack one bounded correction for the disposable capture.",
+      "outcome": "continue",
+      "reasons": [
+        "The captured return names the note."
+      ],
+      "sections": {
+        "affected": null,
+        "assumptions": null,
+        "consequences": null,
+        "exploration": null,
+        "findings_account": null,
+        "finish_assessments": null,
+        "for_model": null,
+        "issue": null,
+        "learning": null,
+        "limits": null,
+        "next_bounded_action": "Hand back one correction pack.",
+        "open_questions": null,
+        "options": null,
+        "outcome_evidence": null,
+        "preservation": null,
+        "prime_finding": "The disposable note is present.",
+        "proposed_plan": null,
+        "question": null,
+        "recommendation": null,
+        "remaining_choices": null,
+        "return_result": "The builder returned the disposable note.",
+        "tests_note": null,
+        "tests_passed": null,
+        "within_direction": "This stays inside the supplied grant."
+      },
+      "semantic_conflict": false
+    },
+    "review_passes": [],
+    "schema": "prime-review-record/1",
+    "sources": [
+      {
+        "bind": false,
+        "content_bytes": 39,
+        "content_sha256": "f49a4a18ef257ed0c03ef8429dedb4b6a65c771d70dfcc648e5abfe62e5eda11",
+        "identity": {
+          "schema": "page-bytes/1"
+        },
+        "kind": "page",
+        "logical_path": "assignment.txt",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "Synthetic assignment. Write one piece.\n",
+        "transport_bytes": 39,
+        "transport_sha256": "f49a4a18ef257ed0c03ef8429dedb4b6a65c771d70dfcc648e5abfe62e5eda11"
+      },
+      {
+        "bind": false,
+        "content_bytes": 5,
+        "content_sha256": "f7895fad954084e58a6b3a17acc43bed7bebe776d41f85e494ede32a49b71d85",
+        "identity": {
+          "label": "SUPPLIED",
+          "schema": "supplied-text/1"
+        },
+        "kind": "supplied-text",
+        "logical_path": "note.md",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "NOTE\n",
+        "transport_bytes": 5,
+        "transport_sha256": "f7895fad954084e58a6b3a17acc43bed7bebe776d41f85e494ede32a49b71d85"
+      },
+      {
+        "bind": false,
+        "content_bytes": 47,
+        "content_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e",
+        "identity": {
+          "member": "0199.synth-lab",
+          "origin": {
+            "batch": "05.01",
+            "book": "00.00.10.work",
+            "page": "0599.synth-lab"
+          },
+          "receipt_sha256": "9665e06a0fae82a6cfb8be2795a9ef5e6693429ad4838a7e20748f670a48d30b",
+          "schema": "return-capture/1",
+          "submission_id": "repro-0504"
+        },
+        "kind": "capture",
+        "logical_path": "0199.synth-lab/05.01.return.md",
+        "prior_content_sha256": null,
+        "prior_transport_sha256": null,
+        "record": "Did.\nThe disposable capture returned one note.\n",
+        "transport_bytes": 47,
+        "transport_sha256": "d0fda4f7fc35c8a00ed52f8c60ecca670ce9f1f7243f1ac258aa506b8f305c9e"
+      }
+    ]
+  }
+}

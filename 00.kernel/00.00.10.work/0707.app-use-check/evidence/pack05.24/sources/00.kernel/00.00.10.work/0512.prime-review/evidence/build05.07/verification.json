@@ -1,0 +1,74 @@
+{
+  "accepted": false,
+  "activated": false,
+  "allocated": "not used",
+  "author_suite": {
+    "command": "python -B labs/review-report-app-pass01/tests/test_connector.py",
+    "exit": 0,
+    "first_failure_log": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.07/author-suite-first.txt",
+    "independent": false,
+    "limit": "Author cases. Prime's future independent probes were not run. The contract was not revised after the first failure.",
+    "python": "3.14.0",
+    "result": "OK",
+    "seconds": 18.09,
+    "tests": 15
+  },
+  "branch": "workshop",
+  "committed_by_this_builder": false,
+  "contract": {
+    "bytes": 7879,
+    "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.07/CONTRACT.md",
+    "revised_after_tests": false,
+    "sha256": "a2a915e2ab133eb3fb4536d1c7d50361ea33d9a11dca14654a6aeea3d3cedc08"
+  },
+  "custody": "pending",
+  "dispatcher_edited": false,
+  "head": "960d20c5290656095df8457b1740d2d5e586b111",
+  "librarian_py": {
+    "bytes": 12204,
+    "sha256": "c3a5be3b612c021d95effaa5da4a151bf89026422b94f4cad98331014c7f0cd9"
+  },
+  "live": {
+    "0512.prime-review/05.06": {
+      "addressed_bytes": 157007,
+      "addressed_sources": 16,
+      "attention_lines": 5,
+      "content_blobs": 15,
+      "content_bytes": 127265,
+      "declared_artifact_bytes": 149885,
+      "declared_artifact_entries": 14,
+      "exit": 0,
+      "physical_files": null,
+      "review_id": "wbf38837cf0fa9c6b",
+      "state": "readable",
+      "stdout_bytes": 22083,
+      "stdout_sha256": "8a1e16649fd632400c49e6c68171f40df416229a76910eae5c3780c4aab566d0"
+    },
+    "0521.return-placement/05.13": {
+      "addressed_bytes": 90980,
+      "addressed_sources": 7,
+      "attention_lines": 6,
+      "content_blobs": 7,
+      "content_bytes": 90980,
+      "declared_artifact_bytes": 81671,
+      "declared_artifact_entries": 5,
+      "exit": 0,
+      "physical_files": null,
+      "review_id": "webe8f0a86f3de800",
+      "state": "readable",
+      "stdout_bytes": 19894,
+      "stdout_sha256": "2fb63cd92c6234a1c9f734629c23cdae2a80ab99c804f604b406f908f74f7a2e"
+    }
+  },
+  "matching_line": "0112.prime-review unfiled",
+  "readme": {
+    "bytes": 39687,
+    "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "receipt": null,
+  "schema": "review-report-verification/2",
+  "seated": false,
+  "selected_app_route": false,
+  "submission_bytes": 8252,
+  "submission_sha256": "dfefe8754c4153d5a8228adfc0c80725d046bc3dd6df0744f49f2648ebee8a87"
+}

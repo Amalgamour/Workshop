@@ -1,0 +1,24 @@
+{
+  "call_anomalies": [],
+  "checks": [
+    {
+      "check": "render exit 0",
+      "expected": null,
+      "observed": 0,
+      "ok": true
+    },
+    {
+      "check": "no supplied-state block for /1",
+      "expected": null,
+      "observed": null,
+      "ok": true
+    },
+    {
+      "check": "committed_check names legacy /1",
+      "expected": null,
+      "observed": "legacy-/1-envelope: no supplied state is rendered",
+      "ok": true
+    }
+  ],
+  "error": null
+}

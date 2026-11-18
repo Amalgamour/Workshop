@@ -1,0 +1,38 @@
+{
+  "accepted": false,
+  "commands": [
+    {
+      "command": "python -B C:\\Users\\misg\\AppData\\Local\\Temp\\0510-gather.py",
+      "exit": 0,
+      "result": "freeze bad 0; 148 rows; page pointer PENDING"
+    },
+    {
+      "command": "python -B labs/review-source-capacity-pass01/build_candidate.py",
+      "exit": 0,
+      "result": "candidate tree written"
+    },
+    {
+      "command": "python -B labs/review-source-capacity-pass01/tests/test_capacity.py",
+      "exit": 1,
+      "log": "evidence/build05.10/author-suite-first.txt",
+      "result": "first run, 18 tests, 89.820s, failures=2"
+    },
+    {
+      "command": "python -B labs/review-source-capacity-pass01/tests/test_capacity.py",
+      "exit": 0,
+      "log": "evidence/build05.10/author-suite.txt",
+      "result": "passing run, 18 tests, 62.369s, OK"
+    }
+  ],
+  "cycles": {
+    "author_0509_prefix_equals_live": true,
+    "author_0514_page_equals_live": true,
+    "author_0514_prefix_equals_live": true
+  },
+  "python": "3.14.0",
+  "readme_app": {
+    "bytes": 39687,
+    "sha256": "3c2125aa0cebd7ddc1604de2a823c1250edf40a8e97bd7dbd2eb09ca91155920"
+  },
+  "schema": "review-source-capacity-command-log/1"
+}

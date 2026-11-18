@@ -1,0 +1,91 @@
+{"name": "layout-pin", "ok": true}
+{"name": "seed", "ok": true, "detail": {"members": 9, "omitted_extra_counts": {"0103.return-capture-0502": 0, "0104.app-entry-0508": 0, "0121.archive-resolution-0508": 0, "0122.bridge-overlap-0513": 0, "0123.boot-validation-0508": 0, "0124.clerk-seam-design-0503": 0, "0125.mapping-capture-0509": 0, "0154.colab-support-first-0501": 0, "0165.bench-method-colab-0501": 0}}}
+{"name": "producer-plan", "ok": true, "detail": {"bytes": 92562, "occupancy_conflict_count": 1}}
+{"name": "producer-init", "ok": true, "detail": {"code": 0, "state": "complete"}}
+{"name": "producer-stage", "ok": true, "detail": {"code": 0, "state": "complete"}}
+{"name": "producer-reconstruct", "ok": true, "detail": {"code": 0, "state": "complete"}}
+{"name": "producer-publish", "ok": true, "detail": {"code": 0, "state": "complete"}}
+{"name": "producer-retire", "ok": true, "detail": {"code": 0, "state": "complete"}}
+{"name": "verify-member-0121.archive-resolution-0508", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "historical-0121.archive-resolution-0508", "ok": true, "detail": {"custody_path": "0108.return-capture/05.08.custody", "return_path": "0108.return-capture/05.08.return.md", "target_page": "0108.return-capture"}}
+{"name": "verify-member-0122.bridge-overlap-0513", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "historical-0122.bridge-overlap-0513", "ok": true, "detail": {"custody_path": "0104.app-entry/05.13.custody", "return_path": "0104.app-entry/05.13.return.md", "target_page": "0104.app-entry"}}
+{"name": "verify-member-0123.boot-validation-0508", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "historical-0123.boot-validation-0508", "ok": true, "detail": {"custody_path": "0107.prime-support/05.08.custody", "return_path": "0107.prime-support/05.08.return.md", "target_page": "0107.prime-support"}}
+{"name": "verify-member-0124.clerk-seam-design-0503", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "historical-0124.clerk-seam-design-0503", "ok": true, "detail": {"custody_path": "0106.clerk-handoff/05.03.custody", "return_path": "0106.clerk-handoff/05.03.return.md", "target_page": "0106.clerk-handoff"}}
+{"name": "verify-member-0125.mapping-capture-0509", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "historical-0125.mapping-capture-0509", "ok": true, "detail": {"custody_path": "0108.return-capture/05.09.custody", "return_path": "0108.return-capture/05.09.return.md", "target_page": "0108.return-capture"}}
+{"name": "verify-0508-05.02", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "two-pass-05.02", "ok": true, "detail": {"custody_path": "0108.return-capture/05.02.custody", "return_path": "0108.return-capture/05.02.return.md", "target_page": "0108.return-capture"}}
+{"name": "verify-0508-05.08", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "two-pass-05.08", "ok": true, "detail": {"custody_path": "0108.return-capture/05.08.custody", "return_path": "0108.return-capture/05.08.return.md", "target_page": "0108.return-capture"}}
+{"name": "verify-occupant-0104", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "occupant-0104", "ok": true, "detail": {"parent": "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\retired\\occupants"}}
+{"name": "lookup-0154", "ok": true, "detail": {"state": "incomplete", "exit": 1}}
+{"name": "incomplete-0154", "ok": true, "detail": {"missing": ["return", "legacy-envelope"], "parent": "D:\\librarian\\temp\\0521-0507\\20261102T193704Z\\retired\\originals"}}
+{"name": "verify-n7", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "n7", "ok": true, "detail": {"custody_path": "0701.bench-method/05.01.custody", "return_path": "0701.bench-method/05.01.return.md", "target_page": "0701.bench-method"}}
+{"name": "source-after", "ok": true, "detail": {"members": 9}}
+{"name": "reserve-filing-0521-0501", "ok": true, "detail": {"state": "reserved"}}
+{"name": "capture-filing-0521-0501", "ok": true, "detail": {"state": "complete"}}
+{"name": "verify-filing-filing-0521-0501", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "filing-filing-0521-0501", "ok": true, "detail": {"custody_path": "0121.return-placement/05.01.custody", "return_path": "0121.return-placement/05.01.return.md", "target_page": "0121.return-placement"}}
+{"name": "reserve-filing-0522-0501", "ok": true, "detail": {"state": "reserved"}}
+{"name": "capture-filing-0522-0501", "ok": true, "detail": {"state": "complete"}}
+{"name": "verify-filing-filing-0522-0501", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "filing-filing-0522-0501", "ok": true, "detail": {"custody_path": "0122.review-construction/05.01.custody", "return_path": "0122.review-construction/05.01.return.md", "target_page": "0122.review-construction"}}
+{"name": "reserve-filing-0523-0501", "ok": true, "detail": {"state": "reserved"}}
+{"name": "capture-filing-0523-0501", "ok": true, "detail": {"state": "complete"}}
+{"name": "verify-filing-filing-0523-0501", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "filing-filing-0523-0501", "ok": true, "detail": {"custody_path": "0123.desk-core/05.01.custody", "return_path": "0123.desk-core/05.01.return.md", "target_page": "0123.desk-core"}}
+{"name": "reserve-filing-0524-0501", "ok": true, "detail": {"state": "reserved"}}
+{"name": "capture-filing-0524-0501", "ok": true, "detail": {"state": "complete"}}
+{"name": "verify-filing-filing-0524-0501", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "filing-filing-0524-0501", "ok": true, "detail": {"custody_path": "0124.prime-desk/05.01.custody", "return_path": "0124.prime-desk/05.01.return.md", "target_page": "0124.prime-desk"}}
+{"name": "reserve-filing-0525-0501", "ok": true, "detail": {"state": "reserved"}}
+{"name": "capture-filing-0525-0501", "ok": true, "detail": {"state": "complete"}}
+{"name": "verify-filing-filing-0525-0501", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "filing-filing-0525-0501", "ok": true, "detail": {"custody_path": "0125.app-dependencies/05.01.custody", "return_path": "0125.app-dependencies/05.01.return.md", "target_page": "0125.app-dependencies"}}
+{"name": "reserve-filing-0521-0502", "ok": true, "detail": {"state": "reserved"}}
+{"name": "capture-filing-0521-0502", "ok": true, "detail": {"state": "complete"}}
+{"name": "verify-0521-0502", "ok": true, "detail": {"state": "complete", "exit": 0}}
+{"name": "new-two-pass", "ok": true, "detail": {"custody_path": "0121.return-placement/05.02.custody", "return_path": "0121.return-placement/05.02.return.md", "target_page": "0121.return-placement"}}
+{"name": "capture-replay", "ok": true, "detail": {"rewritten": false}}
+{"name": "capture-conflict", "ok": true, "detail": {"evidence": "0121.return-placement/05.02.refused/attempt-001"}}
+{"name": "lookup-reserved", "ok": true, "detail": {"state": "reserved", "exit": 1}}
+{"name": "reserved-not-missing-route", "ok": true, "detail": {"return_path": "0122.review-construction/05.02.return.md"}}
+{"name": "verify-partial", "ok": true, "detail": {"state": "incomplete", "exit": 1}}
+{"name": "partial-custody", "ok": true, "detail": {"custody": "0123.desk-core/05.02.custody"}}
+{"name": "verify-changed-payload", "ok": true, "detail": {"state": "conflict", "exit": 2}}
+{"name": "changed-payload", "ok": true, "detail": {"return_sha256": "c392624eaf9b882aa42cf6a423f63361792c084daa9a34f00a9bf373421df274"}}
+{"name": "lookup-wrong-band", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "wrong-band", "ok": true}
+{"name": "lookup-wrong-subject", "ok": true, "detail": {"state": "incomplete", "exit": 1}}
+{"name": "wrong-subject", "ok": true, "detail": {"custody_path": "0121.not-the-subject/05.01.custody", "return_path": "0121.not-the-subject/05.01.return.md", "target_page": "0121.not-the-subject"}}
+{"name": "lookup-wrong-pass", "ok": true, "detail": {"state": "incomplete", "exit": 1}}
+{"name": "wrong-pass", "ok": true}
+{"name": "two-selectors", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "two-selectors-empty", "ok": true}
+{"name": "source-without-pass", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "source-without-pass-empty", "ok": true}
+{"name": "pass-without-source", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "pass-without-source-empty", "ok": true}
+{"name": "lookup-line-page-name", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "line-page-not-an-envelope", "ok": true}
+{"name": "occupied-number", "ok": true}
+{"name": "lookup-ambiguous-member", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "ambiguous-member", "ok": true}
+{"name": "lookup-ambiguous-source", "ok": true, "detail": {"state": "refused", "exit": 2}}
+{"name": "ambiguous-source", "ok": true}
+{"name": "status-migrated", "ok": true, "detail": {"state": "reported", "exit": 0}}
+{"name": "status-migrated", "ok": true, "detail": {"writers": 6, "witness": {"completed_by_this_tool": false, "member": "0154.colab-support-first-0501", "source_page": "0510.colab-tools", "state": "incomplete"}}}
+{"name": "status-no-layout", "ok": true, "detail": {"state": "reported", "exit": 0}}
+{"name": "status-no-layout", "ok": true}
+{"name": "door-stage", "ok": true, "detail": {"stderr": "stop: command is not on this door"}}
+{"name": "door-backend", "ok": true, "detail": {"stderr": "stop: backend override is refused"}}
+{"name": "door-junction", "ok": true, "detail": {"stderr": "stop: book root is not a directory"}}
+{"name": "door-live", "ok": true, "detail": {"stderr": "stop: canonical live book is refused"}}
+{"name": "live-book-unwritten", "ok": true}
+{"name": "pass04-not-consumed", "ok": true, "detail": {"directory_present": true}}
+{"name": "bounded-pins", "ok": true, "detail": {"files": 10}}

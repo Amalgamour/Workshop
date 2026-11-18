@@ -1,0 +1,70 @@
+{
+  "answers": [],
+  "design_fork": null,
+  "disposition": "correction-required",
+  "finding": "Correction required before adopting the report projection: enforce selected-record digest coherence and label/count artifacts accurately.",
+  "findings": [
+    {
+      "disposition": "answered",
+      "finding_id": "P1#coherence",
+      "text": "Confirmed defect; repair in the next bounded pack, not closed: changed expected digest must hold before metadata exposure."
+    },
+    {
+      "disposition": "answered",
+      "finding_id": "P2#counts",
+      "text": "Confirmed defect; repair in the next bounded pack, not closed: distinguish declared artifact entries, unique physical sources and intake role rows."
+    }
+  ],
+  "gaps": [
+    "No new Director decision required for technical corrections.",
+    "No full author-suite rerun, release, custody, work completion or production selection.",
+    "Normal source preservation verified; injected coherence case is a reviewer unit probe, not a real concurrent writer or AR-01 race."
+  ],
+  "goal_terminal": "open",
+  "holds": [],
+  "next_action": "Repair selected-digest coherence and separate declared-artifact totals from all intake rows in 0512/05.05; retain the current core and old report unchanged.",
+  "operation": "continue",
+  "pass_terminal": "open",
+  "reasons": [
+    "Normal real-record reporting now preserves coverage notes and attention details that the stored render omits.",
+    "checked_record accepts the new string digest when it differs from expected, allowing second-cut attention metadata to be exposed.",
+    "artifacts_of counts all intake rows; a one-payload fixture is reported as four artifacts."
+  ],
+  "review_passes": [],
+  "sections": {
+    "affected": null,
+    "assumptions": null,
+    "consequences": null,
+    "exploration": null,
+    "findings_account": [
+      {
+        "finding_id": "P1#coherence",
+        "status": "accepted"
+      },
+      {
+        "finding_id": "P2#counts",
+        "status": "accepted"
+      }
+    ],
+    "finish_assessments": null,
+    "for_model": null,
+    "issue": null,
+    "learning": null,
+    "limits": null,
+    "next_bounded_action": "Repair selected-digest coherence and separate declared-artifact totals from all intake rows in 0512/05.05; retain the current core and old report unchanged.",
+    "open_questions": null,
+    "options": null,
+    "outcome_evidence": null,
+    "preservation": null,
+    "prime_finding": "Useful staged report, but two independent probes fail: a second-cut journal/record digest is accepted despite a different expected digest; artifact totals count non-artifact intake roles.",
+    "proposed_plan": null,
+    "question": null,
+    "recommendation": null,
+    "remaining_choices": null,
+    "return_result": "Eighteen artifacts verified. The standalone report reads the real review twice identically and exposes bounded tests_note and all six agreement attention lines without source writes.",
+    "tests_note": "Two real report CLI observations passed. Two independent targeted probes found correctness defects. The author reports 14 passing tests; Prime did not rerun that full suite.",
+    "tests_passed": false,
+    "within_direction": "Continue the approved reporting scope with no new policy, shared app selection, custody filing or migration."
+  },
+  "semantic_conflict": false
+}

@@ -1,0 +1,109 @@
+{
+  "all_as_expected": true,
+  "cycle_sha256": "496b4d721cfb136fa847d998d421209616c60508beb5cda5620af73041eed17c",
+  "rows": [
+    {
+      "as_expected": true,
+      "expect": "accepted-by-cycle",
+      "id": "V1-held",
+      "observed": "accepted-by-cycle",
+      "rule": null,
+      "set": {
+        "disposition": "held"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "accepted-by-cycle",
+      "id": "V2-correction-required",
+      "observed": "accepted-by-cycle",
+      "rule": null,
+      "set": {
+        "disposition": "correction-required"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "accepted-by-cycle",
+      "id": "V3-accepted-open",
+      "observed": "accepted-by-cycle",
+      "rule": null,
+      "set": {
+        "disposition": "accepted"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "accepted-by-cycle",
+      "id": "V4-accepted-complete",
+      "observed": "accepted-by-cycle",
+      "rule": null,
+      "set": {
+        "disposition": "accepted",
+        "goal.evidence": [
+          "SYNTHETIC evidence ref"
+        ],
+        "goal.terminal": "completed",
+        "outcome": "complete",
+        "pass_terminal": "finished"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "accepted-by-cycle",
+      "id": "V5-held-director-input",
+      "observed": "accepted-by-cycle",
+      "rule": null,
+      "set": {
+        "disposition": "held",
+        "outcome": "director-input"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "refused-by-cycle",
+      "id": "N1-held-finished",
+      "observed": "refused-by-cycle",
+      "rule": "a held review keeps the pass and the goal open",
+      "set": {
+        "disposition": "held",
+        "pass_terminal": "finished"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "refused-by-cycle",
+      "id": "N2-director-input-accepted",
+      "observed": "refused-by-cycle",
+      "rule": "director-input requires disposition held",
+      "set": {
+        "disposition": "accepted",
+        "outcome": "director-input"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "refused-by-cycle",
+      "id": "N3-complete-without-evidence",
+      "observed": "refused-by-cycle",
+      "rule": "a completed goal needs at least one evidence reference",
+      "set": {
+        "disposition": "accepted",
+        "goal.terminal": "completed",
+        "outcome": "complete",
+        "pass_terminal": "finished"
+      }
+    },
+    {
+      "as_expected": true,
+      "expect": "refused-by-cycle",
+      "id": "N4-unknown-disposition",
+      "observed": "refused-by-cycle",
+      "rule": "judgment.disposition must be accepted, held or correction-required",
+      "set": {
+        "disposition": "approved"
+      }
+    }
+  ],
+  "schema": "0707-coupling-probe/1"
+}

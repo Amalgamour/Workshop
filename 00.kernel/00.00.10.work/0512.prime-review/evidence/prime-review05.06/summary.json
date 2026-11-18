@@ -1,0 +1,48 @@
+{
+  "g1": {
+    "artifact_count": 14,
+    "bad": [],
+    "live": {
+      "exit": 0,
+      "stdout_tail": " author six-test suite is attributed evidence, not independently rerun. Not all 39 independent assertions, new filed successor behavior or unsupported interruption were exercised.\"\n  },\n  \"tests_passed\": {\n    \"label\": \"supplied bounded assessment\",\n    \"proof_of_all_tests\": false,\n    \"proof_of_requirements\": false,\n    \"state\": \"supplied\",\n    \"value\": true\n  },\n  \"unknowns\": [\n    \"agreement.goal\",\n    \"agreement.scope\",\n    \"recorded_decisions\",\n    \"receipt\"\n  ],\n  \"work_complete\": false\n}\n"
+    },
+    "author_rerun": {
+      "run": 18,
+      "failures": 0,
+      "errors": 9,
+      "skipped": 0
+    }
+  },
+  "g2": {
+    "artifact_count": 5,
+    "bad": [],
+    "retained_report_sha256": "cf86f02540d764959979439e3774b1d405ccaa39e99ea2cff38bcfa743a32514",
+    "problems": [],
+    "read_only_checks": [
+      {
+        "step": "11-guard-verify",
+        "exit": 0,
+        "stdout_tail": "reservation d5852b3827975fbd3884c9806cb7cb1c6cd26db8bf10986027c8b00bcec72c0f\r\nmanifest a5f4be7630eac402514037ed8bbc37cb8bae6f7bca7c603dd7f1f4009cb4817f\r\nreceipt 6f1db71da7ae97823b87a27e97cb2f1ba2bfbde7a45aa5d617f0c7bca568065a\r\npayload 0001.blob 518e59e7215812511b4c8947eb43dc5678d51fb292eed81a4f1e88d273272642\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n"
+      },
+      {
+        "step": "11-reader-verify",
+        "exit": 0,
+        "stdout_tail": "reservation d5852b3827975fbd3884c9806cb7cb1c6cd26db8bf10986027c8b00bcec72c0f\r\nmanifest a5f4be7630eac402514037ed8bbc37cb8bae6f7bca7c603dd7f1f4009cb4817f\r\nreceipt 6f1db71da7ae97823b87a27e97cb2f1ba2bfbde7a45aa5d617f0c7bca568065a\r\npayload 0001.blob 518e59e7215812511b4c8947eb43dc5678d51fb292eed81a4f1e88d273272642\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n"
+      },
+      {
+        "step": "12-negative-verify",
+        "exit": 2,
+        "stdout_tail": "missing return.md\r\nresult refused\r\n"
+      }
+    ]
+  },
+  "claude": {
+    "artifact_count": 55,
+    "bad": [],
+    "author_rerun": {
+      "exit": 0,
+      "stdout_tail": "one manifest payload missing -> artifact-missing\r\nPASS  I5   author test                        traversal inside an accepted path shape (a/../../x.md) -> malformed-declared-pat\r\nPASS  H2   author hostile                     a decoy file literally named 'artifact-manifest.json,' exists: unpatched intake \r\nPASS  I6   author test (expectation corrected a counted manifest line is parsed by UNPATCHED intake too (only Returned is lost\r\naggregate {'PASS': 17, 'FAIL': 0, 'ERROR': 0} first failure None\r\n"
+    },
+    "independent_regression": "Existing legal N5 filenames ending comma, semicolon or close-paren were accepted before and refused by proposed parser."
+  }
+}

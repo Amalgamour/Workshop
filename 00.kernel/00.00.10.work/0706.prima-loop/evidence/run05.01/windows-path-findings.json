@@ -1,0 +1,116 @@
+{
+ "recorded_at": "2026-11-01T12:22:17-06:00",
+ "scope": "static grep/read of the snapshot; findings only, no edits",
+ "findings": [
+  {
+   "file": "app/review_loop_tools_v2.py",
+   "line": 24,
+   "text": "CHECKOUT = Path(r\"D:\\Git\\lib-build\")",
+   "finding": "Hard-coded Windows checkout root in the app backend for the review-loop route"
+  },
+  {
+   "file": "app/review_loop_tools_v2.py",
+   "line": 25,
+   "text": "LIVE_BOOK = CHECKOUT / \"00.kernel\" / \"00.00.10.work\"",
+   "finding": "Live book derived from the D: checkout"
+  },
+  {
+   "file": "app/review_loop_tools_v2.py",
+   "line": 207,
+   "text": "if _inside(path, CHECKOUT) or _inside(CHECKOUT, path):",
+   "finding": "Containment guard against the D: checkout (fixture-root commands; not describe-legacy)"
+  },
+  {
+   "file": "app/review_loop_tools_v2.py",
+   "line": 208,
+   "text": "refuse(\"fixture root must stay outside D:\\\\Git\\\\lib-build\")",
+   "finding": "Windows path in refusal text"
+  },
+  {
+   "file": "app/review_loop_tools_v2.py",
+   "line": 217,
+   "text": "... len(text) >= 2 and text[1] == \":\"",
+   "finding": "Drive-letter rejection for relative args (portable guard, Windows-aware)"
+  },
+  {
+   "file": "app/review_loop_tools_v2.py",
+   "line": 23,
+   "text": "REPARSE = 0x400",
+   "finding": "Windows reparse-point attribute check via st_file_attributes (absent on Linux; getattr default 0)"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 27,
+   "text": "ROOT = Path(r\"D:\\Git\\lib-build\")",
+   "finding": "Hard-coded Windows root in the pinned tool the app spawns for describe-legacy"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 48,
+   "text": "INSPECT = ROOT / \"labs\" / \"return-capture-pass01\" / \"return_inspect.py\"",
+   "finding": "Pinned-tool paths (CONSTRUCT 29, REVIEW01 32, REVIEW02 35, CYCLE 38, LINES 41, PLACEMENT 45, INSPECT 48) all resolve under the D: root"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 53,
+   "text": "LIVE_BOOK = ROOT / \"00.kernel\" / \"00.00.10.work\"",
+   "finding": "Live book under D:"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 54,
+   "text": "EVIDENCE = LIVE_BOOK / ... / \"build05.04\"",
+   "finding": "Evidence dir under D:"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 142,
+   "text": "def pin_file(path...): data = path.read_bytes()",
+   "finding": "describe_legacy (line 627-628) first calls pin_file(INSPECT,...) which reads the D:-rooted path with no OSError handling shown"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 171,
+   "text": "cwd=str(ROOT)",
+   "finding": "Child tools are run with cwd = D:\\Git\\lib-build"
+  },
+  {
+   "file": "labs/review-loop-pass02/review_loop.py",
+   "line": 102,
+   "text": "raise Refusal(\"fixture root must stay outside D:\\\\Git\\\\lib-build\")",
+   "finding": "Windows path in refusal text (also 845)"
+  },
+  {
+   "file": "labs/prime-cycle-pass03/prime_cycle.py",
+   "line": 28,
+   "text": "ROOT = Path(r\"D:\\Git\\lib-build\")",
+   "finding": "Hard-coded Windows root (pinned tool; not on describe-legacy path per static read)"
+  },
+  {
+   "file": "labs/review-construction-pass02/construct.py",
+   "line": 27,
+   "text": "ROOT = Path(r\"D:\\Git\\lib-build\")",
+   "finding": "Hard-coded Windows root (pinned tool; not on describe-legacy path per static read)"
+  },
+  {
+   "file": "app/prime_review_tools.py",
+   "line": 216,
+   "text": "if os.name == \"nt\" and DRIVE.match(text) is None:",
+   "finding": "Windows-only branch (not on the worker routes)"
+  },
+  {
+   "file": "app/librarian.py",
+   "line": null,
+   "text": "(none)",
+   "finding": "librarian.py itself has no drive letters/backslash paths; code_root = Path(__file__).resolve().parent.parent (line 97); review-loop dispatches to review_loop_tools_v2.perform (lines 98-105)"
+  }
+ ],
+ "describe_legacy_prediction": {
+  "status": "static prediction only - NOT executed in phase 01 (Worker B's job)",
+  "reasoning": "On POSIX, Path(r'D:\\Git\\lib-build') is a single RELATIVE path component literally named 'D:\\Git\\lib-build'. review_loop_tools_v2.perform runs labs/review-loop-pass02/review_loop.py with cwd=code_root (snapshot root). review_loop.describe_legacy first calls pin_file(INSPECT,...) -> Path('D:\\Git\\lib-build/labs/return-capture-pass01/return_inspect.py').read_bytes() relative to that cwd, which does not exist in the snapshot.",
+  "likely_first_blocking_path": "<snapshot root>/D:\\Git\\lib-build/labs/return-capture-pass01/return_inspect.py (from review_loop.py:27,48,628,143)",
+  "likely_outcome": "FileNotFoundError or a Refusal, nonzero exit; to be observed by Worker B, not assumed",
+  "app_pin_check_before_spawn": "review_loop_tools_v2.pin_tools(code_root) resolves the declared tools relative to code_root and should pass on the snapshot (all pins are in the verified manifest)"
+ },
+ "also_observed": "Published preparation evidence (evidence/preparation/inputs.stdout) has CRLF line endings and verification.json records Python 3.12.14 [MSC v.1944 64 bit (AMD64)]: preparation ran on Windows; this box produced LF output (171 vs 179 bytes) for the same JSON."
+}

@@ -1,0 +1,13 @@
+# Review - Codex Prime: 0521/05.05
+date: 2026-11-02
+outcome: recorded-authority copy prototype improved; requested production capability still absent
+
+All 25 artifacts and 24 frozen inputs verify without drift. Read full verification, contract, authority rules, proposal and relevant authority implementation. Independently reran 15 focused tests with Python 3.12.14, exit 0, 6.923 seconds. Builder's full copy suite, 83-record preservation, reader failures and seam results remain attributed to its retained evidence, not a new full Prime rehearsal.
+
+The real gap remains explicit in source. inspect() refuses is_real_live(book) or names_live(record) before evaluating valid recorded authority; it accepts recorded release only when is_designated(book). live_refusal and patched_assert also unconditionally refuse canonical live. Therefore these schemas work only behind a test seam, not through the normal production path. A test named live_book_refuses_recorded_release_and_designation encodes that wrong completion criterion. This is not an execution-release problem: the pack asked for implementing conditional authority without executing it live. Preserve safety and evidence, but do not call this capability complete.
+
+Next 05.06 must remove this capability-versus-invocation confusion in a bounded successor: SAME normal validator for recorded release on a canonical book and a disposable copy, absent/mismatched/fixture authority refused, read-only preflight, no production designation prerequisite, and zero actual live mutation or invented live release. A Director-released bound plan is still required before any real execution.
+
+Useful new facts: unchanged legacy reader verifies retained members when pointed at the correct originals/ or occupants/ parent; it cannot read a whole new logical line page as one old envelope (unexpected 05.01.custody). There is no single book-shaped archive. A source/pass-aware access adapter and supported app entry are justified. Sentinel, old sequential-writer closure, archive locations and final cutover remain unresolved; incomplete 0154 is intentionally preserved, not a failure requiring an invented return. Pending capture is not itself proof a migration failed. Separate required gates from expected preserved incomplete states.
+
+No live moves, authorization, sentinel, receipt, app edits, Git write or kernel approval performed by this review.

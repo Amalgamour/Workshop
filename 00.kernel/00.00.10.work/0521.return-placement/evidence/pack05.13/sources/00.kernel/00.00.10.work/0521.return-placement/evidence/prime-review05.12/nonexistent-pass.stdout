@@ -1,0 +1,134 @@
+{
+  "accepted": false,
+  "approved": false,
+  "check": "return-line-capture/1 reservation",
+  "command": "lookup",
+  "correction": "Evidence is incomplete. Keep the record visible and do not invent the missing return. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority.",
+  "custody_is_acceptance": false,
+  "descriptor": {
+    "custody_format": "return-line-capture/1",
+    "custody_path": "0121.connected-return-review/05.99.custody",
+    "manifest_path": "0121.connected-return-review/05.99.custody/manifest.json",
+    "origin": {
+      "batch": "05.99",
+      "book": "00.00.10.work",
+      "page": "0521.connected-return-review"
+    },
+    "receipt_path": "0121.connected-return-review/05.99.custody/receipt.json",
+    "receipt_sha256": null,
+    "return_bytes": null,
+    "return_path": "0121.connected-return-review/05.99.return.md",
+    "return_sha256": null,
+    "route": "matched-workflow-return-line",
+    "schema": "return-line-descriptor/1",
+    "state": "incomplete",
+    "submission_id": null,
+    "target_page": "0121.connected-return-review",
+    "verification": {
+      "evidence_path": "0121.connected-return-review/05.99.custody/reservation.json",
+      "result": "incomplete",
+      "tool_path": "labs/return-lines-pass01/return_lines.py",
+      "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+    }
+  },
+  "detail": {
+    "app_selected": false,
+    "rewritten": false,
+    "selected_backend": {
+      "bytes": 12124,
+      "path": "labs/return-lines-pass04/return_lines.py",
+      "sha256": "708443c5b3af457f930e8751be4224234d1494f2a2b4e18e3cf08bd7a7af1df6"
+    },
+    "sentinel_policy": "not-adopted",
+    "successor_consumed": false,
+    "backend": {
+      "check": "return-line-capture/1 reservation",
+      "command": "lookup",
+      "correction": "Evidence is incomplete. Keep the record visible and do not invent the missing return. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority.",
+      "descriptor": {
+        "custody_format": "return-line-capture/1",
+        "custody_path": "0121.connected-return-review/05.99.custody",
+        "manifest_path": "0121.connected-return-review/05.99.custody/manifest.json",
+        "origin": {
+          "batch": "05.99",
+          "book": "00.00.10.work",
+          "page": "0521.connected-return-review"
+        },
+        "receipt_path": "0121.connected-return-review/05.99.custody/receipt.json",
+        "receipt_sha256": null,
+        "return_bytes": null,
+        "return_path": "0121.connected-return-review/05.99.return.md",
+        "return_sha256": null,
+        "route": "matched-workflow-return-line",
+        "schema": "return-line-descriptor/1",
+        "state": "incomplete",
+        "submission_id": null,
+        "target_page": "0121.connected-return-review",
+        "verification": {
+          "evidence_path": "0121.connected-return-review/05.99.custody/reservation.json",
+          "result": "incomplete",
+          "tool_path": "labs/return-lines-pass01/return_lines.py",
+          "tool_sha256": "863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a"
+        }
+      },
+      "detail": {
+        "problems": [],
+        "acceptance": null,
+        "accepted": false,
+        "approved": false,
+        "published": false,
+        "new_home": {
+          "custody_path": "0121.connected-return-review/05.99.custody",
+          "logical_return_path": "0121.connected-return-review/05.99.return.md",
+          "target_page": "0121.connected-return-review"
+        },
+        "retained_original": {
+          "archived_identity": null,
+          "backup_path": null,
+          "book_member_present": null,
+          "retired_rel": null,
+          "retired_root": null,
+          "source_backup": null
+        },
+        "pass02_tool": "labs/return-lines-pass02/return_lines.py",
+        "pass02_tool_sha256": "6691d0587ab97ba24a1709c9950b506961152939e2d112ee608f9dbd23e92908"
+      },
+      "evidence": "0121.connected-return-review/05.99.custody/reservation.json",
+      "exit": 1,
+      "schema": "return-line-result/1",
+      "state": "incomplete"
+    }
+  },
+  "exit": 1,
+  "legacy": {
+    "called": false,
+    "exit": null,
+    "member": null,
+    "parent": null,
+    "reason": "native line-pass return is not a legacy single-envelope page",
+    "text": null
+  },
+  "missing": [
+    "return"
+  ],
+  "partial": false,
+  "published": false,
+  "route": {
+    "custody_path": "0121.connected-return-review/05.99.custody",
+    "pass": "05.99",
+    "return_path": "0121.connected-return-review/05.99.return.md",
+    "route": "matched-workflow-return-line",
+    "source_page": "0521.connected-return-review",
+    "target_page": "0121.connected-return-review"
+  },
+  "schema": "return-access-result/1",
+  "state": "incomplete",
+  "task_association": "not-established",
+  "verified": {
+    "pass": "05.99",
+    "return_path": "0121.connected-return-review/05.99.return.md",
+    "route": "matched-workflow-return-line",
+    "source_page": "0521.connected-return-review",
+    "target_page": "0121.connected-return-review"
+  }
+}

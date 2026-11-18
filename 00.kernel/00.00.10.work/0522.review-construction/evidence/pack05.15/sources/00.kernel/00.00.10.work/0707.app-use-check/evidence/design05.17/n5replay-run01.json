@@ -1,0 +1,176 @@
+{
+ "schema": "n5-replay/1",
+ "room": "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01",
+ "source": "0522.review-construction 05.13",
+ "pack_md_sha256": "632b9c6ed61c800f42c8aa64e148b66c36350f6ef0725dbfeb5f7108c723a6d8",
+ "declared": {
+  "Submission": [
+   "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/submission.md",
+   "0bf16292a0a10f4cd2120cf3f20915db9ab1d57c48da6609b25a699973ec49e5",
+   25656
+  ],
+  "Artifact manifest": [
+   "00.kernel/00.00.10.work/0522.review-construction/evidence/build05.13/artifact-manifest.json",
+   "e806c09a08b5596d25e62efc1988188fb64ca064bb05545abda911a75f61fe04",
+   6704
+  ]
+ },
+ "manifest_rows": 29,
+ "copied": 85,
+ "runs": {
+  "A-app": {
+   "argv": [
+    "D:\\Git\\lib-build\\app\\librarian.py",
+    "review-loop",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0522.review-construction",
+    "--pass",
+    "05.13"
+   ],
+   "exit": 0,
+   "intake_id": "47f6356fd6866e47443b2e76ed40b1d3af0868595fc05ba0f84d2bd99de6d94b",
+   "measurement": "incomplete",
+   "kind": "N5NN",
+   "destination": "0522.review-construction/05.13.md",
+   "custody": "missing",
+   "finding_codes": [
+    "ambiguous-declared-root",
+    "ambiguous-declared-root",
+    "custody-missing",
+    "return-missing"
+   ],
+   "rows_sha": "fadff5d00aca06113d049b4c82b5e73cc1f54b32ae880661cb63b889caa8efa5",
+   "row_count": 1,
+   "roles": [
+    "assignment"
+   ],
+   "submission_path": null,
+   "manifest_path": null,
+   "cuts_sha": "99444bcb996dc5fb0208998a7e09c8c1a9a4ec2fe238a591afe6cd65625637e9",
+   "stderr_tail": ""
+  },
+  "U1-unpatched": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass02\\n7compat2.py",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0522.review-construction",
+    "--pass",
+    "05.13"
+   ],
+   "exit": 0,
+   "intake_id": "1e58369539531b1afad7276bb2f2e43ce55687fd00405becd82caccf1b6705ac",
+   "measurement": "complete",
+   "kind": "N5NN",
+   "destination": "0522.review-construction/05.13.md",
+   "custody": "missing",
+   "finding_codes": [
+    "custody-missing",
+    "index-context-bounded",
+    "return-missing",
+    "verification-not-measured"
+   ],
+   "rows_sha": "e2c5dbdfe7a1b27521688992a4c4bed14ba354d242c4ab6476cef8f773606c14",
+   "row_count": 32,
+   "roles": [
+    "artifact",
+    "artifact-manifest",
+    "assignment",
+    "submission"
+   ],
+   "submission_path": "0522.review-construction/evidence/build05.13/submission.md",
+   "manifest_path": "0522.review-construction/evidence/build05.13/artifact-manifest.json",
+   "cuts_sha": "93292c952a39169ccd8002b22eb8ae2c1d8929682ede0d73e90f757e342b343d",
+   "stderr_tail": ""
+  },
+  "P-patched": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass02\\n7compat2.py",
+    "--patch",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0522.review-construction",
+    "--pass",
+    "05.13"
+   ],
+   "exit": 0,
+   "intake_id": "1e58369539531b1afad7276bb2f2e43ce55687fd00405becd82caccf1b6705ac",
+   "measurement": "complete",
+   "kind": "N5NN",
+   "destination": "0522.review-construction/05.13.md",
+   "custody": "missing",
+   "finding_codes": [
+    "custody-missing",
+    "index-context-bounded",
+    "return-missing",
+    "verification-not-measured"
+   ],
+   "rows_sha": "e2c5dbdfe7a1b27521688992a4c4bed14ba354d242c4ab6476cef8f773606c14",
+   "row_count": 32,
+   "roles": [
+    "artifact",
+    "artifact-manifest",
+    "assignment",
+    "submission"
+   ],
+   "submission_path": "0522.review-construction/evidence/build05.13/submission.md",
+   "manifest_path": "0522.review-construction/evidence/build05.13/artifact-manifest.json",
+   "cuts_sha": "93292c952a39169ccd8002b22eb8ae2c1d8929682ede0d73e90f757e342b343d",
+   "stderr_tail": ""
+  },
+  "U2-unpatched": {
+   "argv": [
+    "D:\\Git\\lib-build\\labs\\n7-intake-compat-pass02\\n7compat2.py",
+    "--repo-root",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo",
+    "prepare",
+    "--book",
+    "D:\\librarian\\temp\\n7-intake-0717\\n5replay-run01\\repo\\00.kernel\\00.00.10.work",
+    "--source",
+    "0522.review-construction",
+    "--pass",
+    "05.13"
+   ],
+   "exit": 0,
+   "intake_id": "1e58369539531b1afad7276bb2f2e43ce55687fd00405becd82caccf1b6705ac",
+   "measurement": "complete",
+   "kind": "N5NN",
+   "destination": "0522.review-construction/05.13.md",
+   "custody": "missing",
+   "finding_codes": [
+    "custody-missing",
+    "index-context-bounded",
+    "return-missing",
+    "verification-not-measured"
+   ],
+   "rows_sha": "e2c5dbdfe7a1b27521688992a4c4bed14ba354d242c4ab6476cef8f773606c14",
+   "row_count": 32,
+   "roles": [
+    "artifact",
+    "artifact-manifest",
+    "assignment",
+    "submission"
+   ],
+   "submission_path": "0522.review-construction/evidence/build05.13/submission.md",
+   "manifest_path": "0522.review-construction/evidence/build05.13/artifact-manifest.json",
+   "cuts_sha": "93292c952a39169ccd8002b22eb8ae2c1d8929682ede0d73e90f757e342b343d",
+   "stderr_tail": ""
+  }
+ },
+ "unpatched_vs_patched_identical": true,
+ "differences": {},
+ "app_vs_unpatched_intake_id_equal": false,
+ "copied_bytes_unchanged": true,
+ "files_added_by_runs": []
+}

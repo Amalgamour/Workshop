@@ -1,0 +1,42 @@
+{
+  "candidate_sha256": "47f47d16426e4d69987398a8244877de58b6089326874f3279003f696814450b",
+  "config": {
+    "changed_fields": [
+      "label",
+      "output_root",
+      "release"
+    ],
+    "config_bytes": 3166,
+    "config_sha256": "9d68fc0c10c5d43481a89e7e2e1ab6ff35816d1cbfa29f46bf9875ff1be0ede0",
+    "source": "lab05.09/candidate.config.json",
+    "source_sha256": "b6996a27e933b3ebb03372ccf3d9b68a1ff1dea63d3f8716498f959198d2c6ce"
+  },
+  "existing_edits": "none",
+  "not_rerun": [
+    "33-case matrix",
+    "37-test harness self-test"
+  ],
+  "original_05.07_run_unchanged": {
+    "changed": [],
+    "lab05.09_artifact_rows": 462
+  },
+  "pass": "05.08",
+  "preflight_exit": 0,
+  "schema": "0707-lab-verification/5",
+  "sources_after": {
+    "count": 121,
+    "live_equal": 121,
+    "snapshot_ok": 121
+  },
+  "sources_before": "121/121",
+  "supplemental_run": {
+    "aggregate": "PASS",
+    "cases": {
+      "A22a": "PASS",
+      "A22b": "PASS"
+    },
+    "exit": 0,
+    "launches": 7,
+    "name": "20261101T223407Z-ab42c3"
+  }
+}

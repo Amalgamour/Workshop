@@ -1,0 +1,222 @@
+{
+  "schema": "0709-writer-probe/1",
+  "root": "D:\\librarian\\temp\\return-writers-0709-0502$STAMP",
+  "steps": [
+    {
+      "label": "h1-01-line-init",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass01\\return_lines.py",
+        "init",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h1-book",
+        "--name",
+        "00.00.10.work"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"check\": \"return-line-layout/1\",\n  \"command\": \"init\",\n  \"correction\": \"Layout written. This declaration is not custody.\",\n  \"descriptor\": null,\n  \"detail\": {\n    \"acceptance\": null,\n    \"accepted\": false,\n    \"approved\": false,\n    \"published\": false,\n    \"rewritten\": false\n  },\n  \"evidence\": \"return-line-layout.json\",\n  \"exit\": 0,\n  \"schema\": \"return-line-result/1\",\n  \"state\": \"complete\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "h1-02-helper-reserve",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h1-book",
+        "--submission",
+        "probe-h1-helper",
+        "--name",
+        "alpha-0501",
+        "--origin-book",
+        "00.00.10.work",
+        "--origin-page",
+        "0501.alpha",
+        "--origin-batch",
+        "05.01",
+        "--submitter",
+        "probe",
+        "--reviewer",
+        "probe",
+        "--release",
+        "SYNTHETIC probe"
+      ],
+      "exit": 0,
+      "stdout": "member 0101.alpha-0501\r\nsubmission probe-h1-helper\r\nresult reserved\r\n",
+      "stderr": ""
+    },
+    {
+      "label": "h1-03-line-reserve",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass01\\return_lines.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h1-book",
+        "--page",
+        "0501.alpha",
+        "--batch",
+        "05.02",
+        "--submission",
+        "probe-h1-line",
+        "--submitter",
+        "probe",
+        "--reviewer",
+        "probe",
+        "--release",
+        "SYNTHETIC probe"
+      ],
+      "exit": 2,
+      "stdout": "{\n  \"check\": \"live book\",\n  \"command\": \"reserve\",\n  \"correction\": \"Do not mutate a book that still has the return door. Rehearse on a copy that omits it. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority.\",\n  \"descriptor\": null,\n  \"detail\": {\n    \"acceptance\": null,\n    \"accepted\": false,\n    \"approved\": false,\n    \"published\": false\n  },\n  \"evidence\": null,\n  \"exit\": 2,\n  \"schema\": \"return-line-result/1\",\n  \"state\": \"refused\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "h2-01-line-init",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass01\\return_lines.py",
+        "init",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h2-book",
+        "--name",
+        "00.00.10.work"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"check\": \"return-line-layout/1\",\n  \"command\": \"init\",\n  \"correction\": \"Layout written. This declaration is not custody.\",\n  \"descriptor\": null,\n  \"detail\": {\n    \"acceptance\": null,\n    \"accepted\": false,\n    \"approved\": false,\n    \"published\": false,\n    \"rewritten\": false\n  },\n  \"evidence\": \"return-line-layout.json\",\n  \"exit\": 0,\n  \"schema\": \"return-line-result/1\",\n  \"state\": \"complete\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "h2-02-line-reserve",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass01\\return_lines.py",
+        "reserve",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h2-book",
+        "--page",
+        "0504.app-entry",
+        "--batch",
+        "05.21",
+        "--submission",
+        "probe-h2-line",
+        "--output",
+        "note.md",
+        "--submitter",
+        "probe",
+        "--reviewer",
+        "probe",
+        "--release",
+        "SYNTHETIC probe"
+      ],
+      "exit": 1,
+      "stdout": "n-line-capture/1 reservation\",\n  \"command\": \"reserve\",\n  \"correction\": \"Reservation stored. Capture is still required. Reserved is not done. Escalation: Codex Prime on 0521.return-placement/05.03. This tool does not decide meaning, acceptance, or live authority.\",\n  \"descriptor\": {\n    \"custody_format\": \"return-line-capture/1\",\n    \"custody_path\": \"0104.app-entry/05.21.custody\",\n    \"manifest_path\": \"0104.app-entry/05.21.custody/manifest.json\",\n    \"origin\": {\n      \"batch\": \"05.21\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0504.app-entry\"\n    },\n    \"receipt_path\": \"0104.app-entry/05.21.custody/receipt.json\",\n    \"receipt_sha256\": null,\n    \"return_bytes\": null,\n    \"return_path\": \"0104.app-entry/05.21.return.md\",\n    \"return_sha256\": null,\n    \"route\": \"matched-workflow-return-line\",\n    \"schema\": \"return-line-descriptor/1\",\n    \"state\": \"reserved\",\n    \"submission_id\": \"probe-h2-line\",\n    \"target_page\": \"0104.app-entry\",\n    \"verification\": {\n      \"evidence_path\": \"0104.app-entry/05.21.custody/reservation.json\",\n      \"result\": \"reserved\",\n      \"tool_path\": \"labs/return-lines-pass01/return_lines.py\",\n      \"tool_sha256\": \"863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a\"\n    }\n  },\n  \"detail\": {\n    \"acceptance\": null,\n    \"accepted\": false,\n    \"approved\": false,\n    \"published\": false,\n    \"rewritten\": false\n  },\n  \"evidence\": \"0104.app-entry/05.21.custody/reservation.json\",\n  \"exit\": 1,\n  \"schema\": \"return-line-result/1\",\n  \"state\": \"reserved\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "h2-03-line-capture",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-lines-pass01\\return_lines.py",
+        "capture",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h2-book",
+        "--page",
+        "0504.app-entry",
+        "--batch",
+        "05.21",
+        "--submission",
+        "probe-h2-line",
+        "--return-file",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\src\\return.md",
+        "--artifact",
+        "note.md",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\src\\note.md"
+      ],
+      "exit": 0,
+      "stdout": "  \"check\": \"return-line-capture/1 receipt\",\n  \"command\": \"capture\",\n  \"correction\": \"Receipt hashes match the written bytes. This is not acceptance.\",\n  \"descriptor\": {\n    \"custody_format\": \"return-line-capture/1\",\n    \"custody_path\": \"0104.app-entry/05.21.custody\",\n    \"manifest_path\": \"0104.app-entry/05.21.custody/manifest.json\",\n    \"origin\": {\n      \"batch\": \"05.21\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0504.app-entry\"\n    },\n    \"receipt_path\": \"0104.app-entry/05.21.custody/receipt.json\",\n    \"receipt_sha256\": \"4b9fb28db7ae4010a9b7bbf0a3f6cf094168bc118a78e4626428c0a8efd17fe4\",\n    \"return_bytes\": 34,\n    \"return_path\": \"0104.app-entry/05.21.return.md\",\n    \"return_sha256\": \"3c1502f0ac1686b191056eee6af745d7ee583b5d6d09c3158516677a11475ef0\",\n    \"route\": \"matched-workflow-return-line\",\n    \"schema\": \"return-line-descriptor/1\",\n    \"state\": \"complete\",\n    \"submission_id\": \"probe-h2-line\",\n    \"target_page\": \"0104.app-entry\",\n    \"verification\": {\n      \"evidence_path\": \"0104.app-entry/05.21.custody/receipt.json\",\n      \"result\": \"complete\",\n      \"tool_path\": \"labs/return-lines-pass01/return_lines.py\",\n      \"tool_sha256\": \"863968c59974d85910626ba5e80cf49f14a3186c8d33b855efe00bf6ccec378a\"\n    }\n  },\n  \"detail\": {\n    \"acceptance\": null,\n    \"accepted\": false,\n    \"approved\": false,\n    \"published\": false,\n    \"rewritten\": false\n  },\n  \"evidence\": \"0104.app-entry/05.21.custody/receipt.json\",\n  \"exit\": 0,\n  \"schema\": \"return-line-result/1\",\n  \"state\": \"complete\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "h2-04-helper-capture",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "capture",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h2-book",
+        "--submission",
+        "probe-h2-line",
+        "--return-file",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\src\\return.md",
+        "--source-root",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\src"
+      ],
+      "exit": 2,
+      "stdout": "reservation is missing: probe-h2-line\r\nresult refused\r\n",
+      "stderr": ""
+    },
+    {
+      "label": "h3-01-helper-verify-line",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+        "verify",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h2-book",
+        "--member",
+        "0104.app-entry"
+      ],
+      "exit": 2,
+      "stdout": "unexpected 05.21.custody\r\nresult refused\r\n",
+      "stderr": ""
+    },
+    {
+      "label": "h3-02-inspect-line",
+      "argv": [
+        "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "-B",
+        "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+        "inspect",
+        "--book",
+        "D:\\librarian\\temp\\return-writers-0709-0502$STAMP\\h2-book",
+        "--member",
+        "0104.app-entry",
+        "--json"
+      ],
+      "exit": 1,
+      "stdout": "{\"book\":\"D:\\\\librarian\\\\temp\\\\return-writers-0709-0502$STAMP\\\\h2-book\",\"capture\":null,\"member\":\"0104.app-entry\",\"problems\":[\"empty member\"],\"reservation\":null,\"schema\":\"return-capture-inspection/1\",\"status\":\"missing\"}\n",
+      "stderr": ""
+    }
+  ],
+  "h1": {
+    "layout_declared_before_helper": true,
+    "book_after_helper": [
+      "0100.band.returns",
+      "0101.alpha-0501",
+      "return-line-layout.json"
+    ],
+    "door_created_by_helper": true,
+    "book_tree_end": {
+      "0101.alpha-0501/01.md": "b7dc0990b4dc8f3f91f8803f263a4e6cd11012777345950f8d1c5e6abe64d3b2",
+      "0101.alpha-0501/reservation.json": "01dca58a05e07f1bcd2e3de4dc3c9eafa1e2872aa8dcfc86a8055296831c6a58",
+      "return-line-layout.json": "2c414ac4e11cd874d28b8c477b7eed30ee477e216ed1653552d802f03c4d7804"
+    }
+  },
+  "h2": {
+    "book_dirs": [
+      "0104.app-entry",
+      "return-line-index.json",
+      "return-line-layout.json"
+    ],
+    "tree_unchanged_by_helper": true
+  }
+}

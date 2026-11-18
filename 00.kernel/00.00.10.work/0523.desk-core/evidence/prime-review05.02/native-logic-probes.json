@@ -1,0 +1,42 @@
+{
+  "qualification": "native serial unit API probes using the unmodified repaired source, actual Windows lock and byte I/O; subprocess suite/demo are separately recorded; not concurrency or live-app proof",
+  "book": "D:\\librarian\\temp\\cloud-core-repair-review\\scratch\\native-logic-probe-book",
+  "prior_task_text_retained_in_book_files": [
+    "0523.sample/05.01.history/0001/face.md",
+    "0523.sample/05.01.history/0001/task.json"
+  ],
+  "revision": {
+    "schema": "desk-core-result/1",
+    "ok": true,
+    "command": "revise-task",
+    "accepted": false,
+    "contract": "desk-core/2",
+    "limitations": [
+      "no OS user isolation",
+      "actor labels are not authentication",
+      "file locks and rename are not a proof of race freedom",
+      "a receipt is not a review and a review is not acceptance",
+      "this tool does not launch a model or migrate the live book"
+    ],
+    "idempotent": false,
+    "task_binding_sha256": "4d3b8e7883bd0d00592444a359f1372b6a898522f89931a5bc639762b90a9995",
+    "previous_task_binding_sha256": "8024331f0e560f0945e11969460ccdc9b3b17e11fc62a65412fe50607984ed57",
+    "stale": true,
+    "complete": false,
+    "revision": "0001",
+    "request_sha256": "791d1c7e0f819c74db813bb39a02f2058b4dfda32be9df1cc9ce743cebb7dd35",
+    "history": "D:\\librarian\\temp\\cloud-core-repair-review\\scratch\\native-logic-probe-book\\0523.sample\\05.01.history\\0001",
+    "check": "revision-preservation",
+    "input_sha256": "791d1c7e0f819c74db813bb39a02f2058b4dfda32be9df1cc9ce743cebb7dd35",
+    "outcome": "selected",
+    "next_route": "selected revision",
+    "trace_path": "D:\\librarian\\temp\\cloud-core-repair-review\\scratch\\native-logic-probe-book\\0523.sample\\05.01.trace\\0003.json",
+    "trace_sha256": "812e4b1f0ed508611936172371240caa2b76193683046b624689f1ac315c2ca3"
+  },
+  "review_changed_task_old_return": {
+    "review_refused": true,
+    "code": "stale-return",
+    "message": "captured return belongs to a different task and is not a fresh review"
+  },
+  "same_text_different_origins_same_task_binding": false
+}
