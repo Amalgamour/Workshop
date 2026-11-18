@@ -1699,16 +1699,22 @@ fn board_marks_a_waiting_pass_and_drift_as_stale() {
 }
 
 #[test]
-fn board_marks_an_old_check_and_an_old_signoff() {
+fn board_marks_a_check_on_another_commit_and_an_old_signoff() {
     let e = Env::checked("board-oldcheck");
     let c = e.ok(&["board", PG, "--card", "1"]);
     assert!(c.contains("stale:      none found in the log"), "{c}");
     // A later return on another commit: the commands cannot reach this today, so it is seeded.
-    // A return after a check is refused by the log rules; a check whose commit is not the
-    // return's is the disagreement the board must show (seeded).
+    // A re-check that names a commit no return names: the board shows the disagreement.
     seed(&e, PG, &[("cat", "checker", "check", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "verdict": "pass", "report": ""}))]);
     let b = e.ok(&["board", PG]);
-    assert!(b.contains("old check: check entry 10 was on commit dddddddddddd; the latest return (entry 8) is commit"), "{b}");
+    assert!(b.contains("check on another commit: check entry 10 names dddddddddddd, a commit no return names; the latest return (entry 8) is commit"), "{b}");
+    assert!(!b.contains("old check"), "{b}");
+    // Two returns on one pass (a check naming the earlier one) cannot load: the order
+    // rules refuse a return after a check. The board unit test covers that wording.
+    let dir = e.root.join("pages/6.0.0.1");
+    write_log(&dir, &[("init", init_data("6.0.0.1"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("return", 1)]);
+    let (code, out) = run_code(&e, &["board", "6.0.0.1"]);
+    assert!(code == Some(1) && out.contains("log entry 7 is out of order: a return for 05.01, which is at 'review'"), "{out}");
 
     let e = Env::checked("board-oldsign");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
@@ -2090,4 +2096,35 @@ fn board_card_with_all_is_refused_and_bad_addresses_are_escaped() {
         assert!(!out.contains('\u{1b}') && !out.contains('\u{202e}'), "{cmd}: raw char in {out}");
         assert!(out.contains("bad page address 'a\\u{1b}[2Kb\\u{202e}'"), "{cmd}: {out}");
     }
+}
+
+/// Fix 4: an overlap error for pass 100 does not print 05.100.
+#[test]
+fn overlap_ok_error_for_pass_100_does_not_print_05_100() {
+    let e = Env::ready("ovl100");
+    let f = e.root.join("pack.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: true\nstop if: none\n").unwrap();
+    let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "100", "--why", "shared files (t262u)", "--as", "pri"]);
+    assert!(!ok && out.contains("--overlap-ok pass 100 is not open (no such pass)") && !out.contains("05.100"), "{out}");
+    let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "005", "--why", "shared files (t262u)", "--as", "pri"]);
+    assert!(!ok && out.contains("--overlap-ok 05.05 is not open (no such pass)"), "{out}");
+    e.draft("src/a.rs", "true");
+    assert_eq!(e.ok(&["board", PG, "--card", "001"]), e.ok(&["board", PG, "--card", "05.01"]));
+    e.no(&["board", PG, "--card", "100"], "no pass 100 on this page");
+}
+
+/// Fix 5: a check with no verdict is refused when the log loads.
+#[test]
+fn check_with_no_verdict_makes_the_page_unreadable() {
+    let e = Env::ready("noverdict");
+    let dir = e.root.join("pages/6.0.0.2");
+    let mut evs = vec![("init", init_data("6.0.0.2"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1)];
+    evs[5].1.as_object_mut().unwrap().remove("verdict");
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["verify", "6.0.0.2"]);
+    assert!(code == Some(1) && out.contains("log entry 6 is out of order: a check for 05.01 with no verdict (pass or fail)"), "{out}");
+    evs[5].1["verdict"] = serde_json::json!("maybe");
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["status", "6.0.0.2"]);
+    assert!(code == Some(1) && out.contains("with no verdict (pass or fail)"), "{out}");
 }

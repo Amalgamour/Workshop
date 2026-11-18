@@ -107,12 +107,17 @@ fn tail_is(x: &Pass, want: &[&str]) -> Res<()> {
 }
 
 /// Digits, or 05.NN. Refuses signed forms like +1.
-fn parse_pass(v: &str, err: &str) -> Res<u32> {
+pub(crate) fn parse_pass(v: &str, err: &str) -> Res<u32> {
     let v = v.strip_prefix("05.").unwrap_or(v);
     if v.is_empty() || !v.bytes().all(|b| b.is_ascii_digit()) {
         return Err(err.into());
     }
     v.parse().map_err(|_| err.to_string())
+}
+
+/// `05.NN` for a pass number in 01-98; otherwise `pass N` (never `05.100`).
+fn pass_label(n: u32) -> String {
+    if (1..=98).contains(&n) { format!("05.{n:02}") } else { format!("pass {n}") }
 }
 
 fn nn(a: &Args, i: usize) -> Res<u32> {
@@ -302,8 +307,8 @@ fn overlap_ok_flag(p: &Page, a: &Args) -> Res<Option<(u32, String)>> {
             let n = parse_pass(v, "give --overlap-ok a pass number, like 3 or 05.03")?;
             match p.passes.get(&n) {
                 Some(x) if x.is_open_tail() => Ok(Some((n, why))),
-                Some(x) => Err(format!("refused: --overlap-ok 05.{n:02} is not open (tail is {})", x.tail)),
-                None => Err(format!("refused: --overlap-ok 05.{n:02} is not open (no such pass)")),
+                Some(x) => Err(format!("refused: --overlap-ok {} is not open (tail is {})", pass_label(n), x.tail)),
+                None => Err(format!("refused: --overlap-ok {} is not open (no such pass)", pass_label(n))),
             }
         }
     }

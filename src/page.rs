@@ -233,6 +233,9 @@ impl Page {
             let what = if kind == "draft" && x.tail == "closed" { "a re-draft".to_string() } else { format!("a {kind}") };
             return Err(format!("{what} for 05.{nn:02}, which is at '{}'; a {kind} needs {}", x.tail, want.join(" or ")));
         }
+        if kind == "check" && !matches!(d["verdict"].as_str(), Some("pass" | "fail")) {
+            return Err(format!("a check for 05.{nn:02} with no verdict (pass or fail)"));
+        }
         if kind == "close" && x.signoff.is_none() {
             return Err(format!("a close for 05.{nn:02} with no signoff"));
         }
