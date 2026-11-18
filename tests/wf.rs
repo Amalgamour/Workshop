@@ -114,6 +114,19 @@ impl Env {
         let o = c.output().unwrap();
         (o.status.success(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
     }
+    /// Pass `nn` from a 06 note to a passed close.
+    fn close_one(&self, nn: u32) {
+        let n = nn.to_string();
+        self.ok(&["face-write", PG, "06", "--text", "read 04 and the last close", "--as", "pri"]);
+        self.draft("src/a.rs", "true");
+        self.ok(&["pack", PG, &n, "--as", "pri"]);
+        self.ok(&["claim", PG, &n, "--as", "bob"]);
+        let sha = self.work(nn, &[("src/a.rs", &format!("a = {nn}\n"))], "w01: done - a");
+        assert!(self.ret(nn, &sha, "bob").0);
+        self.ok(&["check", PG, &n, "--as", "cat"]);
+        self.ok(&["signoff", PG, &n, "--outcome", "passed", "--as", "pri"]);
+        self.ok(&["close", PG, &n, "--as", "pri"]);
+    }
     /// A full pass up to a passing check.
     fn checked(name: &str) -> Env {
         let e = Env::ready(name);
@@ -190,24 +203,14 @@ fn may_touch_outside_grant_is_refused() {
 }
 
 #[test]
-fn pack_refuses_overlapping_may_touch() {
+fn draft_waits_while_a_pass_is_open_so_files_cannot_overlap() {
+    // w03: a second pass cannot be drafted while 05.01 is open, so two passes never hold the same files.
     let e = Env::ready("ov-ref");
     e.open("src/a.rs", "true");
-    e.draft("src/", "true");
-    let (ok, out) = e.wf(&["pack", PG, "2", "--as", "pri"]);
-    assert!(!ok, "{out}");
-    assert!(out.contains("overlaps open pass 05.01") && out.contains("src/") && out.contains("src/a.rs"), "{out}");
-}
-
-#[test]
-fn pack_allows_overlap_with_flag() {
-    let e = Env::ready("ov-ok");
-    e.open("src/a.rs", "true");
-    e.draft("src/a.rs", "true");
-    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
-    assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("shared files (t275u)"), "{}", e.log());
-    e.draft("src/a.rs", "true");
-    e.no(&["pack", PG, "3", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"], "overlaps open pass 05.02");
+    let before = e.log();
+    let f = e.root.join("pack.txt");
+    e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
+    assert_eq!(e.log(), before, "a refused draft must not append");
 }
 
 #[test]
@@ -652,13 +655,11 @@ fn signoff_passed_refuses_unanswered_person_elevation_and_drift() {
 #[test]
 fn overlap_ok_needs_why_and_set_prime_needs_ref() {
     let e = Env::ready("whyref");
-    e.open("src/a.rs", "true");
     e.draft("src/a.rs", "true");
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "missing --why");
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "ok ( )", "--as", "pri"], "--why needs a reason and a (ref)");
-    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
-    assert!(e.log().contains("\"overlap_why\":\"shared files (t275u)\""), "{}", e.log());
+    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--as", "pri"], "missing --why");
+    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "ok ( )", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is draft)");
     let e = Env::checked("setref");
     e.no(&["set-prime", PG, "neo", "--as", "mat"], "missing --ref");
     e.no(&["set-prime", PG, "neo", "--ref", " ", "--as", "mat"], "--ref must have non-blank text");
@@ -1026,8 +1027,7 @@ fn draft_refuses_a_99th_pass() {
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
     for i in 1..=98 {
-        e.ok(&["draft", PG, "--file", file, "--as", "pri"]);
-        assert!(e.log().contains(&format!("\"pass\":{i}")), "expected draft of pass {i}");
+        e.close_one(i);
     }
     let before = e.log();
     e.no(
@@ -1088,4 +1088,90 @@ fn write_atomic_source_opens_temp_with_create_new() {
     let body = src.split("fn write_atomic").nth(1).and_then(|s| s.split("pub fn edited").next()).unwrap_or("");
     assert!(body.contains("create_new(true)"), "write_atomic should open the temp file with create_new");
     assert!(!body.contains("File::create"), "write_atomic must not use File::create (it follows a symlink at the temp path)");
+}
+
+#[test]
+fn halt_and_resume_need_prime_or_person_and_a_note_with_ref() {
+    let e = Env::ready("halt");
+    e.no(&["halt", PG, "--note", "stop (t1)", "--as", "bob"], "only Prime (pri) or the person (mat)");
+    e.no(&["halt", PG, "--as", "pri"], "--note needs a reason and a (ref)");
+    e.no(&["halt", PG, "--note", "stop", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.no(&["halt", PG, "--note", "  (t1)", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "mat"]);
+    assert!(e.log().contains("\"kind\":\"halt\"") && e.log().contains("wait for Matthew (t301u)"), "{}", e.log());
+    e.no(&["halt", PG, "--note", "again (t1)", "--as", "pri"], "already halted");
+    e.no(&["resume", PG, "--note", "go", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.no(&["resume", PG, "--note", "go (t1)", "--as", "bob"], "only Prime (pri) or the person (mat)");
+    e.ok(&["resume", PG, "--note", "answered (t302u)", "--as", "pri"]);
+    assert!(e.log().contains("\"kind\":\"resume\"") && e.log().contains("answered (t302u)"), "{}", e.log());
+    e.no(&["resume", PG, "--note", "again (t1)", "--as", "pri"], "is not halted");
+    assert!(e.ok(&["help"]).contains("halt <page> --note"));
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+}
+
+#[test]
+fn halt_is_refused_while_a_pass_is_open() {
+    let e = Env::ready("halt-open");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.no(&["halt", PG, "--note", "stop (t1)", "--as", "pri"], "refused: 05.01 is at 'pack'; halt only when no pass is open");
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.no(&["halt", PG, "--note", "stop (t1)", "--as", "mat"], "refused: 05.01 is at 'open'");
+    let e = Env::checked("halt-review");
+    let before = e.log();
+    e.no(&["halt", PG, "--note", "stop (t1)", "--as", "pri"], "refused: 05.01 is at 'review'");
+    assert_eq!(e.log(), before, "a refused halt must not append");
+}
+
+#[test]
+fn halted_page_shows_in_status_and_stops_draft_pack_claim() {
+    let e = Env::ready("halted");
+    e.draft("src/a.rs", "true");
+    e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "pri"]);
+    let st = e.ok(&["status", PG]);
+    assert!(st.contains("halted:  by pri at ") && st.contains("wait for Matthew (t301u)"), "{st}");
+    assert!(st.contains("next:    halted. Prime (pri) or the person (mat) resumes it: wf resume 1.2.3.4 --note"), "{st}");
+    let f = e.root.join("pack.txt");
+    let before = e.log();
+    for args in [vec!["draft", PG, "--pass", "1", "--file", f.to_str().unwrap(), "--as", "pri"], vec!["pack", PG, "1", "--as", "pri"], vec!["claim", PG, "1", "--as", "bob"]] {
+        e.no(&args, "refused: page 1.2.3.4 is halted (by pri, entry ");
+        e.no(&args, "Prime (pri) or the person (mat) resumes it: wf resume 1.2.3.4");
+    }
+    assert_eq!(e.log(), before, "refusals on a halted page must not append");
+    let later = e.wf_at(&["observe", PG], Some(4_000_000_000)).1;
+    assert!(!later.contains("stalled"), "{later}");
+    e.ok(&["resume", PG, "--note", "answered (t302u)", "--as", "mat"]);
+    assert!(!e.ok(&["status", PG]).contains("halted"));
+    assert!(e.wf_at(&["observe", PG], Some(4_000_000_000)).1.contains("stalled"));
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+}
+
+#[test]
+fn draft_is_refused_while_an_earlier_pass_is_not_closed() {
+    let e = Env::ready("draft-open");
+    let f = e.root.join("pack.txt");
+    let file = f.to_str().unwrap().to_string();
+    let refused = |tail: &str, next: &str| {
+        let before = e.log();
+        e.no(&["draft", PG, "--file", &file, "--as", "pri"], &format!("refused: 05.01 is at '{tail}' and not closed"));
+        e.no(&["draft", PG, "--file", &file, "--as", "pri"], next);
+        assert_eq!(e.log(), before, "a refused draft must not append");
+    };
+    e.draft("src/a.rs", "true");
+    refused("draft", "Next for 05.01: Prime releases it: wf pack 1.2.3.4 1, or redraft it: wf draft 1.2.3.4 --pass 1");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    refused("pack", "Next for 05.01: a builder claims it: wf claim 1.2.3.4 1");
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    refused("open", "Next for 05.01: bob pushes the work, then wf return 1.2.3.4 1");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    refused("return", "Next for 05.01: a checker (not the builder) runs wf check 1.2.3.4 1");
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    refused("review", "Next for 05.01: Prime (pri) reads the check report, then wf signoff 1.2.3.4 1");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    refused("review", "Next for 05.01: wf close 1.2.3.4 1");
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    assert!(e.ok(&["draft", PG, "--file", &file, "--as", "pri"]).contains("drafted 05.02"));
 }

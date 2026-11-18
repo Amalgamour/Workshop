@@ -67,6 +67,8 @@ Add `--as <your name>` to every command that writes.
 | Close it | `wf close <page> <NN>` |
 | Send it up | `wf elevate <page> <NN> --to prime\|person --item "..."` |
 | Answer | `wf answer <page> <entry> --text "..."` |
+| Stop the page | `wf halt <page> --note "why (ref)"` (Prime or person; refused while a pass is open; draft, pack and claim then refuse) |
+| Go on again | `wf resume <page> --note "why (ref)"` (Prime or person) |
 | See where things stand | `wf status <page>` |
 | Observer check | `wf observe <page> [--record "finding"]` |
 | Check the log chain and views | `wf verify <page>` (`--fix` reprints missing and changed views from the log) |
@@ -76,6 +78,8 @@ Add `--as <your name>` to every command that writes.
 Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-character prefix.
 
 A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok` and gives `--why` with a reason and a (ref). That flag is refused if the named pass is not open.
+
+`wf draft` is refused while another pass on the page is not closed (draft, pack, open, return or review). The message names that pass and its next step, so a new draft never goes stale when that pass closes. A draft that is not packed yet can be redrafted with `--pass NN`.
 
 `wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). Both the reason and the ref must be non-blank. `wf close` re-runs those same refusals when the outcome is passed, and a passed close is refused if face 01 changed after the signoff entry (a note stored for something else does not cover it). `wf set-prime --ref`, `wf grant --ref` and `wf answer --text` refuse blank or spaces.
 

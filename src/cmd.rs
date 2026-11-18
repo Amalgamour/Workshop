@@ -52,6 +52,41 @@ fn must_be(p: &Page, who: &str, role: &str) -> Res<()> {
     need(who == holder, format!("refused: only the {role} ({holder}) may do this, not {who}"))
 }
 
+/// Draft, pack and claim stop on a halted page.
+fn not_halted(p: &Page) -> Res<()> {
+    match &p.halt {
+        Some((who, _, note, seq)) => Err(format!("refused: page {} is halted (by {who}, entry {seq}: {note}). {}", p.addr, crate::status::how_to_resume(p))),
+        None => Ok(()),
+    }
+}
+
+fn prime_or_person(p: &Page, who: &str) -> Res<&'static str> {
+    need(who == p.prime || who == p.person, format!("refused: only Prime ({}) or the person ({}) may do this, not {who}", p.prime, p.person))?;
+    Ok(if who == p.person { "person" } else { "prime" })
+}
+
+/// Stop work on the page. Refused while a pass holds files (pack, open, return or review).
+pub fn halt(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    let role = prime_or_person(p, who)?;
+    let note = why_ref(a.flag("note").unwrap_or(""), "note")?.to_string();
+    need(p.halt.is_none(), format!("refused: page {} is already halted", p.addr))?;
+    if let Some(x) = p.passes.values().find(|x| x.is_open_tail()) {
+        return Err(format!("refused: 05.{:02} is at '{}'; halt only when no pass is open. Next for it: {}", x.nn, x.tail, crate::status::pass_next(p, x)));
+    }
+    p.add(who, role, "halt", json!({"note": note}))?;
+    println!("page {} halted. To go on: wf resume {} --note \"why (ref)\"", p.addr, p.addr);
+    Ok(())
+}
+
+pub fn resume(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    let role = prime_or_person(p, who)?;
+    let note = why_ref(a.flag("note").unwrap_or(""), "note")?.to_string();
+    need(p.halt.is_some(), format!("refused: page {} is not halted", p.addr))?;
+    p.add(who, role, "resume", json!({"note": note}))?;
+    println!("page {} resumed.", p.addr);
+    Ok(())
+}
+
 fn tail_is(x: &Pass, want: &[&str]) -> Res<()> {
     need(want.contains(&x.tail.as_str()), format!("refused: 05.{:02} is at '{}', this needs {}", x.nn, x.tail, want.join(" or ")))
 }
@@ -161,10 +196,8 @@ fn pin05(p: &Page) -> Value {
 
 pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "prime")?;
+    not_halted(p)?;
     let mut f = fields(&text_arg(a)?);
-    let since = p.last_closed().map(|x| x.last_seq).unwrap_or(0);
-    need(p.faces.get("06").map(|x| x.seq > since).unwrap_or(false),
-        "refused: before a draft, read 04, 06 and the last closed 05, then write a 06 note (wf face-write <page> 06)")?;
     let n = match a.flag("pass") {
         Some(v) => {
             let n: u32 = v.trim_start_matches("05.").parse().map_err(|_| "bad --pass".to_string())?;
@@ -178,6 +211,15 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
             n
         }
     };
+    // A pass that is not closed would make this draft's pins stale when it closes.
+    if let Some(x) = p.passes.values().find(|x| x.nn != n && x.tail != "closed") {
+        let redo = if x.tail == "draft" { format!(", or redraft it: wf draft {} --pass {}", p.addr, x.nn) } else { String::new() };
+        return Err(format!("refused: 05.{:02} is at '{}' and not closed. Draft the next pass after it closes. Next for 05.{:02}: {}{redo}",
+            x.nn, x.tail, x.nn, crate::status::pass_next(p, x)));
+    }
+    let since = p.last_closed().map(|x| x.last_seq).unwrap_or(0);
+    need(p.faces.get("06").map(|x| x.seq > since).unwrap_or(false),
+        "refused: before a draft, read 04, 06 and the last closed 05, then write a 06 note (wf face-write <page> 06)")?;
     if !f.contains_key("predecessor") {
         let pre = if n > 1 { format!("05.{:02}", n - 1) } else { "none".into() };
         f.insert("predecessor".into(), pre.into());
@@ -234,6 +276,7 @@ fn refuse_overlap(p: &Page, n: u32, mine: &[String], allow: Option<u32>) -> Res<
 
 pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "prime")?;
+    not_halted(p)?;
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
     tail_is(&x, &["draft"])?;
@@ -285,6 +328,7 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
 }
 
 pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    not_halted(p)?;
     let n = nn(a, 1)?;
     let x = p.pass(n)?;
     if let Some(c) = &x.claim {

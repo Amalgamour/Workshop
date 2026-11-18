@@ -30,6 +30,8 @@ Every command that writes needs --as <name> (or set WF_AS).
   close <page> <NN>                             writes the close record
   elevate <page> <NN> --to prime|person --item T
   answer <page> <entry> --text T
+  halt <page> --note \"why (ref)\"               prime or person; refused while a pass is open
+  resume <page> --note \"why (ref)\"             prime or person; draft, pack and claim go on
   status <page>                                 now strip, board, feed (read only)
   observe <page> [--stall-hours 24] [--record T]   observer signals; --record files a finding
   verify <page> [--fix]                         check the log chain and every view file
@@ -193,6 +195,8 @@ fn run(raw: &[String]) -> log::Res<()> {
         "close" => cmd::close(&mut p, &a, &who),
         "elevate" => cmd::elevate(&mut p, &a, &who),
         "answer" => cmd::answer(&mut p, &a, &who),
+        "halt" => cmd::halt(&mut p, &a, &who),
+        "resume" => cmd::resume(&mut p, &a, &who),
         _ => Err(format!("unknown command '{c}'. Run wf help")),
     }
     .and(Ok(()))

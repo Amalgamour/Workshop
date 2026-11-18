@@ -34,6 +34,9 @@ that judges the work.
 
 Anyone may run `status`, `observe` and `verify`.
 
+`wf halt <page> --note "why (ref)"`: Prime or the person stops the page (refused while a pass is open); draft, pack and claim then refuse, and status shows who halted it and why.
+`wf resume <page> --note "why (ref)"`: Prime or the person lets work go on again.
+
 Pass numbers may be written `1` or `01`. Hashes are sha256; a 12-character prefix is shown.
 
 ## As a builder

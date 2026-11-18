@@ -62,6 +62,8 @@ pub struct Page {
     pub passes: BTreeMap<u32, Pass>,
     pub elevs: Vec<Elev>,
     pub findings: Vec<(u64, String, String)>,
+    /// Set by a halt entry, cleared by resume: (who, time, note, entry).
+    pub halt: Option<(String, u64, String, u64)>,
 }
 
 pub fn s(v: &Value, k: &str) -> String {
@@ -237,6 +239,8 @@ impl Page {
                 }
             }
             "finding" => self.findings.push((e.seq, e.actor.clone(), s(d, "text"))),
+            "halt" => self.halt = Some((e.actor.clone(), e.time, s(d, "note"), e.seq)),
+            "resume" => self.halt = None,
             _ => {}
         }
         if let Some(p) = self.passes.get_mut(&nn) {
