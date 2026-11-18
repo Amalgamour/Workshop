@@ -1,7 +1,7 @@
 # AGENTS.md section templates (design proposal)
 
 state: proposal for Matthew to review. Lines marked **Ruling** are his words. Everything else is Prima's proposal.
-made: Wed 18 Nov 2026, about 2:20 PM EST, by Prima.
+made: Wed 18 Nov 2026, about 3:20 PM EST, by Prima.
 asked for: t326u, t327u, t328u, t329u (docs/review/DIRECTOR-WORDS-t326u.md ... t329u.md).
 builds on: INSTRUCTION-GUARD-t309u.md (three tests, L1-L5, K-1..K-5, G1-G7); LIB-MINE-M1.md (pieces 2, 5, 7; Q1-Q5); CODEX-LIB-BUILD-REPORT-t323u.md.
 cites: wf as `file:line @a00bc53` (workflow branch tip).
