@@ -1,6 +1,7 @@
 //! Views. Every file in a page folder except log.jsonl is printed here from the log.
 //! Templates are fixed text built into the binary; only the tool fills them.
 
+use crate::chars::{escape_line, escape_text};
 use crate::log::{sha, short, Res};
 use crate::page::{s, Page, Pass, FACES};
 use serde_json::Value;
@@ -23,13 +24,20 @@ pub const TEMPLATE_VER: &str = "2";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
 pub const DESIGN: &str = include_str!("../docs/DESIGN.md");
 
-/// Agents, prompt and return templates for one pack. Unknown versions are refused
-/// so a future change cannot silently reprint the past with the wrong text.
-pub fn packed_templates(pk: &Value) -> Res<(&'static str, &'static str, &'static str)> {
-    match s(pk, "templates").as_str() {
-        "" | "1" => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
-        "2" => Ok((T_AGENTS, T_PROMPT, T_RETURN)),
-        v => Err(format!("unknown template version {v}")),
+/// Agents, prompt and return templates for one pack.
+/// Only a missing field or the string "1" mean v1; only the string "2" means v2.
+/// Any other value is refused, and the message names the page and the pack entry.
+pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static str, &'static str)> {
+    let seq = pk.get("seq").and_then(|v| v.as_u64());
+    let loc = match seq {
+        Some(n) => format!(" (page {addr}, entry {n})"),
+        None => format!(" (page {addr})"),
+    };
+    match pk.as_object().and_then(|m| m.get("templates")) {
+        None => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
+        Some(Value::String(s)) if s == "1" => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
+        Some(Value::String(s)) if s == "2" => Ok((T_AGENTS, T_PROMPT, T_RETURN)),
+        Some(v) => Err(format!("unknown template version {v}{loc}")),
     }
 }
 
@@ -89,19 +97,19 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
 
 pub fn prompt(p: &Page, x: &Pass) -> Res<String> {
     let pk = x.pack.as_ref().cloned().unwrap_or(Value::Null);
-    let (_, tmpl, _) = packed_templates(&pk)?;
+    let (_, tmpl, _) = packed_templates(&pk, &p.addr)?;
     fill(tmpl, &pass_vals(p, x))
 }
 
 pub fn agents(p: &Page, x: &Pass) -> Res<String> {
     let pk = x.pack.as_ref().cloned().unwrap_or(Value::Null);
-    let (tmpl, _, _) = packed_templates(&pk)?;
+    let (tmpl, _, _) = packed_templates(&pk, &p.addr)?;
     fill(tmpl, &pass_vals(p, x))
 }
 
 pub fn return_template(p: &Page, x: &Pass) -> Res<String> {
     let pk = x.pack.as_ref().cloned().unwrap_or(Value::Null);
-    let (_, _, tmpl) = packed_templates(&pk)?;
+    let (_, _, tmpl) = packed_templates(&pk, &p.addr)?;
     let mut v = pass_vals(p, x);
     let lines = jobs(&x.fields).iter().map(|(k, j)| format!("{k}: <done | need | blocked> - {j}")).collect::<Vec<_>>().join("\n");
     v.push(("job_lines", lines));
@@ -134,7 +142,7 @@ fn face05(p: &Page) -> String {
             }
         }
         for (seq, why) in &x.refusals {
-            o += &format!("return refused (entry {seq}): {why}\n");
+            o += &format!("return refused (entry {seq}): {}\n", escape_line(&why));
         }
         if let Some(r) = &x.ret {
             o += &format!("return: {} at {} (hash {})\n", s(r, "file"), s(r, "commit"), short(&s(r, "hash")));
@@ -142,16 +150,16 @@ fn face05(p: &Page) -> String {
             if !git.is_empty() {
                 o += &format!("git: {git}\n");
             }
-            o += &format!("```\n{}\n```\n", s(r, "text").trim_end());
+            o += &format!("```\n{}\n```\n", escape_text(s(r, "text").trim_end()));
         }
         if let Some((who, c)) = &x.check {
-            o += &format!("check by {who}: verdict {}\n{}", s(c, "verdict"), s(c, "report"));
+            o += &format!("check by {who}: verdict {}\n{}", s(c, "verdict"), escape_text(&s(c, "report")));
         }
         if let Some((who, seq, d)) = &x.signoff {
             o += &format!("signed off: {who} at entry {seq}, outcome {}\n", s(d, "outcome"));
         }
         if let Some(c) = &x.close {
-            o += &format!("```\n{}```\n", s(c, "record"));
+            o += &format!("```\n{}```\n", escape_text(&s(c, "record")));
         }
         o += "\n";
     }
@@ -364,6 +372,7 @@ pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
 }
 
 /// The return event's git change list, as "A path, M path, D path".
+/// Paths that came from the builder are escaped when they contain a refused character.
 pub fn git_changed_text(r: &Value) -> String {
     r["changed"]
         .as_array()
@@ -371,11 +380,11 @@ pub fn git_changed_text(r: &Value) -> String {
             a.iter()
                 .filter_map(|v| {
                     if let Some(s) = v.as_str() {
-                        Some(s.to_string())
+                        Some(escape_line(s))
                     } else {
                         let letter = s(v, "letter");
                         let path = s(v, "path");
-                        if path.is_empty() { None } else { Some(format!("{letter} {path}")) }
+                        if path.is_empty() { None } else { Some(format!("{letter} {}", escape_line(&path))) }
                     }
                 })
                 .collect::<Vec<_>>()
@@ -401,7 +410,7 @@ mod tests {
     #[test]
     fn missing_or_v1_selects_the_8eb1fdb_text() {
         for pk in [json!({}), json!({"templates": "1"})] {
-            let (a, p, _) = packed_templates(&pk).unwrap();
+            let (a, p, _) = packed_templates(&pk, "1.2.3.4").unwrap();
             assert!(a.contains("- docs/AXIOMS.md: {{src_axioms}}"), "{a}");
             assert!(!a.contains("kit folder"), "{a}");
             assert!(p.contains("Read first: {{dir}}/AGENTS.md, docs/AXIOMS.md, docs/DESIGN.md"), "{p}");
@@ -411,14 +420,23 @@ mod tests {
 
     #[test]
     fn v2_selects_the_current_text() {
-        let (a, p, _) = packed_templates(&json!({"templates": "2"})).unwrap();
+        let (a, p, _) = packed_templates(&json!({"templates": "2"}), "1.2.3.4").unwrap();
         assert!(a.contains("kit folder") && a.contains("cargo clean -p wf"), "{a}");
         assert!(p.contains("kit folder"), "{p}");
     }
 
     #[test]
-    fn unknown_version_is_refused() {
-        let err = packed_templates(&json!({"templates": "9"})).unwrap_err();
-        assert!(err.contains("unknown template version 9"), "{err}");
+    fn unknown_version_names_the_page_and_entry() {
+        for pk in [
+            json!({"templates": "9", "seq": 6}),
+            json!({"templates": 2, "seq": 6}),
+            json!({"templates": true, "seq": 6}),
+            json!({"templates": null, "seq": 6}),
+        ] {
+            let err = packed_templates(&pk, "90.10.00.0001").unwrap_err();
+            assert!(err.contains("unknown template version"), "{err}");
+            assert!(err.contains("page 90.10.00.0001"), "{err}");
+            assert!(err.contains("entry 6"), "{err}");
+        }
     }
 }

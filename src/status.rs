@@ -1,5 +1,6 @@
 //! Read-only views built fresh from the log: status (now strip, board, feed) and observe.
 
+use crate::chars::escape_line;
 use crate::log::{iso, now, short};
 use crate::page::{face01_drift, s, Page};
 use crate::render::cards_text;
@@ -37,7 +38,7 @@ pub fn status(p: &Page) -> String {
     let open: Vec<String> = p.passes.values().filter(|x| x.tail != "closed")
         .map(|x| format!("05.{:02} {} {}", x.nn, x.tail, x.claim.as_deref().map(|c| format!("(held by {c})")).unwrap_or_default())).collect();
     o += &format!("  active:  {}\n", if open.is_empty() { "none".into() } else { open.join("; ") });
-    let waiting: Vec<String> = p.elevs.iter().filter(|e| e.answer.is_none()).map(|e| format!("entry {} 05.{:02} {} -> {}: {}", e.seq, e.pass, e.by, e.to, e.item)).collect();
+    let waiting: Vec<String> = p.elevs.iter().filter(|e| e.answer.is_none()).map(|e| format!("entry {} 05.{:02} {} -> {}: {}", e.seq, e.pass, e.by, e.to, escape_line(&e.item))).collect();
     o += &format!("  waiting: {}\n", if waiting.is_empty() { "nothing".into() } else { waiting.join("\n           ") });
     if let Some((who, t, note, seq)) = &p.halt {
         o += &format!("  halted:  by {who} at {} (entry {seq}): {note}\n", iso(*t));
@@ -80,7 +81,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
             }
             let item = v.splitn(2, ' ').nth(1).unwrap_or("").trim_start_matches(['-', ' ']).to_string();
             if let Some((_, first)) = seen.iter().find(|(i, _)| *i == item) {
-                f.push(format!("same blocker again: 05.{first:02} and 05.{:02} {k}: {item}", x.nn));
+                f.push(format!("same blocker again: 05.{first:02} and 05.{:02} {k}: {}", x.nn, escape_line(&item)));
             }
             seen.push((item, x.nn));
         }
@@ -108,7 +109,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
         }
     }
     for e in p.elevs.iter().filter(|e| e.answer.is_none()) {
-        f.push(format!("unanswered: entry {} to {}: {}", e.seq, e.to, e.item));
+        f.push(format!("unanswered: entry {} to {}: {}", e.seq, e.to, escape_line(&e.item)));
     }
     f
 }

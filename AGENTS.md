@@ -43,7 +43,9 @@ Pass numbers may be written `1` or `01`. Hashes are sha256; a 12-character prefi
 
 A pack stores the template version it was printed with. Packs with no version reprint from the v1 (8eb1fdb) text kept in the binary, so a later template change does not rewrite past job boxes (axiom 6). New packs record version 2.
 
-Text that status, observe, close records or job boxes print is checked in one place: C0 controls, DEL, C1, U+2028, U+2029, bidi controls and zero-width characters are refused. Face text from `--file` may still contain newlines.
+Command flags and pack fields are checked in one place. Refused: every character whose Unicode general category is Cc, Cf, Zl, Zp, Co or Cn, plus the Hangul fillers U+3164, U+115F and U+1160, and a field that is only combining marks. CR is refused everywhere. A newline is kept only in face text (`--file` or `--text`) and in pack field values. Draft field keys are checked too.
+
+Text that came from a builder (return file job lines, notes, elevation items made from them, and changed file names from git) is shown escaped, for example `\u{1b}`, in status, observe and the 05 views when it contains a refused character. A hostile return can still be logged as evidence. The escape is a no-op when the text has no refused character, so past views stay the same.
 
 ## As a builder
 1. `wf claim <page> <NN> --as <you>`. The first claim wins.

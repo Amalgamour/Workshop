@@ -1,5 +1,6 @@
 //! The commands that write. Each one checks the role, then appends to the log.
 
+use crate::chars::{self, check_text, check_text_nl};
 use crate::git;
 use crate::log::{sha, short, Res};
 use crate::page::{check_addr, done_when_lines, face01_drift, inside, paths_overlap, s, split_list, Page, Pass};
@@ -26,40 +27,6 @@ fn nonblank<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
     Ok(t)
 }
 
-/// True if `c` must not appear in a printed field. `allow_nl` keeps `\n` and `\r`
-/// for face text from --file and for multi-line pack fields.
-fn bad_char(c: char, allow_nl: bool) -> bool {
-    if allow_nl && (c == '\n' || c == '\r') {
-        return false;
-    }
-    let u = c as u32;
-    u < 0x20
-        || u == 0x7F
-        || (0x80..=0x9F).contains(&u)
-        || (0x202A..=0x202E).contains(&u)
-        || u == 0x2028
-        || u == 0x2029
-        || (0x200B..=0x200D).contains(&u)
-        || u == 0x2060
-        || u == 0xFEFF
-        || (0x2066..=0x2069).contains(&u)
-}
-
-/// Shared check for every field that status, observe, close records or job boxes print.
-pub(crate) fn check_text(text: &str, flag: &str) -> Res<()> {
-    check_chars(text, flag, false)
-}
-
-/// Like `check_text`, but newlines and CR are allowed (face --file, pack field values).
-pub(crate) fn check_text_nl(text: &str, flag: &str) -> Res<()> {
-    check_chars(text, flag, true)
-}
-
-fn check_chars(text: &str, flag: &str, allow_nl: bool) -> Res<()> {
-    need(!text.chars().any(|c| bad_char(c, allow_nl)), format!("--{flag} cannot contain control characters"))
-}
-
-/// One-line fields that status prints must not contain control or hidden characters.
 pub(crate) fn no_ctrl(text: &str, flag: &str) -> Res<()> {
     check_text(text, flag)
 }
@@ -73,6 +40,9 @@ fn why_ref<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
         _ => false,
     };
     need(ok, format!("--{flag} needs a reason and a (ref), like \"why (t275u)\""))?;
+    if let (Some(i), _) = (t.find('('), t.rfind(')')) {
+        check_text(t[..i].trim(), flag)?;
+    }
     Ok(t)
 }
 
@@ -262,6 +232,7 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     not_halted(p)?;
     let mut f = fields(&text_arg(a)?);
     for (k, v) in &f {
+        check_text(k, "field")?;
         if let Some(s) = v.as_str() {
             check_text_nl(s, k)?;
         }
@@ -530,7 +501,7 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
     }
     rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, render::git_changed_text(r));
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
-        rep += &format!("  job {k}: {}\n", v.as_str().unwrap_or(""));
+        rep += &format!("  job {k}: {}\n", chars::escape_line(v.as_str().unwrap_or("")));
     }
     let not_done = jobs_not_done(r);
     if !not_done.is_empty() {
@@ -546,10 +517,10 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
         rep += &format!("  drift: face 01 changed since pack (now {now})\n");
     }
     if let Some(note) = note {
-        rep += &format!("  checker note: {note}\n");
+        rep += &format!("  checker note: {}\n", chars::escape_line(note));
     }
     if let Some(f) = fail {
-        rep += &format!("  checker fail: {f}\n");
+        rep += &format!("  checker fail: {}\n", chars::escape_line(f));
     }
     rep
 }
@@ -740,29 +711,43 @@ mod tests {
 
     #[test]
     fn check_text_refuses_each_class_and_keeps_newlines_only_when_asked() {
-        assert!(super::check_text("ok name", "as").is_ok());
-        assert!(super::check_text("wait for Matthew (t301u)", "note").is_ok());
+        use crate::chars::{check_text, check_text_nl};
+        assert!(check_text("ok name", "as").is_ok());
+        assert!(check_text("wait for Matthew (t301u)", "note").is_ok());
         for (name, ch) in [
             ("C0 ESC", '\u{001B}'),
             ("C0 tab", '\t'),
             ("C0 newline", '\n'),
+            ("C0 CR", '\r'),
             ("DEL", '\u{007F}'),
             ("C1 NEL", '\u{0085}'),
             ("U+2028", '\u{2028}'),
             ("U+2029", '\u{2029}'),
             ("bidi RLO", '\u{202E}'),
             ("bidi FSI", '\u{2066}'),
+            ("LTR mark", '\u{200E}'),
+            ("RTL mark", '\u{200F}'),
+            ("ALM", '\u{061C}'),
+            ("soft hyphen", '\u{00AD}'),
+            ("function application", '\u{2061}'),
+            ("language tag", '\u{E0001}'),
+            ("Hangul filler", '\u{3164}'),
             ("zero-width space", '\u{200B}'),
             ("word joiner", '\u{2060}'),
             ("BOM", '\u{FEFF}'),
         ] {
             let s = format!("x{ch}y");
-            let err = super::check_text(&s, "as").unwrap_err();
+            let err = check_text(&s, "as").unwrap_err();
             assert!(err.contains("--as cannot contain control characters"), "{name}: {err}");
-            assert!(super::check_text_nl(&s, "file").is_err() || ch == '\n' || ch == '\r', "{name} should fail multiline unless it is a newline");
+            if ch == '\n' {
+                assert!(check_text_nl(&s, "file").is_ok(), "{name}");
+            } else {
+                assert!(check_text_nl(&s, "file").is_err(), "{name} should fail multiline");
+            }
         }
-        assert!(super::check_text_nl("Goal: a.\nDone when: checks pass.", "file").is_ok());
-        assert!(super::check_text("Goal: a.\nDone when: checks pass.", "text").is_err());
+        assert!(check_text_nl("Goal: a.\nDone when: checks pass.", "file").is_ok());
+        assert!(check_text("Goal: a.\nDone when: checks pass.", "text").is_err());
+        assert!(check_text("\u{0301}\u{0301}", "as").unwrap_err().contains("only combining marks"));
     }
 
     #[test]
