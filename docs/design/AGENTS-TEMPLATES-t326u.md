@@ -1,5 +1,7 @@
 # AGENTS.md section templates (design proposal)
 
+Superseded in shape by AGENTS-MANAGER-t333u.md; pieces kept as option drafts.
+
 state: proposal for Matthew to review. Lines marked **Ruling** are his words. Everything else is Prima's proposal.
 made: Wed 18 Nov 2026, about 3:20 PM EST, by Prima.
 asked for: t326u, t327u, t328u, t329u (docs/review/DIRECTOR-WORDS-t326u.md ... t329u.md).
