@@ -43,7 +43,7 @@ labels: **LOG** = counted from the log or git. **EST** = an estimate. Nothing el
 - A work folder: `git worktree add ../wf-run/core -b core-wf build`. It is about 22 MB (LOG: tracked files). The page's `repo:` is `core`.
 - Builders and Tester build into the existing `repo/target` folder, one at a time. This adds no new 26 GB build folder, and the disk is 89% full. The pinned `wf` tool stays separate in `wf-bin`, so no builder can overwrite the judge.
 - Page id: **90.20.00.0001**, title "core: write once". Page ids are temporary labels (ruling Q-SA). Passes run 01-98 (R9).
-- Start the page with your grant (question 2), recorded as `--as matthew --grant-ref t284u`.
+- Start the page with your grant (question 2), recorded as `--as matthew`, with your answer to question 2 as the grant ref.
 - Use the WF commands we already have, so everything lands in the log:
   - the Observer files findings with `wf observe --record`;
   - any question for you goes through `wf elevate --to person`.
