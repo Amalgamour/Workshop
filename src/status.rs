@@ -117,7 +117,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
     }
     if let Some(last) = p.events.last() {
         let h = now().saturating_sub(last.time) / 3600;
-        if h >= stall_hours && p.halt.is_none() && p.passes.values().any(|x| x.tail != "closed") {
+        if last.time > 0 && h >= stall_hours && p.halt.is_none() && p.passes.values().any(|x| x.tail != "closed") {
             f.push(format!("stalled: nothing has moved for {h} hours (entry {})", last.seq));
         }
     }

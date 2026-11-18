@@ -1767,6 +1767,109 @@ fn board_card_names_evidence_paths_that_exist() {
                  "open:     git -C game show", ":.workshop/returns/1.2.3.4.05.01.md", "close:      entry", "signoff:    entry", "links printed, not checked"] {
         assert!(c.contains(want), "missing {want}: {c}");
     }
+    let open = e.ok(&["board", PG, "--card", "05.01"]);
+    assert_eq!(open, c, "--card 05.01 and --card 01 are the same card");
+    for card in [c, Env::ready("board-card-draft").card_of_a_draft()] {
+        for l in card.lines() {
+            assert!(names_source(l), "card line names no path, command or log entry: {l}\n{card}");
+        }
+    }
+}
+
+/// A card line names a path (pages/...), a command (git -C, wf ...) or a log entry number.
+fn names_source(l: &str) -> bool {
+    let entry = ["entry ", "entries "].iter().any(|w| l.match_indices(w).any(|(i, _)| l[i + w.len()..].starts_with(|c: char| c.is_ascii_digit())));
+    entry || l.contains("pages/") || l.contains("git -C ") || l.contains("wf ")
+}
+
+impl Env {
+    fn card_of_a_draft(&self) -> String {
+        self.draft_jobs("src/a.rs", "true", "w01: set a\nw02: set b");
+        self.ok(&["board", PG, "--card", "1"])
+    }
+}
+
+/// Write a log with a valid chain by hand (an old or foreign log the tool did not write).
+/// `time` None leaves out time_s.
+fn write_log(dir: &PathBuf, evs: &[(&str, serde_json::Value, Option<u64>)]) {
+    use sha2::{Digest, Sha256};
+    fs::create_dir_all(dir).unwrap();
+    let (mut prev, mut text) = ("0".to_string(), String::new());
+    for (i, (kind, data, time)) in evs.iter().enumerate() {
+        let mut v = serde_json::json!({"seq": i + 1, "actor": "pri", "role": "prime", "kind": kind, "data": data, "prev": prev});
+        if let Some(t) = time {
+            v["time_s"] = serde_json::json!(t);
+        }
+        let line = v.to_string();
+        prev = Sha256::digest(line.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        text += &line;
+        text.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), text).unwrap();
+}
+
+fn init_data(addr: &str) -> serde_json::Value {
+    serde_json::json!({"address": addr, "title": "foreign", "person": "mat", "prime": "pri", "grant": ["src/"], "grant_ref": "t1"})
+}
+
+/// Must-fix 1: an entry for a never-drafted pass is an error, not a panic, everywhere.
+#[test]
+fn entry_for_a_missing_pass_is_unreadable_not_a_panic() {
+    let e = Env::ready("board-nopass");
+    let bad = e.root.join("pages/1.2.3.8");
+    write_log(&bad, &[("init", init_data("1.2.3.8"), Some(1)), ("claim", serde_json::json!({"pass": 3}), Some(2)),
+                      ("close", serde_json::json!({"pass": 3, "outcome": "passed"}), Some(3))]);
+    let bin = env!("CARGO_BIN_EXE_wf");
+    for args in [vec!["board", "1.2.3.8"], vec!["board", "1.2.3.8", "--card", "3"], vec!["status", "1.2.3.8"], vec!["observe", "1.2.3.8"], vec!["verify", "1.2.3.8"]] {
+        let o = Command::new(bin).env("WF_ROOT", &e.root).args(&args).output().unwrap();
+        let err = String::from_utf8_lossy(&o.stderr);
+        assert_eq!(o.status.code(), Some(1), "{args:?} must refuse, not panic: {err}");
+        assert!(err.contains("log entry 2 is a claim for pass 3, which was never drafted"), "{args:?}: {err}");
+        assert!(!err.contains("panicked"), "{args:?}: {err}");
+    }
+    let b = e.ok(&["board"]);
+    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is a claim for pass 3, which was never drafted"), "{b}");
+    assert!(b.contains("  1.2.3.4  t  entries 4"), "the other page still shows: {b}");
+}
+
+/// Also-fix 4 and 7: no time_s reads as unknown age and never stale; an empty log is unreadable.
+#[test]
+fn board_handles_a_log_without_times_and_an_empty_log() {
+    let e = Env::ready("board-notime");
+    let dir = e.root.join("pages/1.2.3.9");
+    write_log(&dir, &[("init", init_data("1.2.3.9"), None), ("draft", serde_json::json!({"pass": 1, "fields": {"outcome": "o"}, "pins": {}}), None),
+                      ("pack", serde_json::json!({"pass": 1, "pack_text": "p", "pack_hash": "h", "templates": "2", "sources": {}}), None),
+                      ("claim", serde_json::json!({"pass": 1}), None)]);
+    let far = 4_000_000_000u64;
+    let (ok, b) = e.wf_at(&["board", "1.2.3.9", "--stall-hours", "0"], Some(far));
+    assert!(ok, "{b}");
+    assert!(b.contains("age unknown (no time in the log)") && b.contains("last entry unknown (no time in the log)"), "{b}");
+    assert!(!b.contains("STALE") && !b.contains("stalled") && !b.contains("h |"), "{b}");
+    let (ok, c) = e.wf_at(&["board", "1.2.3.9", "--card", "1"], Some(far));
+    assert!(ok && c.contains("age:        unknown (no time in the log) since entry 4"), "{c}");
+    let (_, ob) = e.wf_at(&["observe", "1.2.3.9", "--stall-hours", "0"], Some(far));
+    assert!(!ob.contains("stalled"), "{ob}");
+    let empty = e.root.join("pages/1.2.3.7");
+    fs::create_dir_all(&empty).unwrap();
+    fs::write(empty.join("log.jsonl"), "").unwrap();
+    e.no(&["board", "1.2.3.7"], "page 1.2.3.7 is unreadable: the log is empty (no init entry)");
+    let book = e.ok(&["board"]);
+    assert!(book.contains("  1.2.3.7  unreadable: the log is empty (no init entry)"), "{book}");
+    assert!(!book.lines().any(|l| l.starts_with("    ") || l.starts_with("   (")), "{book}");
+}
+
+/// Also-fix 6: unknown flags and extra arguments are refused; the book board refuses --card.
+#[test]
+fn board_refuses_unknown_flags_and_extra_arguments() {
+    let e = Env::ready("board-flags");
+    let before = sha_map(&e.page());
+    e.no(&["board", PG, "--as", "pri"], "wf board takes only --all, --card NN and --stall-hours H, not --as");
+    e.no(&["board", PG, "--cards", "1"], "not --cards");
+    e.no(&["board", PG, "1"], "at most one page, got 2 arguments");
+    e.no(&["board", "--card", "1"], "the book board has no cards");
+    e.no(&["board", "--all", PG], "--all takes no value");
+    e.no(&["board", PG, "--card", "05.x"], "--card needs a pass number like 4, 04 or 05.04");
+    assert_eq!(sha_map(&e.page()), before);
 }
 
 #[test]
@@ -1812,7 +1915,8 @@ fn board_on_real_pages_is_read_only_and_short() {
         assert!(b.starts_with(&format!("BOARD  page {addr}")), "{b}");
         assert!(!b.contains("VIEWS"), "{addr}: {b}");
         run(&["board", addr, "--all"]);
-        run(&["board", addr, "--card", "1"]);
+        let card = run(&["board", addr, "--card", "05.01"]);
+        assert!(card.lines().all(names_source), "{addr}: {card}");
     }
     let short = run(&["board", "90.10.00.0001"]);
     assert!(short.lines().count() <= 40, "{} lines: {short}", short.lines().count());

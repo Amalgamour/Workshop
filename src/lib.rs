@@ -64,6 +64,10 @@ impl Args {
     pub fn flag(&self, k: &str) -> Option<&str> {
         self.flags.get(k).map(|s| s.as_str())
     }
+    /// Every flag name given, without the leading `--`.
+    pub fn flag_names(&self) -> impl Iterator<Item = &str> {
+        self.flags.keys().map(|k| k.as_str())
+    }
     pub fn req(&self, k: &str) -> log::Res<&str> {
         self.flag(k).filter(|v| !v.is_empty()).ok_or(format!("missing --{k}"))
     }

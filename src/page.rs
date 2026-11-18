@@ -120,6 +120,13 @@ pub fn face01_drift(p: &Page, pack: &Value) -> Option<String> {
     }
 }
 
+/// Entry kinds that only make sense for a pass that was drafted first.
+const NEEDS_PASS: [&str; 7] = ["pack", "claim", "return-refused", "return", "check", "signoff", "close"];
+
+fn missing_pass(seq: u64, kind: &str, nn: u32) -> String {
+    format!("log entry {seq} is a {kind} for pass {nn}, which was never drafted; the log cannot be read")
+}
+
 impl Pass {
     /// Pack, open (claimed), return, and review all hold the pack's files.
     pub fn is_open_tail(&self) -> bool {
@@ -136,7 +143,7 @@ impl Page {
         let (events, head) = log::read(&dir.join("log.jsonl"))?;
         let mut p = Page { dir: dir.to_path_buf(), head, ..Default::default() };
         for e in &events {
-            p.apply(e);
+            p.apply(e)?;
         }
         p.events = events;
         Ok(p)
@@ -165,16 +172,22 @@ impl Page {
     /// Append one event to the log and fold it in.
     pub fn add(&mut self, actor: &str, role: &str, kind: &str, data: Value) -> Res<()> {
         let seq = self.events.len() as u64 + 1;
+        let nn = data["pass"].as_u64().unwrap_or(0) as u32;
+        if NEEDS_PASS.contains(&kind) && !self.passes.contains_key(&nn) {
+            return Err(missing_pass(seq, kind, nn));
+        }
         let (e, head) = log::append(&self.log_path(), &self.head, seq, actor, role, kind, data)?;
-        self.apply(&e);
+        self.apply(&e)?;
         self.events.push(e);
         self.head = head;
         Ok(())
     }
 
-    fn apply(&mut self, e: &Event) {
+    /// Fold one entry in. An entry for a pass that was never drafted is an error, not a panic.
+    fn apply(&mut self, e: &Event) -> Res<()> {
         let d = &e.data;
         let nn = d["pass"].as_u64().unwrap_or(0) as u32;
+        let missing = || missing_pass(e.seq, &e.kind, nn);
         match e.kind.as_str() {
             "init" => {
                 self.addr = s(d, "address");
@@ -211,29 +224,29 @@ impl Page {
                 p.pins = d["pins"].clone();
             }
             "pack" => {
-                let p = self.passes.get_mut(&nn).unwrap();
+                let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
                 p.tail = "pack".into();
                 p.pack = Some(d.clone());
             }
             "claim" => {
-                let p = self.passes.get_mut(&nn).unwrap();
+                let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
                 p.tail = "open".into();
                 p.claim = Some(e.actor.clone());
             }
-            "return-refused" => self.passes.get_mut(&nn).unwrap().refusals.push((e.seq, s(d, "why"))),
+            "return-refused" => self.passes.get_mut(&nn).ok_or_else(missing)?.refusals.push((e.seq, s(d, "why"))),
             "return" => {
-                let p = self.passes.get_mut(&nn).unwrap();
+                let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
                 p.tail = "return".into();
                 p.ret = Some(d.clone());
             }
             "check" => {
-                let p = self.passes.get_mut(&nn).unwrap();
+                let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
                 p.tail = "review".into();
                 p.check = Some((e.actor.clone(), d.clone()));
             }
-            "signoff" => self.passes.get_mut(&nn).unwrap().signoff = Some((e.actor.clone(), e.seq, d.clone())),
+            "signoff" => self.passes.get_mut(&nn).ok_or_else(missing)?.signoff = Some((e.actor.clone(), e.seq, d.clone())),
             "close" => {
-                let p = self.passes.get_mut(&nn).unwrap();
+                let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
                 p.tail = "closed".into();
                 p.close = Some(d.clone());
             }
@@ -257,6 +270,7 @@ impl Page {
         if let Some(last) = self.primes.last_mut() {
             last.2 = e.seq;
         }
+        Ok(())
     }
 
     fn set_prime(&mut self, name: &str, seq: u64) {

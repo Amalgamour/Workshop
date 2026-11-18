@@ -4,7 +4,7 @@
 //! and each output line is passed through it once more as a guard (a no-op on clean text).
 
 use crate::chars::escape_line;
-use crate::log::{iso, now, short, Res};
+use crate::log::{iso, now, Res};
 use crate::page::{s, Page, Pass};
 use crate::render::{self, git_changed_text, ViewDiff};
 use crate::status::{drift, how_to_resume, observe, pass_next};
@@ -48,11 +48,23 @@ pub struct Opts {
 
 /// `wf board [<page>] [--all] [--card NN] [--stall-hours H]`. Reads only.
 pub fn run(root: &Path, a: &Args) -> Res<()> {
+    if let Some(bad) = a.flag_names().find(|f| !["all", "card", "stall-hours"].contains(f)) {
+        return Err(format!("refused: wf board takes only --all, --card NN and --stall-hours H, not --{}", escape_line(bad)));
+    }
+    if a.flag("all").is_some_and(|v| !v.is_empty()) {
+        return Err(format!("refused: --all takes no value (got '{}'); put the page first: wf board <page> --all", escape_line(a.flag("all").unwrap())));
+    }
+    if a.pos.len() > 1 {
+        return Err(format!("refused: wf board takes at most one page, got {} arguments", a.pos.len()));
+    }
     let stall_hours = match a.flag("stall-hours") {
         None => STALL_HOURS,
         Some(h) => h.parse().map_err(|_| format!("--stall-hours must be a whole number of hours, not '{}'", escape_line(h)))?,
     };
     let Some(addr) = a.pos.first() else {
+        if a.flag("card").is_some() || a.flag("all").is_some() {
+            return Err("refused: the book board has no cards and no cap; --card and --all need a page: wf board <page> --card NN".into());
+        }
         print!("{}", book(root, stall_hours, now()));
         return Ok(());
     };
@@ -61,17 +73,42 @@ pub fn run(root: &Path, a: &Args) -> Res<()> {
     if !dir.join("log.jsonl").exists() {
         return Err(format!("no page {addr} under {}", escape_line(&dir.display().to_string())));
     }
-    let p = Page::load(&dir)?;
+    let p = load(&dir).map_err(|why| format!("page {addr} is unreadable: {why}"))?;
     let edited = render::edited(&p);
     let out = match a.flag("card") {
-        Some(c) => {
-            let n: u32 = c.trim_start_matches('0').parse().map_err(|_| format!("--card needs a pass number like 1 or 01, not '{}'", escape_line(c)))?;
-            card(&p, p.pass(n)?, stall_hours, now())
-        }
+        Some(c) => card(&p, p.pass(card_nn(c)?)?, stall_hours, now()),
         None => page_board(&p, &edited, &Opts { all: a.flag("all").is_some(), stall_hours }, now()),
     };
     print!("{out}");
     Ok(())
+}
+
+/// `--card` takes `4`, `04` or `05.04`.
+fn card_nn(c: &str) -> Res<u32> {
+    let n = c.strip_prefix("05.").unwrap_or(c);
+    let ok = !n.is_empty() && n.len() <= 2 && n.chars().all(|ch| ch.is_ascii_digit());
+    ok.then(|| n.parse().ok()).flatten().ok_or_else(|| format!("--card needs a pass number like 4, 04 or 05.04, not '{}'", escape_line(c)))
+}
+
+/// Load a page for the board. A log with no entries, or one that does not start with
+/// the page's init entry, is unreadable (never a blank page address).
+fn load(dir: &Path) -> Res<Page> {
+    let p = Page::load(dir)?;
+    match p.events.first() {
+        None => Err("the log is empty (no init entry)".into()),
+        Some(ev) if ev.kind != "init" => Err(format!("log entry 1 is a {}, not the init entry", escape_line(&ev.kind))),
+        _ => Ok(p),
+    }
+}
+
+/// The first `n` characters of a log value, cut before escaping so an escape is never split.
+fn sh(text: &str) -> String {
+    escape_line(&text.chars().take(12).collect::<String>())
+}
+
+/// A log time as UTC, or unknown when the entry has none (`time_s` missing reads as 0).
+fn when(t: u64) -> String {
+    if t == 0 { "unknown (no time in the log)".into() } else { iso(t) }
 }
 
 /// Escape log text for one line, then cut it on a character boundary, never inside `\u{...}`.
@@ -98,8 +135,9 @@ fn column_of(tail: &str) -> usize {
     COLUMNS.iter().position(|c| c.0 == tail).unwrap_or(0)
 }
 
-fn time_of(p: &Page, seq: u64) -> u64 {
-    p.events.get((seq as usize).wrapping_sub(1)).map(|ev| ev.time).unwrap_or(0)
+/// The time of entry `seq`; None when the entry has no time.
+fn time_of(p: &Page, seq: u64) -> Option<u64> {
+    p.events.get((seq as usize).wrapping_sub(1)).map(|ev| ev.time).filter(|t| *t > 0)
 }
 
 /// Entry numbers of every `kind` event on pass `nn`, oldest first.
@@ -111,8 +149,15 @@ fn last_entry(p: &Page, nn: u32, kind: &str) -> String {
     entries(p, nn, kind).last().map(|n| n.to_string()).unwrap_or_else(|| UNKNOWN.into())
 }
 
-fn age(secs: u64) -> String {
-    if secs < 3600 { format!("{}m", secs / 60) } else { format!("{}h", secs / 3600) }
+/// Age since entry `seq`, or unknown when that entry has no time.
+fn age(p: &Page, seq: u64, t: u64) -> String {
+    match time_of(p, seq) {
+        None => "unknown (no time in the log)".into(),
+        Some(at) => {
+            let secs = t.saturating_sub(at);
+            if secs < 3600 { format!("{}m", secs / 60) } else { format!("{}h", secs / 3600) }
+        }
+    }
 }
 
 fn failed_checks(p: &Page, nn: u32) -> usize {
@@ -129,8 +174,9 @@ pub fn stale(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> Vec<String> {
     if x.tail == "closed" {
         return why;
     }
-    let h = t.saturating_sub(time_of(p, x.last_seq)) / 3600;
-    if x.is_open_tail() && h >= stall_hours {
+    // A missing time is never read as stale.
+    let h = time_of(p, x.last_seq).map(|at| t.saturating_sub(at) / 3600).unwrap_or(0);
+    if x.is_open_tail() && time_of(p, x.last_seq).is_some() && h >= stall_hours {
         why.push(format!("wait: no log entry for {h}h (last entry {}; limit {stall_hours}h)", x.last_seq));
     }
     for d in drift(p, x) {
@@ -141,7 +187,7 @@ pub fn stale(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> Vec<String> {
         if s(r, "commit") != s(c, "commit") {
             why.push(format!(
                 "old check: check entry {} was on commit {}; the latest return (entry {}) is commit {}",
-                last_entry(p, x.nn, "check"), short(&e(&s(c, "commit"))), last_entry(p, x.nn, "return"), short(&e(&s(r, "commit")))
+                last_entry(p, x.nn, "check"), sh(&s(c, "commit")), last_entry(p, x.nn, "return"), sh(&s(r, "commit"))
             ));
         }
     }
@@ -165,7 +211,7 @@ pub fn attention(p: &Page, edited: &Res<ViewDiff>, stall_hours: u64, t: u64) -> 
         out.push((1, ask("the person", &p.person, q)));
     }
     if let Some((who, at, note, seq)) = &p.halt {
-        out.push((2, format!("HALTED by {} at {} (entry {seq}): {}. {}", e(who), iso(*at), clip(note, WIDTH), e(&how_to_resume(p)))));
+        out.push((2, format!("HALTED by {} at {} (entry {seq}): {}. {}", e(who), when(*at), clip(note, WIDTH), e(&how_to_resume(p)))));
     }
     match edited {
         Ok(d) if !d.is_empty() => out.push((3, format!("VIEWS DIFFER from the log: {}. The board prints from the log; the log wins; run wf verify {} --fix", e(&d.report()), e(&p.addr)))),
@@ -208,7 +254,7 @@ fn short_card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> Vec<String> {
     vec![
         format!("    05.{:02}  {outcome}  ({}){mark}", x.nn, e(&x.tail)),
         format!("           held by {} | next: {} | age {} | open questions {}, refused returns {}, failed checks {}",
-            e(x.claim.as_deref().unwrap_or("nobody")), e(&pass_next(p, x)), age(t.saturating_sub(time_of(p, x.last_seq))),
+            e(x.claim.as_deref().unwrap_or("nobody")), e(&pass_next(p, x)), age(p, x.last_seq, t),
             open_questions(p, x.nn), x.refusals.len(), failed_checks(p, x.nn)),
     ]
 }
@@ -221,7 +267,7 @@ pub fn page_board(p: &Page, edited: &Res<ViewDiff>, o: &Opts, t: u64) -> String 
     let must = |u: &mut Vec<(Vec<String>, bool, bool)>, l: String| u.push((vec![l], true, false));
     must(&mut units, format!("BOARD  page {} ({})  person: {}  prime: {}", e(&p.addr), e(&p.title), e(&p.person), e(&p.prime)));
     must(&mut units, format!("  log: {} entries, last entry {}, head {}; board time {}; read only, built from the log",
-        p.events.len(), p.events.last().map(|ev| iso(ev.time)).unwrap_or_else(|| UNKNOWN.into()), short(&p.head), iso(t)));
+        p.events.len(), p.events.last().map(|ev| when(ev.time)).unwrap_or_else(|| UNKNOWN.into()), sh(&p.head), iso(t)));
     must(&mut units, "ATTENTION (most urgent first)".into());
     let attn = attention(p, edited, o.stall_hours, t);
     if attn.is_empty() {
@@ -280,79 +326,104 @@ pub fn page_board(p: &Page, edited: &Res<ViewDiff>, o: &Opts, t: u64) -> String 
     out
 }
 
-/// The full card for one pass: every field, with where it came from.
+/// The full card for one pass: every field, and on every line the log entry, path or
+/// command it came from (WF-BOARD.md section 7).
 pub fn card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> String {
     let n = x.nn;
-    let (addr, dir) = (e(&p.addr), format!("pages/{}/05.{n:02}", e(&p.addr)));
+    let addr = e(&p.addr);
+    let dir = format!("pages/{addr}/05.{n:02}");
     let (_, col, label, owner) = COLUMNS[column_of(&x.tail)];
+    let last = p.events.len();
+    let none = format!("{UNKNOWN}; searched entries 1-{last}");
     let field = |k: &str| x.fields.get(k).and_then(|v| v.as_str()).map(e).unwrap_or_else(|| UNKNOWN.into());
+    let draft = format!("draft entry {}", last_entry(p, n, "draft"));
     let mut l = vec![
-        format!("CARD 05.{n:02}  page {addr} ({})  read only, built from the log", e(&p.title)),
-        format!("  column:     {col} [{label}]; tail {}; next move owed by {owner}", e(&x.tail)),
-        format!("  outcome:    {} (draft entry {})", field("outcome"), last_entry(p, n, "draft")),
+        format!("CARD 05.{n:02}  page {addr} ({})  read only, built from pages/{addr}/log.jsonl", e(&p.title)),
+        format!("  column:     {col} [{label}]; tail {} (entry {}); next move owed by {owner}", e(&x.tail), x.last_seq),
+        format!("  outcome:    {} ({draft})", field("outcome")),
     ];
     for (k, v) in render::jobs(&x.fields) {
-        l.push(format!("  job {}:    {}", e(&k), e(&v)));
+        l.push(format!("  job {}:    {} ({draft})", e(&k), e(&v)));
     }
-    l.push(format!("  may touch:  {}", field("may touch")));
-    l.push(format!("  checks:     {}", field("checks")));
-    l.push(format!("  repo:       {}; start {}", field("repo"), field("start")));
-    l.push(format!("  held by:    {} (claim entry {})", e(x.claim.as_deref().unwrap_or(UNKNOWN)), last_entry(p, n, "claim")));
-    l.push(format!("  next:       {}", if x.tail == "closed" { "nobody".into() } else { e(&pass_next(p, x)) }));
-    l.push(format!("  age:        {} since entry {}", age(t.saturating_sub(time_of(p, x.last_seq))), x.last_seq));
+    l.push(format!("  may touch:  {} ({draft})", field("may touch")));
+    l.push(format!("  checks:     {} ({draft})", field("checks")));
+    l.push(format!("  repo:       {}; start {} ({draft})", field("repo"), field("start")));
+    l.push(match &x.claim {
+        Some(c) => format!("  held by:    {} (claim entry {})", e(c), last_entry(p, n, "claim")),
+        None => format!("  held by:    nobody: no claim, {none}"),
+    });
+    let next = if x.tail == "closed" { "nobody".into() } else { e(&pass_next(p, x)) };
+    l.push(format!("  next:       {next} (as of entry {})", x.last_seq));
+    l.push(format!("  age:        {} since entry {}", age(p, x.last_seq, t), x.last_seq));
     let st = stale(p, x, stall_hours, t);
-    l.push(format!("  stale:      {}", if st.is_empty() { "none found in the log".into() } else { format!("STALE {}", st.join("; ")) }));
+    l.push(format!("  stale:      {} (as of entry {last})", if st.is_empty() { "none found in the log".into() } else { format!("STALE {}", st.join("; ")) }));
     match &x.pack {
         Some(pk) => {
-            l.push(format!("  pack:       entry {}; hash {}; template version {}", last_entry(p, n, "pack"), short(&e(&s(pk, "pack_hash"))),
-                pk.get("templates").map(|v| e(&v.to_string())).unwrap_or_else(|| "1 (none stored)".into())));
+            let ver = match pk.get("templates") {
+                None => "1 (none stored)".to_string(),
+                Some(v) => v.as_str().map(e).unwrap_or_else(|| format!("not a string ({})", json_kind(v))),
+            };
+            l.push(format!("  pack:       entry {}; hash {}; template version {ver}", last_entry(p, n, "pack"), sh(&s(pk, "pack_hash"))));
             for f in ["PACK.md", "PROMPT.md", "AGENTS.md", "RETURN-TEMPLATE.md"] {
                 l.push(format!("    file:     {dir}/{f}"));
             }
         }
-        None => l.push(format!("  pack:       {UNKNOWN}")),
+        None => l.push(format!("  pack:       {none}")),
     }
     match &x.ret {
         Some(r) => {
-            l.push(format!("  return:     entry {}; commit {}; branch {}; hash {}", last_entry(p, n, "return"), e(&s(r, "commit")), e(&s(r, "branch")), short(&e(&s(r, "hash")))));
+            let ret = format!("return entry {}", last_entry(p, n, "return"));
+            l.push(format!("  return:     {ret}; commit {}; branch {}; hash {}", e(&s(r, "commit")), e(&s(r, "branch")), sh(&s(r, "hash"))));
             l.push(format!("    open:     git -C {} show {}:{}", field("repo"), e(&s(r, "commit")), e(&s(r, "file"))));
-            l.push(format!("    changed:  {}", { let g = git_changed_text(r); if g.is_empty() { UNKNOWN.into() } else { g } }));
+            let g = git_changed_text(r);
+            l.push(format!("    changed:  {} ({ret})", if g.is_empty() { UNKNOWN.into() } else { g }));
             for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
-                l.push(format!("    {}:      {}", e(&k), clip(v.as_str().unwrap_or(""), WIDTH)));
+                l.push(format!("    {}:      {} ({ret})", e(&k), clip(v.as_str().unwrap_or(""), WIDTH)));
             }
         }
-        None => l.push(format!("  return:     {UNKNOWN}")),
+        None => l.push(format!("  return:     {none}")),
     }
     if x.refusals.is_empty() {
-        l.push("  refused returns: none found in the log".into());
+        l.push(format!("  refused returns: none found in the log (searched entries 1-{last})"));
     }
     for (seq, why) in &x.refusals {
         l.push(format!("  refused return: entry {seq}: {}", clip(why, WIDTH)));
     }
     match &x.check {
         Some((who, c)) => {
-            l.push(format!("  check:      entry {}; checker {}; verdict {}; commit {}; failed checks {}", last_entry(p, n, "check"), e(who), e(&s(c, "verdict")), short(&e(&s(c, "commit"))), failed_checks(p, n)));
+            l.push(format!("  check:      entry {}; checker {}; verdict {}; commit {}; failed checks {}", last_entry(p, n, "check"), e(who), e(&s(c, "verdict")), sh(&s(c, "commit")), failed_checks(p, n)));
             l.push(format!("    report:   pages/{addr}/05.md section \"## 05.{n:02}\""));
         }
-        None => l.push(format!("  check:      {UNKNOWN}")),
+        None => l.push(format!("  check:      {none}")),
     }
     match &x.signoff {
         Some((who, seq, d)) => l.push(format!("  signoff:    entry {seq}; by {}; outcome {}; cards {}", e(who), e(&s(d, "outcome")), e(&render::cards_text(&d["cards"])))),
-        None => l.push(format!("  signoff:    {UNKNOWN}")),
+        None => l.push(format!("  signoff:    {none}")),
     }
     match &x.close {
         Some(c) => {
-            l.push(format!("  close:      entry {}; outcome {}; record_hash {}", last_entry(p, n, "close"), e(&s(c, "outcome")), short(&e(&s(c, "record_hash")))));
+            l.push(format!("  close:      entry {}; outcome {}; record_hash {}", last_entry(p, n, "close"), e(&s(c, "outcome")), sh(&s(c, "record_hash"))));
             l.push(format!("    record:   pages/{addr}/05.md section \"## 05.{n:02}\""));
         }
-        None => l.push(format!("  close:      {UNKNOWN}")),
+        None => l.push(format!("  close:      {none}")),
     }
     for q in p.elevs.iter().filter(|q| q.pass == n) {
         let ans = q.answer.as_deref().map(clip_w).unwrap_or_else(|| "no answer".into());
         l.push(format!("  question:   entry {} to {} from {}: {} ({ans})", q.seq, e(&q.to), e(&q.by), clip(&q.item, WIDTH)));
     }
-    l.push(format!("  evidence:   {NOT_CHECKED}"));
+    l.push(format!("  evidence:   {NOT_CHECKED}; open them with the pages/ paths and git -C commands above"));
     l.iter().map(|x| escape_line(x) + "\n").collect()
+}
+
+fn json_kind(v: &serde_json::Value) -> &'static str {
+    match v {
+        serde_json::Value::Null => "null",
+        serde_json::Value::Bool(_) => "a true/false",
+        serde_json::Value::Number(_) => "a number",
+        serde_json::Value::String(_) => "a string",
+        serde_json::Value::Array(_) => "a list",
+        serde_json::Value::Object(_) => "an object",
+    }
 }
 
 fn clip_w(s: &str) -> String {
@@ -376,13 +447,13 @@ pub fn book(root: &Path, stall_hours: u64, t: u64) -> String {
         let line = if !dir.join("log.jsonl").is_file() {
             format!("  {}  unreadable: no log.jsonl", e(&name))
         } else {
-            match Page::load(&dir) {
+            match load(&dir) {
                 Err(why) => format!("  {}  unreadable: {}", e(&name), clip(&why, WIDTH)),
                 Ok(p) => {
                     let c = |tail: &str| p.passes.values().filter(|x| x.tail == tail).count();
                     let attn = attention(&p, &render::edited(&p), stall_hours, t).len();
                     format!("  {}  {}  entries {}, last {} | draft {}, ready {}, working {}, waiting check {}, checked {}, closed {} | attention {}{}",
-                        e(&name), clip(&p.title, 30), p.events.len(), p.events.last().map(|ev| iso(ev.time)).unwrap_or_else(|| UNKNOWN.into()),
+                        e(&name), clip(&p.title, 30), p.events.len(), p.events.last().map(|ev| when(ev.time)).unwrap_or_else(|| UNKNOWN.into()),
                         c("draft"), c("pack"), c("open"), c("return"), c("review"), c("closed"), attn, if p.halt.is_some() { ", HALTED" } else { "" })
                 }
             }
@@ -555,12 +626,42 @@ mod tests {
     }
 
     #[test]
+    fn short_values_are_cut_before_escaping() {
+        let v = "abcdefghij\u{1b}[2K";
+        assert_eq!(sh(v), "abcdefghij\\u{1b}[");
+        assert_eq!(sh("ééééééééééééééé"), "éééééééééééé");
+        assert_eq!(sh("abc"), "abc");
+    }
+
+    #[test]
+    fn card_takes_nn_or_05_nn() {
+        for (arg, n) in [("4", 4), ("04", 4), ("05.04", 4), ("05.12", 12), ("05", 5)] {
+            assert_eq!(card_nn(arg).unwrap(), n, "{arg}");
+        }
+        for bad in ["", "05.", "x", "05.x", "123", "+1", "05.04.1"] {
+            assert!(card_nn(bad).is_err(), "{bad}");
+        }
+    }
+
+    #[test]
+    fn missing_time_is_unknown_and_never_stale() {
+        let mut p = page();
+        pass(&mut p, 1, "open");
+        p.events[0].time = 0;
+        assert!(stale(&p, &p.passes[&1], 0, T0 + 999 * 3600).is_empty());
+        let b = board(&p, false, T0);
+        assert!(b.contains("age unknown (no time in the log)") && b.contains("last entry unknown (no time in the log)"), "{b}");
+        assert!(!b.contains("STALE"), "{b}");
+        assert!(observe(&p, 0).iter().all(|f| !f.starts_with("stalled")), "{:?}", observe(&p, 0));
+    }
+
+    #[test]
     fn card_says_unknown_for_fields_not_in_the_log() {
         let mut p = page();
         pass(&mut p, 1, "draft");
         let c = card(&p, &p.passes[&1], 24, T0);
         for k in ["pack:", "return:", "check:", "signoff:", "close:"] {
-            assert!(c.contains(&format!("  {k}")) && c.lines().any(|l| l.contains(k) && l.ends_with("unknown (not in the log)")), "{k}: {c}");
+            assert!(c.lines().any(|l| l.starts_with(&format!("  {k}")) && l.contains("unknown (not in the log); searched entries 1-1")), "{k}: {c}");
         }
         assert!(!c.lines().any(|l| l.trim_end().ends_with(" -")), "{c}");
     }
