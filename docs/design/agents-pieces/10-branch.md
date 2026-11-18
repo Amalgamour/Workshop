@@ -14,3 +14,5 @@ sha256: 7cb97f0fef8a414bf2b2a4e9835560c8aca646842f6b562b208c2b79473fe443
 wording:
 Push only to {{push_target}}. Never merge into main. Never force push.
 end wording
+
+authority update (Prima, 3:33 PM EST Nov 18): Director approved this rule text, docs/review/DIRECTOR-WORDS-t335s1296.md.

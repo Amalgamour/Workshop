@@ -15,3 +15,5 @@ wording:
 End every commit message with a blank line, then `{{trailer}}`.
 Stage files by path only. Never `git add -A`, `git add .` or `commit -a`.
 end wording
+
+authority update (Prima, 3:33 PM EST Nov 18): Director approved this rule text, docs/review/DIRECTOR-WORDS-t335s1296.md.

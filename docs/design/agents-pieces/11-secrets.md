@@ -13,3 +13,5 @@ sha256: 3509ca2ca5ac6da531efc8d29f5e2195120368a7196d45fe846b4c793bccc992
 wording:
 Never print, copy or commit a token, password or key. If you find one, stop and tell Prime where, without its value.
 end wording
+
+authority update (Prima, 3:33 PM EST Nov 18): Director approved this rule text, docs/review/DIRECTOR-WORDS-t335s1296.md.
