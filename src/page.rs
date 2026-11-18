@@ -128,9 +128,18 @@ const KINDS: [&str; 17] = ["init", "prime", "grant", "face", "draft", "pack", "c
 /// Kinds that belong to one pass (data.pass, 01-98).
 const PASS_KINDS: [&str; 9] = ["draft", "pack", "claim", "return-refused", "return", "check", "signoff", "close", "elevate"];
 
-/// A full git commit hash as wf writes it: 40 lowercase hex characters.
+/// A full git commit hash as wf writes it: 40 (SHA-1 repo) or 64 (SHA-256 repo)
+/// lowercase hex characters. One rule for return and check entries.
 pub fn is_full_hash(c: &str) -> bool {
-    c.len() == 40 && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    (c.len() == 40 || c.len() == 64) && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+}
+
+fn commit_rule(kind: &str, nn: u32, d: &Value) -> Res<()> {
+    if d["commit"].as_str().is_some_and(is_full_hash) {
+        Ok(())
+    } else {
+        Err(format!("a {kind} for 05.{nn:02} whose commit is not a 40- or 64-character lowercase hex hash"))
+    }
 }
 
 fn missing_pass(seq: u64, kind: &str, nn: u32) -> String {
@@ -246,9 +255,7 @@ impl Page {
                 }
                 _ => {}
             }
-            if !d["commit"].as_str().is_some_and(is_full_hash) {
-                return Err(format!("a check for 05.{nn:02} whose commit is not a 40-character lowercase hex hash"));
-            }
+            commit_rule(kind, nn, d)?;
             // Same as wf check: a re-check only after a failed check, and never after a signoff.
             if let Some((_, c)) = &x.check {
                 if s(c, "verdict") != "fail" {
@@ -258,6 +265,13 @@ impl Page {
             if x.signoff.is_some() {
                 return Err(format!("a check of 05.{nn:02} after its signoff"));
             }
+        }
+        // A refused return keeps the raw attempt as evidence (axiom 6), so its commit is not checked.
+        if kind == "return" {
+            commit_rule(kind, nn, d)?;
+        }
+        if kind == "signoff" && !d["outcome"].as_str().is_some_and(|o| crate::cmd::OUTCOMES.contains(&o)) {
+            return Err(format!("a signoff for 05.{nn:02} whose outcome is not {}", crate::cmd::OUTCOMES.join(", ")));
         }
         if kind == "close" && x.signoff.is_none() {
             return Err(format!("a close for 05.{nn:02} with no signoff"));

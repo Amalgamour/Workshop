@@ -11,7 +11,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const CARD_WORDS: [&str; 4] = ["accepted", "carried", "discarded", "candidate"];
-const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
+pub(crate) const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
 const RETURN_KEYS: [&str; 7] = ["done", "changed", "noticed", "proof", "not done", "unprompted", "overflow"];
 const REQUIRED: [&str; 6] = ["outcome", "repo", "start", "may touch", "checks", "stop if"];
 
@@ -548,8 +548,8 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
     let dry = a.flag("dry-run").is_some();
     if let (false, Some((who, at, d))) = (dry, &x.signoff) {
-        return Err(format!("refused: 05.{n:02} was signed off by {who} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
-            s(d, "outcome"), p.addr));
+        return Err(format!("refused: 05.{n:02} was signed off by {} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            chars::escape_line(who), chars::escape_line(&s(d, "outcome")), p.addr));
     }
     if !dry {
         if let Some((_, c)) = &x.check {
@@ -585,8 +585,8 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         && s(x2.ret.as_ref().unwrap_or(&Value::Null), "hash") == return_hash
         && x2.check == check0;
     if let Some((who, at, d)) = &x2.signoff {
-        return Err(format!("refused: 05.{n:02} was signed off by {who} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
-            s(d, "outcome"), p.addr));
+        return Err(format!("refused: 05.{n:02} was signed off by {} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            chars::escape_line(who), chars::escape_line(&s(d, "outcome")), p.addr));
     }
     need(still, format!("refused: 05.{n:02} changed while the checks ran (it is now at '{}', last entry {}); nothing was written. Run wf check {} {n} again",
         x2.tail, x2.last_seq, p.addr))?;

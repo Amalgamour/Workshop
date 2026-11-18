@@ -1626,7 +1626,7 @@ fn board_puts_each_tail_in_its_column() {
     seed(&e, PG, &evs);
     seed(&e, PG, &[
         ("pri", "prime", "draft", seed_draft(3)), ("pri", "prime", "pack", seed_pack(3)), ("bob", "builder", "claim", serde_json::json!({"pass": 3})),
-        ("bob", "builder", "return", serde_json::json!({"pass": 3, "commit": "c3", "file": "f", "jobs": {"w01": "done - x"}})),
+        ("bob", "builder", "return", serde_json::json!({"pass": 3, "commit": "c3".repeat(20), "file": "f", "jobs": {"w01": "done - x"}})),
         ("pri", "prime", "draft", seed_draft(4)), ("pri", "prime", "pack", seed_pack(4)), ("ann", "builder", "claim", serde_json::json!({"pass": 4})),
         ("pri", "prime", "draft", seed_draft(5)), ("pri", "prime", "pack", seed_pack(5)),
         ("pri", "prime", "draft", seed_draft(6)),
@@ -2141,7 +2141,7 @@ fn check_with_no_verdict_makes_the_page_unreadable() {
         }
         write_log(&dir, &evs);
         let (code, out) = run_code(&e, &["board", "6.0.0.2"]);
-        assert!(code == Some(1) && out.contains("a check for 05.01 whose commit is not a 40-character lowercase hex hash"), "{out}");
+        assert!(code == Some(1) && out.contains("a check for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{out}");
     }
 }
 
@@ -2189,4 +2189,110 @@ fn check_after_a_signoff_says_signed_off_and_next_close() {
     e.no(&["check", PG, "1", "--as", "cat"], "refused: 05.01 was signed off by pri at entry 10 (outcome failed), so it cannot be checked again; nothing was written. Next: wf close 1.2.3.4 1");
     assert_eq!(e.log(), before);
     assert!(!e.page().join(".wf-lock").exists());
+}
+
+/// G2: return and check share one commit rule: 40 or 64 lowercase hex. A refused return is not checked.
+#[test]
+fn return_and_check_commits_must_be_40_or_64_hex() {
+    let e = Env::ready("commit-rule");
+    let h64 = "0a".repeat(32);
+    let mut evs = vec![("init", init_data("5.0.0.1"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1),
+                       ("return-refused", serde_json::json!({"pass": 1, "by": "bob", "commit": "not a hash \u{1b}", "why": "w"}), Some(1)),
+                       ev("return", 1), ev("check", 1), ev("signoff", 1), ev("close", 1)];
+    evs[5].1["commit"] = serde_json::json!(h64);
+    evs[6].1["commit"] = serde_json::json!(h64);
+    let dir = e.root.join("pages/5.0.0.1");
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["status", "5.0.0.1"]);
+    assert!(code == Some(0) && out.contains("05.01  closed"), "64-hex commits and a raw refused return load: {out}");
+    for bad in ["".to_string(), " ".into(), "\t\n".into(), "c3".into(), "0A".repeat(32), "0a".repeat(31), "0a".repeat(33), "g".repeat(40)] {
+        let mut v = evs.clone();
+        v[5].1["commit"] = serde_json::json!(bad);
+        write_log(&dir, &v);
+        let (code, out) = run_code(&e, &["verify", "5.0.0.1"]);
+        assert!(code == Some(1) && out.contains("log entry 6 is out of order: a return for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{bad:?}: {out}");
+    }
+}
+
+/// R2a: a signoff outcome must be one wf signoff accepts.
+#[test]
+fn signoff_outcome_must_be_one_wf_accepts() {
+    let e = Env::ready("outcome-rule");
+    let dir = e.root.join("pages/5.0.0.2");
+    let mut evs = vec![("init", init_data("5.0.0.2"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)];
+    for ok in ["passed", "failed", "blocked", "needs-authority"] {
+        evs[6].1["outcome"] = serde_json::json!(ok);
+        write_log(&dir, &evs);
+        assert_eq!(run_code(&e, &["status", "5.0.0.2"]).0, Some(0), "{ok}");
+    }
+    for bad in [serde_json::json!("maybe"), serde_json::json!(""), serde_json::json!(1)] {
+        evs[6].1["outcome"] = bad;
+        write_log(&dir, &evs);
+        let (code, out) = run_code(&e, &["status", "5.0.0.2"]);
+        assert!(code == Some(1) && out.contains("log entry 7 is out of order: a signoff for 05.01 whose outcome is not passed, failed, blocked, needs-authority"), "{out}");
+    }
+}
+
+/// R2a: the signed-off refusal escapes the signer and outcome it reads from the log.
+#[test]
+fn signed_off_refusal_escapes_log_text() {
+    let e = Env::ready("signed-esc");
+    let dir = e.root.join("pages/5.0.0.3");
+    let mut evs = vec![("init", init_data("5.0.0.3"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)];
+    evs[5].1["verdict"] = serde_json::json!("fail");
+    write_log(&dir, &evs);
+    // write_log writes actor "pri"; make the signoff actor hostile by hand, then rechain.
+    let text = fs::read_to_string(dir.join("log.jsonl")).unwrap();
+    let mut out = String::new();
+    let mut prev = "0".to_string();
+    for line in text.lines() {
+        let mut v: serde_json::Value = serde_json::from_str(line).unwrap();
+        v["prev"] = serde_json::json!(prev);
+        if v["kind"] == "signoff" {
+            v["actor"] = serde_json::json!("p\u{1b}[2Kri\u{202e}");
+        }
+        let l = v.to_string();
+        use sha2::{Digest, Sha256};
+        prev = Sha256::digest(l.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        out += &l;
+        out.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), out).unwrap();
+    run_code(&e, &["verify", "5.0.0.3", "--fix"]); // print the views from the log, so check reaches the signoff test
+    let (code, msg) = run_code(&e, &["check", "5.0.0.3", "1", "--as", "cat"]);
+    assert_eq!(code, Some(1), "{msg}");
+    assert!(msg.contains("was signed off by p\\u{1b}[2Kri\\u{202e} at entry 7"), "{msg}");
+    assert!(!msg.contains('\u{1b}') && !msg.contains('\u{202e}'), "{msg}");
+}
+
+/// G2: a SHA-256 git repo (64-hex commits) runs return, check, signoff and close, and the page loads.
+#[test]
+fn sha256_repo_runs_a_full_pass_and_loads() {
+    let root = std::env::temp_dir().join(format!("wf-test-{}-sha256", std::process::id()));
+    let _ = fs::remove_dir_all(&root);
+    fs::create_dir_all(root.join("game/src")).unwrap();
+    let e = Env { root };
+    let init = Command::new("git").current_dir(e.root.join("game")).args(["init", "-q", "-b", "main", "--object-format=sha256"]).output().unwrap();
+    if !init.status.success() {
+        eprintln!("skipping sha256_repo_runs_a_full_pass_and_loads: this git has no sha256 support: {}", String::from_utf8_lossy(&init.stderr));
+        return;
+    }
+    fs::write(e.root.join("game/src/a.rs"), "a = 1\n").unwrap();
+    e.git(&["add", "."]);
+    e.git(&["commit", "-q", "-m", "start"]);
+    e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
+    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert_eq!(sha.len(), 64, "{sha}");
+    let (ok, out) = e.ret(1, &sha, "bob");
+    assert!(ok, "{out}");
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+    assert!(e.ok(&["status", PG]).contains("05.01  closed   passed"));
+    assert!(e.ok(&["board", PG, "--card", "1"]).contains(&sha));
 }
