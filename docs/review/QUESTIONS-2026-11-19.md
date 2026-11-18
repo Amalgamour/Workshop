@@ -16,3 +16,6 @@ Saved by Prima while Matthew was away (t337u: "Keep going work around any issues
 12. Disk: 89% full; may Tester's old scratch folders (tester-3003 475M and others) be deleted?
 
 Already answered (do not re-ask): Researcher's M2 Q3 = the three safety rules, approved t335s1296.
+
+Added 3:56 PM EST:
+13. `wf board` (read-only kanban view) is built on branch board-dev; Tester's check found two narrow fixes, now being fixed. Its AGENTS.md/README lines use the proposed answers to question 8 and are marked "build stage, pending Director answer". Tester flags ax1: with no ruling yet, those lines should not merge into the workflow branch's AGENTS.md. Proposed: answer question 8, then Prima merges board-dev into workflow.
