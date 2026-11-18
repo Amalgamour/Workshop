@@ -78,6 +78,8 @@ Add `--as <your name>` to every command that writes.
 
 `wf status` is the "where are we" view. It is always built fresh from the log.
 
+When a page loads, `wf` checks the order of every log entry, the same order the commands keep: entry 1 is the only init; every entry has a known kind; a pass number is 01-98 (R9), never wrapped; draft (or a re-draft while still at draft), pack, claim, return (or a refused return) on a claimed pass, check on a returned pass, signoff on a checked pass, close only after a signoff; no draft, pack or claim while halted; no second halt, and no resume unless halted. A log that breaks the order is unreadable: every command refuses with the entry number and the rule, exits 1, and writes nothing. A write that would break the order is refused before it is appended ("refused, nothing written: ..."). Why: a forged or hand-written log must not steer a command (axiom 1). It does not prove who wrote the log; see the known gaps.
+
 Anyone may run `status`, `observe`, `verify` and `board`.
 
 `wf board` is the work-order board. It only reads: no log entry, no view file, no lock file, and it runs no git. It is built from `log.jsonl` only; if a view file was hand-edited it says so, prints from the log, and names `wf verify <page> --fix`. Why: see what needs someone, what is moving and what passed in under a minute (`docs/design/WF-BOARD.md`).

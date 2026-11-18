@@ -54,6 +54,9 @@ pub fn run(root: &Path, a: &Args) -> Res<()> {
     if a.flag("all").is_some_and(|v| !v.is_empty()) {
         return Err(format!("refused: --all takes no value (got '{}'); put the page first: wf board <page> --all", escape_line(a.flag("all").unwrap())));
     }
+    if a.flag("card").is_some() && a.flag("all").is_some() {
+        return Err("refused: --card shows one whole card and --all the whole board; give one of them".into());
+    }
     if a.pos.len() > 1 {
         return Err(format!("refused: wf board takes at most one page, got {} arguments", a.pos.len()));
     }

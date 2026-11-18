@@ -15,6 +15,7 @@ Check every choice against these axioms:
 ## The one rule
 Never edit anything under `pages/` by hand. Only `wf` writes there.
 A hand edit is caught and refused. Say who you are on every command: `--as <name>`.
+A log entry out of the commands' order (for example a close before a return, a claim after a close, a second init, an unknown kind, a pass number outside 01-98) makes the page unreadable: every command names the entry and the rule, exits 1 and writes nothing.
 
 ## The tool you run
 The `wf` you run must be a pinned build of the last merged commit, kept apart from

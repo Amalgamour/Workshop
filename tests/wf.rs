@@ -149,10 +149,24 @@ impl Drop for Env {
 fn seed_closed_passes(e: &Env, count: u32) {
     let mut p = wf::page::Page::load(&e.page()).unwrap();
     for i in 1..=count {
-        p.add("pri", "prime", "draft", serde_json::json!({"pass": i, "fields": {}, "pins": {}})).unwrap();
-        p.add("pri", "prime", "close", serde_json::json!({"pass": i, "outcome": "passed"})).unwrap();
+        for (actor, role, kind, data) in closed_chain(i, "passed") {
+            p.add(actor, role, kind, data).unwrap();
+        }
     }
     wf::render::write(&p).unwrap();
+}
+
+/// Every entry of one pass from draft to close, in the order the log rules need.
+fn closed_chain(nn: u32, outcome: &str) -> Vec<(&'static str, &'static str, &'static str, serde_json::Value)> {
+    vec![
+        ("pri", "prime", "draft", serde_json::json!({"pass": nn, "fields": {}, "pins": {}})),
+        ("pri", "prime", "pack", seed_pack(nn)),
+        ("bob", "builder", "claim", serde_json::json!({"pass": nn})),
+        ("bob", "builder", "return", serde_json::json!({"pass": nn, "commit": "c", "file": "f", "jobs": {}})),
+        ("cat", "checker", "check", serde_json::json!({"pass": nn, "commit": "c", "verdict": "pass", "report": ""})),
+        ("pri", "prime", "signoff", serde_json::json!({"pass": nn, "outcome": outcome, "cards": {}})),
+        ("pri", "tool", "close", serde_json::json!({"pass": nn, "outcome": outcome})),
+    ]
 }
 
 #[test]
@@ -1607,8 +1621,10 @@ fn board_writes_nothing() {
 #[test]
 fn board_puts_each_tail_in_its_column() {
     let e = Env::checked("board-cols"); // 05.01 at review
+    let mut evs = closed_chain(2, "failed");
+    evs[0].3 = seed_draft(2);
+    seed(&e, PG, &evs);
     seed(&e, PG, &[
-        ("pri", "prime", "draft", seed_draft(2)), ("pri", "tool", "close", serde_json::json!({"pass": 2, "outcome": "failed"})),
         ("pri", "prime", "draft", seed_draft(3)), ("pri", "prime", "pack", seed_pack(3)), ("bob", "builder", "claim", serde_json::json!({"pass": 3})),
         ("bob", "builder", "return", serde_json::json!({"pass": 3, "commit": "c3", "file": "f", "jobs": {"w01": "done - x"}})),
         ("pri", "prime", "draft", seed_draft(4)), ("pri", "prime", "pack", seed_pack(4)), ("ann", "builder", "claim", serde_json::json!({"pass": 4})),
@@ -1688,10 +1704,11 @@ fn board_marks_an_old_check_and_an_old_signoff() {
     let c = e.ok(&["board", PG, "--card", "1"]);
     assert!(c.contains("stale:      none found in the log"), "{c}");
     // A later return on another commit: the commands cannot reach this today, so it is seeded.
-    seed(&e, PG, &[("bob", "builder", "return", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "file": "f", "jobs": {"w01": "done - again"}}))]);
+    // A return after a check is refused by the log rules; a check whose commit is not the
+    // return's is the disagreement the board must show (seeded).
+    seed(&e, PG, &[("cat", "checker", "check", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "verdict": "pass", "report": ""}))]);
     let b = e.ok(&["board", PG]);
-    assert!(b.contains("old check: check entry 9 was on commit"), "{b}");
-    assert!(b.contains("the latest return (entry 10) is commit dddddddddddd"), "{b}");
+    assert!(b.contains("old check: check entry 10 was on commit dddddddddddd; the latest return (entry 8) is commit"), "{b}");
 
     let e = Env::checked("board-oldsign");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
@@ -1733,13 +1750,11 @@ fn board_escapes_hostile_log_text_everywhere() {
     e.git(&["commit", "-q", "-m", "work"]);
     let sha = e.git(&["rev-parse", "HEAD"]);
     e.git(&["checkout", "-q", "main"]);
-    assert!(e.ret(1, &sha, "bob").0);
     // Old log entries written before the input check: hostile names and items.
     let bad = "q\u{85}r\u{e0001}s\u{3164}t\u{2028}u\u{202e}v";
-    seed(&e, PG, &[
-        (bad, "prime", "elevate", serde_json::json!({"pass": 1, "to": "person", "item": bad})),
-        ("wf", "tool", "return-refused", serde_json::json!({"pass": 1, "by": bad, "commit": "c", "why": format!("bad file src/\u{1b}]0;title\u{7}.rs {bad}")})),
-    ]);
+    seed(&e, PG, &[("wf", "tool", "return-refused", serde_json::json!({"pass": 1, "by": bad, "commit": "c", "why": format!("bad file src/\u{1b}]0;title\u{7}.rs {bad}")}))]);
+    assert!(e.ret(1, &sha, "bob").0);
+    seed(&e, PG, &[(bad, "prime", "elevate", serde_json::json!({"pass": 1, "to": "person", "item": bad}))]);
     let out = [e.ok(&["board", PG]), e.ok(&["board", PG, "--all"]), e.ok(&["board", PG, "--card", "1"]), e.ok(&["board"])].concat();
     for c in ['\u{1b}', '\r', '\u{7}', '\u{2028}', '\u{85}', '\u{202e}', '\u{e0001}', '\u{3164}'] {
         assert!(!out.contains(c), "raw U+{:04X} in board output: {out}", c as u32);
@@ -1800,6 +1815,9 @@ fn write_log(dir: &PathBuf, evs: &[(&str, serde_json::Value, Option<u64>)]) {
         if let Some(t) = time {
             v["time_s"] = serde_json::json!(t);
         }
+        if kind.is_empty() {
+            v.as_object_mut().unwrap().remove("kind");
+        }
         let line = v.to_string();
         prev = Sha256::digest(line.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
         text += &line;
@@ -1824,11 +1842,11 @@ fn entry_for_a_missing_pass_is_unreadable_not_a_panic() {
         let o = Command::new(bin).env("WF_ROOT", &e.root).args(&args).output().unwrap();
         let err = String::from_utf8_lossy(&o.stderr);
         assert_eq!(o.status.code(), Some(1), "{args:?} must refuse, not panic: {err}");
-        assert!(err.contains("log entry 2 is a claim for pass 3, which was never drafted"), "{args:?}: {err}");
+        assert!(err.contains("log entry 2 is out of order: a claim for 05.03, which was never drafted; the page cannot be read"), "{args:?}: {err}");
         assert!(!err.contains("panicked"), "{args:?}: {err}");
     }
     let b = e.ok(&["board"]);
-    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is a claim for pass 3, which was never drafted"), "{b}");
+    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is out of order: a claim for 05.03, which was never drafted"), "{b}");
     assert!(b.contains("  1.2.3.4  t  entries 4"), "the other page still shows: {b}");
 }
 
@@ -1923,4 +1941,153 @@ fn board_on_real_pages_is_read_only_and_short() {
     assert!(run(&["board"]).contains("BOOK BOARD  3 pages"));
     assert_eq!(sha_map(&root.join("pages")), before, "the board changed a real page file");
     let _ = fs::remove_dir_all(&root);
+}
+
+// ---- log hardening: forged or wrong-order entries ----
+
+/// One pass's entries for a hand-written log, by kind: (kind, data, time).
+fn ev(kind: &'static str, nn: u64) -> (&'static str, serde_json::Value, Option<u64>) {
+    let d = match kind {
+        "draft" => serde_json::json!({"pass": nn, "fields": {"outcome": "o", "repo": "game", "start": "main", "w01": "x", "may touch": "src/a.rs", "checks": "true", "stop if": "none"}, "pins": {}}),
+        "pack" => serde_json::json!({"pass": nn, "pack_text": "p", "pack_hash": "h", "branch": "b", "return_file": "f", "start": "0", "templates": "2", "sources": {}}),
+        "return" => serde_json::json!({"pass": nn, "commit": "c", "file": "f", "hash": "h", "jobs": {"w01": "done - x"}}),
+        "check" => serde_json::json!({"pass": nn, "commit": "c", "verdict": "pass", "report": ""}),
+        "signoff" => serde_json::json!({"pass": nn, "outcome": "passed", "cards": {}, "note": "none"}),
+        "close" => serde_json::json!({"pass": nn, "outcome": "passed"}),
+        "halt" | "resume" => serde_json::json!({"note": "why (t1)"}),
+        _ => serde_json::json!({"pass": nn}),
+    };
+    (kind, d, Some(1_795_456_800))
+}
+
+fn forged(e: &Env, addr: &str, kinds: &[(&'static str, u64)]) -> PathBuf {
+    let dir = e.root.join("pages").join(addr);
+    let mut evs = vec![("init", init_data(addr), Some(1_795_456_800))];
+    evs.extend(kinds.iter().map(|(k, n)| ev(k, *n)));
+    write_log(&dir, &evs);
+    dir
+}
+
+fn run_code(e: &Env, args: &[&str]) -> (Option<i32>, String) {
+    let o = Command::new(env!("CARGO_BIN_EXE_wf")).env("WF_ROOT", &e.root).args(args).output().unwrap();
+    (o.status.code(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
+}
+
+/// Item 1: write commands on forged wrong-state logs refuse with exit 1, leave the log as it was and no lock.
+#[test]
+fn write_commands_on_forged_logs_refuse_without_a_panic() {
+    let e = Env::ready("forged-writes");
+    let cases: [(&str, &[(&'static str, u64)], Vec<&str>); 4] = [
+        ("9.0.0.1", &[("draft", 1), ("claim", 1)], vec!["return", "9.0.0.1", "1", "--branch", "b", "--commit", "c", "--file", "f", "--as", "pri"]),
+        ("9.0.0.2", &[("draft", 1), ("claim", 1), ("return", 1)], vec!["check", "9.0.0.2", "1", "--as", "cat"]),
+        ("9.0.0.3", &[("draft", 1), ("check", 1)], vec!["signoff", "9.0.0.3", "1", "--outcome", "failed", "--as", "pri"]),
+        ("9.0.0.4", &[("draft", 1), ("signoff", 1), ("close", 1)], vec!["close", "9.0.0.4", "1", "--as", "pri"]),
+    ];
+    for (addr, kinds, args) in cases {
+        let dir = forged(&e, addr, kinds);
+        let before = fs::read(dir.join("log.jsonl")).unwrap();
+        let (code, out) = run_code(&e, &args);
+        assert_eq!(code, Some(1), "{args:?}: {out}");
+        assert!(out.contains("is out of order") && out.contains("the page cannot be read") && !out.contains("panicked"), "{args:?}: {out}");
+        assert_eq!(fs::read(dir.join("log.jsonl")).unwrap(), before, "{args:?} changed the log");
+        assert!(!dir.join(".wf-lock").exists(), "{args:?} left a lock");
+    }
+}
+
+/// Item 2: wrong-order entries make the page unreadable, with the entry and the reason.
+#[test]
+fn wrong_order_entries_make_the_page_unreadable() {
+    let e = Env::ready("order");
+    let full: &[(&'static str, u64)] = &[("draft", 1), ("pack", 1), ("claim", 1), ("return", 1), ("check", 1), ("signoff", 1), ("close", 1)];
+    let mut after_close = full.to_vec();
+    after_close.push(("claim", 1));
+    let mut redraft = full.to_vec();
+    redraft.push(("draft", 1));
+    let cases: Vec<(&str, Vec<(&'static str, u64)>, &str)> = vec![
+        ("8.0.0.1", vec![("draft", 1), ("pack", 1), ("claim", 1), ("close", 1)], "log entry 5 is out of order: a close for 05.01, which is at 'open'; a close needs review"),
+        ("8.0.0.2", vec![("draft", 1), ("pack", 1), ("claim", 1), ("check", 1)], "log entry 5 is out of order: a check for 05.01, which is at 'open'; a check needs return or review"),
+        ("8.0.0.3", after_close, "log entry 9 is out of order: a claim for 05.01, which is at 'closed'; a claim needs pack"),
+        ("8.0.0.4", redraft, "log entry 9 is out of order: a re-draft for 05.01, which is at 'closed'; a draft needs draft"),
+        ("8.0.0.5", vec![("draft", 1), ("", 1)], "log entry 3 is out of order: the entry has no kind"),
+        ("8.0.0.6", vec![("draft", 1), ("teleport", 1)], "log entry 3 is out of order: 'teleport' is not a wf entry kind"),
+        ("8.0.0.7", vec![("init", 1)], "log entry 2 is out of order: a second init: only entry 1 starts the page"),
+        ("8.0.0.8", vec![("draft", 1), ("pack", 1), ("claim", 1), ("return", 1), ("check", 1), ("close", 1)], "log entry 7 is out of order: a close for 05.01 with no signoff"),
+        ("8.0.0.9", vec![("halt", 0), ("halt", 0)], "log entry 3 is out of order: a halt while the page is already halted"),
+        ("8.0.1.0", vec![("resume", 0)], "log entry 2 is out of order: a resume while the page is not halted"),
+        ("8.0.1.1", vec![("halt", 0), ("draft", 1)], "log entry 3 is out of order: a draft for 05.01 while the page is halted"),
+    ];
+    for (addr, kinds, want) in &cases {
+        let mut evs = vec![("init", init_data(addr), Some(1_795_456_800))];
+        evs.extend(kinds.iter().map(|(k, n)| if *k == "init" { ("init", init_data(addr), Some(1)) } else { ev(k, *n) }));
+        write_log(&e.root.join("pages").join(addr), &evs);
+        for cmd in ["verify", "status", "board"] {
+            let (code, out) = run_code(&e, &[cmd, addr]);
+            assert_eq!(code, Some(1), "{cmd} {addr}: {out}");
+            assert!(out.contains(want), "{cmd} {addr}: want '{want}' in {out}");
+        }
+    }
+    // A log whose first entry is not the init.
+    let dir = e.root.join("pages/8.0.2.0");
+    write_log(&dir, &[ev("draft", 1)]);
+    let (code, out) = run_code(&e, &["verify", "8.0.2.0"]);
+    assert!(code == Some(1) && out.contains("log entry 1 is out of order: the first entry is a draft, not the init"), "{out}");
+    let book = e.ok(&["board"]);
+    assert!(book.contains("  8.0.0.1  unreadable: log entry 5 is out of order") && book.contains("  1.2.3.4  t  entries 4"), "{book}");
+    // The full chain itself loads.
+    forged(&e, "8.1.0.0", full);
+    let (code, out) = run_code(&e, &["status", "8.1.0.0"]);
+    assert_eq!(code, Some(0), "{out}");
+}
+
+/// Item 3: pass numbers outside 01-98 are refused, never wrapped (4294967297 is not pass 1).
+#[test]
+fn pass_numbers_outside_01_98_are_refused_not_wrapped() {
+    let e = Env::ready("wrap");
+    for (addr, n) in [("7.0.0.1", 4_294_967_297u64), ("7.0.0.2", 0), ("7.0.0.3", 99)] {
+        forged(&e, addr, &[("draft", n)]);
+        let (code, out) = run_code(&e, &["status", addr]);
+        assert_eq!(code, Some(1), "{out}");
+        assert!(out.contains(&format!("log entry 2 is out of order: a draft for pass {n}, outside 01-98 (R9)")), "{out}");
+    }
+    let dir = forged(&e, "7.0.0.4", &[("draft", 1)]);
+    let mut evs = vec![("init", init_data("7.0.0.4"), Some(1)), ev("draft", 1), ev("pack", 4_294_967_297)];
+    evs[2].1["pass"] = serde_json::json!(4_294_967_297u64);
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["board", "7.0.0.4"]);
+    assert!(code == Some(1) && out.contains("a pack for pass 4294967297, outside 01-98 (R9)"), "{out}");
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    let before = e.log();
+    let err = p.add("pri", "prime", "draft", serde_json::json!({"pass": 4_294_967_297u64, "fields": {}, "pins": {}})).unwrap_err();
+    assert!(err.contains("outside 01-98 (R9)"), "{err}");
+    assert_eq!(e.log(), before);
+    e.no(&["claim", PG, "4294967297", "--as", "bob"], "give the pass number");
+}
+
+/// Item 4: a refused write through the tool's append says the write is refused and why.
+#[test]
+fn refused_append_says_nothing_was_written_and_why() {
+    let e = Env::ready("append-guard");
+    let before = e.log();
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    let err = p.add("bob", "builder", "claim", serde_json::json!({"pass": 5})).unwrap_err();
+    assert_eq!(err, "refused, nothing written: a claim for 05.05, which was never drafted");
+    let err = p.add("mat", "person", "init", serde_json::json!({"address": PG})).unwrap_err();
+    assert_eq!(err, "refused, nothing written: a second init: only entry 1 starts the page");
+    assert_eq!(e.log(), before);
+    assert!(!err.contains("cannot be read"));
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+}
+
+/// Item 5: --card with --all is refused; a bad typed address is shown escaped.
+#[test]
+fn board_card_with_all_is_refused_and_bad_addresses_are_escaped() {
+    let e = Env::checked("item5");
+    e.no(&["board", PG, "--card", "1", "--all"], "give one of them");
+    e.no(&["board", PG, "--all", "--card", "1"], "give one of them");
+    for cmd in ["status", "board", "verify"] {
+        let (ok, out) = e.wf(&[cmd, "a\u{1b}[2Kb\u{202e}"]);
+        assert!(!ok, "{out}");
+        assert!(!out.contains('\u{1b}') && !out.contains('\u{202e}'), "{cmd}: raw char in {out}");
+        assert!(out.contains("bad page address 'a\\u{1b}[2Kb\\u{202e}'"), "{cmd}: {out}");
+    }
 }
