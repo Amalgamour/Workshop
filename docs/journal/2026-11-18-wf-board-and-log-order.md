@@ -2,7 +2,7 @@
 
 date: Wed 18 Nov 2026. All times are EST.
 written by: Prima builder-b18, because Matthew asked (t303u): "Make sure you are writing the spec documentation to go with the work. So I can understand what we did and have the why's in there. It's almost a dev journal so I or a future model have access."
-what it covers: building `wf board`, then hardening the log, in 6 commits and 6 Tester rounds, with the why for each step.
+what it covers: building `wf board`, then hardening the log, in 7 commits and 7 Tester rounds, with the why for each step.
 the spec (what the code does now): docs/spec/WF-BOARD-AND-LOG-ORDER.md.
 note: the box restarted at about 4:33 PM and was restored from a snapshot taken just before the first commit of these docs. That commit was lost, so both docs were rewritten with the same content at about 4:38 PM. The code branches and the real pages were not affected.
 
@@ -18,10 +18,10 @@ How to read the labels:
 ## The short version
 
 - **What we built:** a read-only board that shows what needs someone first. Then a check that refuses a log with steps out of order.
-- **How:** 6 commits on two branches. Tester failed the first one on two narrow points. Every later round passed, with small gaps fixed in the next commit.
-- **Tests at the end:** 43 unit and 101 end-to-end, 0 failed.
-- **Time:** about 3:39 PM to 4:32 PM EST.
-- **Where it is:** branch `board-dev` at 193da07, and branch `harden-dev` at cbda5e0 (which holds both). Not merged. Not pushed.
+- **How:** 7 commits on two branches. Tester failed the first one on two narrow points. Every later round passed, with small gaps fixed in the next commit.
+- **Tests at the end:** 43 unit and 105 end-to-end, 0 failed.
+- **Time:** about 3:39 PM to 4:54 PM EST.
+- **Where it is:** branch `board-dev` at 193da07, and branch `harden-dev` at bce5cb9 (which holds both). Not merged. Not pushed.
 - **Waiting on Matthew:** board Q1-Q3 (item 8), the order rules and a stuck test page (item 14), the old binary (item 15), the merge (item 16).
 
 ---
@@ -139,6 +139,22 @@ Small gaps too: short hashes could be cut in the middle of an escape; an entry w
 - The confusing check message ("no longer in return with the same pack and return") is now two plain messages: "it was signed off by ..., next: wf close", or "it changed while the checks ran, run wf check again".
 
 **Real pages:** copies of 90.10, 90.20 and 90.30 still verify on the old and the new binary. The copy and the real folder have the same hash.
+
+**What Tester found:** R1 and R2 pass. G2 fail: a SHA-256 git repo gives 64-character commits. `wf return` took them, but `wf check` was then refused, and such a page would no longer load. The 40-only rule was too narrow: I checked only the hashes on this computer, not every kind of git repo.
+
+---
+
+## Commit bce5cb9: SHA-256 repos, escaped signoff message
+
+**Time:** about 4:53 PM (after the box restart; /tmp was wiped, so the build folder was rebuilt from clean).
+
+**What changed:**
+- One shared rule at load for return and check entries: the commit is 40 or 64 lowercase hex. A refused return is not checked, because it records the raw attempt (axiom 6). "Check on another commit" stays a board mark only.
+- The "signed off by ..." refusal now escapes the signer and the outcome, since both come from the log.
+- At load, a signoff outcome must be one `wf signoff` accepts. Tester's note said "passed/failed", but the command also accepts blocked and needs-authority, so the rule uses all four. Refusing those two would make a page with a legit blocked signoff unreadable. The real pages use only passed (12) and failed (7).
+- New end-to-end test: make a SHA-256 git repo, run return, check, signoff and close, then verify, status and the card. It skips with a message if git lacks SHA-256. Git 2.47.3 here has it, so it ran.
+
+**Real pages:** copies in scratch/b18-real (90.10.00.0001 with 85 entries, 90.20.00.0001 with 49, 90.30.00.0001 with 37) verify ok on the new binary. The copies have the same hash as the real pages, and before and after. The old binary was not rebuilt after the restart, so only the new one was run this round.
 
 ---
 

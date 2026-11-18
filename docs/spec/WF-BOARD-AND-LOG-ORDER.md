@@ -2,11 +2,11 @@
 
 state: describes the wf tool on two builder branches. Neither branch is merged into `workflow` yet. Nothing is pushed.
 - `board-dev` at 193da07: the board.
-- `harden-dev` at cbda5e0: the board, plus the log order check (commits 385452a, 0312f23, 4494a2e, cbda5e0). harden-dev starts from 193da07, so it holds both.
+- `harden-dev` at bce5cb9: the board, plus the log order check (commits 385452a, 0312f23, 4494a2e, cbda5e0, bce5cb9). harden-dev starts from 193da07, so it holds both.
 made: Wed 18 Nov 2026, by Prima builder-b18, because Matthew asked (t303u): every piece of work gets a spec and a dev journal, with the whys.
 the story of how it was built: docs/journal/2026-11-18-wf-board-and-log-order.md.
 the plan the board came from: docs/design/WF-BOARD.md.
-code: `/workspace/workshop-build/scratch/harden-dev` (line numbers are from cbda5e0).
+code: `/workspace/workshop-build/scratch/harden-dev` (line numbers are from cbda5e0; bce5cb9 moved a few).
 
 How to read the labels:
 - A line in square brackets is a side label for engineers. It names the code (file:line) or a test.
@@ -180,11 +180,12 @@ Every time wf reads a page, it checks each log entry against the order the comma
    - signoff (on a checked pass),
    - close (on a checked pass, and only after a signoff).
 5. A check has a verdict of pass or fail. "No verdict" and "a verdict that is not pass or fail" are told apart.
-6. A check names its commit as a full hash: 40 lowercase hex characters (0-9, a-f).
-7. No draft, pack or claim while the page is halted. No second halt. No resume unless halted. No halt while a pass is open.
-8. A question sent up must belong to a pass that exists.
+6. A return and a check name their commit as a full hash: 40 or 64 lowercase hex characters (0-9, a-f). 40 is a normal (SHA-1) git repo, 64 is a SHA-256 repo (`git init --object-format=sha256`). It is one shared rule for both kinds. A refused return is not checked: it keeps the raw attempt as evidence (axiom 6), and the board shows it escaped. "Check on another commit" stays a board mark (STALE), not a load rule.
+7. A signoff has an outcome that `wf signoff` accepts: passed, failed, blocked or needs-authority. The real pages use only passed and failed.
+8. No draft, pack or claim while the page is halted. No second halt. No resume unless halted. No halt while a pass is open.
+9. A question sent up must belong to a pass that exists.
 
-The three real pages (90.10 with 85 entries, 90.20 with 49, 90.30 with 37) follow every rule. Copies verify on the old and the new binary. Tester also found all 868 checks wf has written on this computer already use a full hash.
+The three real pages (90.10 with 85 entries, 90.20 with 49, 90.30 with 37) follow every rule. Copies verify on the old and the new binary. Tester also found all 868 checks wf has written on this computer already use a full hash. On the real pages, all 19 returns and 19 checks use a 40-character hash, and the 19 signoffs are 12 passed and 7 failed.
 
 **Build stage, no Director ruling yet:** all of these rules (questions file item 14).
 
@@ -192,7 +193,7 @@ The three real pages (90.10 with 85 entries, 90.20 with 49, 90.30 with 37) follo
 
 `wf return`, `wf check`, `wf signoff` and `wf close` used to crash (exit 101) when a forged log was missing a pack, a return or a check. Now they say "refused: 05.NN has no <part> in the log; nothing was written". The order check stops these logs first. This is a second guard behind it.
 
-`wf check` on a signed-off pass now says, in plain words, that it was signed off (by whom, at which entry, with which outcome), that nothing was written, and that the next step is `wf close`. If the pass changed while the checks ran, it says what state the pass is in now, and to run `wf check` again.
+`wf check` on a signed-off pass now says, in plain words, that it was signed off (by whom, at which entry, with which outcome; the signer and outcome come from the log, so they are shown escaped), that nothing was written, and that the next step is `wf close`. If the pass changed while the checks ran, it says what state the pass is in now, and to run `wf check` again.
 
 [code: cmd.rs:101 (`no_part`), :551 and :588 (signed off), :591 (changed while the checks ran)]
 
@@ -224,6 +225,6 @@ The three real pages (90.10 with 85 entries, 90.20 with 49, 90.30 with 37) follo
 
 ## 6. Tests
 
-At cbda5e0: 43 unit tests and 101 end-to-end tests, 0 failed. The real-pages tests ran and did not skip. They copy 90.10, 90.20 and 90.30, run the board and verify, and check that every file's sha256 is the same after. The default 90.10 board is 40 lines or fewer.
+At bce5cb9: 43 unit tests and 105 end-to-end tests, 0 failed. `sha256_repo_runs_a_full_pass_and_loads` makes a SHA-256 git repo and runs return, check, signoff and close on it; it skips with a message if git has no SHA-256 support (git 2.47.3 here has it, so it ran). The real-pages tests ran and did not skip. They copy 90.10, 90.20 and 90.30, run the board and verify, and check that every file's sha256 is the same after. The default 90.10 board is 40 lines or fewer.
 
 Builds used `CARGO_TARGET_DIR=/workspace/workshop-build/target-builder`, never the pin's folder. `cargo clean -p wf` ran, and the sources were touched, before each final test run.
