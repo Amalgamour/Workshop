@@ -1,6 +1,6 @@
 # Builders on your own machine: a walkthrough
 
-Written by Prima on Thu Nov 19, 2026, about 12:00 PM EST, because you asked (t391u): "So we can start to get builders on my local environment setup. I'll need you to walk me how it should work."
+Written by Prima on Thu Nov 19, 2026, about 11:47 AM EST, because you asked (t391u): "So we can start to get builders on my local environment setup. I'll need you to walk me how it should work."
 
 Your machine: Windows. Repos live under `D:\Git\`. All commands are PowerShell.
 The tool is `wf`. The rules come from the kit's README.md, AGENTS.md and docs/DESIGN.md, and from its code (`src/`), at commit a00bc53.
