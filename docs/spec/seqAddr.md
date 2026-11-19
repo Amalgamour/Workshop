@@ -305,3 +305,33 @@ See `claude/alignment-notes.md` for the full list. In short:
 - C8.7, C8.10: failures against assumed brands only; where a new brand card goes.
 - D: drafting mechanism (proposed in `drafting.md`), task failure paths, claims.
 - Proposals awaiting the Director that touch this document: a task and ticket split of face 05 counters, link kinds for face 08, and a concordance page (decision E9).
+
+---
+
+## 10. Versioned note v1, 2026-11-19: work addresses (t413u, t420)
+
+Added by Designer. This is a new step after sections 1-9. No line above is changed (Axioms.md:23). Where this note and an older line differ, this note is the later step; the older line stays as written.
+
+Authority: the Director, t420 (`docs/review/DIRECTOR-WORDS-t420.md:7-8`): "Yes, add the t413u rules to seqAddr.md as a versioned note". The rules come from t413u (`DIRECTOR-WORDS-t413u.md:7`, `:9`) and t420 (`:4`, `:6`, `:10`).
+Why: wf pages were started at book 00, page 0001 (90.10, 90.20, 90.30 and 90.50.00.0001). He called it drift (`DIRECTOR-WORDS-t413u.md:9`: "We have drifted in this design."). This section was silent on where work may start.
+
+### 10.1 The rules, in plain words
+
+1. **Desk, shelf and book 00-09 are for the system only. Work starts at 10.** "the first valid location for a desk for work would be 10. shelf the same thing book the same thing." [t413u.md:7]
+2. **`DD.SS.00` is the shelf's authority book. Only the system writes there.** "90.50.00 would be a shelf's authority book." and "You shouldn't write there without it being system level." [t413u.md:7]
+3. **Pages 0000-0099 are reserved. 0020-0099 are system only, never job work.** "Also pages 0000-0099 are reserved." [t413u.md:9]; "No, 0020-0099 are system only" [t420.md:10]
+4. **For now, work starts in band 0400. The band head, the page ending in 00, is the band's door.** "start your work in 0400 for pages for this." and "with 0400 being the door as it ends in 00." [t413u.md:9]; "Yes, the band head is the band's door" [t420.md:4]. Job pages sit on `NN01-NN98` (the head is the door, and `PP99` is the continuation).
+5. **A job's packs live on the job page's own face 05, as `05.NN` counters.** "A pack lives on the job page's own face 05" [t420.md:6]; "It goes into the page 05.NN next open counter." [t223u.md:8]
+6. **99 on any axis, `PP99` and `9999` are not work pages.** They are pointers and continuations: section 1.2 (line 31), section 6 (lines 226 and 242), section 7 (line 249). Desk 99 is a reserved pointer (line 39).
+
+### 10.2 How this reads alongside the older lines
+
+- Line 30 (`01-09` reserved on every axis) and line 38 (desks `10-98` are user environments): rule 1 adds that the same holds for shelf and book. The first work value on each is 10.
+- Line 29 (`00`, "the owner of the level above, itself") and line 50 (`DD.SS.00`, "the shelf's own book"): rule 2 names that book the shelf's authority book, written only by the system. The word "door" for `00` comes from `DIRECTOR-RULINGS.md:5`.
+- Lines 219-223 (the page layout below 0100) and line 228 (a page in `0001-0099` is a local override): rule 3 adds that none of these hold job work.
+- Lines 224-225 (`0100-0999` kernel-modelled bands; `1000-9998` user space): rule 4 places current work in band 0400, inside the kernel-modelled range, "for this" (t413u.md:9). It does not close user space at 1000 and up.
+- Line 241 ("a band head"): rule 4 adds that the band head is also the band's door. This updates the reading at `DIRECTOR-RULINGS.md:57` ("Door" only for the all-zero sentinel), which stays as written.
+- Line 242 (`PP99` continuation) and lines 257-258 (overflow): rule 4's job range `NN01-NN98` follows from them.
+- Section 9 (not yet designed) is unchanged. Still open: who wf records as the starter of a page (`DIRECTOR-WORDS-t420.md:11-12`, not answered directly).
+
+Code mirror: `crates/seqaddr-core/src/addr.rs` (`axis_role` :204-211, `page_kind` :239-252) already marks these kinds. It does not yet refuse work at them; that is wf job 90.50.10.0403.
