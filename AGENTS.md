@@ -3,8 +3,10 @@
 ## Read first
 1. In the kit folder (this folder: the one with this file, `src/`, and `docs/`): `docs/AXIOMS.md`: the nine axioms.
 2. Same folder: `docs/DESIGN.md`: the page, the faces, the pass, the roles.
-3. If you hold a pass: `pages/<page>/05.<NN>/AGENTS.md` and `PROMPT.md`.
+3. If you hold a pass: `pages/<page>/05.<NN>/PROMPT.md`, and the AGENTS.md it names.
+   That may be another pass's AGENTS.md: wf prints a new one only when its text changes (Director t378u).
    They pin the hash of AXIOMS.md and DESIGN.md. If yours differ, stop and tell Prime.
+   The page log records the sha256 of each released AGENTS.md and PROMPT.md; a copy that does not match is invalid (t373u).
 
 Check every choice against these axioms:
 - **1 Authority**: act only inside what you were granted.

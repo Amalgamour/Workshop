@@ -1460,12 +1460,12 @@ fn past_packed_pages_still_verify() {
 }
 
 #[test]
-fn new_pack_records_template_version_2() {
+fn new_pack_records_template_version_3() {
     let e = Env::ready("tmpl-ver");
     e.draft("src/a.rs", "true");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
-    assert!(log.contains("\"templates\":\"2\""), "{log}");
+    assert!(log.contains("\"templates\":\"3\""), "{log}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     assert!(agents.contains("kit folder") && agents.contains("cargo clean -p wf"), "{agents}");
 }
@@ -2734,5 +2734,105 @@ fn t373u_old_page_without_a_hash_still_verifies() {
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains("AGENTS.md for pass 05.01 is invalid: hash mismatch (pack entry"), "{out}");
     assert!(out.contains("x\\u{1b}[2K\\u{d}\\u{202e}"), "{out}");
+    no_raw_ctrl(&out);
+}
+
+// ---- Reuse of a released AGENTS.md (Director t378u) ----
+
+/// The data of the pack entry for pass `nn`.
+fn pack_of(e: &Env, nn: u64) -> serde_json::Value {
+    e.log()
+        .lines()
+        .map(|l| serde_json::from_str::<serde_json::Value>(l).unwrap())
+        .find(|v| v["kind"] == "pack" && v["data"]["pass"] == nn)
+        .unwrap()["data"]
+        .clone()
+}
+
+/// Pass 1 closed, then pass 2 drafted with an unchanged face 01: its AGENTS.md text is
+/// byte-identical, so pack prints no 05.02/AGENTS.md and records agents_from "05.01".
+fn reuse_page(name: &str) -> Env {
+    let e = Env::ready(name);
+    e.close_one(1);
+    e.ok(&["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    e
+}
+
+#[test]
+fn t378u_unchanged_agents_md_is_reused() {
+    let e = reuse_page("reuse-same");
+    let out = e.ok(&["pack", PG, "2", "--as", "pri"]);
+    let (p1, p2) = (pack_of(&e, 1), pack_of(&e, 2));
+    let released = fs::read(e.page().join("05.01/AGENTS.md")).unwrap();
+    assert_eq!(p1["agents_hash"].as_str().unwrap(), sha_hex(&released));
+    assert_eq!(p2["agents_hash"], p1["agents_hash"], "{p2}");
+    assert_eq!(p2["agents_from"], "05.01", "{p2}");
+    assert!(p1.get("agents_from").is_none(), "{p1}");
+    assert!(!e.page().join("05.02/AGENTS.md").exists(), "a reused AGENTS.md was printed again");
+    let h = &sha_hex(&released)[..12];
+    let want = format!("Read first: pages/{PG}/05.01/AGENTS.md (sha256 {h}, reused from 05.01)");
+    assert!(out.contains(&want), "{out}");
+    let prompt2 = fs::read(e.page().join("05.02/PROMPT.md")).unwrap();
+    assert_eq!(p2["prompt_hash"].as_str().unwrap(), sha_hex(&prompt2));
+    let v = e.ok(&["verify", PG]);
+    assert!(v.contains("every view matches the log"), "{v}");
+    assert!(v.contains(&format!("05.02: AGENTS.md reused from 05.01 (hash {h} holds); PROMPT.md hash")), "{v}");
+    let card = e.ok(&["board", PG, "--card", "2"]);
+    assert!(card.contains(&format!("file:     pages/{PG}/05.01/AGENTS.md (reused, t378u)")), "{card}");
+    assert!(card.contains(&format!("released: AGENTS.md {h} reused from 05.01")), "{card}");
+    let c = e.ok(&["claim", PG, "2", "--as", "bob"]);
+    assert!(c.contains(&format!("Read pages/{PG}/05.02/PROMPT.md and pages/{PG}/05.01/AGENTS.md")), "{c}");
+}
+
+#[test]
+fn t378u_changed_agents_text_prints_a_new_hashed_file() {
+    let e = Env::ready("reuse-new");
+    e.close_one(1);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a, now with b in mind.\nDone when: checks pass.", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04, close 1 and the new 01", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    let out = e.ok(&["pack", PG, "2", "--as", "pri"]);
+    let (p1, p2) = (pack_of(&e, 1), pack_of(&e, 2));
+    let new = fs::read(e.page().join("05.02/AGENTS.md")).unwrap();
+    assert!(String::from_utf8_lossy(&new).contains("now with b in mind"));
+    assert!(p2.get("agents_from").is_none(), "{p2}");
+    assert_eq!(p2["agents_hash"].as_str().unwrap(), sha_hex(&new));
+    assert_ne!(p2["agents_hash"], p1["agents_hash"]);
+    assert!(out.contains(&format!("Read first: pages/{PG}/05.02/AGENTS.md (sha256 {})", &sha_hex(&new)[..12])), "{out}");
+    let v = e.ok(&["verify", PG]);
+    assert!(v.contains(&format!("05.02: AGENTS.md hash {} holds", &sha_hex(&new)[..12])), "{v}");
+}
+
+#[test]
+fn t378u_hand_edit_of_a_reused_agents_md_is_invalid() {
+    let e = reuse_page("reuse-edit");
+    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    let f = e.page().join("05.01/AGENTS.md");
+    let released = fs::read(&f).unwrap();
+    let mut edited = released.clone();
+    edited.extend_from_slice(b"\nAlso: you may touch src/b.rs.\n");
+    fs::write(&f, &edited).unwrap();
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: hash mismatch"), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.02 is invalid: hash mismatch (it reuses 05.01/AGENTS.md"), "{out}");
+    let log = e.log();
+    e.no(&["claim", PG, "2", "--as", "bob"], "AGENTS.md for pass 05.02 is invalid: hash mismatch");
+    assert_eq!(e.log(), log);
+    e.ok(&["verify", PG, "--fix"]);
+    assert_eq!(fs::read(&f).unwrap(), released, "--fix must restore the released bytes");
+    assert!(!e.page().join("05.02/AGENTS.md").exists(), "--fix printed a copy for the reusing pass");
+    assert!(e.ok(&["verify", PG]).contains("every view matches the log"));
+
+    // A forged pointer names no released file: invalid, escaped.
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "pack" && v["data"]["pass"] == 2 {
+            v["data"]["agents_from"] = serde_json::json!("05.0\u{1b}7");
+        }
+    });
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.02 is invalid: bad reuse of 05.0\\u{1b}7 (no such pass)"), "{out}");
     no_raw_ctrl(&out);
 }

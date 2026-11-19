@@ -19,13 +19,17 @@ pub const T_CLOSE: &str = include_str!("../templates/close.txt");
 pub const T_PROMPT_V1: &str = include_str!("../templates/v1/prompt.txt");
 pub const T_AGENTS_V1: &str = include_str!("../templates/v1/agents.txt");
 pub const T_RETURN_V1: &str = include_str!("../templates/v1/return.txt");
+/// v3 (Director t378u): AGENTS.md holds nothing pass-specific, so one released copy can serve
+/// later passes; PROMPT.md names the AGENTS.md it goes with and its hash. Return is the v2 text.
+pub const T_AGENTS_V3: &str = include_str!("../templates/v3/agents.txt");
+pub const T_PROMPT_V3: &str = include_str!("../templates/v3/prompt.txt");
 /// Version written into new pack entries. Missing or "1" means v1 (8eb1fdb).
-pub const TEMPLATE_VER: &str = "2";
+pub const TEMPLATE_VER: &str = "3";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
 pub const DESIGN: &str = include_str!("../docs/DESIGN.md");
 
 /// Agents, prompt and return templates for one pack.
-/// Only a missing field or the string "1" mean v1; only the string "2" means v2.
+/// Only a missing field or the string "1" mean v1; only the string "2" means v2; "3" means v3.
 /// Any other value is refused, and the message names the page and the pack entry.
 pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static str, &'static str)> {
     let seq = pk.get("seq").and_then(|v| v.as_u64());
@@ -37,6 +41,7 @@ pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static s
         None => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
         Some(Value::String(s)) if s == "1" => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
         Some(Value::String(s)) if s == "2" => Ok((T_AGENTS, T_PROMPT, T_RETURN)),
+        Some(Value::String(s)) if s == "3" => Ok((T_AGENTS_V3, T_PROMPT_V3, T_RETURN)),
         Some(v) => Err(format!("unknown template version {v}{loc}")),
     }
 }
@@ -92,7 +97,60 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
         ("src_axioms", s(&pk["sources"], "axioms")),
         ("src_design", s(&pk["sources"], "design")),
         ("face01", s(&pk, "face01")),
+        ("agents_file", agents_file(p, x)),
+        ("agents_hash", recorded_hash(&pk, "agents_hash").map(|h| hash12(&h)).unwrap_or_default()),
+        ("agents_note", agents_from(&pk).map(|f| format!(", reused from {}", escape_line(&f))).unwrap_or_default()),
     ]
+}
+
+/// The pass whose released AGENTS.md this pack reuses (Director t378u), if any.
+/// A field that is not a string reads as "", which names no pass.
+pub fn agents_from(pk: &Value) -> Option<String> {
+    pk.as_object().and_then(|m| m.get("agents_from")).map(|v| v.as_str().unwrap_or("").to_string())
+}
+
+/// The AGENTS.md this pass was given: its own, or the released one it reuses.
+pub fn agents_file(p: &Page, x: &Pass) -> String {
+    match x.pack.as_ref().and_then(agents_from) {
+        Some(f) => format!("pages/{}/{}/AGENTS.md", p.addr, escape_line(&f)),
+        None => format!("pages/{}/05.{:02}/AGENTS.md", p.addr, x.nn),
+    }
+}
+
+/// The latest released AGENTS.md on the page apart from pass `skip`, by pack entry:
+/// (the pass that printed it, its recorded hash). Packs before t373u have no hash and are not candidates.
+pub fn latest_agents(p: &Page, skip: u32) -> Option<(String, String)> {
+    p.passes
+        .values()
+        .filter(|x| x.nn != skip)
+        .filter_map(|x| x.pack.as_ref().map(|pk| (x, pk)))
+        .filter_map(|(x, pk)| recorded_hash(pk, "agents_hash").map(|h| (pk["seq"].as_u64().unwrap_or(0), x, pk, h)))
+        .max_by_key(|t| t.0)
+        .map(|(_, x, pk, h)| (agents_from(pk).unwrap_or_else(|| format!("05.{:02}", x.nn)), h))
+}
+
+/// Why a reuse pointer cannot stand, or None. The named pass must have been packed earlier,
+/// must have printed its own AGENTS.md, and must have recorded the same hash.
+fn reuse_fault(p: &Page, x: &Pass, pk: &Value) -> Option<String> {
+    let from = agents_from(pk)?;
+    let mine = recorded_hash(pk, "agents_hash");
+    let src = from.strip_prefix("05.").filter(|d| d.len() == 2 && d.bytes().all(|b| b.is_ascii_digit())).and_then(|d| d.parse::<u32>().ok());
+    let why = match src.and_then(|n| p.passes.get(&n)) {
+        None => "no such pass".to_string(),
+        Some(y) if y.nn == x.nn => "a pass cannot reuse its own file".to_string(),
+        Some(y) => match &y.pack {
+            None => "that pass was never packed".to_string(),
+            Some(ypk) if ypk["seq"].as_u64().unwrap_or(0) >= pk["seq"].as_u64().unwrap_or(0) => "that pass was packed later".to_string(),
+            Some(ypk) if agents_from(ypk).is_some() => "that pass reuses a file itself".to_string(),
+            Some(ypk) => match (recorded_hash(ypk, "agents_hash"), mine) {
+                (Some(a), Some(b)) if a == b => return None,
+                (Some(a), Some(b)) => format!("that pass recorded {}, this pack {}", hash12(&a), hash12(&b)),
+                (None, _) => "that pass recorded no hash".to_string(),
+                (_, None) => "this pack recorded no hash".to_string(),
+            },
+        },
+    };
+    Some(format!("AGENTS.md for pass 05.{:02} is invalid: bad reuse of {} ({why})", x.nn, escape_line(&from)))
 }
 
 pub fn prompt(p: &Page, x: &Pass) -> Res<String> {
@@ -206,7 +264,9 @@ pub fn views(p: &Page) -> Res<BTreeMap<String, String>> {
             let d = format!("05.{:02}/", x.nn);
             m.insert(d.clone() + "PACK.md", s(pk, "pack_text"));
             m.insert(d.clone() + "PROMPT.md", prompt(p, x)?);
-            m.insert(d.clone() + "AGENTS.md", agents(p, x)?);
+            if agents_from(pk).is_none() {
+                m.insert(d.clone() + "AGENTS.md", agents(p, x)?);
+            }
             m.insert(d + "RETURN-TEMPLATE.md", return_template(p, x)?);
         }
     }
@@ -238,6 +298,9 @@ pub fn hash_faults(p: &Page) -> Res<Vec<String>> {
     let mut out = Vec::new();
     for x in p.passes.values() {
         let Some(pk) = &x.pack else { continue };
+        if let Some(f) = reuse_fault(p, x, pk) {
+            out.push(f);
+        }
         for (file, key) in HASHED {
             let Some(want) = recorded_hash(pk, key) else { continue };
             let text = if file == "AGENTS.md" { agents(p, x)? } else { prompt(p, x)? };
@@ -261,6 +324,9 @@ pub fn hash_notes(p: &Page) -> Vec<String> {
         let parts: Vec<String> = HASHED
             .iter()
             .map(|(file, key)| match recorded_hash(pk, key) {
+                Some(h) if *file == "AGENTS.md" && agents_from(pk).is_some() => {
+                    format!("{file} reused from {} (hash {} holds)", escape_line(&agents_from(pk).unwrap_or_default()), hash12(&h))
+                }
                 Some(h) => format!("{file} hash {} holds", hash12(&h)),
                 None => format!("{file} no hash recorded (before t373u)"),
             })
@@ -353,6 +419,7 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
     let mut d = ViewDiff::default();
     d.invalid = hash_faults(p)?;
     let pinned = pinned_files(p);
+    let mut disk_hash: BTreeMap<String, String> = BTreeMap::new();
     for (rel, text) in views(p)? {
         let path = p.dir.join(&rel);
         match symlink_on_path(&p.dir, &rel) {
@@ -369,6 +436,7 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
         match fs::read_to_string(&path) {
             Ok(disk) => {
                 let got = sha(&disk);
+                disk_hash.insert(rel.clone(), got.clone());
                 if let Some((nn, file, want)) = pinned.get(&rel) {
                     if &got != want {
                         d.invalid.push(hash_invalid(file, *nn, format!("the copy on disk hashes to {}, the log recorded {}", short(&got), hash12(want))));
@@ -382,6 +450,19 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
             Err(_) => d.unreadable.push(rel),
         }
     }
+    // A reused AGENTS.md is this pass's file too: a hand edit makes it invalid here as well.
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        let (Some(from), Some(want)) = (agents_from(pk), recorded_hash(pk, "agents_hash")) else { continue };
+        if let Some(got) = disk_hash.get(&format!("{from}/AGENTS.md")) {
+            if *got != want {
+                d.invalid.push(hash_invalid("AGENTS.md", x.nn, format!(
+                    "it reuses {}/AGENTS.md, whose copy on disk hashes to {}; the log recorded {}",
+                    escape_line(&from), short(got), hash12(&want)
+                )));
+            }
+        }
+    }
     Ok(d)
 }
 
@@ -391,6 +472,9 @@ fn pinned_files(p: &Page) -> BTreeMap<String, (u32, &'static str, String)> {
     for x in p.passes.values() {
         let Some(pk) = &x.pack else { continue };
         for (file, key) in HASHED {
+            if file == "AGENTS.md" && agents_from(pk).is_some() {
+                continue; // no file of its own; checked through the pass it reuses
+            }
             if let Some(h) = recorded_hash(pk, key) {
                 m.insert(format!("05.{:02}/{file}", x.nn), (x.nn, file, h));
             }
@@ -508,6 +592,17 @@ mod tests {
         let (a, p, _) = packed_templates(&json!({"templates": "2"}), "1.2.3.4").unwrap();
         assert!(a.contains("kit folder") && a.contains("cargo clean -p wf"), "{a}");
         assert!(p.contains("kit folder"), "{p}");
+    }
+
+    #[test]
+    fn v3_agents_has_nothing_pass_specific() {
+        let (a, p, r) = packed_templates(&json!({"templates": "3"}), "1.2.3.4").unwrap();
+        for slot in ["{{pass}}", "{{pack_hash}}", "{{nn}}", "{{dir}}", "{{jobs}}", "{{may_touch}}", "{{branch}}", "{{return_file}}", "{{seq}}", "{{time}}"] {
+            assert!(!a.contains(slot), "v3 AGENTS.md has {slot}");
+        }
+        assert!(a.contains("cargo clean -p wf") && a.contains("t378u"), "{a}");
+        assert!(p.contains("Read first: {{agents_file}} (sha256 {{agents_hash}}{{agents_note}})"), "{p}");
+        assert_eq!(r, T_RETURN);
     }
 
     #[test]

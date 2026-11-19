@@ -385,9 +385,18 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     // from this very entry, and record their sha256 in it. A later copy that hashes
     // differently is invalid. The templates have no slot for these two fields, so adding
     // them does not change the text they pin.
+    // Director t378u: when the AGENTS.md this pass would print is byte-identical to the latest
+    // released one on the page (same hash), print no new copy; record which pass it reuses.
+    // A changed text is printed new and hashed. PROMPT.md is per pass (it names the pass,
+    // pack hash, entry, branch), so it is always printed and hashed.
     let mut released = x.clone();
     released.pack = Some(d.clone());
-    d["agents_hash"] = json!(sha(&render::agents(p, &released)?));
+    let agents_hash = sha(&render::agents(p, &released)?);
+    if let Some((from, _)) = render::latest_agents(p, n).filter(|(_, h)| *h == agents_hash) {
+        d["agents_from"] = json!(from);
+    }
+    d["agents_hash"] = json!(agents_hash);
+    released.pack = Some(d.clone());
     d["prompt_hash"] = json!(sha(&render::prompt(p, &released)?));
     p.add(who, "prime", "pack", d)?;
     print!("{}", chars::escape_text(&render::prompt(p, p.pass(n)?)?));
@@ -403,7 +412,7 @@ pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     }
     tail_is(x, &["pack"])?;
     p.add(who, "builder", "claim", json!({"pass": n}))?;
-    println!("claimed 05.{n:02}. Read pages/{}/05.{n:02}/PROMPT.md and AGENTS.md", p.addr);
+    println!("claimed 05.{n:02}. Read pages/{}/05.{n:02}/PROMPT.md and {}", p.addr, render::agents_file(p, p.pass(n)?));
     Ok(())
 }
 

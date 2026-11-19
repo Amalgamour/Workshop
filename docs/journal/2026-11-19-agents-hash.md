@@ -35,7 +35,35 @@ changed template plus --fix is refused with every page file byte-identical; an o
 still verifies, and a forged hash field is escaped. The "changed template" case is made by switching the
 entry's template label from 2 to 1 after release, so this wf prints different text for it.
 
+## Follow-up: reuse when nothing changed (t378u)
+
+Matthew, t378u (11:07 AM EST, verbatim): "So once a agents.md is released it can't be changed correct?  Well that is a good thing.  If a new agents.md is required a new one is printed then hashed.  agents.md should be replacable on each pass of the WF loop if it's needed.  Although if no change is required the existing should stay."
+
+1. Found first: the v2 AGENTS.md names its own pass and pack hash and lists the jobs, so two passes
+   never print the same bytes. Reuse would never happen. Why that matters: his "the existing should
+   stay" would be a rule that never fires.
+2. So a v3 template: AGENTS.md holds only the page and kit parts (goal, done-when, pinned sources,
+   rules, checker notes). The job stays in PROMPT.md, which already had all of it. Old v1/v2 entries
+   print exactly as before, so no released file changes (t373u still holds).
+3. At pack, if the new AGENTS.md text hashes the same as the latest released one, no copy is printed;
+   the entry records `agents_from` and the hash. If it differs, a new file is printed and hashed.
+   Why: his words, "a new one is printed then hashed" only "if it's needed".
+4. v3 PROMPT.md names the AGENTS.md path and hash, so a worker reads the right file. A hand edit of the
+   shared file is invalid for every pass that uses it; a forged pointer is refused.
+5. PROMPT.md is always printed per pass: it is the pass's own job box (pass, pack hash, branch,
+   return file), so it can never be the same twice.
+
+Tests added: unchanged text is reused (no 05.02/AGENTS.md, pointer "05.01" and the same hash in the
+log, PROMPT.md and claim name 05.01's file); a changed face 01 prints a new hashed 05.02/AGENTS.md; a
+hand edit of the reused file is invalid for both passes, --fix restores it, and a forged pointer is
+refused and escaped. One unit test checks v3 AGENTS.md has no pass-specific slot.
+
 ## For Matthew
+
+- t378u reading: the job lines (jobs, may touch, checks, stop if, return file) now live only in
+  PROMPT.md, not in AGENTS.md, so AGENTS.md can stay the same across passes. Is that the split he wants?
+- Reuse compares with the latest released AGENTS.md only. If a pass goes back to an older text, a new
+  file is printed (same words, new file). Proposed as fine; say if it should look further back.
 
 - Builders can no longer edit a template in place; a new wording must be a new template version.
 - Should an invalid file also raise an elevation to Prime or the person by itself? Not built; proposed only.

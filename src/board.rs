@@ -381,11 +381,18 @@ pub fn card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> String {
             };
             l.push(format!("  pack:       entry {}; hash {}; template version {ver}", last_entry(p, n, "pack"), sh(&s(pk, "pack_hash"))));
             for f in ["PACK.md", "PROMPT.md", "AGENTS.md", "RETURN-TEMPLATE.md"] {
-                l.push(format!("    file:     {dir}/{f}"));
+                if f == "AGENTS.md" && render::agents_from(pk).is_some() {
+                    l.push(format!("    file:     {} (reused, t378u)", render::agents_file(p, x)));
+                } else {
+                    l.push(format!("    file:     {dir}/{f}"));
+                }
             }
             let pins: Vec<String> = render::HASHED
                 .iter()
                 .map(|(f, k)| match render::recorded_hash(pk, k) {
+                    Some(h) if *f == "AGENTS.md" && render::agents_from(pk).is_some() => {
+                        format!("{f} {} reused from {}", render::hash12(&h), e(&render::agents_from(pk).unwrap_or_default()))
+                    }
                     Some(h) => format!("{f} {}", render::hash12(&h)),
                     None => format!("{f} no hash recorded (before t373u)"),
                 })

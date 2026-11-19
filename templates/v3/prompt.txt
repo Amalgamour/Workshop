@@ -1,0 +1,19 @@
+=== WORKSHOP JOB {{pass}} ===
+Pack hash: {{pack_hash}} (log entry {{seq}}, {{time}})
+You are: the builder. Claim first:
+  wf claim {{addr}} {{nn}} --as <your-name>
+Repo: {{repo}}   Branch: {{branch}}   Start: {{start}}
+Read first: {{agents_file}} (sha256 {{agents_hash}}{{agents_note}}), and in the kit folder (the folder with src/ and AGENTS.md, not the run folder that holds pages/): docs/AXIOMS.md, docs/DESIGN.md
+Jobs:
+{{jobs}}
+May touch: {{may_touch}}
+Must not: anything else (the return check refuses it)
+The return file under .workshop/returns/ is always allowed and must be listed in changed.
+Checks: {{checks}}
+Done when (face 01): {{done_when}}
+Stop if: {{stop_if}} (then end that job `need` or `blocked`, say why)
+Hand back: copy {{dir}}/RETURN-TEMPLATE.md to {{return_file}},
+fill it, commit on your pass branch, created from the start commit; push only where your setup says, then:
+  wf return {{addr}} {{nn}} --branch {{branch}} --commit <sha> --file {{return_file}} --as <your-name>
+Pass numbers may be written 1 or 01. Hashes are sha256 (12-char prefix).
+=== END JOB ===
