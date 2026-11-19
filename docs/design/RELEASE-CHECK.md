@@ -228,3 +228,46 @@ verdict: RELEASE / BLOCKED (list each FAIL) ; tensions raised: ...
   alone is a TENSION, unless a ruling or seqAddr.md backs it.
 - This list is Designer's own work and has not faced a hostile pass (axiom 9).
 - Line numbers are for the hashes in the check file; they drift when files change.
+
+## v2 note (2026-11-19, 1:18 PM EST, Designer): model habits, and work at 99
+
+This note adds to v1 above. v1 is not rewritten (Axioms.md:23).
+
+Authority: Matthew, t415u (docs/review/DIRECTOR-WORDS-t415u.md:3 and :5, on b11b48f).
+His words (:5): "Work done here is often very novel. As such be very careful about
+assuming the averages from the LLM model's weights. Additional checking is required to
+verify we aren't drifting very carefully planned out design work."
+(Spaces between sentences shortened.) He gave it as "An addition for our agents.md
+manager" (:3). Using it here too is Prima's ask; the plain-words line at :7 is Prima's
+reading, not his words.
+
+Why: 90.50.00.0001 looked "normal" (first book, first page) and was wrong
+(DIRECTOR-WORDS-t413u.md:7-9). A habit felt like a rule.
+
+New hard checks (run with A1-A8; any miss is FAIL):
+
+| # | Check | Source |
+|---|---|---|
+| H1 | Any choice that looks normal or habitual (page 0001, book 00, a "usual" default, a first free slot, a common file layout) is traced to a design file:line. No trace: FAIL. Write the trace in the check row. | t415u.md:5; t413u.md:7-9; Axioms.md:15, :25 |
+| A9 | No work at 99 on any axis, at PP99 (band continuation) or at 9999 (book continuation). These are pointers, not work. | seqAddr.md:31, :39, :226, :242, :249; DESIGN.md:137; crates/seqaddr-core/src/addr.rs:186-187, :200-208, :246-248 |
+
+A9 is settled from the files, which agree: seqAddr.md calls 99 and 9999 a pointer to
+the next location (:31, :249), PP99 the band's continuation (:242), desk 99 a reserved
+pointer (:39). DESIGN.md:137 quotes the Director's own seqaddr page: "Those addresses with
+a seq00 or seq99 are special locations and cannot be normal pages". t413u does not mention
+99; it does not conflict.
+
+t416u (design-alignment review before a return completes): there is no
+docs/review/DIRECTOR-WORDS-t416u.md at this HEAD. It is relayed by Prima only and has no
+recorded words yet. Until it is recorded, run it as check T1, result TENSION at most:
+"for novel work, a design-alignment review is confirmed before the return completes."
+Do not quote it as his words.
+
+Axioms check of this note (t311u):
+- 1 Authority (Axioms.md:13): PASS for H1 (t415u). TENSION for T1 (no record yet).
+- 2 Fractal (Axioms.md:15): PASS. A9 applies the same sentinel shape at the 99 end
+  that A1-A4 apply at the 00 end.
+- 4 Why (Axioms.md:19): PASS. Each check names its source.
+- 6 Lineage (Axioms.md:23): PASS. Added as a new step.
+- 7 Missing (Axioms.md:25): PASS. t416u is marked missing, not filled in.
+- 9 Trial (Axioms.md:29): TENSION. Still no hostile pass on this list.
