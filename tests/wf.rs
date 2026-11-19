@@ -2425,3 +2425,166 @@ fn observe_escapes_forged_close_outcomes_in_the_loop_line() {
     assert!(out.contains(&format!("loop: the last two closed passes ended {esc} and {esc}")), "{out}");
     assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
 }
+
+/// Rewrites every log line with `f`, then rehashes the chain (a forged log).
+fn patch_log(dir: &PathBuf, f: impl Fn(&mut serde_json::Value)) {
+    use sha2::{Digest, Sha256};
+    let text = fs::read_to_string(dir.join("log.jsonl")).unwrap();
+    let (mut out, mut prev) = (String::new(), "0".to_string());
+    for line in text.lines() {
+        let mut v: serde_json::Value = serde_json::from_str(line).unwrap();
+        v["prev"] = serde_json::json!(prev);
+        f(&mut v);
+        let l = v.to_string();
+        prev = Sha256::digest(l.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        out += &l;
+        out.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), out).unwrap();
+}
+
+fn no_raw_ctrl(out: &str) {
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// Draft/pack/claim refusals escape a forged halt name and note (cmd.rs not_halted).
+#[test]
+fn halted_refusal_escapes_forged_halt_name_and_note() {
+    let e = Env::ready("halt-esc");
+    let dir = e.root.join("pages/7.2.0.1");
+    let bad = "x\u{1b}[2K\rZ\u{202e}";
+    let mut halt = ev("halt", 1);
+    halt.1["note"] = serde_json::json!(bad);
+    write_log(&dir, &[("init", init_data("7.2.0.1"), Some(1)), halt]);
+    set_actor(&dir, "halt", bad);
+    run_code(&e, &["verify", "7.2.0.1", "--fix"]);
+    let (code, out) = run_code(&e, &["claim", "7.2.0.1", "1", "--as", "bob"]);
+    assert_eq!(code, Some(1), "{out}");
+    let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
+    assert!(out.contains(&format!("refused: page 7.2.0.1 is halted (by {esc}, entry 2: {esc})")), "{out}");
+    no_raw_ctrl(&out);
+}
+
+/// Role refusals escape a forged Prime and person (must_be and prime_or_person).
+#[test]
+fn role_refusals_escape_a_forged_prime_and_person() {
+    let e = Env::ready("role-esc");
+    let dir = e.root.join("pages/7.2.0.2");
+    let bad = "x\u{1b}[2K\rZ\u{202e}";
+    let mut init = init_data("7.2.0.2");
+    init["prime"] = serde_json::json!(bad);
+    init["person"] = serde_json::json!(bad);
+    write_log(&dir, &[("init", init, Some(1))]);
+    run_code(&e, &["verify", "7.2.0.2", "--fix"]);
+    let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
+    let (code, out) = run_code(&e, &["face-write", "7.2.0.2", "06", "--text", "n", "--as", "zed"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("refused: only the prime ({esc}) may do this, not zed")), "{out}");
+    no_raw_ctrl(&out);
+    let (code, out) = run_code(&e, &["halt", "7.2.0.2", "--note", "why (t1)", "--as", "zed"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("refused: only Prime ({esc}) or the person ({esc}) may do this, not zed")), "{out}");
+    no_raw_ctrl(&out);
+}
+
+/// Second-claim and return-by-other refusals escape a forged claim holder.
+#[test]
+fn claim_refusals_escape_a_forged_holder() {
+    let e = Env::ready("claim-esc");
+    let dir = e.root.join("pages/7.2.0.3");
+    let bad = "x\u{1b}[2K\rZ\u{202e}";
+    write_log(&dir, &[("init", init_data("7.2.0.3"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1)]);
+    set_actor(&dir, "claim", bad);
+    run_code(&e, &["verify", "7.2.0.3", "--fix"]);
+    let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
+    let (code, out) = run_code(&e, &["claim", "7.2.0.3", "1", "--as", "ann"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("refused: 05.01 is already claimed by {esc} (first claim wins)")), "{out}");
+    no_raw_ctrl(&out);
+    let (code, out) = run_code(&e, &["return", "7.2.0.3", "1", "--branch", "b", "--commit", "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "--file", "f", "--as", "ann"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("refused: only the claim holder ({esc}) may return")), "{out}");
+    no_raw_ctrl(&out);
+}
+
+/// Return's branch and return-file refusals escape forged pack fields.
+#[test]
+fn return_refusals_escape_forged_pack_branch_and_file() {
+    let e = Env::ready("retpack-esc");
+    let dir = e.root.join("pages/7.2.0.4");
+    let bad = "b\u{1b}[2K\rf\u{202e}";
+    let mut pack = ev("pack", 1);
+    pack.1["branch"] = serde_json::json!(bad);
+    pack.1["return_file"] = serde_json::json!(bad);
+    write_log(&dir, &[("init", init_data("7.2.0.4"), Some(1)), ev("draft", 1), pack, ev("claim", 1)]);
+    run_code(&e, &["verify", "7.2.0.4", "--fix"]);
+    let esc = "b\\u{1b}[2K\\u{d}f\\u{202e}";
+    let sha = "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12";
+    let (code, out) = run_code(&e, &["return", "7.2.0.4", "1", "--branch", "other", "--commit", sha, "--file", "f", "--as", "pri"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("branch must be {esc}")), "{out}");
+    no_raw_ctrl(&out);
+    let (code, out) = run_code(&e, &["return", "7.2.0.4", "1", "--branch", bad, "--commit", sha, "--file", "other", "--as", "pri"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("return file must be {esc}")), "{out}");
+    no_raw_ctrl(&out);
+}
+
+/// Close prints a record with escaped checker, branch, command and note; the signer refusal is escaped too.
+#[test]
+fn close_escapes_forged_record_fields_and_the_signer_refusal() {
+    let e = Env::checked("close-esc");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    let bad = "x\u{1b}[2K\rZ\u{202e}";
+    let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "pack" || v["kind"] == "return" {
+            v["data"]["branch"] = serde_json::json!(bad);
+        }
+        if v["kind"] == "check" {
+            v["actor"] = serde_json::json!(bad);
+            if let Some(arr) = v["data"]["results"].as_array_mut() {
+                for r in arr {
+                    r["cmd"] = serde_json::json!(bad);
+                }
+            }
+        }
+        if v["kind"] == "signoff" {
+            v["data"]["note"] = serde_json::json!(bad);
+        }
+    });
+    run_code(&e, &["verify", PG, "--fix"]);
+    let (code, out) = run_code(&e, &["close", PG, "1", "--as", "pri"]);
+    assert_eq!(code, Some(0), "{out}");
+    assert!(out.contains(&format!("on {esc}")), "branch: {out}");
+    assert!(out.contains(&format!("by {esc}:")), "checker: {out}");
+    assert!(out.contains(&format!("{esc} ok")) || out.contains(&format!("{esc} FAIL")), "cmd: {out}");
+    assert!(out.contains(&format!("note:       {esc}")), "note: {out}");
+    no_raw_ctrl(&out);
+
+    let dir = e.root.join("pages/7.2.0.5");
+    write_log(&dir, &[("init", init_data("7.2.0.5"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)]);
+    set_actor(&dir, "signoff", bad);
+    run_code(&e, &["verify", "7.2.0.5", "--fix"]);
+    let (code, out) = run_code(&e, &["close", "7.2.0.5", "1", "--as", "pri"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains(&format!("refused: {esc} was not prime at entry 7")), "{out}");
+    no_raw_ctrl(&out);
+}
+
+/// observe escapes a forged job key in the 'same blocker again' line.
+#[test]
+fn observe_escapes_a_forged_job_key_in_the_same_blocker_line() {
+    let e = Env::ready("jobkey-esc");
+    let badk = "w\u{1b}1";
+    let mut evs = vec![];
+    for nn in 1..=2 {
+        let mut c = closed_chain(nn, "failed");
+        c[3].3["jobs"] = serde_json::json!({badk: "need - same box"});
+        evs.extend(c);
+    }
+    seed(&e, PG, &evs);
+    let out = e.ok(&["observe", PG]);
+    assert!(out.contains("same blocker again: 05.01 and 05.02 w\\u{1b}1: same box"), "{out}");
+    assert!(!out.contains('\u{1b}'), "{out}");
+}

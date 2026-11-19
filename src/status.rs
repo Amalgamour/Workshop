@@ -108,7 +108,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
             }
             let item = v.splitn(2, ' ').nth(1).unwrap_or("").trim_start_matches(['-', ' ']).to_string();
             if let Some((_, first)) = seen.iter().find(|(i, _)| *i == item) {
-                f.push(format!("same blocker again: 05.{first:02} and 05.{:02} {k}: {}", x.nn, escape_line(&item)));
+                f.push(format!("same blocker again: 05.{first:02} and 05.{:02} {}: {}", x.nn, escape_line(&k), escape_line(&item)));
             }
             seen.push((item, x.nn));
         }

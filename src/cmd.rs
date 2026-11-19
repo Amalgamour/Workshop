@@ -59,19 +59,19 @@ fn jobs_not_done(ret: &Value) -> Vec<String> {
 
 fn must_be(p: &Page, who: &str, role: &str) -> Res<()> {
     let holder = if role == "prime" { &p.prime } else { &p.person };
-    need(who == holder, format!("refused: only the {role} ({holder}) may do this, not {who}"))
+    need(who == holder, format!("refused: only the {role} ({}) may do this, not {}", chars::escape_line(holder), chars::escape_line(who)))
 }
 
 /// Draft, pack and claim stop on a halted page.
 fn not_halted(p: &Page) -> Res<()> {
     match &p.halt {
-        Some((who, _, note, seq)) => Err(format!("refused: page {} is halted (by {who}, entry {seq}: {note}). {}", p.addr, crate::status::how_to_resume(p))),
+        Some((who, _, note, seq)) => Err(format!("refused: page {} is halted (by {}, entry {seq}: {}). {}", p.addr, chars::escape_line(who), chars::escape_line(note), crate::status::how_to_resume(p))),
         None => Ok(()),
     }
 }
 
 fn prime_or_person(p: &Page, who: &str) -> Res<&'static str> {
-    need(who == p.prime || who == p.person, format!("refused: only Prime ({}) or the person ({}) may do this, not {who}", p.prime, p.person))?;
+    need(who == p.prime || who == p.person, format!("refused: only Prime ({}) or the person ({}) may do this, not {}", chars::escape_line(&p.prime), chars::escape_line(&p.person), chars::escape_line(who)))?;
     Ok(if who == p.person { "person" } else { "prime" })
 }
 
@@ -382,7 +382,7 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         d["overlap_why"] = json!(why);
     }
     p.add(who, "prime", "pack", d)?;
-    print!("{}", render::prompt(p, p.pass(n)?)?);
+    print!("{}", chars::escape_text(&render::prompt(p, p.pass(n)?)?));
     Ok(())
 }
 
@@ -391,7 +391,7 @@ pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
     let x = p.pass(n)?;
     if let Some(c) = &x.claim {
-        return Err(format!("refused: 05.{n:02} is already claimed by {c} (first claim wins)"));
+        return Err(format!("refused: 05.{n:02} is already claimed by {} (first claim wins)", chars::escape_line(c)));
     }
     tail_is(x, &["pack"])?;
     p.add(who, "builder", "claim", json!({"pass": n}))?;
@@ -439,12 +439,12 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
     tail_is(&x, &["open"])?;
-    need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", x.claim.clone().unwrap_or_default()))?;
+    need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", chars::escape_line(&x.claim.clone().unwrap_or_default())))?;
     let pk = x.pack.clone().ok_or_else(|| no_part(n, "pack"))?;
     let (branch, file, sha_in) = (a.req("branch")?.to_string(), a.req("file")?.to_string(), a.req("commit")?.to_string());
     let checked = (|| -> Res<(String, String, Vec<git::Change>, Map<String, Value>)> {
-        need(branch == s(&pk, "branch"), format!("branch must be {}", s(&pk, "branch")))?;
-        need(file == s(&pk, "return_file"), format!("return file must be {}", s(&pk, "return_file")))?;
+        need(branch == s(&pk, "branch"), format!("branch must be {}", chars::escape_line(&s(&pk, "branch"))))?;
+        need(file == s(&pk, "return_file"), format!("return file must be {}", chars::escape_line(&s(&pk, "return_file"))))?;
         let r = repo(root, &x);
         let c = git::commit(&r, &sha_in)?;
         let tip = git::branch_tip(&r, &branch)?;
@@ -511,16 +511,16 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
     }
     rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, render::git_changed_text(r));
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
-        rep += &format!("  job {k}: {}\n", chars::escape_line(v.as_str().unwrap_or("")));
+        rep += &format!("  job {}: {}\n", chars::escape_line(&k), chars::escape_line(v.as_str().unwrap_or("")));
     }
     let not_done = jobs_not_done(r);
     if !not_done.is_empty() {
-        rep += &format!("  jobs not done: {}\n", not_done.join(", "));
+        rep += &format!("  jobs not done: {}\n", not_done.iter().map(|s| chars::escape_line(s)).collect::<Vec<_>>().join(", "));
     }
     let dw = s(pk, "done_when");
     if dw != "none" && !dw.is_empty() {
         for l in dw.lines() {
-            rep += &format!("  done when (01): {} -> {}\n", l, if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
+            rep += &format!("  done when (01): {} -> {}\n", chars::escape_line(l), if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
         }
     }
     if let Some(now) = face01_drift(p, pk) {
@@ -658,7 +658,7 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let x = p.pass(n)?.clone();
     tail_is(&x, &["review"])?;
     let (signer, seq, d) = x.signoff.clone().ok_or("refused: Prime has not signed off this pass")?;
-    need(p.prime_at(seq) == signer, format!("refused: {signer} was not prime at entry {seq}"))?;
+    need(p.prime_at(seq) == signer, format!("refused: {} was not prime at entry {seq}", chars::escape_line(&signer)))?;
     let (pk, r, (checker, c)) = (x.pack.clone().ok_or_else(|| no_part(n, "pack"))?, x.ret.clone().ok_or_else(|| no_part(n, "return"))?, x.check.clone().ok_or_else(|| no_part(n, "check"))?);
     if s(&d, "outcome") == "passed" {
         let named: Vec<String> = d["cards"].as_object().map(|m| m.keys().cloned().collect()).unwrap_or_default();
@@ -666,10 +666,10 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         let f01 = p.faces.get("01").map(|f| f.seq).unwrap_or(0);
         need(f01 <= seq, "refused: cannot close 'passed' while face 01 changed after the signoff entry")?;
     }
-    let sum = c["results"].as_array().map(|v| v.iter().map(|r| format!("{} {}", s(r, "cmd"), if r["ok"] == true { "ok" } else { "FAIL" })).collect::<Vec<_>>().join("; ")).unwrap_or_default();
+    let sum = c["results"].as_array().map(|v| v.iter().map(|r| format!("{} {}", chars::escape_line(&s(r, "cmd")), if r["ok"] == true { "ok" } else { "FAIL" })).collect::<Vec<_>>().join("; ")).unwrap_or_default();
     let mut record = fill(T_CLOSE, &[("pass", pass_name(p, n)), ("pack_hash", s(&pk, "pack_hash")), ("return_hash", s(&r, "hash")),
-        ("commit", s(&r, "commit")), ("branch", s(&r, "branch")), ("checker", checker), ("check_summary", format!("{} ({sum})", s(&c, "verdict"))),
-        ("signer", signer), ("sign_seq", seq.to_string()), ("outcome", s(&d, "outcome")), ("cards", render::cards_text(&d["cards"])), ("note", s(&d, "note"))])?;
+        ("commit", chars::escape_line(&s(&r, "commit"))), ("branch", chars::escape_line(&s(&r, "branch"))), ("checker", chars::escape_line(&checker)), ("check_summary", format!("{} ({sum})", chars::escape_line(&s(&c, "verdict")))),
+        ("signer", chars::escape_line(&signer)), ("sign_seq", seq.to_string()), ("outcome", chars::escape_line(&s(&d, "outcome"))), ("cards", chars::escape_line(&render::cards_text(&d["cards"]))), ("note", chars::escape_line(&s(&d, "note")))])?;
     let git = render::git_changed_text(&r);
     if !git.is_empty() {
         if !record.ends_with('\n') {
@@ -678,7 +678,7 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         record.push_str(&format!("git: {git}\n"));
     }
     p.add(who, "tool", "close", json!({"pass": n, "outcome": s(&d, "outcome"), "cards": d["cards"], "record": record, "record_hash": sha(&record)}))?;
-    print!("{record}");
+    print!("{}", chars::escape_text(&record));
     Ok(())
 }
 
