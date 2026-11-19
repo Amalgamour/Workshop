@@ -376,3 +376,5 @@ the design review line. A new page:
 
 Verdict: no FAIL. Tensions: self-stated names; four of the six builders are not set up
 (t439u.md:11-14); 0414 adds two waves; no hostile pass yet.
+
+v-note (2026-11-19, 2:30 PM EST, Designer): Q14 is answered, not with Matthew: docs/review/DIRECTOR-WORDS-t440.md:7 "Quote my exact words once, with file, line and commit" (227933e). The default stands: Prime quotes his words once in the draft words: field, with file, line and commit. The "Q14 is with Matthew" line in v2 above was written before I saw 227933e.
