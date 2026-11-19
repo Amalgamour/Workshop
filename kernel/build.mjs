@@ -55,7 +55,17 @@ const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER /
 // R7: an override page in 0001-0009 states what it changes, why it is there, why it is needed, what it should achieve.
 // 7: these field names are this build's; the ruling gives the four things, not their names.
 const OVERRIDE_FIELDS = ['changing', 'there', 'needed', 'achieve'];
-const NAME = /^(\d{2})\.(\d{2})\.(\d{2})\.(\d{4})\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
+// seqpage.md section 2 (Director t375u, t377u): a file name carries the page title from the face 00 stamp right after the
+// address, `DD.SS.BB.PPPP.title.FF[.NN][.tail].md`; page 0000 has none (A2.8). The title is a label, not identity (A2.4): the
+// face's address (spot) leaves it out. Grammar: seqAddr.md:281 `title = LOWER *( LOWER / DIGIT / "-" )`, not a tail word.
+// The title is checked against the stamp in validate; a mismatch stops the build and is elevated (docs/spec/KERNEL-FILE-TITLES.md).
+const NAME = /^(\d{2})\.(\d{2})\.(\d{2})\.(\d{4})(?:\.([a-z][a-z0-9-]*))?\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
+const TITLE = /^[a-z][a-z0-9-]*$/; // seqAddr.md:281
+// 7 (builder choice, KERNEL-FILE-TITLES.md): the axioms' address `00.00.axioms` already ends in its title word, so its names
+// carry no second title; the build checks that the stamp title is that word.
+const AX_TITLE = 'axioms';
+// A file name with its title taken out, for matching names in old trees (trial commits were made before titles were added).
+const untitled = (name) => name.replace(/^(\d{2}\.\d{2}\.\d{2}\.\d{4})\.[a-z][a-z0-9-]*(?=\.\d{2}(?:\.|$))/, '$1');
 const AX_NAME = /^00\.00\.axioms\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
 // R1 and R10 merges, so a `why:` still matches its cited line after the door wording change. Last: R18 (TRIAL-K3 finding 5).
 const R1 = [['identity page', 'door page'], ['only an identity has', 'only a registry has'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door'], ['A page with only a registry has no reason to exist.', 'A page with only a registry has no reason to exist, except a door page 0000, which holds only face 00 (R10).'], ['sets linked by number', 'sets matched by number and title (R18)']]; // R10 pass-4 merge (TRIAL-K2 finding 1); R18 pass-5 merge (TRIAL-K3 finding 5)
@@ -144,15 +154,15 @@ function loadBook(dir) {
     if (st.isSymbolicLink()) { noLink(join(dir, file)); continue; } // Q58: a linked face (T18, T18c) is an error, never read
     if (!file.endsWith('.md')) continue;
     if (!st.isFile()) { err(file, 'is not a regular file (TRIAL-K7 finding 1, Q58)'); continue; }
-    let dd, ss, bb, pppp, ff, nn, tail;
+    let dd, ss, bb, pppp, title, ff, nn, tail;
     if (isAx) {
       const m = AX_NAME.exec(file);
       if (!m) { err(file, `name is not ${AXIOMS}.FF[.NN][.tail].md`); continue; }
       [, ff, nn, tail] = m; pppp = null;
     } else {
       const m = NAME.exec(file);
-      if (!m) { err(file, 'name is not a full address DD.SS.BB.PPPP.FF[.NN][.tail].md'); continue; }
-      [, dd, ss, bb, pppp, ff, nn, tail] = m;
+      if (!m) { err(file, 'name is not a full address DD.SS.BB.PPPP[.title].FF[.NN][.tail].md'); continue; }
+      [, dd, ss, bb, pppp, title, ff, nn, tail] = m;
       if (`${dd}.${ss}.${bb}` !== book) err(file, `belongs to book ${dd}.${ss}.${bb}, found in ${book}`);
     }
     if (nn) {
@@ -167,7 +177,7 @@ function loadBook(dir) {
     const body = readFileSync(join(dir, file), 'utf8');
     checkAscii(file, body);
     const rel = relative(ROOT, join(dir, file)).split(sep).join('/');
-    faces.push({ file, rel, page, pppp, ff, nn, tail, spot, addr, body, cards: parseCards(body) });
+    faces.push({ file, rel, page, pppp, title: title || null, ff, nn, tail, spot, addr, body, cards: parseCards(body) });
   }
   return { book, isAx, faces };
 }
@@ -305,7 +315,7 @@ function trialOrigin(path, tblob) {
 function inTrialTree(commit, spot, blob) {
   const r = git('ls-tree', '-r', '-z', commit); // Q65: -z
   if (r.status !== 0) return false;
-  return lsZ(r).some(({ meta, path }) => { const name = path.split('/').pop(); return meta[1] === 'blob' && meta[2] === blob && (name === `${spot}.md` || name.startsWith(`${spot}.`) && /^[a-z]+\.md$/.test(name.slice(spot.length + 1))); });
+  return lsZ(r).some(({ meta, path }) => { const name = untitled(path.split('/').pop()); /* KERNEL-FILE-TITLES.md: either name form */ return meta[1] === 'blob' && meta[2] === blob && (name === `${spot}.md` || name.startsWith(`${spot}.`) && /^[a-z]+\.md$/.test(name.slice(spot.length + 1))); });
 }
 export function passList(text) {
   const out = new Map(); let inPass = false;
@@ -377,7 +387,7 @@ function verifySeat(f, seat) {
 // TRIAL-K6 findings 1, 2a, Q56 (KERNEL pass 8): the walk lists every face 00 blob ever committed under kernel/ (`--raw`, with
 // HIST: attributes cannot blind it, K21/K22, and a merge cannot drop a parent, K26) and reads each blob with `git cat-file
 // --batch`, which applies no attributes or textconv. Seat lines are parsed from the blobs themselves, not from a `-G` diff.
-const FACE00 = /^(\d{2}\.\d{2}\.\d{2}\.\d{4}|00\.00\.axioms)\.00(?:\.[a-z]+)?\.md$/;
+const FACE00 = /^(\d{2}\.\d{2}\.\d{2}\.\d{4}|00\.00\.axioms)(?:\.[a-z][a-z0-9-]*)?\.00(?:\.[a-z]+)?\.md$/; // titled or not (KERNEL-FILE-TITLES.md)
 // TRIAL-K9 finding 1, Q63 (decided by KERNEL pass 11, builder lane): a past seat is read only from structured fields, the way
 // the live build reads one: a `seat-NN:` field line in the field block of a `## Registry` card (every such card, every such
 // line, duplicates kept), and `seat-00:` in the front-matter stamp. A `seat-NN:` line in prose, below the field block, or a
@@ -636,6 +646,7 @@ function validate({ book, isAx, faces }) {
     if (!['live', 'draft', 'retired'].includes(st.state)) err(stamp.file, `stamp state ${st.state} is not live, draft or retired (R12; face00.md section 1)`);
     if (st.address !== page) err(stamp.file, `stamp address ${st.address} != ${page}`);
     if (!isAx && Number(page.slice(-4)) >= 1000 && !st.title) err(stamp.file, 'pages 1000 and up need a title (A2.8)');
+    checkTitles(page, fs, st, isAx);
     const reg = registry(stamp);
     if (!reg) err(stamp.file, 'face 00 has no `## Registry` card with a `faces:` line (R10, R19; face00.md section 3.1)');
     else {
@@ -726,6 +737,26 @@ function validate({ book, isAx, faces }) {
 }
 
 // A why must be copied from the line its source names: `why: docs/spec/FILE:LINE`.
+// seqpage.md section 2, seqAddr.md section 3 (A2.8, A3.2), Director t375u/t377u: the title in a file name is checked against
+// the face 00 stamp `title:`, which is the truth. A name with the wrong title, or a missing or extra one, stops the build and is
+// elevated to the Director; it is never fixed silently (the builder renames nothing). Page 0000 has no title in its name.
+function checkTitles(page, fs, st, isAx) {
+  const elevate = 'elevate to Director; the stamp title is the truth and a name is never fixed silently (seqpage.md section 2, A2.8; KERNEL-FILE-TITLES.md)';
+  const stTitle = (st.title || '').trim();
+  if (isAx) { if (stTitle !== AX_TITLE) err(fs[0].file, `stamp title "${stTitle}" is not "${AX_TITLE}", the title word the axioms' names carry in their address; ${elevate}`); return; }
+  const door = page.endsWith('.0000');
+  const legal = TITLE.test(stTitle) && !TAIL_WORDS.includes(stTitle);
+  if (!door && stTitle && !legal) { err(fs[0].file, `stamp title "${stTitle}" is not a legal title word (seqAddr.md:281: lowercase letters, digits, hyphens, a letter first, not a tail word), so no name can carry it; ${elevate}`); return; }
+  const want = door || !stTitle ? null : stTitle;
+  for (const f of fs) {
+    if (f.title === want) continue;
+    if (door) err(f.file, `name carries title "${f.title}", but page 0000 has no title in its name (A2.8); ${elevate}`);
+    else if (!want) err(f.file, `name carries title "${f.title}", but the face 00 stamp has no title; ${elevate}`);
+    else if (!f.title) err(f.file, `name has no title, but the face 00 stamp has title "${want}"; the name should be ${page}.${want}.${f.file.slice(page.length + 1)}; ${elevate}`);
+    else err(f.file, `name title "${f.title}" does not match the face 00 stamp title "${want}"; ${elevate}`);
+  }
+}
+
 function checkWhy(file, c) {
   const m = /why: docs\/spec\/([\w.\-]+):(\d+)/.exec(c.fields.source || '');
   if (!m) { err(file, `04 card ${c.key}: why: has no cited line (source: ... why: docs/spec/FILE:LINE)`); return; }
