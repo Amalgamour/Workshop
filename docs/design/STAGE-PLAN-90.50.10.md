@@ -634,3 +634,224 @@ Q8. Who may record your grant in wf?
 
 Verdict, v3: no FAIL. Tensions: one-job rule only in a draft; 0404 still edits
 tests/wf.rs; scope of "security" (Q7); files expected, not proven; no hostile pass yet.
+
+## 12. v4 (2026-11-19, 1:56 PM EST, Designer): every page links to its test lab (t425u)
+
+This section supersedes section 11 (and earlier ones) wherever they differ. Old lines
+stay as history (Axioms.md:23). state: draft v4 for Prima. Not live; no wf page touched.
+
+### 12.1 Matthew's words, quoted exactly
+
+- t425u (docs/review/DIRECTOR-WORDS-t425u.md:3, bd34199): "Correction, each page should be
+  linked to the test lab for it.  We don't need to copy paste lab code a bunch of times.
+  We'll bloat if we do that."
+- It corrects t424.md:8 "Yes, each page keeps its tests in its own file" (Prima's plain
+  words, t425u.md:5).
+- Behind it, t226u.md:7: "I did like how we had a dev page, a work page and a lab page all
+  linked together."
+- Relay check: same words as :3 (double spaces between sentences shortened). "This
+  replaces the t424 Q2 answer" is Prima's reading (:5), not his words; his word is
+  "Correction". Nothing else differs.
+
+### 12.2 What the files say about labs
+
+- Face 07 is labs: "07 is a flex location, for dev work it's going to become labs."
+  (t245u.md:5); kit docs/DESIGN.md:28 "07 labs | trials (not built in wf v0)"; seqAddr.md:156
+  face 07 "reserved, not active". wf cannot write face 07 yet (wf src/cmd.rs:226 @ 60dd7e25).
+- A lab is where another view tries to break the work: workflow-loop.003.md:48 (N7 "labs:
+  cold-model trials of the page's work"), DEV-WORK-LAB-PAGES.md:45, :74; Axioms.md:29.
+- The draft workflow puts lab pages in their own band, 07NN, one per piece, matched by the
+  last two digits (workflow-loop.003.md:48, :59; WORK-BOOK-CONCEPT.md:71, :74). That draft
+  is not live, and it conflicts with the live rules for this stage: work starts in band
+  0400 (t413u.md:9), a stage is one band, 0400-0499 (t423u.md:11), and a pack lives on the
+  job page's own face 05 (t420.md:6). A lab page at 90.50.10.07NN would sit outside the
+  stage's band.
+- The files do not say whether a band has one lab or one per page. So it is Q9 below,
+  with a working default this plan uses.
+
+### 12.3 The lab: one test lab page for the band, at 0497 (default)
+
+- What it is: 90.50.10.0497, "the band's test lab: one harness, every trial". It holds the
+  one test harness (the helpers every trial uses) and the trials that try to break each
+  work page. Work pages hold no test code of their own and copy no harness (t425u.md:3).
+- Why one lab for the band: t425u.md:3 "We don't need to copy paste lab code a bunch of
+  times." One harness, written once, inherited by every trial, is axiom 2: "Inherit what
+  is agreed; write only the difference. Do not copy the parent" (Axioms.md:15). Same shape
+  as the band door: one shared page per band that every page links to (t420.md:4).
+- Why 0497: A1-A9 hold (90.50.10.0497: book 10, band 0400, not NN00, not NN99, not 9999).
+  Not 0499 (seqAddr.md:242). Not 0498, the tie-it-together page (t424.md:16). Not 0405 or
+  0410 (planned, never made; kept unused, why in 12.5 and 11.4). The slot below 0498 keeps
+  the same place in every stage band, so labs form a set across bands by number and title
+  (seqAddr.md:243; DIRECTOR-RULINGS.md:71-72), as 0498 does. Other pick: the next free
+  page (0412).
+- How a trial runs: the work page's builder changes code; it returns. Then a lab pass, by
+  another view, writes that page's trial and runs it (DEV-WORK-LAB-PAGES.md:53; WL:48;
+  Axioms.md:29 "its maker is the easiest one to convince"). The work page closes only after
+  its trial passes and the checker accepts.
+- Code shape in the wf repo: the harness is tests/common/mod.rs (moved out of tests/wf.rs,
+  not copied). Each trial is a lab file tests/lab_NNNN.rs that starts with `mod common;`
+  and holds only that page's cases. Those files belong to the lab page, never to a work
+  page. One file per tried page lets two lab passes run at once (wf refuses overlap only
+  between passes that touch the same files, src/cmd.rs:317-332).
+- The lab's first pass takes 0405's job (tests build and run on Windows), because the
+  harness is where the unix-only code is (tests/wf.rs:4). See 12.5.
+
+### 12.4 The link until 0406 exists
+
+wf v0 can write faces 01, 02 and 08 (src/cmd.rs:220), not 07 (:226). So, by hand, by Prime:
+- On each work page, face 01 gets one line: "Lab: 90.50.10.0497 (band test lab); trial
+  file tests/lab_NNNN.rs." Face 08 gets: "lab: 90.50.10.0497".
+- On the lab 0497, face 01 lists every page it trials, with its trial file; face 08 gets
+  "trials: 90.50.10.0404, ..." The link is written on both pages (t422.md:6).
+- Each work pack names the lab in `overview` and in `stop if` ("a test helper is missing:
+  stop; the lab adds it").
+- When wf can write face 07, the link moves there (t245u.md:5), as a new face version.
+- Putting links on face 08 is Researcher's proposal (PM-DESIGN:194), not Matthew's words.
+
+### 12.5 Page list, v4
+
+| Page | Title | May change (no test files) | Size (b/l/w) | MVP goal (done-when) |
+|---|---|---|---|---|
+| 0403 | address guard (live, packed) | as packed | packed | as packed |
+| 0404 | returns state a design review (t416u) | templates/v4/return.txt, src/render.rs, src/cmd.rs | 1/2/3 | cargo test --lib passes; lab trial tests/lab_0404.rs passes on the box (no line: refused naming t416u; line: accepted); passes packed on templates 1-3 unchanged |
+| 0405 | (not used; its job moved to the lab's first pass) | - | - | - |
+| 0406 | needs links on both pages | src/cmd.rs, src/lib.rs, src/page.rs, src/render.rs | 2/3/4 | lab trial tests/lab_0406.rs passes (as 10.2) |
+| 0407 | the door prints its own type and contents | src/render.rs | 1/2/3 | lab trial tests/lab_0407.rs passes (as 10.2) |
+| 0408 | withdraw a packed pass nobody claimed | src/cmd.rs, src/lib.rs, src/page.rs | 1/2/3 | lab trial tests/lab_0408.rs passes (as 10.2) |
+| 0409 | retire a page | src/cmd.rs, src/lib.rs, src/page.rs | 1/2/3 | lab trial tests/lab_0409.rs passes (as 10.2) |
+| 0410 | (not used; 11.4) | - | - | - |
+| 0411 | the real runner starts a page, Matthew grants it | src/cmd.rs, src/lib.rs | 1/2/3 | lab trial tests/lab_0411.rs passes (as 11.3) |
+| 0497 | the band's test lab: one harness, every trial | pass 1: tests/common/mod.rs (new), tests/wf.rs. Each trial pass: tests/lab_NNNN.rs (new) | pass 1 2/3/5; each trial 1/1/2 (7 trials) | pass 1: the harness lives once in tests/common/mod.rs; tests/wf.rs uses it and builds for Windows, every skip named; the two hand-written return strings (tests/wf.rs:94, :858) carry a design review line. Each trial: it fails on the start commit where the work is missing, passes on the work's return |
+| 0498 | tie-it-together | README.md, docs/WALKTHROUGH.md (new) | 1/2/4 | lab trial tests/lab_0498.rs runs one page start to close; Matthew runs the walk-through and says go, hold or redo (as 10.3) |
+
+Unit tests inside a src file a page already changes (`#[cfg(test)] mod tests`) stay with
+that code; they are not lab code and copy no harness.
+
+Why 0405 is not used: its whole job was test code (tests/wf.rs, Windows). Under t425u test
+code lives in the lab, so the job is the lab's first pass. A different job at 0405 would
+make sections 4-11 point at the wrong work (Axioms.md:23, :27), the same reason as 0410.
+
+Totals: work pages 8/15/23; lab 9/10/19 (pass 1 2/3/5, seven trials 7/7/14); stage
+17/25/42 passes (best/likely/worst), plus 0403. Up from 10/18/28: every page now gets a
+trial by another view.
+
+### 12.6 Needs, both ways, v4
+
+| Page | Needs | Needed by |
+|---|---|---|
+| 0403 | none | 0407, 0498 |
+| 0404, 0406, 0407, 0408, 0409, 0411 | 0497 (pass 1, the harness; and its trial pass to close) | 0498; 0497 lists each as "trials" |
+| 0407 | also 0403 | |
+| 0409 | also 0408 | |
+| 0408 | | also 0409 |
+| 0497 | none for pass 1; each trial pass needs that page's return | every work page; 0498 |
+| 0498 | 0403, 0404, 0406, 0407, 0408, 0409, 0411, 0497 | none |
+
+### 12.7 What can run at once (t422.md:7-8), after 0403 closes
+
+Plainly: the shared lab makes pages wait. Every work page needs the lab's harness first,
+so the lab's pass 1 runs alone. And a page is not done until its trial passes, so while
+it waits for its trial it still holds the files it changed.
+
+Shared changed files: src/cmd.rs (0404, 0406, 0408, 0409, 0411), src/lib.rs (0406, 0408,
+0409, 0411), src/render.rs (0404, 0406, 0407), src/page.rs (0406, 0408, 0409),
+tests/wf.rs (0497 pass 1, after 0403). Lab trial files are one per page, so trials do not
+block each other.
+
+Waves, strict reading (a page holds its files until it closes):
+
+| Wave | Runs | Why |
+|---|---|---|
+| 1 | 0497 pass 1 (harness) | every page needs it; tests/wf.rs is free once 0403 closes |
+| 2 | 0404 | loop first (t402u.md:3); render.rs keeps 0407 out, cmd.rs the rest |
+| 3 | trial 0404 | 0404 holds cmd.rs and render.rs until it closes |
+| 4 | 0407, 0408 | render.rs vs cmd.rs, lib.rs, page.rs |
+| 5 | trials 0407, 0408 | two lab files, at once |
+| 6 | 0409 | needs 0408 closed; cmd.rs |
+| 7 | trial 0409 | |
+| 8 | 0406 | cmd.rs, render.rs |
+| 9 | trial 0406 | |
+| 10 | 0411 | cmd.rs |
+| 11 | trial 0411 | |
+| 12 | 0498 | needs every page |
+| 13 | trial 0498 | |
+
+Waves, looser reading (a page waiting only for its trial does not hold its files): 1 lab
+pass 1; 2 0404; 3 0407, 0408, trial 0404; 4 0406, trials 0407, 0408; 5 0409, trial 0406;
+6 0411, trial 0409; 7 trial 0411; 8 0498; 9 trial 0498. That reading is Q10.
+
+```mermaid
+graph LR
+  L1[0497 lab pass 1: harness] --> P0404[0404 design-review line]
+  P0404 --> T0404[trial 0404]
+  T0404 --> P0407[0407 door contents]
+  T0404 --> P0408[0408 withdraw pass]
+  P0407 --> T0407[trial 0407]
+  P0408 --> T0408[trial 0408]
+  T0408 -. needs .-> P0409[0409 retire page]
+  P0409 --> T0409[trial 0409]
+  T0409 --> P0406[0406 needs links]
+  T0407 --> P0406
+  P0406 --> T0406[trial 0406]
+  T0406 --> P0411[0411 runner starts]
+  P0411 --> T0411[trial 0411]
+  T0411 --> P0498[0498 tie-it-together]
+  P0498 --> T0498[trial 0498]
+```
+
+### 12.8 Questions for Matthew (new)
+
+Q9. Is the test lab one page for the whole band, or one page per work page?
+- Proposed: (default) one lab page for the band, 90.50.10.0497, holding one harness and
+  every trial; each work page links to it on both pages. Other options: one lab page per
+  work page in band 07NN (workflow-loop.003.md:48, :59, a draft; outside the stage band,
+  t413u.md:9, t423u.md:11); or one lab page per work page inside 04xx (twice the pages,
+  and each would still link one shared harness).
+- Why: t425u.md:3 "We don't need to copy paste lab code a bunch of times." "The test lab
+  for it" can be read as one lab per page or as the lab that serves it. Who gets hurt:
+  Matthew, with bloat if labs copy code; a reader, if labs sit outside the band.
+- Axioms: 2 (Axioms.md:15) pass, inherit once; 8 (:27) pass, links both ways; 9 (:29) pass,
+  another view writes the trials; 7 (:25) tension, no file names a band lab yet.
+
+Q10. Does a page that is waiting only for its lab trial still block pages that change the
+same files?
+- Proposed: (default) yes. The page is not done until its trial passes (Axioms.md:29), so
+  the files stay held: 13 waves. Other option: no; once its code is returned and merged,
+  the next page may start from the new base: 9 waves.
+- Why: t422.md:7 "neither needs the other and they change no shared files" does not say
+  when a page stops changing them. Who gets hurt: Matthew, waiting longer under yes; a
+  builder, building on code whose trial later fails, under no.
+- Axioms: 9 (:29) pass for yes, tension for no; 5 (:21) pass, a clear stop point; 6 (:23)
+  pass either way.
+
+Q7 and Q8 from 11.10 stay open.
+
+### 12.9 Release check of v4 (RELEASE-CHECK.md @ c0e5b22)
+
+| Item | Source file:line | Seen in v4 | Result |
+|---|---|---|---|
+| A1-A9 for 0497 | t413u.md:7, :9; seqAddr.md:14, :241-242, :325 | 90.50.10.0497 | PASS |
+| H1 lab address | seqAddr.md:243; DIRECTOR-RULINGS.md:71-72; t424.md:16 | 0497 (default), 0412 other | TENSION (no file names a lab slot; Q9) |
+| H1 one lab vs many | t425u.md:3; Axioms.md:15 | one band lab (default) | TENSION (Q9) |
+| H1 unused 0405 | Axioms.md:23, :27 | 12.5 why | PASS |
+| t425u: page links to its lab | t425u.md:3 | 12.4, both pages | PASS |
+| t425u: no copied lab code | t425u.md:3 | one harness, tests/common/mod.rs; trials import it | PASS |
+| No own test file on work pages | t425u.md:3 (corrects t424.md:8) | 12.5 may change | PASS |
+| Lab trial files are one per page | t425u.md:3 | owned by 0497, no harness inside | PASS (a file per trial is not a copy; Q9 covers the shape) |
+| Lab band 07NN vs band 0400 | workflow-loop.003.md:48 (draft); t413u.md:9; t423u.md:11 | lab inside 04xx | PASS (draft does not govern; conflict stated) |
+| Face 07 for the link | t245u.md:5; seqAddr.md:156; wf cmd.rs:226 | faces 01 and 08 until wf writes 07 | PASS |
+| Trial by another view | Axioms.md:29; DEV-WORK-LAB-PAGES.md:53 | lab passes after each return | PASS |
+| Every page gets a trial | workflow-loop.003.md:200 (draft); DEV-WORK-LAB-PAGES.md:53 (lab only for risky or rule-changing work) | every page | TENSION (the draft would trial less; t425u links every page) |
+| Needs both ways | t422.md:6 | 12.6 | PASS |
+| Independence test | t422.md:7-8 | 12.7, strict and looser | PASS; TENSION on the reading (Q10) |
+| t424 Q1, Q3-Q6 | t424.md:6, :10, :12, :14, :16 | unchanged from 11 | PASS |
+| t423u lines, MVP goals, 0498 | t423u.md:7-15 | 12.5 | PASS |
+| t416u gate | t416u.md:7 | 0404 | PASS |
+| Files touched | wf source @ 60dd7e25 | 12.5 | TENSION (expected, not proven) |
+| Quotes from recorded files | t425u, t226u, t245u, t424, t422 | 12.1-12.8 | PASS |
+| Axiom 6 (Axioms.md:23) | additions only | section 12 appended | PASS |
+| Axiom 9 (:29) | no hostile pass of the plan | - | TENSION |
+
+Verdict, v4: no FAIL. Tensions: lab slot and shape (Q9), when a waiting page frees its
+files (Q10), every page trialled where the draft workflow trials fewer, security scope
+(Q7), files expected not proven, no hostile pass yet.
