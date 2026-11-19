@@ -1245,3 +1245,79 @@ builder names; no hostile pass yet.
 v-note (2026-11-19, 2:36 PM EST, Designer): plan v7 adds 0414 (t441) in waves 14-15; 0498
 moves to 16-17; 17 waves; stage 23/34/57 plus 0403. 0701 serves 0413 and 0414 only
 after 0701.05.01 closes; 0413 face 01 changes stay on hold.
+
+## 16. v8 (2026-11-19, 3:25 PM EST, Cursor-C (Design)): page 0415, Windows folder sync
+
+Additions only. Sections 1-15 stay as written (Axioms.md:23). state: draft for Prima.
+Matthew has not spoken on this page. Do not init it until he grants it.
+
+0701 pass 1 is closed passed (returns 3646e344; the code commit is e30050dc). Its return
+left job w02 blocked. On Windows, 123 of the wf end-to-end tests fail with "cannot sync"
+and "Access is denied (os error 5)" from src/log.rs sync_dir (lines 122-127). Opening a
+folder with File::open is refused on Windows. Drafts: docs/design/drafts/90.50.10.0415/.
+
+### 16.1 Page 0415   [automate]
+
+- Address: 90.50.10.0415. Title: "a new log folder syncs on Windows".
+- Why not 0405: 0405, 0410 and 0497 were titled and then parked. An address once titled
+  is never reused (DIRECTOR-RULINGS.md:129-130). 0413 and 0414 are taken. 0415 was never
+  titled in this book.
+- Goal: when wf creates a page log, syncing that folder succeeds on Windows, and on
+  Linux the folder is still fsynced.
+- MVP done-when: the wf e2e suite passes on Windows (cargo test --test wf); Linux still
+  fsyncs the directory; cargo test --lib passes on Windows; tests/lab_0415.rs fails on
+  3646e344 and passes on the return.
+- May touch: src/log.rs only. Grant: src/log.rs.
+- Size: 1/2/3. Trial in lab 0701, tests/lab_0415.rs: 1/1/2.
+- Bucket: automate (t402u.md:3). The loop already runs. This lets the existing tests
+  finish on the builders' machines (PowerShell, DIRECTOR-WORDS-t399u-t400u.md:7). It is
+  the leftover of the parked 0405 job, after 0701 gated the unix-only tests.
+
+### 16.2 Needs, both ways
+
+| Page | Needs | Needed by |
+|---|---|---|
+| 0415 | 0701 (pass 1, closed; and its own trial to close) | 0498; 0701 lists it under "serves" |
+| 0498 | adds 0415 to the list in 15.2 | none |
+| 0701 | (as 13.6) | adds 0415 |
+
+The live 0701 faces at 3646e344 do not yet list 0413 or 0414. This page does not add
+those two. It adds only 0415. The replacement face texts are in the draft folder.
+face-write replaces the whole face, so do not write them if the live faces have moved.
+
+### 16.3 Waves (strict, t432.md:12), change from 15.4
+
+src/log.rs is not in any planned may-touch list (11.7, 13.5, 14.1, 15.1). sync_dir is
+called only from append in that file. Shared reads of the log are allowed (t422.md:8).
+So 0415 shares no changed file with 0404, and neither needs the other.
+
+| Wave | Runs | Why here |
+|---|---|---|
+| 2 | 0404, 0415 | 0404 is templates, render.rs, cmd.rs. 0415 is src/log.rs |
+| 3 | trial 0404, trial 0415 | two lab files, tests/lab_0404.rs and tests/lab_0415.rs |
+
+Other waves stay as in 15.4. Still 17. 0415 holds src/log.rs until its trial passes.
+No other page in this plan needs that file, so the hold blocks no one. A later page
+that must change src/log.rs waits until the trial passes.
+
+### 16.4 Totals (from 15.3)
+
+- work pages: 11+1 / 21+2 / 32+3 = 12/23/35
+- lab 0701: 12+1 / 13+1 / 25+2 = 13/14/27
+- stage: 12+13 / 23+14 / 35+27 = 25/37/62 passes, plus 0403.
+
+### 16.5 Question
+
+Q15. If Windows still refuses to flush the folder, stop, or skip the folder sync there?
+Default in the pack: stop, and quote the error. The other option, and the axiom marks,
+are in docs/design/drafts/90.50.10.0415/FINAL-RELEASE-CHECK.md section 7.
+
+### 16.6 Release check, brief
+
+Full check: docs/design/drafts/90.50.10.0415/FINAL-RELEASE-CHECK.md. Scratch dry run
+passed init, faces, draft, pack and verify. No FAIL. Do not init the real page until
+Matthew grants it. The Windows flag was not run here (this box is Linux).
+
+v-note (2026-11-19, 3:25 PM EST, Cursor-C (Design)): plan v8 adds 0415 (Windows folder
+sync) in waves 2-3 beside 0404; no wave added; still 17; stage 25/37/62 plus 0403.
+Matthew has not granted it.

@@ -1,0 +1,7 @@
+Goal: when wf creates a page log, syncing that folder must succeed on Windows. On Linux, that same step must still fsync the folder (side label: fsync means the folder entry is forced to disk, not only the file). Band door: 90.50.10.0400.
+Lab: 90.50.10.0701 (wf loop lab); trial file tests/lab_0415.rs.
+Why: 0701 pass 1 left this blocked (returns e30050dc, job w02). On Windows, 123 of the wf end-to-end tests fail with "cannot sync" and "Access is denied (os error 5)" from src/log.rs sync_dir. Opening a folder with File::open is refused on Windows (src/log.rs:122-127 at e30050dc). Builders run in PowerShell (DIRECTOR-WORDS-t399u-t400u.md:7).
+Done when: the wf e2e suite passes on Windows (cargo test --test wf; no failure that says cannot sync or Access is denied (os error 5)).
+Done when: Linux still fsyncs the directory (the Unix branch of sync_dir still opens the folder and calls sync_all; that call is not removed and not skipped).
+Done when: cargo test --lib passes on Windows, including the test that creates a log and checks the folder is synced once.
+Done when: the lab trial tests/lab_0415.rs fails on start commit 3646e344 and passes on this return.
