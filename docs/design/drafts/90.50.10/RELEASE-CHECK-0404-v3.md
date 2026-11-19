@@ -41,3 +41,17 @@ releasable until 0403 and 0701.05.01 close and the TBD fields are filled.
 | Lab band | t434.md:6 | PASS; Q11 tension retired |
 
 Verdict: PASS for review, ON HOLD until 0701.05.01 closes.
+
+
+## Pack-time re-check (2026-11-19, Cursor-C Pack)
+
+| Check | Source | Result |
+|---|---|---|
+| Start is 0701's landing | returns 3646e344 | PASS |
+| src/ cites | cmd.rs:15, :371, :405, :467-482, :484, :515; render.rs:29, :37-51 | PASS (unchanged) |
+| Template today | TEMPLATE_VER is still 3 | PASS |
+| Return strings | five, already include the line, at tests/common/mod.rs:93 and tests/wf.rs:713, :851, :1438, :1648 | PASS |
+| Lab link, no copied tests | 0701 already lists 0404; 0497 unused | PASS |
+| Grant covers may touch | src/, templates/ | PASS |
+
+Verdict: refreshed and packed. No new design choice.

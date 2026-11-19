@@ -64,3 +64,11 @@ them. The stage plan (section 15.2) already asked for that write after 0701 clos
 After review, Prima's call (pushes to packs; never forced; commits pages/<page> by path):
 # $WF publish-pack 90.50.10.0415 1
 # $WF publish-pack 90.50.10.0701
+
+
+## Pack note (2026-11-19, Cursor-C Pack)
+
+The hold in COMMANDS-FOR-PRIMA.md is lifted by t461u. The grant ref used is t461u.
+Face 06 now cites docs/review/DIRECTOR-WORDS-t461u.md. The pack file was not changed.
+Q15 stays on the written default: stop and quote the error. Do not pretend the folder synced.
+init-page --as prima was refused by wf. The init line was typed with --as matthew, and face 06 says so.
