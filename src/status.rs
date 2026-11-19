@@ -63,6 +63,31 @@ pub fn status(p: &Page) -> String {
     o
 }
 
+/// One face that changed under a packed pass that is not closed.
+/// `was` and `now` name the face's entry ("7" for 04; "v1 entry 3" for 01).
+pub struct Drift {
+    pub face: &'static str,
+    pub was: String,
+    pub now: String,
+}
+
+/// Faces 04 and 01 that changed since the pass was packed. Shared by observe and board.
+pub fn drift(p: &Page, x: &crate::page::Pass) -> Vec<Drift> {
+    let Some(pk) = x.pack.as_ref().filter(|_| x.tail != "closed") else { return vec![] };
+    let mut out = vec![];
+    let now04 = p.faces.get("04").map(|g| g.seq).unwrap_or(0);
+    let pinned = x.pins["04"]["entry"].as_u64().unwrap_or(0);
+    if now04 != pinned {
+        out.push(Drift { face: "04", was: pinned.to_string(), now: now04.to_string() });
+    }
+    if let Some(v01) = face01_drift(p, pk) {
+        let src = s(&pk["sources"], "01");
+        let was = src.split(" hash ").next().unwrap_or("").to_string();
+        out.push(Drift { face: "01", was: if was.is_empty() { "unknown (not in the log)".into() } else { was }, now: v01 });
+    }
+    out
+}
+
 /// Signals that the lead may be drifting, looping or stalled. Read only.
 pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
     let mut f = vec![];
@@ -92,20 +117,16 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
     }
     if let Some(last) = p.events.last() {
         let h = now().saturating_sub(last.time) / 3600;
-        if h >= stall_hours && p.halt.is_none() && p.passes.values().any(|x| x.tail != "closed") {
+        if last.time > 0 && h >= stall_hours && p.halt.is_none() && p.passes.values().any(|x| x.tail != "closed") {
             f.push(format!("stalled: nothing has moved for {h} hours (entry {})", last.seq));
         }
     }
-    for x in p.passes.values().filter(|x| x.tail != "closed" && x.pack.is_some()) {
-        for face in ["04"] {
-            let now = p.faces.get(face).map(|g| g.seq).unwrap_or(0);
-            let pinned = x.pins[face]["entry"].as_u64().unwrap_or(0);
-            if now != pinned {
-                f.push(format!("drift: 05.{:02} was packed against face {face} entry {pinned}; face {face} is now entry {now}", x.nn));
-            }
-        }
-        if let Some(v01) = face01_drift(p, x.pack.as_ref().unwrap()) {
-            f.push(format!("drift: 05.{:02} was packed against an older face 01 (now {v01})", x.nn));
+    for x in p.passes.values() {
+        for d in drift(p, x) {
+            f.push(match d.face {
+                "04" => format!("drift: 05.{:02} was packed against face 04 entry {}; face 04 is now entry {}", x.nn, d.was, d.now),
+                _ => format!("drift: 05.{:02} was packed against an older face 01 (now {})", x.nn, d.now),
+            });
         }
     }
     for e in p.elevs.iter().filter(|e| e.answer.is_none()) {

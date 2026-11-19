@@ -34,7 +34,9 @@ against the old binary.
 | Prime | `face-write 01 02 04 06 08`, `draft [--overlap-ok NN --why "... (ref)"]`, `pack [--overlap-ok NN --why "... (ref)"]` (Director t262u: "sometimes multiple models can sit at this"), `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
 | Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime --ref` |
 
-Anyone may run `status`, `observe` and `verify`.
+Anyone may run `status`, `observe`, `verify` and `board`.
+
+`wf board [<page>] [--all] [--card NN] [--stall-hours 24]` is read only: it writes no log entry, no view file and no lock, and runs no git. It is built from `log.jsonl` only (the log wins over a hand-edited view, and the board says so). With a page it prints attention first, then one card per 05.NN in the columns Draft, Ready, Working, Waiting check, Checked, Closed; with no page it prints one line per page (an unreadable page is named with its reason). `--card` takes `4`, `04` or `05.04`; other flags are refused. Why: see what needs someone in under a minute (docs/design/WF-BOARD.md). Every log string is escaped like `\u{1b}`. Build stage, pending Director answer (WF-BOARD.md Q1-Q3): tool words as columns with body-shop side labels; STALE after 24 hours with no log entry (`--stall-hours`); the board prints git commands for the evidence instead of running git.
 
 `wf halt <page> --note "why (ref)"`: Prime or the person stops the page (refused while a pass is open); draft, pack and claim then refuse, and status shows who halted it and why.
 `wf resume <page> --note "why (ref)"`: Prime or the person lets work go on again.

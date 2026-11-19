@@ -74,8 +74,21 @@ Add `--as <your name>` to every command that writes.
 | See where things stand | `wf status <page>` |
 | Observer check | `wf observe <page> [--record "finding"]` |
 | Check the log chain and views | `wf verify <page>` (`--fix` reprints missing and changed views from the log) |
+| See the work-order board | `wf board [<page>] [--all] [--card NN] [--stall-hours 24]` (read only; no page: one line per page) |
 
 `wf status` is the "where are we" view. It is always built fresh from the log.
+
+Anyone may run `status`, `observe`, `verify` and `board`.
+
+`wf board` is the work-order board. It only reads: no log entry, no view file, no lock file, and it runs no git. It is built from `log.jsonl` only; if a view file was hand-edited it says so, prints from the log, and names `wf verify <page> --fix`. Why: see what needs someone, what is moving and what passed in under a minute (`docs/design/WF-BOARD.md`).
+- `wf board <page>`: header, then ATTENTION (most urgent first: questions to the person, a halt, views that differ from the log, returns waiting for a check, checked passes waiting for signoff or close, questions to Prime, observer signals, stale items), then the columns, then a footer. At most 40 lines; questions to the person and a halt are never cut. The footer counts what was cut; `--all` shows everything. Nothing found prints `attention: none found in the log`.
+- Columns (tool word [body-shop side label]): Draft [estimate], Ready [ready for a bay], Working [in the bay], Waiting check [waiting QC], Checked [QC done], Closed [delivered]. Closed shows the last 3 cards by default and counts passed, failed, blocked and needs-authority.
+- `STALE` marks: no log entry on an open pass for 24 hours (`--stall-hours`), packed against an older face 01 or 04 (both entries shown), a check filed on an older return commit, face 01 changed after the signoff.
+- `wf board <page> --card NN` (`4`, `04` or `05.04`): every field of one pass. Every line names the log entry, the `pages/` path or the command (`git -C <repo> show <commit>:<file>`, `wf ...`) it came from. A field the log does not hold says `unknown (not in the log)`. An entry with no time shows age `unknown` and is never marked stale on time.
+- `wf board`: one line per page under `pages/`. A page whose log cannot be read (broken chain, an entry for a pass that was never drafted, an empty log) shows `unreadable: <reason>`; the rest still print.
+- Other flags, a second argument, `--all` with a value, and `--card` or `--all` without a page are refused.
+- Every log string is escaped (for example `\u{1b}`) before it prints, then cut on a character boundary.
+- Build stage, pending Director answer (WF-BOARD.md Q1-Q3): tool words as columns with body-shop side labels; STALE after 24 hours by default; the board prints git commands and does not run git, so a printed link is not checked.
 
 Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-character prefix.
 

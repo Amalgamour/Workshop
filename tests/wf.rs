@@ -1552,3 +1552,375 @@ fn draft_field_keys_are_checked() {
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\n  still one job\nmay touch: src/a.rs\nchecks: true\nstop if: none\n").unwrap();
     e.ok(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
 }
+
+// ---- wf board (docs/design/WF-BOARD.md): read only, built from the log ----
+
+/// sha256 of every file under `dir` (relative path -> hex).
+fn sha_map(dir: &PathBuf) -> std::collections::BTreeMap<String, String> {
+    use sha2::{Digest, Sha256};
+    file_bytes(dir).into_iter().map(|(k, v)| (k, Sha256::digest(&v).iter().map(|b| format!("{b:02x}")).collect())).collect()
+}
+
+/// Log entries written through the tool's own append (Page::add), then views reprinted.
+/// Stands in for old log entries and for states the commands cannot reach today.
+fn seed(e: &Env, page: &str, evs: &[(&str, &str, &str, serde_json::Value)]) {
+    let mut p = wf::page::Page::load(&e.root.join("pages").join(page)).unwrap();
+    for (actor, role, kind, data) in evs {
+        p.add(actor, role, kind, data.clone()).unwrap();
+    }
+    wf::render::write(&p).unwrap();
+}
+
+fn seed_pack(nn: u32) -> serde_json::Value {
+    serde_json::json!({"pass": nn, "pack_text": format!("pack {nn}\n"), "pack_hash": format!("{nn:064}"), "branch": format!("pass/{PG}.05.{nn:02}"),
+        "return_file": format!(".workshop/returns/{PG}.05.{nn:02}.md"), "start": "0", "templates": "2", "sources": {}})
+}
+
+fn seed_draft(nn: u32) -> serde_json::Value {
+    serde_json::json!({"pass": nn, "fields": {"outcome": format!("outcome {nn}"), "repo": "game", "start": "main", "w01": "x", "may touch": "src/b.rs", "checks": "true", "stop if": "none"}, "pins": {}})
+}
+
+/// Lines between "ATTENTION" and "COLUMNS".
+fn attention_lines(b: &str) -> Vec<String> {
+    b.lines().skip_while(|l| !l.starts_with("ATTENTION")).skip(1).take_while(|l| !l.starts_with("COLUMNS")).map(String::from).collect()
+}
+
+#[test]
+fn board_writes_nothing() {
+    let e = Env::checked("board-ro");
+    e.ok(&["elevate", PG, "1", "--to", "person", "--item", "may we widen", "--as", "pri"]);
+    let before = sha_map(&e.page());
+    let log = e.log();
+    for args in [vec!["board", PG], vec!["board", PG, "--all"], vec!["board", PG, "--card", "1"], vec!["board", PG, "--stall-hours", "0"], vec!["board"]] {
+        let out = e.ok(&args);
+        assert!(!out.is_empty(), "{args:?}");
+        assert!(!e.page().join(".wf-lock").exists(), "{args:?} made a lock file");
+    }
+    assert_eq!(sha_map(&e.page()), before, "the board changed a page file");
+    assert_eq!(e.log(), log);
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+    e.no(&["board", PG, "--stall-hours", "x"], "--stall-hours must be a whole number");
+    e.no(&["board", PG, "--card", "7"], "no pass 05.07");
+    assert!(e.ok(&["help"]).contains("board [<page>]"));
+}
+
+#[test]
+fn board_puts_each_tail_in_its_column() {
+    let e = Env::checked("board-cols"); // 05.01 at review
+    seed(&e, PG, &[
+        ("pri", "prime", "draft", seed_draft(2)), ("pri", "tool", "close", serde_json::json!({"pass": 2, "outcome": "failed"})),
+        ("pri", "prime", "draft", seed_draft(3)), ("pri", "prime", "pack", seed_pack(3)), ("bob", "builder", "claim", serde_json::json!({"pass": 3})),
+        ("bob", "builder", "return", serde_json::json!({"pass": 3, "commit": "c3", "file": "f", "jobs": {"w01": "done - x"}})),
+        ("pri", "prime", "draft", seed_draft(4)), ("pri", "prime", "pack", seed_pack(4)), ("ann", "builder", "claim", serde_json::json!({"pass": 4})),
+        ("pri", "prime", "draft", seed_draft(5)), ("pri", "prime", "pack", seed_pack(5)),
+        ("pri", "prime", "draft", seed_draft(6)),
+    ]);
+    let b = e.ok(&["board", PG]);
+    let lines: Vec<&str> = b.lines().collect();
+    for (col, nn) in [("Draft [estimate]: 1", 6), ("Ready [ready for a bay]: 1", 5), ("Working [in the bay]: 1", 4),
+                      ("Waiting check [waiting QC]: 1", 3), ("Checked [QC done]: 1", 1), ("Closed [delivered]: 1 (passed 0, failed 1", 2)] {
+        let i = lines.iter().position(|l| l.starts_with(&format!("  {col}"))).unwrap_or_else(|| panic!("{col}: {b}"));
+        assert!(lines[i + 1].starts_with(&format!("    05.{nn:02}")), "{col}: {b}");
+    }
+    assert!(b.contains("held by ann | next: ann pushes the work"), "{b}");
+    assert!(b.contains("WAITING CHECK 05.03") && b.contains("CHECKED 05.01: verdict pass by cat"), "{b}");
+}
+
+#[test]
+fn board_attention_puts_person_questions_first_and_the_halt_second() {
+    let e = Env::ready("board-order");
+    e.close_one(1);
+    e.ok(&["elevate", PG, "1", "--to", "prime", "--item", "which path", "--as", "bob"]);
+    e.ok(&["elevate", PG, "1", "--to", "person", "--item", "may we widen", "--as", "pri"]);
+    e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "pri"]);
+    let a = attention_lines(&e.ok(&["board", PG]));
+    assert!(a[0].starts_with("  QUESTION for the person (mat): entry") && a[0].contains("may we widen"), "{a:?}");
+    assert!(a[1].starts_with("  HALTED by pri") && a[1].contains("wf resume"), "{a:?}");
+    assert!(a[2].starts_with("  QUESTION for Prime (pri)") && a[2].contains("which path"), "{a:?}");
+}
+
+#[test]
+fn board_cap_never_cuts_person_questions_or_the_halt() {
+    let e = Env::ready("board-cap");
+    seed_closed_passes(&e, 20);
+    let mut evs = vec![];
+    for i in 0..5 {
+        evs.push(("pri", "prime", "elevate", serde_json::json!({"pass": 20, "to": "person", "item": format!("person q {i}")})));
+    }
+    for i in 0..40 {
+        evs.push(("bob", "builder", "elevate", serde_json::json!({"pass": 20, "to": "prime", "item": format!("prime q {i}")})));
+    }
+    seed(&e, PG, &evs);
+    e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "pri"]);
+    let b = e.ok(&["board", PG]);
+    assert!(b.lines().count() <= 40, "{} lines: {b}", b.lines().count());
+    assert_eq!(b.matches("QUESTION for the person").count(), 5, "{b}");
+    assert!(b.contains("HALTED by pri"), "{b}");
+    let all = e.ok(&["board", PG, "--all"]);
+    let optional = attention_lines(&all).len() - 6;
+    let shown = attention_lines(&b).len() - 6;
+    assert!(b.contains(&format!("not shown: {} attention lines, 3 cards, 17 older closed cards", optional - shown)), "{b}");
+    assert_eq!(all.matches("(closed at entry").count(), 20);
+    assert!(all.contains("footer: nothing cut"), "{all}");
+}
+
+#[test]
+fn board_marks_a_waiting_pass_and_drift_as_stale() {
+    let e = Env::ready("board-stale");
+    e.open("src/a.rs", "true");
+    let now = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs();
+    let (ok, b) = e.wf_at(&["board", PG], Some(now));
+    assert!(ok && !b.contains("STALE"), "{b}");
+    let (ok, b) = e.wf_at(&["board", PG], Some(now + 25 * 3600));
+    assert!(ok && b.contains("(open)  STALE") && b.contains("STALE 05.01: wait: no log entry for 25h (last entry 7; limit 24h)"), "{b}");
+    let (_, b) = e.wf_at(&["board", PG, "--stall-hours", "48"], Some(now + 25 * 3600));
+    assert!(!b.contains("STALE"), "{b}");
+    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "b works too", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a and b.\nDone when: checks pass.", "--as", "pri"]);
+    let b = e.ok(&["board", PG, "--card", "1"]);
+    assert!(b.contains("drift: packed against face 04 entry 2; face 04 is now entry 8"), "{b}");
+    assert!(b.contains("drift: packed against face 01 v1 entry 3; face 01 is now v2 entry 9"), "{b}");
+}
+
+#[test]
+fn board_marks_an_old_check_and_an_old_signoff() {
+    let e = Env::checked("board-oldcheck");
+    let c = e.ok(&["board", PG, "--card", "1"]);
+    assert!(c.contains("stale:      none found in the log"), "{c}");
+    // A later return on another commit: the commands cannot reach this today, so it is seeded.
+    seed(&e, PG, &[("bob", "builder", "return", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "file": "f", "jobs": {"w01": "done - again"}}))]);
+    let b = e.ok(&["board", PG]);
+    assert!(b.contains("old check: check entry 9 was on commit"), "{b}");
+    assert!(b.contains("the latest return (entry 10) is commit dddddddddddd"), "{b}");
+
+    let e = Env::checked("board-oldsign");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a, new.\nDone when: checks pass.", "--as", "pri"]);
+    let b = e.ok(&["board", PG]);
+    assert!(b.contains("old signoff: face 01 changed at entry 11, after the signoff entry 10"), "{b}");
+}
+
+#[test]
+fn board_prints_from_the_log_over_a_hand_edit() {
+    let e = Env::checked("board-edit");
+    let face = e.page().join("05.md");
+    let mut t = fs::read_to_string(&face).unwrap();
+    t.push_str("hand edit\n");
+    fs::write(&face, &t).unwrap();
+    let before = sha_map(&e.page());
+    let b = e.ok(&["board", PG]);
+    assert!(b.contains("VIEWS DIFFER from the log") && b.contains("05.md") && b.contains("the log wins; run wf verify 1.2.3.4 --fix"), "{b}");
+    assert!(b.contains("Checked [QC done]: 1"), "{b}");
+    assert_eq!(sha_map(&e.page()), before);
+    assert_eq!(fs::read_to_string(&face).unwrap(), t);
+}
+
+#[test]
+fn board_escapes_hostile_log_text_everywhere() {
+    let e = Env::ready("board-esc");
+    e.open("src/", "true");
+    let name = format!("{PG}.05.01");
+    let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
+    let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
+    e.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
+    let game = e.root.join("game");
+    fs::write(game.join("src/a.rs"), "a = 2\n").unwrap();
+    fs::write(game.join("src/x\u{1b}y\u{202e}z\u{2028}w.rs"), "plant\n").unwrap();
+    fs::create_dir_all(game.join(".workshop/returns")).unwrap();
+    let ret = format!("pack: {hash}\ndone: plant\nchanged: names\nnoticed: none\nw01: need - x\u{1b}[2K\r  next: draft\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
+    e.git(&["add", "-A"]);
+    e.git(&["commit", "-q", "-m", "work"]);
+    let sha = e.git(&["rev-parse", "HEAD"]);
+    e.git(&["checkout", "-q", "main"]);
+    assert!(e.ret(1, &sha, "bob").0);
+    // Old log entries written before the input check: hostile names and items.
+    let bad = "q\u{85}r\u{e0001}s\u{3164}t\u{2028}u\u{202e}v";
+    seed(&e, PG, &[
+        (bad, "prime", "elevate", serde_json::json!({"pass": 1, "to": "person", "item": bad})),
+        ("wf", "tool", "return-refused", serde_json::json!({"pass": 1, "by": bad, "commit": "c", "why": format!("bad file src/\u{1b}]0;title\u{7}.rs {bad}")})),
+    ]);
+    let out = [e.ok(&["board", PG]), e.ok(&["board", PG, "--all"]), e.ok(&["board", PG, "--card", "1"]), e.ok(&["board"])].concat();
+    for c in ['\u{1b}', '\r', '\u{7}', '\u{2028}', '\u{85}', '\u{202e}', '\u{e0001}', '\u{3164}'] {
+        assert!(!out.contains(c), "raw U+{:04X} in board output: {out}", c as u32);
+    }
+    for want in ["\\u{1b}[2K\\u{d}", "\\u{202e}", "\\u{2028}", "\\u{85}", "\\u{e0001}", "\\u{3164}", "\\u{1b}]0;title\\u{7}"] {
+        assert!(out.contains(want), "missing {want}: {out}");
+    }
+    assert!(!out.lines().any(|l| l.trim() == "next: draft"), "{out}");
+}
+
+#[test]
+fn board_card_names_evidence_paths_that_exist() {
+    let e = Env::checked("board-card");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    let c = e.ok(&["board", PG, "--card", "01"]);
+    let files: Vec<&str> = c.lines().filter_map(|l| l.trim().strip_prefix("file:")).map(|f| f.trim()).collect();
+    assert_eq!(files.len(), 4, "{c}");
+    assert!(files.iter().any(|f| f.ends_with("05.01/PACK.md")), "{c}");
+    for f in files {
+        assert!(e.root.join(f).is_file(), "{f} does not exist: {c}");
+    }
+    assert!(e.root.join("pages").join(PG).join("05.md").is_file());
+    for want in ["report:   pages/1.2.3.4/05.md section \"## 05.01\"", "record:   pages/1.2.3.4/05.md section \"## 05.01\"",
+                 "open:     git -C game show", ":.workshop/returns/1.2.3.4.05.01.md", "close:      entry", "signoff:    entry", "links printed, not checked"] {
+        assert!(c.contains(want), "missing {want}: {c}");
+    }
+    let open = e.ok(&["board", PG, "--card", "05.01"]);
+    assert_eq!(open, c, "--card 05.01 and --card 01 are the same card");
+    for card in [c, Env::ready("board-card-draft").card_of_a_draft()] {
+        for l in card.lines() {
+            assert!(names_source(l), "card line names no path, command or log entry: {l}\n{card}");
+        }
+    }
+}
+
+/// A card line names a path (pages/...), a command (git -C, wf ...) or a log entry number.
+fn names_source(l: &str) -> bool {
+    let entry = ["entry ", "entries "].iter().any(|w| l.match_indices(w).any(|(i, _)| l[i + w.len()..].starts_with(|c: char| c.is_ascii_digit())));
+    entry || l.contains("pages/") || l.contains("git -C ") || l.contains("wf ")
+}
+
+impl Env {
+    fn card_of_a_draft(&self) -> String {
+        self.draft_jobs("src/a.rs", "true", "w01: set a\nw02: set b");
+        self.ok(&["board", PG, "--card", "1"])
+    }
+}
+
+/// Write a log with a valid chain by hand (an old or foreign log the tool did not write).
+/// `time` None leaves out time_s.
+fn write_log(dir: &PathBuf, evs: &[(&str, serde_json::Value, Option<u64>)]) {
+    use sha2::{Digest, Sha256};
+    fs::create_dir_all(dir).unwrap();
+    let (mut prev, mut text) = ("0".to_string(), String::new());
+    for (i, (kind, data, time)) in evs.iter().enumerate() {
+        let mut v = serde_json::json!({"seq": i + 1, "actor": "pri", "role": "prime", "kind": kind, "data": data, "prev": prev});
+        if let Some(t) = time {
+            v["time_s"] = serde_json::json!(t);
+        }
+        let line = v.to_string();
+        prev = Sha256::digest(line.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        text += &line;
+        text.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), text).unwrap();
+}
+
+fn init_data(addr: &str) -> serde_json::Value {
+    serde_json::json!({"address": addr, "title": "foreign", "person": "mat", "prime": "pri", "grant": ["src/"], "grant_ref": "t1"})
+}
+
+/// Must-fix 1: an entry for a never-drafted pass is an error, not a panic, everywhere.
+#[test]
+fn entry_for_a_missing_pass_is_unreadable_not_a_panic() {
+    let e = Env::ready("board-nopass");
+    let bad = e.root.join("pages/1.2.3.8");
+    write_log(&bad, &[("init", init_data("1.2.3.8"), Some(1)), ("claim", serde_json::json!({"pass": 3}), Some(2)),
+                      ("close", serde_json::json!({"pass": 3, "outcome": "passed"}), Some(3))]);
+    let bin = env!("CARGO_BIN_EXE_wf");
+    for args in [vec!["board", "1.2.3.8"], vec!["board", "1.2.3.8", "--card", "3"], vec!["status", "1.2.3.8"], vec!["observe", "1.2.3.8"], vec!["verify", "1.2.3.8"]] {
+        let o = Command::new(bin).env("WF_ROOT", &e.root).args(&args).output().unwrap();
+        let err = String::from_utf8_lossy(&o.stderr);
+        assert_eq!(o.status.code(), Some(1), "{args:?} must refuse, not panic: {err}");
+        assert!(err.contains("log entry 2 is a claim for pass 3, which was never drafted"), "{args:?}: {err}");
+        assert!(!err.contains("panicked"), "{args:?}: {err}");
+    }
+    let b = e.ok(&["board"]);
+    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is a claim for pass 3, which was never drafted"), "{b}");
+    assert!(b.contains("  1.2.3.4  t  entries 4"), "the other page still shows: {b}");
+}
+
+/// Also-fix 4 and 7: no time_s reads as unknown age and never stale; an empty log is unreadable.
+#[test]
+fn board_handles_a_log_without_times_and_an_empty_log() {
+    let e = Env::ready("board-notime");
+    let dir = e.root.join("pages/1.2.3.9");
+    write_log(&dir, &[("init", init_data("1.2.3.9"), None), ("draft", serde_json::json!({"pass": 1, "fields": {"outcome": "o"}, "pins": {}}), None),
+                      ("pack", serde_json::json!({"pass": 1, "pack_text": "p", "pack_hash": "h", "templates": "2", "sources": {}}), None),
+                      ("claim", serde_json::json!({"pass": 1}), None)]);
+    let far = 4_000_000_000u64;
+    let (ok, b) = e.wf_at(&["board", "1.2.3.9", "--stall-hours", "0"], Some(far));
+    assert!(ok, "{b}");
+    assert!(b.contains("age unknown (no time in the log)") && b.contains("last entry unknown (no time in the log)"), "{b}");
+    assert!(!b.contains("STALE") && !b.contains("stalled") && !b.contains("h |"), "{b}");
+    let (ok, c) = e.wf_at(&["board", "1.2.3.9", "--card", "1"], Some(far));
+    assert!(ok && c.contains("age:        unknown (no time in the log) since entry 4"), "{c}");
+    let (_, ob) = e.wf_at(&["observe", "1.2.3.9", "--stall-hours", "0"], Some(far));
+    assert!(!ob.contains("stalled"), "{ob}");
+    let empty = e.root.join("pages/1.2.3.7");
+    fs::create_dir_all(&empty).unwrap();
+    fs::write(empty.join("log.jsonl"), "").unwrap();
+    e.no(&["board", "1.2.3.7"], "page 1.2.3.7 is unreadable: the log is empty (no init entry)");
+    let book = e.ok(&["board"]);
+    assert!(book.contains("  1.2.3.7  unreadable: the log is empty (no init entry)"), "{book}");
+    assert!(!book.lines().any(|l| l.starts_with("    ") || l.starts_with("   (")), "{book}");
+}
+
+/// Also-fix 6: unknown flags and extra arguments are refused; the book board refuses --card.
+#[test]
+fn board_refuses_unknown_flags_and_extra_arguments() {
+    let e = Env::ready("board-flags");
+    let before = sha_map(&e.page());
+    e.no(&["board", PG, "--as", "pri"], "wf board takes only --all, --card NN and --stall-hours H, not --as");
+    e.no(&["board", PG, "--cards", "1"], "not --cards");
+    e.no(&["board", PG, "1"], "at most one page, got 2 arguments");
+    e.no(&["board", "--card", "1"], "the book board has no cards");
+    e.no(&["board", "--all", PG], "--all takes no value");
+    e.no(&["board", PG, "--card", "05.x"], "--card needs a pass number like 4, 04 or 05.04");
+    assert_eq!(sha_map(&e.page()), before);
+}
+
+#[test]
+fn book_board_lists_pages_and_shows_an_unreadable_one() {
+    let e = Env::ready("board-book");
+    e.ok(&["init-page", "1.2.3.5", "--title", "second", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
+    fs::create_dir_all(e.root.join("pages/1.2.3.6")).unwrap();
+    fs::write(e.root.join("pages/1.2.3.6/log.jsonl"), "not json\n{}\n").unwrap();
+    fs::create_dir_all(e.root.join("pages/1.2.3.7")).unwrap();
+    let (ok, b) = e.wf(&["board"]);
+    assert!(ok, "{b}");
+    assert!(b.contains("BOOK BOARD  4 pages under"), "{b}");
+    assert!(b.contains("  1.2.3.4  t  entries 4"), "{b}");
+    assert!(b.contains("  1.2.3.5  second  entries 1"), "{b}");
+    assert!(b.contains("  1.2.3.6  unreadable: log line 1 is not JSON"), "{b}");
+    assert!(b.contains("  1.2.3.7  unreadable: no log.jsonl"), "{b}");
+}
+
+/// Tests 11 and 12: copies of the three real pages print, every hash stays the same,
+/// and the default 90.10 board is 40 lines or fewer.
+#[test]
+fn board_on_real_pages_is_read_only_and_short() {
+    let Some(src) = real_pages_dir() else {
+        eprintln!("skipping board_on_real_pages_is_read_only_and_short: real pages not found at ../pages or /workspace/workshop-build/wf-run/pages");
+        return;
+    };
+    let root = std::env::temp_dir().join(format!("wf-test-{}-board-real", std::process::id()));
+    let _ = fs::remove_dir_all(&root);
+    let addrs = ["90.10.00.0001", "90.20.00.0001", "90.30.00.0001"];
+    for addr in addrs {
+        copy_dir(&src.join(addr), &root.join("pages").join(addr));
+    }
+    let before = sha_map(&root.join("pages"));
+    let bin = env!("CARGO_BIN_EXE_wf");
+    let run = |args: &[&str]| {
+        let o = Command::new(bin).env("WF_ROOT", &root).args(args).output().unwrap();
+        let out = format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr));
+        assert!(o.status.success(), "{args:?}: {out}");
+        out
+    };
+    for addr in addrs {
+        let b = run(&["board", addr]);
+        assert!(b.starts_with(&format!("BOARD  page {addr}")), "{b}");
+        assert!(!b.contains("VIEWS"), "{addr}: {b}");
+        run(&["board", addr, "--all"]);
+        let card = run(&["board", addr, "--card", "05.01"]);
+        assert!(card.lines().all(names_source), "{addr}: {card}");
+    }
+    let short = run(&["board", "90.10.00.0001"]);
+    assert!(short.lines().count() <= 40, "{} lines: {short}", short.lines().count());
+    assert!(run(&["board"]).contains("BOOK BOARD  3 pages"));
+    assert_eq!(sha_map(&root.join("pages")), before, "the board changed a real page file");
+    let _ = fs::remove_dir_all(&root);
+}
