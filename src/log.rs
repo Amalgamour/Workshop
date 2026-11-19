@@ -122,8 +122,26 @@ fn write_record(w: &mut impl Write, line: &str) -> std::io::Result<()> {
 fn sync_dir(dir: &Path) -> Res<()> {
     #[cfg(test)]
     SYNC_DIR_COUNT.with(|n| n.set(n.get() + 1));
-    let f = fs::File::open(dir).map_err(|e| format!("cannot sync {}: {e}", dir.display()))?;
-    f.sync_all().map_err(|e| format!("cannot sync {}: {e}", dir.display()))
+    #[cfg(unix)]
+    {
+        // Linux fsync of the directory. File::open on a folder works here.
+        let f = fs::File::open(dir).map_err(|e| format!("cannot sync {}: {e}", dir.display()))?;
+        f.sync_all().map_err(|e| format!("cannot sync {}: {e}", dir.display()))
+    }
+    #[cfg(windows)]
+    {
+        use std::os::windows::fs::OpenOptionsExt;
+        // A directory handle needs this flag. sync_all is FlushFileBuffers, which needs write access.
+        const FILE_FLAG_BACKUP_SEMANTICS: u32 = 0x02000000;
+        let f = OpenOptions::new()
+            .write(true)
+            .custom_flags(FILE_FLAG_BACKUP_SEMANTICS)
+            .open(dir)
+            .map_err(|e| format!("cannot sync {}: {e}", dir.display()))?;
+        f.sync_all().map_err(|e| format!("cannot sync {}: {e}", dir.display()))
+    }
+    #[cfg(not(any(unix, windows)))]
+    compile_error!("sync_dir must fsync the directory; this target is neither unix nor windows");
 }
 
 #[cfg(test)]
@@ -211,5 +229,38 @@ mod tests {
         let text = fs::read_to_string(&path).unwrap();
         assert!(text.ends_with('\n') && text.matches('\n').count() == 2, "{text:?}");
         let _ = fs::remove_dir_all(&d);
+    }
+
+    /// The Windows checker reads this file and sees the Linux fsync was not removed.
+    #[test]
+    fn sync_dir_source_keeps_unix_fsync_and_windows_does_not_use_file_open() {
+        let src = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/log.rs"));
+        let start = src.find("fn sync_dir").expect("sync_dir");
+        let rest = &src[start..];
+        let end = rest.find("\n#[cfg(test)]").expect("end of sync_dir");
+        let body = &rest[..end];
+        let unix = cfg_block(body, "#[cfg(unix)]");
+        let windows = cfg_block(body, "#[cfg(windows)]");
+        assert!(unix.contains("fs::File::open") && unix.contains("sync_all"), "unix branch:\n{unix}");
+        assert!(!windows.contains("fs::File::open") && windows.contains("sync_all"), "windows branch:\n{windows}");
+    }
+
+    fn cfg_block<'a>(src: &'a str, marker: &str) -> &'a str {
+        let i = src.find(marker).unwrap_or_else(|| panic!("missing {marker}"));
+        let brace = src[i + marker.len()..].find('{').unwrap() + i + marker.len();
+        let mut depth = 0;
+        for (j, c) in src[brace..].char_indices() {
+            match c {
+                '{' => depth += 1,
+                '}' => {
+                    depth -= 1;
+                    if depth == 0 {
+                        return &src[brace..=brace + j];
+                    }
+                }
+                _ => {}
+            }
+        }
+        panic!("unclosed {marker}");
     }
 }
