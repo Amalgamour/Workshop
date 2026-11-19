@@ -1085,3 +1085,53 @@ numbers (Q12), stages that need stage 2 (Q13), one-job rule only in a draft, fil
 expected not proven, no hostile pass yet.
 
 v-note (2026-11-19, 2:16 PM EST, Designer): 0403 is closed passed (packs 3313938c, page log entry 12; returns c09fa60c, code d9110934; 48 unit and 138 e2e tests pass at c09fa60c, run by Designer). The 0701 pass 1 hold is lifted; 0404 stays on hold until 0701.05.01 closes.
+
+## 14. v6 (2026-11-19, 2:27 PM EST, Designer): page 0413, the work order view (t436u, t438u)
+
+Additions only; sections 1-13 stand as written (Axioms.md:23).
+
+Matthew's words: t436u (docs/review/DIRECTOR-WORDS-t436u.md:9) "IT's one evolving
+document that starts with my words, your lead formatting into a framed piece of work to
+the worker building it." t438u (DIRECTOR-WORDS-t437-t438u.md:7) "A work order can be
+broken into sections with fields, some once created can't be changed, others filled in by
+different parties in the chain of work." Design: docs/design/PASS-RECORD-t436u.md.
+
+### 14.1 Page
+
+| Page | Title | May change | Size (b/l/w) | MVP goal (done-when) |
+|---|---|---|---|---|
+| 0413 | work order view: 05.NN reads as one record | src/render.rs | 1/2/3 | wf prints pages/<page>/05.NN/WORK-ORDER.md from the log, sections in order (words, frame, claim, return, check, signoff, close, notes), packed files unchanged, old pages still work; trial in lab 0701 (tests/lab_0413.rs, 1/1/2) |
+
+Why 0413: 0405, 0410 and 0497 stay unused (11.4, 12.5, 13.4; DIRECTOR-RULINGS.md:129-130);
+0413 is the next slot after 0412 and was never planned in this book.
+
+### 14.2 Needs, both ways
+
+| Page | Needs | Needed by |
+|---|---|---|
+| 0413 | 0701 (pass 1, and its trial to close) | 0498; 0701 lists it under "serves" after 0701.05.01 closes |
+| 0498 | adds 0413 | none |
+
+### 14.3 Waves (strict, t432.md:11)
+
+0413 changes only src/render.rs, so it is not in the src/cmd.rs queue. render.rs is held
+by 0404 (waves 2-3), 0407 (waves 4-5) and 0406 (waves 8-9). It is free in waves 6-7:
+
+| Wave | Runs |
+|---|---|
+| 6 | 0409, 0413 |
+| 7 | trials 0409, 0413 |
+
+Other waves unchanged; still 15. Placing it before 0404 (Prima's other option) would add
+two waves, because 0404 also changes src/render.rs.
+
+Totals: work pages 10/19/29; lab 0701 11/12/23; stage 21/31/52 passes, plus 0403.
+
+### 14.4 Question (new)
+
+Q14, how a work order starts with Matthew's words: PASS-RECORD-t436u.md section 8.
+Default: Prime quotes his words with file, line and commit in the draft's words: field.
+
+v-note (2026-11-19, 2:27 PM EST, Designer): plan v6 adds page 0413 (work order view) at wave 6
+beside 0409; no wave added; t436u and t438u; 0701.05.01 packed and published (packs
+b57cfdd2), so the lab now has a real packed pass.
