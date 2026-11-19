@@ -163,9 +163,28 @@ fn repo(root: &Path, x: &Pass) -> PathBuf {
     root.join(x.fields.get("repo").and_then(|v| v.as_str()).unwrap_or("."))
 }
 
+/// `--system` together with `--system-ref` skips the work-address rules.
+/// `--system` alone is refused. A ref without `--system` does not skip them.
+fn system_ref(a: &Args) -> Res<Option<String>> {
+    if a.flag("system").is_none() {
+        return Ok(None);
+    }
+    match a.flag("system-ref").map(str::trim).filter(|s| !s.is_empty()) {
+        Some(r) => {
+            check_text(r, "system-ref")?;
+            Ok(Some(r.to_string()))
+        }
+        None => Err("refused: --system needs --system-ref tNNNu".into()),
+    }
+}
+
 pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)> {
     let addr = a.pos.first().ok_or("give a page address")?;
     check_addr(addr)?;
+    let system_ref = system_ref(a)?;
+    if system_ref.is_none() {
+        crate::addr::check_work(addr)?;
+    }
     let person = a.req("person")?;
     check_text(person, "person")?;
     need(who == person, "refused: the person starts their own page (--as must match --person)")?;
@@ -182,8 +201,11 @@ pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     let lock = crate::Lock::take(&dir)?;
     need(!dir.join("log.jsonl").exists(), format!("refused: page {addr} already exists"))?;
-    let data = json!({"address": addr, "title": title, "person": person, "prime": prime,
+    let mut data = json!({"address": addr, "title": title, "person": person, "prime": prime,
                       "grant": grant, "grant_ref": grant_ref});
+    if let Some(r) = system_ref {
+        data["system_ref"] = json!(r);
+    }
     crate::log::append(&dir.join("log.jsonl"), "0", 1, who, "person", "init", data)?;
     Ok((dir, lock))
 }

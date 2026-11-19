@@ -2,6 +2,7 @@
 //! The log (pages/<page>/log.jsonl) is the only truth; every other page file is a view
 //! printed from it. People and models never edit page files; they run wf.
 
+mod addr;
 mod board;
 mod chars;
 mod cmd;
@@ -19,7 +20,7 @@ use std::time::{Duration, Instant};
 
 const HELP: &str = "wf - Workshop workflow tool (see README.md)
 Every command that writes needs --as <name> (or set WF_AS).
-  init-page <page> --title T --person P --prime L --grant \"src/,tests/x.rs\" --grant-ref t300u
+  init-page <page> --title T --person P --prime L --grant \"src/,tests/x.rs\" --grant-ref t300u [--system --system-ref tNNNu]
   set-prime <page> <name> --ref tNNNu         person or current prime
   grant <page> --paths \"a,b\" --ref t301u [--answers <entry>]   person
   face-write <page> <01|02|04|06|08> --text T | --file F [--section goals|decisions|responses]

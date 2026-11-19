@@ -5,7 +5,7 @@ use std::os::unix::fs::{self as unix_fs, MetadataExt, PermissionsExt};
 use std::path::PathBuf;
 use std::process::Command;
 
-const PG: &str = "1.2.3.4";
+const PG: &str = "10.10.10.0401";
 
 struct Env {
     root: PathBuf,
@@ -180,7 +180,7 @@ fn full_pass_closes_with_a_record() {
     assert!(st.contains("05.01  closed   passed"), "{st}");
     assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
     let face05 = fs::read_to_string(e.page().join("05.md")).unwrap();
-    assert!(face05.contains("close record 1.2.3.4.05.01"));
+    assert!(face05.contains("close record 10.10.10.0401.05.01"));
 }
 
 #[test]
@@ -188,11 +188,11 @@ fn pack_prints_prompt_and_pins_axioms_and_design() {
     let e = Env::ready("pack");
     e.draft("src/a.rs", "true");
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
-    assert!(out.contains("=== WORKSHOP JOB 1.2.3.4.05.01 ===") && out.contains("May touch: src/a.rs"));
+    assert!(out.contains("=== WORKSHOP JOB 10.10.10.0401.05.01 ===") && out.contains("May touch: src/a.rs"));
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     assert!(agents.contains("kit docs/AXIOMS.md") && agents.contains("kit docs/DESIGN.md") && agents.contains("sha256 "), "{agents}");
     // v3 (t379u): the goal is reached through link 1 and printed in the job box, not in AGENTS.md.
-    assert!(agents.contains("| 1 | face 01, goal and done-when | pages/1.2.3.4/log.jsonl entry 3, face 01 v1 text (01.md is its view) |"), "{agents}");
+    assert!(agents.contains("| 1 | face 01, goal and done-when | pages/10.10.10.0401/log.jsonl entry 3, face 01 v1 text (01.md is its view) |"), "{agents}");
     assert!(out.contains("Goal (face 01):\nGoal: a."), "{out}");
     assert!(!agents.contains("cold set") && !agents.contains("Axioms named by this pack"), "{agents}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
@@ -870,11 +870,11 @@ fn return_refuses_a_rename_out_of_scope() {
 fn return_keeps_git_letters_and_prints_them_as_evidence() {
     let e = Env::checked("gitlist");
     let face05 = fs::read_to_string(e.page().join("05.md")).unwrap();
-    assert!(face05.contains("git: A .workshop/returns/1.2.3.4.05.01.md, M src/a.rs"), "{face05}");
+    assert!(face05.contains("git: A .workshop/returns/10.10.10.0401.05.01.md, M src/a.rs"), "{face05}");
     assert!(face05.contains("changed: modify src/a.rs"), "{face05}");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
-    assert!(rec.contains("git: A .workshop/returns/1.2.3.4.05.01.md, M src/a.rs"), "{rec}");
+    assert!(rec.contains("git: A .workshop/returns/10.10.10.0401.05.01.md, M src/a.rs"), "{rec}");
 }
 
 #[test]
@@ -1195,12 +1195,12 @@ fn halted_page_shows_in_status_and_stops_draft_pack_claim() {
     e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "pri"]);
     let st = e.ok(&["status", PG]);
     assert!(st.contains("halted:  by pri at ") && st.contains("wait for Matthew (t301u)"), "{st}");
-    assert!(st.contains("next:    halted. Prime (pri) or the person (mat) resumes it: wf resume 1.2.3.4 --note"), "{st}");
+    assert!(st.contains("next:    halted. Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401 --note"), "{st}");
     let f = e.root.join("pack.txt");
     let before = e.log();
     for args in [vec!["draft", PG, "--pass", "1", "--file", f.to_str().unwrap(), "--as", "pri"], vec!["pack", PG, "1", "--as", "pri"], vec!["claim", PG, "1", "--as", "bob"]] {
-        e.no(&args, "refused: page 1.2.3.4 is halted (by pri, entry ");
-        e.no(&args, "Prime (pri) or the person (mat) resumes it: wf resume 1.2.3.4");
+        e.no(&args, "refused: page 10.10.10.0401 is halted (by pri, entry ");
+        e.no(&args, "Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401");
     }
     assert_eq!(e.log(), before, "refusals on a halted page must not append");
     let later = e.wf_at(&["observe", PG], Some(4_000_000_000)).1;
@@ -1224,18 +1224,18 @@ fn draft_is_refused_while_an_earlier_pass_is_not_closed() {
         assert_eq!(e.log(), before, "a refused draft must not append");
     };
     e.draft("src/a.rs", "true");
-    refused("draft", "Next for 05.01: Prime releases it: wf pack 1.2.3.4 1, or redraft it: wf draft 1.2.3.4 --pass 1");
+    refused("draft", "Next for 05.01: Prime releases it: wf pack 10.10.10.0401 1, or redraft it: wf draft 10.10.10.0401 --pass 1");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
-    refused("pack", "Next for 05.01: a builder claims it: wf claim 1.2.3.4 1");
+    refused("pack", "Next for 05.01: a builder claims it: wf claim 10.10.10.0401 1");
     e.ok(&["claim", PG, "1", "--as", "bob"]);
-    refused("open", "Next for 05.01: bob pushes the work, then wf return 1.2.3.4 1");
+    refused("open", "Next for 05.01: bob pushes the work, then wf return 10.10.10.0401 1");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
-    refused("return", "Next for 05.01: a checker (not the builder) runs wf check 1.2.3.4 1");
+    refused("return", "Next for 05.01: a checker (not the builder) runs wf check 10.10.10.0401 1");
     e.ok(&["check", PG, "1", "--as", "cat"]);
-    refused("review", "Next for 05.01: Prime (pri) reads the check report, then wf signoff 1.2.3.4 1");
+    refused("review", "Next for 05.01: Prime (pri) reads the check report, then wf signoff 10.10.10.0401 1");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    refused("review", "Next for 05.01: wf close 1.2.3.4 1");
+    refused("review", "Next for 05.01: wf close 10.10.10.0401 1");
     e.ok(&["close", PG, "1", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     assert!(e.ok(&["draft", PG, "--file", &file, "--as", "pri"]).contains("drafted 05.02"));
@@ -1500,7 +1500,7 @@ fn printed_fields_refuse_every_unsafe_char_class() {
         let planted = format!("x{ch}y");
         e.no(&["halt", PG, "--note", "wait (t1)", "--as", &planted], "--as cannot contain control characters");
         e.no(
-            &["init-page", "9.9.9.9", "--title", &planted, "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"],
+            &["init-page", "10.10.10.0403", "--title", &planted, "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"],
             "--title cannot contain control characters",
         );
         e.no(&["halt", PG, "--note", &format!("wait{ch} (t1)"), "--as", "pri"], "--note cannot contain control characters");
@@ -1768,7 +1768,7 @@ fn board_prints_from_the_log_over_a_hand_edit() {
     fs::write(&face, &t).unwrap();
     let before = sha_map(&e.page());
     let b = e.ok(&["board", PG]);
-    assert!(b.contains("VIEWS DIFFER from the log") && b.contains("05.md") && b.contains("the log wins; run wf verify 1.2.3.4 --fix"), "{b}");
+    assert!(b.contains("VIEWS DIFFER from the log") && b.contains("05.md") && b.contains("the log wins; run wf verify 10.10.10.0401 --fix"), "{b}");
     assert!(b.contains("Checked [QC done]: 1"), "{b}");
     assert_eq!(sha_map(&e.page()), before);
     assert_eq!(fs::read_to_string(&face).unwrap(), t);
@@ -1820,8 +1820,8 @@ fn board_card_names_evidence_paths_that_exist() {
         assert!(e.root.join(f).is_file(), "{f} does not exist: {c}");
     }
     assert!(e.root.join("pages").join(PG).join("05.md").is_file());
-    for want in ["report:   pages/1.2.3.4/05.md section \"## 05.01\"", "record:   pages/1.2.3.4/05.md section \"## 05.01\"",
-                 "open:     git -C game show", ":.workshop/returns/1.2.3.4.05.01.md", "close:      entry", "signoff:    entry", "links printed, not checked"] {
+    for want in ["report:   pages/10.10.10.0401/05.md section \"## 05.01\"", "record:   pages/10.10.10.0401/05.md section \"## 05.01\"",
+                 "open:     git -C game show", ":.workshop/returns/10.10.10.0401.05.01.md", "close:      entry", "signoff:    entry", "links printed, not checked"] {
         assert!(c.contains(want), "missing {want}: {c}");
     }
     let open = e.ok(&["board", PG, "--card", "05.01"]);
@@ -1889,7 +1889,7 @@ fn entry_for_a_missing_pass_is_unreadable_not_a_panic() {
     }
     let b = e.ok(&["board"]);
     assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is out of order: a claim for 05.03, which was never drafted"), "{b}");
-    assert!(b.contains("  1.2.3.4  t  entries 4"), "the other page still shows: {b}");
+    assert!(b.contains("  10.10.10.0401  t  entries 4"), "the other page still shows: {b}");
 }
 
 /// Also-fix 4 and 7: no time_s reads as unknown age and never stale; an empty log is unreadable.
@@ -1935,15 +1935,15 @@ fn board_refuses_unknown_flags_and_extra_arguments() {
 #[test]
 fn book_board_lists_pages_and_shows_an_unreadable_one() {
     let e = Env::ready("board-book");
-    e.ok(&["init-page", "1.2.3.5", "--title", "second", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
+    e.ok(&["init-page", "10.10.10.0402", "--title", "second", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
     fs::create_dir_all(e.root.join("pages/1.2.3.6")).unwrap();
     fs::write(e.root.join("pages/1.2.3.6/log.jsonl"), "not json\n{}\n").unwrap();
     fs::create_dir_all(e.root.join("pages/1.2.3.7")).unwrap();
     let (ok, b) = e.wf(&["board"]);
     assert!(ok, "{b}");
     assert!(b.contains("BOOK BOARD  4 pages under"), "{b}");
-    assert!(b.contains("  1.2.3.4  t  entries 4"), "{b}");
-    assert!(b.contains("  1.2.3.5  second  entries 1"), "{b}");
+    assert!(b.contains("  10.10.10.0401  t  entries 4"), "{b}");
+    assert!(b.contains("  10.10.10.0402  second  entries 1"), "{b}");
     assert!(b.contains("  1.2.3.6  unreadable: log line 1 is not JSON"), "{b}");
     assert!(b.contains("  1.2.3.7  unreadable: no log.jsonl"), "{b}");
 }
@@ -2074,7 +2074,7 @@ fn wrong_order_entries_make_the_page_unreadable() {
     let (code, out) = run_code(&e, &["verify", "8.0.2.0"]);
     assert!(code == Some(1) && out.contains("log entry 1 is out of order: the first entry is a draft, not the init"), "{out}");
     let book = e.ok(&["board"]);
-    assert!(book.contains("  8.0.0.1  unreadable: log entry 5 is out of order") && book.contains("  1.2.3.4  t  entries 4"), "{book}");
+    assert!(book.contains("  8.0.0.1  unreadable: log entry 5 is out of order") && book.contains("  10.10.10.0401  t  entries 4"), "{book}");
     // The full chain itself loads.
     forged(&e, "8.1.0.0", full);
     let (code, out) = run_code(&e, &["status", "8.1.0.0"]);
@@ -2219,7 +2219,7 @@ fn check_after_a_signoff_says_signed_off_and_next_close() {
     e.ok(&["check", PG, "1", "--as", "cat"]);
     e.ok(&["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
     let before = e.log();
-    e.no(&["check", PG, "1", "--as", "cat"], "refused: 05.01 was signed off by pri at entry 10 (outcome failed), so it cannot be checked again; nothing was written. Next: wf close 1.2.3.4 1");
+    e.no(&["check", PG, "1", "--as", "cat"], "refused: 05.01 was signed off by pri at entry 10 (outcome failed), so it cannot be checked again; nothing was written. Next: wf close 10.10.10.0401 1");
     assert_eq!(e.log(), before);
     assert!(!e.page().join(".wf-lock").exists());
 }
@@ -2885,7 +2885,7 @@ fn t379u_edited_link_target_is_invalid() {
     });
     let (code, out) = run_code(&e, &["verify", PG]);
     assert_eq!(code, Some(1), "{out}");
-    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: link 1 (pages/1.2.3.4/log.jsonl entry 3, face 01 v1 text (01.md is its view)) points to changed or missing work"), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: link 1 (pages/10.10.10.0401/log.jsonl entry 3, face 01 v1 text (01.md is its view)) points to changed or missing work"), "{out}");
     let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains("refused to reprint") && out.contains("link 1"), "{out}");
@@ -3088,11 +3088,72 @@ fn t401u_pack_on_the_shared_branch_prints_one_builder_prompt() {
     let pk = pack_of(&e, 1);
     assert_eq!(pk["branch"], "returns");
     let b = fs::read_to_string(e.page().join("05.01/BUILDER-PROMPT.md")).unwrap();
-    for want in ["Stage by path only", "Never push to main or packs. Never force push.", "wf.exe claim 1.2.3.4 01",
-        "wf.exe return 1.2.3.4 01", "git -C work switch -c work/1.2.3.4.05.01", "--branch returns --commit (git -C work rev-parse HEAD)", "--push"] {
+    for want in ["Stage by path only", "Never push to main or packs. Never force push.", "wf.exe claim 10.10.10.0401 01",
+        "wf.exe return 10.10.10.0401 01", "git -C work switch -c work/10.10.10.0401.05.01", "--branch returns --commit (git -C work rev-parse HEAD)", "--push"] {
         assert!(b.contains(want), "'{want}' not in {b}");
     }
     assert!(e.ok(&["verify", PG]).contains("every view matches the log"));
     // publish-pack needs the run folder to be a packs checkout.
     e.no(&["publish-pack", PG, "1"], "");
+}
+
+fn init_page(addr: &str) -> Vec<String> {
+    ["init-page", addr, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]
+        .into_iter().map(str::to_string).collect()
+}
+
+#[test]
+fn init_page_address_refuses_each_rule() {
+    let e = Env::new("addr-refuse");
+    let cases = [
+        ("90.50.00.0401", "DD.SS.00 is the shelf's authority book; only the system writes there (t413u)"),
+        ("90.05.10.0401", "00-09 are system-reserved on every axis; work starts at 10 (t413u)"),
+        ("99.50.10.0401", "99 is a pointer to the next location, not work (seqAddr.md:31, :249)"),
+        ("90.99.10.0401", "99 is a pointer to the next location, not work (seqAddr.md:31, :249)"),
+        ("90.50.99.0401", "99 is a pointer to the next location, not work (seqAddr.md:31, :249)"),
+        ("90.50.10.0050", "pages 0000-0099 are reserved (t413u)"),
+        ("90.50.10.0400", "NN00 is the band head, the band's door; work goes on NN01-NN98 (t413u, seqAddr.md:241)"),
+        ("90.50.10.0499", "NN99 is the band's continuation, not work (seqAddr.md:242)"),
+        ("90.50.10.9999", "9999 is the book continuation, not work (seqAddr.md:226)"),
+        ("1.2.3.4", "not a work address DD.SS.BB.PPPP"),
+    ];
+    for (addr, msg) in cases {
+        let args = init_page(addr);
+        let refs: Vec<&str> = args.iter().map(String::as_str).collect();
+        e.no(&refs, msg);
+    }
+}
+
+#[test]
+fn init_page_address_accepts_a_work_page() {
+    let e = Env::new("addr-ok");
+    let args = init_page("90.50.10.0401");
+    let refs: Vec<&str> = args.iter().map(String::as_str).collect();
+    e.ok(&refs);
+}
+
+#[test]
+fn init_page_address_system_records_the_ref_and_the_page_still_reads() {
+    let e = Env::new("addr-system");
+    let addr = "90.50.00.0001";
+    let mut args = init_page(addr);
+    args.insert(args.len() - 2, "--system".into());
+    args.insert(args.len() - 2, "--system-ref".into());
+    args.insert(args.len() - 2, "t413u".into());
+    let refs: Vec<&str> = args.iter().map(String::as_str).collect();
+    e.ok(&refs);
+    let log = fs::read_to_string(e.root.join("pages").join(addr).join("log.jsonl")).unwrap();
+    assert!(log.contains("\"system_ref\":\"t413u\""), "{log}");
+    assert!(e.ok(&["verify", addr]).contains("ok: log chain holds"));
+    assert!(e.ok(&["status", addr]).contains("NOW  page 90.50.00.0001"));
+}
+
+#[test]
+fn init_page_address_system_without_a_ref_is_refused() {
+    let e = Env::new("addr-system-noref");
+    let mut args = init_page("90.50.00.0001");
+    args.insert(args.len() - 2, "--system".into());
+    let refs: Vec<&str> = args.iter().map(String::as_str).collect();
+    e.no(&refs, "refused: --system needs --system-ref tNNNu");
+    assert!(!e.root.join("pages/90.50.00.0001/log.jsonl").exists());
 }
