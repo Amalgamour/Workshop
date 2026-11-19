@@ -167,3 +167,87 @@ workflow-loop.003.md:234-250, the lint table).
 
 Limits: I did not run wf or any tests. Line cites in wf src are at 60dd7e25. Judgement
 items: the temporary-door wording and the copy-vs-share tension.
+
+## Addendum 1 (2026-11-19, 1:27 PM EST, Designer): re-check after the fixes
+
+Date fix: the date line at the top says "about 1:25 PM EST"; v1 was written at 1:20 PM EST.
+v1 above is not changed (Axioms.md:23).
+
+Compared (build HEAD 803cbcd): checklist RELEASE-CHECK.md @ c0e5b22; Axioms.md @ 3291593;
+seqAddr.md @ 3291593; DESIGN.md @ c438459; addr.rs @ 79f12ed; AXIOM-CITE-GRAMMAR-review.md
+@ af51f3e; DIRECTOR-WORDS t416u @ be04bb2, t420 @ 803cbcd; SELF-CHECK-90.50.10.0403-b21.md
+@ 184abb3. wf-run-gh: origin/returns fetched at 1:25 PM EST = 60dd7e254df0.
+Artifacts (untracked, sha256 prefix): 0400/log.jsonl 6168b2253b6c, 0400/01.md ae7931e81ea5;
+0401/log.jsonl 97e6f0009dae; 0402/log.jsonl 9da134cffcbd; 0403/log.jsonl 3ee93090df27,
+0403/05.01/PACK.md b2de54ce03fd, PROMPT.md 0d2cc64d401d, AGENTS.md 7f2ffaaeefb1.
+Log chains: every entry's `prev` is the sha256 of the line before, on all four pages. The
+first lines of 0400 (1-3), 0401 (1-6) and 0402 (1-6) hash to the v1 values above
+(1cc4d90aefae, 440b1e70f2cf, cff83ac99adf), so nothing earlier was rewritten.
+
+New Director words since v1:
+- t416u.md:4 records the fix-plan approval ("1-3 is good, remove the old WF pages, or mark
+  them as retired"). t416u.md:7 records the gate: "Novel work requires additional reviews
+  against design documents for alignement. Must be confirmed before the return is
+  complete. We can't force it but we can force it to confirm it did this via our WF"
+  (spaces shortened).
+- t420.md:4, :6, :10 answer v1 questions: the band head is the band's door; a pack lives on
+  the job page's own face 05; 0020-0099 are system only. t420.md:8 approves a versioned
+  seqAddr.md note. Question 2 (who starts a page) is not answered (t420.md:12, :16).
+
+| Item | Source file:line | Seen in artifact | Result |
+|---|---|---|---|
+| 0400 face 01 v2 appended, v1 kept | Axioms.md:23 | 0400/log.jsonl:4 (new entry, 18:22:07Z); v1 still at log.jsonl:2; 01.md:2 "v2 (entry 4)" | PASS |
+| 0400 says temporary, why, what replaces it | Axioms.md:23, :25 | 0400/01.md:5 (job not packed yet; says it will be named) | PASS |
+| 0400 0401 dropped, 0402 superseded, 0403 live | Axioms.md:27 | 0400/01.md:7, :8, :9 | PASS |
+| 0400 band range stops at 0498 | seqAddr.md:242 | 0400/01.md:4 "0401-0498" | PASS |
+| 0400 "door" wording | t420.md:4 | 0400/01.md:4 | PASS (C1 answered) |
+| 0400 docs/ grant | Axioms.md:13 | 0400/01.md:10 notes it as a tension; still `docs/` (00.md:8) | TENSION (only Matthew can narrow) |
+| 0401 drop note on face 06, kept, not published | Axioms.md:23; DIRECTOR-RULINGS.md:129-130, :153-154 | 0401/06.md:5 (log.jsonl:7); 05.md still `pack`, folder untracked in wf-run-gh | PASS |
+| 0402 drop note on face 06, kept, not published | same | 0402/06.md:5 (log.jsonl:7); 05.md still `pack`; folder untracked | PASS |
+| A1-A4, A7, A8 for 0403 | t413u.md:7, :9; seqAddr.md:14, :30 | 0403/00.md:1 90.50.10.0403 | PASS |
+| A5, A6, A9 for 0403: inside band 0400, not NN00, not PP99, not 9999 | t413u.md:9; seqAddr.md:241-242 | 0403 in 0401-0498 | PASS |
+| Pack lives on the job page's own 05 | t420.md:6 | 0403/05.md:4 | PASS (C2 answered) |
+| Pack hash matches log | t373u.md:3 | sha256 PACK.md b2de54ce03fd = log.jsonl:6 pack_hash; AGENTS.md 7f2ffaaeefb1 = PROMPT.md:6 | PASS |
+| Start is the tip of origin/returns | 0403/06.md:4 | PACK.md:8 60dd7e25 = `git rev-parse origin/returns` after fetch | PASS |
+| w01 refuses 99 on desk, shelf, book | seqAddr.md:31, :39, :249; addr.rs:186-187, :208 | PACK.md:16 "99 on any axis" | PASS |
+| w01 refuses PP99 and 9999 (9999 first) | seqAddr.md:226, :242; addr.rs:246, :248 | PACK.md:16 | PASS |
+| w03 tests each 99 case | RELEASE-CHECK.md v2 A9 | PACK.md:18: 99.50.10.0401, 90.99.10.0401, 90.50.99.0401, 90.50.10.0499, 90.50.10.9999 | PASS |
+| w03 tests the 00-09 cases on every axis | t413u.md:7 | PACK.md:18 has shelf 05 and book 00, but no desk 00-09 and no book 01-09 e2e case; w01 asks unit tests "for each rule" (PACK.md:16) | TENSION (small; unit tests should cover it) |
+| `axioms: 1.7.8` | Axioms.md:5 ("`1.7.8`: authority, then missing, then connection"), :9 (cold set before a write), :27 | PACK.md:12 | PASS as the cold set. It is one ordered chain, not a list of three (a list would be `1,7,8`, Axioms.md:5) |
+| `1.7.8` misread risk | AXIOM-CITE-GRAMMAR-review.md:13 (three-number chains split readers), :133-140 (G1 open); Axioms.md:7 (`7.8` alone = "a connection that is missing") | PACK.md:12 | TENSION (no file makes it a rule; Axioms.md:5 glosses this exact chain, so risk is low) |
+| Back-link to door 0400 | seqAddr.md:251; Axioms.md:27 | 0403/01.md:4 and PACK.md:14 name the door; door lists 0403 (0400/01.md:9). Both ways, in text; 0403/08.md empty | PASS (text both ways); face 08 empty is a TENSION (wf has no link op) |
+| Grant authority | Axioms.md:13; t311u.md:8 | PACK.md:11 grant_ref still `t413u`; the approval is now recorded at t416u.md:4 | TENSION (name t416u.md:4 next time) |
+| Rules copied, not shared | Axioms.md:15 | PACK.md:16; 0403/06.md:4 says tension | TENSION |
+| Stamp type and state | DIRECTOR-RULINGS.md:54 | 0403/00.md:4-9 none | TENSION (wf v0; t401u.md:7) |
+| Person who started the page | Axioms.md:13 | 0403/log.jsonl:1 actor `matthew`, same second as Prima's entries | TENSION (still open, t420.md:12) |
+| T1, t416u gate | t416u.md:7 | RETURN-TEMPLATE.md:1-12 has no design-review line | TENSION. The gate acts when the return completes, not at release. Until wf lint has it, Prima must get the builder's stated design review (files compared) before sign-off |
+
+What t416u and t420 change in RELEASE-CHECK.md (noted here; that file not edited now):
+- T1 now has recorded words (t416u.md:7). It should become a hard check at return time:
+  for novel work, the return states the design review and the files compared; no
+  statement, no completion.
+- Gate placement: unchanged, a separate job. t416u.md:7 says WF forces the confirmation,
+  which is a tool check, not 0403's address guard. The "first wf lint check" idea is
+  Prima's (t416u.md:11), not his words.
+- C1, C2, C4 are answered (t420.md:4, :6, :10). C3 is to be closed by a seqAddr.md
+  versioned note (t420.md:8). Question 2 stays open.
+
+b21 self-check (SELF-CHECK-90.50.10.0403-b21.md) against this re-check:
+- Agrees: all fixes PASS (:17-27); A1-A9 PASS (:32-35); same tensions: grant authority,
+  copy vs share, no trial, stamp, text-only links, page starter, `--system` ref, T1 (:37-49).
+- Misses: its date says "about 1:40 PM EST" and origin/returns "fetched 1:35 PM EST"
+  (:4, :27). Both are later than now; the logs show 18:22Z = 1:22 PM EST. The time is wrong.
+- Misses: :37 says the "1-3 is good" approval is "not a DIRECTOR-WORDS file yet", and :49
+  says T1 is "not recorded". Both were recorded at be04bb2, before the self-check (184abb3).
+- Misses: `1.7.8` is marked "filled" (:25), with no check of what it means.
+- Misses: no desk 00-09 / book 01-09 e2e case; no check of the log chain.
+- Narrow: it compared seqAddr, DESIGN, addr.rs and t413u-t415u only (:6), not
+  DIRECTOR-RULINGS, face00 or workflow-loop.
+- Unverified by me: :50 says src/ has no unix-only code.
+
+Verdict, addendum 1:
+- 0400: PASS as a temporary door. Tension: the docs/ grant, until Matthew narrows it.
+- 0403: PASS, release. No FAIL found. Tensions carry: grant_ref names t413u not t416u.md:4;
+  rules copied; no face 08 link; stamp type and state; page starter; `1.7.8` reading;
+  desk 00-09 e2e case. At sign-off, Prima confirms the builder's design review (t416u.md:7).
+- 0401, 0402: N/A, dropped. Keep them unpublished; their passes are still claimable.
