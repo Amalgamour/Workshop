@@ -410,3 +410,227 @@ Size with 0498: 11/20/30 passes (best/likely/worst), plus 0403.
 
 Overall verdict, v2: no FAIL. Ready for Prima to review with Matthew. Tensions added: later
 bands per stage, the integration slot (Q6), and integration after security.
+
+## 11. v3 (2026-11-19, 1:50 PM EST, Designer): Matthew's answers, t424
+
+This section supersedes sections 1-10 wherever they differ. The old lines stay as
+history (Axioms.md:23). state: draft v3 for Prima. Not live; no wf page touched.
+
+### 11.1 What Matthew answered (DIRECTOR-WORDS-t424.md, f2b11ea), quoted exactly
+
+| Q | His words | Result | Relay check |
+|---|---|---|---|
+| 1 starter | :6 "The real runner starts the page, I'm the granter" | default taken | Same |
+| 2 tests | :8 "Yes, each page keeps its tests in its own file" | default taken | Same |
+| 3 novel | :10 "All Workshop work counts as novel for now" | default taken | Same ("for now" kept) |
+| 4 security | :12 "Security waits until the whole build is done" | overrides the default | Same words. "NO address in this band" and "park it as a later-stage item" are the relay's, not his; his words do not name 0410 (Prima's plain words do, :18) |
+| 5 roadmap | :14 "Replace the old stage 1 list with this plan" | overrides the default | Same words. "Move bench to a named later stage" is the relay's; his words do not mention bench |
+| 6 slot | :16 "The tie-it-together page goes at 0498" | default taken | Same. His phrase is "tie-it-together page"; "integration" is the relay's word (and mine in v2) |
+
+### 11.2 Relay drifts fixed in this file (the old lines stay; read them this way)
+
+- "face 08" (sections 4, 5, 6, 10.2): Matthew said needs are "links on both pages"
+  (t422.md:6). Putting them on face 08 is Researcher's proposal (PM-DESIGN:194), which fits
+  wf's face table (kit docs/DESIGN.md:29). Read every "face 08" here as that proposal.
+- The independence test is "neither needs the other and they change no shared files"
+  (t422.md:7, the question he approved at :8). Shared reads are allowed for now.
+- The roadmap counts stages 0-9 (ROADMAP-2026-11-18.md:54-63). This is stage 1.
+- "Integration" (section 10) is the relay's word. Matthew's own: "a page for tying it all
+  together into a functional piece of software I can use and test" (t423u.md:15) and
+  "The tie-it-together page goes at 0498" (t424.md:16). Below: "0498 tie-it-together".
+- Arithmetic fix: v1's likely total was 18; the v1 pages add to 17 (section 6). v2's
+  totals therefore were 11/19/30, not 11/20/30.
+
+### 11.3 The page list, v3
+
+| Page | Title | Bucket | Size (b/l/w) | MVP goal (done-when) |
+|---|---|---|---|---|
+| 0403 | address guard (live, packed) | loop | packed | as section 10.2 |
+| 0404 | returns state a design review (t416u) | loop | 1/2/3 | a return on a v4 pack with no filled `design review:` line is refused naming t416u and recorded; with it, accepted; passes packed at template 1-3 (0403) print and check as before |
+| 0405 | tests build and run on Windows | automate | 2/3/5 | `cargo test` passes on the box; `cargo build --tests` builds for Windows, every skip named with its reason; its own smoke test runs one loop with no unix-only call |
+| 0406 | needs links on both pages | automate | 2/3/4 | as section 10.2 |
+| 0407 | the door prints its own type and contents | automate | 1/2/3 | as section 10.2 |
+| 0408 | withdraw a packed pass nobody claimed | automate | 1/2/3 | as section 10.2 |
+| 0409 | retire a page | automate | 1/2/3 | as section 10.2 |
+| 0410 | (not used; see 11.4) | - | - | - |
+| 0411 | the real runner starts a page, Matthew grants it (t424 Q1) | automate | 1/2/3 | init-page with `--as` not the person needs `--grant-ref` naming a recorded words file; the init entry records runner, person and ref; without the ref it is refused; `--as` equal to `--person` works as today |
+| 0498 | tie-it-together: one working wf Matthew can use and test | tie together | 1/2/4 | as section 10.3, without 0410 |
+
+Totals: 10/18/28 passes (best/likely/worst), plus 0403. (v2: 11/19/30, corrected; minus
+0410 at 2/3/5, plus 0411 at 1/2/3.)
+
+### 11.4 0410 leaves the band; security is parked
+
+- t424.md:12 "Security waits until the whole build is done." t402u.md:3 "We can't
+  secure until it's finished."
+- 0410 (intake checks the packs head) is removed from stage 1. It was never made: no
+  wf page exists at 90.50.10.0410 (wf-run-gh pages/ holds 0400-0403 only).
+- 0410 stays unused in this band. Why: t424.md:18 (Prima's plain words) and sections 4-10
+  name "page 0410" as the packs-head check; a different job at 0410 would make those lines
+  point at the wrong work (Axioms.md:23, :27). Numbers are cheap (0404-0498 hold 95 slots).
+  No rule forbids reuse of a number that was never made a page; this is a choice.
+- Parked at: after roadmap stage 8, "The whole Workshop" (ROADMAP-2026-11-18.md:62, :111),
+  the last stage that builds; stage 9 is the celebration (:63). It gets an address in the
+  band that work uses, not here. The roadmap note (ROADMAP v-note, part 2) records it.
+- Open: whether t424.md:12 also moves the roadmap's other security work. See Q7.
+
+### 11.5 Q1 as its own page (0411), not a job inside another page
+
+- One page is one job (t249u.md:9 "I liked the one-page work design"; t223u.md:8 "in the
+  pack is the jobs list"; WORK-BOOK-SPEC.md:79 "One work page is one job", a draft).
+- No other page in this plan has the job of who starts a page. 0403 touches init-page, but
+  it is packed and frozen: "It never changes mid pass" (t381u.md:8); t382u (:17) "Design
+  never is updated during work." 0408 and 0409 touch pass and page state, not the init
+  entry. Putting Q1 inside one of them gives that page two done-whens.
+- What it changes: `init_page` refuses unless `--as` matches `--person` (wf src/cmd.rs:171
+  @ 60dd7e25). Claim already records the real claimant (`--as`; claim, cmd.rs:413), so claim is
+  not touched.
+- Touches: src/cmd.rs (init_page), src/lib.rs (usage text), tests/page_0411.rs.
+- Needs: none. It waits on src/cmd.rs (0403 and the others).
+
+### 11.6 Needs links, both ways (by hand until 0406 lands)
+
+| Page | Needs (written on this page) | Needed by (written on the other page) |
+|---|---|---|
+| 0403 | none | 0407, 0498 |
+| 0404 | none | 0498 |
+| 0405 | none | 0498 |
+| 0406 | none | 0498 |
+| 0407 | 0403 (src/addr.rs `page_kind`) | 0498 |
+| 0408 | none | 0409, 0498 |
+| 0409 | 0408 (withdraw before retire) | 0498 |
+| 0411 | none | 0498 |
+| 0498 | 0403, 0404, 0405, 0406, 0407, 0408, 0409, 0411 | none |
+| every page | the door 0400 (band) | 0400 lists it |
+
+0498 no longer needs 0410.
+
+### 11.7 Files each page may change (own test file added, t424 Q2)
+
+Read from the wf source at origin/returns 60dd7e25; line numbers move when 0403 lands, so
+Prime re-reads them at pack time.
+
+| Page | May change |
+|---|---|
+| 0404 | templates/v4/return.txt (new), src/render.rs, src/cmd.rs, tests/wf.rs (two hand-written return strings, :94 and :858, get the new line), tests/page_0404.rs |
+| 0405 | tests/wf.rs, tests/page_0405.rs |
+| 0406 | src/cmd.rs, src/lib.rs, src/page.rs, src/render.rs, tests/page_0406.rs |
+| 0407 | src/render.rs, tests/page_0407.rs |
+| 0408 | src/cmd.rs, src/lib.rs, src/page.rs, tests/page_0408.rs |
+| 0409 | src/cmd.rs, src/lib.rs, src/page.rs, tests/page_0409.rs |
+| 0411 | src/cmd.rs, src/lib.rs, tests/page_0411.rs |
+| 0498 | README.md, docs/WALKTHROUGH.md (new), tests/page_0498.rs |
+
+Why 0404 still changes tests/wf.rs: the old tests write return text by hand (tests/wf.rs:94,
+:858) without the new line. New packs use template 4, so those tests would fail. Adding
+one line to each string is not a new test; the new tests go in tests/page_0404.rs.
+
+Each new test file must build on Windows: no `std::os::unix`, no `true`, `grep` or `test`
+as checks (tests/wf.rs:4 is the known gap 0405 fixes). Small helpers are copied per file,
+not shared; a shared helper file would be a shared changed file.
+
+Shared changed files: src/cmd.rs (0404, 0406, 0408, 0409, 0411), src/lib.rs (0406, 0408,
+0409, 0411), src/render.rs (0404, 0406, 0407), src/page.rs (0406, 0408, 0409),
+tests/wf.rs (0404, 0405). src/cmd.rs is the queue: five pages, one at a time.
+
+### 11.8 What can run at once (t422.md:7-8), after 0403 closes
+
+| Wave | Pages | Why |
+|---|---|---|
+| 0 | 0403 | packed; holds src/addr.rs, src/cmd.rs, src/lib.rs, tests/wf.rs |
+| 1 | 0404 alone | loop first (t402u.md:3). Every other page shares a changed file with it: 0405 tests/wf.rs, 0407 src/render.rs, the rest src/cmd.rs |
+| 2 | 0405, 0407, 0408 | no needs between them; files differ (tests/wf.rs; src/render.rs; cmd.rs, lib.rs, page.rs) |
+| 3 | 0409 (0405 may still run) | needs 0408; shares cmd.rs with 0406 and 0411 |
+| 4 | 0406 | cmd.rs, render.rs |
+| 5 | 0411 | cmd.rs |
+| 6 | 0498 | needs every page |
+
+Longest chain (likely): 0404 2, 0408 2, 0409 2, 0406 3, 0411 2, 0498 2 = 13 passes.
+0405 and 0407 run beside it. If cmd.rs were split by page later, more could run at once;
+that is later work, not this stage.
+
+```mermaid
+graph LR
+  P0403[0403 address guard] --> P0404[0404 design-review line]
+  P0404 --> P0405[0405 Windows tests]
+  P0404 --> P0407[0407 door contents]
+  P0404 --> P0408[0408 withdraw pass]
+  P0403 -. needs .-> P0407
+  P0408 -. needs .-> P0409[0409 retire page]
+  P0409 --> P0406[0406 needs links]
+  P0407 --> P0406
+  P0406 --> P0411[0411 runner starts, Matthew grants]
+  P0405 -. needs .-> P0498[0498 tie-it-together]
+  P0411 -. needs .-> P0498
+  P0407 -. needs .-> P0498
+  P0409 -. needs .-> P0498
+  P0406 -. needs .-> P0498
+  P0404 -. needs .-> P0498
+  P0408 -. needs .-> P0498
+  P0403 -. needs .-> P0498
+```
+Solid arrow: waits for a shared changed file. Dotted: a written need.
+
+### 11.9 How the stage ends (unchanged from section 7)
+
+Every page closed `passed`, checked by another view; the roadmap's hostile pass and short
+report (ROADMAP-2026-11-18.md:130); Matthew's go, hold or redo (t422.md:12).
+
+### 11.10 New questions for Matthew
+
+Q7. Does "Security waits until the whole build is done" also move the roadmap's other
+security work?
+- Proposed: (default) the instruction-guard items the roadmap put in stage 1
+  (ROADMAP-2026-11-18.md:411, Prima's proposal: `wf audit`, the planted-trap test, pinning) park with 0410
+  after the whole build, because t424.md:14 replaced the old stage 1 list. Stage 2 "Lock
+  the door" (:56, :77-80) stays where it is, as the gate being the only writer, which the
+  later proofs need (:79). Other option: stage 2 and the guard's stage 2-6 items (:412-415)
+  also wait until after stage 8.
+- Why: t424.md:11 asked "When does security work happen?" in general; the plan's question
+  was about 0410. Who gets hurt: Matthew, if a stage he thinks is parked keeps running.
+- Axioms: 5 Frame (Axioms.md:21) tension, the frame of "security" is not drawn; 7 (:25)
+  pass, the gap is asked; 6 (:23) pass, nothing removed.
+
+Q8. Who may record your grant in wf?
+- Proposed: (default) the real runner types it, the log names the runner as actor and
+  cites the recorded words file as the ref, the same shape as 0411. Other option: keep
+  `wf grant` as person-only (src/cmd.rs:199) and the runner keeps acting as you there.
+- Why: t424.md:6 "I'm the granter"; today wf refuses a grant unless `--as` is the person
+  (cmd.rs:199), so every grant in the log shows you as actor even when Prima typed it. Who
+  gets hurt: an observer who cannot tell who acted.
+- Axioms: 1 (Axioms.md:13) pass, authority stays yours and the ref proves it; 8 (:27) pass;
+  9 (:29) tension, the ref is checked to exist, not that you said it.
+  If yes, it is one more page after 0411 (0412), or a second job for 0411; one page, one
+  job says its own page.
+
+### 11.11 Release check of v3 (RELEASE-CHECK.md @ c0e5b22)
+
+| Item | Source file:line | Seen in v3 | Result |
+|---|---|---|---|
+| A1-A4, A7 addresses | t413u.md:7, :9; seqAddr.md:14, :320-322 | 90.50.10.0404-0411, 0498 | PASS |
+| A5, A6 band and door | seqAddr.md:323; t420.md:4 | band 0400, door 0400 | PASS |
+| A8 no override in 0001-0099 | DIRECTOR-RULINGS.md:84 | none | PASS |
+| A9 not 99, PP99, 9999 | seqAddr.md:242, :325 | highest 0498 | PASS |
+| H1 page numbers | seqAddr.md:323; DIRECTOR-RULINGS.md:129-130 | 0411 next after 0410; 0410 kept unused, why in 11.4 | PASS |
+| H1 test file names | t424.md:8 | tests/page_NNNN.rs per page | PASS (name is my choice; any name per page fits his words) |
+| H1 one page, one job | t249u.md:9; t223u.md:8; WORK-BOOK-SPEC.md:79 (draft) | 0411 own page | TENSION (rule only in a draft, as before) |
+| H1 0404 bumps the template | render.rs:29 (TEMPLATE_VER), :44-49; t381u.md:8 | 11.3, 11.7 | PASS (old versions keep their text) |
+| t424 Q1 | t424.md:6 | 0411 | PASS |
+| t424 Q2 | t424.md:8 | 11.7 | PASS; TENSION: 0404 still edits tests/wf.rs (old strings, no new tests) |
+| t424 Q3 | t424.md:10 | 0404 makes every new pack need the line | PASS |
+| t424 Q4 | t424.md:12; t402u.md:3 | 11.4, 0410 out, parked after stage 8 | PASS; TENSION: scope of "security" (Q7) |
+| t424 Q5 | t424.md:14 | roadmap v-note, part 2 | PASS |
+| t424 Q6 | t424.md:16 | 0498 | PASS |
+| t423u goal and stage lines | t423u.md:7, :9, :11 | top of file, unchanged | PASS |
+| t423u pages loop to MVP goals | t423u.md:13 | 11.3 every page | PASS |
+| t423u tie-it-together page | t423u.md:15 | 0498 needs all eight | PASS |
+| Needs both ways | t422.md:6 | 11.6 | PASS |
+| Independence test | t422.md:7-8 | 11.8 | PASS |
+| t416u gate | t416u.md:7 | 0404 first | PASS |
+| Files touched | wf source @ 60dd7e25 | 11.7 | TENSION (expected; line numbers move after 0403) |
+| Quotes from recorded files | t424, t423u, t422, t416u, t402u, t381u, t249u, t223u | 11.1-11.10 | PASS |
+| Axiom 6 Lineage (Axioms.md:23) | additions only | section 11 appended | PASS |
+| Axiom 9 Trial (:29) | no hostile pass of the plan yet | - | TENSION |
+
+Verdict, v3: no FAIL. Tensions: one-job rule only in a draft; 0404 still edits
+tests/wf.rs; scope of "security" (Q7); files expected, not proven; no hostile pass yet.
