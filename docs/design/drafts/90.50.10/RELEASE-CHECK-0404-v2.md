@@ -39,3 +39,9 @@ v2 headers.
 Verdict: PASS for review, with tensions (grant reads t424 as approval of the plan's
 paths; the lab trial is outside the pack's own checks line; line numbers move after 0403;
 0498 back-link waits; no hostile pass). Not releasable until 0403 and 0497.05.01 close.
+
+## Version note (2026-11-19, 2:11 PM EST, Designer): superseded for t432
+
+Superseded by RELEASE-CHECK-0404-v3.md in this folder (t432u: labs in their own band; the lab is
+90.50.10.0701, door 0700; STAGE-PLAN-90.50.10.md v5, f74397f). This file stays as history
+(Axioms.md:23).

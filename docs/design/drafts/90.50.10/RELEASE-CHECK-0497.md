@@ -42,3 +42,9 @@ FAILs found and fixed: none found.
 Verdict: PASS for review, with tensions (lab slot and shape wait on Q9; grant reads the
 plan as approval of paths; back-links wait for each page; every page trialled where the
 drafts trial fewer; line numbers move after 0403; no hostile pass).
+
+## Version note (2026-11-19, 2:11 PM EST, Designer): superseded for t432
+
+Superseded by the lab band drafts in ../90.50.10.0700/ (PACK-0701-05.01.md,
+RELEASE-CHECK-0701.md): t432u moved labs to their own band, so slot 0497 is not used
+(STAGE-PLAN-90.50.10.md v5, f74397f, 13.4). This file stays as history (Axioms.md:23).

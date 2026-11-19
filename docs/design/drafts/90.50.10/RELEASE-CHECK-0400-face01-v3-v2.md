@@ -21,3 +21,9 @@ to v4.
 
 Verdict: PASS for review, with tensions (grant placeholder; plain-word states; lab slot
 waits on Q9).
+
+## Version note (2026-11-19, 2:11 PM EST, Designer): superseded for t432
+
+Superseded by RELEASE-CHECK-0400-face01-v3-v3.md in this folder (t432u: labs in their own band; the lab is
+90.50.10.0701, door 0700; STAGE-PLAN-90.50.10.md v5, f74397f). This file stays as history
+(Axioms.md:23).

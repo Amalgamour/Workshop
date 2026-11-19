@@ -66,3 +66,9 @@ Superseded by RELEASE-CHECK-0404-v2.md in this folder (t425u: each page links to
 0497, and copies no test code; STAGE-PLAN-90.50.10.md v4, 5389d13). This file stays as
 history (Axioms.md:23). Its "made" or "checked" time is later than its commit (699fa07);
 it was written about 1:50 PM EST.
+
+## Version note (2026-11-19, 2:11 PM EST, Designer): superseded for t432
+
+Superseded by RELEASE-CHECK-0404-v3.md in this folder (t432u: labs in their own band; the lab is
+90.50.10.0701, door 0700; STAGE-PLAN-90.50.10.md v5, f74397f). This file stays as history
+(Axioms.md:23).
