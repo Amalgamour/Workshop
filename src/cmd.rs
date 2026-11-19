@@ -437,7 +437,7 @@ pub fn parse_return(text: &str, x: &Pass, pack_hash: &str) -> Res<Map<String, Va
     for (k, _) in jobs(&x.fields) {
         let v = f.get(&k).and_then(|v| v.as_str()).unwrap_or("");
         let st = v.split_whitespace().next().unwrap_or("");
-        need(["done", "need", "blocked"].contains(&st), format!("job {k} must start with done, need or blocked"))?;
+        need(["done", "need", "blocked"].contains(&st), format!("job {} must start with done, need or blocked", chars::escape_line(&k)))?;
         out.insert(k, v.into());
     }
     Ok(out)

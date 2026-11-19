@@ -2596,6 +2596,31 @@ fn observe_escapes_a_forged_job_key_in_the_same_blocker_line() {
     assert!(!out.contains('\u{1b}'), "{out}");
 }
 
+/// A forged job key in the draft is escaped in the return refusal (cmd.rs parse_return).
+#[test]
+fn return_refusal_escapes_a_forged_job_key() {
+    let e = Env::ready("ret-jobkey-esc");
+    e.open("src/a.rs", "true");
+    let badk = "w\u{1b}1";
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "draft" {
+            v["data"]["fields"][badk] = serde_json::json!("x");
+        }
+        if v["kind"] == "pack" {
+            // The new job changes the released files; drop the t373u hashes, as on an old page.
+            let m = v["data"].as_object_mut().unwrap();
+            m.remove("agents_hash");
+            m.remove("prompt_hash");
+        }
+    });
+    e.ok(&["verify", PG, "--fix"]);
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    let (ok, out) = e.ret(1, &sha, "bob");
+    assert!(!ok, "{out}");
+    assert!(out.contains("job w\\u{1b}1 must start with done, need or blocked"), "{out}");
+    no_raw_ctrl(&out);
+}
+
 // ---- Release hash (Director t373u, docs/spec/AGENTS-HASH.md) ----
 
 fn sha_hex(b: &[u8]) -> String {
