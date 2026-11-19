@@ -275,3 +275,104 @@ Q14. How does a work order start with your words?
   every design file already does (RELEASE-CHECK.md:31-32); the whole-file copy fails it.
   8 Connection (:27) PASS: the cite is the written link. 6 (:23) PASS: once packed, the
   quote is locked.
+
+## v2 (2026-11-19, 2:30 PM EST, Designer): the builder field (t439u)
+
+Additions only; sections 1-8 stand as written (Axioms.md:23). 54b77af was reviewed and
+pushed by Prima. 0413's face 01 changes stay on hold until 0701.05.01 closes. Q14 is
+with Matthew.
+
+### v2.1 Matthew's words (docs/review/DIRECTOR-WORDS-t439u.md:5-14, at 79400f9), quoted exactly
+
+"For your next builder prompt, I need you to include which builder we are using.
+Currently we have
+Cursor-1: Localized on my pc in the wf-run/
+Cursor-C: Our cloud cursor you run
+Codex: Codex on my computer no setup down
+Claude: Claude on my computer no setup
+Grok-1: Grok builder not setup
+Grok-2: 2nd grok builder not setup."
+
+Where the relay differs: the six names match the file. The file's own line :16
+("Effect: every builder prompt starts with a "Builder: <name>" line") is Prima's
+reading, not his words. "Filled by Prime at pack, locks at pack" is Prima's proposal;
+his words ask only that the builder prompt names the builder. Only Cursor-1 and
+Cursor-C are set up; Codex reads "no setup down", Claude "no setup", Grok-1 and Grok-2
+"not setup" (:11-14).
+
+### v2.2 The field (frame section, 4.2)
+
+| Field | Filled by | Locks at | Proof | Today's home |
+|---|---|---|---|---|
+| builder: one of Cursor-1, Cursor-C, Codex, Claude, Grok-1, Grok-2 (t439u.md:9-14) | Prime | pack | until wf prints it: the draft entry, which cannot be redrafted once packed (cmd.rs:276, tail must be draft); after the wf change: inside pack_text, so pack_hash (cmd.rs:403) | GAP: nowhere |
+
+Where it lives today (c09fa60c): nowhere.
+- PROMPT.md: "wf claim {{addr}} {{nn}} --as <your-name>" (templates/prompt.txt:4,
+  templates/v3/prompt.txt:4), a blank for the builder to fill.
+- BUILDER-PROMPT.md: '$env:WF_AS = "<your builder name>"' (templates/v3/builder.txt:21),
+  also a blank.
+- Draft fields: there is no builder key. draft stores any key (fields(), cmd.rs:147-160;
+  stored at :304), so "builder: Cursor-1" in a draft file is kept in the log, but pack
+  does not print it: the pack fill list has no builder (cmd.rs:393-399).
+- The claim entry records the claimant only as the entry's actor (cmd.rs:443).
+Until wf prints it, Prima meets t439u by hand: a "builder:" line in the draft file and
+"Builder: <name>" as the first line of the prompt she pastes. 0413's view can show the
+draft field (render only).
+
+### v2.3 Claimant differs from the named builder: raise, not refuse
+
+The files settle it:
+- decisions.md:570 (E4, settled): "Every piece of work has a lead: named on it, or the
+  default set by its band or pack. Another may do the work, but raises it before moving
+  forward."
+- workflow-loop.003.md:172 (draft): "atomic first valid claim wins. ... Record the E4
+  raise before work if the builder differs from the lead."
+- wf today: first claim wins (cmd.rs:439-440); only the claim holder may return
+  (cmd.rs:488); the builder may not check its own work (cmd.rs:730, :778).
+So: a claim by a name other than builder: is taken, and wf records the raise in the same
+step, as an elevate entry to Prime ("claimed by X; the pack names Y"), the same shape as
+the elevate for a job not done (cmd.rs:522-527). Prime sees it before signoff. A claim
+by the named builder adds nothing. No new question: E4 is settled, and the raise is the
+fractal answer (the same rule at the lead level and the builder level, Axioms.md:15).
+Honest limit: --as and WF_AS are self-stated, so the check catches mistakes, not
+pretenders (door open, not proof; t434.md:28).
+
+### v2.4 Which page carries the wf change
+
+Not 0413: it is render-only (section 7.2), and this needs pack and claim in src/cmd.rs
+and the prompt templates. Not 0404 either: one page, one job (t249u.md:9), and 0404 is
+the design review line. A new page:
+- 90.50.10.0414 "the work order names its builder; claim raises a different one". 0414
+  is the next slot after 0413, never planned in this book (0405, 0410, 0497 stay unused;
+  DIRECTOR-RULINGS.md:129-130).
+- May touch: src/cmd.rs (pack prints builder, claim adds the raise), src/render.rs and
+  templates for PROMPT.md and BUILDER-PROMPT.md ("Builder: <name>" first, and the --as
+  value filled in). Template version: after 0404 it is v4, so 0414 edits v4 rather than
+  adding a version (render.rs:29).
+- Size 1/2/3; trial in lab 0701 (tests/lab_0414.rs) 1/1/2.
+- Place: in the src/cmd.rs queue, after 0412 and before 0498 (waves 14-15), so 0498 moves
+  to 16-17: 17 waves. Not added to the stage plan in this note; it goes in as section 15
+  when Prima agrees.
+- Trial cases: a pack with builder: prints it first in PROMPT.md and BUILDER-PROMPT.md and
+  in pack_text; a pack with a name not in the list is refused; a claim by the named
+  builder adds no elevate; a claim by another name is taken and adds one elevate naming
+  both; a pack with no builder: still packs (old drafts) and prints "builder: not named".
+
+### v2.5 Axioms and mini release check (RELEASE-CHECK.md @ c0e5b22)
+
+| Item | Source file:line | Seen in v2 | Result |
+|---|---|---|---|
+| 1 Authority | Axioms.md:13 | Prime names the builder in the frame; the claim does not overrule it, it raises | PASS |
+| 3 Leads | Axioms.md:17; decisions.md:570 | builder named on the work; another raises before moving | PASS |
+| 5 Frame | Axioms.md:21 | the frame now says who builds | PASS |
+| 6 Lineage | Axioms.md:23 | locked at pack; a change is a new pass, not an edit | PASS |
+| 2 Fractal | Axioms.md:15 | same raise rule as E4 | PASS |
+| 7 Missing | Axioms.md:25 | "builder: not named" printed, not guessed | PASS |
+| 9 Trial | Axioms.md:29 | trials in lab 0701; no hostile pass yet | TENSION |
+| Quote exact | t439u.md:5-14 | v2.1 | PASS |
+| A1-A9 on 90.50.10.0414 | t413u.md:7, :9; seqAddr.md:240-242 | page 0414 on PP01-PP98 | PASS |
+| H1 habit: "refuse a wrong claimant" | decisions.md:570 | traced; the files say raise | PASS |
+| ASCII, plain words | DIRECTOR-RULINGS.md:16 | file | PASS |
+
+Verdict: no FAIL. Tensions: self-stated names; four of the six builders are not set up
+(t439u.md:11-14); 0414 adds two waves; no hostile pass yet.
