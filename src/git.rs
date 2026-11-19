@@ -1,5 +1,6 @@
 //! The few git reads wf needs. Runs the `git` command; no library.
 
+use crate::chars::escape_line as esc;
 use crate::log::Res;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -9,13 +10,13 @@ pub fn git(repo: &Path, args: &[&str]) -> Res<String> {
     if out.status.success() {
         Ok(String::from_utf8_lossy(&out.stdout).trim_end().to_string())
     } else {
-        Err(format!("git {}: {}", args.join(" "), String::from_utf8_lossy(&out.stderr).trim()))
+        Err(format!("git {}: {}", esc(&args.join(" ")), esc(String::from_utf8_lossy(&out.stderr).trim())))
     }
 }
 
 /// Full SHA of a commit, or an error naming it.
 pub fn commit(repo: &Path, rev: &str) -> Res<String> {
-    git(repo, &["rev-parse", "--verify", "--quiet", &format!("{rev}^{{commit}}")]).map_err(|_| format!("commit {rev} not found in {}", repo.display()))
+    git(repo, &["rev-parse", "--verify", "--quiet", &format!("{rev}^{{commit}}")]).map_err(|_| format!("commit {} not found in {}", esc(rev), esc(&repo.display().to_string())))
 }
 
 pub fn is_ancestor(repo: &Path, a: &str, b: &str) -> bool {
@@ -26,11 +27,11 @@ pub fn is_ancestor(repo: &Path, a: &str, b: &str) -> bool {
 pub fn branch_tip(repo: &Path, branch: &str) -> Res<String> {
     commit(repo, &format!("refs/heads/{branch}"))
         .or_else(|_| commit(repo, &format!("refs/remotes/origin/{branch}")))
-        .map_err(|_| format!("branch {branch} not found (fetch it first)"))
+        .map_err(|_| format!("branch {} not found (fetch it first)", esc(branch)))
 }
 
 pub fn show(repo: &Path, sha: &str, path: &str) -> Res<String> {
-    git(repo, &["show", &format!("{sha}:{path}")]).map_err(|_| format!("{path} is not in commit {sha}"))
+    git(repo, &["show", &format!("{sha}:{path}")]).map_err(|_| format!("{} is not in commit {}", esc(path), esc(sha)))
 }
 
 /// One path from `git diff --name-status --no-renames`, with its letter (A, M, D).
@@ -88,7 +89,7 @@ fn git_raw(repo: &Path, args: &[&str]) -> Res<Vec<u8>> {
     if out.status.success() {
         Ok(out.stdout)
     } else {
-        Err(format!("git {}: {}", args.join(" "), String::from_utf8_lossy(&out.stderr).trim()))
+        Err(format!("git {}: {}", esc(&args.join(" ")), esc(String::from_utf8_lossy(&out.stderr).trim())))
     }
 }
 

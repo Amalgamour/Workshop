@@ -3,8 +3,10 @@
 ## Read first
 1. In the kit folder (this folder: the one with this file, `src/`, and `docs/`): `docs/AXIOMS.md`: the nine axioms.
 2. Same folder: `docs/DESIGN.md`: the page, the faces, the pass, the roles.
-3. If you hold a pass: `pages/<page>/05.<NN>/AGENTS.md` and `PROMPT.md`.
+3. If you hold a pass: `pages/<page>/05.<NN>/PROMPT.md`, and the AGENTS.md it names.
+   That may be another pass's AGENTS.md: wf prints a new one only when its text changes (Director t378u).
    They pin the hash of AXIOMS.md and DESIGN.md. If yours differ, stop and tell Prime.
+   The page log records the sha256 of each released AGENTS.md and PROMPT.md; a copy that does not match is invalid (t373u).
 
 Check every choice against these axioms:
 - **1 Authority**: act only inside what you were granted.
@@ -15,6 +17,7 @@ Check every choice against these axioms:
 ## The one rule
 Never edit anything under `pages/` by hand. Only `wf` writes there.
 A hand edit is caught and refused. Say who you are on every command: `--as <name>`.
+A log entry out of the commands' order (for example a close before a return, a claim after a close, a second init, an unknown kind, a pass number outside 01-98) makes the page unreadable: every command names the entry and the rule, exits 1 and writes nothing. Why (axiom 1, authority): a forged or hand-written log must not steer what the tool does next. These order rules are build stage, no Director ruling yet.
 
 ## The tool you run
 The `wf` you run must be a pinned build of the last merged commit, kept apart from
@@ -34,7 +37,9 @@ against the old binary.
 | Prime | `face-write 01 02 04 06 08`, `draft [--overlap-ok NN --why "... (ref)"]`, `pack [--overlap-ok NN --why "... (ref)"]` (Director t262u: "sometimes multiple models can sit at this"), `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
 | Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime --ref` |
 
-Anyone may run `status`, `observe` and `verify`.
+Anyone may run `status`, `observe`, `verify` and `board`.
+
+`wf board [<page>] [--all] [--card NN] [--stall-hours 24]` is read only: it writes no log entry, no view file and no lock, and runs no git. It is built from `log.jsonl` only (the log wins over a hand-edited view, and the board says so). With a page it prints attention first, then one card per 05.NN in the columns Draft, Ready, Working, Waiting check, Checked, Closed; with no page it prints one line per page (an unreadable page is named with its reason). `--card` takes `4`, `04` or `05.04`; other flags are refused. Why: see what needs someone in under a minute (docs/design/WF-BOARD.md). Every log string is escaped like `\u{1b}`. Build stage, pending Director answer (WF-BOARD.md Q1-Q3): tool words as columns with body-shop side labels; STALE after 24 hours with no log entry (`--stall-hours`); the board prints git commands for the evidence instead of running git.
 
 `wf halt <page> --note "why (ref)"`: Prime or the person stops the page (refused while a pass is open); draft, pack and claim then refuse, and status shows who halted it and why.
 `wf resume <page> --note "why (ref)"`: Prime or the person lets work go on again.

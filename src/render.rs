@@ -4,7 +4,7 @@
 use crate::chars::{escape_line, escape_text};
 use crate::log::{sha, short, Res};
 use crate::page::{s, Page, Pass, FACES};
-use serde_json::Value;
+use serde_json::{json, Value};
 use std::collections::BTreeMap;
 use std::fs;
 use std::io::Write;
@@ -19,13 +19,21 @@ pub const T_CLOSE: &str = include_str!("../templates/close.txt");
 pub const T_PROMPT_V1: &str = include_str!("../templates/v1/prompt.txt");
 pub const T_AGENTS_V1: &str = include_str!("../templates/v1/agents.txt");
 pub const T_RETURN_V1: &str = include_str!("../templates/v1/return.txt");
+/// v3 (Director t378u): AGENTS.md holds nothing pass-specific, so one released copy can serve
+/// later passes; PROMPT.md names the AGENTS.md it goes with and its hash. Return is the v2 text.
+pub const T_AGENTS_V3: &str = include_str!("../templates/v3/agents.txt");
+pub const T_PROMPT_V3: &str = include_str!("../templates/v3/prompt.txt");
+/// The one paste for a builder on Matthew's Windows machine (t400u, t401u). A view, not hashed.
+pub const T_BUILDER_V3: &str = include_str!("../templates/v3/builder.txt");
 /// Version written into new pack entries. Missing or "1" means v1 (8eb1fdb).
-pub const TEMPLATE_VER: &str = "2";
+pub const TEMPLATE_VER: &str = "3";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
 pub const DESIGN: &str = include_str!("../docs/DESIGN.md");
+/// The kit rules (roles, commands, checker notes): link 4 of a v3 AGENTS.md.
+pub const KIT_AGENTS: &str = include_str!("../AGENTS.md");
 
 /// Agents, prompt and return templates for one pack.
-/// Only a missing field or the string "1" mean v1; only the string "2" means v2.
+/// Only a missing field or the string "1" mean v1; only the string "2" means v2; "3" means v3.
 /// Any other value is refused, and the message names the page and the pack entry.
 pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static str, &'static str)> {
     let seq = pk.get("seq").and_then(|v| v.as_u64());
@@ -37,6 +45,7 @@ pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static s
         None => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
         Some(Value::String(s)) if s == "1" => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
         Some(Value::String(s)) if s == "2" => Ok((T_AGENTS, T_PROMPT, T_RETURN)),
+        Some(Value::String(s)) if s == "3" => Ok((T_AGENTS_V3, T_PROMPT_V3, T_RETURN)),
         Some(v) => Err(format!("unknown template version {v}{loc}")),
     }
 }
@@ -92,7 +101,181 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
         ("src_axioms", s(&pk["sources"], "axioms")),
         ("src_design", s(&pk["sources"], "design")),
         ("face01", s(&pk, "face01")),
+        ("agents_file", agents_file(p, x)),
+        ("links", links_text(&pk)),
+        ("remote", { let r = s(&pk, "remote"); if r.is_empty() { "<repo url>".into() } else { escape_line(&r) } }),
+        ("kit_branch", { let k = s(&pk, "kit_branch"); if k.is_empty() { "<kit branch>".into() } else { escape_line(&k) } }),
+        ("agents_hash", recorded_hash(&pk, "agents_hash").map(|h| hash12(&h)).unwrap_or_default()),
+        ("agents_note", agents_from(&pk).map(|f| format!(", reused from {}", escape_line(&f))).unwrap_or_default()),
     ]
+}
+
+/// The kit documents a link may name, as built into this wf.
+fn kit_doc(name: &str) -> Option<&'static str> {
+    match name {
+        "docs/AXIOMS.md" => Some(AXIOMS),
+        "docs/DESIGN.md" => Some(DESIGN),
+        "AGENTS.md" => Some(KIT_AGENTS),
+        _ => None,
+    }
+}
+
+/// Face `face`'s text just after log entry `seq`, if entry `seq` wrote that face.
+fn face_text_at(p: &Page, face: &str, seq: u64) -> Option<String> {
+    let mut text = None::<String>;
+    let mut hit = false;
+    for e in p.events.iter().filter(|e| e.seq <= seq && e.kind == "face" && s(&e.data, "face") == face) {
+        let t = text.get_or_insert_with(String::new);
+        if s(&e.data, "mode") == "append" {
+            t.push_str(&format!("- [{}] {} ({}, entry {})\n", s(&e.data, "section"), s(&e.data, "text").trim(), e.actor, e.seq));
+        } else {
+            *t = s(&e.data, "text");
+        }
+        hit = e.seq == seq;
+    }
+    if hit { text } else { None }
+}
+
+/// The connections a v3 AGENTS.md points to (Director t379u), each with its target's sha256 now.
+pub fn pack_links(p: &Page) -> Res<Value> {
+    let f01 = p.faces.get("01").ok_or("refused: face 01 (the agents card) is empty")?;
+    // "path" is the pinned location (named in refusals); "source" says what it is (t386u table).
+    let face = json!({"n": 1, "kind": "face", "face": "01", "entry": f01.seq, "source": "face 01, goal and done-when",
+        "path": format!("pages/{}/log.jsonl entry {}, face 01 v{} text (01.md is its view)", p.addr, f01.seq, f01.version),
+        "sha": f01.hash()});
+    let kit = |n: u64, doc: &str, what: &str| json!({"n": n, "kind": "kit", "doc": doc, "source": what, "path": format!("kit {doc}"), "sha": sha(kit_doc(doc).unwrap_or(""))});
+    Ok(json!([face, kit(2, "docs/AXIOMS.md", "AXIOMS.md, the nine axioms in full"), kit(3, "docs/DESIGN.md", "DESIGN.md, pages, faces, passes and roles"),
+        kit(4, "AGENTS.md", "kit AGENTS.md, roles and commands")]))
+}
+
+/// The sha256 a link's target has now, or None when the target is missing or unknown.
+fn link_target(p: &Page, l: &Value) -> Option<String> {
+    match l["kind"].as_str()? {
+        "face" => face_text_at(p, l["face"].as_str()?, l["entry"].as_u64()?).map(|t| sha(&t)),
+        "kit" => kit_doc(l["doc"].as_str()?).map(sha),
+        _ => None,
+    }
+}
+
+fn link_label(i: usize, l: &Value) -> (String, String) {
+    let n = match &l["n"] {
+        Value::Number(n) => n.to_string(),
+        Value::Null => (i + 1).to_string(),
+        v => v.to_string(),
+    };
+    (escape_line(&n), escape_line(l["path"].as_str().unwrap_or("?")))
+}
+
+/// One table cell: escaped, with `|` written as `\|` so a field cannot add a column.
+fn cell(t: &str) -> String {
+    escape_line(t).replace('|', "\\|")
+}
+
+/// The Connections table of a v3 AGENTS.md (t386u), printed from the pack entry's link data.
+fn links_text(pk: &Value) -> String {
+    match pk.get("links").and_then(|v| v.as_array()) {
+        None => "none recorded".into(),
+        Some(a) => {
+            let mut rows = vec!["| # | Source | Pinned location | Expected sha256 |".to_string(), "|---|---|---|---|".to_string()];
+            for (i, l) in a.iter().enumerate() {
+                let (n, _) = link_label(i, l);
+                rows.push(format!(
+                    "| {} | {} | {} | `{}` |",
+                    n.replace('|', "\\|"),
+                    cell(l["source"].as_str().unwrap_or("?")),
+                    cell(l["path"].as_str().unwrap_or("?")),
+                    cell(l["sha"].as_str().unwrap_or("?"))
+                ));
+            }
+            rows.join("\n")
+        }
+    }
+}
+
+/// Links of one pass whose target is missing or no longer hashes as recorded:
+/// (label, path, true when the target is a kit rule file that exists but changed).
+fn broken_links(p: &Page, pk: &Value) -> Vec<(String, String, bool)> {
+    let Some(v) = pk.as_object().and_then(|m| m.get("links")) else { return vec![] };
+    let Some(a) = v.as_array() else { return vec![("?".into(), "links is not a list".into(), false)] };
+    a.iter()
+        .enumerate()
+        .filter_map(|(i, l)| {
+            let now = link_target(p, l);
+            if now.is_some() && now.as_deref() == l["sha"].as_str() {
+                return None;
+            }
+            let rule_changed = now.is_some() && l["kind"] == "kit";
+            let (n, path) = link_label(i, l);
+            Some((n, path, rule_changed))
+        })
+        .collect()
+}
+
+/// One line per open pass locked under t381u (a kit rule file changed mid pass), for status and observe.
+pub fn rule_locks(p: &Page) -> Vec<String> {
+    let mut out = Vec::new();
+    for x in p.passes.values().filter(|x| x.tail != "closed") {
+        let Some(pk) = &x.pack else { continue };
+        for (n, path, rule_changed) in broken_links(p, pk) {
+            if rule_changed {
+                out.push(format!(
+                    "05.{:02} locked: rule file link {n} ({path}) changed mid pass (t381u). It stays locked until the original kit returns (the wf built with the pinned rule files).",
+                    x.nn
+                ));
+            }
+        }
+    }
+    out
+}
+
+/// The pass whose released AGENTS.md this pack reuses (Director t378u), if any.
+/// A field that is not a string reads as "", which names no pass.
+pub fn agents_from(pk: &Value) -> Option<String> {
+    pk.as_object().and_then(|m| m.get("agents_from")).map(|v| v.as_str().unwrap_or("").to_string())
+}
+
+/// The AGENTS.md this pass was given: its own, or the released one it reuses.
+pub fn agents_file(p: &Page, x: &Pass) -> String {
+    match x.pack.as_ref().and_then(agents_from) {
+        Some(f) => format!("pages/{}/{}/AGENTS.md", p.addr, escape_line(&f)),
+        None => format!("pages/{}/05.{:02}/AGENTS.md", p.addr, x.nn),
+    }
+}
+
+/// The latest released AGENTS.md on the page apart from pass `skip`, by pack entry:
+/// (the pass that printed it, its recorded hash). Packs before t373u have no hash and are not candidates.
+pub fn latest_agents(p: &Page, skip: u32) -> Option<(String, String)> {
+    p.passes
+        .values()
+        .filter(|x| x.nn != skip)
+        .filter_map(|x| x.pack.as_ref().map(|pk| (x, pk)))
+        .filter_map(|(x, pk)| recorded_hash(pk, "agents_hash").map(|h| (pk["seq"].as_u64().unwrap_or(0), x, pk, h)))
+        .max_by_key(|t| t.0)
+        .map(|(_, x, pk, h)| (agents_from(pk).unwrap_or_else(|| format!("05.{:02}", x.nn)), h))
+}
+
+/// Why a reuse pointer cannot stand, or None. The named pass must have been packed earlier,
+/// must have printed its own AGENTS.md, and must have recorded the same hash.
+fn reuse_fault(p: &Page, x: &Pass, pk: &Value) -> Option<String> {
+    let from = agents_from(pk)?;
+    let mine = recorded_hash(pk, "agents_hash");
+    let src = from.strip_prefix("05.").filter(|d| d.len() == 2 && d.bytes().all(|b| b.is_ascii_digit())).and_then(|d| d.parse::<u32>().ok());
+    let why = match src.and_then(|n| p.passes.get(&n)) {
+        None => "no such pass".to_string(),
+        Some(y) if y.nn == x.nn => "a pass cannot reuse its own file".to_string(),
+        Some(y) => match &y.pack {
+            None => "that pass was never packed".to_string(),
+            Some(ypk) if ypk["seq"].as_u64().unwrap_or(0) >= pk["seq"].as_u64().unwrap_or(0) => "that pass was packed later".to_string(),
+            Some(ypk) if agents_from(ypk).is_some() => "that pass reuses a file itself".to_string(),
+            Some(ypk) => match (recorded_hash(ypk, "agents_hash"), mine) {
+                (Some(a), Some(b)) if a == b => return None,
+                (Some(a), Some(b)) => format!("that pass recorded {}, this pack {}", hash12(&a), hash12(&b)),
+                (None, _) => "that pass recorded no hash".to_string(),
+                (_, None) => "this pack recorded no hash".to_string(),
+            },
+        },
+    };
+    Some(format!("AGENTS.md for pass 05.{:02} is invalid: bad reuse of {} ({why})", x.nn, escape_line(&from)))
 }
 
 pub fn prompt(p: &Page, x: &Pass) -> Res<String> {
@@ -206,11 +389,141 @@ pub fn views(p: &Page) -> Res<BTreeMap<String, String>> {
             let d = format!("05.{:02}/", x.nn);
             m.insert(d.clone() + "PACK.md", s(pk, "pack_text"));
             m.insert(d.clone() + "PROMPT.md", prompt(p, x)?);
-            m.insert(d.clone() + "AGENTS.md", agents(p, x)?);
+            if agents_from(pk).is_none() {
+                m.insert(d.clone() + "AGENTS.md", agents(p, x)?);
+            }
+            if s(pk, "templates") == "3" {
+                m.insert(d.clone() + "BUILDER-PROMPT.md", fill(T_BUILDER_V3, &pass_vals(p, x))?);
+            }
             m.insert(d + "RETURN-TEMPLATE.md", return_template(p, x)?);
         }
     }
     Ok(m)
+}
+
+/// Pass views whose released text is pinned by a sha256 in the pack entry (Director t373u).
+pub const HASHED: [(&str, &str); 2] = [("AGENTS.md", "agents_hash"), ("PROMPT.md", "prompt_hash")];
+
+/// The hash a pack entry recorded for one released file. None: the entry has no such
+/// field (packed before t373u). A field that is not a string can match no text.
+pub fn recorded_hash(pk: &Value, key: &str) -> Option<String> {
+    pk.as_object().and_then(|m| m.get(key)).map(|v| v.as_str().unwrap_or("").to_string())
+}
+
+/// The first 12 characters of a recorded hash, escaped (a forged field may hold anything).
+pub fn hash12(h: &str) -> String {
+    escape_line(&h.chars().take(12).collect::<String>())
+}
+
+fn hash_invalid(file: &str, nn: u32, detail: String) -> String {
+    format!("{file} for pass 05.{nn:02} is invalid: hash mismatch ({detail})")
+}
+
+/// The template label of a pack entry when it is "2" or "3": packs that must carry hashes.
+pub fn hashed_label(pk: &Value) -> Option<&str> {
+    pk.get("templates").and_then(|v| v.as_str()).filter(|v| *v == "2" || *v == "3")
+}
+
+/// Why a pack entry that must carry its hashes does not (Tester downgrade hole). A v2 or v3 pack
+/// is written only by wf at t373u or later, so a missing hash there is a stripped hash, not an old page.
+fn missing_hash_fault(x: &Pass, pk: &Value) -> Option<String> {
+    let ver = hashed_label(pk)?;
+    let entry = pk["seq"].to_string();
+    if HASHED.iter().any(|(_, k)| recorded_hash(pk, k).is_none()) {
+        return Some(format!("05.{:02}: pack entry {entry} (templates {ver}) has no hash recorded: invalid", x.nn));
+    }
+    let has = |k: &str| pk.as_object().is_some_and(|m| m.contains_key(k));
+    if ver == "3" && !has("links") && !has("agents_from") {
+        return Some(format!("05.{:02}: pack entry {entry} (templates 3) has no links recorded: invalid", x.nn));
+    }
+    None
+}
+
+/// A file named NN/AGENTS.md left in the folder of a pass that reuses another pass's file.
+/// wf did not print it and never deletes it; verify names it so a person can.
+pub fn stray_agents(p: &Page) -> Vec<String> {
+    p.passes
+        .values()
+        .filter_map(|x| x.pack.as_ref().and_then(agents_from).map(|f| (x.nn, f)))
+        .filter(|(nn, _)| fs::symlink_metadata(p.dir.join(format!("05.{nn:02}/AGENTS.md"))).is_ok())
+        .map(|(nn, f)| format!(
+            "warning: 05.{nn:02}/AGENTS.md is on disk, but 05.{nn:02} reuses {}/AGENTS.md. wf did not print it, does not check it, and will not delete it; remove it by hand if nobody needs it.",
+            escape_line(&f)
+        ))
+        .collect()
+}
+
+/// Released files this wf would print differently from the hash recorded at pack
+/// (a template changed after release). Built from the log only. Every view reprint is
+/// refused while one is listed: wf never rewrites what a worker was given.
+pub fn hash_faults(p: &Page) -> Res<Vec<String>> {
+    let mut out = Vec::new();
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        if let Some(f) = missing_hash_fault(x, pk) {
+            out.push(f);
+        }
+        if let Some(f) = reuse_fault(p, x, pk) {
+            out.push(f);
+        }
+        if x.tail != "closed" {
+            for (n, path, rule_changed) in broken_links(p, pk) {
+                if rule_changed {
+                    // Director t381u: "It never changes mid pass only after review and before a new draft starts".
+                    // t382u: "Design never is updated during work." Rule and design files are frozen while a
+                    // pass is open; refinement happens only between passes. So this is a strict lock.
+                    out.push(format!(
+                        "AGENTS.md for pass 05.{:02} is invalid: rule file link {n} ({path}) changed mid pass: rule files change only after review, before a new draft (t381u)",
+                        x.nn
+                    ));
+                } else {
+                    out.push(format!("AGENTS.md for pass 05.{:02} is invalid: link {n} ({path}) points to changed or missing work", x.nn));
+                }
+            }
+        }
+        for (file, key) in HASHED {
+            let Some(want) = recorded_hash(pk, key) else { continue };
+            let text = if file == "AGENTS.md" { agents(p, x)? } else { prompt(p, x)? };
+            let got = sha(&text);
+            if got != want {
+                out.push(hash_invalid(file, x.nn, format!(
+                    "pack entry {} recorded {}, this wf would print {}; the released text is not reprinted",
+                    pk["seq"], hash12(&want), short(&got)
+                )));
+            }
+        }
+    }
+    Ok(out)
+}
+
+/// One line per packed pass for verify: does the log pin its released files?
+pub fn hash_notes(p: &Page) -> Vec<String> {
+    let mut out = Vec::new();
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        let parts: Vec<String> = HASHED
+            .iter()
+            .map(|(file, key)| match recorded_hash(pk, key) {
+                Some(h) if *file == "AGENTS.md" && agents_from(pk).is_some() => {
+                    format!("{file} reused from {} (hash {} holds)", escape_line(&agents_from(pk).unwrap_or_default()), hash12(&h))
+                }
+                Some(h) => format!("{file} hash {} holds", hash12(&h)),
+                None => format!("{file} no hash recorded (before t373u)"),
+            })
+            .collect();
+        let mut line = format!("05.{:02}: {}", x.nn, parts.join("; "));
+        if let Some(a) = pk.get("links").and_then(|v| v.as_array()) {
+            let broken = broken_links(p, pk);
+            if broken.is_empty() {
+                line += &format!("; links {} hold", a.len());
+            } else {
+                let names = broken.iter().map(|(n, _, _)| format!("link {n}")).collect::<Vec<_>>().join(", ");
+                line += &format!("; {names} changed after the pass closed (history, not failed)");
+            }
+        }
+        out.push(line);
+    }
+    out
 }
 
 /// Views on disk that do not match the log, split by kind.
@@ -219,16 +532,18 @@ pub struct ViewDiff {
     pub missing: Vec<String>,
     pub unreadable: Vec<String>,
     pub changed: Vec<String>,
+    /// Released files (AGENTS.md, PROMPT.md) that do not match their recorded hash.
+    pub invalid: Vec<String>,
 }
 
 impl ViewDiff {
     pub fn is_empty(&self) -> bool {
-        self.missing.is_empty() && self.unreadable.is_empty() && self.changed.is_empty()
+        self.missing.is_empty() && self.unreadable.is_empty() && self.changed.is_empty() && self.invalid.is_empty()
     }
 
-    /// "missing view files: a; unreadable view files: b; view files differ from the log (hand edit or a failed reprint): c"
+    /// "<invalid>; missing view files: a; unreadable view files: b; view files differ from the log (hand edit or a failed reprint): c"
     pub fn report(&self) -> String {
-        let mut parts = Vec::new();
+        let mut parts = self.invalid.clone();
         if !self.missing.is_empty() {
             parts.push(format!("missing view files: {}", self.missing.join(", ")));
         }
@@ -292,6 +607,9 @@ fn write_atomic(path: &Path, text: &str) -> Res<()> {
 /// Compare the view files on disk with the log.
 pub fn edited(p: &Page) -> Res<ViewDiff> {
     let mut d = ViewDiff::default();
+    d.invalid = hash_faults(p)?;
+    let pinned = pinned_files(p);
+    let mut disk_hash: BTreeMap<String, String> = BTreeMap::new();
     for (rel, text) in views(p)? {
         let path = p.dir.join(&rel);
         match symlink_on_path(&p.dir, &rel) {
@@ -307,7 +625,14 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
         }
         match fs::read_to_string(&path) {
             Ok(disk) => {
-                if sha(&disk) != sha(&text) {
+                let got = sha(&disk);
+                disk_hash.insert(rel.clone(), got.clone());
+                if let Some((nn, file, want)) = pinned.get(&rel) {
+                    if &got != want {
+                        d.invalid.push(hash_invalid(file, *nn, format!("the copy on disk hashes to {}, the log recorded {}", short(&got), hash12(want))));
+                    }
+                }
+                if got != sha(&text) {
                     d.changed.push(rel);
                 }
             }
@@ -315,7 +640,37 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
             Err(_) => d.unreadable.push(rel),
         }
     }
+    // A reused AGENTS.md is this pass's file too: a hand edit makes it invalid here as well.
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        let (Some(from), Some(want)) = (agents_from(pk), recorded_hash(pk, "agents_hash")) else { continue };
+        if let Some(got) = disk_hash.get(&format!("{from}/AGENTS.md")) {
+            if *got != want {
+                d.invalid.push(hash_invalid("AGENTS.md", x.nn, format!(
+                    "it reuses {}/AGENTS.md, whose copy on disk hashes to {}; the log recorded {}",
+                    escape_line(&from), short(got), hash12(&want)
+                )));
+            }
+        }
+    }
     Ok(d)
+}
+
+/// Relative path -> (pass, file, recorded hash) for every released file the log pins.
+fn pinned_files(p: &Page) -> BTreeMap<String, (u32, &'static str, String)> {
+    let mut m = BTreeMap::new();
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        for (file, key) in HASHED {
+            if file == "AGENTS.md" && agents_from(pk).is_some() {
+                continue; // no file of its own; checked through the pass it reuses
+            }
+            if let Some(h) = recorded_hash(pk, key) {
+                m.insert(format!("05.{:02}/{file}", x.nn), (x.nn, file, h));
+            }
+        }
+    }
+    m
 }
 
 pub fn write(p: &Page) -> Res<()> {
@@ -333,6 +688,10 @@ pub fn write_after_append(p: &Page) -> Res<()> {
 
 /// Reprint views from the log, skipping the named relative paths.
 pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
+    let faults = hash_faults(p)?;
+    if !faults.is_empty() {
+        return Err(format!("refused to reprint: {}; nothing was changed (Director t373u: a released file that does not match its hash is invalid)", faults.join("; ")));
+    }
     let all = views(p)?;
     let mut linked = Vec::new();
     for rel in all.keys() {
@@ -423,6 +782,30 @@ mod tests {
         let (a, p, _) = packed_templates(&json!({"templates": "2"}), "1.2.3.4").unwrap();
         assert!(a.contains("kit folder") && a.contains("cargo clean -p wf"), "{a}");
         assert!(p.contains("kit folder"), "{p}");
+    }
+
+    #[test]
+    fn v3_agents_has_nothing_pass_specific() {
+        let (a, p, r) = packed_templates(&json!({"templates": "3"}), "1.2.3.4").unwrap();
+        for slot in ["{{pass}}", "{{pack_hash}}", "{{nn}}", "{{dir}}", "{{jobs}}", "{{may_touch}}", "{{branch}}", "{{return_file}}", "{{seq}}", "{{time}}"] {
+            assert!(!a.contains(slot), "v3 AGENTS.md has {slot}");
+        }
+        assert!(a.contains("t373u") && a.contains("t380u") && a.contains("{{links}}"), "{a}");
+        // t380u: narrow, not bare. The core of the frame is taught in plain lines.
+        for core in ["1 Authority", "9 Trial: your own check is not proof", "A page is one piece of work", "A face is one side",
+            "never from you,\n  and never from a copy", "If the prompt and the grant disagree", "## If you are the builder", "connection 4"] {
+            assert!(a.contains(core), "v3 AGENTS.md lost '{core}'");
+        }
+        assert!(p.contains("Read first: {{agents_file}} (sha256 {{agents_hash}}{{agents_note}})"), "{p}");
+        assert_eq!(r, T_RETURN);
+    }
+
+    #[test]
+    fn connections_table_cells_cannot_add_a_column() {
+        let pk = json!({"links": [{"n": 1, "source": "a | b", "path": "x\u{1b}y", "sha": "c|d"}]});
+        let t = links_text(&pk);
+        assert!(t.contains("| 1 | a \\| b | x\\u{1b}y | `c\\|d` |"), "{t}");
+        assert!(t.starts_with("| # | Source | Pinned location | Expected sha256 |\n|---|---|---|---|\n"), "{t}");
     }
 
     #[test]

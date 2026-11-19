@@ -2,6 +2,7 @@
 //! The log (pages/<page>/log.jsonl) is the only truth; every other page file is a view
 //! printed from it. People and models never edit page files; they run wf.
 
+mod board;
 mod chars;
 mod cmd;
 mod git;
@@ -36,6 +37,12 @@ Every command that writes needs --as <name> (or set WF_AS).
   status <page>                                 now strip, board, feed (read only)
   observe <page> [--stall-hours 24] [--record T]   observer signals; --record files a finding
   verify <page> [--fix]                         check the log chain and every view file
+  pack ... --branch returns                     use the one shared returns branch (t401u)
+  publish-pack <page> [<NN>]                    prime: commit pages/<page> by path, push to packs (never forced)
+  return ... --push                             builder: merge the commit into the branch, record, push it
+  intake [--repo work] [--branch returns]       prime: fetch returns, take each page's new log entries
+  board [<page>] [--all] [--card NN] [--stall-hours 24]   read-only work-order board from the log;
+                                                no page: one line per page (book board)
 Root folder: current folder, or WF_ROOT.";
 
 pub struct Args {
@@ -60,6 +67,10 @@ impl Args {
     }
     pub fn flag(&self, k: &str) -> Option<&str> {
         self.flags.get(k).map(|s| s.as_str())
+    }
+    /// Every flag name given, without the leading `--`.
+    pub fn flag_names(&self) -> impl Iterator<Item = &str> {
+        self.flags.keys().map(|k| k.as_str())
     }
     pub fn req(&self, k: &str) -> log::Res<&str> {
         self.flag(k).filter(|v| !v.is_empty()).ok_or(format!("missing --{k}"))
@@ -100,7 +111,8 @@ impl Drop for Lock {
 /// Commands that append to the log or reprint views. The rest only read.
 fn writes(c: &str, a: &Args) -> bool {
     match c {
-        "status" | "help" | "--help" => false,
+        // publish-pack runs git only; a lock file would be staged with pages/<page>.
+        "status" | "board" | "help" | "--help" | "publish-pack" => false,
         "verify" => a.flag("fix").is_some(),
         "observe" => a.flag("record").is_some(),
         "check" => false, // commands run unlocked; check takes the lock itself before it appends
@@ -117,12 +129,20 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         println!("{HELP}");
         return Ok(());
     }
+    if c == "board" {
+        // Read only: no lock, no view reprint, no log entry, no git (WF-BOARD.md).
+        debug_assert!(!writes(c, &a));
+        return board::run(&root, &a);
+    }
     if c == "init-page" {
         need_who(&who)?;
         let (dir, _l) = cmd::init_page(&root, &a, &who)?;
         render::write_after_append(&Page::load(&dir)?)?;
         println!("page {} started. Next: Prime writes 01 and 04 goals.", a.pos[0]);
         return Ok(());
+    }
+    if c == "intake" {
+        return cmd::intake(&root, &a);
     }
     let addr = a.pos.first().ok_or("give the page address")?;
     page::check_addr(addr)?;
@@ -136,8 +156,14 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     match c {
         "status" => return Ok(print!("{}", status::status(&p))),
         "verify" => {
+            for w in render::stray_agents(&p) {
+                println!("{w}");
+            }
             if edited.is_empty() {
                 println!("ok: log chain holds ({} entries, head {}); every view matches the log", p.events.len(), log::short(&p.head));
+                for n in render::hash_notes(&p) {
+                    println!("  {n}");
+                }
             } else if a.flag("fix").is_some() {
                 render::write_except(&p, &edited.unreadable)?;
                 let mut reprinted = edited.missing.clone();
@@ -158,11 +184,28 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         }
         _ => {}
     }
+    if c == "observe" && a.flag("record").is_none() {
+        // Read only: runs even on a locked or unclean page, and says so (Tester, CHECK-4e64e47).
+        let mut found = status::observe(&p, a.flag("stall-hours").and_then(|h| h.parse().ok()).unwrap_or(24));
+        found.extend(render::rule_locks(&p));
+        if !edited.is_empty() {
+            found.push(format!("page not clean: {}", edited.report()));
+        }
+        println!("observer view of {addr} (prime: {})", chars::escape_line(&p.prime));
+        found.iter().for_each(|f| println!("  - {f}"));
+        if found.is_empty() {
+            println!("  findings: none");
+        }
+        return Ok(());
+    }
     if !edited.is_empty() {
         return Err(format!(
             "refused: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint missing and changed views from the log.",
             edited.report()
         ));
+    }
+    if c == "publish-pack" {
+        return cmd::publish_pack(&root, addr, &a);
     }
     if c == "check" {
         need_who(&who)?;
@@ -170,7 +213,7 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     }
     if c == "observe" {
         let found = status::observe(&p, a.flag("stall-hours").and_then(|h| h.parse().ok()).unwrap_or(24));
-        println!("observer view of {addr} (prime: {})", p.prime);
+        println!("observer view of {addr} (prime: {})", chars::escape_line(&p.prime));
         found.iter().for_each(|f| println!("  - {f}"));
         if found.is_empty() {
             println!("  findings: none");
@@ -226,6 +269,13 @@ mod lock_tests {
         let _ = fs::remove_dir_all(&d);
         fs::create_dir_all(&d).unwrap();
         d
+    }
+
+    #[test]
+    fn board_is_read_only() {
+        let a = Args::parse(&["1.2.3.4".into(), "--all".into()]);
+        assert!(!writes("board", &a) && !writes("status", &a));
+        assert!(writes("claim", &a));
     }
 
     #[test]

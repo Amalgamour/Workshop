@@ -11,7 +11,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const CARD_WORDS: [&str; 4] = ["accepted", "carried", "discarded", "candidate"];
-const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
+pub(crate) const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
 const RETURN_KEYS: [&str; 7] = ["done", "changed", "noticed", "proof", "not done", "unprompted", "overflow"];
 const REQUIRED: [&str; 6] = ["outcome", "repo", "start", "may touch", "checks", "stop if"];
 
@@ -59,19 +59,19 @@ fn jobs_not_done(ret: &Value) -> Vec<String> {
 
 fn must_be(p: &Page, who: &str, role: &str) -> Res<()> {
     let holder = if role == "prime" { &p.prime } else { &p.person };
-    need(who == holder, format!("refused: only the {role} ({holder}) may do this, not {who}"))
+    need(who == holder, format!("refused: only the {role} ({}) may do this, not {}", chars::escape_line(holder), chars::escape_line(who)))
 }
 
 /// Draft, pack and claim stop on a halted page.
 fn not_halted(p: &Page) -> Res<()> {
     match &p.halt {
-        Some((who, _, note, seq)) => Err(format!("refused: page {} is halted (by {who}, entry {seq}: {note}). {}", p.addr, crate::status::how_to_resume(p))),
+        Some((who, _, note, seq)) => Err(format!("refused: page {} is halted (by {}, entry {seq}: {}). {}", p.addr, chars::escape_line(who), chars::escape_line(note), crate::status::how_to_resume(p))),
         None => Ok(()),
     }
 }
 
 fn prime_or_person(p: &Page, who: &str) -> Res<&'static str> {
-    need(who == p.prime || who == p.person, format!("refused: only Prime ({}) or the person ({}) may do this, not {who}", p.prime, p.person))?;
+    need(who == p.prime || who == p.person, format!("refused: only Prime ({}) or the person ({}) may do this, not {}", chars::escape_line(&p.prime), chars::escape_line(&p.person), chars::escape_line(who)))?;
     Ok(if who == p.person { "person" } else { "prime" })
 }
 
@@ -97,17 +97,27 @@ pub fn resume(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     Ok(())
 }
 
+/// A pass part the command needs is not in the log (a forged or wrong-order log).
+fn no_part(n: u32, what: &str) -> String {
+    format!("refused: 05.{n:02} has no {what} in the log; nothing was written. Run wf verify to check the log")
+}
+
 fn tail_is(x: &Pass, want: &[&str]) -> Res<()> {
     need(want.contains(&x.tail.as_str()), format!("refused: 05.{:02} is at '{}', this needs {}", x.nn, x.tail, want.join(" or ")))
 }
 
 /// Digits, or 05.NN. Refuses signed forms like +1.
-fn parse_pass(v: &str, err: &str) -> Res<u32> {
+pub(crate) fn parse_pass(v: &str, err: &str) -> Res<u32> {
     let v = v.strip_prefix("05.").unwrap_or(v);
     if v.is_empty() || !v.bytes().all(|b| b.is_ascii_digit()) {
         return Err(err.into());
     }
     v.parse().map_err(|_| err.to_string())
+}
+
+/// `05.NN` for a pass number in 01-98; otherwise `pass N` (never `05.100`).
+fn pass_label(n: u32) -> String {
+    if (1..=98).contains(&n) { format!("05.{n:02}") } else { format!("pass {n}") }
 }
 
 fn nn(a: &Args, i: usize) -> Res<u32> {
@@ -297,8 +307,8 @@ fn overlap_ok_flag(p: &Page, a: &Args) -> Res<Option<(u32, String)>> {
             let n = parse_pass(v, "give --overlap-ok a pass number, like 3 or 05.03")?;
             match p.passes.get(&n) {
                 Some(x) if x.is_open_tail() => Ok(Some((n, why))),
-                Some(x) => Err(format!("refused: --overlap-ok 05.{n:02} is not open (tail is {})", x.tail)),
-                None => Err(format!("refused: --overlap-ok 05.{n:02} is not open (no such pass)")),
+                Some(x) => Err(format!("refused: --overlap-ok {} is not open (tail is {})", pass_label(n), x.tail)),
+                None => Err(format!("refused: --overlap-ok {} is not open (no such pass)", pass_label(n))),
             }
         }
     }
@@ -347,7 +357,12 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let f01 = p.faces.get("01").ok_or("refused: face 01 (the agents card) is empty")?.clone();
     let start = git::commit(&repo(root, &x), &g("start"))?;
     let name = pass_name(p, n);
-    let (branch, rfile) = (format!("pass/{name}"), format!(".workshop/returns/{name}.md"));
+    // --branch returns: the one shared returns branch (t401u). Default: one branch per pass.
+    let branch = match a.flag("branch") {
+        Some(b) => { check_text(b, "branch")?; need(!b.is_empty() && !b.contains(' '), "give --branch a branch name, like returns")?; b.to_string() }
+        None => format!("pass/{name}"),
+    };
+    let rfile = format!(".workshop/returns/{name}.md");
     let src01 = format!("v{} entry {} hash {}", f01.version, f01.seq, short(&f01.hash()));
     let (sax, sds) = (render::version_of(AXIOMS), render::version_of(DESIGN));
     let jobs_txt = jobs(f).iter().map(|(k, v)| format!("  {k}: {v}")).collect::<Vec<_>>().join("\n");
@@ -365,14 +380,33 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let seq = p.events.len() as u64 + 1;
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
         "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when,
-        "templates": render::TEMPLATE_VER,
+        "templates": render::TEMPLATE_VER, "links": render::pack_links(p)?,
+        "remote": git::git(&repo(root, &x), &["remote", "get-url", "origin"]).unwrap_or_default(),
+        "kit_branch": std::env::var("WF_KIT_BRANCH").unwrap_or_default(),
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some((okn, why)) = allow {
         d["overlap_ok"] = json!(okn);
         d["overlap_why"] = json!(why);
     }
+    // Release hash (Director t373u, docs/spec/AGENTS-HASH.md): print AGENTS.md and PROMPT.md
+    // from this very entry, and record their sha256 in it. A later copy that hashes
+    // differently is invalid. The templates have no slot for these two fields, so adding
+    // them does not change the text they pin.
+    // Director t378u: when the AGENTS.md this pass would print is byte-identical to the latest
+    // released one on the page (same hash), print no new copy; record which pass it reuses.
+    // A changed text is printed new and hashed. PROMPT.md is per pass (it names the pass,
+    // pack hash, entry, branch), so it is always printed and hashed.
+    let mut released = x.clone();
+    released.pack = Some(d.clone());
+    let agents_hash = sha(&render::agents(p, &released)?);
+    if let Some((from, _)) = render::latest_agents(p, n).filter(|(_, h)| *h == agents_hash) {
+        d["agents_from"] = json!(from);
+    }
+    d["agents_hash"] = json!(agents_hash);
+    released.pack = Some(d.clone());
+    d["prompt_hash"] = json!(sha(&render::prompt(p, &released)?));
     p.add(who, "prime", "pack", d)?;
-    print!("{}", render::prompt(p, p.pass(n)?)?);
+    print!("{}", chars::escape_text(&render::prompt(p, p.pass(n)?)?));
     Ok(())
 }
 
@@ -381,11 +415,11 @@ pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
     let x = p.pass(n)?;
     if let Some(c) = &x.claim {
-        return Err(format!("refused: 05.{n:02} is already claimed by {c} (first claim wins)"));
+        return Err(format!("refused: 05.{n:02} is already claimed by {} (first claim wins)", chars::escape_line(c)));
     }
     tail_is(x, &["pack"])?;
     p.add(who, "builder", "claim", json!({"pass": n}))?;
-    println!("claimed 05.{n:02}. Read pages/{}/05.{n:02}/PROMPT.md and AGENTS.md", p.addr);
+    println!("claimed 05.{n:02}. Read pages/{}/05.{n:02}/PROMPT.md and {}", p.addr, render::agents_file(p, p.pass(n)?));
     Ok(())
 }
 
@@ -419,7 +453,7 @@ pub fn parse_return(text: &str, x: &Pass, pack_hash: &str) -> Res<Map<String, Va
     for (k, _) in jobs(&x.fields) {
         let v = f.get(&k).and_then(|v| v.as_str()).unwrap_or("");
         let st = v.split_whitespace().next().unwrap_or("");
-        need(["done", "need", "blocked"].contains(&st), format!("job {k} must start with done, need or blocked"))?;
+        need(["done", "need", "blocked"].contains(&st), format!("job {} must start with done, need or blocked", chars::escape_line(&k)))?;
         out.insert(k, v.into());
     }
     Ok(out)
@@ -429,12 +463,17 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
     tail_is(&x, &["open"])?;
-    need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", x.claim.clone().unwrap_or_default()))?;
-    let pk = x.pack.clone().unwrap();
+    need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", chars::escape_line(&x.claim.clone().unwrap_or_default())))?;
+    let pk = x.pack.clone().ok_or_else(|| no_part(n, "pack"))?;
     let (branch, file, sha_in) = (a.req("branch")?.to_string(), a.req("file")?.to_string(), a.req("commit")?.to_string());
+    let push = a.flag("push").is_some();
+    if push {
+        need(branch == s(&pk, "branch"), format!("branch must be {}", chars::escape_line(&s(&pk, "branch"))))?;
+        merge_into_shared(&repo(root, &x), &branch, &sha_in)?;
+    }
     let checked = (|| -> Res<(String, String, Vec<git::Change>, Map<String, Value>)> {
-        need(branch == s(&pk, "branch"), format!("branch must be {}", s(&pk, "branch")))?;
-        need(file == s(&pk, "return_file"), format!("return file must be {}", s(&pk, "return_file")))?;
+        need(branch == s(&pk, "branch"), format!("branch must be {}", chars::escape_line(&s(&pk, "branch"))))?;
+        need(file == s(&pk, "return_file"), format!("return file must be {}", chars::escape_line(&s(&pk, "return_file"))))?;
         let r = repo(root, &x);
         let c = git::commit(&r, &sha_in)?;
         let tip = git::branch_tip(&r, &branch)?;
@@ -465,8 +504,139 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
                 }
             }
             println!("return filed on 05.{n:02}. Next: a checker runs wf check {} {n} --as <checker>", p.addr);
+            if push {
+                crate::render::write(p)?;
+                push_log(p, &repo(root, &x), &branch, n)?;
+            }
             Ok(())
         }
+    }
+}
+
+/// `return --push`, step 1: put the builder's commit on the shared branch (t401u).
+/// Fetch, check out the branch at origin's tip, merge the commit (a merge keeps its SHA, which
+/// the return records). Simplest thing that works (t402u); a conflict stops with a plain message.
+fn merge_into_shared(r: &Path, branch: &str, sha_in: &str) -> Res<()> {
+    let c = git::commit(r, sha_in)?;
+    git::git(r, &["fetch", "origin", branch])?;
+    git::git(r, &["checkout", "-q", "-B", branch, &format!("origin/{branch}")])?;
+    if git::git(r, &["merge", "-q", "--no-edit", &c]).is_err() {
+        let _ = git::git(r, &["merge", "--abort"]);
+        return Err(format!("refused: your commit {} does not merge cleanly into {branch}. Nothing was pushed. Tell Prima.", short(&c)));
+    }
+    Ok(())
+}
+
+/// `return --push`, step 2: copy the page log to .workshop/logs/<page>/log.jsonl on the branch,
+/// commit it by path, and push. A lost race pulls (merge) and tries again, 3 times. Never forces.
+fn push_log(p: &Page, r: &Path, branch: &str, n: u32) -> Res<()> {
+    let rel = format!(".workshop/logs/{}/log.jsonl", p.addr);
+    let dest = r.join(&rel);
+    fs::create_dir_all(dest.parent().unwrap()).map_err(|e| e.to_string())?;
+    fs::copy(p.dir.join("log.jsonl"), &dest).map_err(|e| format!("cannot copy the log: {e}"))?;
+    git::git(r, &["add", "--", &rel])?;
+    git::git(r, &["commit", "-q", "-m", &format!("wf: return {} (log)", pass_name(p, n)), "--", &rel])?;
+    let mut last = String::new();
+    for _ in 0..3 {
+        match git::git(r, &["push", "-q", "origin", &format!("HEAD:refs/heads/{branch}")]) {
+            Ok(_) => {
+                println!("pushed {branch}: your commit, the return file and the page log. Prima picks it up with wf intake.");
+                return Ok(());
+            }
+            Err(e) => {
+                last = e;
+                let _ = git::git(r, &["pull", "-q", "--no-rebase", "--no-edit", "origin", branch]);
+            }
+        }
+    }
+    Err(format!("return recorded locally but the push failed 3 times ({last}). Nothing was forced. Run: git -C {} push origin HEAD:{branch}", r.display()))
+}
+
+/// `wf publish-pack <page> [<NN>]` (Prima): commit pages/<page> by path on the packs checkout
+/// and push it to `packs`. Never force pushes.
+pub fn publish_pack(root: &Path, addr: &str, a: &Args) -> Res<()> {
+    let head = git::git(root, &["rev-parse", "--abbrev-ref", "HEAD"])?;
+    need(head == "packs", format!("refused: the run folder is on '{}', not packs. Check out packs first.", chars::escape_line(&head)))?;
+    let rel = format!("pages/{addr}");
+    let what = match a.pos.get(1) {
+        Some(nn) => format!("{addr}.05.{:02}", parse_pass(nn, "give a pass number, like 3 or 05.03")?),
+        None => addr.to_string(),
+    };
+    git::git(root, &["add", "--", &rel])?;
+    if git::git(root, &["diff", "--cached", "--quiet", "--", &rel]).is_ok() {
+        println!("nothing new to publish under {rel}");
+    } else {
+        git::git(root, &["commit", "-q", "-m", &format!("wf: publish {what}"), "--", &rel])?;
+    }
+    git::git(root, &["push", "-q", "origin", "HEAD:refs/heads/packs"]).map_err(|e| format!("push to packs failed (nothing was forced): {e}"))?;
+    println!("published {what} to packs ({})", git::git(root, &["rev-parse", "--short", "HEAD"])?);
+    Ok(())
+}
+
+/// `wf intake [--repo work] [--branch returns]` (Prima): fetch the shared returns branch and bring
+/// each page's new log entries into the run folder. A returned log is taken only when the local log
+/// is an exact prefix of it. TODO (t402u, later): check against the packs head as an outside record.
+pub fn intake(root: &Path, a: &Args) -> Res<()> {
+    let r = root.join(a.flag("repo").unwrap_or("work"));
+    let branch = a.flag("branch").unwrap_or("returns");
+    git::git(&r, &["fetch", "-q", "origin", branch])?;
+    let tip = format!("origin/{branch}");
+    let list = git::git(&r, &["ls-tree", "-r", "--name-only", &tip, "--", ".workshop/logs/"]).unwrap_or_default();
+    let mut refused = Vec::new();
+    let mut ready = Vec::new();
+    for path in list.lines().filter(|l| l.ends_with("/log.jsonl")) {
+        let addr = path.trim_start_matches(".workshop/logs/").trim_end_matches("/log.jsonl").to_string();
+        if check_addr(&addr).is_err() {
+            refused.push(format!("{}: not a page address", chars::escape_line(&addr)));
+            continue;
+        }
+        let dir = root.join("pages").join(&addr);
+        let local_path = dir.join("log.jsonl");
+        let Ok(local) = fs::read_to_string(&local_path) else {
+            refused.push(format!("{addr}: no such page in this run folder"));
+            continue;
+        };
+        let remote = git::git(&r, &["show", &format!("{tip}:{path}")])? + "\n";
+        if remote == local {
+            continue;
+        }
+        if !remote.starts_with(&local) {
+            refused.push(format!("{addr}: the returned log does not continue this run folder's log; nothing taken"));
+            continue;
+        }
+        let _l = crate::Lock::take(&dir)?;
+        let before = Page::load(&dir)?;
+        let edited = render::edited(&before)?;
+        if !edited.is_empty() {
+            refused.push(format!("{addr}: {}; nothing taken", edited.report()));
+            continue;
+        }
+        fs::write(&local_path, &remote).map_err(|e| e.to_string())?;
+        match Page::load(&dir) {
+            Ok(p) => {
+                render::write(&p)?;
+                let n = remote.lines().count() - local.lines().count();
+                println!("{addr}: took {n} new log entries");
+                for x in p.passes.values().filter(|x| x.tail == "return") {
+                    ready.push(format!("{addr} 05.{:02}: wf check {addr} {} --as <checker>", x.nn, x.nn));
+                }
+            }
+            Err(e) => {
+                fs::write(&local_path, &local).map_err(|e| e.to_string())?;
+                refused.push(format!("{addr}: the returned log does not load ({e}); nothing taken"));
+            }
+        }
+    }
+    if ready.is_empty() {
+        println!("ready to check: none");
+    } else {
+        println!("ready to check:");
+        ready.iter().for_each(|l| println!("  {l}"));
+    }
+    if refused.is_empty() {
+        Ok(())
+    } else {
+        Err(format!("intake refused: {}", refused.join("; ")))
     }
 }
 
@@ -501,16 +671,16 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
     }
     rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, render::git_changed_text(r));
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
-        rep += &format!("  job {k}: {}\n", chars::escape_line(v.as_str().unwrap_or("")));
+        rep += &format!("  job {}: {}\n", chars::escape_line(&k), chars::escape_line(v.as_str().unwrap_or("")));
     }
     let not_done = jobs_not_done(r);
     if !not_done.is_empty() {
-        rep += &format!("  jobs not done: {}\n", not_done.join(", "));
+        rep += &format!("  jobs not done: {}\n", not_done.iter().map(|s| chars::escape_line(s)).collect::<Vec<_>>().join(", "));
     }
     let dw = s(pk, "done_when");
     if dw != "none" && !dw.is_empty() {
         for l in dw.lines() {
-            rep += &format!("  done when (01): {} -> {}\n", l, if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
+            rep += &format!("  done when (01): {} -> {}\n", chars::escape_line(l), if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
         }
     }
     if let Some(now) = face01_drift(p, pk) {
@@ -537,13 +707,17 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     tail_is(&x, &["return", "review"])?;
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
     let dry = a.flag("dry-run").is_some();
+    if let (false, Some((who, at, d))) = (dry, &x.signoff) {
+        return Err(format!("refused: 05.{n:02} was signed off by {} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            chars::escape_line(who), chars::escape_line(&s(d, "outcome")), p.addr));
+    }
     if !dry {
         if let Some((_, c)) = &x.check {
             need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
         }
     }
-    let pk = x.pack.clone().unwrap();
-    let r = x.ret.clone().unwrap();
+    let pk = x.pack.clone().ok_or_else(|| no_part(n, "pack"))?;
+    let r = x.ret.clone().ok_or_else(|| no_part(n, "return"))?;
     let pack_hash = s(&pk, "pack_hash");
     let return_hash = s(&r, "hash");
     let tail0 = x.tail.clone();
@@ -557,7 +731,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let verdict = if pass { "pass" } else { "fail" };
     if dry {
         let rep = check_report(p, &pk, &r, &results, frame_ok, a.flag("note"), a.flag("fail"));
-        print!("check 05.{n:02}: {verdict} (dry-run: nothing written)\n{rep}");
+        print!("check 05.{n:02}: {verdict} (dry-run: nothing written)\n{}", chars::escape_text(&rep));
         return Ok(());
     }
     let _l = crate::Lock::take(&p.dir)?;
@@ -570,13 +744,18 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         && s(x2.pack.as_ref().unwrap_or(&Value::Null), "pack_hash") == pack_hash
         && s(x2.ret.as_ref().unwrap_or(&Value::Null), "hash") == return_hash
         && x2.check == check0;
-    need(still, format!("refused: 05.{n:02} is no longer in return with the same pack and return"))?;
+    if let Some((who, at, d)) = &x2.signoff {
+        return Err(format!("refused: 05.{n:02} was signed off by {} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            chars::escape_line(who), chars::escape_line(&s(d, "outcome")), p.addr));
+    }
+    need(still, format!("refused: 05.{n:02} changed while the checks ran (it is now at '{}', last entry {}); nothing was written. Run wf check {} {n} again",
+        x2.tail, x2.last_seq, p.addr))?;
     if let Some((_, c)) = &x2.check {
         need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
     }
     need(x2.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
-    let pk = x2.pack.as_ref().unwrap();
-    let r = x2.ret.as_ref().unwrap();
+    let pk = x2.pack.as_ref().ok_or_else(|| no_part(n, "pack"))?;
+    let r = x2.ret.as_ref().ok_or_else(|| no_part(n, "return"))?;
     let rep = check_report(p, pk, r, &results, frame_ok, a.flag("note"), a.flag("fail"));
     p.add(who, "checker", "check", json!({"pass": n, "commit": commit, "verdict": verdict, "report": rep,
         "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": git::clip_check_out(out, 40)})).collect::<Vec<_>>()}))?;
@@ -584,7 +763,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     if fails >= 2 {
         p.add("wf", "tool", "elevate", json!({"pass": n, "to": "prime", "item": format!("second failed check on 05.{n:02}")}))?;
     }
-    print!("check 05.{n:02}: {verdict}\n{rep}");
+    print!("check 05.{n:02}: {verdict}\n{}", chars::escape_text(&rep));
     render::write_after_append(p)
 }
 
@@ -597,14 +776,14 @@ pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     need(OUTCOMES.contains(&outcome), format!("outcome must be one of {}", OUTCOMES.join(", ")))?;
     let verdict = x.check.as_ref().map(|c| s(&c.1, "verdict")).unwrap_or_default();
     need(outcome != "passed" || verdict == "pass", "refused: cannot sign off 'passed' when the check failed")?;
-    let ret = x.ret.as_ref().unwrap();
+    let ret = x.ret.as_ref().ok_or_else(|| no_part(n, "return"))?;
     let not_done = jobs_not_done(ret);
     let named: Vec<String> = split_list(a.flag("cards").unwrap_or(""))
         .iter()
         .map(|kv| kv.split_once('=').map(|(k, _)| k.trim().to_string()).unwrap_or_default())
         .filter(|k| !k.is_empty())
         .collect();
-    let drifted = face01_drift(p, x.pack.as_ref().unwrap()).is_some();
+    let drifted = face01_drift(p, x.pack.as_ref().ok_or_else(|| no_part(n, "pack"))?).is_some();
     if outcome == "passed" {
         refuse_passed(p, n, ret, &named, a.flag("note").is_some())?;
     }
@@ -639,18 +818,18 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let x = p.pass(n)?.clone();
     tail_is(&x, &["review"])?;
     let (signer, seq, d) = x.signoff.clone().ok_or("refused: Prime has not signed off this pass")?;
-    need(p.prime_at(seq) == signer, format!("refused: {signer} was not prime at entry {seq}"))?;
-    let (pk, r, (checker, c)) = (x.pack.clone().unwrap(), x.ret.clone().unwrap(), x.check.clone().unwrap());
+    need(p.prime_at(seq) == signer, format!("refused: {} was not prime at entry {seq}", chars::escape_line(&signer)))?;
+    let (pk, r, (checker, c)) = (x.pack.clone().ok_or_else(|| no_part(n, "pack"))?, x.ret.clone().ok_or_else(|| no_part(n, "return"))?, x.check.clone().ok_or_else(|| no_part(n, "check"))?);
     if s(&d, "outcome") == "passed" {
         let named: Vec<String> = d["cards"].as_object().map(|m| m.keys().cloned().collect()).unwrap_or_default();
         refuse_passed(p, n, &r, &named, why_ref(&s(&d, "note"), "note").is_ok())?;
         let f01 = p.faces.get("01").map(|f| f.seq).unwrap_or(0);
         need(f01 <= seq, "refused: cannot close 'passed' while face 01 changed after the signoff entry")?;
     }
-    let sum = c["results"].as_array().map(|v| v.iter().map(|r| format!("{} {}", s(r, "cmd"), if r["ok"] == true { "ok" } else { "FAIL" })).collect::<Vec<_>>().join("; ")).unwrap_or_default();
+    let sum = c["results"].as_array().map(|v| v.iter().map(|r| format!("{} {}", chars::escape_line(&s(r, "cmd")), if r["ok"] == true { "ok" } else { "FAIL" })).collect::<Vec<_>>().join("; ")).unwrap_or_default();
     let mut record = fill(T_CLOSE, &[("pass", pass_name(p, n)), ("pack_hash", s(&pk, "pack_hash")), ("return_hash", s(&r, "hash")),
-        ("commit", s(&r, "commit")), ("branch", s(&r, "branch")), ("checker", checker), ("check_summary", format!("{} ({sum})", s(&c, "verdict"))),
-        ("signer", signer), ("sign_seq", seq.to_string()), ("outcome", s(&d, "outcome")), ("cards", render::cards_text(&d["cards"])), ("note", s(&d, "note"))])?;
+        ("commit", chars::escape_line(&s(&r, "commit"))), ("branch", chars::escape_line(&s(&r, "branch"))), ("checker", chars::escape_line(&checker)), ("check_summary", format!("{} ({sum})", chars::escape_line(&s(&c, "verdict")))),
+        ("signer", chars::escape_line(&signer)), ("sign_seq", seq.to_string()), ("outcome", chars::escape_line(&s(&d, "outcome"))), ("cards", chars::escape_line(&render::cards_text(&d["cards"]))), ("note", chars::escape_line(&s(&d, "note")))])?;
     let git = render::git_changed_text(&r);
     if !git.is_empty() {
         if !record.ends_with('\n') {
@@ -659,7 +838,7 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         record.push_str(&format!("git: {git}\n"));
     }
     p.add(who, "tool", "close", json!({"pass": n, "outcome": s(&d, "outcome"), "cards": d["cards"], "record": record, "record_hash": sha(&record)}))?;
-    print!("{record}");
+    print!("{}", chars::escape_text(&record));
     Ok(())
 }
 
@@ -682,6 +861,32 @@ pub fn answer(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 
 #[cfg(test)]
 mod tests {
+    /// A pass state the log order rules now keep out of any loaded page; the commands still refuse it, not panic.
+    #[test]
+    fn write_commands_refuse_missing_parts_without_a_panic() {
+        use crate::page::{Page, Pass};
+        let dir = std::env::temp_dir().join(format!("wf-cmd-noparts-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let mut p = Page { dir: dir.clone(), addr: "1.2.3.4".into(), prime: "pri".into(), person: "mat".into(), ..Default::default() };
+        p.primes.push(("pri".into(), 1, 1));
+        let a = |v: &[&str]| crate::Args::parse(&v.iter().map(|s| s.to_string()).collect::<Vec<_>>());
+        p.passes.insert(1, Pass { nn: 1, tail: "open".into(), claim: Some("bob".into()), ..Default::default() });
+        let err = super::ret(&mut p, &dir, &a(&["1.2.3.4", "1", "--branch", "b", "--commit", "c", "--file", "f"]), "bob").unwrap_err();
+        assert!(err.contains("05.01 has no pack in the log"), "{err}");
+        p.passes.insert(1, Pass { nn: 1, tail: "return".into(), ..Default::default() });
+        let err = super::check(&mut p, &dir, &a(&["1.2.3.4", "1"]), "cat").unwrap_err();
+        assert!(err.contains("05.01 has no pack in the log"), "{err}");
+        p.passes.insert(1, Pass { nn: 1, tail: "review".into(), ..Default::default() });
+        let err = super::signoff(&mut p, &a(&["1.2.3.4", "1", "--outcome", "failed"]), "pri").unwrap_err();
+        assert!(err.contains("05.01 has no return in the log"), "{err}");
+        p.passes.insert(1, Pass { nn: 1, tail: "review".into(), signoff: Some(("pri".into(), 1, serde_json::json!({"outcome": "failed"}))), ..Default::default() });
+        let err = super::close(&mut p, &a(&["1.2.3.4", "1"]), "pri").unwrap_err();
+        assert!(err.contains("05.01 has no pack in the log"), "{err}");
+        assert!(!dir.join("log.jsonl").exists(), "nothing was written");
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
     #[test]
     fn fields_join_indented_lines() {
         let f = super::fields("w01: one\n  two\nChecks: a; b\n");
