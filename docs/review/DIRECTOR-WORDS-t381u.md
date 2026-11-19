@@ -17,3 +17,11 @@ Matthew's answer, verbatim:
 > Design never is updated during work.  We break into passes so each on refines it's exactly how AI made imagines.
 
 Plain words: the design (and the rule files that carry it) is frozen while a pass works. Refinement happens only between passes, so each pass builds exactly what was imagined for it.
+
+## t383u (2026-11-19, 11:23 AM EST), widget answer, verbatim
+
+Question (t382s1446): "When a pass has been reviewed but not signed off yet, may its rule files change?"
+
+> No, rule files change only once the pass is closed
+
+Plain words: "after review" means after the pass is closed. A reviewed but unsigned pass is still locked. This matches agents-hash 4e64e47 as built.
