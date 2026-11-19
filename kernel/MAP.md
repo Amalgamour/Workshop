@@ -357,3 +357,7 @@ Test fixtures, each registry line saying why. All are draft except `10.11.21.100
 | 02 | `why-questions` | workflow-loop.003.md:273-278 |  |
 | 04 | `why-questions` |  | why missing: 4.7 |
 | 06.01 | `seed-session` | see body | session note |
+
+## File names (Director t375u, t377u)
+
+Each file is `DD.SS.BB.PPPP.title.FF[.NN][.tail].md`, the title copied from the face 00 stamp (seqpage.md section 2); page 0000 and the axioms carry no separate title. The build stops with "elevate to Director" when a name and its stamp disagree. See docs/spec/KERNEL-FILE-TITLES.md.
