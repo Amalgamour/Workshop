@@ -15,7 +15,7 @@ Sources: docs/review/AGENTS-V3-REVIEW-t386u.md (the review), templates/v3/agents
 
 ## A design change it implies (park for later)
 - **Pins by revision** ({{axioms_ref}}, {{face01_entry}}) rather than by path. Today wf checks the current bytes at a path, which is what makes the strict lock work. Revision pins would let old bytes stay readable after a file changes. That's useful for history, but it is a new mechanism. Default: keep path plus sha256 as built (it enforces t381u) and park revision pins as later work.
-- **Link 3 DESIGN.md** is a new link. Today link 3 is different in the build. To check: which file holds pages, faces, passes and roles in the kit.
+- **Link 3 DESIGN.md** matches the build: link 3 is already kit docs/DESIGN.md ("the page, the faces, the pass, the roles").
 - **Unprompted notes (step 4)** already exist in the kit specs (drafting.md, workflow-loop.md), so pointing to them is fine.
 
 ## Length
