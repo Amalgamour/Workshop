@@ -26,3 +26,10 @@ checked: 2026-11-19, 2:12 PM EST, by Designer. Maker's own check, not proof (Axi
 FAILs found and fixed: none found.
 Verdict: PASS for review, with tensions (grant placeholder from v2; "planned" is a plain
 word, not a wf state; the goal line's double spaces are shortened).
+
+## Version note (2026-11-19, 2:01 PM EST, Designer): superseded for t425u
+
+Superseded by RELEASE-CHECK-0400-face01-v3-v2.md in this folder (t425u: each page links to the band's test lab,
+0497, and copies no test code; STAGE-PLAN-90.50.10.md v4, 5389d13). This file stays as
+history (Axioms.md:23). Its "made" or "checked" time is later than its commit (699fa07);
+it was written about 1:50 PM EST.

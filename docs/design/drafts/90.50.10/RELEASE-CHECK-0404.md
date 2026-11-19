@@ -59,3 +59,10 @@ hostile pass still come before release. Fields marked TBD are checked again at p
 Verdict: PASS for review, with tensions (back-link waits for 0498, tests/wf.rs still
 shared, grant reads t424 as approval of the plan's paths, line numbers move after 0403,
 no hostile pass yet). Not releasable until 0403 closes and the TBD fields are filled.
+
+## Version note (2026-11-19, 2:01 PM EST, Designer): superseded for t425u
+
+Superseded by RELEASE-CHECK-0404-v2.md in this folder (t425u: each page links to the band's test lab,
+0497, and copies no test code; STAGE-PLAN-90.50.10.md v4, 5389d13). This file stays as
+history (Axioms.md:23). Its "made" or "checked" time is later than its commit (699fa07);
+it was written about 1:50 PM EST.
