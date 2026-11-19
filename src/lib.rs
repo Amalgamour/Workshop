@@ -37,6 +37,10 @@ Every command that writes needs --as <name> (or set WF_AS).
   status <page>                                 now strip, board, feed (read only)
   observe <page> [--stall-hours 24] [--record T]   observer signals; --record files a finding
   verify <page> [--fix]                         check the log chain and every view file
+  pack ... --branch returns                     use the one shared returns branch (t401u)
+  publish-pack <page> [<NN>]                    prime: commit pages/<page> by path, push to packs (never forced)
+  return ... --push                             builder: merge the commit into the branch, record, push it
+  intake [--repo work] [--branch returns]       prime: fetch returns, take each page's new log entries
   board [<page>] [--all] [--card NN] [--stall-hours 24]   read-only work-order board from the log;
                                                 no page: one line per page (book board)
 Root folder: current folder, or WF_ROOT.";
@@ -107,7 +111,8 @@ impl Drop for Lock {
 /// Commands that append to the log or reprint views. The rest only read.
 fn writes(c: &str, a: &Args) -> bool {
     match c {
-        "status" | "board" | "help" | "--help" => false,
+        // publish-pack runs git only; a lock file would be staged with pages/<page>.
+        "status" | "board" | "help" | "--help" | "publish-pack" => false,
         "verify" => a.flag("fix").is_some(),
         "observe" => a.flag("record").is_some(),
         "check" => false, // commands run unlocked; check takes the lock itself before it appends
@@ -135,6 +140,9 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         render::write_after_append(&Page::load(&dir)?)?;
         println!("page {} started. Next: Prime writes 01 and 04 goals.", a.pos[0]);
         return Ok(());
+    }
+    if c == "intake" {
+        return cmd::intake(&root, &a);
     }
     let addr = a.pos.first().ok_or("give the page address")?;
     page::check_addr(addr)?;
@@ -195,6 +203,9 @@ pub fn run(raw: &[String]) -> log::Res<()> {
             "refused: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint missing and changed views from the log.",
             edited.report()
         ));
+    }
+    if c == "publish-pack" {
+        return cmd::publish_pack(&root, addr, &a);
     }
     if c == "check" {
         need_who(&who)?;

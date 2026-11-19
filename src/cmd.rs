@@ -357,7 +357,12 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let f01 = p.faces.get("01").ok_or("refused: face 01 (the agents card) is empty")?.clone();
     let start = git::commit(&repo(root, &x), &g("start"))?;
     let name = pass_name(p, n);
-    let (branch, rfile) = (format!("pass/{name}"), format!(".workshop/returns/{name}.md"));
+    // --branch returns: the one shared returns branch (t401u). Default: one branch per pass.
+    let branch = match a.flag("branch") {
+        Some(b) => { check_text(b, "branch")?; need(!b.is_empty() && !b.contains(' '), "give --branch a branch name, like returns")?; b.to_string() }
+        None => format!("pass/{name}"),
+    };
+    let rfile = format!(".workshop/returns/{name}.md");
     let src01 = format!("v{} entry {} hash {}", f01.version, f01.seq, short(&f01.hash()));
     let (sax, sds) = (render::version_of(AXIOMS), render::version_of(DESIGN));
     let jobs_txt = jobs(f).iter().map(|(k, v)| format!("  {k}: {v}")).collect::<Vec<_>>().join("\n");
@@ -376,6 +381,8 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
         "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when,
         "templates": render::TEMPLATE_VER, "links": render::pack_links(p)?,
+        "remote": git::git(&repo(root, &x), &["remote", "get-url", "origin"]).unwrap_or_default(),
+        "kit_branch": std::env::var("WF_KIT_BRANCH").unwrap_or_default(),
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some((okn, why)) = allow {
         d["overlap_ok"] = json!(okn);
@@ -459,6 +466,11 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", chars::escape_line(&x.claim.clone().unwrap_or_default())))?;
     let pk = x.pack.clone().ok_or_else(|| no_part(n, "pack"))?;
     let (branch, file, sha_in) = (a.req("branch")?.to_string(), a.req("file")?.to_string(), a.req("commit")?.to_string());
+    let push = a.flag("push").is_some();
+    if push {
+        need(branch == s(&pk, "branch"), format!("branch must be {}", chars::escape_line(&s(&pk, "branch"))))?;
+        merge_into_shared(&repo(root, &x), &branch, &sha_in)?;
+    }
     let checked = (|| -> Res<(String, String, Vec<git::Change>, Map<String, Value>)> {
         need(branch == s(&pk, "branch"), format!("branch must be {}", chars::escape_line(&s(&pk, "branch"))))?;
         need(file == s(&pk, "return_file"), format!("return file must be {}", chars::escape_line(&s(&pk, "return_file"))))?;
@@ -492,8 +504,139 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
                 }
             }
             println!("return filed on 05.{n:02}. Next: a checker runs wf check {} {n} --as <checker>", p.addr);
+            if push {
+                crate::render::write(p)?;
+                push_log(p, &repo(root, &x), &branch, n)?;
+            }
             Ok(())
         }
+    }
+}
+
+/// `return --push`, step 1: put the builder's commit on the shared branch (t401u).
+/// Fetch, check out the branch at origin's tip, merge the commit (a merge keeps its SHA, which
+/// the return records). Simplest thing that works (t402u); a conflict stops with a plain message.
+fn merge_into_shared(r: &Path, branch: &str, sha_in: &str) -> Res<()> {
+    let c = git::commit(r, sha_in)?;
+    git::git(r, &["fetch", "origin", branch])?;
+    git::git(r, &["checkout", "-q", "-B", branch, &format!("origin/{branch}")])?;
+    if git::git(r, &["merge", "-q", "--no-edit", &c]).is_err() {
+        let _ = git::git(r, &["merge", "--abort"]);
+        return Err(format!("refused: your commit {} does not merge cleanly into {branch}. Nothing was pushed. Tell Prima.", short(&c)));
+    }
+    Ok(())
+}
+
+/// `return --push`, step 2: copy the page log to .workshop/logs/<page>/log.jsonl on the branch,
+/// commit it by path, and push. A lost race pulls (merge) and tries again, 3 times. Never forces.
+fn push_log(p: &Page, r: &Path, branch: &str, n: u32) -> Res<()> {
+    let rel = format!(".workshop/logs/{}/log.jsonl", p.addr);
+    let dest = r.join(&rel);
+    fs::create_dir_all(dest.parent().unwrap()).map_err(|e| e.to_string())?;
+    fs::copy(p.dir.join("log.jsonl"), &dest).map_err(|e| format!("cannot copy the log: {e}"))?;
+    git::git(r, &["add", "--", &rel])?;
+    git::git(r, &["commit", "-q", "-m", &format!("wf: return {} (log)", pass_name(p, n)), "--", &rel])?;
+    let mut last = String::new();
+    for _ in 0..3 {
+        match git::git(r, &["push", "-q", "origin", &format!("HEAD:refs/heads/{branch}")]) {
+            Ok(_) => {
+                println!("pushed {branch}: your commit, the return file and the page log. Prima picks it up with wf intake.");
+                return Ok(());
+            }
+            Err(e) => {
+                last = e;
+                let _ = git::git(r, &["pull", "-q", "--no-rebase", "--no-edit", "origin", branch]);
+            }
+        }
+    }
+    Err(format!("return recorded locally but the push failed 3 times ({last}). Nothing was forced. Run: git -C {} push origin HEAD:{branch}", r.display()))
+}
+
+/// `wf publish-pack <page> [<NN>]` (Prima): commit pages/<page> by path on the packs checkout
+/// and push it to `packs`. Never force pushes.
+pub fn publish_pack(root: &Path, addr: &str, a: &Args) -> Res<()> {
+    let head = git::git(root, &["rev-parse", "--abbrev-ref", "HEAD"])?;
+    need(head == "packs", format!("refused: the run folder is on '{}', not packs. Check out packs first.", chars::escape_line(&head)))?;
+    let rel = format!("pages/{addr}");
+    let what = match a.pos.get(1) {
+        Some(nn) => format!("{addr}.05.{:02}", parse_pass(nn, "give a pass number, like 3 or 05.03")?),
+        None => addr.to_string(),
+    };
+    git::git(root, &["add", "--", &rel])?;
+    if git::git(root, &["diff", "--cached", "--quiet", "--", &rel]).is_ok() {
+        println!("nothing new to publish under {rel}");
+    } else {
+        git::git(root, &["commit", "-q", "-m", &format!("wf: publish {what}"), "--", &rel])?;
+    }
+    git::git(root, &["push", "-q", "origin", "HEAD:refs/heads/packs"]).map_err(|e| format!("push to packs failed (nothing was forced): {e}"))?;
+    println!("published {what} to packs ({})", git::git(root, &["rev-parse", "--short", "HEAD"])?);
+    Ok(())
+}
+
+/// `wf intake [--repo work] [--branch returns]` (Prima): fetch the shared returns branch and bring
+/// each page's new log entries into the run folder. A returned log is taken only when the local log
+/// is an exact prefix of it. TODO (t402u, later): check against the packs head as an outside record.
+pub fn intake(root: &Path, a: &Args) -> Res<()> {
+    let r = root.join(a.flag("repo").unwrap_or("work"));
+    let branch = a.flag("branch").unwrap_or("returns");
+    git::git(&r, &["fetch", "-q", "origin", branch])?;
+    let tip = format!("origin/{branch}");
+    let list = git::git(&r, &["ls-tree", "-r", "--name-only", &tip, "--", ".workshop/logs/"]).unwrap_or_default();
+    let mut refused = Vec::new();
+    let mut ready = Vec::new();
+    for path in list.lines().filter(|l| l.ends_with("/log.jsonl")) {
+        let addr = path.trim_start_matches(".workshop/logs/").trim_end_matches("/log.jsonl").to_string();
+        if check_addr(&addr).is_err() {
+            refused.push(format!("{}: not a page address", chars::escape_line(&addr)));
+            continue;
+        }
+        let dir = root.join("pages").join(&addr);
+        let local_path = dir.join("log.jsonl");
+        let Ok(local) = fs::read_to_string(&local_path) else {
+            refused.push(format!("{addr}: no such page in this run folder"));
+            continue;
+        };
+        let remote = git::git(&r, &["show", &format!("{tip}:{path}")])? + "\n";
+        if remote == local {
+            continue;
+        }
+        if !remote.starts_with(&local) {
+            refused.push(format!("{addr}: the returned log does not continue this run folder's log; nothing taken"));
+            continue;
+        }
+        let _l = crate::Lock::take(&dir)?;
+        let before = Page::load(&dir)?;
+        let edited = render::edited(&before)?;
+        if !edited.is_empty() {
+            refused.push(format!("{addr}: {}; nothing taken", edited.report()));
+            continue;
+        }
+        fs::write(&local_path, &remote).map_err(|e| e.to_string())?;
+        match Page::load(&dir) {
+            Ok(p) => {
+                render::write(&p)?;
+                let n = remote.lines().count() - local.lines().count();
+                println!("{addr}: took {n} new log entries");
+                for x in p.passes.values().filter(|x| x.tail == "return") {
+                    ready.push(format!("{addr} 05.{:02}: wf check {addr} {} --as <checker>", x.nn, x.nn));
+                }
+            }
+            Err(e) => {
+                fs::write(&local_path, &local).map_err(|e| e.to_string())?;
+                refused.push(format!("{addr}: the returned log does not load ({e}); nothing taken"));
+            }
+        }
+    }
+    if ready.is_empty() {
+        println!("ready to check: none");
+    } else {
+        println!("ready to check:");
+        ready.iter().for_each(|l| println!("  {l}"));
+    }
+    if refused.is_empty() {
+        Ok(())
+    } else {
+        Err(format!("intake refused: {}", refused.join("; ")))
     }
 }
 

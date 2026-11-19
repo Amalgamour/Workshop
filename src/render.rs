@@ -23,6 +23,8 @@ pub const T_RETURN_V1: &str = include_str!("../templates/v1/return.txt");
 /// later passes; PROMPT.md names the AGENTS.md it goes with and its hash. Return is the v2 text.
 pub const T_AGENTS_V3: &str = include_str!("../templates/v3/agents.txt");
 pub const T_PROMPT_V3: &str = include_str!("../templates/v3/prompt.txt");
+/// The one paste for a builder on Matthew's Windows machine (t400u, t401u). A view, not hashed.
+pub const T_BUILDER_V3: &str = include_str!("../templates/v3/builder.txt");
 /// Version written into new pack entries. Missing or "1" means v1 (8eb1fdb).
 pub const TEMPLATE_VER: &str = "3";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
@@ -101,6 +103,8 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
         ("face01", s(&pk, "face01")),
         ("agents_file", agents_file(p, x)),
         ("links", links_text(&pk)),
+        ("remote", { let r = s(&pk, "remote"); if r.is_empty() { "<repo url>".into() } else { escape_line(&r) } }),
+        ("kit_branch", { let k = s(&pk, "kit_branch"); if k.is_empty() { "<kit branch>".into() } else { escape_line(&k) } }),
         ("agents_hash", recorded_hash(&pk, "agents_hash").map(|h| hash12(&h)).unwrap_or_default()),
         ("agents_note", agents_from(&pk).map(|f| format!(", reused from {}", escape_line(&f))).unwrap_or_default()),
     ]
@@ -387,6 +391,9 @@ pub fn views(p: &Page) -> Res<BTreeMap<String, String>> {
             m.insert(d.clone() + "PROMPT.md", prompt(p, x)?);
             if agents_from(pk).is_none() {
                 m.insert(d.clone() + "AGENTS.md", agents(p, x)?);
+            }
+            if s(pk, "templates") == "3" {
+                m.insert(d.clone() + "BUILDER-PROMPT.md", fill(T_BUILDER_V3, &pass_vals(p, x))?);
             }
             m.insert(d + "RETURN-TEMPLATE.md", return_template(p, x)?);
         }

@@ -3077,3 +3077,22 @@ fn t381u_lock_shows_in_status_and_observe_still_runs() {
     // Filing a finding writes, so it is still refused.
     e.no(&["observe", PG, "--record", "x", "--as", "obs"], "changed mid pass");
 }
+
+// ---- GitHub loop (t400u, t401u, t402u) ----
+
+#[test]
+fn t401u_pack_on_the_shared_branch_prints_one_builder_prompt() {
+    let e = Env::ready("builder-prompt");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--branch", "returns", "--as", "pri"]);
+    let pk = pack_of(&e, 1);
+    assert_eq!(pk["branch"], "returns");
+    let b = fs::read_to_string(e.page().join("05.01/BUILDER-PROMPT.md")).unwrap();
+    for want in ["Stage by path only", "Never push to main or packs. Never force push.", "wf claim 1.2.3.4 01",
+        "git -C work switch -c work/1.2.3.4.05.01", "--branch returns --commit (git -C work rev-parse HEAD)", "--push"] {
+        assert!(b.contains(want), "'{want}' not in {b}");
+    }
+    assert!(e.ok(&["verify", PG]).contains("every view matches the log"));
+    // publish-pack needs the run folder to be a packs checkout.
+    e.no(&["publish-pack", PG, "1"], "");
+}
