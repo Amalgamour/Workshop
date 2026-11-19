@@ -1135,3 +1135,113 @@ Default: Prime quotes his words with file, line and commit in the draft's words:
 v-note (2026-11-19, 2:27 PM EST, Designer): plan v6 adds page 0413 (work order view) at wave 6
 beside 0409; no wave added; t436u and t438u; 0701.05.01 packed and published (packs
 b57cfdd2), so the lab now has a real packed pass.
+
+## 15. v7 (2026-11-19, 2:36 PM EST, Designer): page 0414, wf prints the builder (t439u, t441)
+
+Additions only; sections 1-14 stand as written (Axioms.md:23).
+
+Matthew's words: t441 (docs/review/DIRECTOR-WORDS-t441.md:7, at 3f90b41), "Yes, add page
+0414 to stage 1". It answers "Should WF print the builder's name itself (new page
+0414)?" (:3). t439u (DIRECTOR-WORDS-t439u.md:5): "For your next builder prompt, I need
+you to include which builder we are using." Design: PASS-RECORD-t436u.md v2.
+
+### 15.1 Page 0414   [automate]
+
+- Address: 90.50.10.0414. Title: "the work order names its builder; claim raises a
+  different one".
+- Goal: Prime names the builder in the draft (builder: one of Cursor-1, Cursor-C, Codex,
+  Claude, Grok-1, Grok-2; t439u.md:9-14). wf prints it first in PROMPT.md and
+  BUILDER-PROMPT.md and inside pack_text, so it locks at pack under pack_hash. A claim by
+  another name is taken and wf records an elevate to Prime naming both (decisions.md:570;
+  workflow-loop.003.md:172).
+- MVP done-when: a pack with builder: prints "Builder: <name>" first in PROMPT.md and
+  BUILDER-PROMPT.md and in PACK.md; a name not on the list is refused at pack; a claim by
+  the named builder adds no elevate; a claim by another name is taken and adds one
+  elevate naming both; a pack with no builder: still packs and prints "builder: not
+  named"; tests/lab_0414.rs passes in lab 0701.
+- May touch: src/cmd.rs, src/render.rs, templates/v4/prompt.txt, templates/v4/builder.txt
+  (after 0404 makes v4; edits v4, no new version).
+- Size: 1/2/3; trial in lab 0701, tests/lab_0414.rs: 1/1/2.
+- Bucket: automate (t402u.md:3 order: loop, automate, polish, security). It makes wf
+  print what Prima fills by hand today.
+
+### 15.2 Needs, both ways
+
+| Page | Needs | Needed by |
+|---|---|---|
+| 0414 | 0404 (templates v4), 0701 (pass 1, and its trial to close) | 0498; 0701 lists it under "serves" |
+| 0404 | (as 13.6) | adds 0414 |
+| 0498 | 0403, 0404, 0406-0409, 0411, 0412, 0413, 0414, 0701 | none |
+
+0701's "serves" list (its faces 01 and 08) gets 0413 and 0414 only after 0701.05.01
+closes: changing face 01 earlier would stop that pass closing as passed
+(src/cmd.rs:848-849 at c09fa60c). 0413's face 01 changes stay on hold too.
+
+### 15.3 Page list, v7 (changes from 13.5 and 14.1)
+
+| Page | Title | May change | Size (b/l/w) |
+|---|---|---|---|
+| 0404 | returns state a design review | as 13.5 | 1/2/3 |
+| 0406 | needs links on both pages | as 13.5 | 2/3/4 |
+| 0407 | the door prints its own type and contents | as 13.5 | 1/2/3 |
+| 0408 | withdraw a packed pass nobody claimed | as 13.5 | 1/2/3 |
+| 0409 | retire a page | as 13.5 | 1/2/3 |
+| 0411 | the real runner starts a page, Matthew grants it | as 13.5 | 1/2/3 |
+| 0412 | the real runner records Matthew's grant | as 13.5 | 1/2/3 |
+| 0413 | work order view: 05.NN reads as one record | src/render.rs | 1/2/3 |
+| 0414 | the work order names its builder; claim raises a different one | src/cmd.rs, src/render.rs, templates/v4 prompt and builder | 1/2/3 |
+| 0498 | tie-it-together | as 13.5 | 1/2/4 |
+| 0701 | wf loop lab | pass 1 as 13.5; trials tests/lab_PPPP.rs | pass 1 2/3/5; 10 trials 10/10/20 |
+| 0405, 0410, 0497 | not used | - | - |
+
+Totals (from 14.3: work 10/19/29, lab 11/12/23, stage 21/31/52):
+- work pages: 10+1 / 19+2 / 29+3 = 11/21/32
+- lab 0701: 11+1 / 12+1 / 23+2 = 12/13/25
+- stage: 11+12 / 21+13 / 32+25 = 23/34/57 passes, plus 0403.
+Check from the table: work 1+2+1+1+1+1+1+1+1+1 = 11, 2+3+2+2+2+2+2+2+2+2 = 21,
+3+4+3+3+3+3+3+3+3+4 = 32; lab 2+10 = 12, 3+10 = 13, 5+20 = 25. Matches.
+
+### 15.4 Waves (strict, t432.md:11), recounted
+
+| Wave | Runs | Why here |
+|---|---|---|
+| 1 | 0701 pass 1 | harness first |
+| 2 | 0404 | loop first (t402u.md:3) |
+| 3 | trial 0404 | |
+| 4 | 0407, 0408 | render.rs; cmd.rs |
+| 5 | trials 0407, 0408 | |
+| 6 | 0409, 0413 | cmd.rs; render.rs (14.3) |
+| 7 | trials 0409, 0413 | |
+| 8 | 0406 | cmd.rs and render.rs |
+| 9 | trial 0406 | |
+| 10 | 0411 | cmd.rs |
+| 11 | trial 0411 | |
+| 12 | 0412 | cmd.rs |
+| 13 | trial 0412 | |
+| 14 | 0414 | cmd.rs and render.rs; needs 0404 |
+| 15 | trial 0414 | |
+| 16 | 0498 | tie together, last |
+| 17 | trial 0498 | |
+
+Exactly 17. 0414 cannot share a wave with any other cmd.rs page, and every render.rs
+slot before wave 14 is taken.
+
+### 15.5 Release check, brief (RELEASE-CHECK.md @ c0e5b22)
+
+| Item | Source file:line | Seen | Result |
+|---|---|---|---|
+| t441 quoted exactly | DIRECTOR-WORDS-t441.md:7 | 15 heading text | PASS |
+| A1-A4, A7 | t413u.md:7, :9; seqAddr.md:14 | 90.50.10.0414: desk 90, shelf 50, book 10, page 0414 | PASS |
+| A5, A6 | t413u.md:9; seqAddr.md:241 | in band 0400, not the door | PASS |
+| A8, A9 | seqAddr.md:228, :242 | not 0001-0099, not PP99 or 9999 | PASS |
+| H1 slot | DIRECTOR-RULINGS.md:129-130 | 0414 next after 0413; 0405, 0410, 0497 kept unused | PASS |
+| H1 bucket | t402u.md:3 | automate, traced | PASS |
+| H1 claim rule | decisions.md:570 | raise, not refuse, traced | PASS |
+| Totals and waves | 14.3; this section | arithmetic shown; 17 counted | PASS |
+Verdict: no FAIL. Tensions: t441's question names only printing the name; the claim
+raise comes from PASS-RECORD v2 (decisions.md:570), not from his answer. Self-stated
+builder names; no hostile pass yet.
+
+v-note (2026-11-19, 2:36 PM EST, Designer): plan v7 adds 0414 (t441) in waves 14-15; 0498
+moves to 16-17; 17 waves; stage 23/34/57 plus 0403. 0701 serves 0413 and 0414 only
+after 0701.05.01 closes; 0413 face 01 changes stay on hold.
