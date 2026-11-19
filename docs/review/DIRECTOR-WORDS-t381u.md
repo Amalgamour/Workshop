@@ -18,7 +18,7 @@ Matthew's answer, verbatim:
 
 Plain words: the design (and the rule files that carry it) is frozen while a pass works. Refinement happens only between passes, so each pass builds exactly what was imagined for it.
 
-## t383u (2026-11-19, 11:23 AM EST), widget answer, verbatim
+## Widget answer to t382s1446 (2026-11-19, 11:23 AM EST), verbatim
 
 Question (t382s1446): "When a pass has been reviewed but not signed off yet, may its rule files change?"
 
