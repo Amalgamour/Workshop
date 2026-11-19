@@ -4,7 +4,7 @@
 use crate::chars::{escape_line, escape_text};
 use crate::log::{sha, short, Res};
 use crate::page::{s, Page, Pass, FACES};
-use serde_json::Value;
+use serde_json::{json, Value};
 use std::collections::BTreeMap;
 use std::fs;
 use std::io::Write;
@@ -27,6 +27,8 @@ pub const T_PROMPT_V3: &str = include_str!("../templates/v3/prompt.txt");
 pub const TEMPLATE_VER: &str = "3";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
 pub const DESIGN: &str = include_str!("../docs/DESIGN.md");
+/// The kit rules (roles, commands, checker notes): link 4 of a v3 AGENTS.md.
+pub const KIT_AGENTS: &str = include_str!("../AGENTS.md");
 
 /// Agents, prompt and return templates for one pack.
 /// Only a missing field or the string "1" mean v1; only the string "2" means v2; "3" means v3.
@@ -98,9 +100,92 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
         ("src_design", s(&pk["sources"], "design")),
         ("face01", s(&pk, "face01")),
         ("agents_file", agents_file(p, x)),
+        ("links", links_text(&pk)),
         ("agents_hash", recorded_hash(&pk, "agents_hash").map(|h| hash12(&h)).unwrap_or_default()),
         ("agents_note", agents_from(&pk).map(|f| format!(", reused from {}", escape_line(&f))).unwrap_or_default()),
     ]
+}
+
+/// The kit documents a link may name, as built into this wf.
+fn kit_doc(name: &str) -> Option<&'static str> {
+    match name {
+        "docs/AXIOMS.md" => Some(AXIOMS),
+        "docs/DESIGN.md" => Some(DESIGN),
+        "AGENTS.md" => Some(KIT_AGENTS),
+        _ => None,
+    }
+}
+
+/// Face `face`'s text just after log entry `seq`, if entry `seq` wrote that face.
+fn face_text_at(p: &Page, face: &str, seq: u64) -> Option<String> {
+    let mut text = None::<String>;
+    let mut hit = false;
+    for e in p.events.iter().filter(|e| e.seq <= seq && e.kind == "face" && s(&e.data, "face") == face) {
+        let t = text.get_or_insert_with(String::new);
+        if s(&e.data, "mode") == "append" {
+            t.push_str(&format!("- [{}] {} ({}, entry {})\n", s(&e.data, "section"), s(&e.data, "text").trim(), e.actor, e.seq));
+        } else {
+            *t = s(&e.data, "text");
+        }
+        hit = e.seq == seq;
+    }
+    if hit { text } else { None }
+}
+
+/// The connections a v3 AGENTS.md points to (Director t379u), each with its target's sha256 now.
+pub fn pack_links(p: &Page) -> Res<Value> {
+    let f01 = p.faces.get("01").ok_or("refused: face 01 (the agents card) is empty")?;
+    let face = json!({"n": 1, "kind": "face", "face": "01", "entry": f01.seq,
+        "path": format!("pages/{}/log.jsonl entry {}: face 01 v{} text (view: pages/{}/01.md)", p.addr, f01.seq, f01.version, p.addr),
+        "sha": f01.hash()});
+    let kit = |n: u64, doc: &str, what: &str| json!({"n": n, "kind": "kit", "doc": doc, "path": format!("kit {doc} ({what})"), "sha": sha(kit_doc(doc).unwrap_or(""))});
+    Ok(json!([face, kit(2, "docs/AXIOMS.md", "the nine axioms, full text"), kit(3, "docs/DESIGN.md", "the page, the faces, the pass, the roles"),
+        kit(4, "AGENTS.md", "kit rules: roles, commands, the checker")]))
+}
+
+/// The sha256 a link's target has now, or None when the target is missing or unknown.
+fn link_target(p: &Page, l: &Value) -> Option<String> {
+    match l["kind"].as_str()? {
+        "face" => face_text_at(p, l["face"].as_str()?, l["entry"].as_u64()?).map(|t| sha(&t)),
+        "kit" => kit_doc(l["doc"].as_str()?).map(sha),
+        _ => None,
+    }
+}
+
+fn link_label(i: usize, l: &Value) -> (String, String) {
+    let n = match &l["n"] {
+        Value::Number(n) => n.to_string(),
+        Value::Null => (i + 1).to_string(),
+        v => v.to_string(),
+    };
+    (escape_line(&n), escape_line(l["path"].as_str().unwrap_or("?")))
+}
+
+/// The Connections lines of a v3 AGENTS.md, printed from the pack entry.
+fn links_text(pk: &Value) -> String {
+    match pk.get("links").and_then(|v| v.as_array()) {
+        None => "none recorded".into(),
+        Some(a) => a
+            .iter()
+            .enumerate()
+            .map(|(i, l)| {
+                let (n, path) = link_label(i, l);
+                format!("{n}. {path}\n   sha256 {}", escape_line(l["sha"].as_str().unwrap_or("?")))
+            })
+            .collect::<Vec<_>>()
+            .join("\n"),
+    }
+}
+
+/// Links of one pass whose target is missing or no longer hashes as recorded: (label, path).
+fn broken_links(p: &Page, pk: &Value) -> Vec<(String, String)> {
+    let Some(v) = pk.as_object().and_then(|m| m.get("links")) else { return vec![] };
+    let Some(a) = v.as_array() else { return vec![("?".into(), "links is not a list".into())] };
+    a.iter()
+        .enumerate()
+        .filter(|(_, l)| link_target(p, l).is_none() || link_target(p, l).as_deref() != l["sha"].as_str())
+        .map(|(i, l)| link_label(i, l))
+        .collect()
 }
 
 /// The pass whose released AGENTS.md this pack reuses (Director t378u), if any.
@@ -301,6 +386,11 @@ pub fn hash_faults(p: &Page) -> Res<Vec<String>> {
         if let Some(f) = reuse_fault(p, x, pk) {
             out.push(f);
         }
+        if x.tail != "closed" {
+            for (n, path) in broken_links(p, pk) {
+                out.push(format!("AGENTS.md for pass 05.{:02} is invalid: link {n} ({path}) points to changed or missing work", x.nn));
+            }
+        }
         for (file, key) in HASHED {
             let Some(want) = recorded_hash(pk, key) else { continue };
             let text = if file == "AGENTS.md" { agents(p, x)? } else { prompt(p, x)? };
@@ -331,7 +421,17 @@ pub fn hash_notes(p: &Page) -> Vec<String> {
                 None => format!("{file} no hash recorded (before t373u)"),
             })
             .collect();
-        out.push(format!("05.{:02}: {}", x.nn, parts.join("; ")));
+        let mut line = format!("05.{:02}: {}", x.nn, parts.join("; "));
+        if let Some(a) = pk.get("links").and_then(|v| v.as_array()) {
+            let broken = broken_links(p, pk);
+            if broken.is_empty() {
+                line += &format!("; links {} hold", a.len());
+            } else {
+                let names = broken.iter().map(|(n, _)| format!("link {n}")).collect::<Vec<_>>().join(", ");
+                line += &format!("; {names} changed after the pass closed (history, not failed)");
+            }
+        }
+        out.push(line);
     }
     out
 }
@@ -600,7 +700,11 @@ mod tests {
         for slot in ["{{pass}}", "{{pack_hash}}", "{{nn}}", "{{dir}}", "{{jobs}}", "{{may_touch}}", "{{branch}}", "{{return_file}}", "{{seq}}", "{{time}}"] {
             assert!(!a.contains(slot), "v3 AGENTS.md has {slot}");
         }
-        assert!(a.contains("cargo clean -p wf") && a.contains("t378u"), "{a}");
+        assert!(a.contains("t373u") && a.contains("t380u") && a.contains("{{links}}"), "{a}");
+        // t380u: narrow, not bare. The core of the frame is taught in plain lines.
+        for core in ["1 Authority", "9 Trial", "A page is one piece of work", "A face is one side", "Authority comes from the page log", "## How to return work"] {
+            assert!(a.contains(core), "v3 AGENTS.md lost '{core}'");
+        }
         assert!(p.contains("Read first: {{agents_file}} (sha256 {{agents_hash}}{{agents_note}})"), "{p}");
         assert_eq!(r, T_RETURN);
     }

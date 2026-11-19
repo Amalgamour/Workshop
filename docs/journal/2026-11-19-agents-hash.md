@@ -58,6 +58,30 @@ log, PROMPT.md and claim name 05.01's file); a changed face 01 prints a new hash
 hand edit of the reused file is invalid for both passes, --fix restores it, and a forged pointer is
 refused and escaped. One unit test checks v3 AGENTS.md has no pass-specific slot.
 
+## Narrow AGENTS.md with hashed links (t379u, t380u)
+
+Matthew, t379u (11:14 AM EST, verbatim): "1. We want a very narrow agents.md, it should give the connections it needs to explore. It can point to other work.  But we need to make sure it's linking to valid hashed work.  so splitting is fine with me for now. 2. I think it's good enough for now, we might need a log of past max 5 agents.md"
+
+Matthew, t380u (11:15 AM EST, verbatim): "I mean agents is where we switch from using the LLm's frame work to teaching it ours."
+
+1. v3 AGENTS.md was cut down to the core: the nine axioms in one line each, page / address / face,
+   where authority comes from (the log and the grant, never the model), and how to return work.
+   Why: t380u, AGENTS.md is where the model is taught our frame, so the core must be in it, in plain words.
+2. Everything else became a numbered pointer with a sha256: face 01 at its entry, kit AXIOMS.md, kit
+   DESIGN.md, kit AGENTS.md (the kit rules). The goal moved to PROMPT.md ("Goal (face 01)").
+   Why: t379u, "a very narrow agents.md ... the connections it needs to explore".
+3. wf records each link's target hash at pack and re-hashes every target on verify and load. A missing
+   or changed target makes the AGENTS.md invalid, exit 1, writes refused, --fix refused.
+   Why: t379u, "make sure it's linking to valid hashed work"; same model as the file hash (t373u).
+4. Closed passes are history: a changed kit doc after close is noted, not failed. Why: otherwise one
+   kit doc edit in a new wf locks every page that ever packed a v3 pass.
+5. The "past max 5 AGENTS.md" log was not built (t379u: "might need").
+
+Tests added: valid links pass (each link hash equals the real target, the 01.md view shows the same
+hash, verify says "links 4 hold"); an edited face 01 entry is invalid and --fix writes nothing; a
+missing target (entry 99, an unknown kit doc) is invalid; a forged link is escaped and the claim is
+refused. Four older tests now look for the goal and done-when in PROMPT.md and for the links in AGENTS.md.
+
 ## For Matthew
 
 - t378u reading: the job lines (jobs, may touch, checks, stop if, return file) now live only in
@@ -67,3 +91,8 @@ refused and escaped. One unit test checks v3 AGENTS.md has no pass-specific slot
 
 - Builders can no longer edit a template in place; a new wording must be a new template version.
 - Should an invalid file also raise an elevation to Prime or the person by itself? Not built; proposed only.
+- t379u/t380u: a new wf whose kit AXIOMS.md, DESIGN.md or AGENTS.md text changed makes every open
+  v3 pass invalid (writes refused, even halt) until the old binary is back or the pass is handled. That
+  is "linking to valid hashed work" taken strictly. Should a kit doc change instead raise a question to
+  Prime and let Prime close or redraft the pass?
+- Closed passes are not failed for a kit doc that changed after close (noted only). Is that right?

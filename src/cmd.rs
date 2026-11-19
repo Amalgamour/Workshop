@@ -375,7 +375,7 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let seq = p.events.len() as u64 + 1;
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
         "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when,
-        "templates": render::TEMPLATE_VER,
+        "templates": render::TEMPLATE_VER, "links": render::pack_links(p)?,
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some((okn, why)) = allow {
         d["overlap_ok"] = json!(okn);

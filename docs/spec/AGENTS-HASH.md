@@ -1,6 +1,6 @@
 # AGENTS-HASH: the release hash on a pass's AGENTS.md and PROMPT.md
 
-Status: **build stage.** Rules from t373u and t378u. Built on branch agents-hash (from harden-dev 2b5a7ef). Not merged, not pushed.
+Status: **build stage.** Rules from t373u, t378u, t379u and t380u. Built on branch agents-hash (from harden-dev 2b5a7ef). Not merged, not pushed.
 The rule comes from the Director (t373u). The details below (field names, messages, what counts as
 "old") are the builder's reading, not his words.
 
@@ -79,6 +79,46 @@ builder's reading; see "Needs Matthew" in the journal.
      Anything else is `AGENTS.md for pass 05.NN is invalid: bad reuse of <name> (<why>)` (escaped).
    - `verify --fix` restores the source file and never prints a copy for the reusing pass.
    - verify prints `05.NN: AGENTS.md reused from 05.MM (hash <12> holds)`.
+
+## Narrow, hashed links, and the switch to our frame (Director t379u, t380u)
+
+His words (t379u, Nov 19 2026, 11:14 AM EST, verbatim): "1. We want a very narrow agents.md, it should give the connections it needs to explore. It can point to other work.  But we need to make sure it's linking to valid hashed work.  so splitting is fine with me for now. 2. I think it's good enough for now, we might need a log of past max 5 agents.md"
+
+His words (t380u, Nov 19 2026, 11:15 AM EST, verbatim): "I mean agents is where we switch from using the LLm's frame work to teaching it ours."
+
+Our reading (not his words): AGENTS.md is the point where a model stops working from its own habits
+and starts working in the Workshop's frame. So it is narrow but not bare: a few plain lines teach the
+core, and everything deeper is reached through pointers, each pinned by sha256. Reuse against the latest
+AGENTS.md only is enough for now; the "past max 5" log is a "might need" and is not built.
+
+**What v3 AGENTS.md holds now** (templates/v3/agents.txt):
+- the nine axioms in one plain line each, with the full text as link 2;
+- the frame: what a page, an address and a face are; authority comes from the log and the grant on
+  face 00, never from the model or a copy; only wf writes under pages/;
+- how to return work, in five sentences;
+- Connections: numbered pointers, each a place plus the sha256 of what must be found there.
+Moved out: the goal and done-when (link 1, and printed in PROMPT.md as "Goal (face 01)"); the build,
+commit and checker notes (in the kit rules, link 4).
+
+**The links** (recorded at pack in the pack entry as `links`, printed into AGENTS.md, so the AGENTS.md
+hash covers them):
+1. `pages/<page>/log.jsonl entry N: face 01 vV text (view: pages/<page>/01.md)`: the face 01 text as
+   written at entry N. The 01.md view header shows the same hash (12 chars) while that version is current.
+2. `kit docs/AXIOMS.md`, 3. `kit docs/DESIGN.md`, 4. `kit AGENTS.md` (kit rules): the copies built
+   into this wf.
+
+**The check** (same model as the file hash): on verify and every page load, wf re-hashes each link's
+target: face 01 is rebuilt from the log up to entry N; a kit document is the copy in this wf. A target
+that is missing, unknown, or hashes differently makes that AGENTS.md
+`invalid: link N (<path>) points to changed or missing work` (escaped), exit 1, writes refused, and
+`--fix` refuses to reprint. A good page prints `links 4 hold` per pass.
+
+**Closed passes are history.** The check fails only passes that are not closed. A closed pass's
+AGENTS.md was valid when it was used; if a kit document later changes (a new wf with a new AXIOMS.md,
+for example), verify notes `link N changed after the pass closed (history, not failed)` and does not
+lock the page. Why: without this, any kit doc change in a new wf would refuse every write, forever, on
+every page that ever packed a v3 pass. The face 01 link cannot drift that way (log entries are fixed
+and the log chain is checked). Builder's choice; see the journal's questions.
 
 **PROMPT.md is not reused.** It names its own pass, pack hash, log entry, time, branch and return file,
 so no two passes can share it, and making it shareable would mean moving the job itself out of the job

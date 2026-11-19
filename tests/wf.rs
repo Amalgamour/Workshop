@@ -190,9 +190,10 @@ fn pack_prints_prompt_and_pins_axioms_and_design() {
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("=== WORKSHOP JOB 1.2.3.4.05.01 ===") && out.contains("May touch: src/a.rs"));
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
-    assert!(agents.contains("docs/AXIOMS.md") && agents.contains("docs/DESIGN.md") && agents.contains("hash "), "{agents}");
-    assert!(agents.contains("Goal: a."));
-    assert!(agents.contains("Done when (face 01): Done when: checks pass."), "{agents}");
+    assert!(agents.contains("kit docs/AXIOMS.md") && agents.contains("kit docs/DESIGN.md") && agents.contains("sha256 "), "{agents}");
+    // v3 (t379u): the goal is reached through link 1 and printed in the job box, not in AGENTS.md.
+    assert!(agents.contains("face 01 v1 text (view: pages/1.2.3.4/01.md)"), "{agents}");
+    assert!(out.contains("Goal (face 01):\nGoal: a."), "{out}");
     assert!(!agents.contains("cold set") && !agents.contains("Axioms named by this pack"), "{agents}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains("face 04:        entry 2") && pack.contains("last closed 05: none"));
@@ -502,7 +503,7 @@ fn pack_reads_inline_done_when_from_real_face_01() {
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains(&format!("done when:   {REAL_DONE_WHEN}")), "{pack}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
-    assert!(agents.contains(&format!("Done when (face 01): {REAL_DONE_WHEN}")), "{agents}");
+    assert!(agents.contains("face 01 v1 text"), "{agents}"); // v3: face 01 is a hashed link
 }
 
 #[test]
@@ -1365,7 +1366,7 @@ fn job_box_names_axioms_in_the_kit_folder() {
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("kit folder") && out.contains("docs/AXIOMS.md") && out.contains("not the run folder that holds pages/"), "{out}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
-    assert!(agents.contains("in the kit folder") && agents.contains("docs/AXIOMS.md") && agents.contains("not beside pages/"), "{agents}");
+    assert!(agents.contains("kit docs/AXIOMS.md") && agents.contains("not the run folder with pages/"), "{agents}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains("in the kit folder") && pack.contains("docs/DESIGN.md"), "{pack}");
 }
@@ -1467,7 +1468,9 @@ fn new_pack_records_template_version_3() {
     let log = e.log();
     assert!(log.contains("\"templates\":\"3\""), "{log}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
-    assert!(agents.contains("kit folder") && agents.contains("cargo clean -p wf"), "{agents}");
+    // v3: the build rule lives in the kit rules, reached by hashed link 4.
+    assert!(agents.contains("kit AGENTS.md (kit rules"), "{agents}");
+    assert!(include_str!("../AGENTS.md").contains("cargo clean -p wf"));
 }
 
 /// w02: plant each refused class through --as, --title and a note.
@@ -2795,7 +2798,7 @@ fn t378u_changed_agents_text_prints_a_new_hashed_file() {
     let out = e.ok(&["pack", PG, "2", "--as", "pri"]);
     let (p1, p2) = (pack_of(&e, 1), pack_of(&e, 2));
     let new = fs::read(e.page().join("05.02/AGENTS.md")).unwrap();
-    assert!(String::from_utf8_lossy(&new).contains("now with b in mind"));
+    assert!(String::from_utf8_lossy(&new).contains("face 01 v2 text"), "{}", String::from_utf8_lossy(&new));
     assert!(p2.get("agents_from").is_none(), "{p2}");
     assert_eq!(p2["agents_hash"].as_str().unwrap(), sha_hex(&new));
     assert_ne!(p2["agents_hash"], p1["agents_hash"]);
@@ -2835,4 +2838,94 @@ fn t378u_hand_edit_of_a_reused_agents_md_is_invalid() {
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains("AGENTS.md for pass 05.02 is invalid: bad reuse of 05.0\\u{1b}7 (no such pass)"), "{out}");
     no_raw_ctrl(&out);
+}
+
+// ---- Hashed links in a v3 AGENTS.md (Director t379u, t380u) ----
+
+#[test]
+fn t379u_valid_links_pass() {
+    let e = Env::ready("links-ok");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let pk = pack_of(&e, 1);
+    let links = pk["links"].as_array().unwrap();
+    assert_eq!(links.len(), 4, "{pk}");
+    assert_eq!(links[0]["sha"].as_str().unwrap(), sha_hex(b"Goal: a.\nDone when: checks pass."));
+    assert_eq!(links[1]["sha"].as_str().unwrap(), sha_hex(include_bytes!("../docs/AXIOMS.md")));
+    assert_eq!(links[2]["sha"].as_str().unwrap(), sha_hex(include_bytes!("../docs/DESIGN.md")));
+    assert_eq!(links[3]["sha"].as_str().unwrap(), sha_hex(include_bytes!("../AGENTS.md")));
+    let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
+    for l in links {
+        assert!(agents.contains(&format!("{}. {}\n   sha256 {}", l["n"], l["path"].as_str().unwrap(), l["sha"].as_str().unwrap())), "{agents}");
+    }
+    let face01 = fs::read_to_string(e.page().join("01.md")).unwrap();
+    assert!(face01.contains(&format!("hash {}", &links[0]["sha"].as_str().unwrap()[..12])), "the 01.md view shows the linked hash: {face01}");
+    let v = e.ok(&["verify", PG]);
+    assert!(v.contains("; links 4 hold"), "{v}");
+}
+
+#[test]
+fn t379u_edited_link_target_is_invalid() {
+    let e = Env::ready("links-edit");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let before = sha_map(&e.page());
+    // The face 01 entry the link pins is rewritten (the chain is re-sealed, so only the link can tell).
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "face" && v["data"]["face"] == "01" {
+            v["data"]["text"] = serde_json::json!("Goal: b.\nDone when: never.");
+        }
+    });
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: link 1 (pages/1.2.3.4/log.jsonl entry 3: face 01 v1 text (view: pages/1.2.3.4/01.md)) points to changed or missing work"), "{out}");
+    let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("refused to reprint") && out.contains("link 1"), "{out}");
+    let mut after = sha_map(&e.page());
+    after.remove("log.jsonl");
+    let mut b = before.clone();
+    b.remove("log.jsonl");
+    assert_eq!(after, b, "--fix wrote a view");
+    e.no(&["claim", PG, "1", "--as", "bob"], "link 1");
+}
+
+#[test]
+fn t379u_missing_link_target_is_invalid() {
+    let e = Env::ready("links-miss");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    for (i, forge) in [("entry", serde_json::json!(99)), ("doc", serde_json::json!("docs/GONE.md"))].into_iter().enumerate() {
+        let idx = if i == 0 { 0 } else { 1 };
+        patch_log(&e.page(), |v| {
+            if v["kind"] == "pack" {
+                v["data"]["links"][idx][forge.0] = forge.1.clone();
+            }
+        });
+        let (code, out) = run_code(&e, &["verify", PG]);
+        assert_eq!(code, Some(1), "{out}");
+        assert!(out.contains(&format!("is invalid: link {} (", idx + 1)) && out.contains("points to changed or missing work"), "{out}");
+        e.no(&["claim", PG, "1", "--as", "bob"], "points to changed or missing work");
+    }
+}
+
+#[test]
+fn t379u_forged_link_is_escaped_and_refused() {
+    let e = Env::ready("links-forge");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let log = e.log();
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "pack" {
+            v["data"]["links"][1] = serde_json::json!({"n": 2, "kind": "url", "path": "evil\u{1b}[2K\r\u{202e}.md", "sha": "0"});
+        }
+    });
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: link 2 (evil\\u{1b}[2K\\u{d}\\u{202e}.md) points to changed or missing work"), "{out}");
+    no_raw_ctrl(&out);
+    let (ok, out) = e.wf(&["claim", PG, "1", "--as", "bob"]);
+    assert!(!ok && out.contains("link 2"), "{out}");
+    no_raw_ctrl(&out);
+    assert!(!e.log().contains("\"kind\":\"claim\""), "a claim was written: {}", log.len());
 }
