@@ -3,6 +3,8 @@
 Reviewer: Designer. Reviews: docs/design/AXIOM-CITE-GRAMMAR-draft-t383u.md (8a93c89).
 Status: review for Prima. Not an answer from Matthew. Desk check only: no fresh worker, no cold trial.
 
+v2 (t384u): each G now lists its options. The option that follows the existing settled design is marked (default). Matthew's words, from docs/review/DIRECTOR-WORDS-t384u.md:5: "When you have an answer that is fractally compliance, mark it as the default option.  I can deviant if its required.  But we don't want to drift randomly in our design." Nothing else in v1 was rewritten (axiom 6). Where the default differs from my proposed answer, both are kept.
+
 ## Summary (plain words)
 
 1. The draft fits the settled cite rules almost everywhere. All nine axiom names match Axioms.md.
@@ -133,31 +135,57 @@ Subject: a return reporting a gap in a pass.
 - Proposed: the one just before it, while the whole chain stays about the first. `5.1.4` = the frame, its grant, and the grant's why.
 - Why: the draft's own `1.7.8` reads this way (draft:63). Without a rule, two workers check different records (section 3, test 1).
 - Axioms.md checked: :5 "A later axiom refines; it does not replace" pass; :21 Frame pass; :27 `1.7.8` pass.
+- Options:
+  - (a) Each number adds to the one just before it; the whole chain stays about the first. This is my proposed answer, and it matches draft:63.
+  - (b) (default) Each later number adds to the first number, the lens. Cite: lab 02 says "the first number is the lens, and later numbers refine it" (02.md:87; summary.md:48).
+  - (c) Each later number adds to the whole reading so far, with no rule on which part (draft:47 as written).
+- Default note: no settled rule picks one. decisions.md:560 says only "A later axiom refines; it does not replace". I marked (b) because the lab outcome backs it, but that lab wording is weak: "it" could mean the reading, not the first number. **The default differs from my proposed answer (a).**
 
 **G2. Does a number then 7 mean "that thing is missing" or "that thing is there but incomplete"?**
 - Proposed: one meaning for all, "that thing is not complete". The readback then says absent or partial, as draft:60 does.
 - Why: `4.7` and `8.7` have the same shape but get two meanings today. `6.7` is already live at workflow-loop.003.md:176. The lab trial covered only `7.8` and `8.7` (03.md:86).
 - Axioms.md checked: :7 pass; :25 tension ("a chain names what is missing: `4.7` a why"); :19 pass.
+- Options:
+  - (a) A number then 7 always means "that thing is not complete". The readback says absent or partial. This is my proposed answer.
+  - (b) (default) Same order rule for 7 as every axiom: 7 first = "missing, of this kind" (`7.8`, `7.4`); 7 last = "this thing is there but incomplete" (`8.7`, `4.7`). Cite: decisions.md:563 (settled), Axioms.md:7, lab 02 option 2 (02.md:95), passed in lab 03 (03.md:86, :96).
+  - (c) Keep today's mixed reading: `4.7` = the why is missing, but `8.7` = the link is incomplete (Axioms.md:25, draft:62).
+- Default note: Axioms.md disagrees with itself (:7 against :25), so no option follows all of the existing design. I marked (b) because the settled decisions.md:563 rule backs it. Under (b), `4.7` means the why is there but incomplete, and a wholly absent why is written `7.4`. That changes draft:62 and goes against Axioms.md:25. **The default differs from my proposed answer (a).**
 
 **G3. In `7.3MPC`, do the letters name who leads on the gap, or say a lead is missing?**
 - Proposed: letters always assign a lead. "No lead named" is written `7.3` with no letters.
 - Why: Leads only fires when cited (decisions.md:572; 03.md:80). If a reader takes it as a defect report, the hand-off is lost.
 - Axioms.md checked: :17 pass; :25 tension (7 first names what is missing); :5 pass (only 3 takes letters).
+- Options:
+  - (a) (default) Letters on 3 always assign the lead order. "No lead named" is written `7.3` with no letters. This is also my proposed answer. Cite: Axioms.md:17 ("`3MPC` means the model leads"), decisions.md:562 and E4 (decisions.md:572; 03.md:80, "the cite carries the assignment").
+  - (b) In `7.3MPC`, 7 first names what is missing, so it means the lead order M, P, C is missing (the 7-first rule at decisions.md:563, Axioms.md:25).
+- Default note: tension with the 7-first rule (decisions.md:563). The default is the same as my proposed answer.
 
 **G4. Which cite is expected when a written pointer can't be opened: `7.8` or `8.7`?**
 - Proposed: `7.8`, as Axioms.md:27 says. The readback adds "pointer written, target not opened, reason X, not proven absent" (draft:66).
 - Why: the draft's trial case 3 (draft:74) needs one expected answer before any trial. Otherwise the reviewer scores a careful worker as wrong.
 - Axioms.md checked: :27 pass; :25 pass ("unknown stays unknown"); :7 tension (a written link could read as incomplete).
+- Options:
+  - (a) (default) `7.8`, with the readback "pointer written, target not opened, reason X, not proven absent" (draft:66). This is also my proposed answer. Cite: Axioms.md:27 "A connection that cannot be opened is missing (`7.8`)", same text in ruled.book:7.
+  - (b) `8.7`: the link is written, so it is a connection that is there but incomplete (Axioms.md:7, decisions.md:563).
+- Default note: the default is the same as my proposed answer.
 
 **G5. Is a long run like `1.2.4.6.7.8.9` allowed as a plain list?**
 - Proposed: no. A list of axioms that all apply is written with commas (`1,2,4`). The dot is kept for ordered meaning.
 - Why: workflow-loop.002-notes.md:7 uses a seven-number dot run. A cold reader will build a meaning from it that nobody meant.
 - Axioms.md checked: :5 pass (dot orders, comma splits); :15 pass (same shape everywhere).
+- Options:
+  - (a) (default) No. A list of axioms that all apply uses commas (`1,2,4`), and the dot keeps its ordered meaning. This is also my proposed answer. Cite: Axioms.md:5 and decisions.md:560: "A dot orders axioms inside one piece ... A comma splits pieces."
+  - (b) Yes. A long dot run may stand as a plain list, as at workflow-loop.002-notes.md:7.
+- Default note: the default is the same as my proposed answer.
 
 **G6. Should the draft's names and the 9 question match Axioms.md wording?**
 - Proposed: yes. One number is an "axiom", a dotted run is a "piece", and the whole cite is a "chain" (Axioms.md:5). The 9 question becomes "What has not yet faced a hostile pass from another view?"
 - Why: a fresh model given both the grammar card and Axioms.md sees two meanings for "piece", and a 9 question pointing the wrong way (C2, C5).
 - Axioms.md checked: :5 pass; :29 tension with the draft's current question.
+- Options:
+  - (a) (default) Use Axioms.md words (one number = axiom, dotted run = piece, whole cite = chain) and reword the 9 question to "What has not yet faced a hostile pass from another view?" This is also my proposed answer. Cite: Axioms.md:5, decisions.md:560, Axioms.md:29.
+  - (b) Keep the draft's words (one number = piece, dotted run = chain) and its 9 question (draft:31, :38-39).
+- Default note: the default is the same as my proposed answer.
 
 ## 7. Timing (input for Prima, not decided)
 
