@@ -198,7 +198,7 @@ Axiom lines: 1 Axioms.md:13, 2 :15, 3 :17, 4 :19, 5 :21, 6 :23, 7 :25, 8 :27, 9 
 | A3 | A model can fill in nothing more than things "like addresses or approved links". | a pointer cannot give orders | 1 pass, 8 pass, 5 tension (less room to explain) | t332u.md:3 |
 | A3a | Proposed line: the build accepts addresses and approved links; anything else is refused until Matthew says more. | a check needs a clear edge | 1 pass, 7 pass (unknown stays out) | proposed (Designer) |
 | A3b | A model may also pick a name from a list (role, seat, branch). | short typed values | 1 pass, 2 tension (Designer prefers compute fills) | proposed (Prima) |
-| A4 | Only the compute fills versions, pins, dates, Prime, branch, hashes. | a model that types a proof could fake it | 1 pass, 6 pass | t332u.md:3; DIRECTOR-RULINGS.md:192 (his yes), :197 (recorded reading) |
+| A4 | Only the compute fills versions, pins, dates, Prime, branch, hashes. | a model that types a proof could fake it | 1 pass, 6 pass | t332u.md:3; DIRECTOR-RULINGS.md:193 (his yes), :197 (recorded reading) |
 | A5 | The manager is part of the compute core, in Rust. | the core must be secure | 1 pass, 3 pass | t333u.md:7, :9 |
 | A6 | Wording is protected from models and outsiders. | no one takes control of the workshop | 1 pass, 9 pass | t327u.md:7; t309u.md:8 |
 | A7 | Nobody reaches the library or builds except through the compute. | the compute is the fortress | 1 pass, 8 pass, 7 tension (not true until stage C) | t328u.md:7; t312u.md:8 |
