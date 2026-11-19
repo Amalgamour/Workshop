@@ -383,6 +383,14 @@ pub fn card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> String {
             for f in ["PACK.md", "PROMPT.md", "AGENTS.md", "RETURN-TEMPLATE.md"] {
                 l.push(format!("    file:     {dir}/{f}"));
             }
+            let pins: Vec<String> = render::HASHED
+                .iter()
+                .map(|(f, k)| match render::recorded_hash(pk, k) {
+                    Some(h) => format!("{f} {}", render::hash12(&h)),
+                    None => format!("{f} no hash recorded (before t373u)"),
+                })
+                .collect();
+            l.push(format!("    released: {} (pack entry {}, t373u)", pins.join("; "), last_entry(p, n, "pack")));
         }
         None => l.push(format!("  pack:       {none}")),
     }

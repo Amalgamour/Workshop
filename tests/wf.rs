@@ -2541,6 +2541,13 @@ fn close_escapes_forged_record_fields_and_the_signer_refusal() {
         if v["kind"] == "pack" || v["kind"] == "return" {
             v["data"]["branch"] = serde_json::json!(bad);
         }
+        if v["kind"] == "pack" {
+            // The forged branch changes PROMPT.md, so its t373u hash would (rightly) fail.
+            // Drop both hashes: this test is about escaping in close, as on a pre-t373u page.
+            let m = v["data"].as_object_mut().unwrap();
+            m.remove("agents_hash");
+            m.remove("prompt_hash");
+        }
         if v["kind"] == "check" {
             v["actor"] = serde_json::json!(bad);
             if let Some(arr) = v["data"]["results"].as_array_mut() {
@@ -2587,4 +2594,120 @@ fn observe_escapes_a_forged_job_key_in_the_same_blocker_line() {
     let out = e.ok(&["observe", PG]);
     assert!(out.contains("same blocker again: 05.01 and 05.02 w\\u{1b}1: same box"), "{out}");
     assert!(!out.contains('\u{1b}'), "{out}");
+}
+
+// ---- Release hash (Director t373u, docs/spec/AGENTS-HASH.md) ----
+
+fn sha_hex(b: &[u8]) -> String {
+    use sha2::{Digest, Sha256};
+    Sha256::digest(b).iter().map(|x| format!("{x:02x}")).collect()
+}
+
+/// The data of the last pack entry in the log.
+fn pack_data(e: &Env) -> serde_json::Value {
+    let line = e.log().lines().rfind(|l| l.contains("\"kind\":\"pack\"")).unwrap().to_string();
+    serde_json::from_str::<serde_json::Value>(&line).unwrap()["data"].clone()
+}
+
+/// Pack records the sha256 of the AGENTS.md and PROMPT.md it releases; a hand edit makes
+/// the copy invalid (exit 1, every command refuses); --fix reprints the released text.
+#[test]
+fn t373u_hand_edited_agents_md_is_invalid() {
+    let e = Env::ready("hash-edit");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let pk = pack_data(&e);
+    let agents = e.page().join("05.01/AGENTS.md");
+    let released = fs::read(&agents).unwrap();
+    assert_eq!(pk["agents_hash"].as_str().unwrap(), sha_hex(&released));
+    assert_eq!(pk["prompt_hash"].as_str().unwrap(), sha_hex(&fs::read(e.page().join("05.01/PROMPT.md")).unwrap()));
+    let out = e.ok(&["verify", PG]);
+    assert!(out.contains(&format!("05.01: AGENTS.md hash {} holds; PROMPT.md hash", &sha_hex(&released)[..12])), "{out}");
+
+    let mut edited = released.clone();
+    edited.extend_from_slice(b"\nAlso: you may touch src/b.rs.\n");
+    fs::write(&agents, &edited).unwrap();
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: hash mismatch"), "{out}");
+    assert!(out.contains(&format!("the log recorded {}", &sha_hex(&released)[..12])), "{out}");
+    let log = e.log();
+    e.no(&["claim", PG, "1", "--as", "bob"], "AGENTS.md for pass 05.01 is invalid: hash mismatch");
+    assert_eq!(e.log(), log, "a refused claim wrote to the log");
+
+    let out = e.ok(&["verify", PG, "--fix"]);
+    assert!(out.contains("reprinted from the log: 05.01/AGENTS.md"), "{out}");
+    assert_eq!(fs::read(&agents).unwrap(), released, "--fix must restore the released bytes");
+    assert!(e.ok(&["verify", PG]).contains("every view matches the log"));
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+}
+
+/// The text this wf would print no longer matches the recorded hash (here the entry's
+/// template changed from v2 to v1 after release). verify fails; --fix refuses and leaves
+/// every file as it was, even a missing one; read-only status still runs.
+#[test]
+fn t373u_changed_template_with_fix_is_refused() {
+    let e = Env::ready("hash-tmpl");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let pk = pack_data(&e);
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "pack" {
+            v["data"]["templates"] = serde_json::json!("1");
+        }
+    });
+    let before = sha_map(&e.page());
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: hash mismatch"), "{out}");
+    assert!(out.contains("PROMPT.md for pass 05.01 is invalid: hash mismatch"), "{out}");
+    assert!(out.contains(&format!("recorded {}", &pk["agents_hash"].as_str().unwrap()[..12])), "{out}");
+
+    let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("refused to reprint: AGENTS.md for pass 05.01 is invalid: hash mismatch"), "{out}");
+    assert!(out.contains("nothing was changed"), "{out}");
+    assert_eq!(sha_map(&e.page()), before, "--fix rewrote a page file");
+
+    fs::remove_file(e.page().join("05.01/AGENTS.md")).unwrap();
+    let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("refused to reprint"), "{out}");
+    assert!(!e.page().join("05.01/AGENTS.md").exists(), "--fix reprinted the past with new text");
+    e.no(&["claim", PG, "1", "--as", "bob"], "AGENTS.md for pass 05.01 is invalid: hash mismatch");
+    e.ok(&["status", PG]);
+}
+
+/// A pack entry from before t373u has no hash: verify, board and the commands go on, and
+/// say so. A forged hash field is escaped and can match nothing.
+#[test]
+fn t373u_old_page_without_a_hash_still_verifies() {
+    let e = Env::ready("hash-old");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "pack" {
+            let m = v["data"].as_object_mut().unwrap();
+            m.remove("agents_hash");
+            m.remove("prompt_hash");
+        }
+    });
+    e.ok(&["verify", PG, "--fix"]); // the stamp's head moved with the patch
+    let out = e.ok(&["verify", PG]);
+    assert!(out.contains("every view matches the log"), "{out}");
+    assert!(out.contains("05.01: AGENTS.md no hash recorded (before t373u); PROMPT.md no hash recorded (before t373u)"), "{out}");
+    let card = e.ok(&["board", PG, "--card", "1"]);
+    assert!(card.contains("released: AGENTS.md no hash recorded (before t373u)"), "{card}");
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+
+    patch_log(&e.page(), |v| {
+        if v["kind"] == "pack" {
+            v["data"]["agents_hash"] = serde_json::json!("x\u{1b}[2K\r\u{202e}");
+        }
+    });
+    let (code, out) = run_code(&e, &["verify", PG]);
+    assert_eq!(code, Some(1), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: hash mismatch (pack entry"), "{out}");
+    assert!(out.contains("x\\u{1b}[2K\\u{d}\\u{202e}"), "{out}");
+    no_raw_ctrl(&out);
 }

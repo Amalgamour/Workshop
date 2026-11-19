@@ -381,6 +381,14 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         d["overlap_ok"] = json!(okn);
         d["overlap_why"] = json!(why);
     }
+    // Release hash (Director t373u, docs/spec/AGENTS-HASH.md): print AGENTS.md and PROMPT.md
+    // from this very entry, and record their sha256 in it. A later copy that hashes
+    // differently is invalid. The templates have no slot for these two fields, so adding
+    // them does not change the text they pin.
+    let mut released = x.clone();
+    released.pack = Some(d.clone());
+    d["agents_hash"] = json!(sha(&render::agents(p, &released)?));
+    d["prompt_hash"] = json!(sha(&render::prompt(p, &released)?));
     p.add(who, "prime", "pack", d)?;
     print!("{}", chars::escape_text(&render::prompt(p, p.pass(n)?)?));
     Ok(())

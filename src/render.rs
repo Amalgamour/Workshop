@@ -213,22 +213,81 @@ pub fn views(p: &Page) -> Res<BTreeMap<String, String>> {
     Ok(m)
 }
 
+/// Pass views whose released text is pinned by a sha256 in the pack entry (Director t373u).
+pub const HASHED: [(&str, &str); 2] = [("AGENTS.md", "agents_hash"), ("PROMPT.md", "prompt_hash")];
+
+/// The hash a pack entry recorded for one released file. None: the entry has no such
+/// field (packed before t373u). A field that is not a string can match no text.
+pub fn recorded_hash(pk: &Value, key: &str) -> Option<String> {
+    pk.as_object().and_then(|m| m.get(key)).map(|v| v.as_str().unwrap_or("").to_string())
+}
+
+/// The first 12 characters of a recorded hash, escaped (a forged field may hold anything).
+pub fn hash12(h: &str) -> String {
+    escape_line(&h.chars().take(12).collect::<String>())
+}
+
+fn hash_invalid(file: &str, nn: u32, detail: String) -> String {
+    format!("{file} for pass 05.{nn:02} is invalid: hash mismatch ({detail})")
+}
+
+/// Released files this wf would print differently from the hash recorded at pack
+/// (a template changed after release). Built from the log only. Every view reprint is
+/// refused while one is listed: wf never rewrites what a worker was given.
+pub fn hash_faults(p: &Page) -> Res<Vec<String>> {
+    let mut out = Vec::new();
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        for (file, key) in HASHED {
+            let Some(want) = recorded_hash(pk, key) else { continue };
+            let text = if file == "AGENTS.md" { agents(p, x)? } else { prompt(p, x)? };
+            let got = sha(&text);
+            if got != want {
+                out.push(hash_invalid(file, x.nn, format!(
+                    "pack entry {} recorded {}, this wf would print {}; the released text is not reprinted",
+                    pk["seq"], hash12(&want), short(&got)
+                )));
+            }
+        }
+    }
+    Ok(out)
+}
+
+/// One line per packed pass for verify: does the log pin its released files?
+pub fn hash_notes(p: &Page) -> Vec<String> {
+    let mut out = Vec::new();
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        let parts: Vec<String> = HASHED
+            .iter()
+            .map(|(file, key)| match recorded_hash(pk, key) {
+                Some(h) => format!("{file} hash {} holds", hash12(&h)),
+                None => format!("{file} no hash recorded (before t373u)"),
+            })
+            .collect();
+        out.push(format!("05.{:02}: {}", x.nn, parts.join("; ")));
+    }
+    out
+}
+
 /// Views on disk that do not match the log, split by kind.
 #[derive(Default, Debug, PartialEq, Eq)]
 pub struct ViewDiff {
     pub missing: Vec<String>,
     pub unreadable: Vec<String>,
     pub changed: Vec<String>,
+    /// Released files (AGENTS.md, PROMPT.md) that do not match their recorded hash.
+    pub invalid: Vec<String>,
 }
 
 impl ViewDiff {
     pub fn is_empty(&self) -> bool {
-        self.missing.is_empty() && self.unreadable.is_empty() && self.changed.is_empty()
+        self.missing.is_empty() && self.unreadable.is_empty() && self.changed.is_empty() && self.invalid.is_empty()
     }
 
-    /// "missing view files: a; unreadable view files: b; view files differ from the log (hand edit or a failed reprint): c"
+    /// "<invalid>; missing view files: a; unreadable view files: b; view files differ from the log (hand edit or a failed reprint): c"
     pub fn report(&self) -> String {
-        let mut parts = Vec::new();
+        let mut parts = self.invalid.clone();
         if !self.missing.is_empty() {
             parts.push(format!("missing view files: {}", self.missing.join(", ")));
         }
@@ -292,6 +351,8 @@ fn write_atomic(path: &Path, text: &str) -> Res<()> {
 /// Compare the view files on disk with the log.
 pub fn edited(p: &Page) -> Res<ViewDiff> {
     let mut d = ViewDiff::default();
+    d.invalid = hash_faults(p)?;
+    let pinned = pinned_files(p);
     for (rel, text) in views(p)? {
         let path = p.dir.join(&rel);
         match symlink_on_path(&p.dir, &rel) {
@@ -307,7 +368,13 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
         }
         match fs::read_to_string(&path) {
             Ok(disk) => {
-                if sha(&disk) != sha(&text) {
+                let got = sha(&disk);
+                if let Some((nn, file, want)) = pinned.get(&rel) {
+                    if &got != want {
+                        d.invalid.push(hash_invalid(file, *nn, format!("the copy on disk hashes to {}, the log recorded {}", short(&got), hash12(want))));
+                    }
+                }
+                if got != sha(&text) {
                     d.changed.push(rel);
                 }
             }
@@ -316,6 +383,20 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
         }
     }
     Ok(d)
+}
+
+/// Relative path -> (pass, file, recorded hash) for every released file the log pins.
+fn pinned_files(p: &Page) -> BTreeMap<String, (u32, &'static str, String)> {
+    let mut m = BTreeMap::new();
+    for x in p.passes.values() {
+        let Some(pk) = &x.pack else { continue };
+        for (file, key) in HASHED {
+            if let Some(h) = recorded_hash(pk, key) {
+                m.insert(format!("05.{:02}/{file}", x.nn), (x.nn, file, h));
+            }
+        }
+    }
+    m
 }
 
 pub fn write(p: &Page) -> Res<()> {
@@ -333,6 +414,10 @@ pub fn write_after_append(p: &Page) -> Res<()> {
 
 /// Reprint views from the log, skipping the named relative paths.
 pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
+    let faults = hash_faults(p)?;
+    if !faults.is_empty() {
+        return Err(format!("refused to reprint: {}; nothing was changed (Director t373u: a released file that does not match its hash is invalid)", faults.join("; ")));
+    }
     let all = views(p)?;
     let mut linked = Vec::new();
     for rel in all.keys() {

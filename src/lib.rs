@@ -150,6 +150,9 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         "verify" => {
             if edited.is_empty() {
                 println!("ok: log chain holds ({} entries, head {}); every view matches the log", p.events.len(), log::short(&p.head));
+                for n in render::hash_notes(&p) {
+                    println!("  {n}");
+                }
             } else if a.flag("fix").is_some() {
                 render::write_except(&p, &edited.unreadable)?;
                 let mut reprinted = edited.missing.clone();
