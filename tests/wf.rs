@@ -1,173 +1,15 @@
 //! End-to-end tests: each one runs the wf binary against a temp folder and a temp git repo.
 
+mod common;
+use common::*;
+
 use std::fs;
-use std::os::unix::fs::{self as unix_fs, MetadataExt, PermissionsExt};
 use std::path::PathBuf;
 use std::process::Command;
+// Unix-only: set_mode and symlink come from std::os::unix; that module is not on Windows.
+#[cfg(unix)]
+use std::os::unix::fs::{self as unix_fs, MetadataExt, PermissionsExt};
 
-const PG: &str = "10.10.10.0401";
-
-struct Env {
-    root: PathBuf,
-}
-
-impl Env {
-    fn new(name: &str) -> Env {
-        let root = std::env::temp_dir().join(format!("wf-test-{}-{name}", std::process::id()));
-        let _ = fs::remove_dir_all(&root);
-        fs::create_dir_all(root.join("game/src")).unwrap();
-        let e = Env { root };
-        e.git(&["init", "-q", "-b", "main"]);
-        fs::write(e.root.join("game/src/a.rs"), "a = 1\n").unwrap();
-        fs::write(e.root.join("game/src/b.rs"), "b = 1\n").unwrap();
-        e.git(&["add", "."]);
-        e.git(&["commit", "-q", "-m", "start"]);
-        e
-    }
-    fn git(&self, args: &[&str]) -> String {
-        let o = Command::new("git").current_dir(self.root.join("game")).args(["-c", "user.name=t", "-c", "user.email=t@t"]).args(args).output().unwrap();
-        assert!(o.status.success(), "git {args:?}: {}", String::from_utf8_lossy(&o.stderr));
-        String::from_utf8_lossy(&o.stdout).trim().to_string()
-    }
-    /// Run wf; returns (ok, stdout + stderr).
-    fn wf(&self, args: &[&str]) -> (bool, String) {
-        self.wf_at(args, None)
-    }
-    fn wf_at(&self, args: &[&str], now: Option<u64>) -> (bool, String) {
-        let mut c = Command::new(env!("CARGO_BIN_EXE_wf"));
-        c.env("WF_ROOT", &self.root).args(args);
-        if let Some(n) = now {
-            c.env("WF_NOW", n.to_string());
-        }
-        let o = c.output().unwrap();
-        (o.status.success(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
-    }
-    fn ok(&self, args: &[&str]) -> String {
-        let (ok, out) = self.wf(args);
-        assert!(ok, "wf {args:?} failed: {out}");
-        out
-    }
-    fn no(&self, args: &[&str], want: &str) {
-        let (ok, out) = self.wf(args);
-        assert!(!ok, "wf {args:?} should be refused: {out}");
-        assert!(out.contains(want), "wf {args:?}: expected '{want}' in: {out}");
-    }
-    fn page(&self) -> PathBuf {
-        self.root.join("pages").join(PG)
-    }
-    fn log(&self) -> String {
-        fs::read_to_string(self.page().join("log.jsonl")).unwrap()
-    }
-    /// A page with person mat, prime pri, goals, a 01 card and a 06 note.
-    fn ready(name: &str) -> Env {
-        let e = Env::new(name);
-        e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
-        e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
-        e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
-        e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
-        e
-    }
-    fn draft(&self, may: &str, checks: &str) {
-        self.draft_jobs(may, checks, "w01: set a to 2");
-    }
-    fn draft_jobs(&self, may: &str, checks: &str, jobs: &str) {
-        let f = self.root.join("pack.txt");
-        fs::write(&f, format!("repo: game\nstart: main\noutcome: a = 2\n{jobs}\nmay touch: {may}\nchecks: {checks}\nstop if: b must change\n")).unwrap();
-        self.ok(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
-    }
-    /// Draft, pack, claim pass 1 as bob.
-    fn open(&self, may: &str, checks: &str) {
-        self.draft(may, checks);
-        self.ok(&["pack", PG, "1", "--as", "pri"]);
-        self.ok(&["claim", PG, "1", "--as", "bob"]);
-    }
-    /// The builder's work: branch, edit files, return file, commit. Returns the SHA.
-    fn work(&self, nn: u32, edits: &[(&str, &str)], jobs: &str) -> String {
-        let name = format!("{PG}.05.{nn:02}");
-        let prompt = fs::read_to_string(self.page().join(format!("05.{nn:02}/PROMPT.md"))).unwrap();
-        let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
-        self.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
-        for (f, t) in edits {
-            fs::write(self.root.join("game").join(f), t).unwrap();
-        }
-        fs::create_dir_all(self.root.join("game/.workshop/returns")).unwrap();
-        let ret = format!("pack: {hash}\ndone: set a\nchanged: modify src/a.rs\nnoticed: none\n{jobs}\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
-        fs::write(self.root.join(format!("game/.workshop/returns/{name}.md")), ret).unwrap();
-        self.git(&["add", "-A"]);
-        self.git(&["commit", "-q", "-m", "work"]);
-        let sha = self.git(&["rev-parse", "HEAD"]);
-        self.git(&["checkout", "-q", "main"]);
-        sha
-    }
-    fn ret(&self, nn: u32, sha: &str, who: &str) -> (bool, String) {
-        let name = format!("{PG}.05.{nn:02}");
-        self.wf(&["return", PG, &nn.to_string(), "--branch", &format!("pass/{name}"), "--commit", sha, "--file", &format!(".workshop/returns/{name}.md"), "--as", who])
-    }
-    /// Run wf with a git config env override (this box sets core.quotePath=false via GIT_CONFIG_*).
-    fn wf_git(&self, args: &[&str], key: &str, val: &str) -> (bool, String) {
-        let mut c = Command::new(env!("CARGO_BIN_EXE_wf"));
-        c.env("WF_ROOT", &self.root)
-            .env("GIT_CONFIG_COUNT", "1")
-            .env("GIT_CONFIG_KEY_0", key)
-            .env("GIT_CONFIG_VALUE_0", val)
-            .args(args);
-        let o = c.output().unwrap();
-        (o.status.success(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
-    }
-    /// Pass `nn` from a 06 note to a passed close.
-    #[allow(dead_code)]
-    fn close_one(&self, nn: u32) {
-        let n = nn.to_string();
-        self.ok(&["face-write", PG, "06", "--text", "read 04 and the last close", "--as", "pri"]);
-        self.draft("src/a.rs", "true");
-        self.ok(&["pack", PG, &n, "--as", "pri"]);
-        self.ok(&["claim", PG, &n, "--as", "bob"]);
-        let sha = self.work(nn, &[("src/a.rs", &format!("a = {nn}\n"))], "w01: done - a");
-        assert!(self.ret(nn, &sha, "bob").0);
-        self.ok(&["check", PG, &n, "--as", "cat"]);
-        self.ok(&["signoff", PG, &n, "--outcome", "passed", "--as", "pri"]);
-        self.ok(&["close", PG, &n, "--as", "pri"]);
-    }
-    /// A full pass up to a passing check.
-    fn checked(name: &str) -> Env {
-        let e = Env::ready(name);
-        e.open("src/a.rs", "grep -q 2 src/a.rs");
-        let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
-        assert!(e.ret(1, &sha, "bob").0);
-        e.ok(&["check", PG, "1", "--as", "cat"]);
-        e
-    }
-}
-
-impl Drop for Env {
-    fn drop(&mut self) {
-        let _ = fs::remove_dir_all(&self.root);
-    }
-}
-
-/// Closed passes written through the tool's own log append (Page::add), not 98 process runs.
-fn seed_closed_passes(e: &Env, count: u32) {
-    let mut p = wf::page::Page::load(&e.page()).unwrap();
-    for i in 1..=count {
-        for (actor, role, kind, data) in closed_chain(i, "passed") {
-            p.add(actor, role, kind, data).unwrap();
-        }
-    }
-    wf::render::write(&p).unwrap();
-}
-
-/// Every entry of one pass from draft to close, in the order the log rules need.
-fn closed_chain(nn: u32, outcome: &str) -> Vec<(&'static str, &'static str, &'static str, serde_json::Value)> {
-    vec![
-        ("pri", "prime", "draft", serde_json::json!({"pass": nn, "fields": {}, "pins": {}})),
-        ("pri", "prime", "pack", seed_pack(nn)),
-        ("bob", "builder", "claim", serde_json::json!({"pass": nn})),
-        ("bob", "builder", "return", serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "file": "f", "jobs": {}})),
-        ("cat", "checker", "check", serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "verdict": "pass", "report": ""})),
-        ("pri", "prime", "signoff", serde_json::json!({"pass": nn, "outcome": outcome, "cards": {}})),
-        ("pri", "tool", "close", serde_json::json!({"pass": nn, "outcome": outcome})),
-    ]
-}
 
 #[test]
 fn full_pass_closes_with_a_record() {
@@ -186,7 +28,7 @@ fn full_pass_closes_with_a_record() {
 #[test]
 fn pack_prints_prompt_and_pins_axioms_and_design() {
     let e = Env::ready("pack");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("=== WORKSHOP JOB 10.10.10.0401.05.01 ===") && out.contains("May touch: src/a.rs"));
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
@@ -213,7 +55,7 @@ fn draft_needs_a_06_note_after_the_last_close() {
 #[test]
 fn stale_pin_is_refused_until_redrafted() {
     let e = Env::ready("stale");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["face-write", PG, "04", "--section", "responses", "--text", "too slow", "--as", "mat"]);
     e.no(&["pack", PG, "1", "--as", "pri"], "stale pin 04");
     e.no(&["pack", PG, "1", "--as", "pri"], "Write a new 06 note and redraft");
@@ -224,7 +66,7 @@ fn stale_pin_is_refused_until_redrafted() {
 #[test]
 fn may_touch_outside_grant_is_refused() {
     let e = Env::ready("grant");
-    e.draft("docs/x.md", "true");
+    e.draft("docs/x.md", "cargo --version");
     e.no(&["pack", PG, "1", "--as", "pri"], "outside the grant");
 }
 
@@ -232,7 +74,7 @@ fn may_touch_outside_grant_is_refused() {
 fn draft_waits_while_a_pass_is_open_so_files_cannot_overlap() {
     // w03: a second pass cannot be drafted while 05.01 is open, so two passes never hold the same files.
     let e = Env::ready("ov-ref");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let before = e.log();
     let f = e.root.join("pack.txt");
     e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
@@ -245,20 +87,20 @@ fn pack_allows_overlap_after_other_closes() {
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     e.ok(&["close", PG, "1", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "2", "--as", "pri"]);
 }
 
 #[test]
 fn overlap_ok_refuses_a_pass_that_is_not_open() {
     let e = Env::ready("ov-bad");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.no(&["pack", PG, "1", "--overlap-ok", "9", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.09 is not open (no such pass)");
     let e = Env::checked("ov-closed");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     e.ok(&["close", PG, "1", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is closed)");
 }
 
@@ -268,7 +110,7 @@ fn pin_text_in_pack_is_05_01() {
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     e.ok(&["close", PG, "1", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "2", "--as", "pri"]);
     let pack = fs::read_to_string(e.page().join("05.02/PACK.md")).unwrap();
     assert!(pack.contains("last closed 05: 05.01 closed at entry"), "{pack}");
@@ -304,14 +146,14 @@ fn help_lists_overlap_ok_and_check_flags() {
 #[test]
 fn only_prime_drafts_and_packs() {
     let e = Env::ready("roles");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.no(&["pack", PG, "1", "--as", "bob"], "only the prime");
 }
 
 #[test]
 fn first_claim_wins_and_only_holder_returns() {
     let e = Env::ready("claim");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     e.no(&["claim", PG, "1", "--as", "eve"], "already claimed by bob");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     let (ok, out) = e.ret(1, &sha, "eve");
@@ -321,7 +163,7 @@ fn first_claim_wins_and_only_holder_returns() {
 #[test]
 fn out_of_frame_return_is_refused_and_recorded() {
     let e = Env::ready("frame");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n"), ("src/b.rs", "b = 2\n")], "w01: done - a");
     let (ok, out) = e.ret(1, &sha, "bob");
     assert!(!ok && out.contains("src/b.rs outside may touch"), "{out}");
@@ -334,7 +176,7 @@ fn out_of_frame_return_is_refused_and_recorded() {
 #[test]
 fn return_with_missing_parts_is_refused() {
     let e = Env::ready("parts");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: finished");
     let (ok, out) = e.ret(1, &sha, "bob");
     assert!(!ok && out.contains("must start with done, need or blocked"), "{out}");
@@ -343,7 +185,7 @@ fn return_with_missing_parts_is_refused() {
 #[test]
 fn need_item_goes_up_to_prime_and_prime_answers() {
     let e = Env::ready("need");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: need - b must change");
     assert!(e.ret(1, &sha, "bob").0);
     let st = e.ok(&["status", PG]);
@@ -363,7 +205,7 @@ fn need_item_goes_up_to_prime_and_prime_answers() {
 #[test]
 fn builder_cannot_check_own_work() {
     let e = Env::ready("own");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     e.no(&["check", PG, "1", "--as", "bob"], "may not check its own work");
@@ -372,10 +214,10 @@ fn builder_cannot_check_own_work() {
 #[test]
 fn failed_check_twice_goes_up_and_blocks_passed_signoff() {
     let e = Env::ready("fail");
-    e.open("src/a.rs", "grep -q 3 src/a.rs");
+    e.open("src/a.rs", "cargo metadata --no-deps");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
-    assert!(e.ok(&["check", PG, "1", "--as", "cat"]).contains("check FAIL: grep -q 3 src/a.rs"));
+    assert!(e.ok(&["check", PG, "1", "--as", "cat"]).contains("check FAIL: cargo metadata --no-deps"));
     e.ok(&["check", PG, "1", "--as", "cat"]);
     assert!(e.ok(&["status", PG]).contains("second failed check"));
     e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "check failed");
@@ -446,7 +288,7 @@ fn last_line_tamper_shows_in_the_stamp() {
 #[test]
 fn observer_reports_and_files_but_prime_cannot() {
     let e = Env::ready("obs");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let later = e.wf_at(&["observe", PG, "--as", "olly"], Some(4_000_000_000)).1;
     assert!(later.contains("stalled: nothing has moved"), "{later}");
     e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "b works too", "--as", "pri"]);
@@ -497,7 +339,7 @@ fn pack_reads_inline_done_when_from_real_face_01() {
     e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
     e.ok(&["face-write", PG, "01", "--text", REAL_FACE_01, "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains(&format!("Done when (face 01): {REAL_DONE_WHEN}")), "{out}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
@@ -513,7 +355,7 @@ fn pack_warns_on_stderr_when_face_01_has_no_done_when() {
     e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
     e.ok(&["face-write", PG, "01", "--text", "Goal: a works.", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let mut c = Command::new(env!("CARGO_BIN_EXE_wf"));
     c.env("WF_ROOT", &e.root).args(["pack", PG, "1", "--as", "pri"]);
     let o = c.output().unwrap();
@@ -574,6 +416,17 @@ fn check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen() {
 }
 
 
+/// A pack check that waits. cmd.exe has no sleep; ping -n waits on Windows, and sleep is the Linux shell.
+fn slow_check(seconds: u32) -> &'static str {
+    if cfg!(windows) {
+        if seconds <= 1 { "ping -n 2 127.0.0.1" } else { "ping -n 3 127.0.0.1" }
+    } else if seconds <= 1 {
+        "sleep 1"
+    } else {
+        "sleep 2"
+    }
+}
+
 fn spawn_wf(root: &PathBuf, args: &[&str]) -> std::process::Child {
     Command::new(env!("CARGO_BIN_EXE_wf"))
         .env("WF_ROOT", root)
@@ -612,7 +465,7 @@ fn eight_init_page_runs_leave_one_init() {
 #[test]
 fn eight_claim_runs_leave_one_claim() {
     let e = Env::ready("claim8");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let names: Vec<String> = (0..8).map(|i| format!("b{i}")).collect();
     let kids: Vec<_> = names.iter().map(|n| spawn_wf(&e.root, &["claim", PG, "1", "--as", n])).collect();
@@ -633,7 +486,7 @@ fn eight_claim_runs_leave_one_claim() {
 #[test]
 fn read_only_commands_run_while_a_lock_file_exists() {
     let e = Env::ready("nolock");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     fs::write(e.page().join(".wf-lock"), "").unwrap();
     assert!(e.ok(&["status", PG]).contains("05.01"));
@@ -647,7 +500,7 @@ fn read_only_commands_run_while_a_lock_file_exists() {
 #[test]
 fn check_reads_done_when_from_the_pack_and_notes_drift() {
     let e = Env::ready("dwpack");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: a is 3 and b is 9.", "--as", "pri"]);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
@@ -662,7 +515,7 @@ fn check_reads_done_when_from_the_pack_and_notes_drift() {
 #[test]
 fn check_lists_jobs_not_done_apart_from_checks_ok() {
     let e = Env::ready("notdone");
-    e.draft_jobs("src/a.rs", "true", "w01: set a to 2\nw02: leave b alone");
+    e.draft_jobs("src/a.rs", "cargo --version", "w01: set a to 2\nw02: leave b alone");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     e.ok(&["claim", PG, "1", "--as", "bob"]);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2\nw02: blocked - b is outside may touch");
@@ -677,7 +530,7 @@ fn check_lists_jobs_not_done_apart_from_checks_ok() {
 #[test]
 fn signoff_passed_refuses_unfinished_jobs_until_named() {
     let e = Env::ready("so-jobs");
-    e.draft_jobs("src/a.rs", "true", "w01: set a to 2\nw02: leave b alone");
+    e.draft_jobs("src/a.rs", "cargo --version", "w01: set a to 2\nw02: leave b alone");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     e.ok(&["claim", PG, "1", "--as", "bob"]);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2\nw02: blocked - b is outside may touch");
@@ -693,7 +546,7 @@ fn signoff_passed_refuses_unfinished_jobs_until_named() {
 #[test]
 fn signoff_passed_refuses_unanswered_person_elevation_and_drift() {
     let e = Env::ready("so-elev");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
     e.ok(&["check", PG, "1", "--as", "cat"]);
@@ -711,7 +564,7 @@ fn signoff_passed_refuses_unanswered_person_elevation_and_drift() {
 #[test]
 fn overlap_ok_needs_why_and_set_prime_needs_ref() {
     let e = Env::ready("whyref");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.no(&["pack", PG, "1", "--overlap-ok", "1", "--as", "pri"], "missing --why");
     e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
     e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "ok ( )", "--as", "pri"], "--why needs a reason and a (ref)");
@@ -728,7 +581,7 @@ fn overlap_ok_needs_why_and_set_prime_needs_ref() {
 #[test]
 fn check_commands_run_without_holding_the_page_lock() {
     let e = Env::ready("ckunlock");
-    e.open("src/a.rs", "sleep 2");
+    e.open("src/a.rs", slow_check(2));
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     let slow = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
@@ -777,7 +630,7 @@ fn close_passed_reruns_signoff_refusals() {
 #[test]
 fn check_report_includes_drift_that_happens_during_the_check() {
     let e = Env::ready("ckdrift");
-    e.open("src/a.rs", "sleep 2");
+    e.open("src/a.rs", slow_check(2));
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     let slow = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
@@ -792,7 +645,7 @@ fn check_report_includes_drift_that_happens_during_the_check() {
 #[test]
 fn check_refuses_if_another_check_is_filed_first() {
     let e = Env::ready("ckrace");
-    e.open("src/a.rs", "sleep 1");
+    e.open("src/a.rs", slow_check(1));
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     let a = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
@@ -809,6 +662,8 @@ fn check_refuses_if_another_check_is_filed_first() {
     assert_eq!(log.lines().filter(|l| l.contains("\"kind\":\"check\"")).count(), 1, "{log}");
 }
 
+// Unix-only: set_mode (std::os::unix) makes 04.md unreadable. Windows permissions do not.
+#[cfg(unix)]
 #[test]
 fn verify_reports_missing_unreadable_and_changed_views() {
     let e = Env::ready("views");
@@ -847,7 +702,7 @@ fn verify_reports_missing_unreadable_and_changed_views() {
 #[test]
 fn return_refuses_a_rename_out_of_scope() {
     let e = Env::ready("ren");
-    e.open("src/a.rs,src/c.rs", "true");
+    e.open("src/a.rs,src/c.rs", "cargo --version");
     let name = format!("{PG}.05.01");
     let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
     let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
@@ -855,7 +710,7 @@ fn return_refuses_a_rename_out_of_scope() {
     e.git(&["mv", "src/b.rs", "src/c.rs"]);
     fs::write(e.root.join("game/src/a.rs"), "a = 2\n").unwrap();
     fs::create_dir_all(e.root.join("game/.workshop/returns")).unwrap();
-    let ret = format!("pack: {hash}\ndone: renamed b to c\nchanged: create src/c.rs, modify src/a.rs\nnoticed: none\nw01: done - a is 2\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    let ret = format!("pack: {hash}\ndone: renamed b to c\nchanged: create src/c.rs, modify src/a.rs\nnoticed: none\nw01: done - a is 2\nproof: tests\ndesign review: kit docs compared (test)\nnot done: none\nunprompted: none\noverflow: none\n");
     fs::write(e.root.join(format!("game/.workshop/returns/{name}.md")), ret).unwrap();
     e.git(&["add", "-A"]);
     e.git(&["commit", "-q", "-m", "work"]);
@@ -943,6 +798,8 @@ fn log_append_source_writes_one_record_and_syncs_new_dir() {
     );
 }
 
+// Unix-only: std::os::unix::fs::symlink. Windows symlinks need a different API and extra rights.
+#[cfg(unix)]
 #[test]
 fn verify_reports_a_view_symlink_and_fix_replaces_it_without_writing_through() {
     let e = Env::ready("symlink");
@@ -980,7 +837,7 @@ fn verify_reports_a_view_symlink_and_fix_replaces_it_without_writing_through() {
 fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     let e = Env::ready("qpath");
     e.git(&["config", "core.quotepath", "true"]);
-    e.open("src/", "true");
+    e.open("src/", "cargo --version");
     let name = format!("{PG}.05.01");
     let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
     let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
@@ -991,7 +848,7 @@ fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     fs::write(game.join("src/a\nb.rs"), "newline\n").unwrap();
     fs::write(game.join("src/é.rs"), "eacute\n").unwrap();
     fs::create_dir_all(game.join(".workshop/returns")).unwrap();
-    let ret = format!("pack: {hash}\ndone: unusual names\nchanged: create src/a space.rs\nnoticed: none\nw01: done - names\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    let ret = format!("pack: {hash}\ndone: unusual names\nchanged: create src/a space.rs\nnoticed: none\nw01: done - names\nproof: tests\ndesign review: kit docs compared (test)\nnot done: none\nunprompted: none\noverflow: none\n");
     fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
     e.git(&["add", "-A"]);
     e.git(&["commit", "-q", "-m", "work"]);
@@ -1011,10 +868,12 @@ fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     assert!(log.contains("src/é.rs"), "{log}");
 }
 
+// Unix-only: std::os::unix::fs::symlink. Windows symlinks need a different API and extra rights.
+#[cfg(unix)]
 #[test]
 fn verify_reports_a_symlinked_pass_folder_and_fix_refuses_without_writing_through() {
     let e = Env::ready("symdir");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let page = e.page();
     let outside = e.root.join("ext-0501");
     fs::rename(page.join("05.01"), &outside).unwrap();
@@ -1045,6 +904,8 @@ fn verify_reports_a_symlinked_pass_folder_and_fix_refuses_without_writing_throug
     assert_eq!(fs::read_to_string(outside.join("PACK.md")).unwrap(), original);
 }
 
+// Unix-only: nlink() is std::os::unix::fs::MetadataExt. Windows names that count differently.
+#[cfg(unix)]
 #[test]
 fn reprint_replaces_a_hardlinked_view_without_writing_through() {
     let e = Env::ready("hardlink");
@@ -1068,7 +929,7 @@ fn reprint_replaces_a_hardlinked_view_without_writing_through() {
 fn draft_refuses_pass_0() {
     let e = Env::ready("pass0");
     let f = e.root.join("pack.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
     e.no(&["draft", PG, "--pass", "0", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
     e.no(&["draft", PG, "--pass", "00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
@@ -1082,7 +943,7 @@ fn draft_refuses_a_99th_pass() {
     let e = Env::ready("pass98");
     seed_closed_passes(&e, 98);
     let f = e.root.join("pack.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
     let st = e.ok(&["status", PG]);
     assert!(st.contains("05.98  closed"), "{st}");
@@ -1107,10 +968,12 @@ fn draft_refuses_a_99th_pass() {
     );
 }
 
+// Unix-only: std::os::unix::fs::symlink. Windows symlinks need a different API and extra rights.
+#[cfg(unix)]
 #[test]
 fn reprint_failure_after_append_says_logged_as() {
     let e = Env::ready("loggedas");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let page = e.page();
     let outside = e.root.join("ext-0501");
     fs::create_dir_all(&outside).unwrap();
@@ -1177,7 +1040,7 @@ fn halt_and_resume_need_prime_or_person_and_a_note_with_ref() {
 #[test]
 fn halt_is_refused_while_a_pass_is_open() {
     let e = Env::ready("halt-open");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     e.no(&["halt", PG, "--note", "stop (t1)", "--as", "pri"], "refused: 05.01 is at 'pack'; halt only when no pass is open");
     e.ok(&["claim", PG, "1", "--as", "bob"]);
@@ -1191,7 +1054,7 @@ fn halt_is_refused_while_a_pass_is_open() {
 #[test]
 fn halted_page_shows_in_status_and_stops_draft_pack_claim() {
     let e = Env::ready("halted");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "pri"]);
     let st = e.ok(&["status", PG]);
     assert!(st.contains("halted:  by pri at ") && st.contains("wait for Matthew (t301u)"), "{st}");
@@ -1223,7 +1086,7 @@ fn draft_is_refused_while_an_earlier_pass_is_not_closed() {
         e.no(&["draft", PG, "--file", &file, "--as", "pri"], next);
         assert_eq!(e.log(), before, "a refused draft must not append");
     };
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     refused("draft", "Next for 05.01: Prime releases it: wf pack 10.10.10.0401 1, or redraft it: wf draft 10.10.10.0401 --pass 1");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     refused("pack", "Next for 05.01: a builder claims it: wf claim 10.10.10.0401 1");
@@ -1244,9 +1107,9 @@ fn draft_is_refused_while_an_earlier_pass_is_not_closed() {
 #[test]
 fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     let e = Env::ready("draft-ov");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let f = e.root.join("p2.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
     let before = e.log();
     e.no(&["draft", PG, "--file", file, "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
@@ -1258,7 +1121,7 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("several models can work one page (t262u)"), "{}", e.log());
     // a pass still at draft cannot be overlapped
     let f3 = e.root.join("p3.txt");
-    fs::write(&f3, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    fs::write(&f3, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     e.no(
         &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "1", "--why", "again (t262u)", "--as", "pri"],
         "refused: 05.02 is at 'draft' and not closed",
@@ -1268,9 +1131,9 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
         "--overlap-ok 05.02 is not open (tail is draft)",
     );
 
-    let plan = "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n";
+    let plan = "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: cargo --version\nstop if: b must change\n";
     let e = Env::ready("draft-ov-pack");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let f = e.root.join("p2.txt");
     fs::write(&f, plan).unwrap();
@@ -1289,9 +1152,9 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
 #[test]
 fn pack_refuses_overlapping_may_touch() {
     let e = Env::ready("ov-ref");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let f = e.root.join("pack.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/\nchecks: true\nstop if: b must change\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     e.ok(&[
         "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri",
     ]);
@@ -1303,9 +1166,9 @@ fn pack_refuses_overlapping_may_touch() {
 #[test]
 fn pack_allows_overlap_with_flag() {
     let e = Env::ready("ov-ok");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let f = e.root.join("pack.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     e.ok(&[
         "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri",
     ]);
@@ -1318,7 +1181,7 @@ fn pack_allows_overlap_with_flag() {
 #[test]
 fn plus_one_is_not_read_as_pass_1() {
     let e = Env::ready("plus1");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let f = e.root.join("pack.txt");
     let file = f.to_str().unwrap();
     let before = e.log();
@@ -1362,7 +1225,7 @@ fn halt_note_refuses_a_newline() {
 #[test]
 fn job_box_names_axioms_in_the_kit_folder() {
     let e = Env::ready("kitpath");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("kit folder") && out.contains("docs/AXIOMS.md") && out.contains("not the run folder that holds pages/"), "{out}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
@@ -1463,7 +1326,7 @@ fn past_packed_pages_still_verify() {
 #[test]
 fn new_pack_records_template_version_3() {
     let e = Env::ready("tmpl-ver");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
     assert!(log.contains("\"templates\":\"3\""), "{log}");
@@ -1539,7 +1402,7 @@ fn job_agents_template_has_clean_and_touch() {
 #[test]
 fn planted_return_job_line_is_escaped_on_status_observe_and_views() {
     let e = Env::ready("esc-job");
-    e.open("src/", "true");
+    e.open("src/", "cargo --version");
     let hostile = "w01: need - x\u{1b}[2K\r  next: draft";
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], hostile);
     assert!(e.ret(1, &sha, "bob").0, "a hostile return must still be logged");
@@ -1562,7 +1425,7 @@ fn planted_return_job_line_is_escaped_on_status_observe_and_views() {
 #[test]
 fn planted_file_names_are_escaped_in_views() {
     let e = Env::ready("esc-name");
-    e.open("src/", "true");
+    e.open("src/", "cargo --version");
     let name = format!("{PG}.05.01");
     let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
     let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
@@ -1572,7 +1435,7 @@ fn planted_file_names_are_escaped_in_views() {
     fs::write(game.join("src/a.rs"), "a = 2\n").unwrap();
     fs::write(game.join(fname), "plant\n").unwrap();
     fs::create_dir_all(game.join(".workshop/returns")).unwrap();
-    let ret = format!("pack: {hash}\ndone: plant a name\nchanged: modify src/a.rs, create a planted name\nnoticed: none\nw01: done - names\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    let ret = format!("pack: {hash}\ndone: plant a name\nchanged: modify src/a.rs, create a planted name\nnoticed: none\nw01: done - names\nproof: tests\ndesign review: kit docs compared (test)\nnot done: none\nunprompted: none\noverflow: none\n");
     fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
     e.git(&["add", "-A"]);
     e.git(&["commit", "-q", "-m", "work"]);
@@ -1591,12 +1454,12 @@ fn planted_file_names_are_escaped_in_views() {
 fn draft_field_keys_are_checked() {
     let e = Env::ready("dkey");
     let f = e.root.join("pack.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: true\nstop if: none\nw0\u{1b}1: hidden\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\nw0\u{1b}1: hidden\n").unwrap();
     e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "--field cannot contain control characters");
     // CR in a pack field value is refused; newline is kept.
-    fs::write(&f, "repo: game\nstart: main\noutcome: a =\r2\nw01: set a\nmay touch: src/a.rs\nchecks: true\nstop if: none\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a =\r2\nw01: set a\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\n").unwrap();
     e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "--outcome cannot contain control characters");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\n  still one job\nmay touch: src/a.rs\nchecks: true\nstop if: none\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\n  still one job\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\n").unwrap();
     e.ok(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
 }
 
@@ -1618,13 +1481,9 @@ fn seed(e: &Env, page: &str, evs: &[(&str, &str, &str, serde_json::Value)]) {
     wf::render::write(&p).unwrap();
 }
 
-fn seed_pack(nn: u32) -> serde_json::Value {
-    serde_json::json!({"pass": nn, "pack_text": format!("pack {nn}\n"), "pack_hash": format!("{nn:064}"), "branch": format!("pass/{PG}.05.{nn:02}"),
-        "return_file": format!(".workshop/returns/{PG}.05.{nn:02}.md"), "start": "0", "templates": "1", "sources": {}})
-}
 
 fn seed_draft(nn: u32) -> serde_json::Value {
-    serde_json::json!({"pass": nn, "fields": {"outcome": format!("outcome {nn}"), "repo": "game", "start": "main", "w01": "x", "may touch": "src/b.rs", "checks": "true", "stop if": "none"}, "pins": {}})
+    serde_json::json!({"pass": nn, "fields": {"outcome": format!("outcome {nn}"), "repo": "game", "start": "main", "w01": "x", "may touch": "src/b.rs", "checks": "cargo --version", "stop if": "none"}, "pins": {}})
 }
 
 /// Lines between "ATTENTION" and "COLUMNS".
@@ -1716,7 +1575,7 @@ fn board_cap_never_cuts_person_questions_or_the_halt() {
 #[test]
 fn board_marks_a_waiting_pass_and_drift_as_stale() {
     let e = Env::ready("board-stale");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let now = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs();
     let (ok, b) = e.wf_at(&["board", PG], Some(now));
     assert!(ok && !b.contains("STALE"), "{b}");
@@ -1777,7 +1636,7 @@ fn board_prints_from_the_log_over_a_hand_edit() {
 #[test]
 fn board_escapes_hostile_log_text_everywhere() {
     let e = Env::ready("board-esc");
-    e.open("src/", "true");
+    e.open("src/", "cargo --version");
     let name = format!("{PG}.05.01");
     let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
     let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
@@ -1786,7 +1645,7 @@ fn board_escapes_hostile_log_text_everywhere() {
     fs::write(game.join("src/a.rs"), "a = 2\n").unwrap();
     fs::write(game.join("src/x\u{1b}y\u{202e}z\u{2028}w.rs"), "plant\n").unwrap();
     fs::create_dir_all(game.join(".workshop/returns")).unwrap();
-    let ret = format!("pack: {hash}\ndone: plant\nchanged: names\nnoticed: none\nw01: need - x\u{1b}[2K\r  next: draft\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    let ret = format!("pack: {hash}\ndone: plant\nchanged: names\nnoticed: none\nw01: need - x\u{1b}[2K\r  next: draft\nproof: tests\ndesign review: kit docs compared (test)\nnot done: none\nunprompted: none\noverflow: none\n");
     fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
     e.git(&["add", "-A"]);
     e.git(&["commit", "-q", "-m", "work"]);
@@ -1841,7 +1700,7 @@ fn names_source(l: &str) -> bool {
 
 impl Env {
     fn card_of_a_draft(&self) -> String {
-        self.draft_jobs("src/a.rs", "true", "w01: set a\nw02: set b");
+        self.draft_jobs("src/a.rs", "cargo --version", "w01: set a\nw02: set b");
         self.ok(&["board", PG, "--card", "1"])
     }
 }
@@ -1990,7 +1849,7 @@ fn board_on_real_pages_is_read_only_and_short() {
 /// One pass's entries for a hand-written log, by kind: (kind, data, time).
 fn ev(kind: &'static str, nn: u64) -> (&'static str, serde_json::Value, Option<u64>) {
     let d = match kind {
-        "draft" => serde_json::json!({"pass": nn, "fields": {"outcome": "o", "repo": "game", "start": "main", "w01": "x", "may touch": "src/a.rs", "checks": "true", "stop if": "none"}, "pins": {}}),
+        "draft" => serde_json::json!({"pass": nn, "fields": {"outcome": "o", "repo": "game", "start": "main", "w01": "x", "may touch": "src/a.rs", "checks": "cargo --version", "stop if": "none"}, "pins": {}}),
         "pack" => serde_json::json!({"pass": nn, "pack_text": "p", "pack_hash": "h", "branch": "b", "return_file": "f", "start": "0", "templates": "1", "sources": {}}),
         "return" => serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "file": "f", "hash": "h", "jobs": {"w01": "done - x"}}),
         "check" => serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "verdict": "pass", "report": ""}),
@@ -2139,12 +1998,12 @@ fn board_card_with_all_is_refused_and_bad_addresses_are_escaped() {
 fn overlap_ok_error_for_pass_100_does_not_print_05_100() {
     let e = Env::ready("ovl100");
     let f = e.root.join("pack.txt");
-    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: true\nstop if: none\n").unwrap();
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\n").unwrap();
     let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "100", "--why", "shared files (t262u)", "--as", "pri"]);
     assert!(!ok && out.contains("--overlap-ok pass 100 is not open (no such pass)") && !out.contains("05.100"), "{out}");
     let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "005", "--why", "shared files (t262u)", "--as", "pri"]);
     assert!(!ok && out.contains("--overlap-ok 05.05 is not open (no such pass)"), "{out}");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     assert_eq!(e.ok(&["board", PG, "--card", "001"]), e.ok(&["board", PG, "--card", "05.01"]));
     e.no(&["board", PG, "--card", "100"], "no pass 100 on this page");
 }
@@ -2317,7 +2176,7 @@ fn sha256_repo_runs_a_full_pass_and_loads() {
     e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
     e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
-    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert_eq!(sha.len(), 64, "{sha}");
     let (ok, out) = e.ret(1, &sha, "bob");
@@ -2369,7 +2228,7 @@ fn status_escapes_a_forged_signer_name() {
 #[test]
 fn return_escapes_a_hostile_commit_in_its_error() {
     let e = Env::ready("ret-esc");
-    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    e.open("src/a.rs", "cargo --version");
     e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     let (ok, out) = e.ret(1, "\u{1b}]0;title\u{7}\r\u{202e}x", "bob");
     assert!(!ok, "{out}");
@@ -2381,7 +2240,7 @@ fn return_escapes_a_hostile_commit_in_its_error() {
 #[test]
 fn board_card_shows_full_commits_on_return_and_check() {
     let e = Env::ready("card-full");
-    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
     e.ok(&["check", PG, "1", "--as", "cat"]);
@@ -2605,7 +2464,7 @@ fn observe_escapes_a_forged_job_key_in_the_same_blocker_line() {
 #[test]
 fn return_refusal_escapes_a_forged_job_key() {
     let e = Env::ready("ret-jobkey-esc");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let badk = "w\u{1b}1";
     patch_log(&e.page(), |v| {
         if v["kind"] == "draft" {
@@ -2646,7 +2505,7 @@ fn pack_data(e: &Env) -> serde_json::Value {
 #[test]
 fn t373u_hand_edited_agents_md_is_invalid() {
     let e = Env::ready("hash-edit");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let pk = pack_data(&e);
     let agents = e.page().join("05.01/AGENTS.md");
@@ -2680,7 +2539,7 @@ fn t373u_hand_edited_agents_md_is_invalid() {
 #[test]
 fn t373u_changed_template_with_fix_is_refused() {
     let e = Env::ready("hash-tmpl");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let pk = pack_data(&e);
     patch_log(&e.page(), |v| {
@@ -2715,7 +2574,7 @@ fn t373u_changed_template_with_fix_is_refused() {
 #[test]
 fn t373u_old_page_without_a_hash_still_verifies() {
     let e = Env::ready("hash-old");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
@@ -2764,7 +2623,7 @@ fn reuse_page(name: &str) -> Env {
     let e = Env::ready(name);
     e.close_one(1);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e
 }
 
@@ -2800,7 +2659,7 @@ fn t378u_changed_agents_text_prints_a_new_hashed_file() {
     e.close_one(1);
     e.ok(&["face-write", PG, "01", "--text", "Goal: a, now with b in mind.\nDone when: checks pass.", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04, close 1 and the new 01", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     let out = e.ok(&["pack", PG, "2", "--as", "pri"]);
     let (p1, p2) = (pack_of(&e, 1), pack_of(&e, 2));
     let new = fs::read(e.page().join("05.02/AGENTS.md")).unwrap();
@@ -2851,7 +2710,7 @@ fn t378u_hand_edit_of_a_reused_agents_md_is_invalid() {
 #[test]
 fn t379u_valid_links_pass() {
     let e = Env::ready("links-ok");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let pk = pack_of(&e, 1);
     let links = pk["links"].as_array().unwrap();
@@ -2874,7 +2733,7 @@ fn t379u_valid_links_pass() {
 #[test]
 fn t379u_edited_link_target_is_invalid() {
     let e = Env::ready("links-edit");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let before = sha_map(&e.page());
     // The face 01 entry the link pins is rewritten (the chain is re-sealed, so only the link can tell).
@@ -2900,7 +2759,7 @@ fn t379u_edited_link_target_is_invalid() {
 #[test]
 fn t379u_missing_link_target_is_invalid() {
     let e = Env::ready("links-miss");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     for (i, forge) in [("entry", serde_json::json!(99)), ("doc", serde_json::json!("docs/GONE.md"))].into_iter().enumerate() {
         let idx = if i == 0 { 0 } else { 1 };
@@ -2919,7 +2778,7 @@ fn t379u_missing_link_target_is_invalid() {
 #[test]
 fn t379u_forged_link_is_escaped_and_refused() {
     let e = Env::ready("links-forge");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
     patch_log(&e.page(), |v| {
@@ -2942,7 +2801,7 @@ fn t379u_forged_link_is_escaped_and_refused() {
 #[test]
 fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
     let e = Env::ready("strip-v3");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     for ver in ["3", "2"] {
         patch_log(&e.page(), |v| {
@@ -2969,7 +2828,7 @@ fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
     }
     // v3 with its hashes but no links (and no reuse pointer) is invalid too.
     let e = Env::ready("strip-links");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
@@ -3025,7 +2884,7 @@ fn packed_under_other_axioms(e: &Env, nn: u32) {
 #[test]
 fn t381u_rule_file_changed_mid_pass_locks_the_pass() {
     let e = Env::ready("rule-mid");
-    e.open("src/a.rs", "true"); // packed and claimed: mid pass
+    e.open("src/a.rs", "cargo --version"); // packed and claimed: mid pass
     packed_under_other_axioms(&e, 1);
     let want = "AGENTS.md for pass 05.01 is invalid: rule file link 2 (kit docs/AXIOMS.md) changed mid pass: rule files change only after review, before a new draft (t381u)";
     let (code, out) = run_code(&e, &["verify", PG]);
@@ -3048,7 +2907,7 @@ fn t381u_rule_file_change_is_history_for_a_closed_pass_and_the_next_pass_records
     let v = e.ok(&["verify", PG]);
     assert!(v.contains("05.01: AGENTS.md hash") && v.contains("link 2 changed after the pass closed (history, not failed)"), "{v}");
     e.ok(&["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "2", "--as", "pri"]);
     let p2 = pack_of(&e, 2);
     assert_eq!(p2["links"][1]["sha"].as_str().unwrap(), sha_hex(include_bytes!("../docs/AXIOMS.md")));
@@ -3061,7 +2920,7 @@ fn t381u_rule_file_change_is_history_for_a_closed_pass_and_the_next_pass_records
 #[test]
 fn t381u_lock_shows_in_status_and_observe_still_runs() {
     let e = Env::ready("rule-lock-read");
-    e.open("src/a.rs", "true");
+    e.open("src/a.rs", "cargo --version");
     let st = e.ok(&["status", PG]);
     assert!(!st.contains("locked:"), "{st}");
     packed_under_other_axioms(&e, 1);
@@ -3083,7 +2942,7 @@ fn t381u_lock_shows_in_status_and_observe_still_runs() {
 #[test]
 fn t401u_pack_on_the_shared_branch_prints_one_builder_prompt() {
     let e = Env::ready("builder-prompt");
-    e.draft("src/a.rs", "true");
+    e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--branch", "returns", "--as", "pri"]);
     let pk = pack_of(&e, 1);
     assert_eq!(pk["branch"], "returns");
