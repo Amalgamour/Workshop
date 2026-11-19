@@ -1,5 +1,13 @@
 # Stage plan: WF for daily use (band 90.50.10.04xx)
 
+Goal line (Matthew, t423u, DIRECTOR-WORDS-t423u.md:7, verbatim; spaces between sentences shortened):
+"Workshop: A place models, persons, and compute work. With kanban style boards to integrate
+our kernel, pages, desk, faces, seqaddr designs. So whys can be captured and reused to
+strengthen over time."
+Stage line: roadmap stage 1 (ROADMAP-2026-11-18.md:55) of stages 0-9 (:54-63). One stage
+per band: this stage is band 0400-0499 (t423u.md:11), door 0400 (t420.md:4). Shape: loops inside loops,
+measured in passes (t423u.md:13). Added in v2; see section 10.
+
 state: draft v1 for Prima to review with Matthew. Not live. The door's next face 01
 version waits for his review; no wf page was touched.
 made: 2026-11-19, 1:38 PM EST, by Designer.
@@ -276,3 +284,129 @@ Q5. What happens to the roadmap's older stage 1 list?
 Overall verdict: no FAIL. Ready for Prima to review with Matthew. Five tensions stay:
 one-job rule only in a draft, own test files (Q2), files expected not proven, no
 hostile pass yet, and the stage is bigger than the roadmap guessed.
+
+## 10. v2 note (2026-11-19, 1:41 PM EST, Designer): loops in loops, and the integration page
+
+This note adds t423u. Sections 1-9 stay as written (Axioms.md:23); the only other change
+in v2 is the goal and stage lines inserted under the title. Where they differ, this
+section is the later step.
+
+Matthew's words (DIRECTOR-WORDS-t423u.md, aeff30d), quoted exactly except double spaces:
+- :3 "We have multiple loops in this as passes."
+- :5 "We have our step goal, there is the highest level, in basic words what we want it to do."
+- :7 the goal line, quoted at the top of this file.
+- :9 "Then you have the roadmap into 9 stages I think."
+- :11 "your first stage should be a book section we currently use 0400-0499 as the first
+  stage band. Each piece of work to complete the first stage is designed and reviewed
+  against our design documentation."
+- :13 "Then the pages start to loop, until each one meets ti's MVP goals. Once each pass
+  conpletes we move back it works just like a clock loops in loops in loops, we measure in passes."
+- :15 "Finally a page for tying it all together into a functional piece of software I can
+  use and test."
+
+Relay check:
+- Goal line: same words as :7 (only the double spaces differ).
+- "Stage 1 of 1-9": the roadmap counts stages 0-9, ten rows (ROADMAP-2026-11-18.md:54-63);
+  stage 0 is "Today", marked done (:54). His words say "9 stages I think" (:9). So this
+  is roadmap stage 1, and his "first stage" (:11). Not "1 of 1-9".
+- "One stage per band": his words name only the first stage's band (:11). "One band per
+  stage" for later stages is Prima's plain words (:17), not his. Flag: later bands are not
+  yet answered.
+- "Door 0400": not in t423u; it comes from t420.md:4 (band head is the door).
+- Integration page: :15 says "a page"; "in the band" and "INTEGRATION" are the relay's words.
+  The address is not in his words.
+
+### 10.1 The loops
+
+| Loop | What turns | Measured by | Source |
+|---|---|---|---|
+| Goal | the Workshop goal line | - | t423u.md:5, :7 |
+| Roadmap | stages 0-9 | stage review plus go, hold or redo | ROADMAP-2026-11-18.md:54-63, :130; t422.md:12 |
+| Stage (band) | pages 0403-0410 plus integration | pages closed passed | t423u.md:11 |
+| Page | passes 05.01, 05.02, ... | passes until the MVP goal is met | t423u.md:13; t420.md:6 |
+
+Before a page's first pack, its design is reviewed against the design docs (t423u.md:11);
+that is the RELEASE-CHECK.md check, done per page. Each return then states its own design
+review (0404, t416u.md:7).
+
+### 10.2 MVP goal (done-when) for every page
+
+The MVP goal is the page's done-when; the page loops until it is met (t423u.md:13).
+
+| Page | MVP goal (done-when) |
+|---|---|
+| 0403 address guard | `cargo test --lib addr` and `cargo test --test wf init_page_address` pass on the box; every old test passes with the test page at 10.10.10.0401 (0403/01.md:5) |
+| 0404 design-review line | a return with no `design review:` line is refused naming t416u; with it, accepted; 0403's old-template pass unaffected |
+| 0405 Windows tests | `cargo test` passes on the box; tests build for Windows, every skip named with a reason |
+| 0406 face 08 links | a link shows on both pages; a one-way link is reported; a link to a missing page is refused |
+| 0407 door contents | a door lists each page in its band with its state; dropped pages show dropped; a non-door page has no list |
+| 0408 withdraw pass | withdraw works at `pack` with no claim, is refused at `open` or later; a later claim is refused; the log keeps the pass |
+| 0409 retire page | retire works with no open pass, is refused otherwise; the page still verifies |
+| 0410 intake packs head | a returned log that rewrites a published entry is refused; a clean continuation is taken |
+| 0498 integration | see 10.3 |
+
+### 10.3 0498  integration: one working WF Matthew can use and test   [tie together]
+- Goal: tie the stage's pages into one working wf that Matthew can install and use on
+  his Windows machine, for one real job from start to close.
+- Why: t423u.md:15 "a page for tying it all together into a functional piece of software I
+  can use and test." t401u.md:7 "we just need I can give you work."
+- MVP goal (done-when): (1) an end-to-end test on the box runs one page through
+  init-page, face 08 links, draft, pack, publish-pack, claim, return with a design review
+  line, intake, check, signoff and close, plus withdraw and retire; (2) a short walk-through
+  doc for Matthew, plain words, one step per line; (3) Matthew runs the walk-through on his
+  machine and says it works, or names what failed (his go, hold or redo, t422.md:12).
+- Needs: every page in the stage, written both ways (t422.md:6): 0403, 0404, 0405, 0406,
+  0407, 0408, 0409, 0410 each list "needed by 0498", and 0498 lists all eight.
+- Can run with: nothing; it needs them all.
+- Touches (expected): README.md, a walk-through doc under docs/, its own test file.
+- Size 1/2/4.
+- Order: last of all, after 0410. t423u.md:15 says "Finally"; t402u.md:3 says security
+  last among building steps. Integration builds nothing new; it ties and tests, so both
+  hold. Noted as a reading, not his words.
+
+Address: 0498 (default). Reasons:
+- Not 0499: `PP99` is the band's continuation (seqAddr.md:242), and no work goes at
+  `PP99` (seqAddr.md:325, section 10 rule 6). Job pages sit on NN01-NN98 (seqAddr.md:323).
+- 0498 is the last job slot, so the tie-together page is last in the band however many
+  pages are added before it; it never needs to move.
+- Same shape in every stage band: the integration page of each band at `N?98` gives one
+  slot number across bands. Pages with the same last two digits and the same title form
+  a set across bands (seqAddr.md:243; DIRECTOR-RULINGS.md:71-72). That is axiom 2, the same
+  shape at every scale (Axioms.md:15).
+- The other pick: the next free page after the job pages (0411). It follows numbering in
+  order (H1), but if the stage grows, new pages land after the integration page.
+The files do not settle this, so it is question Q6.
+
+### 10.4 Question for Matthew
+
+Q6. Where does a stage band's integration page go?
+- Proposed: (default) 0498, the last job slot, the same slot in every stage band. This is
+  also my proposed answer. Other option: the next free page after the job pages (0411).
+- Why: t423u.md:15 asks for a final page; seqAddr.md:242 rules out 0499; seqAddr.md:243 and
+  DIRECTOR-RULINGS.md:71-72 make `N?98` a set across bands. Who gets hurt: a reader who
+  looks for the integration page in a different place in every band.
+- Axioms: 2 (Axioms.md:15) pass; 8 (:27) pass, links to every page both ways; 6 (:23) pass,
+  0498 never moves; 7 (:25) tension, no file names an integration slot yet.
+
+### 10.5 Updated order
+
+Add to the diagram in section 6: every page --> 0498 (needs). Wave 6: 0498, alone.
+Size with 0498: 11/20/30 passes (best/likely/worst), plus 0403.
+
+### 10.6 Release check additions (RELEASE-CHECK.md @ c0e5b22)
+
+| Item | Source file:line | Seen in this plan | Result |
+|---|---|---|---|
+| Goal line quoted exactly | t423u.md:7 | top of file | PASS (double spaces shortened, said so) |
+| Stage line | ROADMAP-2026-11-18.md:54-63; t423u.md:9, :11 | top of file | PASS (relay "1 of 1-9" corrected to stages 0-9) |
+| One band per stage | t423u.md:11 (first stage only) | top of file | TENSION (later bands are Prima's words, :17) |
+| Each page reviewed against design docs | t423u.md:11 | 10.1 | PASS |
+| Pages loop until their MVP goal | t423u.md:13 | 10.2, every page | PASS |
+| Integration page | t423u.md:15 | 10.3, 0498 | PASS |
+| A9 integration not at PP99 | seqAddr.md:242, :325 | 0498 | PASS |
+| H1 integration address | seqAddr.md:243; DIRECTOR-RULINGS.md:71-72; Axioms.md:15 | 0498 (default) | TENSION (no file names the slot; Q6) |
+| Integration links to every page, both ways | t422.md:6 | 10.3 Needs | PASS |
+| Integration after security | t423u.md:15; t402u.md:3 | 10.3 Order | TENSION (a reading of two rulings) |
+
+Overall verdict, v2: no FAIL. Ready for Prima to review with Matthew. Tensions added: later
+bands per stage, the integration slot (Q6), and integration after security.
