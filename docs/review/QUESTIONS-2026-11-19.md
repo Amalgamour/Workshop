@@ -27,3 +27,16 @@ Added 4:16 PM EST:
 
 Added 5:08 PM EST:
 17. harden-dev now ends at 1f32ecb. Tester passed every round up to a7f9700 and called the series ready. 1f32ecb is a one-line display fix (the observe loop line escapes close outcomes) and has its own test, but Tester has not checked it yet; Tester checks it first tomorrow. Option for later: refuse at load a close whose outcome differs from its signoff's (stronger than escaping). Proposed: yes, as a small follow-up after question 14 is answered.
+
+## 18. Q14 draft: should the "out of rule" mark ever clear?
+- Question: a page with a bad log entry shows "out of rule at entry N" and takes only resume or a Prime note. Should that mark ever clear?
+- Proposed answer: yes, only by a person-only "accept entry N (tNNNu)" command that names your message.
+- Why: as drafted the page is blocked for good, which axiom 6 warns against; a person's yes keeps the authority human.
+- Axioms check: axiom 1 (authority named), axiom 6 (no dead end).
+- Draft: q14-draft 5b14a7c (Tester PASS, 43 unit + 113 e2e), not merged.
+
+## 19. Q14 draft: skip the bad entry, or count it?
+- Question: should a bad entry be skipped (kept in the log, not counted) or counted?
+- Proposed answer: skip it, as drafted.
+- Why: a faked entry then cannot steer what the next command sees (Tester proved this on 16 forged pages).
+- Axioms check: axiom 1 (only authorized entries act).
