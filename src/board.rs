@@ -394,6 +394,7 @@ pub fn card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> String {
                         format!("{f} {} reused from {}", render::hash12(&h), e(&render::agents_from(pk).unwrap_or_default()))
                     }
                     Some(h) => format!("{f} {}", render::hash12(&h)),
+                    None if render::hashed_label(pk).is_some() => format!("{f} NO HASH (invalid: a v2/v3 pack must carry one)"),
                     None => format!("{f} no hash recorded (before t373u)"),
                 })
                 .collect();

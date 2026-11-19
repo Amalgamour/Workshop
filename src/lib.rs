@@ -148,6 +148,9 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     match c {
         "status" => return Ok(print!("{}", status::status(&p))),
         "verify" => {
+            for w in render::stray_agents(&p) {
+                println!("{w}");
+            }
             if edited.is_empty() {
                 println!("ok: log chain holds ({} entries, head {}); every view matches the log", p.events.len(), log::short(&p.head));
                 for n in render::hash_notes(&p) {

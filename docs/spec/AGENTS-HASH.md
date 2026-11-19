@@ -1,6 +1,6 @@
 # AGENTS-HASH: the release hash on a pass's AGENTS.md and PROMPT.md
 
-Status: **build stage.** Rules from t373u, t378u, t379u and t380u. Built on branch agents-hash (from harden-dev 2b5a7ef). Not merged, not pushed.
+Status: **build stage.** Rules from t373u, t378u, t379u, t380u, t381u and t382u. Built on branch agents-hash (from harden-dev 2b5a7ef). Not merged, not pushed.
 The rule comes from the Director (t373u). The details below (field names, messages, what counts as
 "old") are the builder's reading, not his words.
 
@@ -113,12 +113,53 @@ that is missing, unknown, or hashes differently makes that AGENTS.md
 `invalid: link N (<path>) points to changed or missing work` (escaped), exit 1, writes refused, and
 `--fix` refuses to reprint. A good page prints `links 4 hold` per pass.
 
-**Closed passes are history.** The check fails only passes that are not closed. A closed pass's
-AGENTS.md was valid when it was used; if a kit document later changes (a new wf with a new AXIOMS.md,
-for example), verify notes `link N changed after the pass closed (history, not failed)` and does not
-lock the page. Why: without this, any kit doc change in a new wf would refuse every write, forever, on
-every page that ever packed a v3 pass. The face 01 link cannot drift that way (log entries are fixed
-and the log chain is checked). Builder's choice; see the journal's questions.
+**Rule files are frozen while a pass is open (Director t381u, t382u).**
+
+His words (t381u, Nov 19 2026, 11:20 AM EST, verbatim): "It never changes mid pass only after review and before a new draft starts"
+
+His words (t382u, Nov 19 2026, 11:21 AM EST, verbatim): "Design never is updated during work.  We break into passes so each on refines it's exactly how AI made imagines."
+
+Our reading (not his words): the design and rule files a pass links to (kit AXIOMS.md, DESIGN.md,
+AGENTS.md) are frozen while the pass is open. Refinement happens only between passes: after review,
+before the next draft. So the lock is strict.
+- A pass that is packed and not closed (tails pack, open, return, review) whose kit link target now
+  hashes differently: `AGENTS.md for pass 05.NN is invalid: rule file link N (<path>) changed mid pass:
+  rule files change only after review, before a new draft (t381u)`. Exit 1; every write on the page
+  is refused (the same as any invalid released file), and `--fix` will not reprint.
+- The next pass is packed under the new rule files and records their new hashes (a new AGENTS.md is
+  printed, since its link lines change).
+- A missing or unknown target, or a changed face 01 entry, keeps the general message
+  `link N (<path>) points to changed or missing work`.
+
+**Closed passes are history.** A closed pass's AGENTS.md was valid when it was used. If a kit
+document changes after the close, verify notes `link N changed after the pass closed (history, not
+failed)` and does not lock the page. Why: t381u allows the change exactly then (after review, before
+the next draft); failing closed passes would lock every page that ever packed a v3 pass.
+
+## Every v2/v3 pack must carry its hashes (Tester downgrade hole)
+
+Tester (scratch/tester-ahash/CHECK-RESULTS.md, section 2e) found that stripping the hash fields and
+re-sealing the log chain made a v2/v3 pack read as "no hash recorded (before t373u)"; `--fix` then
+reprinted, and a later label switch laundered the text. Now:
+- A pack whose `templates` is "2" or "3" must carry `agents_hash` and `prompt_hash`; a "3" pack must
+  also carry `links` (or `agents_from`). Otherwise: `05.NN: pack entry N (templates X) has no hash
+  recorded: invalid` (or `... has no links recorded: invalid`). Exit 1, writes and `--fix` refused.
+  The board card says `NO HASH (invalid ...)`.
+- Only a pack with templates "1" or no label may say "no hash recorded (before t373u)". The real pages
+  90.10, 90.20, 90.30 have no label on any pack (checked: 10, 5 and 4 packs), so they still verify.
+- Residual (not closed by this rule): someone who can rewrite the whole log can strip the hashes and
+  also remove the label, so the pack reads as v1. Only an anchor outside the log (for example the log
+  head pinned in git or held by a person) can catch a full rewrite. Packs written by a wf from
+  before t373u with label "2" (2b5a7ef and older v2 builds; only in Tester scratch pages) are now
+  invalid on this wf.
+
+## A stray AGENTS.md beside a reused one
+
+If a file 05.NN/AGENTS.md sits in the folder of a pass that reuses another pass's AGENTS.md, wf did
+not print it and does not check it. verify (and `--fix`) prints `warning: 05.NN/AGENTS.md is on disk,
+but 05.NN reuses 05.MM/AGENTS.md. wf did not print it, does not check it, and will not delete it;
+remove it by hand if nobody needs it.` It does not fail verify. wf never deletes it: deleting is a
+person's call. The pass's PROMPT.md still names the released file and its hash.
 
 **PROMPT.md is not reused.** It names its own pass, pack hash, log entry, time, branch and return file,
 so no two passes can share it, and making it shareable would mean moving the job itself out of the job

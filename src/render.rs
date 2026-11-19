@@ -177,14 +177,22 @@ fn links_text(pk: &Value) -> String {
     }
 }
 
-/// Links of one pass whose target is missing or no longer hashes as recorded: (label, path).
-fn broken_links(p: &Page, pk: &Value) -> Vec<(String, String)> {
+/// Links of one pass whose target is missing or no longer hashes as recorded:
+/// (label, path, true when the target is a kit rule file that exists but changed).
+fn broken_links(p: &Page, pk: &Value) -> Vec<(String, String, bool)> {
     let Some(v) = pk.as_object().and_then(|m| m.get("links")) else { return vec![] };
-    let Some(a) = v.as_array() else { return vec![("?".into(), "links is not a list".into())] };
+    let Some(a) = v.as_array() else { return vec![("?".into(), "links is not a list".into(), false)] };
     a.iter()
         .enumerate()
-        .filter(|(_, l)| link_target(p, l).is_none() || link_target(p, l).as_deref() != l["sha"].as_str())
-        .map(|(i, l)| link_label(i, l))
+        .filter_map(|(i, l)| {
+            let now = link_target(p, l);
+            if now.is_some() && now.as_deref() == l["sha"].as_str() {
+                return None;
+            }
+            let rule_changed = now.is_some() && l["kind"] == "kit";
+            let (n, path) = link_label(i, l);
+            Some((n, path, rule_changed))
+        })
         .collect()
 }
 
@@ -376,6 +384,40 @@ fn hash_invalid(file: &str, nn: u32, detail: String) -> String {
     format!("{file} for pass 05.{nn:02} is invalid: hash mismatch ({detail})")
 }
 
+/// The template label of a pack entry when it is "2" or "3": packs that must carry hashes.
+pub fn hashed_label(pk: &Value) -> Option<&str> {
+    pk.get("templates").and_then(|v| v.as_str()).filter(|v| *v == "2" || *v == "3")
+}
+
+/// Why a pack entry that must carry its hashes does not (Tester downgrade hole). A v2 or v3 pack
+/// is written only by wf at t373u or later, so a missing hash there is a stripped hash, not an old page.
+fn missing_hash_fault(x: &Pass, pk: &Value) -> Option<String> {
+    let ver = hashed_label(pk)?;
+    let entry = pk["seq"].to_string();
+    if HASHED.iter().any(|(_, k)| recorded_hash(pk, k).is_none()) {
+        return Some(format!("05.{:02}: pack entry {entry} (templates {ver}) has no hash recorded: invalid", x.nn));
+    }
+    let has = |k: &str| pk.as_object().is_some_and(|m| m.contains_key(k));
+    if ver == "3" && !has("links") && !has("agents_from") {
+        return Some(format!("05.{:02}: pack entry {entry} (templates 3) has no links recorded: invalid", x.nn));
+    }
+    None
+}
+
+/// A file named NN/AGENTS.md left in the folder of a pass that reuses another pass's file.
+/// wf did not print it and never deletes it; verify names it so a person can.
+pub fn stray_agents(p: &Page) -> Vec<String> {
+    p.passes
+        .values()
+        .filter_map(|x| x.pack.as_ref().and_then(agents_from).map(|f| (x.nn, f)))
+        .filter(|(nn, _)| fs::symlink_metadata(p.dir.join(format!("05.{nn:02}/AGENTS.md"))).is_ok())
+        .map(|(nn, f)| format!(
+            "warning: 05.{nn:02}/AGENTS.md is on disk, but 05.{nn:02} reuses {}/AGENTS.md. wf did not print it, does not check it, and will not delete it; remove it by hand if nobody needs it.",
+            escape_line(&f)
+        ))
+        .collect()
+}
+
 /// Released files this wf would print differently from the hash recorded at pack
 /// (a template changed after release). Built from the log only. Every view reprint is
 /// refused while one is listed: wf never rewrites what a worker was given.
@@ -383,12 +425,25 @@ pub fn hash_faults(p: &Page) -> Res<Vec<String>> {
     let mut out = Vec::new();
     for x in p.passes.values() {
         let Some(pk) = &x.pack else { continue };
+        if let Some(f) = missing_hash_fault(x, pk) {
+            out.push(f);
+        }
         if let Some(f) = reuse_fault(p, x, pk) {
             out.push(f);
         }
         if x.tail != "closed" {
-            for (n, path) in broken_links(p, pk) {
-                out.push(format!("AGENTS.md for pass 05.{:02} is invalid: link {n} ({path}) points to changed or missing work", x.nn));
+            for (n, path, rule_changed) in broken_links(p, pk) {
+                if rule_changed {
+                    // Director t381u: "It never changes mid pass only after review and before a new draft starts".
+                    // t382u: "Design never is updated during work." Rule and design files are frozen while a
+                    // pass is open; refinement happens only between passes. So this is a strict lock.
+                    out.push(format!(
+                        "AGENTS.md for pass 05.{:02} is invalid: rule file link {n} ({path}) changed mid pass: rule files change only after review, before a new draft (t381u)",
+                        x.nn
+                    ));
+                } else {
+                    out.push(format!("AGENTS.md for pass 05.{:02} is invalid: link {n} ({path}) points to changed or missing work", x.nn));
+                }
             }
         }
         for (file, key) in HASHED {
@@ -427,7 +482,7 @@ pub fn hash_notes(p: &Page) -> Vec<String> {
             if broken.is_empty() {
                 line += &format!("; links {} hold", a.len());
             } else {
-                let names = broken.iter().map(|(n, _)| format!("link {n}")).collect::<Vec<_>>().join(", ");
+                let names = broken.iter().map(|(n, _, _)| format!("link {n}")).collect::<Vec<_>>().join(", ");
                 line += &format!("; {names} changed after the pass closed (history, not failed)");
             }
         }

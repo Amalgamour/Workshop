@@ -82,6 +82,28 @@ hash, verify says "links 4 hold"); an edited face 01 entry is invalid and --fix 
 missing target (entry 99, an unknown kit doc) is invalid; a forged link is escaped and the claim is
 refused. Four older tests now look for the goal and done-when in PROMPT.md and for the links in AGENTS.md.
 
+## Tester's downgrade hole, the stray file, and the mid-pass lock (t381u, t382u)
+
+1. Tester showed that stripping the hashes from a v2/v3 pack and re-sealing the log made it look like
+   an old page. Now a "2" or "3" pack with no hash (or a "3" pack with no links) is invalid, and --fix
+   cannot clear it. Why: only wf at t373u or later writes those labels, so a missing hash there is a
+   removed hash. The real pages have no label on any pack and still verify. A full rewrite that also
+   removes the label is still possible; only an anchor outside the log would catch it.
+2. A stray 05.NN/AGENTS.md beside a reused file gets a warning in verify and --fix, and is left alone.
+   Why: wf never deletes; a person decides.
+3. Matthew, t381u (11:20 AM EST, verbatim): "It never changes mid pass only after review and before a new draft starts"
+   Matthew, t382u (11:21 AM EST, verbatim): "Design never is updated during work.  We break into passes so each on refines it's exactly how AI made imagines."
+   So a kit rule file that changed under an open pass locks it: "rule file link N (...) changed mid
+   pass: rule files change only after review, before a new draft (t381u)". The next pass records the
+   new hash. Closed passes stay history. Why: design and rules are frozen during work; refinement
+   happens only between passes.
+
+Tests added: stripped hashes plus a re-sealed log stay invalid after --fix (labels 3 and 2, and a v3
+with no links); a planted stray AGENTS.md is warned about and kept; a rule file changed under an open
+pass locks it and refuses the return; after a close the change is history and the next pass records
+the new hash. Older tests whose seeded packs had no hash now label them "1" (pre-t373u), which is the
+only lawful way for a pack to have no hash.
+
 ## For Matthew
 
 - t378u reading: the job lines (jobs, may touch, checks, stop if, return file) now live only in
@@ -91,8 +113,7 @@ refused. Four older tests now look for the goal and done-when in PROMPT.md and f
 
 - Builders can no longer edit a template in place; a new wording must be a new template version.
 - Should an invalid file also raise an elevation to Prime or the person by itself? Not built; proposed only.
-- t379u/t380u: a new wf whose kit AXIOMS.md, DESIGN.md or AGENTS.md text changed makes every open
-  v3 pass invalid (writes refused, even halt) until the old binary is back or the pass is handled. That
-  is "linking to valid hashed work" taken strictly. Should a kit doc change instead raise a question to
-  Prime and let Prime close or redraft the pass?
-- Closed passes are not failed for a kit doc that changed after close (noted only). Is that right?
+- Answered by t381u/t382u: a rule file change under an open pass locks it (strict). Note: the lock refuses
+  every write on that page, including halt, signoff and close, so the old wf must be used to finish the
+  pass. Does "after review" mean after close, or may a pass at review (checked, not yet signed off)
+  already take a changed rule file? Built as: only closed passes are exempt.
