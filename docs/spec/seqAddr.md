@@ -335,3 +335,30 @@ Why: wf pages were started at book 00, page 0001 (90.10, 90.20, 90.30 and 90.50.
 - Section 9 (not yet designed) is unchanged. Still open: who wf records as the starter of a page (`DIRECTOR-WORDS-t420.md:11-12`, not answered directly).
 
 Code mirror: `crates/seqaddr-core/src/addr.rs` (`axis_role` :204-211, `page_kind` :239-252) already marks these kinds. It does not yet refuse work at them; that is wf job 90.50.10.0403.
+
+---
+
+## 11. Versioned note v2, 2026-11-19: the lab band and stage bands (t432u, t434)
+
+Added by Designer at 2:16 PM EST. This is a new step after section 10. No line above is changed (Axioms.md:23). Where this note and an older line differ, this note is the later step; the older line stays as written.
+
+Authority: t432u (`docs/review/DIRECTOR-WORDS-t432.md:16`): "The labs should be a separate page in it's own band. we might have 10 stage bands but only need 30 labs for all of it. We want those labs to be reusable. So a seperate band for storing them makes sense to me." And t434 (`DIRECTOR-WORDS-t434.md:24`, `:26`): "Yes, the lab band is 0700-0799" and "Yes, stage bands are 0400, 1400, 2400 and so on". The link rule comes from t425u (`DIRECTOR-WORDS-t425u.md:3`): "each page should be linked to the test lab for it. We don't need to copy paste lab code a bunch of times."
+
+Lock check before this write: no open pass points at this file. The only passes not closed are 90.50.10.0401.05.01 and 0402.05.01, packed on the box, never published, dropped (their face 06, entry 7), and their AGENTS.md does not link seqAddr.md. Rule: t381u (`DIRECTOR-WORDS-t381u.md:8`): "It never changes mid pass only after review and before a new draft starts".
+
+### 11.1 The rules, in plain words
+
+1. **Labs have their own band, `DD.SS.BB.0700-0799`.** The second digit 7 is the band (line 233). Its band head `0700` is its door (section 10, rule 4). Labs sit on `0701-0798`. `0799` is the band's continuation (line 242), not a lab. [t434.md:24, t432u]
+2. **A lab is reusable.** One lab serves many work pages, across stage bands. Lab code is not copied into each page. [t432u; t425u.md:3]
+3. **A lab is joined to a work page by links, not by its number.** Each work page links to its lab and the lab links back on face 08 (line 157); a one-way link is invalid (line 251). Lab `0701` is not the lab for `0401` because both end in 01. The set rule at line 243 (same `N` and `NN` in different bands) does not join a lab to a work page. [t425u.md:3, t432u]
+4. **Stage bands are one per thousand, second digit 4: `0400, 1400, 2400 ... 9400`.** Each is a dev band (line 237). With ten stage bands none of them lands on the lab band. Matthew said "and so on" (t434.md:26); `9400` as the last is the reading of that, since `10400` is not a page number. [t434.md:26]
+
+### 11.2 How this reads alongside the older lines
+
+- Lines 224-225: `0700` sits in the kernel-modelled range. `1400-9400` sit in `1000-9998`, "user space; users design their own bands". Stage bands there are placed by t434 for this build; this note does not close user space to users.
+- Line 243 (sets across bands) is unchanged for the bands it covers; rule 3 only says a lab is not joined by it.
+- Face 07 stays "reserved, not active" (line 156); lab links are on face 08 by hand until wf writes links.
+
+### 11.3 Not in this note
+
+Q13 (t434.md:28, "Yes, stages 3 and 5 go ahead, marked door open not proof") is about what a stage may claim while stage 2 is parked, not about addresses. It is recorded in `docs/design/ROADMAP-2026-11-18.md` note v4, not here.
