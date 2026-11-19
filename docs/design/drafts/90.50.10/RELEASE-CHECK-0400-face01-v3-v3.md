@@ -23,3 +23,13 @@ FAILs found and fixed: none found.
 
 Verdict: PASS for review, with tensions (grant placeholder; plain-word states; lab band
 waits on Q11).
+
+## Addendum v4 (2026-11-19, 2:14 PM EST, Designer): re-check after 0403 closed
+
+| Check | Source | Result |
+|---|---|---|
+| 0403 line says closed passed | packs 3313938c entry 12 | PASS (final text) |
+| Card follows v2 | packs 3313938c pages/90.50.10.0400/01.md:2 | PASS |
+| Lab band | t434.md:6 | PASS; Q11 tension retired |
+
+Verdict: PASS for review.

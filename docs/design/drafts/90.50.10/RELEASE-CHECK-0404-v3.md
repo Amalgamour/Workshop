@@ -30,3 +30,14 @@ FAILs found and fixed: none found.
 
 Verdict: PASS for review, with the v2 tensions plus the lab band number (Q11). Not
 releasable until 0403 and 0701.05.01 close and the TBD fields are filled.
+
+## Addendum v4 (2026-11-19, 2:14 PM EST, Designer): re-check at c09fa60c
+
+| Check | Source | Result |
+|---|---|---|
+| src/ cites | cmd.rs:15, :405, :467-482, :484, :515, :371; render.rs:29, :37-51 @ c09fa60c | PASS (corrected) |
+| Return strings | tests/wf.rs five strings | PASS (0701 w03 covers all five) |
+| HOLD until 0701.05.01 closes | STAGE-PLAN 13.6 | PASS (stated) |
+| Lab band | t434.md:6 | PASS; Q11 tension retired |
+
+Verdict: PASS for review, ON HOLD until 0701.05.01 closes.

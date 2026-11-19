@@ -1083,3 +1083,5 @@ wait under t424.md:12 itself; no new question.
 Verdict, v5: no FAIL. Tensions: lab band from a draft map (Q11), later stage band
 numbers (Q12), stages that need stage 2 (Q13), one-job rule only in a draft, files
 expected not proven, no hostile pass yet.
+
+v-note (2026-11-19, 2:16 PM EST, Designer): 0403 is closed passed (packs 3313938c, page log entry 12; returns c09fa60c, code d9110934; 48 unit and 138 e2e tests pass at c09fa60c, run by Designer). The 0701 pass 1 hold is lifted; 0404 stays on hold until 0701.05.01 closes.

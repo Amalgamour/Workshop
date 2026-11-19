@@ -25,3 +25,16 @@ FAILs found and fixed: none found.
 
 Verdict: PASS for review, with tensions (band number waits on Q11; a door made with
 --system; grant placeholder).
+
+## Addendum v4 (2026-11-19, 2:14 PM EST, Designer): re-check at c09fa60c
+
+| Check | Source | Result |
+|---|---|---|
+| Guard refuses 0700 without --system | src/addr.rs:102, :177-178 @ c09fa60c | PASS (note 1 holds) |
+| --system needs --system-ref | src/cmd.rs:166-177, :184-187 | PASS |
+| Ref is only text-checked | src/cmd.rs:174 | TENSION (t432u is not checked to exist) |
+| Pass 1 line | 0403 closed | changed in the final text |
+| Lab band answered | t434.md:6 "Yes, the lab band is 0700-0799" | PASS; Q11 tension retired |
+
+Verdict: PASS for review. Tensions: door made with --system and a text-only ref; grant
+placeholder.

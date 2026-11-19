@@ -46,3 +46,19 @@ Verdict: PASS for review, HOLD for release until 0403 closes. Tensions: lab band
 draft map (Q11); grant reads approval of the lab as approval of paths; back-links wait;
 every page trialled where drafts trial fewer; line numbers move after 0403; no hostile
 pass.
+
+## Addendum v4 (2026-11-19, 2:14 PM EST, Designer): re-check at c09fa60c
+
+| Check | Source | Result |
+|---|---|---|
+| 0403 closed passed | packs 3313938c log entry 12 | PASS (verified) |
+| Base set | origin/returns c09fa60c | PASS |
+| HOLD | 0403 closed | lifted: releasable on Prima review |
+| Harness range | tests/wf.rs:10-170 @ c09fa60c | PASS (unchanged) |
+| Return strings | tests/wf.rs:94, :858, :994, :1575, :1789 | FAIL found (v3 said two), fixed in the v4 note (all five) |
+| Other cites | tests/wf.rs:4, :820, :841, :954, :959, :1021, :1117; cmd.rs:467-482 | PASS (corrected) |
+| Kit hashes | sha256 at c09fa60c | PASS (filled) |
+
+Verdict: PASS for review, releasable on Prima's review. Tensions kept: lab band (now
+answered, t434.md:6, so retired); grant reads approval of the lab as approval of paths;
+back-links wait; no hostile pass.
