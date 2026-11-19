@@ -2448,3 +2448,44 @@ fn q14_clean_page_shows_no_out_of_rule_line() {
     e.ok(&["halt", PG, "--note", "stop (t1)", "--as", "pri"]);
     e.ok(&["resume", PG, "--note", "go (t2)", "--as", "pri"]);
 }
+
+/// Append one hand-made entry to a real page's log, keeping the hash chain (a forged entry).
+fn forge_append(e: &Env, actor: &str, role: &str, kind: &str, data: serde_json::Value) {
+    use sha2::{Digest, Sha256};
+    let path = e.page().join("log.jsonl");
+    let text = fs::read_to_string(&path).unwrap();
+    let last = text.lines().last().unwrap();
+    let seq = text.lines().count() + 1;
+    let prev: String = Sha256::digest(last.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+    let v = serde_json::json!({"seq": seq, "actor": actor, "role": role, "kind": kind, "data": data, "prev": prev, "time_s": 1_795_456_800u64});
+    fs::write(&path, format!("{text}{v}\n")).unwrap();
+}
+
+/// Q14 read side (Tester S12): a forged failed check with a bad commit is out of rule, so it is
+/// not counted anywhere: board and observe failed checks stay 0, the feed marks it, no
+/// check-on-another-commit mark, and check --dry-run still runs (it writes nothing).
+#[test]
+fn q14_s12_forged_fail_check_is_not_counted() {
+    let e = Env::ready("q14-s12");
+    e.open("src/a.rs", "true");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    forge_append(&e, "zed", "checker", "check", serde_json::json!({"pass": 1, "commit": "zz", "verdict": "fail", "report": ""}));
+    e.ok(&["verify", PG, "--fix"]);
+    let card = e.ok(&["board", PG, "--card", "1"]);
+    assert!(!card.contains("failed checks 1") && !card.contains("check on another commit"), "{card}");
+    let b = e.ok(&["board", PG]);
+    assert!(b.contains("failed checks 0") && !b.contains("failed checks 1") && !b.contains("check on another commit"), "{b}");
+    assert!(b.contains("out of rule at entry 9"), "{b}");
+    let o = e.ok(&["observe", PG]);
+    assert!(!o.contains("failed check"), "{o}");
+    let s = e.ok(&["status", PG]);
+    assert!(s.lines().any(|l| l.contains("    9 ") && l.contains("check") && l.ends_with("by zed (checker) (out of rule, not counted)")), "{s}");
+    assert!(s.lines().filter(|l| l.contains("(out of rule, not counted)")).count() == 1, "only entry 9 is marked: {s}");
+    let before = e.log();
+    let d = e.ok(&["check", PG, "1", "--dry-run", "--as", "cat"]);
+    assert!(d.contains("check 05.01: pass (dry-run: nothing written)"), "{d}");
+    assert_eq!(e.log(), before, "dry-run wrote nothing");
+    e.no(&["check", PG, "1", "--as", "cat"], "refused, nothing written: log entry 9 is out of order");
+    assert_eq!(e.log(), before);
+}

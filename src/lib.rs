@@ -179,7 +179,8 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     }
     // Q14 (build stage, no Director ruling yet): a page with an out-of-rule entry still loads and
     // reads, but takes only resume or a Prime note (face-write 06; page.rs add() checks the face).
-    let reads = c == "verify" || (c == "observe" && a.flag("record").is_none());
+    // check --dry-run writes nothing, so it is a read here too.
+    let reads = c == "verify" || (c == "observe" && a.flag("record").is_none()) || (c == "check" && a.flag("dry-run").is_some());
     if let Some(line) = p.out_of_rule_lines().first().filter(|_| !reads && !matches!(c, "resume" | "face-write")) {
         return Err(format!("refused, nothing written: {line}"));
     }

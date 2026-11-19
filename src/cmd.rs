@@ -599,7 +599,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let rep = check_report(p, pk, r, &results, frame_ok, a.flag("note"), a.flag("fail"));
     p.add(who, "checker", "check", json!({"pass": n, "commit": commit, "verdict": verdict, "report": rep,
         "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": git::clip_check_out(out, 40)})).collect::<Vec<_>>()}))?;
-    let fails = p.events.iter().filter(|e| e.kind == "check" && e.data["pass"] == n && s(&e.data, "verdict") == "fail").count();
+    let fails = p.counted().filter(|e| e.kind == "check" && e.data["pass"] == n && s(&e.data, "verdict") == "fail").count();
     if fails >= 2 {
         p.add("wf", "tool", "elevate", json!({"pass": n, "to": "prime", "item": format!("second failed check on 05.{n:02}")}))?;
     }

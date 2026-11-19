@@ -144,7 +144,7 @@ fn time_of(p: &Page, seq: u64) -> Option<u64> {
 
 /// Entry numbers of every `kind` event on pass `nn`, oldest first.
 fn entries(p: &Page, nn: u32, kind: &str) -> Vec<u64> {
-    p.events.iter().filter(|ev| ev.kind == kind && ev.data["pass"].as_u64() == Some(nn as u64)).map(|ev| ev.seq).collect()
+    p.counted().filter(|ev| ev.kind == kind && ev.data["pass"].as_u64() == Some(nn as u64)).map(|ev| ev.seq).collect()
 }
 
 fn last_entry(p: &Page, nn: u32, kind: &str) -> String {
@@ -163,7 +163,7 @@ fn age(p: &Page, seq: u64, t: u64) -> String {
 }
 
 fn failed_checks(p: &Page, nn: u32) -> usize {
-    p.events.iter().filter(|ev| ev.kind == "check" && ev.data["pass"].as_u64() == Some(nn as u64) && s(&ev.data, "verdict") == "fail").count()
+    p.counted().filter(|ev| ev.kind == "check" && ev.data["pass"].as_u64() == Some(nn as u64) && s(&ev.data, "verdict") == "fail").count()
 }
 
 fn open_questions(p: &Page, nn: u32) -> usize {
@@ -190,7 +190,7 @@ pub fn stale(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> Vec<String> {
     if let (Some(r), Some((_, c))) = (&x.ret, &x.check) {
         let (checked, latest) = (s(c, "commit"), s(r, "commit"));
         if checked != latest {
-            let earlier = p.events.iter().find(|ev| ev.kind == "return" && ev.data["pass"].as_u64() == Some(x.nn as u64) && s(&ev.data, "commit") == checked);
+            let earlier = p.counted().find(|ev| ev.kind == "return" && ev.data["pass"].as_u64() == Some(x.nn as u64) && s(&ev.data, "commit") == checked);
             let whose = match earlier {
                 Some(ev) => format!("the commit of an earlier return (entry {})", ev.seq),
                 None => "a commit no return names".into(),
@@ -246,7 +246,7 @@ pub fn attention(p: &Page, edited: &Res<ViewDiff>, stall_hours: u64, t: u64) -> 
         out.push((6, ask("Prime", &p.prime, q)));
     }
     // Unanswered questions and drift already have their own lines (rules 1, 6 and 8).
-    let last = p.events.last().map(|ev| ev.seq).unwrap_or(0);
+    let last = p.counted().last().map(|ev| ev.seq).unwrap_or(0);
     for f in observe(p, stall_hours).into_iter().filter(|f| !f.starts_with("unanswered:") && !f.starts_with("drift:")) {
         let at = if f.contains("entry") { String::new() } else { format!(" (as of entry {last})") };
         out.push((7, format!("OBSERVER: {}{at}", e(&f))));

@@ -9,7 +9,8 @@ Build stage, no Director ruling yet (Q14). Branch `q14-draft`, from `merge-rehea
   - not folded into the page state, so it cannot change what the next command sees;
   - shown as `log entry N is out of order: <rule>; the page is out of rule at entry N: only wf resume or a Prime note (face-write 06) may be written (build stage, no Director ruling yet, Q14)` on `status`, `board`, `observe` and `verify`, and on the book board line for that page.
 - While a page has one, only `wf resume` and a Prime `face-write 06` note may be written. Every other write (draft, pack, claim, return, check, signoff, close, halt, grant, set-prime, other faces, answer, elevate, `observe --record`) is refused with `refused, nothing written: ...` and the same line.
-- `verify --fix` still reprints views (it writes no log entry).
+- `verify --fix` still reprints views, and `check --dry-run` still runs (neither writes a log entry).
+- A skipped entry is never counted: board counts and marks, observe, and the elevate count read `Page::counted()`. The status feed lists it, marked "(out of rule, not counted)".
 - Still unreadable: a broken hash chain, and a log whose entry 1 is not the init (there is no page to show).
 
 ## Where in the code
@@ -18,7 +19,8 @@ Build stage, no Director ruling yet (Q14). Branch `q14-draft`, from `merge-rehea
 - `src/status.rs`, `src/board.rs`: the lines in status, the board's ATTENTION block and the book board.
 
 ## Tests
-- 43 unit tests and 112 e2e tests pass (155 in total; there were 153 before).
+- 43 unit tests and 113 e2e tests pass (156 in total; there were 153 before).
+- New test `q14_s12_forged_fail_check_is_not_counted` (Tester's S12: a forged fail check with commit "zz").
 - New test `q14_h4_page_loads_out_of_rule_and_takes_only_resume_or_a_prime_note` uses `tests/fixtures/h4/log.jsonl`, a copy of Tester's `scratch/tester-3001/h4` page log.
 - New test `q14_clean_page_shows_no_out_of_rule_line`.
 - 9 order-rule tests changed: the reads now exit 0 and show the line, instead of exit 1 and "cannot be read". Their names still say "unreadable"; I left them as they were to keep the diff small.

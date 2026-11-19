@@ -164,6 +164,17 @@ impl Page {
             crate::chars::escape_line(why))).collect()
     }
 
+    /// True when log entry `seq` broke the order rules and was not folded in (Q14).
+    pub fn is_out_of_rule(&self, seq: u64) -> bool {
+        self.out_of_rule.iter().any(|(n, _)| *n == seq)
+    }
+
+    /// Log entries that were folded in: every entry except the out-of-rule ones (Q14).
+    /// Counts and marks read these, so a skipped entry cannot change them.
+    pub fn counted(&self) -> impl Iterator<Item = &crate::log::Event> {
+        self.events.iter().filter(|ev| !self.is_out_of_rule(ev.seq))
+    }
+
     pub fn log_path(&self) -> PathBuf {
         self.dir.join("log.jsonl")
     }

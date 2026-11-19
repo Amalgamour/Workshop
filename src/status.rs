@@ -63,7 +63,8 @@ pub fn status(p: &Page) -> String {
     o += "\nFEED (newest first)\n";
     for e in p.events.iter().rev().take(10) {
         let pass = e.data["pass"].as_u64().map(|n| format!(" 05.{n:02}")).unwrap_or_default();
-        o += &format!("  {:>3} {} {:<14}{} by {} ({})\n", e.seq, iso(e.time), escape_line(&e.kind), pass, escape_line(&e.actor), escape_line(&e.role));
+        let mark = if p.is_out_of_rule(e.seq) { " (out of rule, not counted)" } else { "" };
+        o += &format!("  {:>3} {} {:<14}{} by {} ({}){mark}\n", e.seq, iso(e.time), escape_line(&e.kind), pass, escape_line(&e.actor), escape_line(&e.role));
     }
     o
 }
@@ -120,7 +121,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
     if outs.len() >= 2 && outs[outs.len() - 2..].iter().all(|o| o != "passed") {
         f.push(format!("loop: the last two closed passes ended {} and {}", escape_line(&outs[outs.len() - 2]), escape_line(&outs[outs.len() - 1])));
     }
-    if let Some(last) = p.events.last() {
+    if let Some(last) = p.counted().last() {
         let h = now().saturating_sub(last.time) / 3600;
         if last.time > 0 && h >= stall_hours && p.halt.is_none() && p.passes.values().any(|x| x.tail != "closed") {
             f.push(format!("stalled: nothing has moved for {h} hours (entry {})", last.seq));
