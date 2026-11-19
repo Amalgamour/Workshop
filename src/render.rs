@@ -25,15 +25,17 @@ pub const T_AGENTS_V3: &str = include_str!("../templates/v3/agents.txt");
 pub const T_PROMPT_V3: &str = include_str!("../templates/v3/prompt.txt");
 /// The one paste for a builder on Matthew's Windows machine (t400u, t401u). A view, not hashed.
 pub const T_BUILDER_V3: &str = include_str!("../templates/v3/builder.txt");
+/// v4 (t416u): the v3 agents and prompt, and a return that asks for a design review line.
+pub const T_RETURN_V4: &str = include_str!("../templates/v4/return.txt");
 /// Version written into new pack entries. Missing or "1" means v1 (8eb1fdb).
-pub const TEMPLATE_VER: &str = "3";
+pub const TEMPLATE_VER: &str = "4";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
 pub const DESIGN: &str = include_str!("../docs/DESIGN.md");
 /// The kit rules (roles, commands, checker notes): link 4 of a v3 AGENTS.md.
 pub const KIT_AGENTS: &str = include_str!("../AGENTS.md");
 
 /// Agents, prompt and return templates for one pack.
-/// Only a missing field or the string "1" mean v1; only the string "2" means v2; "3" means v3.
+/// Only a missing field or the string "1" mean v1; only the string "2" means v2; "3" means v3; "4" means v4.
 /// Any other value is refused, and the message names the page and the pack entry.
 pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static str, &'static str)> {
     let seq = pk.get("seq").and_then(|v| v.as_u64());
@@ -46,6 +48,7 @@ pub fn packed_templates(pk: &Value, addr: &str) -> Res<(&'static str, &'static s
         Some(Value::String(s)) if s == "1" => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
         Some(Value::String(s)) if s == "2" => Ok((T_AGENTS, T_PROMPT, T_RETURN)),
         Some(Value::String(s)) if s == "3" => Ok((T_AGENTS_V3, T_PROMPT_V3, T_RETURN)),
+        Some(Value::String(s)) if s == "4" => Ok((T_AGENTS_V3, T_PROMPT_V3, T_RETURN_V4)),
         Some(v) => Err(format!("unknown template version {v}{loc}")),
     }
 }
@@ -392,7 +395,7 @@ pub fn views(p: &Page) -> Res<BTreeMap<String, String>> {
             if agents_from(pk).is_none() {
                 m.insert(d.clone() + "AGENTS.md", agents(p, x)?);
             }
-            if s(pk, "templates") == "3" {
+            if s(pk, "templates") == "3" || s(pk, "templates") == "4" {
                 m.insert(d.clone() + "BUILDER-PROMPT.md", fill(T_BUILDER_V3, &pass_vals(p, x))?);
             }
             m.insert(d + "RETURN-TEMPLATE.md", return_template(p, x)?);
@@ -419,9 +422,9 @@ fn hash_invalid(file: &str, nn: u32, detail: String) -> String {
     format!("{file} for pass 05.{nn:02} is invalid: hash mismatch ({detail})")
 }
 
-/// The template label of a pack entry when it is "2" or "3": packs that must carry hashes.
+/// The template label of a pack entry when it is "2", "3" or "4": packs that must carry hashes.
 pub fn hashed_label(pk: &Value) -> Option<&str> {
-    pk.get("templates").and_then(|v| v.as_str()).filter(|v| *v == "2" || *v == "3")
+    pk.get("templates").and_then(|v| v.as_str()).filter(|v| *v == "2" || *v == "3" || *v == "4")
 }
 
 /// Why a pack entry that must carry its hashes does not (Tester downgrade hole). A v2 or v3 pack
@@ -433,8 +436,8 @@ fn missing_hash_fault(x: &Pass, pk: &Value) -> Option<String> {
         return Some(format!("05.{:02}: pack entry {entry} (templates {ver}) has no hash recorded: invalid", x.nn));
     }
     let has = |k: &str| pk.as_object().is_some_and(|m| m.contains_key(k));
-    if ver == "3" && !has("links") && !has("agents_from") {
-        return Some(format!("05.{:02}: pack entry {entry} (templates 3) has no links recorded: invalid", x.nn));
+    if (ver == "3" || ver == "4") && !has("links") && !has("agents_from") {
+        return Some(format!("05.{:02}: pack entry {entry} (templates {ver}) has no links recorded: invalid", x.nn));
     }
     None
 }
@@ -798,6 +801,18 @@ mod tests {
         }
         assert!(p.contains("Read first: {{agents_file}} (sha256 {{agents_hash}}{{agents_note}})"), "{p}");
         assert_eq!(r, T_RETURN);
+        assert!(!r.contains("design review:"), "v3 return stays without the design review line");
+    }
+
+    #[test]
+    fn v4_uses_the_v3_agents_and_prompt_and_the_v4_return() {
+        let (a, p, r) = packed_templates(&json!({"templates": "4"}), "1.2.3.4").unwrap();
+        let (a3, p3, _) = packed_templates(&json!({"templates": "3"}), "1.2.3.4").unwrap();
+        assert_eq!(a, a3);
+        assert_eq!(p, p3);
+        assert_eq!(r, T_RETURN_V4);
+        assert!(r.contains("design review: <the design files you compared your work against (at least docs/AXIOMS.md and docs/DESIGN.md in the kit), what matched, and any place it differs; t416u>"), "{r}");
+        assert_eq!(TEMPLATE_VER, "4");
     }
 
     #[test]

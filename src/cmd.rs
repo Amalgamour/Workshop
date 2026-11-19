@@ -471,6 +471,10 @@ pub fn parse_return(text: &str, x: &Pass, pack_hash: &str) -> Res<Map<String, Va
         let v = f.get(k).and_then(|v| v.as_str()).unwrap_or("");
         need(!v.is_empty() && !v.starts_with('<'), format!("the return has no '{k}:' line filled in"))?;
     }
+    if x.pack.as_ref().and_then(|pk| pk.get("templates")).and_then(|v| v.as_str()) == Some("4") {
+        let v = f.get("design review").and_then(|v| v.as_str()).unwrap_or("");
+        need(!v.is_empty() && !v.starts_with('<'), "the return has no 'design review:' line filled in. t416u: novel work is reviewed against the design documents before the return is complete")?;
+    }
     let mut out = Map::new();
     for (k, _) in jobs(&x.fields) {
         let v = f.get(&k).and_then(|v| v.as_str()).unwrap_or("");
@@ -975,6 +979,50 @@ mod tests {
         assert!(check_text_nl("Goal: a.\nDone when: checks pass.", "file").is_ok());
         assert!(check_text("Goal: a.\nDone when: checks pass.", "text").is_err());
         assert!(check_text("\u{0301}\u{0301}", "as").unwrap_err().contains("only combining marks"));
+    }
+
+    fn pass_on(templates: Option<&str>) -> crate::page::Pass {
+        let mut fields = serde_json::Map::new();
+        fields.insert("w01".into(), serde_json::json!("set a"));
+        crate::page::Pass {
+            nn: 1,
+            tail: "open".into(),
+            fields,
+            pins: serde_json::Value::Null,
+            pack: templates.map(|t| serde_json::json!({"templates": t})),
+            claim: None,
+            ret: None,
+            refusals: vec![],
+            check: None,
+            signoff: None,
+            close: None,
+            last_seq: 0,
+        }
+    }
+
+    fn filled_return(review: Option<&str>) -> String {
+        let mut t = "pack: abc\ndone: d\nchanged: c\nnoticed: n\nw01: done - x\nproof: p\n".to_string();
+        if let Some(r) = review {
+            t.push_str(&format!("design review: {r}\n"));
+        }
+        t.push_str("not done: none\nunprompted: none\noverflow: none\n");
+        t
+    }
+
+    #[test]
+    fn v4_return_needs_a_filled_design_review_and_v3_does_not() {
+        let msg = "the return has no 'design review:' line filled in. t416u: novel work is reviewed against the design documents before the return is complete";
+        let v4 = pass_on(Some("4"));
+        let missing = super::parse_return(&filled_return(None), &v4, "abc").unwrap_err();
+        assert_eq!(missing, msg);
+        let empty = super::parse_return(&filled_return(Some("")), &v4, "abc").unwrap_err();
+        assert_eq!(empty, msg);
+        let placeholder = super::parse_return(&filled_return(Some("<docs/AXIOMS.md")), &v4, "abc").unwrap_err();
+        assert_eq!(placeholder, msg);
+        let ok = super::parse_return(&filled_return(Some("docs/AXIOMS.md and docs/DESIGN.md match")), &v4, "abc").unwrap();
+        assert_eq!(ok["w01"], "done - x");
+        let v3 = super::parse_return(&filled_return(None), &pass_on(Some("3")), "abc").unwrap();
+        assert_eq!(v3["w01"], "done - x");
     }
 
     #[test]
