@@ -64,6 +64,9 @@ pub struct Page {
     pub findings: Vec<(u64, String, String)>,
     /// Set by a halt entry, cleared by resume: (who, time, note, entry).
     pub halt: Option<(String, u64, String, u64)>,
+    /// Log entries that broke the order rules: (entry, rule). Kept in the log, not folded in.
+    /// Build stage, no Director ruling yet (Q14).
+    pub out_of_rule: Vec<(u64, String)>,
 }
 
 pub fn s(v: &Value, k: &str) -> String {
@@ -154,6 +157,13 @@ impl Pass {
 }
 
 impl Page {
+    /// "out of rule at entry N: why" lines for status, board and verify (escaped). Empty when none.
+    pub fn out_of_rule_lines(&self) -> Vec<String> {
+        self.out_of_rule.iter().map(|(n, why)| format!(
+            "log entry {n} is out of order: {}; the page is out of rule at entry {n}: only wf resume or a Prime note (face-write 06) may be written (build stage, no Director ruling yet, Q14)",
+            crate::chars::escape_line(why))).collect()
+    }
+
     pub fn log_path(&self) -> PathBuf {
         self.dir.join("log.jsonl")
     }
@@ -192,6 +202,12 @@ impl Page {
     pub fn add(&mut self, actor: &str, role: &str, kind: &str, data: Value) -> Res<()> {
         let seq = self.events.len() as u64 + 1;
         self.order(seq, kind, &data).map_err(|why| format!("refused, nothing written: {why}"))?;
+        if let Some(line) = self.out_of_rule_lines().first() {
+            let note = kind == "face" && role == "prime" && data["face"] == "06";
+            if kind != "resume" && !note {
+                return Err(format!("refused, nothing written: {line}"));
+            }
+        }
         let (e, head) = log::append(&self.log_path(), &self.head, seq, actor, role, kind, data)?;
         self.apply(&e)?;
         self.events.push(e);
@@ -281,7 +297,16 @@ impl Page {
 
     /// Fold one entry in. An entry for a pass that was never drafted is an error, not a panic.
     fn apply(&mut self, e: &Event) -> Res<()> {
-        self.order(e.seq, &e.kind, &e.data).map_err(|why| format!("log entry {} is out of order: {why}; the page cannot be read", e.seq))?;
+        if let Err(why) = self.order(e.seq, &e.kind, &e.data) {
+            // Entry 1 must be the init, or there is no page to show.
+            if e.seq == 1 {
+                return Err(format!("log entry 1 is out of order: {why}; the page cannot be read"));
+            }
+            // Q14 (build stage, no Director ruling yet): an entry already in the log that breaks the
+            // order stays there (axiom 6) but is not folded in, so it cannot steer the next command (axiom 1).
+            self.out_of_rule.push((e.seq, why));
+            return Ok(());
+        }
         let d = &e.data;
         let nn = d["pass"].as_u64().unwrap_or(0) as u32;
         let missing = || missing_pass(e.seq, &e.kind, nn);

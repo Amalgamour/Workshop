@@ -285,8 +285,11 @@ pub fn page_board(p: &Page, edited: &Res<ViewDiff>, o: &Opts, t: u64) -> String 
     must(&mut units, format!("  log: {} entries, last entry {}, head {}; board time {}; read only, built from the log",
         p.events.len(), p.events.last().map(|ev| when(ev.time)).unwrap_or_else(|| UNKNOWN.into()), sh(&p.head), iso(t)));
     must(&mut units, "ATTENTION (most urgent first)".into());
+    for l in p.out_of_rule_lines() {
+        must(&mut units, format!("  {l}"));
+    }
     let attn = attention(p, edited, o.stall_hours, t);
-    if attn.is_empty() {
+    if attn.is_empty() && p.out_of_rule.is_empty() {
         must(&mut units, "  attention: none found in the log".into());
     }
     for (rule, line) in attn {
@@ -465,6 +468,9 @@ pub fn book(root: &Path, stall_hours: u64, t: u64) -> String {
         } else {
             match load(&dir) {
                 Err(why) => format!("  {}  unreadable: {}", e(&name), clip(&why, WIDTH)),
+                Ok(p) if !p.out_of_rule.is_empty() => {
+                    format!("  {}  {}", e(&name), clip(&p.out_of_rule_lines()[0], WIDTH))
+                }
                 Ok(p) => {
                     let c = |tail: &str| p.passes.values().filter(|x| x.tail == tail).count();
                     let attn = attention(&p, &render::edited(&p), stall_hours, t).len();

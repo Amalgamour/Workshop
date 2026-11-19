@@ -1717,7 +1717,7 @@ fn board_marks_a_check_on_another_commit_and_an_old_signoff() {
     let dir = e.root.join("pages/6.0.0.1");
     write_log(&dir, &[("init", init_data("6.0.0.1"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("return", 1)]);
     let (code, out) = run_code(&e, &["board", "6.0.0.1"]);
-    assert!(code == Some(1) && out.contains("log entry 7 is out of order: a return for 05.01, which is at 'review'"), "{out}");
+    assert!(code == Some(0) && out.contains("log entry 7 is out of order: a return for 05.01, which is at 'review'"), "{out}");
 
     let e = Env::checked("board-oldsign");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
@@ -1847,15 +1847,20 @@ fn entry_for_a_missing_pass_is_unreadable_not_a_panic() {
     write_log(&bad, &[("init", init_data("1.2.3.8"), Some(1)), ("claim", serde_json::json!({"pass": 3}), Some(2)),
                       ("close", serde_json::json!({"pass": 3, "outcome": "passed"}), Some(3))]);
     let bin = env!("CARGO_BIN_EXE_wf");
-    for args in [vec!["board", "1.2.3.8"], vec!["board", "1.2.3.8", "--card", "3"], vec!["status", "1.2.3.8"], vec!["observe", "1.2.3.8"], vec!["verify", "1.2.3.8"]] {
+    // Q14 (build stage): the page loads; reads name the entry; the never-drafted pass is not folded in.
+    assert_eq!(Command::new(env!("CARGO_BIN_EXE_wf")).env("WF_ROOT", &e.root).args(["verify", "1.2.3.8", "--fix"]).output().unwrap().status.code(), Some(0));
+    for args in [vec!["board", "1.2.3.8"], vec!["status", "1.2.3.8"], vec!["observe", "1.2.3.8"], vec!["verify", "1.2.3.8"]] {
         let o = Command::new(bin).env("WF_ROOT", &e.root).args(&args).output().unwrap();
-        let err = String::from_utf8_lossy(&o.stderr);
-        assert_eq!(o.status.code(), Some(1), "{args:?} must refuse, not panic: {err}");
-        assert!(err.contains("log entry 2 is out of order: a claim for 05.03, which was never drafted; the page cannot be read"), "{args:?}: {err}");
-        assert!(!err.contains("panicked"), "{args:?}: {err}");
+        let out = String::from_utf8_lossy(&o.stdout);
+        assert_eq!(o.status.code(), Some(0), "{args:?}: {out}");
+        assert!(out.contains("log entry 2 is out of order: a claim for 05.03, which was never drafted; the page is out of rule at entry 2"), "{args:?}: {out}");
+        assert!(!String::from_utf8_lossy(&o.stderr).contains("panicked"), "{args:?}");
     }
+    let o = Command::new(bin).env("WF_ROOT", &e.root).args(["board", "1.2.3.8", "--card", "3"]).output().unwrap();
+    let err = String::from_utf8_lossy(&o.stderr);
+    assert!(o.status.code() == Some(1) && err.contains("no pass 05.03") && !err.contains("panicked"), "{err}");
     let b = e.ok(&["board"]);
-    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is out of order: a claim for 05.03, which was never drafted"), "{b}");
+    assert!(b.contains("  1.2.3.8  log entry 2 is out of order: a claim for 05.03, which was never drafted"), "{b}");
     assert!(b.contains("  1.2.3.4  t  entries 4"), "the other page still shows: {b}");
 }
 
@@ -1994,10 +1999,11 @@ fn write_commands_on_forged_logs_refuse_without_a_panic() {
     ];
     for (addr, kinds, args) in cases {
         let dir = forged(&e, addr, kinds);
+        run_code(&e, &["verify", addr, "--fix"]);
         let before = fs::read(dir.join("log.jsonl")).unwrap();
         let (code, out) = run_code(&e, &args);
         assert_eq!(code, Some(1), "{args:?}: {out}");
-        assert!(out.contains("is out of order") && out.contains("the page cannot be read") && !out.contains("panicked"), "{args:?}: {out}");
+        assert!(out.contains("refused, nothing written: log entry 3 is out of order") && out.contains("out of rule at entry 3") && !out.contains("panicked"), "{args:?}: {out}");
         assert_eq!(fs::read(dir.join("log.jsonl")).unwrap(), before, "{args:?} changed the log");
         assert!(!dir.join(".wf-lock").exists(), "{args:?} left a lock");
     }
@@ -2029,10 +2035,12 @@ fn wrong_order_entries_make_the_page_unreadable() {
         let mut evs = vec![("init", init_data(addr), Some(1_795_456_800))];
         evs.extend(kinds.iter().map(|(k, n)| if *k == "init" { ("init", init_data(addr), Some(1)) } else { ev(k, *n) }));
         write_log(&e.root.join("pages").join(addr), &evs);
+        // Q14 (build stage): the page still loads and every read names the entry and the rule.
+        assert_eq!(run_code(&e, &["verify", addr, "--fix"]).0, Some(0), "verify --fix {addr} reprints views");
         for cmd in ["verify", "status", "board"] {
             let (code, out) = run_code(&e, &[cmd, addr]);
-            assert_eq!(code, Some(1), "{cmd} {addr}: {out}");
-            assert!(out.contains(want), "{cmd} {addr}: want '{want}' in {out}");
+            assert_eq!(code, Some(0), "{cmd} {addr}: {out}");
+            assert!(out.contains(want) && out.contains("out of rule at entry"), "{cmd} {addr}: want '{want}' in {out}");
         }
     }
     // A log whose first entry is not the init.
@@ -2041,7 +2049,7 @@ fn wrong_order_entries_make_the_page_unreadable() {
     let (code, out) = run_code(&e, &["verify", "8.0.2.0"]);
     assert!(code == Some(1) && out.contains("log entry 1 is out of order: the first entry is a draft, not the init"), "{out}");
     let book = e.ok(&["board"]);
-    assert!(book.contains("  8.0.0.1  unreadable: log entry 5 is out of order") && book.contains("  1.2.3.4  t  entries 4"), "{book}");
+    assert!(book.contains("  8.0.0.1  log entry 5 is out of order") && book.contains("  1.2.3.4  t  entries 4"), "{book}");
     // The full chain itself loads.
     forged(&e, "8.1.0.0", full);
     let (code, out) = run_code(&e, &["status", "8.1.0.0"]);
@@ -2055,7 +2063,7 @@ fn pass_numbers_outside_01_98_are_refused_not_wrapped() {
     for (addr, n) in [("7.0.0.1", 4_294_967_297u64), ("7.0.0.2", 0), ("7.0.0.3", 99)] {
         forged(&e, addr, &[("draft", n)]);
         let (code, out) = run_code(&e, &["status", addr]);
-        assert_eq!(code, Some(1), "{out}");
+        assert_eq!(code, Some(0), "{out}");
         assert!(out.contains(&format!("log entry 2 is out of order: a draft for pass {n}, outside 01-98 (R9)")), "{out}");
     }
     let dir = forged(&e, "7.0.0.4", &[("draft", 1)]);
@@ -2063,7 +2071,7 @@ fn pass_numbers_outside_01_98_are_refused_not_wrapped() {
     evs[2].1["pass"] = serde_json::json!(4_294_967_297u64);
     write_log(&dir, &evs);
     let (code, out) = run_code(&e, &["board", "7.0.0.4"]);
-    assert!(code == Some(1) && out.contains("a pack for pass 4294967297, outside 01-98 (R9)"), "{out}");
+    assert!(code == Some(0) && out.contains("a pack for pass 4294967297, outside 01-98 (R9)"), "{out}");
     let mut p = wf::page::Page::load(&e.page()).unwrap();
     let before = e.log();
     let err = p.add("pri", "prime", "draft", serde_json::json!({"pass": 4_294_967_297u64, "fields": {}, "pins": {}})).unwrap_err();
@@ -2124,13 +2132,13 @@ fn check_with_no_verdict_makes_the_page_unreadable() {
     let mut evs = vec![("init", init_data("6.0.0.2"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1)];
     evs[5].1.as_object_mut().unwrap().remove("verdict");
     write_log(&dir, &evs);
-    let (code, out) = run_code(&e, &["verify", "6.0.0.2"]);
-    assert!(code == Some(1) && out.contains("log entry 6 is out of order: a check for 05.01 with no verdict; the page"), "{out}");
+    let (code, out) = run_code(&e, &["status", "6.0.0.2"]);
+    assert!(code == Some(0) && out.contains("log entry 6 is out of order: a check for 05.01 with no verdict; the page is out of rule at entry 6"), "{out}");
     for bad in [serde_json::json!("maybe"), serde_json::json!(true), serde_json::json!("")] {
         evs[5].1["verdict"] = bad;
         write_log(&dir, &evs);
         let (code, out) = run_code(&e, &["status", "6.0.0.2"]);
-        assert!(code == Some(1) && out.contains("a check for 05.01 with a verdict that is not pass or fail"), "{out}");
+        assert!(code == Some(0) && out.contains("a check for 05.01 with a verdict that is not pass or fail"), "{out}");
     }
     evs[5].1["verdict"] = serde_json::json!("pass");
     for bad in [None, Some(serde_json::json!("")), Some(serde_json::json!(7)), Some(serde_json::json!(" ")), Some(serde_json::json!("\t\n")),
@@ -2141,7 +2149,7 @@ fn check_with_no_verdict_makes_the_page_unreadable() {
         }
         write_log(&dir, &evs);
         let (code, out) = run_code(&e, &["board", "6.0.0.2"]);
-        assert!(code == Some(1) && out.contains("a check for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{out}");
+        assert!(code == Some(0) && out.contains("a check for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{out}");
     }
 }
 
@@ -2159,8 +2167,8 @@ fn recheck_only_after_a_failed_check_and_resignoff_still_loads() {
     assert!(code == Some(0) && out.contains("05.01  closed"), "{out}");
     for (addr, kinds, want) in cases {
         forged(&e, addr, &kinds);
-        let (code, out) = run_code(&e, &["verify", addr]);
-        assert!(code == Some(1) && out.contains(want), "{addr}: {out}");
+        let (code, out) = run_code(&e, &["status", addr]);
+        assert!(code == Some(0) && out.contains(want) && out.contains("out of rule at entry 7"), "{addr}: {out}");
     }
     // A re-check after a failed check loads; a check after a signoff does not.
     let mut evs = vec![("init", init_data("6.1.0.3"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("check", 1)];
@@ -2173,7 +2181,7 @@ fn recheck_only_after_a_failed_check_and_resignoff_still_loads() {
     evs.push(ev("check", 1));
     write_log(&e.root.join("pages/6.1.0.3"), &evs);
     let (code, out) = run_code(&e, &["status", "6.1.0.3"]);
-    assert!(code == Some(1) && out.contains("log entry 9 is out of order: a check of 05.01 after its signoff"), "{out}");
+    assert!(code == Some(0) && out.contains("log entry 9 is out of order: a check of 05.01 after its signoff"), "{out}");
 }
 
 /// R2: a check after a signoff says what state the pass is in and what to do next.
@@ -2209,8 +2217,8 @@ fn return_and_check_commits_must_be_40_or_64_hex() {
         let mut v = evs.clone();
         v[5].1["commit"] = serde_json::json!(bad);
         write_log(&dir, &v);
-        let (code, out) = run_code(&e, &["verify", "5.0.0.1"]);
-        assert!(code == Some(1) && out.contains("log entry 6 is out of order: a return for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{bad:?}: {out}");
+        let (code, out) = run_code(&e, &["status", "5.0.0.1"]);
+        assert!(code == Some(0) && out.contains("log entry 6 is out of order: a return for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{bad:?}: {out}");
     }
 }
 
@@ -2229,7 +2237,7 @@ fn signoff_outcome_must_be_one_wf_accepts() {
         evs[6].1["outcome"] = bad;
         write_log(&dir, &evs);
         let (code, out) = run_code(&e, &["status", "5.0.0.2"]);
-        assert!(code == Some(1) && out.contains("log entry 7 is out of order: a signoff for 05.01 whose outcome is not passed, failed, blocked, needs-authority"), "{out}");
+        assert!(code == Some(0) && out.contains("log entry 7 is out of order: a signoff for 05.01 whose outcome is not passed, failed, blocked, needs-authority"), "{out}");
     }
 }
 
@@ -2394,4 +2402,49 @@ fn observe_escapes_forged_close_outcomes_in_the_loop_line() {
     let esc = "f\\u{1b}[2K\\u{d}ail\\u{202e}";
     assert!(out.contains(&format!("loop: the last two closed passes ended {esc} and {esc}")), "{out}");
     assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// Q14 (build stage, no Director ruling yet): a copy of Tester's tester-3001/h4 page (halted by
+/// the new wf at entry 17, then packed by the old one at entry 18) loads, names the entry,
+/// and takes only resume or a Prime note.
+#[test]
+fn q14_h4_page_loads_out_of_rule_and_takes_only_resume_or_a_prime_note() {
+    let e = Env::new("q14-h4");
+    fs::create_dir_all(e.page()).unwrap();
+    fs::copy(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/h4/log.jsonl"), e.page().join("log.jsonl")).unwrap();
+    e.ok(&["verify", PG, "--fix"]);
+    let want = "log entry 18 is out of order: a pack for 05.02 while the page is halted; the page is out of rule at entry 18";
+    for cmd in ["verify", "status", "board", "observe"] {
+        let out = e.ok(&[cmd, PG]);
+        assert!(out.contains(want) && out.contains("build stage, no Director ruling yet, Q14"), "{cmd}: {out}");
+    }
+    assert!(e.ok(&["board"]).contains(&format!("  {PG}  log entry 18 is out of order")));
+    // The out-of-rule pack is kept in the log but not folded in: 05.02 is still at draft.
+    assert!(e.ok(&["status", PG]).contains("05.02  draft"));
+    let before = e.log();
+    for args in [vec!["claim", PG, "2", "--as", "bob"], vec!["draft", PG, "--file", "x", "--as", "pri"],
+                 vec!["face-write", PG, "01", "--text", "Goal: b.\nDone when: x.", "--as", "pri"],
+                 vec!["halt", PG, "--note", "again (t4)", "--as", "pri"], vec!["observe", PG, "--record", "x", "--as", "obs"]] {
+        e.no(&args, &format!("refused, nothing written: {want}"));
+    }
+    e.no(&["face-write", PG, "06", "--text", "n", "--as", "bob"], "refused");
+    assert_eq!(e.log(), before, "refused writes left the log as it was");
+    e.ok(&["face-write", PG, "06", "--text", "Prime note: entry 18 came from the old wf (t4)", "--as", "pri"]);
+    e.ok(&["resume", PG, "--note", "go on (t5)", "--as", "mat"]);
+    // The mark stays after resume; it is the log's past, and only the Director's answer can change the rule.
+    let s = e.ok(&["status", PG]);
+    assert!(s.contains(want) && !s.contains("halted:"), "{s}");
+    e.no(&["pack", PG, "2", "--as", "pri"], "out of rule at entry 18");
+    e.ok(&["verify", PG]);
+}
+
+/// Q14: a page with no out-of-rule entry is not affected (no line, writes go on).
+#[test]
+fn q14_clean_page_shows_no_out_of_rule_line() {
+    let e = Env::ready("q14-clean");
+    for cmd in ["verify", "status", "board", "observe"] {
+        assert!(!e.ok(&[cmd, PG]).contains("out of rule"), "{cmd}");
+    }
+    e.ok(&["halt", PG, "--note", "stop (t1)", "--as", "pri"]);
+    e.ok(&["resume", PG, "--note", "go (t2)", "--as", "pri"]);
 }

@@ -148,6 +148,7 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     match c {
         "status" => return Ok(print!("{}", status::status(&p))),
         "verify" => {
+            p.out_of_rule_lines().iter().for_each(|l| println!("{l}"));
             if edited.is_empty() {
                 println!("ok: log chain holds ({} entries, head {}); every view matches the log", p.events.len(), log::short(&p.head));
             } else if a.flag("fix").is_some() {
@@ -176,6 +177,12 @@ pub fn run(raw: &[String]) -> log::Res<()> {
             edited.report()
         ));
     }
+    // Q14 (build stage, no Director ruling yet): a page with an out-of-rule entry still loads and
+    // reads, but takes only resume or a Prime note (face-write 06; page.rs add() checks the face).
+    let reads = c == "verify" || (c == "observe" && a.flag("record").is_none());
+    if let Some(line) = p.out_of_rule_lines().first().filter(|_| !reads && !matches!(c, "resume" | "face-write")) {
+        return Err(format!("refused, nothing written: {line}"));
+    }
     if c == "check" {
         need_who(&who)?;
         return cmd::check(&mut p, &root, &a, &who);
@@ -183,6 +190,7 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     if c == "observe" {
         let found = status::observe(&p, a.flag("stall-hours").and_then(|h| h.parse().ok()).unwrap_or(24));
         println!("observer view of {addr} (prime: {})", chars::escape_line(&p.prime));
+        p.out_of_rule_lines().iter().for_each(|l| println!("  - {l}"));
         found.iter().for_each(|f| println!("  - {f}"));
         if found.is_empty() {
             println!("  findings: none");
