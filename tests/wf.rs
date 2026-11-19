@@ -3088,8 +3088,8 @@ fn t401u_pack_on_the_shared_branch_prints_one_builder_prompt() {
     let pk = pack_of(&e, 1);
     assert_eq!(pk["branch"], "returns");
     let b = fs::read_to_string(e.page().join("05.01/BUILDER-PROMPT.md")).unwrap();
-    for want in ["Stage by path only", "Never push to main or packs. Never force push.", "wf claim 1.2.3.4 01",
-        "git -C work switch -c work/1.2.3.4.05.01", "--branch returns --commit (git -C work rev-parse HEAD)", "--push"] {
+    for want in ["Stage by path only", "Never push to main or packs. Never force push.", "wf.exe claim 1.2.3.4 01",
+        "wf.exe return 1.2.3.4 01", "git -C work switch -c work/1.2.3.4.05.01", "--branch returns --commit (git -C work rev-parse HEAD)", "--push"] {
         assert!(b.contains(want), "'{want}' not in {b}");
     }
     assert!(e.ok(&["verify", PG]).contains("every view matches the log"));

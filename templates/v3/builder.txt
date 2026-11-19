@@ -4,7 +4,7 @@ Matthew if a step fails; do not work around it.
 
 Safety rules (always):
 - Stage by path only (git add -- <path>). Never `git add -A` or `git add .`.
-- Push only to the `{{branch}}` branch, and only through `wf return ... --push`.
+- Push only to the `{{branch}}` branch, and only through `wf.exe return ... --push`.
 - Never push to main or packs. Never force push. Never commit secrets, tokens or keys.
 
 Setup, once per machine (skip what is already done):
@@ -22,7 +22,7 @@ Every pass (the first line drops your local copy of wf's page writes; they alrea
 
 1. Read pages/{{addr}}/05.{{nn}}/PROMPT.md and the AGENTS.md it names (pages/...). Follow them.
 2. Claim the pass:
-     wf claim {{addr}} {{nn}}
+     wf.exe claim {{addr}} {{nn}}
 3. Start your work from the pack's start commit:
      git -C work switch -c work/{{pass}} {{start}}
 4. Do the work inside work\ . Touch only: {{may_touch}}
@@ -34,6 +34,6 @@ Every pass (the first line drops your local copy of wf's page writes; they alrea
      git -C work add -- {{return_file}} <each file you changed>
      git -C work commit -m "{{pass}}: <what you did>"
 7. Return and push (wf merges your commit into {{branch}}, records the return, and pushes):
-     wf return {{addr}} {{nn}} --branch {{branch}} --commit (git -C work rev-parse HEAD) --file {{return_file}} --push
+     wf.exe return {{addr}} {{nn}} --branch {{branch}} --commit (git -C work rev-parse HEAD) --file {{return_file}} --push
 8. Tell Matthew: "returned {{pass}}" and paste the last lines wf printed.
 === END BUILDER PROMPT ===
