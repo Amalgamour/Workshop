@@ -5,7 +5,11 @@ Source: docs/review/DIRECTOR-WORDS-t399u-t400u.md. Matthew reviews these choices
 ## The flow in one breath
 Matthew talks. Prima writes the vision and the page (goal, MVP, done-when), packs a pass with wf, and pushes it to GitHub. Prima hands Matthew **one prompt** to paste into Cursor (or a Grok builder in PowerShell). The builder works 30-50 minutes, runs wf to make the return, and wf pushes it. Every 4 hours a cheap check looks for new returns. When there is one, Prima and Tester review it, then Prima and Matthew talk and move forward.
 
-## Choice 1: where things live on GitHub (Amalgamour/Workshop)
+## Choice 1 (changed by t401u): where things live
+
+**t401u ruling:** one shared `returns` branch and one `packs` branch. The core and the shop manager UI have their own branches. wf handles a shared branch by fetching and rebasing before each push. Return files and log lines live in per-page paths, so collisions should be rare. The original reasoning is kept below as a record.
+
+### Original choice on GitHub (Amalgamour/Workshop)
 - `prima/build`: docs, words and specs, as now.
 - `packs`: only Prima writes here. It holds each page's log and the packed pass (PROMPT.md, AGENTS.md). This is the plan side.
 - `returns/<page>.05.NN`: **one branch per pass**, not one shared returns branch. The builder's code commits, the return file, and wf's claim and return log lines all go on it.
