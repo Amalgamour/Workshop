@@ -571,7 +571,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let verdict = if pass { "pass" } else { "fail" };
     if dry {
         let rep = check_report(p, &pk, &r, &results, frame_ok, a.flag("note"), a.flag("fail"));
-        print!("check 05.{n:02}: {verdict} (dry-run: nothing written)\n{rep}");
+        print!("check 05.{n:02}: {verdict} (dry-run: nothing written)\n{}", chars::escape_text(&rep));
         return Ok(());
     }
     let _l = crate::Lock::take(&p.dir)?;
@@ -603,7 +603,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     if fails >= 2 {
         p.add("wf", "tool", "elevate", json!({"pass": n, "to": "prime", "item": format!("second failed check on 05.{n:02}")}))?;
     }
-    print!("check 05.{n:02}: {verdict}\n{rep}");
+    print!("check 05.{n:02}: {verdict}\n{}", chars::escape_text(&rep));
     render::write_after_append(p)
 }
 

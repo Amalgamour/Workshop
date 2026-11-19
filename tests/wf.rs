@@ -542,6 +542,36 @@ fn check_stores_at_most_last_40_lines_of_output() {
     assert_eq!(stored.lines().count(), 41);
 }
 
+#[test]
+fn check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen() {
+    let e = Env::ready("chkesc");
+    // A failing check that moves the cursor up and rewrites the verdict as "pass".
+    e.open("src/", "sh src/chk.sh");
+    let script = "printf '\\033[2A\\r\\033[2Kcheck 05.01: pass\\n\\033[2K  check ok: sh src/chk.sh\\n'; exit 1\n";
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n"), ("src/chk.sh", script)], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    for dry in [true, false] {
+        let args: Vec<&str> = if dry {
+            vec!["check", PG, "1", "--dry-run", "--as", "cat"]
+        } else {
+            vec!["check", PG, "1", "--as", "cat"]
+        };
+        let out = e.ok(&args);
+        let first = out.lines().next().unwrap_or("");
+        if dry {
+            assert_eq!(first, "check 05.01: fail (dry-run: nothing written)", "{out}");
+        } else {
+            assert_eq!(first, "check 05.01: fail", "{out}");
+        }
+        assert!(!out.contains('\u{1b}') && !out.contains('\r'), "raw ESC/CR in printed check output: {out:?}");
+        assert!(out.contains("\\u{1b}[2A") && out.contains("\\u{1b}[2K") && out.contains("\\u{d}"), "{out}");
+        assert!(out.contains("check FAIL: sh src/chk.sh"), "{out}");
+    }
+    // The log may keep the raw command output; the screen must not.
+    let line = e.log().lines().find(|l| l.contains("\"kind\":\"check\"")).expect("check event").to_string();
+    assert!(line.contains("\\u001b") || line.contains('\u{1b}'), "raw or json-escaped ESC should still be in the log: {line}");
+}
+
 
 fn spawn_wf(root: &PathBuf, args: &[&str]) -> std::process::Child {
     Command::new(env!("CARGO_BIN_EXE_wf"))
