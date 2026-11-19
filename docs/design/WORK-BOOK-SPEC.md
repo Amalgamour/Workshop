@@ -91,7 +91,7 @@ He puts the agents.md **in the page**. Tester proposes the compute **makes it fr
 
 **In plain words.** One job, one page. The page says what the job is for. It points at the files. It holds the builder's return.
 
-**EXISTS TODAY (in our spec, not built).** The workflow already has this shape. N4 "states the work ... Written on face 04, with an agents.md-style face 01 to go with it" [workflow-loop.003.md:87]. A pack is "an agents.md-style build list for a builder" [workflow-loop.003.md:99]. Work cards are `w01`, `w02` [workflow-loop.003.md:122]. Every page in the kernel already has an MVP pack on face 05.02 (for example kernel/00.00.00/00.00.00.0057.05.02.md:17).
+**EXISTS TODAY (in our spec, not built).** The workflow already has this shape. N4 "states the work ... Written on face 04, with an agents.md-style face 01 to go with it" [workflow-loop.003.md:87]. A pack is "an agents.md-style build list for a builder" [workflow-loop.003.md:99]. Work cards are `w01`, `w02` [workflow-loop.003.md:122]. Every page in the kernel already has an MVP pack on face 05.02 (for example kernel/00.00.00/00.00.00.0057.workflow-loop.05.02.md:17).
 
 **EXISTED BEFORE (LIB).** Each old work page had an assignment, a scope, a release, a claim and a return [LIB:W/0118.workflow-start-0501/return.md:14-80]. Files it was expected to make were listed in `reservation.json` (`expected_outputs`) [LIB:W/0118.workflow-start-0501/reservation.json]. The return was "Did / Blocked / Need" [LIB:W/0101.app-entry-0506/return.md:34-38].
 

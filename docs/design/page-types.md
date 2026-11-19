@@ -192,7 +192,7 @@ Tester's working path said: keep the common questions page as `system`
 with `kind: questions`, until unique laws are known. [D319]
 
 The sample at `10.11.21.0013` is already stamped `type: general`.
-[kernel/samples/10.11.21/10.11.21.0013.00.draft.md]
+[kernel/samples/10.11.21/10.11.21.0013.common-questions.00.draft.md]
 
 **Recommended.** Do not add a new type (agreed). Until unique face or
 range laws exist, keep the type already written: `general`. Use
