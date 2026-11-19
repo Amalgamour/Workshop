@@ -131,6 +131,13 @@ before the next draft. So the lock is strict.
 - A missing or unknown target, or a changed face 01 entry, keeps the general message
   `link N (<path>) points to changed or missing work`.
 
+- Reading a locked page (Tester, CHECK-4e64e47): `wf status` adds `locked:  05.NN locked: rule file
+  link N (<path>) changed mid pass (t381u). It stays locked until the original kit returns (the wf
+  built with the pinned rule files).` Read-only `wf observe` runs on a locked or unclean page and lists
+  the lock and `page not clean: <reason>` as findings; `observe --record` writes, so it is still refused.
+  Why: a lock must be visible and explainable; reading never changes the record. On a clean page,
+  status and observe print exactly what they printed before.
+
 **Closed passes are history.** A closed pass's AGENTS.md was valid when it was used. If a kit
 document changes after the close, verify notes `link N changed after the pass closed (history, not
 failed)` and does not lock the page. Why: t381u allows the change exactly then (after review, before

@@ -117,6 +117,15 @@ records a `source` for each link. Why in place: v3 was never issued to a real pa
 changes. Tests that matched the old link lines and paths were updated; a unit test checks a `|` in a link
 field cannot add a table column.
 
+## Seeing the lock (Tester, CHECK-4e64e47)
+
+Tester passed 4e64e47 and noted that status said nothing about a t381u lock and that read-only observe
+was refused on a locked page. Now status prints a `locked:` line (which link changed, and that the pass
+stays locked until the original kit returns), and observe without --record runs and lists the lock.
+Why: a stopped pass has to say why it stopped (axiom 4), and reading never writes. On the real pages,
+status and observe output is byte-identical to the pinned wf. The outside-anchor hole (label strip plus
+a full log rewrite) is parked by Prima as a design item.
+
 ## For Matthew
 
 - t378u reading: the job lines (jobs, may touch, checks, stop if, return file) now live only in

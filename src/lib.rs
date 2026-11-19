@@ -176,6 +176,20 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         }
         _ => {}
     }
+    if c == "observe" && a.flag("record").is_none() {
+        // Read only: runs even on a locked or unclean page, and says so (Tester, CHECK-4e64e47).
+        let mut found = status::observe(&p, a.flag("stall-hours").and_then(|h| h.parse().ok()).unwrap_or(24));
+        found.extend(render::rule_locks(&p));
+        if !edited.is_empty() {
+            found.push(format!("page not clean: {}", edited.report()));
+        }
+        println!("observer view of {addr} (prime: {})", chars::escape_line(&p.prime));
+        found.iter().for_each(|f| println!("  - {f}"));
+        if found.is_empty() {
+            println!("  findings: none");
+        }
+        return Ok(());
+    }
     if !edited.is_empty() {
         return Err(format!(
             "refused: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint missing and changed views from the log.",

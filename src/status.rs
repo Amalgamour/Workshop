@@ -44,6 +44,9 @@ pub fn status(p: &Page) -> String {
     if let Some((who, t, note, seq)) = &p.halt {
         o += &format!("  halted:  by {} at {} (entry {seq}): {}\n", escape_line(who), iso(*t), escape_line(note));
     }
+    for l in crate::render::rule_locks(p) {
+        o += &format!("  locked:  {l}\n");
+    }
     o += &format!("  next:    {}\n", next_step(p));
     o += &format!("  log:     {} entries, last {}, head {}\n", p.events.len(), p.events.last().map(|e| iso(e.time)).unwrap_or_default(), short(&p.head));
     if !p.findings.is_empty() {

@@ -207,6 +207,23 @@ fn broken_links(p: &Page, pk: &Value) -> Vec<(String, String, bool)> {
         .collect()
 }
 
+/// One line per open pass locked under t381u (a kit rule file changed mid pass), for status and observe.
+pub fn rule_locks(p: &Page) -> Vec<String> {
+    let mut out = Vec::new();
+    for x in p.passes.values().filter(|x| x.tail != "closed") {
+        let Some(pk) = &x.pack else { continue };
+        for (n, path, rule_changed) in broken_links(p, pk) {
+            if rule_changed {
+                out.push(format!(
+                    "05.{:02} locked: rule file link {n} ({path}) changed mid pass (t381u). It stays locked until the original kit returns (the wf built with the pinned rule files).",
+                    x.nn
+                ));
+            }
+        }
+    }
+    out
+}
+
 /// The pass whose released AGENTS.md this pack reuses (Director t378u), if any.
 /// A field that is not a string reads as "", which names no pass.
 pub fn agents_from(pk: &Value) -> Option<String> {

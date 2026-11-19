@@ -3056,3 +3056,24 @@ fn t381u_rule_file_change_is_history_for_a_closed_pass_and_the_next_pass_records
     assert!(e.page().join("05.02/AGENTS.md").exists());
     assert!(e.ok(&["verify", PG]).contains("05.02: AGENTS.md hash"));
 }
+
+/// Tester (CHECK-4e64e47): status names a t381u lock, and read-only observe runs on a locked pass.
+#[test]
+fn t381u_lock_shows_in_status_and_observe_still_runs() {
+    let e = Env::ready("rule-lock-read");
+    e.open("src/a.rs", "true");
+    let st = e.ok(&["status", PG]);
+    assert!(!st.contains("locked:"), "{st}");
+    packed_under_other_axioms(&e, 1);
+    let lock = "05.01 locked: rule file link 2 (kit docs/AXIOMS.md) changed mid pass (t381u). It stays locked until the original kit returns";
+    let st = e.ok(&["status", PG]);
+    assert!(st.contains(&format!("  locked:  {lock}")), "{st}");
+    let before = sha_map(&e.page());
+    let out = e.ok(&["observe", PG]);
+    assert!(out.contains(&format!("  - {lock}")), "{out}");
+    assert!(out.contains("page not clean: AGENTS.md for pass 05.01 is invalid: rule file link 2"), "{out}");
+    assert_eq!(sha_map(&e.page()), before, "observe wrote a file");
+    assert!(!e.page().join(".wf-lock").exists());
+    // Filing a finding writes, so it is still refused.
+    e.no(&["observe", PG, "--record", "x", "--as", "obs"], "changed mid pass");
+}
