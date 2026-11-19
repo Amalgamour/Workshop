@@ -192,7 +192,7 @@ fn pack_prints_prompt_and_pins_axioms_and_design() {
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     assert!(agents.contains("kit docs/AXIOMS.md") && agents.contains("kit docs/DESIGN.md") && agents.contains("sha256 "), "{agents}");
     // v3 (t379u): the goal is reached through link 1 and printed in the job box, not in AGENTS.md.
-    assert!(agents.contains("face 01 v1 text (view: pages/1.2.3.4/01.md)"), "{agents}");
+    assert!(agents.contains("| 1 | face 01, goal and done-when | pages/1.2.3.4/log.jsonl entry 3, face 01 v1 text (01.md is its view) |"), "{agents}");
     assert!(out.contains("Goal (face 01):\nGoal: a."), "{out}");
     assert!(!agents.contains("cold set") && !agents.contains("Axioms named by this pack"), "{agents}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
@@ -1469,7 +1469,7 @@ fn new_pack_records_template_version_3() {
     assert!(log.contains("\"templates\":\"3\""), "{log}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     // v3: the build rule lives in the kit rules, reached by hashed link 4.
-    assert!(agents.contains("kit AGENTS.md (kit rules"), "{agents}");
+    assert!(agents.contains("| 4 | kit AGENTS.md, roles and commands | kit AGENTS.md |"), "{agents}");
     assert!(include_str!("../AGENTS.md").contains("cargo clean -p wf"));
 }
 
@@ -2862,7 +2862,8 @@ fn t379u_valid_links_pass() {
     assert_eq!(links[3]["sha"].as_str().unwrap(), sha_hex(include_bytes!("../AGENTS.md")));
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     for l in links {
-        assert!(agents.contains(&format!("{}. {}\n   sha256 {}", l["n"], l["path"].as_str().unwrap(), l["sha"].as_str().unwrap())), "{agents}");
+        let row = format!("| {} | {} | {} | `{}` |", l["n"], l["source"].as_str().unwrap(), l["path"].as_str().unwrap(), l["sha"].as_str().unwrap());
+        assert!(agents.contains(&row), "{row} not in {agents}");
     }
     let face01 = fs::read_to_string(e.page().join("01.md")).unwrap();
     assert!(face01.contains(&format!("hash {}", &links[0]["sha"].as_str().unwrap()[..12])), "the 01.md view shows the linked hash: {face01}");
@@ -2884,7 +2885,7 @@ fn t379u_edited_link_target_is_invalid() {
     });
     let (code, out) = run_code(&e, &["verify", PG]);
     assert_eq!(code, Some(1), "{out}");
-    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: link 1 (pages/1.2.3.4/log.jsonl entry 3: face 01 v1 text (view: pages/1.2.3.4/01.md)) points to changed or missing work"), "{out}");
+    assert!(out.contains("AGENTS.md for pass 05.01 is invalid: link 1 (pages/1.2.3.4/log.jsonl entry 3, face 01 v1 text (01.md is its view)) points to changed or missing work"), "{out}");
     let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains("refused to reprint") && out.contains("link 1"), "{out}");
@@ -2923,7 +2924,7 @@ fn t379u_forged_link_is_escaped_and_refused() {
     let log = e.log();
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
-            v["data"]["links"][1] = serde_json::json!({"n": 2, "kind": "url", "path": "evil\u{1b}[2K\r\u{202e}.md", "sha": "0"});
+            v["data"]["links"][1] = serde_json::json!({"n": 2, "kind": "url", "source": "a | b", "path": "evil\u{1b}[2K\r\u{202e}.md", "sha": "0"});
         }
     });
     let (code, out) = run_code(&e, &["verify", PG]);
@@ -3026,7 +3027,7 @@ fn t381u_rule_file_changed_mid_pass_locks_the_pass() {
     let e = Env::ready("rule-mid");
     e.open("src/a.rs", "true"); // packed and claimed: mid pass
     packed_under_other_axioms(&e, 1);
-    let want = "AGENTS.md for pass 05.01 is invalid: rule file link 2 (kit docs/AXIOMS.md (the nine axioms, full text)) changed mid pass: rule files change only after review, before a new draft (t381u)";
+    let want = "AGENTS.md for pass 05.01 is invalid: rule file link 2 (kit docs/AXIOMS.md) changed mid pass: rule files change only after review, before a new draft (t381u)";
     let (code, out) = run_code(&e, &["verify", PG]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(want), "{out}");

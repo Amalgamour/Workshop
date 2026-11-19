@@ -104,6 +104,19 @@ pass locks it and refuses the return; after a close the change is history and th
 the new hash. Older tests whose seeded packs had no hash now label them "1" (pre-t373u), which is the
 only lawful way for a pack to have no hash.
 
+## The review merge (t386u-t388u)
+
+Matthew relayed a review of v3 AGENTS.md (t386u). Prima weighed each change (t387u: better, stronger,
+aligned; t388u: rulings can change when new information conflicts) and wrote the calls in
+docs/design/AGENTS-V3-REVIEW-decisions.md (cecd40a). The builder applied them to templates/v3/agents.txt:
+items 1, 2, 3, 4, 7, 9, 11, 12, 13 adopted; axiom 9 rewritten ("Your own check is not proof. Another view
+must try to break it before promotion."); "a face is one side of a page" and "never from you, never from
+a copy" kept; items 10 and 14 dropped (14 would undo the t381u/t382u lock); item 15 (pins by revision)
+parked in the spec. The connections became a table printed from the pack's link data, which now also
+records a `source` for each link. Why in place: v3 was never issued to a real page, so no released file
+changes. Tests that matched the old link lines and paths were updated; a unit test checks a `|` in a link
+field cannot add a table column.
+
 ## For Matthew
 
 - t378u reading: the job lines (jobs, may touch, checks, stop if, return file) now live only in

@@ -1,6 +1,6 @@
 # AGENTS-HASH: the release hash on a pass's AGENTS.md and PROMPT.md
 
-Status: **build stage.** Rules from t373u, t378u, t379u, t380u, t381u and t382u. Built on branch agents-hash (from harden-dev 2b5a7ef). Not merged, not pushed.
+Status: **build stage.** Rules from t373u, t378u, t379u, t380u, t381u, t382u and t386u-t388u. Built on branch agents-hash (from harden-dev 2b5a7ef). Not merged, not pushed.
 The rule comes from the Director (t373u). The details below (field names, messages, what counts as
 "old") are the builder's reading, not his words.
 
@@ -177,3 +177,30 @@ hashed pass on every page invalid and lock those pages until the old text is bac
 - The hash proves what wf printed. It does not prove what reached the worker (Codex idea 1 / C2: a
   delivery entry). It does not prove who claimed (the name is still `--as`).
 - Whether an "invalid" file should also be raised to Prime or the person automatically is not decided.
+
+## v3 AGENTS.md after the review (t386u-t388u)
+
+Matthew relayed a review of the v3 template (t386u, docs/review/AGENTS-V3-REVIEW-t386u.md on prima/build).
+He asked Prima to weigh each change: better, stronger, aligned (t387u: "You ask why for each change you
+want to make. Is is better? Is is stronger? Does it align?"), and rulings can change when new information
+conflicts (t388u: "my rulings can change, if current information conflicts with past choices we need to
+check it and figure out which is best"). Prima's calls: docs/design/AGENTS-V3-REVIEW-decisions.md (cecd40a).
+v3 had not been issued to any real page, so the template was edited in place (no released file changes).
+
+What changed in templates/v3/agents.txt, with the why:
+- Item 1: "wf records which revisions of both files belong to the pass." Says what the hash is for.
+- Item 2, axiom 5: findings outside the frame are reported; acting on them requires authority (keeps the raise path, Axioms.md 5).
+- Item 3, axiom 7: report a gap that matters; fill it only with authority (ours had lost the permission path, Axioms.md 7).
+- Item 4, axiom 8: the three lawful connections (address inheritance, link with back-link, named override). Ours said "only a written link", which was wrong against Axioms.md 8.
+- Axiom 9 rewritten for both versions: "Your own check is not proof. Another view must try to break it before promotion." (Axioms.md 9: the maker is the easiest one to convince.)
+- Item 7: "If the prompt and the grant disagree, stop the affected action and tell Prime." Placed after our kept line "never from you, and never from a copy" (item 8 kept ours).
+- Item 9: builder steps as a numbered list. Item 11: checkers and observers follow connection 4.
+- Item 12: the connections are a table (#, source, pinned location, expected sha256), printed from wf's
+  link data in the pack entry (`source`, `path`, `sha`). Cells are escaped and a `|` is written `\|`, so a field cannot add a column.
+- Item 13: if a source cannot be opened or its bytes differ, stop the affected action and tell Prime; do not repair from memory (axiom 8, `7.8`).
+- Kept ours: "a face is one side of a page" (item 6; in the kit a "view" is a printed file).
+- Dropped item 10 ("Unprompted notes"): in the kit `unprompted:` means work done that was not asked, not a findings notebook.
+- Dropped item 14 ("ask Prime whether to continue under the existing pack"): it would make mid-pass drift a judgment call; t381u/t382u keep the lock.
+- Stays narrow (t379u): about the same length as before.
+
+**Later work (parked, item 15): pins by revision.** Pin each source by revision (a git object or a stored copy) instead of by path, so wf could re-check a closed pass byte for byte instead of treating it as history. It needs wf to read old bytes from git or a store. Not built.

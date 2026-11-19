@@ -135,12 +135,13 @@ fn face_text_at(p: &Page, face: &str, seq: u64) -> Option<String> {
 /// The connections a v3 AGENTS.md points to (Director t379u), each with its target's sha256 now.
 pub fn pack_links(p: &Page) -> Res<Value> {
     let f01 = p.faces.get("01").ok_or("refused: face 01 (the agents card) is empty")?;
-    let face = json!({"n": 1, "kind": "face", "face": "01", "entry": f01.seq,
-        "path": format!("pages/{}/log.jsonl entry {}: face 01 v{} text (view: pages/{}/01.md)", p.addr, f01.seq, f01.version, p.addr),
+    // "path" is the pinned location (named in refusals); "source" says what it is (t386u table).
+    let face = json!({"n": 1, "kind": "face", "face": "01", "entry": f01.seq, "source": "face 01, goal and done-when",
+        "path": format!("pages/{}/log.jsonl entry {}, face 01 v{} text (01.md is its view)", p.addr, f01.seq, f01.version),
         "sha": f01.hash()});
-    let kit = |n: u64, doc: &str, what: &str| json!({"n": n, "kind": "kit", "doc": doc, "path": format!("kit {doc} ({what})"), "sha": sha(kit_doc(doc).unwrap_or(""))});
-    Ok(json!([face, kit(2, "docs/AXIOMS.md", "the nine axioms, full text"), kit(3, "docs/DESIGN.md", "the page, the faces, the pass, the roles"),
-        kit(4, "AGENTS.md", "kit rules: roles, commands, the checker")]))
+    let kit = |n: u64, doc: &str, what: &str| json!({"n": n, "kind": "kit", "doc": doc, "source": what, "path": format!("kit {doc}"), "sha": sha(kit_doc(doc).unwrap_or(""))});
+    Ok(json!([face, kit(2, "docs/AXIOMS.md", "AXIOMS.md, the nine axioms in full"), kit(3, "docs/DESIGN.md", "DESIGN.md, pages, faces, passes and roles"),
+        kit(4, "AGENTS.md", "kit AGENTS.md, roles and commands")]))
 }
 
 /// The sha256 a link's target has now, or None when the target is missing or unknown.
@@ -161,19 +162,29 @@ fn link_label(i: usize, l: &Value) -> (String, String) {
     (escape_line(&n), escape_line(l["path"].as_str().unwrap_or("?")))
 }
 
-/// The Connections lines of a v3 AGENTS.md, printed from the pack entry.
+/// One table cell: escaped, with `|` written as `\|` so a field cannot add a column.
+fn cell(t: &str) -> String {
+    escape_line(t).replace('|', "\\|")
+}
+
+/// The Connections table of a v3 AGENTS.md (t386u), printed from the pack entry's link data.
 fn links_text(pk: &Value) -> String {
     match pk.get("links").and_then(|v| v.as_array()) {
         None => "none recorded".into(),
-        Some(a) => a
-            .iter()
-            .enumerate()
-            .map(|(i, l)| {
-                let (n, path) = link_label(i, l);
-                format!("{n}. {path}\n   sha256 {}", escape_line(l["sha"].as_str().unwrap_or("?")))
-            })
-            .collect::<Vec<_>>()
-            .join("\n"),
+        Some(a) => {
+            let mut rows = vec!["| # | Source | Pinned location | Expected sha256 |".to_string(), "|---|---|---|---|".to_string()];
+            for (i, l) in a.iter().enumerate() {
+                let (n, _) = link_label(i, l);
+                rows.push(format!(
+                    "| {} | {} | {} | `{}` |",
+                    n.replace('|', "\\|"),
+                    cell(l["source"].as_str().unwrap_or("?")),
+                    cell(l["path"].as_str().unwrap_or("?")),
+                    cell(l["sha"].as_str().unwrap_or("?"))
+                ));
+            }
+            rows.join("\n")
+        }
     }
 }
 
@@ -757,11 +768,20 @@ mod tests {
         }
         assert!(a.contains("t373u") && a.contains("t380u") && a.contains("{{links}}"), "{a}");
         // t380u: narrow, not bare. The core of the frame is taught in plain lines.
-        for core in ["1 Authority", "9 Trial", "A page is one piece of work", "A face is one side", "Authority comes from the page log", "## How to return work"] {
+        for core in ["1 Authority", "9 Trial: your own check is not proof", "A page is one piece of work", "A face is one side",
+            "never from you,\n  and never from a copy", "If the prompt and the grant disagree", "## If you are the builder", "connection 4"] {
             assert!(a.contains(core), "v3 AGENTS.md lost '{core}'");
         }
         assert!(p.contains("Read first: {{agents_file}} (sha256 {{agents_hash}}{{agents_note}})"), "{p}");
         assert_eq!(r, T_RETURN);
+    }
+
+    #[test]
+    fn connections_table_cells_cannot_add_a_column() {
+        let pk = json!({"links": [{"n": 1, "source": "a | b", "path": "x\u{1b}y", "sha": "c|d"}]});
+        let t = links_text(&pk);
+        assert!(t.contains("| 1 | a \\| b | x\\u{1b}y | `c\\|d` |"), "{t}");
+        assert!(t.starts_with("| # | Source | Pinned location | Expected sha256 |\n|---|---|---|---|\n"), "{t}");
     }
 
     #[test]
