@@ -7,7 +7,7 @@ use crate::render::cards_text;
 
 /// Who may resume a halted page, and how. Used by status and by refusals.
 pub fn how_to_resume(p: &Page) -> String {
-    format!("Prime ({}) or the person ({}) resumes it: wf resume {} --note \"why (ref)\"", p.prime, p.person, p.addr)
+    format!("Prime ({}) or the person ({}) resumes it: wf resume {} --note \"why (ref)\"", escape_line(&p.prime), escape_line(&p.person), p.addr)
 }
 
 fn next_step(p: &Page) -> String {
@@ -26,39 +26,41 @@ pub fn pass_next(p: &Page, x: &crate::page::Pass) -> String {
     match x.tail.as_str() {
         "draft" => format!("Prime releases it: wf pack {} {n}", p.addr),
         "pack" => format!("a builder claims it: wf claim {} {n}", p.addr),
-        "open" => format!("{} pushes the work, then wf return {} {n}", x.claim.as_deref().unwrap_or("?"), p.addr),
+        "open" => format!("{} pushes the work, then wf return {} {n}", escape_line(x.claim.as_deref().unwrap_or("?")), p.addr),
         "return" => format!("a checker (not the builder) runs wf check {} {n}", p.addr),
         _ if x.signoff.is_some() => format!("wf close {} {n}", p.addr),
-        _ => format!("Prime ({}) reads the check report, then wf signoff {} {n}", p.prime, p.addr),
+        _ => format!("Prime ({}) reads the check report, then wf signoff {} {n}", escape_line(&p.prime), p.addr),
     }
 }
 
 pub fn status(p: &Page) -> String {
-    let mut o = format!("NOW  page {} ({})  prime: {}  person: {}\n", p.addr, p.title, p.prime, p.person);
+    // Every name and text here comes from the log, so it is escaped (chars.rs), like observe and board.
+    let mut o = format!("NOW  page {} ({})  prime: {}  person: {}\n", p.addr, escape_line(&p.title), escape_line(&p.prime), escape_line(&p.person));
     let open: Vec<String> = p.passes.values().filter(|x| x.tail != "closed")
-        .map(|x| format!("05.{:02} {} {}", x.nn, x.tail, x.claim.as_deref().map(|c| format!("(held by {c})")).unwrap_or_default())).collect();
+        .map(|x| format!("05.{:02} {} {}", x.nn, x.tail, x.claim.as_deref().map(|c| format!("(held by {})", escape_line(c))).unwrap_or_default())).collect();
     o += &format!("  active:  {}\n", if open.is_empty() { "none".into() } else { open.join("; ") });
-    let waiting: Vec<String> = p.elevs.iter().filter(|e| e.answer.is_none()).map(|e| format!("entry {} 05.{:02} {} -> {}: {}", e.seq, e.pass, e.by, e.to, escape_line(&e.item))).collect();
+    let waiting: Vec<String> = p.elevs.iter().filter(|e| e.answer.is_none()).map(|e| format!("entry {} 05.{:02} {} -> {}: {}", e.seq, e.pass, escape_line(&e.by), escape_line(&e.to), escape_line(&e.item))).collect();
     o += &format!("  waiting: {}\n", if waiting.is_empty() { "nothing".into() } else { waiting.join("\n           ") });
     if let Some((who, t, note, seq)) = &p.halt {
-        o += &format!("  halted:  by {who} at {} (entry {seq}): {note}\n", iso(*t));
+        o += &format!("  halted:  by {} at {} (entry {seq}): {}\n", escape_line(who), iso(*t), escape_line(note));
     }
     o += &format!("  next:    {}\n", next_step(p));
     o += &format!("  log:     {} entries, last {}, head {}\n", p.events.len(), p.events.last().map(|e| iso(e.time)).unwrap_or_default(), short(&p.head));
     if !p.findings.is_empty() {
-        o += &format!("  observer findings: {} (latest: {})\n", p.findings.len(), p.findings.last().unwrap().2);
+        o += &format!("  observer findings: {} (latest: {})\n", p.findings.len(), escape_line(&p.findings.last().unwrap().2));
     }
     o += "\nBOARD\n  pass   tail     outcome          claim        checker      cards\n";
     for x in p.passes.values() {
-        let outcome = x.close.as_ref().map(|c| s(c, "outcome")).unwrap_or("-".into());
-        let cards = x.close.as_ref().map(|c| cards_text(&c["cards"])).unwrap_or("-".into());
-        let checker = x.check.as_ref().map(|c| c.0.clone()).unwrap_or("-".into());
-        o += &format!("  05.{:02}  {:<8} {:<16} {:<12} {:<12} {}\n", x.nn, x.tail, outcome, x.claim.as_deref().unwrap_or("-"), checker, cards);
+        let outcome = x.close.as_ref().map(|c| escape_line(&s(c, "outcome"))).unwrap_or("-".into());
+        let cards = x.close.as_ref().map(|c| escape_line(&cards_text(&c["cards"]))).unwrap_or("-".into());
+        let checker = x.check.as_ref().map(|c| escape_line(&c.0)).unwrap_or("-".into());
+        let claim = escape_line(x.claim.as_deref().unwrap_or("-"));
+        o += &format!("  05.{:02}  {:<8} {:<16} {:<12} {:<12} {}\n", x.nn, x.tail, outcome, claim, checker, cards);
     }
     o += "\nFEED (newest first)\n";
     for e in p.events.iter().rev().take(10) {
         let pass = e.data["pass"].as_u64().map(|n| format!(" 05.{n:02}")).unwrap_or_default();
-        o += &format!("  {:>3} {} {:<14}{} by {} ({})\n", e.seq, iso(e.time), e.kind, pass, e.actor, e.role);
+        o += &format!("  {:>3} {} {:<14}{} by {} ({})\n", e.seq, iso(e.time), escape_line(&e.kind), pass, escape_line(&e.actor), escape_line(&e.role));
     }
     o
 }
@@ -113,7 +115,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
     }
     let outs: Vec<String> = p.passes.values().filter_map(|x| x.close.as_ref().map(|c| s(c, "outcome"))).collect();
     if outs.len() >= 2 && outs[outs.len() - 2..].iter().all(|o| o != "passed") {
-        f.push(format!("loop: the last two closed passes ended {} and {}", outs[outs.len() - 2], outs[outs.len() - 1]));
+        f.push(format!("loop: the last two closed passes ended {} and {}", escape_line(&outs[outs.len() - 2]), escape_line(&outs[outs.len() - 1])));
     }
     if let Some(last) = p.events.last() {
         let h = now().saturating_sub(last.time) / 3600;
@@ -130,7 +132,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
         }
     }
     for e in p.elevs.iter().filter(|e| e.answer.is_none()) {
-        f.push(format!("unanswered: entry {} to {}: {}", e.seq, e.to, escape_line(&e.item)));
+        f.push(format!("unanswered: entry {} to {}: {}", e.seq, escape_line(&e.to), escape_line(&e.item)));
     }
     f
 }

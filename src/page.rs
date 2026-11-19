@@ -92,7 +92,7 @@ pub fn paths_overlap(a: &str, b: &str) -> bool {
 
 pub fn check_addr(a: &str) -> Res<()> {
     let ok = !a.is_empty() && !a.contains("..") && a.chars().all(|c| c.is_ascii_alphanumeric() || ".-_".contains(c));
-    if ok { Ok(()) } else { Err(format!("bad page address '{a}': use letters, digits, dots, - or _")) }
+    if ok { Ok(()) } else { Err(format!("bad page address '{}': use letters, digits, dots, - or _", crate::chars::escape_line(a))) }
 }
 
 /// Text from "done when:" (any case) to the end of each line that has it, joined; or "none".
@@ -121,10 +121,29 @@ pub fn face01_drift(p: &Page, pack: &Value) -> Option<String> {
 }
 
 /// Entry kinds that only make sense for a pass that was drafted first.
-const NEEDS_PASS: [&str; 7] = ["pack", "claim", "return-refused", "return", "check", "signoff", "close"];
+/// Every entry kind wf writes. Anything else in a log is refused.
+const KINDS: [&str; 17] = ["init", "prime", "grant", "face", "draft", "pack", "claim", "return-refused", "return",
+    "check", "signoff", "close", "elevate", "answer", "finding", "halt", "resume"];
+
+/// Kinds that belong to one pass (data.pass, 01-98).
+const PASS_KINDS: [&str; 9] = ["draft", "pack", "claim", "return-refused", "return", "check", "signoff", "close", "elevate"];
+
+/// A full git commit hash as wf writes it: 40 (SHA-1 repo) or 64 (SHA-256 repo)
+/// lowercase hex characters. One rule for return and check entries.
+pub fn is_full_hash(c: &str) -> bool {
+    (c.len() == 40 || c.len() == 64) && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+}
+
+fn commit_rule(kind: &str, nn: u32, d: &Value) -> Res<()> {
+    if d["commit"].as_str().is_some_and(is_full_hash) {
+        Ok(())
+    } else {
+        Err(format!("a {kind} for 05.{nn:02} whose commit is not a 40- or 64-character lowercase hex hash"))
+    }
+}
 
 fn missing_pass(seq: u64, kind: &str, nn: u32) -> String {
-    format!("log entry {seq} is a {kind} for pass {nn}, which was never drafted; the log cannot be read")
+    format!("log entry {seq} is a {kind} for 05.{nn:02}, which was never drafted")
 }
 
 impl Pass {
@@ -172,10 +191,7 @@ impl Page {
     /// Append one event to the log and fold it in.
     pub fn add(&mut self, actor: &str, role: &str, kind: &str, data: Value) -> Res<()> {
         let seq = self.events.len() as u64 + 1;
-        let nn = data["pass"].as_u64().unwrap_or(0) as u32;
-        if NEEDS_PASS.contains(&kind) && !self.passes.contains_key(&nn) {
-            return Err(missing_pass(seq, kind, nn));
-        }
+        self.order(seq, kind, &data).map_err(|why| format!("refused, nothing written: {why}"))?;
         let (e, head) = log::append(&self.log_path(), &self.head, seq, actor, role, kind, data)?;
         self.apply(&e)?;
         self.events.push(e);
@@ -183,8 +199,89 @@ impl Page {
         Ok(())
     }
 
+    /// Why an entry of `kind` with `d` cannot come next on this page, or Ok.
+    /// The same state order the commands keep: draft, pack, claim, return, check, signoff, close.
+    pub fn order(&self, seq: u64, kind: &str, d: &Value) -> Res<()> {
+        if !KINDS.contains(&kind) {
+            return Err(if kind.is_empty() { "the entry has no kind".into() } else { format!("'{}' is not a wf entry kind", crate::chars::escape_line(kind)) });
+        }
+        if kind == "init" && seq != 1 {
+            return Err("a second init: only entry 1 starts the page".into());
+        }
+        if kind != "init" && seq == 1 {
+            return Err(format!("the first entry is a {kind}, not the init"));
+        }
+        match kind {
+            "halt" if self.halt.is_some() => return Err("a halt while the page is already halted".into()),
+            "halt" => {
+                if let Some(x) = self.passes.values().find(|x| x.is_open_tail()) {
+                    return Err(format!("a halt while 05.{:02} is at '{}'", x.nn, x.tail));
+                }
+            }
+            "resume" if self.halt.is_none() => return Err("a resume while the page is not halted".into()),
+            _ => {}
+        }
+        if !PASS_KINDS.contains(&kind) {
+            return Ok(());
+        }
+        let nn = match d["pass"].as_u64() {
+            Some(n) if (1..=98).contains(&n) => n as u32,
+            Some(n) => return Err(format!("a {kind} for pass {n}, outside 01-98 (R9)")),
+            None => return Err(format!("a {kind} with no pass number")),
+        };
+        if matches!(kind, "draft" | "pack" | "claim") && self.halt.is_some() {
+            return Err(format!("a {kind} for 05.{nn:02} while the page is halted"));
+        }
+        let Some(x) = self.passes.get(&nn) else {
+            return if kind == "draft" { Ok(()) } else { Err(format!("a {kind} for 05.{nn:02}, which was never drafted")) };
+        };
+        let want: &[&str] = match kind {
+            "draft" | "pack" => &["draft"],
+            "claim" => &["pack"],
+            "return-refused" | "return" => &["open"],
+            "check" => &["return", "review"],
+            "signoff" | "close" => &["review"],
+            _ => return Ok(()), // elevate: any drafted pass
+        };
+        if !want.contains(&x.tail.as_str()) {
+            let what = if kind == "draft" && x.tail == "closed" { "a re-draft".to_string() } else { format!("a {kind}") };
+            return Err(format!("{what} for 05.{nn:02}, which is at '{}'; a {kind} needs {}", x.tail, want.join(" or ")));
+        }
+        if kind == "check" {
+            match d.get("verdict") {
+                None | Some(Value::Null) => return Err(format!("a check for 05.{nn:02} with no verdict")),
+                Some(v) if !matches!(v.as_str(), Some("pass" | "fail")) => {
+                    return Err(format!("a check for 05.{nn:02} with a verdict that is not pass or fail"))
+                }
+                _ => {}
+            }
+            commit_rule(kind, nn, d)?;
+            // Same as wf check: a re-check only after a failed check, and never after a signoff.
+            if let Some((_, c)) = &x.check {
+                if s(c, "verdict") != "fail" {
+                    return Err(format!("a re-check of 05.{nn:02}, whose last check passed"));
+                }
+            }
+            if x.signoff.is_some() {
+                return Err(format!("a check of 05.{nn:02} after its signoff"));
+            }
+        }
+        // A refused return keeps the raw attempt as evidence (axiom 6), so its commit is not checked.
+        if kind == "return" {
+            commit_rule(kind, nn, d)?;
+        }
+        if kind == "signoff" && !d["outcome"].as_str().is_some_and(|o| crate::cmd::OUTCOMES.contains(&o)) {
+            return Err(format!("a signoff for 05.{nn:02} whose outcome is not {}", crate::cmd::OUTCOMES.join(", ")));
+        }
+        if kind == "close" && x.signoff.is_none() {
+            return Err(format!("a close for 05.{nn:02} with no signoff"));
+        }
+        Ok(())
+    }
+
     /// Fold one entry in. An entry for a pass that was never drafted is an error, not a panic.
     fn apply(&mut self, e: &Event) -> Res<()> {
+        self.order(e.seq, &e.kind, &e.data).map_err(|why| format!("log entry {} is out of order: {why}; the page cannot be read", e.seq))?;
         let d = &e.data;
         let nn = d["pass"].as_u64().unwrap_or(0) as u32;
         let missing = || missing_pass(e.seq, &e.kind, nn);

@@ -11,7 +11,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const CARD_WORDS: [&str; 4] = ["accepted", "carried", "discarded", "candidate"];
-const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
+pub(crate) const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
 const RETURN_KEYS: [&str; 7] = ["done", "changed", "noticed", "proof", "not done", "unprompted", "overflow"];
 const REQUIRED: [&str; 6] = ["outcome", "repo", "start", "may touch", "checks", "stop if"];
 
@@ -97,17 +97,27 @@ pub fn resume(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     Ok(())
 }
 
+/// A pass part the command needs is not in the log (a forged or wrong-order log).
+fn no_part(n: u32, what: &str) -> String {
+    format!("refused: 05.{n:02} has no {what} in the log; nothing was written. Run wf verify to check the log")
+}
+
 fn tail_is(x: &Pass, want: &[&str]) -> Res<()> {
     need(want.contains(&x.tail.as_str()), format!("refused: 05.{:02} is at '{}', this needs {}", x.nn, x.tail, want.join(" or ")))
 }
 
 /// Digits, or 05.NN. Refuses signed forms like +1.
-fn parse_pass(v: &str, err: &str) -> Res<u32> {
+pub(crate) fn parse_pass(v: &str, err: &str) -> Res<u32> {
     let v = v.strip_prefix("05.").unwrap_or(v);
     if v.is_empty() || !v.bytes().all(|b| b.is_ascii_digit()) {
         return Err(err.into());
     }
     v.parse().map_err(|_| err.to_string())
+}
+
+/// `05.NN` for a pass number in 01-98; otherwise `pass N` (never `05.100`).
+fn pass_label(n: u32) -> String {
+    if (1..=98).contains(&n) { format!("05.{n:02}") } else { format!("pass {n}") }
 }
 
 fn nn(a: &Args, i: usize) -> Res<u32> {
@@ -297,8 +307,8 @@ fn overlap_ok_flag(p: &Page, a: &Args) -> Res<Option<(u32, String)>> {
             let n = parse_pass(v, "give --overlap-ok a pass number, like 3 or 05.03")?;
             match p.passes.get(&n) {
                 Some(x) if x.is_open_tail() => Ok(Some((n, why))),
-                Some(x) => Err(format!("refused: --overlap-ok 05.{n:02} is not open (tail is {})", x.tail)),
-                None => Err(format!("refused: --overlap-ok 05.{n:02} is not open (no such pass)")),
+                Some(x) => Err(format!("refused: --overlap-ok {} is not open (tail is {})", pass_label(n), x.tail)),
+                None => Err(format!("refused: --overlap-ok {} is not open (no such pass)", pass_label(n))),
             }
         }
     }
@@ -430,7 +440,7 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let x = p.pass(n)?.clone();
     tail_is(&x, &["open"])?;
     need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", x.claim.clone().unwrap_or_default()))?;
-    let pk = x.pack.clone().unwrap();
+    let pk = x.pack.clone().ok_or_else(|| no_part(n, "pack"))?;
     let (branch, file, sha_in) = (a.req("branch")?.to_string(), a.req("file")?.to_string(), a.req("commit")?.to_string());
     let checked = (|| -> Res<(String, String, Vec<git::Change>, Map<String, Value>)> {
         need(branch == s(&pk, "branch"), format!("branch must be {}", s(&pk, "branch")))?;
@@ -537,13 +547,17 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     tail_is(&x, &["return", "review"])?;
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
     let dry = a.flag("dry-run").is_some();
+    if let (false, Some((who, at, d))) = (dry, &x.signoff) {
+        return Err(format!("refused: 05.{n:02} was signed off by {} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            chars::escape_line(who), chars::escape_line(&s(d, "outcome")), p.addr));
+    }
     if !dry {
         if let Some((_, c)) = &x.check {
             need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
         }
     }
-    let pk = x.pack.clone().unwrap();
-    let r = x.ret.clone().unwrap();
+    let pk = x.pack.clone().ok_or_else(|| no_part(n, "pack"))?;
+    let r = x.ret.clone().ok_or_else(|| no_part(n, "return"))?;
     let pack_hash = s(&pk, "pack_hash");
     let return_hash = s(&r, "hash");
     let tail0 = x.tail.clone();
@@ -570,13 +584,18 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         && s(x2.pack.as_ref().unwrap_or(&Value::Null), "pack_hash") == pack_hash
         && s(x2.ret.as_ref().unwrap_or(&Value::Null), "hash") == return_hash
         && x2.check == check0;
-    need(still, format!("refused: 05.{n:02} is no longer in return with the same pack and return"))?;
+    if let Some((who, at, d)) = &x2.signoff {
+        return Err(format!("refused: 05.{n:02} was signed off by {} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            chars::escape_line(who), chars::escape_line(&s(d, "outcome")), p.addr));
+    }
+    need(still, format!("refused: 05.{n:02} changed while the checks ran (it is now at '{}', last entry {}); nothing was written. Run wf check {} {n} again",
+        x2.tail, x2.last_seq, p.addr))?;
     if let Some((_, c)) = &x2.check {
         need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
     }
     need(x2.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
-    let pk = x2.pack.as_ref().unwrap();
-    let r = x2.ret.as_ref().unwrap();
+    let pk = x2.pack.as_ref().ok_or_else(|| no_part(n, "pack"))?;
+    let r = x2.ret.as_ref().ok_or_else(|| no_part(n, "return"))?;
     let rep = check_report(p, pk, r, &results, frame_ok, a.flag("note"), a.flag("fail"));
     p.add(who, "checker", "check", json!({"pass": n, "commit": commit, "verdict": verdict, "report": rep,
         "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": git::clip_check_out(out, 40)})).collect::<Vec<_>>()}))?;
@@ -597,14 +616,14 @@ pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     need(OUTCOMES.contains(&outcome), format!("outcome must be one of {}", OUTCOMES.join(", ")))?;
     let verdict = x.check.as_ref().map(|c| s(&c.1, "verdict")).unwrap_or_default();
     need(outcome != "passed" || verdict == "pass", "refused: cannot sign off 'passed' when the check failed")?;
-    let ret = x.ret.as_ref().unwrap();
+    let ret = x.ret.as_ref().ok_or_else(|| no_part(n, "return"))?;
     let not_done = jobs_not_done(ret);
     let named: Vec<String> = split_list(a.flag("cards").unwrap_or(""))
         .iter()
         .map(|kv| kv.split_once('=').map(|(k, _)| k.trim().to_string()).unwrap_or_default())
         .filter(|k| !k.is_empty())
         .collect();
-    let drifted = face01_drift(p, x.pack.as_ref().unwrap()).is_some();
+    let drifted = face01_drift(p, x.pack.as_ref().ok_or_else(|| no_part(n, "pack"))?).is_some();
     if outcome == "passed" {
         refuse_passed(p, n, ret, &named, a.flag("note").is_some())?;
     }
@@ -640,7 +659,7 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     tail_is(&x, &["review"])?;
     let (signer, seq, d) = x.signoff.clone().ok_or("refused: Prime has not signed off this pass")?;
     need(p.prime_at(seq) == signer, format!("refused: {signer} was not prime at entry {seq}"))?;
-    let (pk, r, (checker, c)) = (x.pack.clone().unwrap(), x.ret.clone().unwrap(), x.check.clone().unwrap());
+    let (pk, r, (checker, c)) = (x.pack.clone().ok_or_else(|| no_part(n, "pack"))?, x.ret.clone().ok_or_else(|| no_part(n, "return"))?, x.check.clone().ok_or_else(|| no_part(n, "check"))?);
     if s(&d, "outcome") == "passed" {
         let named: Vec<String> = d["cards"].as_object().map(|m| m.keys().cloned().collect()).unwrap_or_default();
         refuse_passed(p, n, &r, &named, why_ref(&s(&d, "note"), "note").is_ok())?;
@@ -682,6 +701,32 @@ pub fn answer(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 
 #[cfg(test)]
 mod tests {
+    /// A pass state the log order rules now keep out of any loaded page; the commands still refuse it, not panic.
+    #[test]
+    fn write_commands_refuse_missing_parts_without_a_panic() {
+        use crate::page::{Page, Pass};
+        let dir = std::env::temp_dir().join(format!("wf-cmd-noparts-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let mut p = Page { dir: dir.clone(), addr: "1.2.3.4".into(), prime: "pri".into(), person: "mat".into(), ..Default::default() };
+        p.primes.push(("pri".into(), 1, 1));
+        let a = |v: &[&str]| crate::Args::parse(&v.iter().map(|s| s.to_string()).collect::<Vec<_>>());
+        p.passes.insert(1, Pass { nn: 1, tail: "open".into(), claim: Some("bob".into()), ..Default::default() });
+        let err = super::ret(&mut p, &dir, &a(&["1.2.3.4", "1", "--branch", "b", "--commit", "c", "--file", "f"]), "bob").unwrap_err();
+        assert!(err.contains("05.01 has no pack in the log"), "{err}");
+        p.passes.insert(1, Pass { nn: 1, tail: "return".into(), ..Default::default() });
+        let err = super::check(&mut p, &dir, &a(&["1.2.3.4", "1"]), "cat").unwrap_err();
+        assert!(err.contains("05.01 has no pack in the log"), "{err}");
+        p.passes.insert(1, Pass { nn: 1, tail: "review".into(), ..Default::default() });
+        let err = super::signoff(&mut p, &a(&["1.2.3.4", "1", "--outcome", "failed"]), "pri").unwrap_err();
+        assert!(err.contains("05.01 has no return in the log"), "{err}");
+        p.passes.insert(1, Pass { nn: 1, tail: "review".into(), signoff: Some(("pri".into(), 1, serde_json::json!({"outcome": "failed"}))), ..Default::default() });
+        let err = super::close(&mut p, &a(&["1.2.3.4", "1"]), "pri").unwrap_err();
+        assert!(err.contains("05.01 has no pack in the log"), "{err}");
+        assert!(!dir.join("log.jsonl").exists(), "nothing was written");
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
     #[test]
     fn fields_join_indented_lines() {
         let f = super::fields("w01: one\n  two\nChecks: a; b\n");

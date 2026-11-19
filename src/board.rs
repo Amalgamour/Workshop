@@ -54,6 +54,9 @@ pub fn run(root: &Path, a: &Args) -> Res<()> {
     if a.flag("all").is_some_and(|v| !v.is_empty()) {
         return Err(format!("refused: --all takes no value (got '{}'); put the page first: wf board <page> --all", escape_line(a.flag("all").unwrap())));
     }
+    if a.flag("card").is_some() && a.flag("all").is_some() {
+        return Err("refused: --card shows one whole card and --all the whole board; give one of them".into());
+    }
     if a.pos.len() > 1 {
         return Err(format!("refused: wf board takes at most one page, got {} arguments", a.pos.len()));
     }
@@ -84,10 +87,9 @@ pub fn run(root: &Path, a: &Args) -> Res<()> {
 }
 
 /// `--card` takes `4`, `04` or `05.04`.
+/// The same pass forms as every other command (`crate::cmd::parse_pass`).
 fn card_nn(c: &str) -> Res<u32> {
-    let n = c.strip_prefix("05.").unwrap_or(c);
-    let ok = !n.is_empty() && n.len() <= 2 && n.chars().all(|ch| ch.is_ascii_digit());
-    ok.then(|| n.parse().ok()).flatten().ok_or_else(|| format!("--card needs a pass number like 4, 04 or 05.04, not '{}'", escape_line(c)))
+    crate::cmd::parse_pass(c, &format!("--card needs a pass number like 4, 04 or 05.04, not '{}'", escape_line(c)))
 }
 
 /// Load a page for the board. A log with no entries, or one that does not start with
@@ -183,11 +185,25 @@ pub fn stale(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> Vec<String> {
         let (was, now) = if d.face == "04" { (format!("entry {}", d.was), format!("entry {}", d.now)) } else { (d.was, d.now) };
         why.push(format!("drift: packed against face {} {}; face {} is now {}", d.face, e(&was), d.face, e(&now)));
     }
+    // Check on another commit: the latest check names a commit that no return names,
+    // or an earlier return's commit rather than the latest one.
     if let (Some(r), Some((_, c))) = (&x.ret, &x.check) {
-        if s(r, "commit") != s(c, "commit") {
+        let (checked, latest) = (s(c, "commit"), s(r, "commit"));
+        if checked != latest {
+            let earlier = p.events.iter().find(|ev| ev.kind == "return" && ev.data["pass"].as_u64() == Some(x.nn as u64) && s(&ev.data, "commit") == checked);
+            let whose = match earlier {
+                Some(ev) => format!("the commit of an earlier return (entry {})", ev.seq),
+                None => "a commit no return names".into(),
+            };
+            // Full commits: two 12-character prefixes could read as the same commit.
+            let prefix = if !checked.is_empty() && !latest.is_empty() && (latest.starts_with(&checked) || checked.starts_with(&latest)) {
+                "; one is a prefix of the other, not the same commit"
+            } else {
+                ""
+            };
             why.push(format!(
-                "old check: check entry {} was on commit {}; the latest return (entry {}) is commit {}",
-                last_entry(p, x.nn, "check"), sh(&s(c, "commit")), last_entry(p, x.nn, "return"), sh(&s(r, "commit"))
+                "check on another commit: check entry {} names {}, {whose}; the latest return (entry {}) is commit {}{prefix}",
+                last_entry(p, x.nn, "check"), clip(&checked, 64), last_entry(p, x.nn, "return"), clip(&latest, 64)
             ));
         }
     }
@@ -391,7 +407,7 @@ pub fn card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> String {
     }
     match &x.check {
         Some((who, c)) => {
-            l.push(format!("  check:      entry {}; checker {}; verdict {}; commit {}; failed checks {}", last_entry(p, n, "check"), e(who), e(&s(c, "verdict")), sh(&s(c, "commit")), failed_checks(p, n)));
+            l.push(format!("  check:      entry {}; checker {}; verdict {}; commit {}; failed checks {}", last_entry(p, n, "check"), e(who), e(&s(c, "verdict")), e(&s(c, "commit")), failed_checks(p, n)));
             l.push(format!("    report:   pages/{addr}/05.md section \"## 05.{n:02}\""));
         }
         None => l.push(format!("  check:      {none}")),
@@ -604,6 +620,28 @@ mod tests {
     }
 
     #[test]
+    fn check_on_another_commit_names_which_commit() {
+        let mut p = page();
+        pass(&mut p, 1, "review");
+        ev(&mut p, "return", T0, json!({"pass": 1, "commit": "e".repeat(40)}));
+        let c = ev(&mut p, "check", T0, json!({"pass": 1, "commit": "e".repeat(40), "verdict": "pass"}));
+        ev(&mut p, "return", T0, json!({"pass": 1, "commit": "f".repeat(40)}));
+        let x = p.passes.get_mut(&1).unwrap();
+        x.ret = Some(json!({"commit": "f".repeat(40)}));
+        x.check = Some(("cat".into(), json!({"commit": "e".repeat(40)})));
+        let why = stale(&p, &p.passes[&1], 24, T0);
+        assert_eq!(why, vec![format!("check on another commit: check entry {c} names {}, the commit of an earlier return (entry 2); the latest return (entry 4) is commit {}", "e".repeat(40), "f".repeat(40))]);
+        p.passes.get_mut(&1).unwrap().check = Some(("cat".into(), json!({"commit": "d".repeat(40)})));
+        let why = stale(&p, &p.passes[&1], 24, T0);
+        assert!(why[0].contains(&format!("names {}, a commit no return names", "d".repeat(40))), "{why:?}");
+        p.passes.get_mut(&1).unwrap().check = Some(("cat".into(), json!({"commit": "f".repeat(12)})));
+        let why = stale(&p, &p.passes[&1], 24, T0);
+        assert!(why[0].ends_with("; one is a prefix of the other, not the same commit"), "{why:?}");
+        p.passes.get_mut(&1).unwrap().check = Some(("cat".into(), json!({"commit": "f".repeat(40)})));
+        assert!(stale(&p, &p.passes[&1], 24, T0).is_empty(), "a check on the latest return is not stale");
+    }
+
+    #[test]
     fn hostile_log_text_is_escaped_on_board_and_card() {
         let bad = "x\u{1b}[2K\r next:\u{2028}\u{85}\u{202e}\u{e0001}\u{3164}y";
         let mut p = page();
@@ -635,10 +673,11 @@ mod tests {
 
     #[test]
     fn card_takes_nn_or_05_nn() {
-        for (arg, n) in [("4", 4), ("04", 4), ("05.04", 4), ("05.12", 12), ("05", 5)] {
+        for (arg, n) in [("4", 4), ("04", 4), ("004", 4), ("05.04", 4), ("05.004", 4), ("05.12", 12), ("05", 5), ("100", 100)] {
             assert_eq!(card_nn(arg).unwrap(), n, "{arg}");
+            assert_eq!(crate::cmd::parse_pass(arg, "x").unwrap(), n, "{arg}: same as the other commands");
         }
-        for bad in ["", "05.", "x", "05.x", "123", "+1", "05.04.1"] {
+        for bad in ["", "05.", "x", "05.x", "+1", "05.04.1", "4294967297"] {
             assert!(card_nn(bad).is_err(), "{bad}");
         }
     }

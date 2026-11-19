@@ -149,10 +149,24 @@ impl Drop for Env {
 fn seed_closed_passes(e: &Env, count: u32) {
     let mut p = wf::page::Page::load(&e.page()).unwrap();
     for i in 1..=count {
-        p.add("pri", "prime", "draft", serde_json::json!({"pass": i, "fields": {}, "pins": {}})).unwrap();
-        p.add("pri", "prime", "close", serde_json::json!({"pass": i, "outcome": "passed"})).unwrap();
+        for (actor, role, kind, data) in closed_chain(i, "passed") {
+            p.add(actor, role, kind, data).unwrap();
+        }
     }
     wf::render::write(&p).unwrap();
+}
+
+/// Every entry of one pass from draft to close, in the order the log rules need.
+fn closed_chain(nn: u32, outcome: &str) -> Vec<(&'static str, &'static str, &'static str, serde_json::Value)> {
+    vec![
+        ("pri", "prime", "draft", serde_json::json!({"pass": nn, "fields": {}, "pins": {}})),
+        ("pri", "prime", "pack", seed_pack(nn)),
+        ("bob", "builder", "claim", serde_json::json!({"pass": nn})),
+        ("bob", "builder", "return", serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "file": "f", "jobs": {}})),
+        ("cat", "checker", "check", serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "verdict": "pass", "report": ""})),
+        ("pri", "prime", "signoff", serde_json::json!({"pass": nn, "outcome": outcome, "cards": {}})),
+        ("pri", "tool", "close", serde_json::json!({"pass": nn, "outcome": outcome})),
+    ]
 }
 
 #[test]
@@ -757,7 +771,7 @@ fn check_refuses_if_another_check_is_filed_first() {
     assert_eq!(wins, 1, "{results:?}");
     for (ok, out) in &results {
         if !*ok {
-            assert!(out.contains("no longer in return with the same pack and return") || out.contains("already passed its check"), "{out}");
+            assert!(out.contains("changed while the checks ran (it is now at 'review'") || out.contains("already passed its check"), "{out}");
         }
     }
     let log = e.log();
@@ -1607,10 +1621,12 @@ fn board_writes_nothing() {
 #[test]
 fn board_puts_each_tail_in_its_column() {
     let e = Env::checked("board-cols"); // 05.01 at review
+    let mut evs = closed_chain(2, "failed");
+    evs[0].3 = seed_draft(2);
+    seed(&e, PG, &evs);
     seed(&e, PG, &[
-        ("pri", "prime", "draft", seed_draft(2)), ("pri", "tool", "close", serde_json::json!({"pass": 2, "outcome": "failed"})),
         ("pri", "prime", "draft", seed_draft(3)), ("pri", "prime", "pack", seed_pack(3)), ("bob", "builder", "claim", serde_json::json!({"pass": 3})),
-        ("bob", "builder", "return", serde_json::json!({"pass": 3, "commit": "c3", "file": "f", "jobs": {"w01": "done - x"}})),
+        ("bob", "builder", "return", serde_json::json!({"pass": 3, "commit": "c3".repeat(20), "file": "f", "jobs": {"w01": "done - x"}})),
         ("pri", "prime", "draft", seed_draft(4)), ("pri", "prime", "pack", seed_pack(4)), ("ann", "builder", "claim", serde_json::json!({"pass": 4})),
         ("pri", "prime", "draft", seed_draft(5)), ("pri", "prime", "pack", seed_pack(5)),
         ("pri", "prime", "draft", seed_draft(6)),
@@ -1683,15 +1699,25 @@ fn board_marks_a_waiting_pass_and_drift_as_stale() {
 }
 
 #[test]
-fn board_marks_an_old_check_and_an_old_signoff() {
-    let e = Env::checked("board-oldcheck");
+fn board_marks_a_check_on_another_commit_and_an_old_signoff() {
+    let e = Env::ready("board-oldcheck");
+    e.open("src/a.rs", "false");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]); // fails: entry 9
     let c = e.ok(&["board", PG, "--card", "1"]);
     assert!(c.contains("stale:      none found in the log"), "{c}");
-    // A later return on another commit: the commands cannot reach this today, so it is seeded.
-    seed(&e, PG, &[("bob", "builder", "return", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "file": "f", "jobs": {"w01": "done - again"}}))]);
+    // A re-check after the failed check that names a commit no return names (seeded).
+    seed(&e, PG, &[("cat", "checker", "check", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "verdict": "pass", "report": ""}))]);
     let b = e.ok(&["board", PG]);
-    assert!(b.contains("old check: check entry 9 was on commit"), "{b}");
-    assert!(b.contains("the latest return (entry 10) is commit dddddddddddd"), "{b}");
+    assert!(b.contains(&format!("check on another commit: check entry 10 names {}, a commit no return names; the latest return (entry 8) is commit {sha}", "d".repeat(40))), "{b}");
+    assert!(!b.contains("old check"), "{b}");
+    // Two returns on one pass (a check naming the earlier one) cannot load: the order
+    // rules refuse a return after a check. The board unit test covers that wording.
+    let dir = e.root.join("pages/6.0.0.1");
+    write_log(&dir, &[("init", init_data("6.0.0.1"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("return", 1)]);
+    let (code, out) = run_code(&e, &["board", "6.0.0.1"]);
+    assert!(code == Some(1) && out.contains("log entry 7 is out of order: a return for 05.01, which is at 'review'"), "{out}");
 
     let e = Env::checked("board-oldsign");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
@@ -1733,13 +1759,11 @@ fn board_escapes_hostile_log_text_everywhere() {
     e.git(&["commit", "-q", "-m", "work"]);
     let sha = e.git(&["rev-parse", "HEAD"]);
     e.git(&["checkout", "-q", "main"]);
-    assert!(e.ret(1, &sha, "bob").0);
     // Old log entries written before the input check: hostile names and items.
     let bad = "q\u{85}r\u{e0001}s\u{3164}t\u{2028}u\u{202e}v";
-    seed(&e, PG, &[
-        (bad, "prime", "elevate", serde_json::json!({"pass": 1, "to": "person", "item": bad})),
-        ("wf", "tool", "return-refused", serde_json::json!({"pass": 1, "by": bad, "commit": "c", "why": format!("bad file src/\u{1b}]0;title\u{7}.rs {bad}")})),
-    ]);
+    seed(&e, PG, &[("wf", "tool", "return-refused", serde_json::json!({"pass": 1, "by": bad, "commit": "c", "why": format!("bad file src/\u{1b}]0;title\u{7}.rs {bad}")}))]);
+    assert!(e.ret(1, &sha, "bob").0);
+    seed(&e, PG, &[(bad, "prime", "elevate", serde_json::json!({"pass": 1, "to": "person", "item": bad}))]);
     let out = [e.ok(&["board", PG]), e.ok(&["board", PG, "--all"]), e.ok(&["board", PG, "--card", "1"]), e.ok(&["board"])].concat();
     for c in ['\u{1b}', '\r', '\u{7}', '\u{2028}', '\u{85}', '\u{202e}', '\u{e0001}', '\u{3164}'] {
         assert!(!out.contains(c), "raw U+{:04X} in board output: {out}", c as u32);
@@ -1800,6 +1824,9 @@ fn write_log(dir: &PathBuf, evs: &[(&str, serde_json::Value, Option<u64>)]) {
         if let Some(t) = time {
             v["time_s"] = serde_json::json!(t);
         }
+        if kind.is_empty() {
+            v.as_object_mut().unwrap().remove("kind");
+        }
         let line = v.to_string();
         prev = Sha256::digest(line.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
         text += &line;
@@ -1824,11 +1851,11 @@ fn entry_for_a_missing_pass_is_unreadable_not_a_panic() {
         let o = Command::new(bin).env("WF_ROOT", &e.root).args(&args).output().unwrap();
         let err = String::from_utf8_lossy(&o.stderr);
         assert_eq!(o.status.code(), Some(1), "{args:?} must refuse, not panic: {err}");
-        assert!(err.contains("log entry 2 is a claim for pass 3, which was never drafted"), "{args:?}: {err}");
+        assert!(err.contains("log entry 2 is out of order: a claim for 05.03, which was never drafted; the page cannot be read"), "{args:?}: {err}");
         assert!(!err.contains("panicked"), "{args:?}: {err}");
     }
     let b = e.ok(&["board"]);
-    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is a claim for pass 3, which was never drafted"), "{b}");
+    assert!(b.contains("  1.2.3.8  unreadable: log entry 2 is out of order: a claim for 05.03, which was never drafted"), "{b}");
     assert!(b.contains("  1.2.3.4  t  entries 4"), "the other page still shows: {b}");
 }
 
@@ -1923,4 +1950,448 @@ fn board_on_real_pages_is_read_only_and_short() {
     assert!(run(&["board"]).contains("BOOK BOARD  3 pages"));
     assert_eq!(sha_map(&root.join("pages")), before, "the board changed a real page file");
     let _ = fs::remove_dir_all(&root);
+}
+
+// ---- log hardening: forged or wrong-order entries ----
+
+/// One pass's entries for a hand-written log, by kind: (kind, data, time).
+fn ev(kind: &'static str, nn: u64) -> (&'static str, serde_json::Value, Option<u64>) {
+    let d = match kind {
+        "draft" => serde_json::json!({"pass": nn, "fields": {"outcome": "o", "repo": "game", "start": "main", "w01": "x", "may touch": "src/a.rs", "checks": "true", "stop if": "none"}, "pins": {}}),
+        "pack" => serde_json::json!({"pass": nn, "pack_text": "p", "pack_hash": "h", "branch": "b", "return_file": "f", "start": "0", "templates": "2", "sources": {}}),
+        "return" => serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "file": "f", "hash": "h", "jobs": {"w01": "done - x"}}),
+        "check" => serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "verdict": "pass", "report": ""}),
+        "signoff" => serde_json::json!({"pass": nn, "outcome": "passed", "cards": {}, "note": "none"}),
+        "close" => serde_json::json!({"pass": nn, "outcome": "passed"}),
+        "halt" | "resume" => serde_json::json!({"note": "why (t1)"}),
+        _ => serde_json::json!({"pass": nn}),
+    };
+    (kind, d, Some(1_795_456_800))
+}
+
+fn forged(e: &Env, addr: &str, kinds: &[(&'static str, u64)]) -> PathBuf {
+    let dir = e.root.join("pages").join(addr);
+    let mut evs = vec![("init", init_data(addr), Some(1_795_456_800))];
+    evs.extend(kinds.iter().map(|(k, n)| ev(k, *n)));
+    write_log(&dir, &evs);
+    dir
+}
+
+fn run_code(e: &Env, args: &[&str]) -> (Option<i32>, String) {
+    let o = Command::new(env!("CARGO_BIN_EXE_wf")).env("WF_ROOT", &e.root).args(args).output().unwrap();
+    (o.status.code(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
+}
+
+/// Item 1: write commands on forged wrong-state logs refuse with exit 1, leave the log as it was and no lock.
+#[test]
+fn write_commands_on_forged_logs_refuse_without_a_panic() {
+    let e = Env::ready("forged-writes");
+    let cases: [(&str, &[(&'static str, u64)], Vec<&str>); 4] = [
+        ("9.0.0.1", &[("draft", 1), ("claim", 1)], vec!["return", "9.0.0.1", "1", "--branch", "b", "--commit", "c", "--file", "f", "--as", "pri"]),
+        ("9.0.0.2", &[("draft", 1), ("claim", 1), ("return", 1)], vec!["check", "9.0.0.2", "1", "--as", "cat"]),
+        ("9.0.0.3", &[("draft", 1), ("check", 1)], vec!["signoff", "9.0.0.3", "1", "--outcome", "failed", "--as", "pri"]),
+        ("9.0.0.4", &[("draft", 1), ("signoff", 1), ("close", 1)], vec!["close", "9.0.0.4", "1", "--as", "pri"]),
+    ];
+    for (addr, kinds, args) in cases {
+        let dir = forged(&e, addr, kinds);
+        let before = fs::read(dir.join("log.jsonl")).unwrap();
+        let (code, out) = run_code(&e, &args);
+        assert_eq!(code, Some(1), "{args:?}: {out}");
+        assert!(out.contains("is out of order") && out.contains("the page cannot be read") && !out.contains("panicked"), "{args:?}: {out}");
+        assert_eq!(fs::read(dir.join("log.jsonl")).unwrap(), before, "{args:?} changed the log");
+        assert!(!dir.join(".wf-lock").exists(), "{args:?} left a lock");
+    }
+}
+
+/// Item 2: wrong-order entries make the page unreadable, with the entry and the reason.
+#[test]
+fn wrong_order_entries_make_the_page_unreadable() {
+    let e = Env::ready("order");
+    let full: &[(&'static str, u64)] = &[("draft", 1), ("pack", 1), ("claim", 1), ("return", 1), ("check", 1), ("signoff", 1), ("close", 1)];
+    let mut after_close = full.to_vec();
+    after_close.push(("claim", 1));
+    let mut redraft = full.to_vec();
+    redraft.push(("draft", 1));
+    let cases: Vec<(&str, Vec<(&'static str, u64)>, &str)> = vec![
+        ("8.0.0.1", vec![("draft", 1), ("pack", 1), ("claim", 1), ("close", 1)], "log entry 5 is out of order: a close for 05.01, which is at 'open'; a close needs review"),
+        ("8.0.0.2", vec![("draft", 1), ("pack", 1), ("claim", 1), ("check", 1)], "log entry 5 is out of order: a check for 05.01, which is at 'open'; a check needs return or review"),
+        ("8.0.0.3", after_close, "log entry 9 is out of order: a claim for 05.01, which is at 'closed'; a claim needs pack"),
+        ("8.0.0.4", redraft, "log entry 9 is out of order: a re-draft for 05.01, which is at 'closed'; a draft needs draft"),
+        ("8.0.0.5", vec![("draft", 1), ("", 1)], "log entry 3 is out of order: the entry has no kind"),
+        ("8.0.0.6", vec![("draft", 1), ("teleport", 1)], "log entry 3 is out of order: 'teleport' is not a wf entry kind"),
+        ("8.0.0.7", vec![("init", 1)], "log entry 2 is out of order: a second init: only entry 1 starts the page"),
+        ("8.0.0.8", vec![("draft", 1), ("pack", 1), ("claim", 1), ("return", 1), ("check", 1), ("close", 1)], "log entry 7 is out of order: a close for 05.01 with no signoff"),
+        ("8.0.0.9", vec![("halt", 0), ("halt", 0)], "log entry 3 is out of order: a halt while the page is already halted"),
+        ("8.0.1.0", vec![("resume", 0)], "log entry 2 is out of order: a resume while the page is not halted"),
+        ("8.0.1.1", vec![("halt", 0), ("draft", 1)], "log entry 3 is out of order: a draft for 05.01 while the page is halted"),
+    ];
+    for (addr, kinds, want) in &cases {
+        let mut evs = vec![("init", init_data(addr), Some(1_795_456_800))];
+        evs.extend(kinds.iter().map(|(k, n)| if *k == "init" { ("init", init_data(addr), Some(1)) } else { ev(k, *n) }));
+        write_log(&e.root.join("pages").join(addr), &evs);
+        for cmd in ["verify", "status", "board"] {
+            let (code, out) = run_code(&e, &[cmd, addr]);
+            assert_eq!(code, Some(1), "{cmd} {addr}: {out}");
+            assert!(out.contains(want), "{cmd} {addr}: want '{want}' in {out}");
+        }
+    }
+    // A log whose first entry is not the init.
+    let dir = e.root.join("pages/8.0.2.0");
+    write_log(&dir, &[ev("draft", 1)]);
+    let (code, out) = run_code(&e, &["verify", "8.0.2.0"]);
+    assert!(code == Some(1) && out.contains("log entry 1 is out of order: the first entry is a draft, not the init"), "{out}");
+    let book = e.ok(&["board"]);
+    assert!(book.contains("  8.0.0.1  unreadable: log entry 5 is out of order") && book.contains("  1.2.3.4  t  entries 4"), "{book}");
+    // The full chain itself loads.
+    forged(&e, "8.1.0.0", full);
+    let (code, out) = run_code(&e, &["status", "8.1.0.0"]);
+    assert_eq!(code, Some(0), "{out}");
+}
+
+/// Item 3: pass numbers outside 01-98 are refused, never wrapped (4294967297 is not pass 1).
+#[test]
+fn pass_numbers_outside_01_98_are_refused_not_wrapped() {
+    let e = Env::ready("wrap");
+    for (addr, n) in [("7.0.0.1", 4_294_967_297u64), ("7.0.0.2", 0), ("7.0.0.3", 99)] {
+        forged(&e, addr, &[("draft", n)]);
+        let (code, out) = run_code(&e, &["status", addr]);
+        assert_eq!(code, Some(1), "{out}");
+        assert!(out.contains(&format!("log entry 2 is out of order: a draft for pass {n}, outside 01-98 (R9)")), "{out}");
+    }
+    let dir = forged(&e, "7.0.0.4", &[("draft", 1)]);
+    let mut evs = vec![("init", init_data("7.0.0.4"), Some(1)), ev("draft", 1), ev("pack", 4_294_967_297)];
+    evs[2].1["pass"] = serde_json::json!(4_294_967_297u64);
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["board", "7.0.0.4"]);
+    assert!(code == Some(1) && out.contains("a pack for pass 4294967297, outside 01-98 (R9)"), "{out}");
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    let before = e.log();
+    let err = p.add("pri", "prime", "draft", serde_json::json!({"pass": 4_294_967_297u64, "fields": {}, "pins": {}})).unwrap_err();
+    assert!(err.contains("outside 01-98 (R9)"), "{err}");
+    assert_eq!(e.log(), before);
+    e.no(&["claim", PG, "4294967297", "--as", "bob"], "give the pass number");
+}
+
+/// Item 4: a refused write through the tool's append says the write is refused and why.
+#[test]
+fn refused_append_says_nothing_was_written_and_why() {
+    let e = Env::ready("append-guard");
+    let before = e.log();
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    let err = p.add("bob", "builder", "claim", serde_json::json!({"pass": 5})).unwrap_err();
+    assert_eq!(err, "refused, nothing written: a claim for 05.05, which was never drafted");
+    let err = p.add("mat", "person", "init", serde_json::json!({"address": PG})).unwrap_err();
+    assert_eq!(err, "refused, nothing written: a second init: only entry 1 starts the page");
+    assert_eq!(e.log(), before);
+    assert!(!err.contains("cannot be read"));
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+}
+
+/// Item 5: --card with --all is refused; a bad typed address is shown escaped.
+#[test]
+fn board_card_with_all_is_refused_and_bad_addresses_are_escaped() {
+    let e = Env::checked("item5");
+    e.no(&["board", PG, "--card", "1", "--all"], "give one of them");
+    e.no(&["board", PG, "--all", "--card", "1"], "give one of them");
+    for cmd in ["status", "board", "verify"] {
+        let (ok, out) = e.wf(&[cmd, "a\u{1b}[2Kb\u{202e}"]);
+        assert!(!ok, "{out}");
+        assert!(!out.contains('\u{1b}') && !out.contains('\u{202e}'), "{cmd}: raw char in {out}");
+        assert!(out.contains("bad page address 'a\\u{1b}[2Kb\\u{202e}'"), "{cmd}: {out}");
+    }
+}
+
+/// Fix 4: an overlap error for pass 100 does not print 05.100.
+#[test]
+fn overlap_ok_error_for_pass_100_does_not_print_05_100() {
+    let e = Env::ready("ovl100");
+    let f = e.root.join("pack.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: true\nstop if: none\n").unwrap();
+    let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "100", "--why", "shared files (t262u)", "--as", "pri"]);
+    assert!(!ok && out.contains("--overlap-ok pass 100 is not open (no such pass)") && !out.contains("05.100"), "{out}");
+    let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "005", "--why", "shared files (t262u)", "--as", "pri"]);
+    assert!(!ok && out.contains("--overlap-ok 05.05 is not open (no such pass)"), "{out}");
+    e.draft("src/a.rs", "true");
+    assert_eq!(e.ok(&["board", PG, "--card", "001"]), e.ok(&["board", PG, "--card", "05.01"]));
+    e.no(&["board", PG, "--card", "100"], "no pass 100 on this page");
+}
+
+/// Fix 5: a check with no verdict is refused when the log loads.
+#[test]
+fn check_with_no_verdict_makes_the_page_unreadable() {
+    let e = Env::ready("noverdict");
+    let dir = e.root.join("pages/6.0.0.2");
+    let mut evs = vec![("init", init_data("6.0.0.2"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1)];
+    evs[5].1.as_object_mut().unwrap().remove("verdict");
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["verify", "6.0.0.2"]);
+    assert!(code == Some(1) && out.contains("log entry 6 is out of order: a check for 05.01 with no verdict; the page"), "{out}");
+    for bad in [serde_json::json!("maybe"), serde_json::json!(true), serde_json::json!("")] {
+        evs[5].1["verdict"] = bad;
+        write_log(&dir, &evs);
+        let (code, out) = run_code(&e, &["status", "6.0.0.2"]);
+        assert!(code == Some(1) && out.contains("a check for 05.01 with a verdict that is not pass or fail"), "{out}");
+    }
+    evs[5].1["verdict"] = serde_json::json!("pass");
+    for bad in [None, Some(serde_json::json!("")), Some(serde_json::json!(7)), Some(serde_json::json!(" ")), Some(serde_json::json!("\t\n")),
+                Some(serde_json::json!("not-a-hash")), Some(serde_json::json!("AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12")), Some(serde_json::json!("ab12cd34"))] {
+        match bad {
+            None => { evs[5].1.as_object_mut().unwrap().remove("commit"); }
+            Some(v) => evs[5].1["commit"] = v,
+        }
+        write_log(&dir, &evs);
+        let (code, out) = run_code(&e, &["board", "6.0.0.2"]);
+        assert!(code == Some(1) && out.contains("a check for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{out}");
+    }
+}
+
+/// G4: load matches wf check (a re-check only after a failed check, never after a signoff).
+/// A second signoff still loads: re-signing is how Prime answers a face 01 change before close.
+#[test]
+fn recheck_only_after_a_failed_check_and_resignoff_still_loads() {
+    let e = Env::ready("recheck");
+    let base: Vec<(&'static str, u64)> = vec![("draft", 1), ("pack", 1), ("claim", 1), ("return", 1), ("check", 1)];
+    let cases: Vec<(&str, Vec<(&'static str, u64)>, &str)> = vec![
+        ("6.1.0.1", [base.clone(), vec![("check", 1)]].concat(), "log entry 7 is out of order: a re-check of 05.01, whose last check passed"),
+    ];
+    forged(&e, "6.1.0.2", &[base.clone(), vec![("signoff", 1), ("signoff", 1), ("close", 1)]].concat());
+    let (code, out) = run_code(&e, &["status", "6.1.0.2"]);
+    assert!(code == Some(0) && out.contains("05.01  closed"), "{out}");
+    for (addr, kinds, want) in cases {
+        forged(&e, addr, &kinds);
+        let (code, out) = run_code(&e, &["verify", addr]);
+        assert!(code == Some(1) && out.contains(want), "{addr}: {out}");
+    }
+    // A re-check after a failed check loads; a check after a signoff does not.
+    let mut evs = vec![("init", init_data("6.1.0.3"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("check", 1)];
+    evs[5].1["verdict"] = serde_json::json!("fail");
+    write_log(&e.root.join("pages/6.1.0.3"), &evs);
+    let (code, out) = run_code(&e, &["status", "6.1.0.3"]);
+    assert_eq!(code, Some(0), "{out}");
+    evs[6].1["verdict"] = serde_json::json!("fail");
+    evs.push(ev("signoff", 1));
+    evs.push(ev("check", 1));
+    write_log(&e.root.join("pages/6.1.0.3"), &evs);
+    let (code, out) = run_code(&e, &["status", "6.1.0.3"]);
+    assert!(code == Some(1) && out.contains("log entry 9 is out of order: a check of 05.01 after its signoff"), "{out}");
+}
+
+/// R2: a check after a signoff says what state the pass is in and what to do next.
+#[test]
+fn check_after_a_signoff_says_signed_off_and_next_close() {
+    let e = Env::ready("check-after-sign");
+    e.open("src/a.rs", "false");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.ok(&["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
+    let before = e.log();
+    e.no(&["check", PG, "1", "--as", "cat"], "refused: 05.01 was signed off by pri at entry 10 (outcome failed), so it cannot be checked again; nothing was written. Next: wf close 1.2.3.4 1");
+    assert_eq!(e.log(), before);
+    assert!(!e.page().join(".wf-lock").exists());
+}
+
+/// G2: return and check share one commit rule: 40 or 64 lowercase hex. A refused return is not checked.
+#[test]
+fn return_and_check_commits_must_be_40_or_64_hex() {
+    let e = Env::ready("commit-rule");
+    let h64 = "0a".repeat(32);
+    let mut evs = vec![("init", init_data("5.0.0.1"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1),
+                       ("return-refused", serde_json::json!({"pass": 1, "by": "bob", "commit": "not a hash \u{1b}", "why": "w"}), Some(1)),
+                       ev("return", 1), ev("check", 1), ev("signoff", 1), ev("close", 1)];
+    evs[5].1["commit"] = serde_json::json!(h64);
+    evs[6].1["commit"] = serde_json::json!(h64);
+    let dir = e.root.join("pages/5.0.0.1");
+    write_log(&dir, &evs);
+    let (code, out) = run_code(&e, &["status", "5.0.0.1"]);
+    assert!(code == Some(0) && out.contains("05.01  closed"), "64-hex commits and a raw refused return load: {out}");
+    for bad in ["".to_string(), " ".into(), "\t\n".into(), "c3".into(), "0A".repeat(32), "0a".repeat(31), "0a".repeat(33), "g".repeat(40)] {
+        let mut v = evs.clone();
+        v[5].1["commit"] = serde_json::json!(bad);
+        write_log(&dir, &v);
+        let (code, out) = run_code(&e, &["verify", "5.0.0.1"]);
+        assert!(code == Some(1) && out.contains("log entry 6 is out of order: a return for 05.01 whose commit is not a 40- or 64-character lowercase hex hash"), "{bad:?}: {out}");
+    }
+}
+
+/// R2a: a signoff outcome must be one wf signoff accepts.
+#[test]
+fn signoff_outcome_must_be_one_wf_accepts() {
+    let e = Env::ready("outcome-rule");
+    let dir = e.root.join("pages/5.0.0.2");
+    let mut evs = vec![("init", init_data("5.0.0.2"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)];
+    for ok in ["passed", "failed", "blocked", "needs-authority"] {
+        evs[6].1["outcome"] = serde_json::json!(ok);
+        write_log(&dir, &evs);
+        assert_eq!(run_code(&e, &["status", "5.0.0.2"]).0, Some(0), "{ok}");
+    }
+    for bad in [serde_json::json!("maybe"), serde_json::json!(""), serde_json::json!(1)] {
+        evs[6].1["outcome"] = bad;
+        write_log(&dir, &evs);
+        let (code, out) = run_code(&e, &["status", "5.0.0.2"]);
+        assert!(code == Some(1) && out.contains("log entry 7 is out of order: a signoff for 05.01 whose outcome is not passed, failed, blocked, needs-authority"), "{out}");
+    }
+}
+
+/// R2a: the signed-off refusal escapes the signer and outcome it reads from the log.
+#[test]
+fn signed_off_refusal_escapes_log_text() {
+    let e = Env::ready("signed-esc");
+    let dir = e.root.join("pages/5.0.0.3");
+    let mut evs = vec![("init", init_data("5.0.0.3"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)];
+    evs[5].1["verdict"] = serde_json::json!("fail");
+    write_log(&dir, &evs);
+    // write_log writes actor "pri"; make the signoff actor hostile by hand, then rechain.
+    let text = fs::read_to_string(dir.join("log.jsonl")).unwrap();
+    let mut out = String::new();
+    let mut prev = "0".to_string();
+    for line in text.lines() {
+        let mut v: serde_json::Value = serde_json::from_str(line).unwrap();
+        v["prev"] = serde_json::json!(prev);
+        if v["kind"] == "signoff" {
+            v["actor"] = serde_json::json!("p\u{1b}[2Kri\u{202e}");
+        }
+        let l = v.to_string();
+        use sha2::{Digest, Sha256};
+        prev = Sha256::digest(l.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        out += &l;
+        out.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), out).unwrap();
+    run_code(&e, &["verify", "5.0.0.3", "--fix"]); // print the views from the log, so check reaches the signoff test
+    let (code, msg) = run_code(&e, &["check", "5.0.0.3", "1", "--as", "cat"]);
+    assert_eq!(code, Some(1), "{msg}");
+    assert!(msg.contains("was signed off by p\\u{1b}[2Kri\\u{202e} at entry 7"), "{msg}");
+    assert!(!msg.contains('\u{1b}') && !msg.contains('\u{202e}'), "{msg}");
+}
+
+/// G2: a SHA-256 git repo (64-hex commits) runs return, check, signoff and close, and the page loads.
+#[test]
+fn sha256_repo_runs_a_full_pass_and_loads() {
+    let root = std::env::temp_dir().join(format!("wf-test-{}-sha256", std::process::id()));
+    let _ = fs::remove_dir_all(&root);
+    fs::create_dir_all(root.join("game/src")).unwrap();
+    let e = Env { root };
+    let init = Command::new("git").current_dir(e.root.join("game")).args(["init", "-q", "-b", "main", "--object-format=sha256"]).output().unwrap();
+    if !init.status.success() {
+        eprintln!("skipping sha256_repo_runs_a_full_pass_and_loads: this git has no sha256 support: {}", String::from_utf8_lossy(&init.stderr));
+        return;
+    }
+    fs::write(e.root.join("game/src/a.rs"), "a = 1\n").unwrap();
+    e.git(&["add", "."]);
+    e.git(&["commit", "-q", "-m", "start"]);
+    e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
+    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert_eq!(sha.len(), 64, "{sha}");
+    let (ok, out) = e.ret(1, &sha, "bob");
+    assert!(ok, "{out}");
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+    assert!(e.ok(&["status", PG]).contains("05.01  closed   passed"));
+    assert!(e.ok(&["board", PG, "--card", "1"]).contains(&sha));
+}
+
+/// Rewrite the actor of every entry of one kind, then rechain the log (a forged log).
+fn set_actor(dir: &PathBuf, kind: &str, actor: &str) {
+    use sha2::{Digest, Sha256};
+    let text = fs::read_to_string(dir.join("log.jsonl")).unwrap();
+    let (mut out, mut prev) = (String::new(), "0".to_string());
+    for line in text.lines() {
+        let mut v: serde_json::Value = serde_json::from_str(line).unwrap();
+        v["prev"] = serde_json::json!(prev);
+        if v["kind"] == kind {
+            v["actor"] = serde_json::json!(actor);
+        }
+        let l = v.to_string();
+        prev = Sha256::digest(l.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        out += &l;
+        out.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), out).unwrap();
+}
+
+/// wf status escapes names from the log (a forged signer with ESC, CR and U+202E), like observe and board.
+#[test]
+fn status_escapes_a_forged_signer_name() {
+    let e = Env::ready("status-esc");
+    let dir = e.root.join("pages/5.0.0.4");
+    let evs = vec![("init", init_data("5.0.0.4"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)];
+    write_log(&dir, &evs);
+    let bad = "p\u{1b}[2K\rri\u{202e}";
+    set_actor(&dir, "signoff", bad);
+    set_actor(&dir, "check", bad);
+    let (code, out) = run_code(&e, &["status", "5.0.0.4"]);
+    assert_eq!(code, Some(0), "{out}");
+    assert!(out.contains("signoff        05.01 by p\\u{1b}[2K\\u{d}ri\\u{202e}"), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// wf return --commit with hostile input: the 'not found' error shows it escaped.
+#[test]
+fn return_escapes_a_hostile_commit_in_its_error() {
+    let e = Env::ready("ret-esc");
+    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    let (ok, out) = e.ret(1, "\u{1b}]0;title\u{7}\r\u{202e}x", "bob");
+    assert!(!ok, "{out}");
+    assert!(out.contains("commit \\u{1b}]0;title\\u{7}\\u{d}\\u{202e}x not found in"), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\u{7}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// board --card shows the check's commit in full, like the return line above it.
+#[test]
+fn board_card_shows_full_commits_on_return_and_check() {
+    let e = Env::ready("card-full");
+    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    let card = e.ok(&["board", PG, "--card", "1"]);
+    let line = |k: &str| card.lines().find(|l| l.trim_start().starts_with(k)).unwrap_or_else(|| panic!("{k}: {card}")).to_string();
+    assert!(line("return:").contains(&format!("commit {sha};")), "{card}");
+    assert!(line("check:").contains(&format!("commit {sha};")), "{card}");
+}
+
+/// wf observe escapes the Prime name and an elevation target read from a forged log.
+#[test]
+fn observe_escapes_a_forged_prime_and_elevation_target() {
+    let e = Env::ready("observe-esc");
+    let dir = e.root.join("pages/5.0.0.5");
+    let bad = "p\u{1b}[2K\rri\u{202e}";
+    let mut init = init_data("5.0.0.5");
+    init["prime"] = serde_json::json!(bad);
+    let evs = vec![("init", init, Some(1)), ev("draft", 1),
+                   ("elevate", serde_json::json!({"pass": 1, "to": bad, "item": "q"}), Some(1))];
+    write_log(&dir, &evs);
+    run_code(&e, &["verify", "5.0.0.5", "--fix"]); // print the views from the log
+    let (code, out) = run_code(&e, &["observe", "5.0.0.5"]);
+    assert_eq!(code, Some(0), "{out}");
+    let esc = "p\\u{1b}[2K\\u{d}ri\\u{202e}";
+    assert!(out.contains(&format!("(prime: {esc})")), "{out}");
+    assert!(out.contains(&format!("unanswered: entry 3 to {esc}: q")), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// wf observe escapes forged close outcomes in its 'loop' line (no load rule for close outcomes: parked).
+#[test]
+fn observe_escapes_forged_close_outcomes_in_the_loop_line() {
+    let e = Env::ready("loop-esc");
+    let bad = "f\u{1b}[2K\rail\u{202e}";
+    let mut evs = vec![];
+    for nn in 1..=2 {
+        let mut c = closed_chain(nn, "failed");
+        c[6].3["outcome"] = serde_json::json!(bad);
+        evs.extend(c);
+    }
+    seed(&e, PG, &evs);
+    let out = e.ok(&["observe", PG]);
+    let esc = "f\\u{1b}[2K\\u{d}ail\\u{202e}";
+    assert!(out.contains(&format!("loop: the last two closed passes ended {esc} and {esc}")), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
 }
