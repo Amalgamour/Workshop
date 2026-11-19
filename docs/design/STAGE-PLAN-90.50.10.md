@@ -855,3 +855,231 @@ Q7 and Q8 from 11.10 stay open.
 Verdict, v4: no FAIL. Tensions: lab slot and shape (Q9), when a waiting page frees its
 files (Q10), every page trialled where the draft workflow trials fewer, security scope
 (Q7), files expected not proven, no hostile pass yet.
+
+## 13. v5 (2026-11-19, 2:10 PM EST, Designer): labs in their own band (t432)
+
+This section supersedes sections 1-12 wherever they differ. Old lines stay as history
+(Axioms.md:23). state: draft v5 for Prima. Not live; no wf page touched.
+
+### 13.1 Matthew's words (docs/review/DIRECTOR-WORDS-t432.md, 0638c56), quoted exactly
+
+| Plan Q | His words | Result |
+|---|---|---|
+| Q7 security and stage 2 | :5 "Yes, stage 2 waits until the build is done too" | overrides the default |
+| Q8 grant | :7 "The real runner records my grant and cites my words file" | default taken: page 0412 |
+| Q9 lab | :9 "(no option picked; answered by t432u below)" | replaced by t432u |
+| Q10 files | :11 "Yes, a page holds its files until its lab test passes" | default taken: strict waves |
+| 0403 builder | :13 "Cursor-1 keeps 0403, I'll paste it" | 0403 stays with Cursor-1; Matthew pastes its prompt |
+
+t432u (:16): "V4 plans questions.  The labs should be a separate page in it's own band.
+we might have 10 stage bands but only need 30 labs for all of it.  We want those labs to
+be reusable.  So a seperate band for storing them makes sense to me."
+
+Relay check:
+- Q7: same words. Prima's plain words (:18) say "the whole build"; his words say "the build".
+- 0403: the relay dropped "I'll paste it".
+- t432u: the relay dropped the opening "V4 plans questions."; the rest is the same.
+- The record numbers the questions 1-5 (:4-13); the plan numbers them Q7-Q10, and the
+  0403 question was Prima's, not in plan v4.
+
+### 13.2 Where the lab band goes
+
+What the files say:
+- A page number reads `NDNN`; the second digit `D` is the band (seqAddr.md:233, :237).
+  Every band is 100 pages, PP00-PP99 (:240); PP00 is the band head (:241), now also its
+  door (seqAddr.md section 10, rule 4; t420.md:4); PP99 is its continuation (:242).
+  Job pages sit on PP01-PP98 (section 10, rule 4): 98 slots, room for about 30 labs.
+- 0100-0999 are the standard bands the kernel models; 1000-9998 is user space, where a
+  band takes its role by name in its band head (seqAddr.md:224-225; workflow-loop.003.md:38).
+- The draft workflow map names band D=7 the labs band: "`0700-0799` (N7) | colab | labs:
+  cold-model trials of the page's work" (workflow-loop.003.md:48); WORK-BOOK-CONCEPT.md:71
+  "Lab page, 07NN. Cold trials of the work." Face 07 is labs on every page: "07 is a flex
+  location, for dev work it's going to become labs." (t245u.md:5); kit docs/DESIGN.md:28.
+- t226u.md:7 "a dev page, a work page and a lab page all linked together."
+- Sets by number: "Pages with the same N and NN in different bands form a set"
+  (seqAddr.md:243); "matched by the CC and the title" (DIRECTOR-RULINGS.md:71-72). But
+  "two pieces that match are not connected by matching" (Axioms.md:27); a link is written.
+
+Does a lab band collide with the stage bands? Only Matthew's first stage band is recorded
+(t423u.md:11, 0400-0499). If later stages take the next hundreds in a row (0500, 0600 ...),
+ten stages fill 0400-1399 (nine stages 0400-1299), and stage 4 lands on 0700. So the lab
+band and the stage bands must be chosen together. That is two questions, Q11 and Q12.
+
+Q11. Where is the lab band?
+- Proposed: (default) band 0700 on the same book: door 90.50.10.0700, labs
+  90.50.10.0701-0798, continuation 0799. My proposed answer is the default.
+  Other options: a user band on the same book, such as 1700; or another book on the shelf,
+  such as 90.50.11, band 0400 (work starts at band 0400 there too, t413u.md:9).
+- Why: 7 is labs at the page scale (face 07, t245u.md:5) and in the files' band map (N7,
+  workflow-loop.003.md:48; WORK-BOOK-CONCEPT.md:71). The same number at every scale is
+  axiom 2 (Axioms.md:15). t432u says "its own band", a band, not a book; on the same book,
+  stage pages and labs link inside one book and one log root. 0700 passes A1-A9: book 10,
+  page 0100 or higher, labs on PP01-PP98, door at PP00, nothing at PP99, 99 or 9999. Who
+  gets hurt: a reader who looks for labs in a different place from the face 07 they know;
+  if stage 4 took 0700, two kinds of work in one band.
+- Axioms: 2 (:15) pass; 8 (:27) pass, labs join pages by written links, not by number; 6
+  (:23) pass, 0497 is recorded unused; 7 (:25) tension, the band map is a draft (not live).
+
+Q12. How are later stage bands numbered, so none lands on the lab band?
+- Proposed: (default) one D=4 band in each thousand: stage 1 0400, stage 2 1400, stage 3
+  2400, up to 9400 for a tenth stage. Every stage band is the same kind (D=4) and none
+  meets 0700. My proposed answer is the default.
+  Other option: the next hundreds in a row, skipping 0700 (0400, 0500, 0600, 0800 ...,
+  1400 for a tenth stage).
+- Why: t432u "we might have 10 stage bands"; seqAddr.md:233 reads D as the band's kind, so
+  the same D for every stage band keeps one shape (Axioms.md:15). 1000-9998 bands take
+  their role by name in the band head (seqAddr.md:225; workflow-loop.003.md:38). 9400 is
+  not 99 and not 9999. Who gets hurt: a reader who expects stage 2 at 0500.
+- Axioms: 2 (:15) pass; 5 (:21) pass, a fixed place per stage; 7 (:25) tension, user
+  space bands need a band head that names the role (no tool writes one yet).
+
+### 13.3 How labs work in the band
+
+- Each lab is one page in 0700-0798, titled by what it tries (a subject), not by a stage
+  or a work page. The door 0700 lists every lab with its state and the pages it serves.
+- Labs map to work pages by two-way links, never by number: 0701 and 0401 are not a set.
+  Their titles differ, so seqAddr.md:243 does not pair them (titles should match), and
+  DIRECTOR-RULINGS.md:71-72 matches by title too.
+- Until 0406 lands, by hand (wf v0 writes faces 01, 02 and 08, src/cmd.rs:220; not 07, :226):
+  - work page face 01: "Lab: 90.50.10.07NN (<lab title>); trial file tests/lab_PPPP.rs";
+    face 08: "lab: 90.50.10.07NN".
+  - lab face 01: "Serves: 90.50.10.PPPP (tests/lab_PPPP.rs), ..."; face 08: "serves:
+    90.50.10.PPPP, ...".
+- After 0406: the link goes on face 08 of both pages, written by wf. Face 08 is where
+  links live (seqAddr.md:249; DEV-WORK-LAB-PAGES.md:65 "Face 08: links to the work page
+  and the lab page, both ways"). Face 07 on the work page holds trials as a view later
+  (kit docs/DESIGN.md:28 "07 labs | trials"); it is not the link.
+- Reuse: a later stage's page (say 1404) links an existing lab by adding the two links
+  above; its trial is a new trial file inside that lab, using the lab's harness. No new
+  lab page, no copied code (t425u.md:3; Axioms.md:15 "do not reinvent what already exists").
+- A new lab page is justified only when no lab on the door's list tries that subject, or
+  the trial needs a different harness (for example, the core compute rather than the wf
+  binary). Prime reads the door's list first and names in the pack why no lab fits.
+- Each lab holds one harness for its subject and one trial file per page it serves.
+  Trials are written by another view after the work's return (Axioms.md:29).
+
+### 13.4 Stage 1's labs
+
+One lab is enough for stage 1: every stage 1 page changes the wf binary, so they share one
+harness.
+- 90.50.10.0700: lab band door. Drafts no passes; face 01 lists the labs.
+- 90.50.10.0701: "wf loop lab": the harness for wf end-to-end tests (tests/common/mod.rs)
+  and a trial file per page it serves (tests/lab_PPPP.rs). Pass 1 moves the harness out of
+  tests/wf.rs and makes the tests build on Windows (the old 0405 job, then the 0497 pass 1
+  draft). Hold: it changes tests/wf.rs, which 0403 changes, so it cannot be released
+  until 0403 closes (t432.md:13: Cursor-1 builds 0403).
+- 0497 is retired as a slot: never made, recorded unused, not deleted. Sections 12 and the
+  v2 drafts that name 0497 stay as history.
+
+### 13.5 Page list, v5
+
+| Page | Title | May change | Size (b/l/w) | MVP goal (done-when) |
+|---|---|---|---|---|
+| 0403 | address guard (live, packed; Cursor-1) | as packed | packed | as packed |
+| 0404 | returns state a design review (t416u) | templates/v4/return.txt, src/render.rs, src/cmd.rs | 1/2/3 | as 12.5, trial in lab 0701 |
+| 0405 | not used (12.5) | - | - | - |
+| 0406 | needs links on both pages | src/cmd.rs, src/lib.rs, src/page.rs, src/render.rs | 2/3/4 | as 10.2, trial in lab 0701 |
+| 0407 | the door prints its own type and contents | src/render.rs | 1/2/3 | as 10.2, trial in lab 0701 |
+| 0408 | withdraw a packed pass nobody claimed | src/cmd.rs, src/lib.rs, src/page.rs | 1/2/3 | as 10.2, trial in lab 0701 |
+| 0409 | retire a page | src/cmd.rs, src/lib.rs, src/page.rs | 1/2/3 | as 10.2, trial in lab 0701 |
+| 0410 | not used (11.4) | - | - | - |
+| 0411 | the real runner starts a page, Matthew grants it | src/cmd.rs, src/lib.rs | 1/2/3 | as 11.3, trial in lab 0701 |
+| 0412 | the real runner records Matthew's grant (t432 Q8) | src/cmd.rs, src/lib.rs | 1/2/3 | `wf grant` by a runner who is not the person needs `--ref` naming a recorded words file; the grant entry records the runner as actor, Matthew as granter and the ref; with no ref it is refused; the person's own grant works as today (cmd.rs:198-204 @ 60dd7e25); trial in lab 0701 |
+| 0497 | not used (13.4) | - | - | - |
+| 0498 | tie-it-together | README.md, docs/WALKTHROUGH.md (new) | 1/2/4 | as 12.5, trial in lab 0701 |
+| 0700 | lab band door | (drafts no passes) | 0 | lists every lab |
+| 0701 | wf loop lab | pass 1: tests/common/mod.rs (new), tests/wf.rs; each trial: tests/lab_PPPP.rs (new) | pass 1 2/3/5; 8 trials 8/8/16 | pass 1 as 12.5 (0497 pass 1); each trial fails on the work's start commit and passes on its return |
+
+0412 is its own page, not a second job in 0411: one page, one job (t249u.md:9;
+WORK-BOOK-SPEC.md:79, a draft). 0411 changes init-page; 0412 changes `wf grant`.
+
+Totals: work pages 9/17/26; lab 0701 10/11/21; stage 19/28/47 passes (best/likely/
+worst), plus 0403.
+
+### 13.6 Needs, both ways, v5
+
+| Page | Needs | Needed by |
+|---|---|---|
+| 0403 | none | 0407, 0498, and 0701 pass 1 (shared tests/wf.rs, a hold) |
+| 0404, 0406, 0408, 0411, 0412 | 0701 (pass 1, and its trial to close) | 0498; 0701 lists each under "serves" |
+| 0407 | 0403, 0701 | 0498 |
+| 0408 | | also 0409 |
+| 0409 | 0408, 0701 | 0498 |
+| 0701 | 0403 closed (pass 1); each trial needs that page's return | every work page above; 0498 |
+| 0700 | none | lists 0701 |
+| 0498 | 0403, 0404, 0406-0409, 0411, 0412, 0701 | none |
+
+### 13.7 Waves (strict, t432.md:11), after 0403 closes
+
+src/cmd.rs is the queue: 0404, 0406, 0408, 0409, 0411 and 0412 each change it and each
+holds it until its trial passes. 0407 (src/render.rs) runs beside it once 0404 is closed.
+
+| Wave | Runs |
+|---|---|
+| 1 | 0701 pass 1 (harness; held until 0403 closes) |
+| 2 | 0404 |
+| 3 | trial 0404 |
+| 4 | 0407, 0408 |
+| 5 | trials 0407, 0408 |
+| 6 | 0409 |
+| 7 | trial 0409 |
+| 8 | 0406 |
+| 9 | trial 0406 |
+| 10 | 0411 |
+| 11 | trial 0411 |
+| 12 | 0412 |
+| 13 | trial 0412 |
+| 14 | 0498 |
+| 15 | trial 0498 |
+
+So 0412 adds two waves: 15, not 13. No order fixes that while 0412 changes src/cmd.rs.
+
+### 13.8 Roadmap effects (roadmap note v3)
+
+Stage 2 "Lock the door" waits until the build is done, with security (t432.md:5;
+t424.md:12). Stages that lean on it (stage 3 :79, :84; stage 5 :97) are Q13.
+
+Q13. With stage 2 parked, how do the stages that need a locked door run?
+- Proposed: (default) they go ahead on today's gate, and every proof they make is marked
+  "door open: not proof" until stage 2 lands (PACK-TEMPLATE.md:34, :122). Other option:
+  move stages 3 and 5 after stage 2 as well.
+- Why: ROADMAP :79 says the locked door makes "every later proof means something"; :97
+  says stage 5 "needs the locked door (2)". t432.md:5 parks stage 2. Who gets hurt:
+  Matthew, if a proof he watches can be gone around.
+- Axioms: 9 (Axioms.md:29) pass, the label keeps proof honest; 7 (:25) pass, the gap stays
+  visible; 6 (:23) pass.
+
+The instruction guard's stage 2-6 items (ROADMAP :412-415) are security work, so they
+wait under t424.md:12 itself; no new question.
+
+### 13.9 Release check of v5 (RELEASE-CHECK.md @ c0e5b22)
+
+| Item | Source file:line | Seen in v5 | Result |
+|---|---|---|---|
+| A1-A9 for 0700, 0701, 0412 | t413u.md:7, :9; seqAddr.md:14, :240-242, :325 | 0700 door (PP00, no work), 0701 and 0412 on PP01-PP98 | PASS |
+| A5 work in band 0400 | t413u.md:9 ("for this"); t432.md:16 (labs in their own band) | labs in 0700 | PASS (t432u asks for a separate band) |
+| A6 door at PP00, no work there | t420.md:4; seqAddr.md section 10 rule 4 | 0700 drafts no passes | PASS |
+| H1 lab band number | workflow-loop.003.md:48 (draft); WORK-BOOK-CONCEPT.md:71; t245u.md:5 | 0700 (default) | TENSION (the band map is a draft; Q11) |
+| H1 stage band numbers | seqAddr.md:233, :225; t432.md:16 | D=4 per thousand (default) | TENSION (only stage 1 is recorded; Q12) |
+| H1 one lab for stage 1 | t432.md:16 (reusable, about 30 labs) | 0701 serves all stage 1 pages | PASS |
+| H1 lab titled by subject | t432.md:16 ("reusable"); Axioms.md:15 | 13.3 | PASS |
+| Labs link, not pair by number | Axioms.md:27; seqAddr.md:243 (titles should match) | 13.3 | PASS |
+| Face for the link | seqAddr.md:249; DEV-WORK-LAB-PAGES.md:65; cmd.rs:220, :226 | 01 and 08 by hand, then 08 | PASS |
+| 0497 retired, unused | Axioms.md:23 | 13.4 | PASS |
+| Hold on 0701 pass 1 | t422.md:7; tests/wf.rs shared with 0403 | 13.4, 13.7 wave 1 | PASS |
+| t432 Q7 | t432.md:5 | 13.8, roadmap note v3 | PASS; Q13 for stages that need stage 2 |
+| t432 Q8 | t432.md:7 | 0412 | PASS |
+| t432 Q10 | t432.md:11 | 13.7 strict | PASS (15 waves; the relay's 13 predates 0412) |
+| t432 0403 | t432.md:13 | 13.5 | PASS |
+| t425u no copied lab code | t425u.md:3 | one harness per lab | PASS |
+| t424 Q1-Q6, t423u, t422, t416u | as 11.11, 12.9 | unchanged | PASS |
+| Needs both ways | t422.md:6 | 13.6 | PASS |
+| One page, one job | t249u.md:9; WORK-BOOK-SPEC.md:79 (draft) | 0412 apart from 0411 | TENSION (rule only in a draft) |
+| Files touched | wf @ 60dd7e25 | 13.5 | TENSION (expected, not proven) |
+| Quotes from recorded files | t432, t425u, t424, t245u, t226u | 13.1-13.8 | PASS |
+| Axiom 6 (Axioms.md:23) | additions only | section 13 appended | PASS |
+| Axiom 9 (:29) | no hostile pass of the plan | - | TENSION |
+
+Verdict, v5: no FAIL. Tensions: lab band from a draft map (Q11), later stage band
+numbers (Q12), stages that need stage 2 (Q13), one-job rule only in a draft, files
+expected not proven, no hostile pass yet.
