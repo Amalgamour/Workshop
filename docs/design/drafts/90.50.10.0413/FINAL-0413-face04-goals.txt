@@ -1,0 +1,30 @@
+His words, on this page (t462u, DIRECTOR-WORDS-t461u.md:11, the spelling fix is t463u line 14):
+My words live on the pages, that shape the work.
+
+And t461u (same file, line 5): we do not need his words in a pack, other than when we find conflicts, forks, or major issues. Prime designs the packs. He brings Matthew the issues. If the loop can finish without him, it should.
+
+What this page is: one printed work order per pass, made by wf from the log. The folder he opened had the pack files and no return, because those files are written at pack and the return lives in the log. The work order is the one place that shows the whole pass.
+
+What it does not do: it does not store a quote in a pack field named words:. The draft reader cuts that up, and a redraft deletes it (trial major 1, src/cmd.rs:147-160 at a823ee28). His words stay on face 04 and face 01.
+
+What the work order shows, in order:
+1. Page words: the current face 01 and face 04. If face 04 is empty, say so. Do not copy them into the pack.
+2. Frame: the packed jobs, from the pack text. If that text has a Builder line, show it. If not, say builder: not named.
+3. Claim: who claimed, and the entry number. If the claim entry has a worker name (page 0414), show that too.
+4. Return: the recorded text, its entry, its hash, the commit, and the file. The hash is of the trimmed text, not the raw file bytes (src/git.rs:11).
+5. Check: verdict, checker, commit checked.
+6. Signoff: outcome and note.
+7. Close: the close record.
+8. Notes: face 06 entries by entry number, from the note pinned at draft through this pass's close. Never because the text starts with "on 05.NN:".
+
+Locks, said the way the code works:
+- Person and title are set at init. No later command changes them.
+- Prime can change later (set-prime, src/cmd.rs:213-217). The work order shows the prime at pack time, and lists a later prime change as a later entry.
+- Grant paths can grow (grant, src/cmd.rs:220-226). Same rule: show the grant at pack time, and list a later grant as a later entry.
+- An entry is sealed when the next entry exists, because the next line holds prev. The last entry is not sealed. Say that on the view. The outside seal is intake: a returned log is taken only when the local log is a prefix of it (src/cmd.rs:629-630).
+
+Files: WORK-ORDER.md is a view. It is not one of the hashed files. The hashed ones are the pack text, AGENTS.md, and PROMPT.md (src/render.rs:408, pack_hash at src/cmd.rs:403). BUILDER-PROMPT.md and RETURN-TEMPLATE.md are reprinted from the template version stored on the pack. A missing WORK-ORDER.md on an old page does not block commands. The next write prints it and does not append a log line for the printing.
+
+This page prints the file. It does not push it. His later ruling, as Prima stated it on Nov 23 (t492-t493u; the words file is not in the repo yet): the pages folder on packs updates on every return, not only on a publish after close. That push is its own page, 90.50.10.0417, because it changes the return command. This page stays on src/render.rs so it can sit in wave 6 beside 0409.
+
+Wave: section 15.4 wave 6, beside 0409. This pass changes src/render.rs only. 0409 changes src/cmd.rs, src/lib.rs, and src/page.rs.

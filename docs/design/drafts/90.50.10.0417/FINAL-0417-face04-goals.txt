@@ -1,0 +1,15 @@
+His ruling, as Prima stated it on Nov 23, 10:32 AM EST, and named t492-t493u. Looked for a words file on origin/prima/build at 78101fe6. It is not there. This note quotes the job, not a words file:
+
+Matthew's pages/<id>/05.NN folder on packs updates on every return, not only on publish after close.
+
+Why this is its own page: 0413 prints the work order (src/render.rs) and sits in wave 6 beside 0409, which changes src/cmd.rs. The update is a push of that folder onto the packs branch from the return command. That is src/cmd.rs. Putting it on 0413 would take 0413 out of wave 6 and would push 0414 off wave 14. 0414 is the temp-worker name, a different job. Prima said 0414 carries the naming, and this change is 0413 or a new page. The new page is 90.50.10.0417.
+
+What it does: after the return is in the log and the views are reprinted, return --push also updates packs. publish-pack refuses unless the run folder is on the packs branch (src/cmd.rs:584-585 at a823ee28). The builder is not on that checkout. So this pass updates packs from a side worktree. It commits pages/<page> by path. It does not force the push. It does not switch the builder's branch. It does not commit any other path.
+
+The same update runs after check, signoff, and close, because each of those changes the work order in that folder. The ruling names the return. The other three use the same path so the folder does not freeze at the return. If he meant return only, that is a question for him.
+
+If the packs push fails, the return stays. The message says the packs folder was not updated. Nothing is rolled back and nothing is forced.
+
+Needs 0413, so the folder has a work order that changes when the return lands. Until 0413 is closed, this page must not be built: a push of the old 05.NN would not show the return.
+
+Wave: 16, after trial 0414. Trial of this page is wave 17. 0498 moves to waves 18 and 19. 0414 stays at wave 14.

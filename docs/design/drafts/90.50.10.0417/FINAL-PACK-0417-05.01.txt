@@ -1,0 +1,16 @@
+repo: work
+start: a823ee284574be3d9f6247925b9088137a27a539
+predecessor: none
+axioms: 1.7.8,8
+outcome: a pushed return updates pages/<page>/05.NN on the packs branch, without a force push and without switching the builder's checkout
+overview: Ruling, as Prima stated it Nov 23, 10:32 AM EST, named t492-t493u. No words file was in origin/prima/build at 78101fe6. Quoted from the job: "Matthew's pages/<id>/05.NN folder on packs updates on every return, not only on publish after close."
+  This is not page 0413. 0413 prints the work order from the log and changes only src/render.rs, so it can run in wave 6 beside 0409. This is not page 0414. 0414 prints the builder name and records a temp worker. Prima named 0414 for that naming. This page is the push.
+  publish-pack commits pages/<page> only when the run folder's HEAD is packs (src/cmd.rs:581-598 at a823ee28). return --push records the return and pushes the log to the returns branch (the push loop ends near src/cmd.rs:578). The builder is not on packs. So a side worktree of the packs branch receives pages/<page>, commits that path, and pushes. No force. The builder's branch stays. A failed packs push leaves the return in place and says the packs folder was not updated.
+  The same helper runs after check, signoff, and close, so the folder keeps up after the return. The ruling names the return. Those three are the same path. If he meant return only, stop and say so.
+  Needs 0413 closed, because the file that changes inside 05.NN on a return is the work order. Lab 0701, trial tests/lab_0417.rs, after this return. This pass writes no trial file. Wave 16, after trial 0414, so 0414 stays at wave 14. 0498 moves to waves 18 and 19.
+  Axioms: 1.7.8 (docs/spec/Axioms.md:9, kit :11). 8 Connection: the packs folder is linked by the push, not by hoping a later publish happens (spec :27, kit :29).
+w01: In src/git.rs add a helper that, in a side worktree of the packs branch, copies one page directory, commits that path only, and pushes origin packs. It never force-pushes. It never checks out packs in the builder's worktree. If the push fails, return the error and leave the worktree removed.
+w02: In src/cmd.rs, after a return is appended and the views are reprinted, and the returns push has succeeded, call that helper for this page. On failure, keep the return and print that the packs folder was not updated. Call the same helper after a successful check, signoff, and close. Do not call it on a refused return. Unit tests can stub the helper. The lab trial is the one that uses a real packs branch.
+may touch: src/cmd.rs, src/git.rs
+checks: cargo test --lib; cargo test --test wf
+stop if: the only way is to force-push, or to switch the builder's branch, or to commit a path outside pages/<page>. 0413 is not closed, so the folder would update without a work order. A refused return would still push. Another file must change. A rule above reads two ways.

@@ -1,0 +1,6 @@
+Goal: when a return is pushed, the packs copy of pages/<page>/05.NN updates. He does not wait for a publish after close. Band door: 90.50.10.0400.
+Lab: 90.50.10.0701 (wf loop lab); trial file tests/lab_0417.rs.
+Why: Prima, Nov 23, 10:32 AM EST, stating Matthew's t492-t493u (the words file is not in the repo yet): Matthew's pages/<id>/05.NN folder on packs updates on every return, not only on publish after close. Page 0413 prints the work order into that folder. This page is the push.
+Done when: after return --push succeeds, the packs branch's pages/<page>/05.NN matches the views just written, and the builder's checkout was not switched, and the push was not forced.
+Done when: if the packs push fails, the return stays recorded, and the error says the packs folder was not updated.
+Done when: tests/lab_0417.rs fails on start commit a823ee28 and passes on this return.

@@ -1,0 +1,21 @@
+His words, on this page.
+
+t441 (DIRECTOR-WORDS-t441.md:7): Yes, add page 0414 to stage 1. The question was only whether wf prints the builder's name (same file, line 3).
+
+t461u (DIRECTOR-WORDS-t461u.md:7): any name may claim for now. That is temporary. The goal is a loop that works. We are not refining, polishing, or securing yet.
+
+t439u lists six names and says "Currently we have" (DIRECTOR-WORDS-t439u.md:7-14). He did not say the list is closed. This pass does not refuse a name that is not on the list.
+
+What this page does: Prime may write a builder name on the draft. wf prints it first in the pack, in PROMPT.md, and in BUILDER-PROMPT.md. The name is a label. The person who claims types their own name. wf does not fill --as with the label.
+
+His ruling, as Prima stated it on Nov 23, 10:32 AM EST, and named t492-t493u. The words file is not in the repo (looked on origin/prima/build at 78101fe6). Quoted from that job, not from a words file:
+
+A claim under a builder name not in the list of six (Cursor-1, Cursor-C, Codex, Claude, Grok-1, Grok-2) is not refused: wf prints it as a temp worker and assigns that worker a name (e.g. temp-1, temp-2, stable for that name), recorded in the log so the worker stays traceable.
+
+The six names are the ones he listed in t439u (DIRECTOR-WORDS-t439u.md:7-14). A claim as one of those six keeps that name and gets no temp number. Any other name is accepted. The claim entry stores the typed name and a temp name. The same typed name always gets the same temp number, including on another page in the run folder. The next new name gets the next number, starting at temp-1. The reply says temp worker and the temp name. No elevate.
+
+What this page does not do: it does not edit template version 4 in place. Packs already made keep the prompt bytes they hashed. The new text is template version 5. Versions 1 through 4 stay as they are (src/render.rs:31 and :40-51 at a823ee28). It does not refuse a name. It does not fill --as from the pack.
+
+The old library page "0414 bench" is in another book (docs/reference/LIB-BUILD-SURVEY.md:104). This page is 90.50.10.0414. Titles may be reused in another book (DIRECTOR-RULINGS.md R34).
+
+Wave: section 15.4 wave 14. It needs 0404, because version 4 must already exist. It changes src/cmd.rs and src/render.rs. It waits on cmd.rs, not because render.rs is busy. render.rs is free in waves 10 through 13. 0411 and 0412 change src/cmd.rs and src/lib.rs only. See the section 17 note.

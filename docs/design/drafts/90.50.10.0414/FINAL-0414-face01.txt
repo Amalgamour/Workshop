@@ -1,0 +1,7 @@
+Goal: the pack and the prompt print the builder's name. A claim under a name that is not one of the six is not refused. wf records a stable temp name for that worker. Band door: 90.50.10.0400.
+Lab: 90.50.10.0701 (wf loop lab); trial file tests/lab_0414.rs.
+Why: t441 says add this page so wf prints the builder name (DIRECTOR-WORDS-t441.md:7). t461u says any-name claims are fine for now (DIRECTOR-WORDS-t461u.md:7). The hostile pass failed the raise, the closed name list, and an in-place edit of template 4 (docs/trial/TRIAL-WORK-ORDER-1.md, majors 7 to 9).
+Done when: a pack with a builder line prints "Builder: <name>" first in PROMPT.md and BUILDER-PROMPT.md, and inside the pack text, so the pack hash covers it.
+Done when: a pack with no builder line still packs and prints "builder: not named".
+Done when: a claim as one of the six is taken under that name and gets no temp number. A claim as any other name is not refused. The log records a temp name such as temp-1, the same number every time that typed name is seen, and the reply calls it a temp worker. No elevate is written. Template versions 1, 2, 3, and 4 still print the same prompt bytes as before.
+Done when: tests/lab_0414.rs fails on start commit a823ee28 and passes on this return.

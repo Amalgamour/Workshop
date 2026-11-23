@@ -1,0 +1,7 @@
+Goal: wf prints one work order for a pass, from the log, so the story of that pass can be read in one place. Matthew's words stay on the page. The pack does not paste them. Band door: 90.50.10.0400.
+Lab: 90.50.10.0701 (wf loop lab); trial file tests/lab_0413.rs.
+Why: t462u, his words live on the pages and shape the work (DIRECTOR-WORDS-t461u.md:11, corrected by t463u). The hostile pass docs/trial/TRIAL-WORK-ORDER-1.md (cloud/test b11becea) failed the old design. This pass drops the pasted-quote field.
+Done when: a closed pass prints pages/<page>/05.NN/WORK-ORDER.md from the log, sections in order (page words, frame, claim, return, check, signoff, close, notes), and an old page with no such file still takes commands.
+Done when: an entry that has a next entry is marked sealed by that next entry, and the last entry is marked not sealed.
+Done when: notes on the work order are face 06 entries chosen by entry number, and a note is not pulled in because its text starts with a pass number.
+Done when: tests/lab_0413.rs fails on start commit a823ee28 and passes on this return.
