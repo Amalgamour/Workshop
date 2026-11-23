@@ -1,0 +1,29 @@
+# Report
+
+- Builder: Cursor-C Chores
+- Page/pass: 90.50.10.0703 05.02
+- Kind: close
+- Commands run:
+  - wf binary: existing release build at commit a823ee284574be3d9f6247925b9088137a27a539.
+  - Recreated run folder `/tmp/wf-run-prima` (prior folder corrupted after `rm` while cwd inside it).
+  - Fetched origin `packs` and `returns`; reset `work/` to `origin/returns` (`91894950`).
+  - Verified `origin/returns:.workshop/logs/90.50.10.0703/log.jsonl` is 18 lines; entry 18 is **Grok-Check**, verdict **pass** (not the earlier unpushed Claude check).
+  - `wf intake --as prima`; confirmed `pages/90.50.10.0703/log.jsonl` byte-identical to `work/.workshop/logs/90.50.10.0703/log.jsonl` after intake (0703 took 3 entries).
+  - `wf signoff 90.50.10.0703 2 --outcome passed --note 'typed by Cursor-C Chores for Prima' --as prima`
+  - `wf close 90.50.10.0703 2 --as prima`
+  - Copied page log to `work/.workshop/logs/…`; remote log byte-prefix check OK; commit + push returns.
+  - `wf publish-pack 90.50.10.0703 2 --as prima`
+- Results:
+  - Outcome: **passed** (Grok-Check check entry 18, verdict pass).
+  - Cards: w01–w08 accepted (defaults; all jobs done per check).
+  - Close log entries: signoff 19, close 20.
+- Commits:
+  - returns (log): `ed22821d2bb35d471a9abb6622f5ca17375c1db8` — `wf: close 90.50.10.0703.05.02 (log)`
+  - packs: `eab7ce3a90e23debad5c3298a0ed11655f52a739` — `wf: publish 90.50.10.0703.05.02`
+  - Prior Grok-Check push: `756398d90ec0a0aff8b80afb64414294375e6040`
+- Findings:
+  - Read `reports/90.50.10.0703/05.02/Grok-Check-check-20261123-1330.md`. Claude’s stale local check at entry 18 was **not** on `origin/returns`; only Grok-Check’s check is authoritative.
+  - Intake exit 1 from known refusals 0001 and 0403; 0703 still processed. Also took entries for 0408 and 0701 (not published).
+- Time taken:
+  - **~2 minutes** wall clock for this close run (start to report push).
+  - Grok-Check’s check pass: cargo test 1.44s (per their report).
