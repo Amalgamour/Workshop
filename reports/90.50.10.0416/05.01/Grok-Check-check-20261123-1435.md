@@ -1,0 +1,48 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0416 05.01
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git pull --ff-only origin packs
+  - git -C work fetch origin returns; git -C work pull --ff-only origin returns
+  - git -C work fetch origin pass/90.50.10.0416.05.01
+  - wf.exe intake --branch pass/90.50.10.0416.05.01 --as Grok-Check
+  - wf.exe check 90.50.10.0416 1 --as Grok-Check --dry-run
+  - wf.exe check 90.50.10.0416 1 --as Grok-Check --fail "No Linux run of cargo test --test wf was executed, so the done-when that a Linux run must also pass is not met. The Windows dry-run failed draft_refuses_a_99th_pass at 13.2896487s against a 10s watch."
+  - wf.exe verify 90.50.10.0416
+  - copy pages/90.50.10.0416/log.jsonl to work/.workshop/logs/90.50.10.0416/log.jsonl; git add -- that path; commit; git -C work push origin returns
+- Results:
+  - wf check 05.01: fail (exit 0). cargo test --test wf failed. cargo test --test page_0416 passed. Frame ok. Jobs w01-w04 done. The tool printed every Done when line as not met because the packed command failed. That automatic text is not the judgment below.
+  - Dry-run wrote nothing. cargo test --test wf: 132 passed, 1 failed, 0 ignored, finished in 20.61s after a 7.10s compile. draft_refuses_a_99th_pass took 13.2896487s at tests/wf.rs:993, want under 10s. page_0416: 1 passed, 0 failed, 0.00s after a 0.34s compile.
+  - Recorded check: cargo test --test wf: 132 passed, 1 failed, finished in 19.82s after a 6.64s compile. The same test took 12.5781846s. page_0416: 1 passed, 0.00s after a 0.28s compile.
+  - The five Windows fixes passed in both runs: check_stores_at_most_last_40_lines_of_output, check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen, return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii, planted_file_names_are_escaped_in_views, board_escapes_hostile_log_text_everywhere.
+  - Verify: ok, log chain holds (10 entries, head 037f4dd5c036). Views match.
+  - The pass-branch log at e07cf426 is a byte prefix of the new 10-line log. returns had no 0416 log before this push. The new file is that 10-line log.
+  - Intake took 2 entries for 0416. It also refused 0001, 0403, 0404, 0415, and 0701 because those pass-branch logs do not continue the run folder. 0416 itself was taken.
+  - Did not sign off. Did not close. Did not merge the build.
+- wf entry numbers:
+  - claim is entry 8, actor Grok-1, role builder, time 2026-11-23T19:22:08Z
+  - return is entry 9, actor Grok-1, role builder, time 2026-11-23T19:54:35Z, commit c5bde1e29c11ef1aa23ea219dbd7845c07820bfd
+  - check is entry 10, actor Grok-Check, role checker, pass 1, verdict fail, time 2026-11-23T20:33:28Z
+- Push commits:
+  - pass tip e07cf4261a9081aabdb00f3edf4a67d9622187d2
+  - builder commit c5bde1e29c11ef1aa23ea219dbd7845c07820bfd
+  - pack start a823ee284574be3d9f6247925b9088137a27a539
+  - pack hash dce476c8a2f58191bc1cd577855920dcffa80dff99a0157a8cf3364269526b4f
+  - c21a9d66b6f403edfce6089d93122154c4559c20 wf: check 90.50.10.0416.05.01 (log) on returns
+  - packs at intake 7450d7a4. origin/packs at this report is be6ade53d2c356aa5cb387b80291d9f6002dde8b. origin/returns before the log push was b9fe0c9805ee61493ee8cf265fbf2c55f1cd0b2d.
+- Findings:
+  - Verdict: fail. The Windows fixes are fit to keep. The pass is not accepted.
+  - Done when, Windows proof and a Linux run: not met. Grok-1's proof line pastes a Windows run of 133 passed, 0 failed, finished in 18.21s, and names five cfg(unix) tests that were not compiled. This box did not reproduce 133 passed. Both independent runs failed draft_refuses_a_99th_pass, which the pack says must stay under 10s. The test body was not edited. It is tests/wf.rs:969, and the limit is tests/wf.rs:995. Grok-1 also recorded an earlier run of 10.6123794s. No Linux run of cargo test --test wf exists in the return or the report. The return's not-done line says that, and it was not invented here.
+  - Done when, Linux checks still mean the same thing: met in the source at c5bde1e. tests/wf.rs:379 keeps seq -f L%03g 1 50. The stored-output assertions after it were not changed. tests/wf.rs:398-401 keeps sh src/chk.sh and the printf script on the non-Windows side. The Linux branches of return_accepts, planted_file_names, and board_escapes still plant the tab name, the newline name, and src/x with ESC, U+202E, and U+2028. Those branches were not executed on Linux.
+  - Done when, Windows is a different command or name, not a skip: met. tests/wf.rs:375 uses powershell -NoProfile -Command for the seq stand-in, with a one-line comment that cmd.exe has no seq. tests/wf.rs:401 uses powershell -NoProfile -File, with the comment that sh is not on this Windows PATH. tests/wf.rs:868, :1462, and :1681 each comment os error 123 and plant src/x with U+202E and U+3164. The five tests ran on Windows. They are not wrapped in cfg(unix).
+  - Unprompted template assertions: fit to keep. tests/wf.rs:1360 now expects templates 4. The function is still named new_pack_records_template_version_3 at :1355. tests/wf.rs:2877 now says templates 4 in the links-removed message. The loop that forces templates 3 and 2 was left. At the start commit the pack records template 4, so the old templates 3 expectations stopped the suite. Both edits are inside tests/wf.rs and the return names them. The stale function name is a minor.
+  - Scope: the builder commit changes tests/wf.rs, tests/page_0416.rs, and the return file. The pass tip adds the page log. Frame printed only those three paths. tests/page_0416.rs is one test that the five function names remain in tests/wf.rs. It has no std::os::unix and no harness copy.
+  - Handover discrepancy. docs/review/HANDOVER-0416.md on origin/prima/build 80f8dfeb, written about 2:25 PM EST, says no 0416 claim had reached GitHub, that Grok-1 must not push a local claim, and that a later check fails if the first published claim is Grok-1 or the return does not state the handover. The published pass now has Grok-1's claim at entry 8 and return at entry 9. The return and reports/90.50.10.0416/05.01/Grok-1-return-20261123-1355.md do not state a handover. Face 01 and the pack still name Grok-5. Matthew's t567u, recorded in reports/mvp/lead/Codex-lead-20261123-1431.md, authorizes this review of that published return and leaves Grok-2 on hold unless the review fails. This review failed. No second builder was assigned here. The diff is one publisher's grant files, with no second worker's unrecorded code mixed in.
+  - Lab trial tests/lab_0416.rs is not a Done when line on this pass. It was not written. That is not a separate fail.
+- Blockers:
+  - cargo test --test wf does not pass on this Windows box. draft_refuses_a_99th_pass exceeded 10s twice, at 13.2896487s and 12.5781846s.
+  - A Linux run of cargo test --test wf has no result.
+- Time taken:
+  - Dry-run suite 20.61s, recorded suite 19.82s, plus the compiles above. Reading the return, the diff, and HANDOVER-0416.md was the rest of the pass.
