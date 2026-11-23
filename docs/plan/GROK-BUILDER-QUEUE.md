@@ -68,7 +68,7 @@ Grok-Check can start here today, after intake:
 - 90.50.10.0702.05.02 (returned, Claude)
 - 90.50.10.0703.05.02 (returned, Codex)
 
-Claude returned 90.50.10.0705.05.01. Next: Grok-Check runs `wf check 90.50.10.0705 1 --as Grok-Check` (not a dry-run), then Prima signs off and closes, then 05.02 can be packed (fold in t530u/t531u). 0422 report-system waits until 0705 closes.
+Claude's 90.50.10.0705.05.01 is closed passed (Grok-Check entry 9, Prima signoff and close). 05.02 is packed for Claude (start 32fc1f34e8efdb9dd609ed4679bdbc90a74e7998, pack hash 3340b0e5576e6fa5c658cef5f80464628d1fbc6f852835c36247101927b16b8c). Next: Claude claims `wf claim 90.50.10.0705 2`. 0422 report-system still waits until 0705 closes, and after 0423 if they share src/cmd.rs.
 
 Codex returned 90.50.10.0704.05.01. Intake is on packs. Do not check or close 0704 until Grok-Check runs `wf check 90.50.10.0704 1 --as Grok-Check`. Prima's response is `docs/review/DRIFT-0704-RESPONSE.md`.
 
@@ -99,7 +99,7 @@ Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is
 | 0421 (suggest) | wf prints the seated 05 and updates face 01 | wf `src/` (likely `src/render.rs` and `src/cmd.rs`) | 0418 closed. Needs a later slot when those files are free | N, needs a pack and 0418 |
 | 0422 (wait) | report-system: one work-order page that builds wf worker reports. Passes under this page carry the grants (0705.05.02 will name them). | wf `src/` as 0705.05.02 proposes (0408 holds `cmd.rs`, `lib.rs`, `page.rs`; 0407 holds `render.rs`; 0419 holds `git.rs`) | 0705 closed (t528u, t531u). After 0423 if they would share `src/cmd.rs`. Do not pack until then | N, waits on 0705 and 0423 |
 | 0423 (wait) | one-worker: a claimed, unreturned pass blocks any other claim on that page; check refuses while a claim is open; `push_log` / `wf return --push` refuses unless the published log is a prefix of the local log (t533u, `docs/review/DRIFT-0704-RESPONSE.md`) | `src/cmd.rs`, `src/page.rs`, `tests/page_0423.rs` | 0408 closed (it holds `cmd.rs` and `page.rs`), including the 0408 trial if that trial still holds the files. Pack text drafted in `docs/design/drafts/90.50.10.0423/`. First in the queue after 0408, ahead of 0422 | N, waits on 0408 |
-| 0705 | Worker-report lab: design the system end to end, then fold t530u/t531u into 05.02 | `labs/0705/` | 05.01 packed and returned (Claude). 05.02 pack text is drafted; packing waits on a Grok-Check of 05.01, then signoff and close | 05.01 returned; 05.02 not packed |
+| 0705 | Worker-report lab: design the system end to end, then fold t530u/t531u into 05.02 | `labs/0705/` | 05.01 closed passed. 05.02 packed for Claude on packs `d16cf4ae`, start `32fc1f34e8efdb9dd609ed4679bdbc90a74e7998`, pack hash `3340b0e5576e6fa5c658cef5f80464628d1fbc6f852835c36247101927b16b8c` | 05.02 packed, not claimed |
 
 Lab trials (`tests/lab_PPPP.rs` on 0701) run in the wave after each work wave. Each trial is its own new file, so they can run in parallel. 0410 stays unused (security is parked). 0405 stays parked; its job moved to 0416.
 
@@ -121,8 +121,8 @@ Pages in the same wave change no shared file. A page holds its files until its t
 
 | Page | Goal | Builder | Packable now | Blocker |
 |---|---|---|---|---|
-| 0705.05.01 | Design wf worker reports | Claude | returned | Grok-Check, then signoff and close |
-| 0705.05.02 | Fold in t530u/t531u | Claude | pack text drafted | 05.01 closed |
+| 0705.05.01 | Design wf worker reports | Claude | closed passed | done |
+| 0705.05.02 | Fold in t530u/t531u and Grok-Check minors | Claude | Y, packed | Claude claims it |
 | 0423 | one-worker (claim/check occupancy and push_log prefix) | (after 0408) | N | 0408 closed; then first in the queue, ahead of 0422 |
 | 0422 | report-system work order | (after 0705 and 0423) | N | 0705 closed; 0423 first if they share src/cmd.rs |
 
@@ -176,4 +176,4 @@ Waves 5-10 are a single-file queue on `src/cmd.rs`. Only one builder is busy the
 3. 0407, 0408 and 0419 are already packed and published on the wf kit.
 4. 0418 is packed for Grok-4 on the core run (t523, t524u).
 5. Hand each builder one prompt, first line `Builder: <name>`. For 0419 that line is `Builder: Grok-3 (Matthew's PC, D:\Git\grok3)`, even though the published pack text still says Grok-5. For 0418 that line is `Builder: Grok-4 (Matthew's PC, D:\Git\grok4)`.
-6. Pack 0705 for Claude (t528u). 05.01 is returned. Grok-Check is not yet available for the check. Until 0705 closes, do not pack 0422 report-system (t531u). Until wf sends reports, builders use docs/plan/REPORTS.md.
+6. Pack 0705 for Claude (t528u). 05.01 is closed passed. 05.02 is packed. Until 0705 closes, do not pack 0422 report-system (t531u). 0423 goes first after 0408, ahead of 0422 (t533u). Until wf sends reports, builders use docs/plan/REPORTS.md.
