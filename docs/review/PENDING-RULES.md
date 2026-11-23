@@ -53,3 +53,19 @@ The rules, in plain words:
 8. **While a lockout is held, every other worker is refused on that page.** Packing may stage a later pass only when no lockout is held.
 
 Related: page 90.50.10.0423 (title one-worker) is drafted to enforce these rules, the t533u claim and check refusals, and the `push_log` prefix check. It reads the book's Prime; it does not create the identity page. Recording that Prime is pending page 90.50.10.0425 (title book-prime). The 0423 grant grows to include `src/lib.rs` because lockout, try-out and release are new commands. This lockout is not the short `.wf-lock` file. Neither page is packed. 0423 waits on 0408 close, then goes first in the queue, ahead of 0422.
+
+## t547u  -  handover (lockout shift change)
+
+Status: pending. Apply to the wf kit `docs/DESIGN.md` section 5 (Open), as a versioned note, together with the t533u and t541u rules, once no open pass that pins or cites that file stands in the way (t381u). Do not edit the kit DESIGN.md in this turn. 0423 will enforce release and lockout in wf; it is not packed yet. Until then this rule uses only the tools we already have.
+
+Authority: t547u, docs/review/DIRECTOR-WORDS-t547-handover-0416.md. Verbatim: "I had given grok-1 the previous prompt for it but you then said not to unless it finished 0407, then I gave it and overwrote it with the current prompt for grok-1 and gave the new prompt for grok-2 to grok-2" "we'll see if grok-2 can take it over without breaking it. You'll need to define that for checking."
+
+The rules, in plain words, from lockout/tagout shift change:
+
+1. **A worker who leaves a page must not leave a hidden hold.** In the shop, you remove your lock at the end of a shift, or a supervisor records an override if you have already gone. The incoming worker then applies their own lock, tries it, and only then starts work. Two workers must not both hold the same page (t541u: no group lockout).
+2. **The outgoing worker either releases, or is overridden.** Once 0423 exists, they push a `wf release`, or the book Prime records an override with a reason. Until 0423 exists, they (or Prima, if they have already left the prompt) must state in a published note or report whether a claim was pushed. Do not push a late local claim after leaving the work.
+3. **The incoming worker verifies the state before claiming.** They fetch origin packs and origin returns, then check three things: what is claimed in the published log, what is dirty in their own work folder, and what has been pushed. They do not start from another worker's unpublished files unless the report names every part taken.
+4. **The checker verifies the handover.** On a handed-over pass the checker looks at: the published packs and returns tips; that the log chain is unbroken (an exact prefix-extension, `wf verify` ok); that the first published claim is the incoming worker; that the return and the report state the handover; that `git diff` from the pack start to the return commit touches only granted files; and that no work from the first worker was silently mixed in without being recorded in the log or the report. Dirty local files are not proof. Only published logs, published returns, git commits, and the reports count.
+5. **Interim, until 0423 lands.** There is no `wf release` command today. The next builder's report must state the handover, and the checker must compare the git diffs. Use only `git fetch`, `git log`, `git diff`, `git status`, the published packs and returns logs, `wf status`, `wf verify`, and the report file in docs/plan/REPORTS.md.
+
+Related: the 0416.05.01 case, and the exact checker list for that pass, are in `docs/review/HANDOVER-0416.md`. As of 2:25 PM EST on 2026-11-23, origin packs has the packed unclaimed 0416 page, and origin returns has no 0416 claim or push.

@@ -66,7 +66,7 @@ If a pack uses `git grep`, the pattern must have **no caret, no quotes, and no s
 Grok-Check's 0419.05.01, 0404.05.02 and 0702.05.03 checks landed, and Prima signed off and closed them. Details are in `docs/review/CLOSE-0419-0404-0702.md`. 0415.05.01 is now closed passed. 0416.05.01 and 0419.05.02 are packed.
 
 - 90.50.10.0415.05.01 closed passed (prima-check entry 9; close log `4dc2e0f0`; packs `912ae002`).
-- 90.50.10.0416.05.01 packed for Grok-5 (packs `77c22aae`, start `a823ee28`, pack hash `dce476c8a2f58191bc1cd577855920dcffa80dff99a0157a8cf3364269526b4f`). Watch `draft_refuses_a_99th_pass` at `tests/wf.rs:965`. Next: Grok-5 claims `wf claim 90.50.10.0416 1`.
+- 90.50.10.0416.05.01 packed for Grok-5 (packs `77c22aae`, start `a823ee28`, pack hash `dce476c8a2f58191bc1cd577855920dcffa80dff99a0157a8cf3364269526b4f`). Watch `draft_refuses_a_99th_pass` at `tests/wf.rs:965`. Next: claim `wf claim 90.50.10.0416 1`, only after the handover check in `docs/review/HANDOVER-0416.md`. Grok-1 may have started locally; no claim was pushed (t547u). The queue still names Grok-5; Matthew said Grok-2 may take it over after 0408.
 - 90.50.10.0419.05.01 closed failed (lab trial not in the return; jobs w01 and w02 accepted). 05.02 is packed for Grok-3 (grant `tests/lab_0419.rs`; packs `7c98e5b2`; returns pack log `2c8b4a79`; start `4dc2e0f0`; pack hash `b1882a4544faf8fa7865d570c351f2633df21cd4e049528bf9eb073a8c1e43f6`). The 05.01 pack still says Grok-5; do not republish it. Next: Grok-3 claims `wf claim 90.50.10.0419 2`.
 - 90.50.10.0404.05.02 closed failed (packed `cargo test --test wf` auto-failed on Windows; jobs accepted). A Linux re-check is still needed.
 - 90.50.10.0702.05.03 closed passed (no majors; three minors on line numbers and a short path).
