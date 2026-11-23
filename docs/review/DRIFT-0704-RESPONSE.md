@@ -48,3 +48,8 @@ Views printed from the current tip would be wrong in one place: 05.03 would look
 **Prima's action.** Added a priority note on 0498 in `docs/plan/GROK-BUILDER-QUEUE.md`. 0498 stays last in dependency order (it still depends on the earlier stage pages) and is not packed in this turn. The note says the stage is not done until that walkthrough is packed and run on Matthew's PC.
 
 **Status.** Queue updated. Walkthrough not yet packed.
+
+## After t533u
+
+Page 90.50.10.0423 is now drafted as title one-worker: the claim and check occupancy rule (t533u) and the `push_log` prefix check. Pack text is in `docs/design/drafts/90.50.10.0423/`. It waits on 0408, then goes first in the queue, ahead of 0422. The 0701 repair steps are in `docs/review/0701-LOG-REPAIR.md`. The repair has not been done. 0701 has not been published to packs.
+
