@@ -4,6 +4,8 @@ t517u (23 Nov 2026): Grok builders are cheapest and best. They should do a lot o
 
 t518u-t519u: add as many Grok builders as the waves need. A dedicated checker named Grok-Check does the checks.
 
+t522u: 0419.05.01 goes to Grok-3 (`D:\Git\grok3`), not Grok-5. 0416 goes to Grok-4. 0418 goes to Grok-5 when it can be packed.
+
 This note is the queue. It does not pack any page.
 
 ## How many
@@ -28,6 +30,8 @@ One prompt per page. The first line is `Builder: <name>` (the machine and folder
 The builder: pulls packs and returns, claims that page only, follows `pages\<page>\05.NN\BUILDER-PROMPT.md`, returns with `--push`, then stops and tells Matthew.
 
 It never claims a second page in the same wave. It never checks its own work.
+
+`wf claim` does not check the builder name written in the pack (src/cmd.rs at a823ee28: first claim wins). So Grok-3 may claim the published 0419.05.01 pack, even though that pack's face 01 and overview still say Grok-5. Do not republish that pack to change the name. The prompt's first line is still `Builder: Grok-3 (Matthew's PC, D:\Git\grok3)`.
 
 ## How a page is checked
 
@@ -58,8 +62,8 @@ Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is
 
 | Page | Goal | Grant | Depends on | Packable now |
 |---|---|---|---|---|
-| 0407 | Band door face 00 prints `type: band` and a contents list | `src/render.rs`, `tests/page_0407.rs` | 0403 closed. Held pack on cloud/pack, start `a823ee28` | Y, after init |
-| 0408 | Prime can withdraw a packed unclaimed pass | `src/cmd.rs`, `src/lib.rs`, `src/page.rs`, `tests/page_0408.rs` | 0403 closed. Held pack on cloud/pack, start `a823ee28` | Y, after init |
+| 0407 | Band door face 00 prints `type: band` and a contents list | `src/render.rs`, `tests/page_0407.rs` | 0403 closed. Packed on packs, start `a823ee28` | Y, packed |
+| 0408 | Prime can withdraw a packed unclaimed pass | `src/cmd.rs`, `src/lib.rs`, `src/page.rs`, `tests/page_0408.rs` | 0403 closed. Packed on packs, start `a823ee28` | Y, packed |
 | 0416 | The five Windows `tests/wf.rs` fails are fixed; Linux still proves the same thing. Also watch `draft_refuses_a_99th_pass` timing at `:965` (must stay under 10s) | `tests/wf.rs`, `tests/page_0416.rs` | 0701.05.01 closed. 0415.05.01 must be closed. Held pack on cloud/pack | N until 0415 is closed |
 | 0413 | A pass is one work order printed from the log; no pasted quote in the pack | `src/render.rs` | Wait until 0407's trial frees `src/render.rs`. Draft on cloud/design | Y, after init, but not before wave 2 |
 | 0414 | New packs print the builder name; a name outside the six becomes a stable temp worker | `src/cmd.rs`, `src/render.rs`, `templates/v5/prompt.txt`, `templates/v5/builder.txt` | 0404.05.01 closed. Wait for `src/cmd.rs`. Draft on cloud/design | Y, after init, but not before its wave |
@@ -69,8 +73,8 @@ Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is
 | 0411 | The real runner starts a page; Matthew grants it | `src/cmd.rs`, `src/lib.rs`, `tests/page_0411.rs` | 0406 closed. No pack text yet | N, needs a pack |
 | 0412 | The real runner records Matthew's grant | `src/cmd.rs`, `src/lib.rs`, `tests/page_0412.rs` | 0411 closed. No pack text yet | N, needs a pack |
 | 0498 | One working wf Matthew can install and run | `README.md`, `docs/WALKTHROUGH.md`, `tests/page_0498.rs` | Every stage page above, including 0417 | N, last, needs a pack |
-| 0418 (suggest) | Seated-05 in the compute core: a body on face 05 with no counter is the seat; 05.NN stays a pass; face 06 stays unseated | `crates/seqaddr-core/src/state.rs`, `resolve.rs`, `validate.rs`, `face.rs` (lines may have moved; proposal `e46126ec`) | t512 rule is on prima/build. Start is prima/build, not returns `a823ee28` | N, needs a pack |
-| 0419 (suggest) | Pack checks are safe on Windows (no caret, quotes or spaces in `git grep` patterns; harden `src/git.rs` if needed) | `src/git.rs`, `tests/page_0419.rs` (if the fix is in wf) | `docs/design/drafts/WF-WINDOWS-QUOTING.md`. Must finish before 0417 takes `src/git.rs` | N, needs a pack |
+| 0418 (suggest) | Seated-05 in the compute core: a body on face 05 with no counter is the seat; 05.NN stays a pass; face 06 stays unseated | `crates/seqaddr-core/src/state.rs`, `resolve.rs`, `validate.rs`, `face.rs` (lines may have moved; proposal `e46126ec`) | t512 rule is on prima/build. Start is prima/build, not returns `a823ee28`. Assigned to Grok-5 (t522u) | N, needs a pack |
+| 0419 | Pack checks are safe on Windows (no caret, quotes or spaces in `git grep` patterns; harden `src/git.rs` if needed) | `src/git.rs`, `tests/page_0419.rs` | Packed on packs, start `a823ee28`. Assigned to Grok-3 (t522u). Must finish before 0417 takes `src/git.rs` | Y, packed |
 | 0420 (suggest) | `wf verify --fix` takes over a dead `.wf-lock` (or a lock older than the last log entry) | `src/lib.rs` (lock at `Lock::acquire`), tests | After 0412 frees `src/lib.rs` | N, needs a pack |
 | 0421 (suggest) | wf prints the seated 05 and updates face 01 | wf `src/` (likely `src/render.rs` and `src/cmd.rs`) | 0418 closed. Needs a later slot when those files are free | N, needs a pack and 0418 |
 
@@ -80,17 +84,17 @@ Lab trials (`tests/lab_PPPP.rs` on 0701) run in the wave after each work wave. E
 
 Pages in the same wave change no shared file. A page holds its files until its trial passes.
 
-**Wave 1** (five builders, once 0415 is closed and the new packs exist):
+**Wave 1** (t522u assignments). 0407, 0408 and 0419 are packed. 0416 still waits on 0415. 0418 still needs a start repo.
 
 | Page | Goal | Builder | Packable now | Blocker |
 |---|---|---|---|---|
-| 0407 | Door prints type and contents | Grok-1 | Y, after init | Prima inits and packs |
-| 0408 | Withdraw an unclaimed pack | Grok-2 | Y, after init | Prima inits and packs |
-| 0416 | Windows `tests/wf.rs` five fails | Grok-3 | N | Close 0415, then init and pack |
-| 0418 | Seated-05 in seqaddr-core | Grok-4 | N | Write the pack (start prima/build) |
-| 0419 | Windows-safe pack checks | Grok-5 | N | Write the pack |
+| 0407 | Door prints type and contents | Grok-1 | Y, packed | none |
+| 0408 | Withdraw an unclaimed pack | Grok-2 | Y, packed | none |
+| 0419 | Windows-safe pack checks | Grok-3 | Y, packed | The published pack still says Grok-5. Grok-3 may claim it (see above). Do not republish the pack. |
+| 0416 | Windows `tests/wf.rs` five fails | Grok-4 | N | Close 0415, then init and pack |
+| 0418 | Seated-05 in seqaddr-core | Grok-5 | N | Write the pack (start prima/build). Draft is on prima/build |
 
-**Wave 2** — trials 0407, 0408, 0416, 0418, 0419 (Grok-1 through Grok-5, each on a different `tests/lab_*.rs` or core trial). Grok-Check checks the wave 1 returns first.
+**Wave 2** — trials of those same pages, same builders (Grok-1 on 0407, Grok-2 on 0408, Grok-3 on 0419, Grok-4 on 0416, Grok-5 on 0418), each on a different `tests/lab_*.rs` or core trial. Grok-Check checks the wave 1 returns first.
 
 **Wave 3**
 
@@ -134,8 +138,8 @@ Waves 5-10 are a single-file queue on `src/cmd.rs`. Only one builder is busy the
 
 ## What Prima does before wave 1
 
-1. Sign off and close 0415.05.01.
+1. Sign off and close 0415.05.01, then pack 0416 for Grok-4.
 2. Add Grok-3, Grok-4, Grok-5 and Grok-Check folders, each with wf `a823ee28`.
-3. Init and pack 0407 and 0408 (held texts on cloud/pack). Then 0416 once 0415 is closed.
-4. Write packs for 0418 and 0419 so wave 1 can fill all five seats. Until those packs exist, run wave 1 with the pages that are ready (two or three builders, not five).
-5. Hand each builder one prompt, first line `Builder: <name>`.
+3. 0407, 0408 and 0419 are already packed and published.
+4. 0418 still needs a start repo that holds `crates/seqaddr-core`, then pack it for Grok-5.
+5. Hand each builder one prompt, first line `Builder: <name>`. For 0419 that line is `Builder: Grok-3 (Matthew's PC, D:\Git\grok3)`, even though the published pack text still says Grok-5.
