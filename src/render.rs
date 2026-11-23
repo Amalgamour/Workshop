@@ -1,6 +1,7 @@
 //! Views. Every file in a page folder except log.jsonl is printed here from the log.
 //! Templates are fixed text built into the binary; only the tool fills them.
 
+use crate::addr::{band_head, page_kind, PageKind};
 use crate::chars::{escape_line, escape_text};
 use crate::log::{sha, short, Res};
 use crate::page::{s, Page, Pass, FACES};
@@ -360,7 +361,93 @@ fn face00(p: &Page) -> String {
     }
     o += &format!("grant:   {} (from {})\n", p.grant.join(", "), p.grant_refs.join(", "));
     o += &format!("log:     {} entries, head {}\n", p.events.len(), short(&p.head));
+    // BandHead is PP00 at or above 0100 (src/addr.rs page_kind). Any other page stays as the stamp above.
+    if split_addr(&p.addr).is_some_and(|(_, n)| page_kind(n) == PageKind::BandHead) {
+        o += "type: band\n";
+        o += &band_contents(p);
+    }
     o
+}
+
+/// `DD.SS.BB` and the page number of a work address. Nothing else counts as a page folder.
+fn split_addr(addr: &str) -> Option<(String, u16)> {
+    let mut parts = addr.split('.');
+    let desk = parts.next()?;
+    let shelf = parts.next()?;
+    let book = parts.next()?;
+    let page = parts.next()?;
+    if parts.next().is_some() || desk.len() != 2 || shelf.len() != 2 || book.len() != 2 || page.len() != 4 {
+        return None;
+    }
+    if !addr.bytes().all(|b| b.is_ascii_digit() || b == b'.') {
+        return None;
+    }
+    Some((format!("{desk}.{shelf}.{book}"), page.parse().ok()?))
+}
+
+/// Pages of this band, read from the run folder's pages directory at print time.
+/// Each line is the address and the state that page's log already has.
+/// The log has no dropped state (retire is page 0409); this does not invent one.
+fn band_contents(p: &Page) -> String {
+    let mut lines = Vec::new();
+    let Some((prefix, door)) = split_addr(&p.addr) else {
+        return "contents:\n".into();
+    };
+    let Some(pages) = p.dir.parent() else {
+        return "contents:\n".into();
+    };
+    if let Ok(rd) = fs::read_dir(pages) {
+        for ent in rd.flatten() {
+            let path = ent.path();
+            if !path.is_dir() {
+                continue;
+            }
+            let name = ent.file_name().to_string_lossy().into_owned();
+            let Some((band, n)) = split_addr(&name) else { continue };
+            if band != prefix || band_head(n) != Some(door) {
+                continue;
+            }
+            let (addr, state) = folder_state(&path, &name);
+            lines.push(format!("  {addr}  {state}"));
+        }
+    }
+    lines.sort();
+    let mut o = String::from("contents:\n");
+    for line in lines {
+        o.push_str(&line);
+        o.push('\n');
+    }
+    o
+}
+
+/// Address from the log when it loaded, otherwise the folder name. State from that log.
+fn folder_state(dir: &Path, folder: &str) -> (String, String) {
+    if !dir.join("log.jsonl").is_file() {
+        return (folder.to_string(), "unreadable: no log.jsonl".into());
+    }
+    match Page::load(dir) {
+        Err(why) => (folder.to_string(), format!("unreadable: {}", escape_line(&why))),
+        Ok(p) if p.events.is_empty() => (folder.to_string(), "unreadable: the log is empty (no init entry)".into()),
+        Ok(p) => {
+            let shown = escape_line(if p.addr.is_empty() { folder } else { p.addr.as_str() });
+            (shown, log_state(&p))
+        }
+    }
+}
+
+/// Halt, else the newest pass that is not closed, else `closed`, else `init`.
+/// Those words are the tails and entry kinds the log already folded. Not `dropped`.
+fn log_state(p: &Page) -> String {
+    if p.halt.is_some() {
+        return "halted".into();
+    }
+    if let Some(x) = p.passes.values().filter(|x| x.tail != "closed").max_by_key(|x| x.nn) {
+        return x.tail.clone();
+    }
+    if p.passes.values().any(|x| x.tail == "closed") {
+        return "closed".into();
+    }
+    "init".into()
 }
 
 fn face03(p: &Page) -> String {
