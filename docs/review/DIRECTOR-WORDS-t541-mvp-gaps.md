@@ -1,6 +1,6 @@
 # Director words: t541u MVP gaps G1-G8 (2026-11-23, about 12:51 PM EST)
 
-Matthew's answers to the eight gaps in docs/plan/MVP-GOAL-PROPOSAL.md section 5, verbatim, plus later answers the same day on how the face lock works and who may break an abandoned lock. Readings follow each answer. Nothing was packed.
+Matthew's answers to the eight gaps in docs/plan/MVP-GOAL-PROPOSAL.md section 5, verbatim, plus later answers the same day on how the face lock works, who may break an abandoned lock, and where the book's Prime sits. Readings follow each answer. Nothing was packed.
 
 ## G1. What does the checking for the MVP?
 
@@ -74,4 +74,14 @@ Then, the same minute, a refinement:
 
 > Project lead of the book can break or higher authority.
 
-Reading: the first answer names the people who hold those roles on this work today. The refinement states it as roles, so it stays true if the lead changes. The book's project lead, or a higher authority, may break an abandoned lock, with a recorded reason. The kit already records the team-lead role as Prime (t254u), on the page stamp, face 00 (t255u): current Prime and previous Primes. wf stores that as the page's current Prime, set at init and changed with `wf set-prime`. There is no separate book-level project-lead field. The 0423 draft therefore treats the page's current Prime as the project lead, and the page's person as the higher authority (the Director, Matthew). A former Prime may not override. This is flagged in the 0423 README, in case "project lead of the book" is meant to be a book-wide name that does not exist yet.
+Reading: the first answer names the people who hold those roles on this work today. The refinement states it as roles, so it stays true if the lead changes. The book's project lead, or a higher authority, may break an abandoned lock, with a recorded reason. The kit already records the team-lead role as Prime (t254u), on the page stamp, face 00 (t255u): current Prime and previous Primes. wf stores that as the page's current Prime, set at init and changed with `wf set-prime`. The 1:08 reading used the work page's Prime, because no book-level field had been found yet. The 2:17 PM EST answer below settles that the Prime is the book's lead, one position below the Director (the person).
+
+## Book Prime (2:17 PM EST)
+
+Asked whether "project lead of the book" is the work page's Prime, or a book-level lead, after the 0423 draft flagged that wf records Prime only per page.
+
+> The book has a prime or lead, that is the position below the director/person.
+
+Reading: the book itself has a Prime, also called the lead. That role sits one position below the Director, who is the person. The abandoned-lock override is done by the book's Prime, or by a higher authority (the Director / the person), always with a recorded reason. A work page's own Prime is not enough, unless that person is also the book's Prime.
+
+Where it is recorded today: seqAddr.md already names the book's identity page as `DD.SS.BB.0000` (section 1.4 and 1.5; section 6, `0000` is book identity). Face 00 of a page is the stamp. The wf kit DESIGN.md already lists person, current Prime and previous Primes on face 00 (t254u, t255u). `wf set-prime` and `wf init-page` already write those fields, but only on the page you name. There is no book-scoped command, and no `DD.SS.BB.0000` page is in use in wf today, so the book's Prime is not actually recorded yet. The smallest way to record it is to put it on that identity page's face 00 stamp, using the same fields, and to let `wf set-prime` work on `DD.SS.BB.0000`. That recording is a pending wf page (0425, title book-prime), not part of 0423. 0423 only reads the book's Prime when that page exists; it does not create it.
