@@ -196,7 +196,12 @@ Face 03 is used mainly in the kernel and desk books. In a normal book it is allo
 ### 5.7 Counted faces [A4.4, A4.5]
 - A face is counted if and only if `FF.00` exists. `FF.00` is the board: every counter and its current tail.
 - A counter without a board is invalid.
-- A counted face is never seated. Plain `FF` on a counted face means `FF.00`.
+- A counted face is never seated. Plain `FF` on a counted face means `FF.00`. (History; t511 and t512 change this for face 05.)
+Face 06 is counted and is never seated. Plain 06 means 06.00, the board of its notes.
+
+Face 05 stays counted for its passes. A pass address is `DD.SS.BB.PPPP.05.NN`, from 05.01 through 05.98. Face 05 also carries a seat. The seat address is `DD.SS.BB.PPPP.05`, the page address plus face 05, with no counter. The board of the passes stays `05.00`. Plain `05` is the seat, not the board.
+
+The seat holds the reviewer-built pass that can be run again, and the lessons learned. It is a copy of that pass. It does not rewrite any 05.NN. The last closed pass stays in the line. Face 01 is updated to name the seat, so a builder can be handed face 01 and run that 05 again.
 - Faces 05 and 06 are always counted. Others may be counted on certain page types (for example 03 or 04 on a contents or dictionary page).
 - A face without counters is seated at `DD.SS.BB.PPPP.FF`. `FF.draft` is its unseated draft. `FF.retired` is a previously seated face awaiting removal.
 
