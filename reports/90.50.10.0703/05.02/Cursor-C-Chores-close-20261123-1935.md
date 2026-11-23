@@ -25,5 +25,5 @@
   - Read `reports/90.50.10.0703/05.02/Grok-Check-check-20261123-1330.md`. Claude’s stale local check at entry 18 was **not** on `origin/returns`; only Grok-Check’s check is authoritative.
   - Intake exit 1 from known refusals 0001 and 0403; 0703 still processed. Also took entries for 0408 and 0701 (not published).
 - Time taken:
-  - **~2 minutes** wall clock for this close run (start to report push).
+  - **~31 seconds** wall clock for this agent run (timed from task start through report commit push).
   - Grok-Check’s check pass: cargo test 1.44s (per their report).
