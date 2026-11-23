@@ -17,7 +17,7 @@ Folders on Matthew's PC, same setup as Grok-1:
 - Grok-3: `D:\Git\grok3` (add)
 - Grok-4: `D:\Git\grok4` (add)
 - Grok-5: `D:\Git\grok5` (add)
-- Grok-Check: `D:\Git\grok-check` (add). This one never claims a build page. It only checks.
+- Grok-Check: `D:\Git\grokcheck` (add; no dash). This one never claims a build page. It only checks.
 
 Each new terminal: set PATH to that folder's `wf-bin`, `WF_ROOT` to its `wf-run`, and `WF_AS` to that name. Use wf from `a823ee28`.
 
@@ -39,7 +39,7 @@ wf check <page> <NN> --as Grok-Check
 
 Not a dry-run. Then push the page log to the returns branch, the same way a close log is pushed. Prima reads the report and signs off.
 
-If a pack uses `git grep`, the pattern must have **no caret, no quotes, and no spaces**. A safe form is in `docs/design/drafts/WF-WINDOWS-QUOTING.md` (prima/build). Example: `git grep -q -E ##[[:space:]]3[.] -- labs/0703/LAB-0703-SEQ-STORAGE.md`.
+If a pack uses `git grep`, the pattern must have **no caret, no quotes, and no spaces**. A safe form is in `docs/design/drafts/WF-WINDOWS-QUOTING.md` (prima/build). The form that works under Linux `sh -c` and stays safe on Windows `cmd /C` is `git grep -q -E [#][#][[:space:]]3[.] -- labs/0703/LAB-0703-SEQ-STORAGE.md`. A bare `##` pattern is a comment under `sh -c` (git exits 128, no pattern given), so packs must not use that.
 
 ## Waiting now (no new pack)
 
