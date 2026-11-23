@@ -14,4 +14,8 @@ Scan this menu first. Open only the lessons that match your task, to save usage.
 
 | Cite the stage plan at its real path | Writing a pack or a lab that points at the Stage 1 plan | 9 | [2026-11-23-stage-plan-path.md](2026-11-23-stage-plan-path.md) |
 
-The first five lessons live in one 53-line file. The check-filer and stage-plan-path notes are their own files, from lab 0704. The rule for this folder is in [README.md](README.md).
+| Don't put a later-view trial on this pass's Done when | Writing a pack whose lab trial is a later view | 9 | [2026-11-23-later-view-done-when.md](2026-11-23-later-view-done-when.md) |
+
+| A Linux packed suite will auto-fail a Windows check | Packing `cargo test --test wf`, or checking that pack on Windows | 9 | [2026-11-23-windows-packed-suite.md](2026-11-23-windows-packed-suite.md) |
+
+The first five lessons live in one 53-line file. The later notes are their own files. The rule for this folder is in [README.md](README.md).

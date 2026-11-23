@@ -63,12 +63,12 @@ If a pack uses `git grep`, the pattern must have **no caret, no quotes, and no s
 
 ## Waiting now (no new pack)
 
-Grok-Check can start here today, after intake:
+Grok-Check's 0419.05.01, 0404.05.02 and 0702.05.03 checks landed, and Prima signed off and closed them. Details are in `docs/review/CLOSE-0419-0404-0702.md`.
 
-- 90.50.10.0404.05.02 (returned, Cursor-1)
-- 90.50.10.0419.05.01 (returned, Grok-3)
-- 90.50.10.0702.05.03 (returned, Claude)
-- 90.50.10.0703.05.02 (returned, Codex)
+- 90.50.10.0419.05.01 closed failed (lab trial not in the return; jobs w01 and w02 accepted). A later pass can add the trial.
+- 90.50.10.0404.05.02 closed failed (packed `cargo test --test wf` auto-failed on Windows; jobs accepted). A Linux re-check is still needed.
+- 90.50.10.0702.05.03 closed passed (no majors; three minors on line numbers and a short path).
+- 90.50.10.0703.05.02 (returned, Codex) is still waiting on Grok-Check.
 
 Claude's 90.50.10.0705.05.01 is closed passed (Grok-Check entry 9, Prima signoff and close). 05.02 is packed for Claude (start 32fc1f34e8efdb9dd609ed4679bdbc90a74e7998, pack hash 3340b0e5576e6fa5c658cef5f80464628d1fbc6f852835c36247101927b16b8c). Next: Claude claims `wf claim 90.50.10.0705 2`. 0422 report-system still waits until 0705 closes, and after 0423 if they share src/cmd.rs.
 
