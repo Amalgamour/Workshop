@@ -1,0 +1,32 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0404 05.02
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git -C work fetch origin packs returns prima/build
+  - wf.exe intake
+  - cargo test --lib and cargo test --test wf at return 954ba76a, then one solo re-run of draft_refuses_a_99th_pass
+  - wf.exe check 90.50.10.0404 2 --as Grok-Check
+  - copy pages/90.50.10.0404/log.jsonl to work/.workshop/logs/90.50.10.0404/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0404
+- Results:
+  - wf check 05.02: fail (exit 0). cargo test --lib ok (51 passed). cargo test --test wf failed. Frame ok. Jobs w01 and w02 done. No --fail flag. The verdict is fail because a packed command exited non-zero (src/cmd.rs:756 at a823ee28).
+  - The tool printed both Done when lines as "not met". That text is automatic when any packed command fails (src/cmd.rs:709). The judgments below are the checker's.
+  - wf verify: ok: log chain holds (20 entries, head d93688d3babf); every view matches the log. 05.02 AGENTS.md hash c5a47e498058 holds; PROMPT.md hash 5d78c34f58aa holds; links 4 hold.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue". 0404 was already in this run folder and matched returns, so intake took nothing for it.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 20, actor Grok-Check, role checker, pass 2, verdict fail
+- Push commits:
+  - 08894eea02f8e06412f3b7298a8f372dc93f08ea wf: check 90.50.10.0404.05.02 (log) on returns
+- Findings:
+  - No major finding in the template-4 edit. Both tests this pass changed passed on this box: new_pack_records_template_version_4 and stripped_hashes_with_a_rechained_log_stay_invalid_after_fix.
+  - Done when, Linux: met, from the previous Linux run plus this diff. The 05.01 check by prima-check ran on Linux (worktree /tmp/wf-check-65167-858f2846) and failed only new_pack_records_template_version_3 at tests/wf.rs:1332 and stripped_hashes_with_a_rechained_log_stay_invalid_after_fix at tests/wf.rs:2840. Against start 464170c7561d3d39c6cc71ab12a332a2ffa3d8c0, return 954ba76a2e730c76f8279c92e63279a6ccf6547e changes tests/wf.rs in three places: the rename at :1327, the assertion at :1332 from templates "3" to "4", and the assertion at :2840 from templates 3 to templates 4. The loop at :2806-2828 still patches versions 3 and 2. This checker did not run the suite on Linux.
+  - Done when, Windows five: the five named in the 0415 return are the logic failures, and they match. The 0415 return names board_escapes_hostile_log_text_everywhere (os error 123, tests/wf.rs:1646), check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen ('sh' is not recognized, :410), check_stores_at_most_last_40_lines_of_output ('seq' is not recognized, :379), planted_file_names_are_escaped_in_views (os error 123, :1436), and return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii (os error 123, :847). The filed check failed those same five at those same lines, for those same causes. new_pack_records_template_version_4 and the links assertion passed.
+  - Minor: the filed check also failed draft_refuses_a_99th_pass at tests/wf.rs:965. It took 10.70s, and the test wants under 10s. Run alone it passed in 4.30s. The builder's proof listed 128 passed and 5 failed, and did not name this test. It is a wall-clock miss under the parallel suite, not one of the five Windows classes, and not a template-4 failure. The face says those five are the only failures allowed, so this extra line is on the record.
+  - Minor: tests/wf.rs:2829 still says "v3 with its hashes" above the assertion at :2840, which now says templates 4. The return's noticed line says that comment was left because the pass said to change nothing else.
+  - Design review cites hold. docs/AXIOMS.md:11 at the return commit is the cold set 1.7.8. docs/AXIOMS.md:17 is fractal, write only the difference. docs/DESIGN.md:35-36 says packs and prompts are printed from fixed templates.
+  - Frame: the check printed only A .workshop/returns/90.50.10.0404.05.02.md and M tests/wf.rs. Return commit 954ba76a2e730c76f8279c92e63279a6ccf6547e is on returns and starts from pack start 464170c7561d3d39c6cc71ab12a332a2ffa3d8c0. The design review line is filled.
+- Time taken:
+  - wf check and wf verify each finished in one run. Reading the diff and the 0415 five, and re-running the 10s test alone, was the rest of the pass.
