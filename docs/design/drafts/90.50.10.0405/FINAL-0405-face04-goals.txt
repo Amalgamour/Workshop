@@ -1,0 +1,22 @@
+What we want: cargo test --test wf passes on a Windows machine. The five tests that fail there still prove the same thing on Linux.
+
+Why these five, and no others: the 0415 return at 0e7708d3 says 128 passed and 5 failed. No failure says "cannot sync" or "Access is denied". The five are outside src/log.rs. tests/wf.rs is the same file at returns head a823ee28, so the line numbers still hold.
+
+The five, in plain words:
+1. check_stores_at_most_last_40_lines_of_output (tests/wf.rs:373). The check command is seq. Windows says seq is not recognized (line 379). The test needs fifty lines, L001 through L050, so the log can keep the last forty.
+2. check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen (tests/wf.rs:389). The check command is sh src/chk.sh. Windows says sh is not recognized (line 410). The script prints cursor codes and exits 1. The screen must show them escaped.
+3. return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii (tests/wf.rs:837). Line 847 writes a file whose name contains a tab. Windows returns os error 123, which means the name is not allowed.
+4. planted_file_names_are_escaped_in_views (tests/wf.rs:1426). Line 1436 writes a name that contains ESC. Windows returns os error 123.
+5. board_escapes_hostile_log_text_everywhere (tests/wf.rs:1637). Line 1646 writes that same ESC name. Windows returns os error 123. The rest of this test plants the hostile text in the return and in the log, which does not need that file name.
+
+What to do: change tests/wf.rs only. On Linux, leave the commands and the names as they are. On Windows, use a command that prints the same lines, and a file name Windows will store that wf still escapes. Say why in a one-line comment.
+
+Where to stop: another file would have to change. A Linux assertion would have to be deleted. The only way to pass would be to skip the test on Windows. A Windows name still returns os error 123. PowerShell is not available to cmd /C.
+
+What done looks like: a Windows run of cargo test --test wf passes, and a Linux run still fails if the seq lines, the sh script, or the Linux-only names are removed.
+
+Wave: section 15.4 wave 4, beside 0407 and 0408. This page changes tests/wf.rs. 0407 changes src/render.rs. 0408 changes src/cmd.rs, src/lib.rs and src/page.rs. Later pages in that table do not change tests/wf.rs. The lab trial is tests/lab_0405.rs, in wave 5 beside the other two trials.
+
+Prima, Nov 23: this page joins wave 4 beside 0407 and 0408. It may change tests/wf.rs and its own test file tests/page_0405.rs. It shares no file with those two pages.
+The proof line pastes the Windows cargo test --test wf output. A Linux run of that command must also pass.
+The Windows stand-in is Windows PowerShell 5.1, the powershell command that ships with Windows 10, invoked as powershell -NoProfile -Command. Do not use pwsh.
