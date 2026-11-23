@@ -1,0 +1,35 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0704 05.01
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git -C work fetch origin packs returns prima/build
+  - wf.exe intake
+  - wf.exe check 90.50.10.0704 1 --as Grok-Check
+  - git -C work pull --ff-only origin returns (two newer 0705 log commits; the 0704 log was unchanged)
+  - copy pages/90.50.10.0704/log.jsonl to work/.workshop/logs/90.50.10.0704/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0704
+- Results:
+  - wf check 05.01: pass (exit 0). All 8 pack checks ok. Frame ok. Jobs w01-w03 done.
+  - wf verify: ok: log chain holds (9 entries, head b38b64e4398f); every view matches the log. 05.01 AGENTS.md hash 1ef44fedebba holds; PROMPT.md hash cd204dbce4b0 holds; links 4 hold.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue". 0704 was already in this run folder and matched returns, so intake took nothing for it.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 9, actor Grok-Check, role checker, pass 1, verdict pass
+- Push commits:
+  - f341231b600bcc5cee8cb60a348531c80a00138c wf: check 90.50.10.0704.05.01 (log) on returns
+- Findings:
+  - Verdict: pass. No major findings. The four named findings hold.
+  - Done when, drift list: met. DRIFT-REVIEW.md ## 1 is at DRIFT-REVIEW.md:7. The table at :9-18 lists matches and drifts with file:line cites. Sources compared include docs/design/STAGE-PLAN-90.50.10.md (the pack's docs/plan/STAGE-PLAN* path is absent at a755ea7; DRIFT-REVIEW.md:5 says so and uses the door's plan), GROK-BUILDER-QUEUE.md, WORKER-ROLES.md, docs/lessons/, DIRECTOR-WORDS files, and page logs, against those words and the stage-plan goals.
+  - Done when, stage goals: met. ## 2 is at DRIFT-REVIEW.md:20. It says Stage 1's goal is still right and the narrow gates are moving, and that the Windows workflow is not ready end to end. Done versus claimed is the table at :24-30, with file:line cites.
+  - Done when, workers and loops: met. WORKER-LOOPS.md ## 1 at :5 names Matthew, Prima, Grok-1 through Grok-5, Grok-Check, Cursor-1, Claude, Codex and cloud agents. ## 2 at :18 proposes pack, claim, return, check, signoff and close (:22-27), a research loop (:31) and lessons (:32).
+  - Done when, spot checks: met. ## 3 is at DRIFT-REVIEW.md:36. Four passes are checked: 0403.05.01, 0404.05.02, 0415.05.01 and 0701.05.02, each with file:line or commit cites (:42-45).
+  - Done when, lessons: met. LESSONS.md has six lessons at :3, :4, :5, :6, :7 and :8. Each has a file:line cite, and several also name a commit.
+  - Spot-check, 0701 log displacement: holds. At b71ab3e, log lines 23-24 are Grok-1's claim and return for pass 3. At a3a0f83 and at 10abb9f, lines 1-22 match and lines 23-24 are Grok-1's claim and return for pass 2. The copy that can overwrite a published log is src/cmd.rs:562 at 10abb9f, inside the cited range :538-578. The retry at :574 merges a rejected push and does not compare the page-log prefix.
+  - Spot-check, 0702 check filer: holds. At 10abb9f, .workshop/logs/90.50.10.0702/log.jsonl:18 is one check event, actor Codex, role checker, pass 2, verdict fail. There is no second identity for a filer. src/cmd.rs:786-787 at 10abb9f writes that event with the single caller name. I did not see a separate filer in the log, which is the finding.
+  - Spot-check, Windows heading pattern: holds. docs/lessons/2026-11-23-first-labs.md:11 at a755ea7 tells workers to use `git grep -q -E "^##[[:space:]]3[.]"`, which contains a caret. docs/lessons/README.md:3-5 calls that book the primary source. docs/plan/GROK-BUILDER-QUEUE.md:50 at a755ea7 says a pack pattern must have no caret, no quotes and no spaces.
+  - Spot-check, 0498 walkthrough gap: holds. docs/design/STAGE-PLAN-90.50.10.md:348-357 at a755ea7 is the walkthrough Matthew uses to say go, hold or redo. docs/plan/GROK-BUILDER-QUEUE.md:79 at a755ea7 lists 0498 as "N, last, needs a pack", and :139 puts it in wave 16. The walkthrough is still ahead of the work.
+  - Frame: the check printed only the return file and the four labs/0704/ files. Return commit b1a9c3ca0588259209be74c5566a371bab9ce9e1 is on returns and starts from the pack start 10abb9f2598191ebf2652b70704cddc0fe3ffd56. The noticed line begins "design review:".
+- Time taken:
+  - wf check and wf verify each finished in one run, under a minute. Reading the return and the four lab files, and checking the four findings against the pinned commits, was the rest of the pass.
