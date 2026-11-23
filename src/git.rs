@@ -107,6 +107,24 @@ pub fn in_worktree<T>(repo: &Path, sha: &str, f: impl FnOnce(&Path) -> T) -> Res
 }
 
 /// Run one check command in `dir`. Returns (passed, full output).
+///
+/// The checks field is one string per command. This passes that string through
+/// unchanged: `cmd /C` on Windows, `sh -c` on Unix. The string is not rewritten,
+/// so a check that already passes on Linux still passes.
+/// A git grep pattern in the string must have no caret, no quotes, and no
+/// spaces. cmd's special characters are `& < > ( ) @ ^ |`. A quoted pattern
+/// that contains a caret is not kept as written.
+///
+/// A token that starts with `#` is a comment under `sh -c`. The bare form
+/// `git grep -q -E ##[[:space:]]0[.] -- <file>` is that comment, so git gets no
+/// pattern, prints `fatal: no pattern given`, and exits 128. Packs must not
+/// use that form. `cmd /C` does not treat `#` as a comment, so the bare form
+/// can still match on Windows and then fail on Linux.
+///
+/// The form that matches a `## 0.` heading under `sh -c` and stays safe under
+/// `cmd /C` is `git grep -q -E [#][#][[:space:]]0[.] -- <file>`. `[#]` is one
+/// hash, the token does not start with `#`, and the pattern has no caret, no
+/// quotes, and no spaces.
 pub fn run(dir: &Path, cmd: &str) -> (bool, String) {
     let mut c = if cfg!(windows) { let mut c = Command::new("cmd"); c.arg("/C"); c } else { let mut c = Command::new("sh"); c.arg("-c"); c };
     match c.arg(cmd).current_dir(dir).output() {
@@ -131,7 +149,7 @@ pub fn clip_check_out(out: &str, max: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{clip_check_out, parse_name_status, parse_name_status_z};
+    use super::{clip_check_out, parse_name_status, parse_name_status_z, run};
 
     #[test]
     fn parse_name_status_keeps_letters_and_splits_a_rename() {
@@ -185,5 +203,31 @@ mod tests {
         );
         assert!(parse_name_status_z(b"").unwrap().is_empty());
         assert!(parse_name_status_z(b"A").unwrap_err().contains("truncated"));
+    }
+
+    /// A heading repo whose only tracked file is `heading.md`, starting with `## 0.`.
+    fn heading_repo(name: &str) -> std::path::PathBuf {
+        let dir = std::env::temp_dir().join(format!("wf-0419-{}-{name}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let git = |args: &[&str]| {
+            let out = std::process::Command::new("git").arg("-C").arg(&dir).args(args).output().unwrap();
+            assert!(out.status.success(), "git {}: {}", args.join(" "), String::from_utf8_lossy(&out.stderr));
+        };
+        git(&["init", "-q"]);
+        std::fs::write(dir.join("heading.md"), "## 0. a heading\n## 1. other\n").unwrap();
+        git(&["add", "--", "heading.md"]);
+        dir
+    }
+
+    #[test]
+    fn bracket_hash_git_grep_matches_a_heading_through_run() {
+        let dir = heading_repo("run");
+        let cmd = "git grep -q -E [#][#][[:space:]]0[.] -- heading.md";
+        let pattern = cmd.split_whitespace().nth(4).unwrap();
+        assert!(pattern.starts_with("[#][#]") && !pattern.contains('^') && !pattern.contains('"') && !pattern.contains(' ') && !pattern.starts_with('#'), "{pattern}");
+        let (ok, out) = run(&dir, cmd);
+        assert!(ok, "safe form failed under run: {out}");
+        let _ = std::fs::remove_dir_all(&dir);
     }
 }
