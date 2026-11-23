@@ -1,0 +1,7 @@
+Goal: the wf end-to-end tests pass on Windows. Each of the five tests that still fail keeps its Linux meaning. Band door: 90.50.10.0400.
+Builder: Grok-1.
+Lab: 90.50.10.0701 (wf loop lab); trial file tests/lab_0416.rs.
+Why: page 90.50.10.0415 closed the folder-sync failure. Its return (0e7708d3, .workshop/returns/90.50.10.0415.05.01.md) shows 128 of 133 tests in tests/wf.rs pass on Windows, and 5 fail. Builders run in PowerShell (DIRECTOR-WORDS-t399u-t400u.md:7). The address is 90.50.10.0416, titled the last Windows test failures. 0405 keeps its parked title and is not used. The job is still the section 4 Windows test work.
+Done when: cargo test --test wf passes on Windows, and the proof line pastes that Windows output (133 passed, 0 failed, or the real count if a test is not compiled, with each skip named). A Linux run of cargo test --test wf must also pass. A Linux run alone is not the proof.
+Done when: on Linux the five tests still check the same thing. seq still prints L001 through L050 and the stored check keeps the last 40 lines. sh still runs the cursor-code script. The names with a tab, a newline, ESC, U+202E and U+2028 are still planted.
+Done when: a Windows branch is a different name or a different command, with a one-line comment that names why. It is not a skipped test.

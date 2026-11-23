@@ -1,0 +1,10 @@
+repo: work
+start: a823ee284574be3d9f6247925b9088137a27a539
+predecessor: 05.02
+axioms: 1.7.8
+outcome: an outside trial tests/lab_0415.rs passes the 0415 done-when, including a real Windows run
+overview: Builder: Grok-1, on Windows. Wave 3 trial for 90.50.10.0415, lab pass 05.03. Cursor-1 built 0415 and does not write this trial. One file only, beside the 0404 trial (stage plan 12.3). This lab pass starts at a823ee28, where the 0415 return is already in the tree. The trial fails on 3646e344 and passes on this tree. Template 4. The return of this pass fills the design review line. Proof line pastes the Windows cargo test --test lab_0415 output. A Linux run must also pass.
+w01: Add tests/lab_0415.rs. It starts with mod common; and holds only 0415's cases. From outside, not from the tests inside src/log.rs: creating a page log succeeds on Windows with no error that says cannot sync or Access is denied (os error 5). On Linux the unix branch of sync_dir still opens the folder and calls sync_all (src/log.rs:125-129 at a823ee28). On Windows the directory is opened with FILE_FLAG_BACKUP_SEMANTICS and then sync_all (src/log.rs:131-141). The test fails on commit 3646e344, where that Windows open is absent, and passes on a823ee28. Do not copy the harness.
+may touch: tests/lab_0415.rs
+checks: cargo test --test lab_0415
+stop if: another file must change, including src/log.rs or tests/common/mod.rs or tests/wf.rs. The trial copies the harness. The Windows run is skipped. A Linux run alone is pasted as the proof. A rule above reads two ways.

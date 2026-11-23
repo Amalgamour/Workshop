@@ -1,0 +1,10 @@
+repo: work
+start: a823ee284574be3d9f6247925b9088137a27a539
+predecessor: 05.01
+axioms: 1.7.8
+outcome: an outside trial tests/lab_0404.rs passes the 0404 done-when without using the builder's own tests
+overview: Builder: Grok-1. Wave 3 trial for 90.50.10.0404, lab pass 05.02. One file only, so the 0415 trial can be open beside it (stage plan 12.3). Start of this lab pass is a823ee28, which already contains the 0404 return. The work page's own start was earlier; this trial is the outside view. Template 4. The return of this pass fills the design review line. Do not copy the harness. Do not change src/.
+w01: Add tests/lab_0404.rs. It starts with mod common; and holds only 0404's cases. From outside, not from the builder's tests: a return on template 4 with no design review line is refused, the refusal names t416u, and it is recorded; a template 4 return with the line filled is accepted; a return for a pack on template 1, 2, or 3 is accepted without that line. cargo test --lib and cargo test --test wf still pass. Do not copy tests/common.
+may touch: tests/lab_0404.rs
+checks: cargo test --test lab_0404
+stop if: another file must change, including src/ or tests/common/mod.rs or tests/wf.rs. The trial copies the harness. A rule above reads two ways.

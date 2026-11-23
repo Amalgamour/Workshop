@@ -1,0 +1,5 @@
+Goal: lab trial for 90.50.10.0415. Builder: Grok-1. Lab page 90.50.10.0701.
+Done when: the wf e2e suite passes on Windows (cargo test --test wf; no failure that says cannot sync or Access is denied (os error 5)).
+Done when: Linux still fsyncs the directory (the Unix branch of sync_dir still opens the folder and calls sync_all; that call is not removed and not skipped).
+Done when: cargo test --lib passes on Windows, including the test that creates a log and checks the folder is synced once.
+Done when: the lab trial tests/lab_0415.rs fails on start commit 3646e344 and passes on this return.
