@@ -1,0 +1,33 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0408 05.01
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git -C work fetch origin returns; git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe check 90.50.10.0408 1 --as Grok-Check --fail "tests/lab_0408.rs is not in this return and not on returns, so the lab trial has not passed in lab 0701"
+  - copy pages/90.50.10.0408/log.jsonl to work/.workshop/logs/90.50.10.0408/log.jsonl; git add -- that path; commit; git -C work push origin returns
+- Results:
+  - wf check 05.01: fail (exit 0). Both pack checks ok. Frame ok. Jobs w01 and w02 done. The verdict is fail because Done when line 6 is not met.
+  - cargo test --lib: 51 passed, 0 failed. cargo test --test page_0408: 3 passed, 0 failed, finished in 4.26s.
+  - The local log extended the remote log (8 lines, then the check). Incoming returns commits before the push closed 0703 and 0705 and did not touch the 0408 log. Push succeeded.
+  - Intake took 2 entries for 0408. Refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue".
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 9, actor Grok-Check, role checker, pass 1, verdict fail, time 2026-11-23T19:35:57Z
+- Push commits:
+  - 706d58234d3409750dc041c611747fd73e434875 wf: check 90.50.10.0408.05.01 (log) on returns
+- Findings:
+  - Verdict: fail. Five Done when lines are met. The lab trial is not met. No other major. Two minors outside the grant, both named in the return.
+  - Done when, withdraw at pack with no claim: met. At return e2140ad843f76906dff2b2fc068b1b66cb4c8605, src/cmd.rs:450-458 is prime only, requires tail pack and no claim, and appends a withdraw entry. src/page.rs:334-336 sets the tail to withdrawn. src/page.rs:152-153 does not treat withdrawn as an open tail, so the pass releases its files. tests/page_0408.rs:7 covers that path, including a refusal when the actor is not prime.
+  - Done when, refused at open or later: met. src/cmd.rs:454 accepts only tail pack. tests/page_0408.rs:36 refuses withdraw at open, return, review, and closed, and checks that the refused open and closed calls leave the log unchanged. Draft is refused too, which is before pack.
+  - Done when, a later claim is refused: met. src/cmd.rs:442 still requires tail pack for claim. After withdraw the tail is withdrawn, so claim is refused. tests/page_0408.rs:63 covers that refusal and checks that the log is unchanged.
+  - Done when, the log keeps the pass: met. Withdraw appends. It does not drop the draft or pack entries. tests/page_0408.rs:18-23 keeps those kinds in the log and still loads pass 1 with tail withdrawn and no claim.
+  - Done when, cargo test --test page_0408: met. The check worktree at e2140ad8 ran it: 3 passed, 0 failed. The three tests are withdraw_at_pack_with_no_claim_keeps_the_pass, withdraw_is_refused_at_open_or_later, and a_later_claim_is_refused. The file uses no std::os::unix. Its packed checks are cargo --version.
+  - Done when, lab trial: not met. Face 01 says tests/lab_0408.rs is written by another view after this return, and the grant does not include it. The return's not-done line says the same. The return tree has tests/page_0408.rs and does not have tests/lab_0408.rs. returns HEAD has no tests/lab_0408.rs. The lab trial has not passed in lab 0701. This is why the verdict is fail, so the pass can be checked again after that trial exists.
+  - Minor: src/status.rs:26-33 has no withdrawn arm. A withdrawn pass's next line tells Prime to sign off. The return noticed this. status.rs is outside the grant. The active line does print the tail (src/status.rs:40), and the test sees "05.01 withdrawn".
+  - Minor: src/board.rs:136-138 sends an unknown tail, including withdrawn, to column 0. The return noticed this. board.rs is outside the grant.
+  - Frame: the check printed only the return file and the four granted paths. Return commit e2140ad843f76906dff2b2fc068b1b66cb4c8605 is on returns and starts from pack start a823ee284574be3d9f6247925b9088137a27a539. The design review line is filled. Claim is Grok-2.
+- Time taken:
+  - wf check finished in one run. cargo test --lib compiled in 5.37s and the 51 tests finished in 0.07s. page_0408 compiled in 2.70s and the 3 tests finished in 4.26s. Reading the diff and the cited lines was the rest of the pass.
