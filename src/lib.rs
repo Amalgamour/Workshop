@@ -36,6 +36,9 @@ Every command that writes needs --as <name> (or set WF_AS).
   answer <page> <entry> --text T
   halt <page> --note \"why (ref)\"               prime or person; refused while a pass is open
   resume <page> --note \"why (ref)\"             prime or person; draft, pack and claim go on
+  lockout <page> <01|04|05> --reason T          one worker; first lockout wins
+  try-out <page>                                read only: does the lockout hold
+  release <page> [--override --reason T]        holder releases; Prime or person may override
   status <page>                                 now strip, board, feed (read only)
   observe <page> [--stall-hours 24] [--record T]   observer signals; --record files a finding
   verify <page> [--fix]                         check the log chain and every view file
@@ -114,7 +117,7 @@ impl Drop for Lock {
 fn writes(c: &str, a: &Args) -> bool {
     match c {
         // publish-pack runs git only; a lock file would be staged with pages/<page>.
-        "status" | "board" | "help" | "--help" | "publish-pack" => false,
+        "status" | "board" | "help" | "--help" | "publish-pack" | "try-out" => false,
         "verify" => a.flag("fix").is_some(),
         "observe" => a.flag("record").is_some(),
         "check" => false, // commands run unlocked; check takes the lock itself before it appends
@@ -157,6 +160,10 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     let edited = render::edited(&p)?;
     match c {
         "status" => return Ok(print!("{}", status::status(&p))),
+        "try-out" => {
+            need_who(&who)?;
+            return cmd::try_out(&p, &who);
+        }
         "verify" => {
             for w in render::stray_agents(&p) {
                 println!("{w}");
@@ -238,6 +245,8 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         "pack" => cmd::pack(&mut p, &root, &a, &who),
         "claim" => cmd::claim(&mut p, &a, &who),
         "withdraw" => cmd::withdraw(&mut p, &a, &who),
+        "lockout" => cmd::lockout(&mut p, &a, &who),
+        "release" => cmd::release(&mut p, &a, &who),
         "return" => cmd::ret(&mut p, &root, &a, &who),
         "signoff" => cmd::signoff(&mut p, &a, &who),
         "close" => cmd::close(&mut p, &a, &who),
@@ -278,8 +287,10 @@ mod lock_tests {
     fn board_is_read_only() {
         let a = Args::parse(&["1.2.3.4".into(), "--all".into()]);
         assert!(!writes("board", &a) && !writes("status", &a));
+        assert!(!writes("try-out", &a));
         assert!(writes("claim", &a));
         assert!(writes("withdraw", &a));
+        assert!(writes("lockout", &a) && writes("release", &a));
     }
 
     #[test]
