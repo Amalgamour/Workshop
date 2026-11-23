@@ -1324,12 +1324,12 @@ fn past_packed_pages_still_verify() {
 }
 
 #[test]
-fn new_pack_records_template_version_3() {
+fn new_pack_records_template_version_4() {
     let e = Env::ready("tmpl-ver");
     e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
-    assert!(log.contains("\"templates\":\"3\""), "{log}");
+    assert!(log.contains("\"templates\":\"4\""), "{log}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     // v3: the build rule lives in the kit rules, reached by hashed link 4.
     assert!(agents.contains("| 4 | kit AGENTS.md, roles and commands | kit AGENTS.md |"), "{agents}");
@@ -2837,7 +2837,7 @@ fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
     });
     let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
     assert_eq!(code, Some(1), "{out}");
-    assert!(out.contains("05.01: pack entry 6 (templates 3) has no links recorded: invalid"), "{out}");
+    assert!(out.contains("05.01: pack entry 6 (templates 4) has no links recorded: invalid"), "{out}");
 }
 
 #[test]
