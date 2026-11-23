@@ -12,4 +12,6 @@ Scan this menu first. Open only the lessons that match your task, to save usage.
 
 | Name the reviewer and the filer | Filing or reading a `wf check` when the typist is not the reviewer | 9 | [2026-11-23-check-filer.md](2026-11-23-check-filer.md) |
 
-The first five lessons live in one 53-line file. The check-filer note is its own file, written from lab 0704 before that lab is closed. The rule for this folder is in [README.md](README.md).
+| Cite the stage plan at its real path | Writing a pack or a lab that points at the Stage 1 plan | 9 | [2026-11-23-stage-plan-path.md](2026-11-23-stage-plan-path.md) |
+
+The first five lessons live in one 53-line file. The check-filer and stage-plan-path notes are their own files, from lab 0704. The rule for this folder is in [README.md](README.md).

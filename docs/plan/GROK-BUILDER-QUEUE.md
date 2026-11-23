@@ -64,15 +64,15 @@ If a pack uses `git grep`, the pattern must have **no caret, no quotes, and no s
 Grok-Check can start here today, after intake:
 
 - 90.50.10.0404.05.02 (returned, Cursor-1)
-- 90.50.10.0701.05.02 (returned, Grok-1)
-- 90.50.10.0702.05.02 (returned, Claude)
+- 90.50.10.0419.05.01 (returned, Grok-3)
+- 90.50.10.0702.05.03 (returned, Claude)
 - 90.50.10.0703.05.02 (returned, Codex)
 
 Claude's 90.50.10.0705.05.01 is closed passed (Grok-Check entry 9, Prima signoff and close). 05.02 is packed for Claude (start 32fc1f34e8efdb9dd609ed4679bdbc90a74e7998, pack hash 3340b0e5576e6fa5c658cef5f80464628d1fbc6f852835c36247101927b16b8c). Next: Claude claims `wf claim 90.50.10.0705 2`. 0422 report-system still waits until 0705 closes, and after 0423 if they share src/cmd.rs.
 
-Codex returned 90.50.10.0704.05.01. Intake is on packs. Do not check or close 0704 until Grok-Check runs `wf check 90.50.10.0704 1 --as Grok-Check`. Prima's response is `docs/review/DRIFT-0704-RESPONSE.md`.
+Codex's 90.50.10.0704.05.01 is closed passed (Grok-Check entry 9, Prima signoff and close). Do not pack 05.02; Matthew steers that lab directly. A lesson on the stage-plan path is in `docs/lessons/2026-11-23-stage-plan-path.md`. Prima's earlier response remains `docs/review/DRIFT-0704-RESPONSE.md`.
 
-90.50.10.0701.05.03 was also returned by Grok-1 (commit b71ab3e0, 10:41 AM EST), then a later 05.02 return (a3a0f83a, 10:49 AM EST) overwrote those two log events. Both returns and both tests are still in git. Packs still has the 22-entry prefix; do not publish-pack 0701 until the log is repaired (append the 05.03 claim and return after the current head, do not rewrite entries 23-24). The steps are in `docs/review/0701-LOG-REPAIR.md`. Prefer to repair after 0423 lands. See also the drift response.
+90.50.10.0701.05.02 shows as returned on the current tip, but do not check it until the 05.03 log is repaired (the live suffix is the displaced 05.02 events). 90.50.10.0701.05.03 was also returned by Grok-1 (commit b71ab3e0, 10:41 AM EST), then a later 05.02 return (a3a0f83a, 10:49 AM EST) overwrote those two log events. Both returns and both tests are still in git. Packs still has the 22-entry prefix; do not publish-pack 0701 until the log is repaired (append the 05.03 claim and return after the current head, do not rewrite entries 23-24). The steps are in `docs/review/0701-LOG-REPAIR.md`. Prefer to repair after 0423 lands. See also the drift response.
 
 0415.05.01 already passed its check. Prima signs off and closes it, so 0416 can be packed.
 

@@ -53,3 +53,7 @@ Views printed from the current tip would be wrong in one place: 05.03 would look
 
 Page 90.50.10.0423 is now drafted as title one-worker: the claim and check occupancy rule (t533u) and the `push_log` prefix check. Pack text is in `docs/design/drafts/90.50.10.0423/`. It waits on 0408, then goes first in the queue, ahead of 0422. The 0701 repair steps are in `docs/review/0701-LOG-REPAIR.md`. The repair has not been done. 0701 has not been published to packs.
 
+## After the 05.01 check (t537u)
+
+Grok-Check passed 05.01 (entry 9). Prima signed off and closed it. The four findings still hold; the actions above stand. Grok-Check also noted that the pack cited `docs/plan/STAGE-PLAN*`, which does not exist; the real path is `docs/design/STAGE-PLAN-90.50.10.md`. That is recorded in `docs/lessons/2026-11-23-stage-plan-path.md`. 05.02 is not packed; Matthew steers that lab directly.
+
