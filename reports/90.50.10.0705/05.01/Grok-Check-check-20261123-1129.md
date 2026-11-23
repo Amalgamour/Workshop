@@ -1,0 +1,33 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0705 05.01
+- Kind: check
+- Commands run:
+  - git -C work fetch origin packs returns prima/build
+  - wf.exe intake (after a fast-forward of the run folder onto origin/packs, because 0705 was not in the local packs checkout yet)
+  - wf.exe check 90.50.10.0705 1 --as Grok-Check
+  - copy pages/90.50.10.0705/log.jsonl to work/.workshop/logs/90.50.10.0705/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0705
+- Results:
+  - wf check 05.01: pass (exit 0). All 11 pack checks ok. Frame ok. Jobs w01-w06 done.
+  - wf verify: ok: log chain holds (9 entries, head c6cc61a2f257); every view matches the log. 05.01 AGENTS.md hash 358c9a53848a holds; PROMPT.md hash 2345f916834c holds; links 4 hold.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue". 0705's packs log already matched returns, so intake took nothing for it.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 9, actor Grok-Check, role checker, pass 1, verdict pass
+- Push commits:
+  - 271516d99fe9aa9990a64aa12a9b96a72032f21f wf: check 90.50.10.0705.05.01 (log) on returns
+- Findings:
+  - Verdict: pass. No major findings. Two minor notes, both already raised by the builder. They do not fail a Done when line.
+  - Done when, DESIGN.md: met. Sections ## 1 through ## 4 are DESIGN.md:19, :40, :68, :98. t526u, t527u and t528u are quoted at DESIGN.md:21, :24 and :42 from DIRECTOR-WORDS-t526-t528u.md:7, :11 and :15 at 661732f5. Taught once is the run-folder config at DESIGN.md:72-83. Build, lab, check, setup and troubleshoot each have a command that writes and pushes at DESIGN.md:104-110. The record lands in the page log (DESIGN.md:29) with a printed view (DESIGN.md:30), and Prima reads the GitHub copy (DESIGN.md:31, :63).
+  - Done when, SPEC.md: met. Config is ## 1 at SPEC.md:7 (file, fields, who writes it once). Commands for return, check, setup, lab and troubleshoot are ## 2 at SPEC.md:34 and the table at SPEC.md:55-63. The report file format is ## 3 at SPEC.md:69-111. The hash-chain kind `report` and its fields are ## 4 at SPEC.md:113-148, including the later hooks in page.rs, lib.rs, cmd.rs and render.rs.
+  - Done when, WORKER-SETUP.md: met. New-worker steps are ## 1 at WORKER-SETUP.md:8-32. Config once per run folder is ## 2 at WORKER-SETUP.md:34-48. Prompt boxes versus the normal loop (packs > returns > review through GitHub, wf controlling it) is ## 3 at WORKER-SETUP.md:50-64, quoting t528u.
+  - Done when, FAILURES.md: met. Push rejected is ## 1 at FAILURES.md:8-33. Offline is ## 2 at FAILURES.md:35-56. Codex no-network is ## 3 at FAILURES.md:58-71. Dead lock is ## 4 at FAILURES.md:74-98.
+  - Done when, BUILD-PAGES.md: met. The split is ## 1 at BUILD-PAGES.md:6-16 (pages 0422-0426, titles and outcomes). Grants are ## 2 at BUILD-PAGES.md:18-33; no file is listed twice, and 0422-0424 wait while 0408 holds src/lib.rs, src/page.rs and src/cmd.rs. Order and waits, including "not packed until 0705 closes", are ## 3 at BUILD-PAGES.md:35-62.
+  - Done when, LESSONS.md: met. Six short lessons at LESSONS.md:6, :11, :16, :21, :26 and :31. Each has a file:line cite, and lesson 6 also cites commit 6c01d008 (that commit is 90.50.10.0702.05.03). Spot-checks of the a823ee28 cites held, including src/cmd.rs:786-793 (check does not push), src/lib.rs:148 (`wf --version` has no version), src/lib.rs:154 (return holds the lock for the whole command), src/page.rs:125-126 (KINDS has 17 names) and src/log.rs:46-59 (UTC stamp). Plan cites were checked at prima/build 661732f5 and the axiom and seqAddr cites at 8e96151d.
+  - Frame: the check printed only the return file and the six labs/0705/ files. Return commit d7c505ba4f8e9480856567ab075b3d5d2fe0bd6f is on returns and starts from the pack start 10abb9f2598191ebf2652b70704cddc0fe3ffd56. The noticed line begins "design review:".
+  - Minor: the proposed default for a setup report does not land on a page (DESIGN.md:130-131, option (a)). Option (b) would. The design leaves that to Matthew. Build, lab, check and troubleshoot do land on the page.
+  - Minor: FAILURES.md:17-19 keeps wf's merge and refuses a rebase, while job w04's wording said "fetch and rebase". Face 01 only requires the push-rejected case to be covered, and the return's proof line says this difference out loud. Not a fail.
+- Time taken:
+  - wf check and wf verify each finished in one run, under a minute. Reading the return and the six lab files, and checking the cites, was the rest of the pass.
