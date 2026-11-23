@@ -1,0 +1,11 @@
+repo: work
+start: a823ee284574be3d9f6247925b9088137a27a539
+predecessor: none
+axioms: 1.7.8
+outcome: face 00 of a band door shows type: band and a contents list built from the pages folder; a non-door page has no list
+overview: Builder: Cursor-1. Wave 4 of the stage plan (section 15.4): this page is the render.rs side, beside 0408 which is the cmd.rs side. They share no file. Start is returns a823ee284574be3d9f6247925b9088137a27a539 (0404 and 0415 have returned; neither is closed). Do not publish. This pack is template 4, so the return must fill the design review line. Lab is 90.50.10.0701. The lab trial tests/lab_0407.rs is not this page's file. This page writes tests/page_0407.rs (section 11.7). Code re-read at a823ee28: face 00 is printed by face00 in src/render.rs:355. It lists title, person, prime, grant and the log head. It does not print type: band or a contents list. page_kind is src/addr.rs:73. BandHead is PP00 at or above 0100. Do not change src/addr.rs. The plan's done-when says a dropped page shows as dropped. wf has no dropped state in the log (retire is page 0409, later). Do not invent one.
+w01: In src/render.rs face00 (line 355 at a823ee28), when this page is a band head (page_kind BandHead, src/addr.rs:73), print a line type: band and a contents list. Build the list by reading the other page folders of the same band under the run folder's pages directory. Do not hand-write the list. Each line names the page address and the state that page's log already has. A page that is not a band head gets no type: band line and no contents list.
+w02: Add tests/page_0407.rs. It must build on Windows: no std::os::unix, and no check command that is only true, grep, or test (stage plan 11.7). Show a band door listing each page in its band with its state, and a non-door page with no list. Do not add a dropped state. If a test cannot show dropped from the log as it is, stop and say so.
+may touch: src/render.rs, tests/page_0407.rs
+checks: cargo test --lib; cargo test --test page_0407
+stop if: another file must change, including src/addr.rs, src/cmd.rs, src/lib.rs, src/page.rs, or a hand edit of pages under the door. The only way to show dropped is to invent a state the log does not have. A rule above reads two ways.

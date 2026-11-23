@@ -1,0 +1,9 @@
+Goal: Prime can withdraw a pass that is at pack and has no claim. The pass stays in the log as withdrawn, and a later claim is refused. Band door: 90.50.10.0400.
+Builder: Grok-1.
+Lab: 90.50.10.0701 (wf loop lab). The lab trial is tests/lab_0408.rs, written by another view after this return. This page's own test file is tests/page_0408.rs.
+Done when: withdraw works at pack with no claim.
+Done when: withdraw is refused at open or later.
+Done when: a later claim is refused.
+Done when: the log keeps the pass.
+Done when: cargo test --test page_0408 passes on the box.
+Done when: the lab trial tests/lab_0408.rs passes in lab 0701.
