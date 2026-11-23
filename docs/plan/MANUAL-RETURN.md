@@ -2,7 +2,7 @@
 
 t557u (2:39 PM EST, 23 Nov 2026): "We need a process for a manual return if the compute isn't working. So what it does if the prompt and the pack don't execute correctly."
 
-This is the process for that case. It is pending (docs/review/PENDING-RULES.md). It is not a way to skip wf when wf works.
+This is the process for that case. Matthew approved it at 2:45 PM EST (t557s2212), picking the default on all three questions. The rule is in docs/review/PENDING-RULES.md until it can be written into the wf kit. It is not a way to skip wf when wf works.
 
 The template is lockout/tagout. When a machine fails, you tag it out of service and record it. You never bypass the lock by hand.
 
@@ -65,7 +65,7 @@ Stop. Tag it. Record it. Do not bypass.
    - test results
    - the code commit
 8. **Push** that commit to `returns`. If the push is rejected, fetch origin returns and try again once, still never force.
-9. **If the push fails too**, paste the full report to Matthew in one block. A paste is only a last resort. It does not close the pass. It does not replace the GitHub record. Prima or Matthew commits it to `returns` when they can.
+9. **If the push fails too**, paste the full report to Matthew in one block. A paste is only a last resort. The pass never closes until the report is committed to `returns`. A paste does not replace the GitHub record. Prima or Matthew commits it to `returns` when they can.
 
 The builder keeps the page while the manual return is open. This is not a handover to another builder.
 
@@ -103,19 +103,21 @@ MANUAL RETURN (docs/plan/MANUAL-RETURN.md). If wf fails:
 3. Record the exact command, exit code, full error text, the wf commit it was built from, and the OS.
 4. Keep all work inside the grant. Stage files by path only (never add -A, never commit -a). Commit with trailer "Builder: <name>" to returns. Do not write under .workshop/.
 5. Write reports/<page>/05.NN/<Builder>-MANUAL-RETURN-<stamp>.md with: page, pass, builder, pack hash, start commit, failing step, error, what was done, files touched, test results, and the code commit. Push to returns. Never force push.
-6. If the push fails too, paste that same report to Matthew in one block. You still hold the page. The report releases the face lock. This is not a handover. A manual return never closes as passed until the checker reviews it.
+6. If the push fails too, paste that same report to Matthew in one block (last resort only). You still hold the page. The report releases the face lock. This is not a handover. The pass never closes until the report is committed to returns and the checker reviews it.
 ```
 
-## Questions for Matthew
+## Decided (t557s2212, 2:45 PM EST)
+
+Matthew picked the default on all three questions. Words: docs/review/DIRECTOR-WORDS-t557-manual-return.md.
 
 Q1. Is the fixed location on returns just the granted file paths, plus the report at `reports/<page>/05.NN/`?
 
-- Recommended (default): yes. The work stays in the grant. The report is the record. Do not add a second copy of the code.
+- Decided: the granted files plus the report, with no second copy.
 
 Q2. The record releases the face lock, but the builder still holds the page. May the checker enter while that tag is open?
 
-- Recommended (default): yes. Prima and the checker may review, as after a normal release. No other builder may claim the page until the tag is cleared, after intake, or by a recorded override.
+- Decided: Prima and the checker may review while the tag is open, and no other builder may claim the page.
 
 Q3. Lab 0705 said a pasted report must not stand in for a push, because it is not in the hash chain. This process allows a paste when the returns push also fails.
 
-- Recommended (default): a paste is last resort only. It does not close or intake the pass. Prima or Matthew commits the report to `returns` when they can. A paste alone is never a passed close.
+- Decided: pasting the report is a last resort only, and the pass never closes until the report is committed.
