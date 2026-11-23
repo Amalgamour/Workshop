@@ -1,0 +1,31 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0705 05.02
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git checkout -- pages; git pull --ff-only origin packs
+  - git -C work fetch origin packs returns prima/build; git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe check 90.50.10.0705 2 --as Grok-Check
+  - copy pages/90.50.10.0705/log.jsonl to work/.workshop/logs/90.50.10.0705/log.jsonl; git add -- that path; commit; git -C work push origin returns
+- Results:
+  - wf check 05.02: pass (exit 0). All 10 pack checks ok. Frame ok. Jobs w01-w05 done.
+  - The local log extended the remote log (18 lines, then the check). Push succeeded.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue". Intake took 2 entries for 0705.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 19, actor Grok-Check, role checker, pass 2, verdict pass
+- Push commits:
+  - 5edfca38748a1993d24be8c7471d94d70713b491 wf: check 90.50.10.0705.05.02 (log) on returns
+- Findings:
+  - Verdict: pass. No major findings. One minor cite.
+  - Done when, DESIGN 4.1: met. Section 4.1 is DESIGN.md:133-153 at return a05bcbb22f76ccba720b539fb3f741efcd1bb427. Q1, Q2 and Q3 are marked answered. Cites are DW530, defined at DESIGN.md:10 as docs/review/DIRECTOR-WORDS-t530.md at 04c13954. Those lines match: :7, :11, :15, :19, :21, :25, :27, :33, :39, :45, :47. The setup-report default lands on the worker's N6 page (DESIGN.md:137-141). The pass 05.01 "no chain" default is withdrawn.
+  - Done when, SPEC: met. SPEC.md:59 says every real wf check writes and pushes its report, and --dry-run writes nothing. SPEC.md:74 and :120 say setup reports chain on the worker's N6 page, and the old "setup never chains" line is withdrawn. Sections ## 1. through ## 4. are at :7, :34, :69 and :113.
+  - Done when, WORKER-SETUP: met. WORKER-SETUP.md:14-19 gives the worker page 90.50.10.06NN, first open after 0600, so 0601 today, title the worker's name in lowercase (seqAddr.md:112 at 8e96151d is "lowercase letters, digits, hyphens"), exact name in the stamp and the config, and setup reports chain there. Sections ## 1. through ## 3. are at :10, :52 and :68.
+  - Done when, BUILD-PAGES: met. BUILD-PAGES.md:14 is one page, 90.50.10.0422, title report-system. The five passes and their grants are :30-34 and :57-61, under that one page. :37-41 says no sub-page, and says why. :43 keeps 0420 as the dead-lock page and 0421 as the wf seat page, and puts 0423 first after 0408, ahead of 0422. Sections ## 1. through ## 3. are at :12, :45 and :68. DIRECTOR-WORDS-t533.md:15 at 04c13954 places 0423 ahead of 0422.
+  - Done when, lessons: met. LESSONS.md:39-59 adds lessons 7, 8, 9 and 10. Each has a file:line cite, including DIRECTOR-WORDS-t530.md:45, :11-19 and :25, and FAILURES.md:17-19 for the merge-versus-rebase note. FAILURES.md was not rewritten.
+  - Minor: WORKER-SETUP.md:16 cites seqAddr.md:116 for raising a name that cannot be a legal title. At 8e96151d, :116 says a title stored in a stamp is the truth and a mismatch with the address is elevated. It does not say an illegal title is raised. The lowercase rule at :112 is the line the Done when names, and that cite holds.
+  - Frame: the check printed only the return file and the five labs/0705/ files. Return commit a05bcbb22f76ccba720b539fb3f741efcd1bb427 is on returns and starts from pack start 32fc1f34e8efdb9dd609ed4679bdbc90a74e7998. The design review line is filled.
+- Time taken:
+  - wf check finished in one run. Reading the five lab files and the cited lines at 04c13954 and 8e96151d was the rest of the pass.
