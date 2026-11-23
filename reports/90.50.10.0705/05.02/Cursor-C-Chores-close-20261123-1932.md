@@ -1,0 +1,26 @@
+# Report
+
+- Builder: Cursor-C Chores
+- Page/pass: 90.50.10.0705 05.02
+- Kind: close
+- Commands run:
+  - Built wf from commit a823ee284574be3d9f6247925b9088137a27a539 (`cargo build --release` in worktree `/agent/repos/wf-kit-build`).
+  - Run folder `/tmp/wf-run-prima`: `packs` checkout with `work/` on `returns`; fetched origin packs and returns.
+  - `wf intake --as prima` (known refusals 90.50.00.0001 and 90.50.10.0403; 0705 took 3 entries).
+  - `wf signoff 90.50.10.0705 2 --outcome passed --note 'typed by Cursor-C Chores for Prima' --as prima`
+  - `wf close 90.50.10.0705 2 --as prima`
+  - Copied `pages/90.50.10.0705/log.jsonl` to `work/.workshop/logs/90.50.10.0705/log.jsonl`; remote log was a byte prefix; `git add --` that path; commit with trailer `Model: Cursor-C (Chores, composer-2.5)`; push origin returns.
+  - `wf publish-pack 90.50.10.0705 2 --as prima` (pushed packs internally).
+- Results:
+  - Outcome: **passed** (check verdict pass by Grok-Check, entry 19; signed off and closed without override).
+  - Cards: w01–w05 accepted (defaults; all jobs done per check).
+  - wf close entries: signoff log entry 20, close log entry 21.
+- Commits:
+  - returns: `efadd4d28af6a0d39d856a7ff186b6b2ae52051d` — `wf: close 90.50.10.0705.05.02 (log)`
+  - packs: `c439cbdc83a1c3c7dfde775da4fb4c7979e3a5b7` — `wf: publish 90.50.10.0705.05.02`
+  - Prior check on returns (Grok-Check): `5edfca38748a1993d24be8c7471d94d70713b491`
+- Findings:
+  - Grok-Check report `reports/90.50.10.0705/05.02/Grok-Check-check-20261123-1324.md` read; check entry 19 confirmed on origin/returns before close.
+  - No major issues. Intake also absorbed unrelated log tails for 0408, 0701, 0703 (left unstaged in the packs run folder).
+- Time taken:
+  - One pass: build wf, setup run folder, intake/signoff/close/publish, log push, this report.
