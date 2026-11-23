@@ -122,11 +122,11 @@ pub fn face01_drift(p: &Page, pack: &Value) -> Option<String> {
 
 /// Entry kinds that only make sense for a pass that was drafted first.
 /// Every entry kind wf writes. Anything else in a log is refused.
-const KINDS: [&str; 17] = ["init", "prime", "grant", "face", "draft", "pack", "claim", "return-refused", "return",
+const KINDS: [&str; 18] = ["init", "prime", "grant", "face", "draft", "pack", "claim", "withdraw", "return-refused", "return",
     "check", "signoff", "close", "elevate", "answer", "finding", "halt", "resume"];
 
 /// Kinds that belong to one pass (data.pass, 01-98).
-const PASS_KINDS: [&str; 9] = ["draft", "pack", "claim", "return-refused", "return", "check", "signoff", "close", "elevate"];
+const PASS_KINDS: [&str; 10] = ["draft", "pack", "claim", "withdraw", "return-refused", "return", "check", "signoff", "close", "elevate"];
 
 /// A full git commit hash as wf writes it: 40 (SHA-1 repo) or 64 (SHA-256 repo)
 /// lowercase hex characters. One rule for return and check entries.
@@ -148,6 +148,7 @@ fn missing_pass(seq: u64, kind: &str, nn: u32) -> String {
 
 impl Pass {
     /// Pack, open (claimed), return, and review all hold the pack's files.
+    /// Withdrawn does not: the pass stays in the log and releases its files.
     pub fn is_open_tail(&self) -> bool {
         matches!(self.tail.as_str(), "pack" | "open" | "return" | "review")
     }
@@ -237,7 +238,7 @@ impl Page {
         };
         let want: &[&str] = match kind {
             "draft" | "pack" => &["draft"],
-            "claim" => &["pack"],
+            "claim" | "withdraw" => &["pack"],
             "return-refused" | "return" => &["open"],
             "check" => &["return", "review"],
             "signoff" | "close" => &["review"],
@@ -330,6 +331,10 @@ impl Page {
                 p.tail = "open".into();
                 p.claim = Some(e.actor.clone());
             }
+            "withdraw" => {
+                let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
+                p.tail = "withdrawn".into();
+            }
             "return-refused" => self.passes.get_mut(&nn).ok_or_else(missing)?.refusals.push((e.seq, s(d, "why"))),
             "return" => {
                 let p = self.passes.get_mut(&nn).ok_or_else(missing)?;
@@ -400,7 +405,7 @@ mod tests {
 
     #[test]
     fn open_tails_hold_files() {
-        for (tail, hold) in [("pack", true), ("open", true), ("return", true), ("review", true), ("draft", false), ("closed", false)] {
+        for (tail, hold) in [("pack", true), ("open", true), ("return", true), ("review", true), ("draft", false), ("closed", false), ("withdrawn", false)] {
             let x = Pass { tail: tail.into(), ..Default::default() };
             assert_eq!(x.is_open_tail(), hold, "{tail}");
         }

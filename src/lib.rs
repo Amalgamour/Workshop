@@ -27,6 +27,7 @@ Every command that writes needs --as <name> (or set WF_AS).
   draft <page> --file pack.txt [--pass NN] [--overlap-ok NN --why T]  prime; pins 04, 06, last closed 05
   pack <page> <NN> [--overlap-ok NN --why T]    prime; checks, then prints the prompt box
   claim <page> <NN>                             builder; first claim wins
+  withdraw <page> <NN>                          prime; a packed pass with no claim; tail becomes withdrawn
   return <page> <NN> --branch B --commit SHA --file PATH   the claim holder's ping
   check <page> <NN> [--note T] [--fail T] [--dry-run]   checker (never the builder); --dry-run writes nothing
   signoff <page> <NN> --outcome passed|failed|blocked|needs-authority [--cards w01=accepted,..] [--note T]
@@ -236,6 +237,7 @@ pub fn run(raw: &[String]) -> log::Res<()> {
         "draft" => cmd::draft(&mut p, &a, &who),
         "pack" => cmd::pack(&mut p, &root, &a, &who),
         "claim" => cmd::claim(&mut p, &a, &who),
+        "withdraw" => cmd::withdraw(&mut p, &a, &who),
         "return" => cmd::ret(&mut p, &root, &a, &who),
         "signoff" => cmd::signoff(&mut p, &a, &who),
         "close" => cmd::close(&mut p, &a, &who),
@@ -277,6 +279,7 @@ mod lock_tests {
         let a = Args::parse(&["1.2.3.4".into(), "--all".into()]);
         assert!(!writes("board", &a) && !writes("status", &a));
         assert!(writes("claim", &a));
+        assert!(writes("withdraw", &a));
     }
 
     #[test]
