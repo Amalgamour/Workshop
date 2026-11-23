@@ -1,0 +1,12 @@
+# Return 90.50.10.0424.05.01
+pack: 893cd7a24ac8d4576d939f2b5a756b0228c497a96f87312d9eba19dd737521d4
+done: <what you did, in plain words>
+changed: <your summary of creates, modifies and deletes; the tool takes the list from git>
+noticed: <what you noticed, or none>
+w01: <done | need | blocked> - In src/board.rs, change book() so each readable page line includes holder, step, and next, placed after the last-entry time and before the column counts, in this shape: "  {addr}  {title}  entries {n}, last {when} | holder {h} | step {s} | next: {next} | draft ...". Keep the prefix "  {addr}  {title}  entries {n}" unchanged. {h} is the current pass's claim, escaped the same way as src/board.rs:272, or the word none when the claim is empty or there is no current pass. {s} is that pass's tail, or the word none when there is no current pass. {next} is pass_next for that pass; when there is no current pass it is "Prime writes a 06 note, then wf draft {addr}"; when the page is halted it is the existing halt sentence (halted. plus how_to_resume). The current pass is the highest-numbered pass whose tail is not "closed". Do not change COLUMNS or any page-board output. Do not edit src/lib.rs, src/status.rs, or tests/wf.rs. Unreadable lines are unchanged.
+w02: <done | need | blocked> - Add tests/page_0424.rs. It must build on Windows: no std::os::unix, and no check command that is only true, grep, or test (stage plan 11.7). Use the common test Env. Cover at least: a ready page with no pass (Env::ready) shows holder none, step none, next containing "wf draft", and the line still contains "  10.10.10.0401  t  entries 4"; after pack and before claim, holder is none, step is pack, and next contains "wf claim"; after claim (Env::open), holder is bob, step is open, and next contains "wf return"; after a return, holder is still bob (the claim field, same data as board.rs:272), step is return, and next contains "wf check"; after close, holder is none, step is none, and next contains "wf draft"; an unreadable page line is unchanged (same words as today's "unreadable: no log.jsonl" or "unreadable: log line 1 is not JSON"). The board still writes nothing. Do not copy the harness.
+proof: <commits, tests run and what they showed>
+design review: <the design files you compared your work against (at least docs/AXIOMS.md and docs/DESIGN.md in the kit), what matched, and any place it differs; t416u>
+not done: <what you did not do, and why, or none>
+unprompted: <anything you did that was not asked, or none>
+overflow: <ideas past this job, or none>

@@ -1,0 +1,31 @@
+=== WORKSHOP JOB 90.50.10.0424.05.01 ===
+Pack hash: 893cd7a24ac8d4576d939f2b5a756b0228c497a96f87312d9eba19dd737521d4 (log entry 7, 2026-11-23T19:43:44Z)
+You are: the builder. Claim first:
+  wf claim 90.50.10.0424 01 --as <your-name>
+Repo: work   Branch: returns   Start: a823ee284574be3d9f6247925b9088137a27a539
+Read first: pages/90.50.10.0424/05.01/AGENTS.md (sha256 0e4f15177e6b), and in the kit folder (the folder with src/ and AGENTS.md, not the run folder that holds pages/): docs/AXIOMS.md, docs/DESIGN.md
+Goal (face 01):
+Builder: Grok-3 (Matthew's PC, D:\Git\grok3).
+Goal: each line of `wf board` (no page) shows the page's holder, the current step, and the next step, using the same data the page board already shows. Band door: 90.50.10.0400.
+Lab: 90.50.10.0701 (wf loop lab). The lab trial is tests/lab_0424.rs, written by another view after this return. This page's own test file is tests/page_0424.rs.
+Why: t541u G5, "wf board with holder, step and next" (docs/review/DIRECTOR-WORDS-t541-mvp-gaps.md). Needed before the 0498 MVP run. The grant is src/board.rs and tests/page_0424.rs only. Help text in src/lib.rs is out of grant and is left as it is.
+Done when: cargo test --lib passes, and cargo test --test page_0424 passes on the box.
+Done when: each readable book-board line still starts with two spaces, the page address, two spaces, the title, two spaces, and "entries N", so the tests/wf.rs book-board checks still pass, including "  10.10.10.0401  t  entries 4". tests/wf.rs is not in the grant and must not be edited.
+Done when: each readable book-board line also shows holder, step, and next, for the highest-numbered pass whose tail is not closed, using the same data the page board already shows at src/board.rs:272 (the claim field, the pass tail, and pass_next). When that pass has no claim, or when the page has no such pass, holder is the word none. When the page has no such pass, step is the word none, and next is "Prime writes a 06 note, then wf draft <page>". If the page is halted, next is the same halt sentence status already uses. Unreadable lines are unchanged.
+
+Jobs:
+  w01: In src/board.rs, change book() so each readable page line includes holder, step, and next, placed after the last-entry time and before the column counts, in this shape: "  {addr}  {title}  entries {n}, last {when} | holder {h} | step {s} | next: {next} | draft ...". Keep the prefix "  {addr}  {title}  entries {n}" unchanged. {h} is the current pass's claim, escaped the same way as src/board.rs:272, or the word none when the claim is empty or there is no current pass. {s} is that pass's tail, or the word none when there is no current pass. {next} is pass_next for that pass; when there is no current pass it is "Prime writes a 06 note, then wf draft {addr}"; when the page is halted it is the existing halt sentence (halted. plus how_to_resume). The current pass is the highest-numbered pass whose tail is not "closed". Do not change COLUMNS or any page-board output. Do not edit src/lib.rs, src/status.rs, or tests/wf.rs. Unreadable lines are unchanged.
+  w02: Add tests/page_0424.rs. It must build on Windows: no std::os::unix, and no check command that is only true, grep, or test (stage plan 11.7). Use the common test Env. Cover at least: a ready page with no pass (Env::ready) shows holder none, step none, next containing "wf draft", and the line still contains "  10.10.10.0401  t  entries 4"; after pack and before claim, holder is none, step is pack, and next contains "wf claim"; after claim (Env::open), holder is bob, step is open, and next contains "wf return"; after a return, holder is still bob (the claim field, same data as board.rs:272), step is return, and next contains "wf check"; after close, holder is none, step is none, and next contains "wf draft"; an unreadable page line is unchanged (same words as today's "unreadable: no log.jsonl" or "unreadable: log line 1 is not JSON"). The board still writes nothing. Do not copy the harness.
+May touch: src/board.rs, tests/page_0424.rs
+Must not: anything else (the return check refuses it)
+The return file under .workshop/returns/ is always allowed and must be listed in changed.
+Checks: cargo test --lib; cargo test --test page_0424
+Done when (face 01): Done when: cargo test --lib passes, and cargo test --test page_0424 passes on the box.
+Done when: each readable book-board line still starts with two spaces, the page address, two spaces, the title, two spaces, and "entries N", so the tests/wf.rs book-board checks still pass, including "  10.10.10.0401  t  entries 4". tests/wf.rs is not in the grant and must not be edited.
+Done when: each readable book-board line also shows holder, step, and next, for the highest-numbered pass whose tail is not closed, using the same data the page board already shows at src/board.rs:272 (the claim field, the pass tail, and pass_next). When that pass has no claim, or when the page has no such pass, holder is the word none. When the page has no such pass, step is the word none, and next is "Prime writes a 06 note, then wf draft <page>". If the page is halted, next is the same halt sentence status already uses. Unreadable lines are unchanged.
+Stop if: you would change any file outside may touch (the return check refuses it), including src/lib.rs, src/status.rs, or tests/wf.rs; the only way to pass is to change column names or page-board output; a tests/wf.rs book-board assertion would fail, including "  10.10.10.0401  t  entries 4"; a rule above reads two ways; Matthew's direction would leave the grant (stop and raise it). The checks only prove the tests compile and pass; the checker judges the three fields, the current-pass rule, and that unreadable lines and the line prefix are unchanged (then end that job `need` or `blocked`, say why)
+Hand back: copy pages/90.50.10.0424/05.01/RETURN-TEMPLATE.md to .workshop/returns/90.50.10.0424.05.01.md,
+fill it, commit on your pass branch, created from the start commit; push only where your setup says, then:
+  wf return 90.50.10.0424 01 --branch returns --commit <sha> --file .workshop/returns/90.50.10.0424.05.01.md --as <your-name>
+Pass numbers may be written 1 or 01. Hashes are sha256 (12-char prefix).
+=== END JOB ===
