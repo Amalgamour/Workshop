@@ -372,7 +372,13 @@ fn pack_warns_on_stderr_when_face_01_has_no_done_when() {
 #[test]
 fn check_stores_at_most_last_40_lines_of_output() {
     let e = Env::ready("clip40");
-    e.open("src/a.rs", "seq -f L%03g 1 50");
+    // cmd.exe has no seq. PowerShell 5.1 prints L001 through L050.
+    let cmd = if cfg!(windows) {
+        "powershell -NoProfile -Command 1..50^|ForEach-Object{'L{0:D3}' -f $_}"
+    } else {
+        "seq -f L%03g 1 50"
+    };
+    e.open("src/a.rs", cmd);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     let filed = e.ok(&["check", PG, "1", "--as", "cat"]);
@@ -389,9 +395,22 @@ fn check_stores_at_most_last_40_lines_of_output() {
 fn check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen() {
     let e = Env::ready("chkesc");
     // A failing check that moves the cursor up and rewrites the verdict as "pass".
-    e.open("src/", "sh src/chk.sh");
-    let script = "printf '\\033[2A\\r\\033[2Kcheck 05.01: pass\\n\\033[2K  check ok: sh src/chk.sh\\n'; exit 1\n";
-    let sha = e.work(1, &[("src/a.rs", "a = 2\n"), ("src/chk.sh", script)], "w01: done - a");
+    // sh is not on this Windows PATH (the 0415 return).
+    let (cmd, file, script) = if cfg!(windows) {
+        (
+            "powershell -NoProfile -File src/chk.ps1",
+            "src/chk.ps1",
+            "$esc = [char]27\n[Console]::Out.Write(\"$esc[2A`r$esc[2Kcheck 05.01: pass`n$esc[2K  check ok: sh src/chk.sh`n\")\nexit 1\n",
+        )
+    } else {
+        (
+            "sh src/chk.sh",
+            "src/chk.sh",
+            "printf '\\033[2A\\r\\033[2Kcheck 05.01: pass\\n\\033[2K  check ok: sh src/chk.sh\\n'; exit 1\n",
+        )
+    };
+    e.open("src/", cmd);
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n"), (file, script)], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     for dry in [true, false] {
         let args: Vec<&str> = if dry {
@@ -408,7 +427,7 @@ fn check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen() {
         }
         assert!(!out.contains('\u{1b}') && !out.contains('\r'), "raw ESC/CR in printed check output: {out:?}");
         assert!(out.contains("\\u{1b}[2A") && out.contains("\\u{1b}[2K") && out.contains("\\u{d}"), "{out}");
-        assert!(out.contains("check FAIL: sh src/chk.sh"), "{out}");
+        assert!(out.contains(&format!("check FAIL: {cmd}")), "{out}");
     }
     // The log may keep the raw command output; the screen must not.
     let line = e.log().lines().find(|l| l.contains("\"kind\":\"check\"")).expect("check event").to_string();
@@ -844,9 +863,14 @@ fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     e.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
     let game = e.root.join("game");
     fs::write(game.join("src/a space.rs"), "space\n").unwrap();
-    fs::write(game.join("src/a\tb.rs"), "tab\n").unwrap();
-    fs::write(game.join("src/a\nb.rs"), "newline\n").unwrap();
     fs::write(game.join("src/é.rs"), "eacute\n").unwrap();
+    if cfg!(windows) {
+        // os error 123, Windows refuses this name.
+        fs::write(game.join("src/x\u{202e}y\u{3164}z.rs"), "plant\n").unwrap();
+    } else {
+        fs::write(game.join("src/a\tb.rs"), "tab\n").unwrap();
+        fs::write(game.join("src/a\nb.rs"), "newline\n").unwrap();
+    }
     fs::create_dir_all(game.join(".workshop/returns")).unwrap();
     let ret = format!("pack: {hash}\ndone: unusual names\nchanged: create src/a space.rs\nnoticed: none\nw01: done - names\nproof: tests\ndesign review: kit docs compared (test)\nnot done: none\nunprompted: none\noverflow: none\n");
     fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
@@ -863,9 +887,13 @@ fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     assert!(ok, "{out}");
     let log = e.log();
     assert!(log.contains("src/a space.rs"), "{log}");
-    assert!(log.contains("src/a\\tb.rs"), "{log}");
-    assert!(log.contains("src/a\\nb.rs"), "{log}");
     assert!(log.contains("src/é.rs"), "{log}");
+    if cfg!(windows) {
+        assert!(log.contains("src/x\u{202e}y\u{3164}z.rs"), "{log}");
+    } else {
+        assert!(log.contains("src/a\\tb.rs"), "{log}");
+        assert!(log.contains("src/a\\nb.rs"), "{log}");
+    }
 }
 
 // Unix-only: std::os::unix::fs::symlink. Windows symlinks need a different API and extra rights.
@@ -1329,7 +1357,7 @@ fn new_pack_records_template_version_3() {
     e.draft("src/a.rs", "cargo --version");
     e.ok(&["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
-    assert!(log.contains("\"templates\":\"3\""), "{log}");
+    assert!(log.contains("\"templates\":\"4\""), "{log}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     // v3: the build rule lives in the kit rules, reached by hashed link 4.
     assert!(agents.contains("| 4 | kit AGENTS.md, roles and commands | kit AGENTS.md |"), "{agents}");
@@ -1431,7 +1459,8 @@ fn planted_file_names_are_escaped_in_views() {
     let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
     e.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
     let game = e.root.join("game");
-    let fname = "src/x\u{1b}y\u{202e}z\u{2028}w.rs";
+    // os error 123, Windows refuses this name.
+    let fname = if cfg!(windows) { "src/x\u{202e}y\u{3164}z.rs" } else { "src/x\u{1b}y\u{202e}z\u{2028}w.rs" };
     fs::write(game.join("src/a.rs"), "a = 2\n").unwrap();
     fs::write(game.join(fname), "plant\n").unwrap();
     fs::create_dir_all(game.join(".workshop/returns")).unwrap();
@@ -1444,10 +1473,16 @@ fn planted_file_names_are_escaped_in_views() {
     let (ok, out) = e.ret(1, &sha, "bob");
     assert!(ok, "{out}");
     let face = fs::read_to_string(e.page().join("05.md")).unwrap();
-    assert!(!face.contains('\u{1b}'), "05.md raw ESC: {face}");
-    assert!(!face.contains('\u{202e}'), "05.md raw bidi: {face}");
-    assert!(!face.contains('\u{2028}'), "05.md raw U+2028: {face}");
-    assert!(face.contains("\\u{1b}") && face.contains("\\u{202e}") && face.contains("\\u{2028}"), "{face}");
+    if cfg!(windows) {
+        assert!(!face.contains('\u{202e}'), "05.md raw bidi: {face}");
+        assert!(!face.contains('\u{3164}'), "05.md raw filler: {face}");
+        assert!(face.contains("\\u{202e}") && face.contains("\\u{3164}"), "{face}");
+    } else {
+        assert!(!face.contains('\u{1b}'), "05.md raw ESC: {face}");
+        assert!(!face.contains('\u{202e}'), "05.md raw bidi: {face}");
+        assert!(!face.contains('\u{2028}'), "05.md raw U+2028: {face}");
+        assert!(face.contains("\\u{1b}") && face.contains("\\u{202e}") && face.contains("\\u{2028}"), "{face}");
+    }
 }
 
 #[test]
@@ -1643,7 +1678,9 @@ fn board_escapes_hostile_log_text_everywhere() {
     e.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
     let game = e.root.join("game");
     fs::write(game.join("src/a.rs"), "a = 2\n").unwrap();
-    fs::write(game.join("src/x\u{1b}y\u{202e}z\u{2028}w.rs"), "plant\n").unwrap();
+    // os error 123, Windows refuses this name.
+    let planted = if cfg!(windows) { "src/x\u{202e}y\u{3164}z.rs" } else { "src/x\u{1b}y\u{202e}z\u{2028}w.rs" };
+    fs::write(game.join(planted), "plant\n").unwrap();
     fs::create_dir_all(game.join(".workshop/returns")).unwrap();
     let ret = format!("pack: {hash}\ndone: plant\nchanged: names\nnoticed: none\nw01: need - x\u{1b}[2K\r  next: draft\nproof: tests\ndesign review: kit docs compared (test)\nnot done: none\nunprompted: none\noverflow: none\n");
     fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
@@ -2837,7 +2874,7 @@ fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
     });
     let (code, out) = run_code(&e, &["verify", PG, "--fix"]);
     assert_eq!(code, Some(1), "{out}");
-    assert!(out.contains("05.01: pack entry 6 (templates 3) has no links recorded: invalid"), "{out}");
+    assert!(out.contains("05.01: pack entry 6 (templates 4) has no links recorded: invalid"), "{out}");
 }
 
 #[test]
