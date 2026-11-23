@@ -1,0 +1,71 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0423 05.01
+- Kind: check
+- Verdict: fail
+- Commands run:
+  - git fetch origin packs; git pull --ff-only origin packs
+  - git -C work fetch origin returns; git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe verify 90.50.10.0423
+  - wf.exe check 90.50.10.0423 1 --dry-run --as Grok-Check
+  - cargo test --test page_0408 in a detached worktree at 1b0d2c123f7fc8537dcac1e6819f2456a781890f
+  - returned binary status and verify on copies of the published 0408 and 0423 logs
+  - returned binary override fixture in an isolated WF_ROOT
+  - wf.exe check 90.50.10.0423 1 --as Grok-Check --fail "The returned binary cannot load a published pre-lockout log. Page::apply calls Page::order, which refuses face, draft, pack, claim, return and check when no lockout holds. cargo test --test page_0408 fails 0 passed 3 failed with refused: lockout first. Loading the published 0408 and 0423 logs fails at entry 2 with refused: lockout first. An override is rechecked against the current book Prime on load, so a later set-prime makes a valid override fail to reload."
+  - copy pages/90.50.10.0423/log.jsonl to work/.workshop/logs/90.50.10.0423/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0423
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --lib: 52 passed, 0 failed, 0 ignored, finished in 0.14s. cargo test --test page_0423: 11 passed, 0 failed, 0 ignored, finished in 3.89s. Frame ok.
+  - Recorded check exit 0. cargo test --lib: 52 passed, 0 failed, 0 ignored, finished in 0.15s. Compile of that worktree finished in 4.94s. cargo test --test page_0423: 11 passed, 0 failed, 0 ignored, finished in 3.57s. Compile finished in 2.61s. Frame ok: A .workshop/returns/90.50.10.0423.05.01.md, M src/cmd.rs, M src/lib.rs, M src/page.rs, A tests/page_0423.rs.
+  - The eleven page_0423 tests passed in both runs: push_log_does_not_pull_merge, help_names_lockout_try_out_and_release, missing_book_lets_only_the_person_override, lockout_on_01_lasts_across_two_face_writes_until_release, override_accepts_the_book_prime_or_the_person, work_refuses_with_no_lock_and_under_another_workers_lock, withdraw_still_runs_without_a_lockout, session_05_returns_under_the_lock_and_checks_after_release, second_claim_is_refused_while_one_claim_is_open, push_refuses_when_the_published_log_is_not_a_prefix, push_accepts_a_prefix_extension.
+  - wf printed each Done when line as "checks ok; the checker judges the rest" and echoed jobs w01-w06 as done. That text is the packed-command result. The verdict is fail.
+- Results:
+  - wf check 05.01: fail (exit 0). The checker fail line is the --fail text above.
+  - Wall time of the recorded check: 11939 ms, 2026-11-23T22:43:26Z through 2026-11-23T22:43:38Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539. The returned binary was not installed over it.
+  - Verify after the log push: ok, log chain holds (10 entries, head fe986df59cd1). Views match. 05.01 AGENTS.md hash ace6c87175b7 holds. PROMPT.md hash 9582bbde9bbb holds. Links 4 hold.
+  - Before the check, the returns log and the run-folder log were equal, 46584 bytes, 9 lines. After the check the local log is 63317 bytes, 10 lines, and the 9-line returns log was a byte prefix. The pushed file is that 10-line log.
+  - Intake took the claim and the return (2 entries). It also refused 90.50.00.0001 and 90.50.10.0403 because those logs do not continue. Intake exit 1 is that mix.
+  - Did not sign off. Did not close. Did not merge the build.
+- wf entry numbers:
+  - claim is entry 8, actor Grok-2, role builder, time 2026-11-23T20:41:52Z
+  - return is entry 9, actor Grok-2, role builder, time 2026-11-23T21:14:09Z, commit 1b0d2c123f7fc8537dcac1e6819f2456a781890f
+  - check is entry 10, actor Grok-Check, role checker, pass 1, verdict fail, time 2026-11-23T22:43:38Z, prev aaddbf9bd8393b4f86329fe2fd39a5a111d2f9e5a8ddcfbdf6b87aa6d358a608
+- Push commits:
+  - return log 85d951fe4e115630ce8bc903987ba94f76861238
+  - builder commit 1b0d2c123f7fc8537dcac1e6819f2456a781890f
+  - pack start 21be13b902a6ed2104b3316c64093f4556f1ff3a
+  - sealed pack be6ade53d2c356aa5cb387b80291d9f6002dde8b
+  - pack hash e325830c9804af21d05cba07fbd127ecddac5d7773e4175ce19af207814f4865
+  - reassignment 58fb28d431cad13a2dc389fcfd3d078e4041c72b
+  - lead request at the start of this check bd8e510c7b879439f58d23f1a800bc8b779922d9
+  - packs HEAD at intake 40091ee46fc45ef0f66c59b9a3bcd2ba4910d9e5
+  - 91f66e05f2223c9b8729c5b9ef9ae9a278b946ed wf: check 90.50.10.0423.05.01 (log) on returns
+- Compatibility, returned binary at 1b0d2c, not a packed check:
+  - cargo test --test page_0408 exit 101. Compile finished in 6.53s. 0 passed, 3 failed, finished in 0.53s. a_later_claim_is_refused, withdraw_at_pack_with_no_claim_keeps_the_pass, and withdraw_is_refused_at_open_or_later each panicked at tests\common\mod.rs:46: wf ["face-write", "10.10.10.0401", "04", "--section", "goals", "--text", "a works", "--as", "pri"] failed: wf: refused: lockout first.
+  - Copies of the published logs, isolated WF_ROOT, status and verify each exit 1. stderr: wf: log entry 2 is out of order: refused: lockout first; the page cannot be read. Published 0408 entry 2 is face by prima. The 0408 log has 11 entries through close. Published 0423 entry 2 is face by prima. This page's own log does not load.
+- Override fixture, same binary, isolated WF_ROOT, book 10.10.10.0000:
+  - set-prime to lead. release --override --as old exit 1. release --override --as pri exit 1. Both: refused: only the book's Prime (lead) or the person (mat) may override. release --override --as lead exit 0: override released face 05 held by bob. status exit 0, 3 entries, release by lead.
+  - A new lockout, then release --override --as old, exit 1, same refusal. The holder bob released, exit 0.
+  - set-prime to bea, exit 0. status and verify of 10.10.10.0423 then exit 1: wf: log entry 3 is out of order: refused: only the book's Prime (bea) or the person (mat) may override; the page cannot be read. Entry 3 is the override that was valid when lead was Prime.
+  - A new page 10.10.10.0424, created after that set-prime, still loads. release --override --as lead, --as old, and --as pri each exit 1: refused: only the book's Prime (bea) or the person (mat) may override. release --override --as bea exit 0. A later lock released --override --as mat exit 0. status of that page exit 0. The book status shows prime bea.
+- Findings:
+  - Verdict: fail. The new commands behave as the pack describes. The returned binary cannot read an already published pre-lockout log, and a recorded override does not survive a later set-prime. Both were disclosed in the return noticed line. Both reproduced.
+  - Done when, lockout lasts until release: met for new events. pages/90.50.10.0423/01.md:7. lockout is src/cmd.rs:523-532. try-out is src/cmd.rs:536-553 and writes nothing (src/lib.rs:120). A second lockout is refused in src/page.rs:250-253. Tests lockout_on_01_lasts_across_two_face_writes_until_release and help_names_lockout_try_out_and_release passed.
+  - Done when, work needs the matching lock and an open claim excludes a second claim: met for new events. 01.md:8. lock_block is src/page.rs:227-234. lock_order gates face, draft, pack, claim, return, check, signoff, and close at src/page.rs:288-293. open_claim_block is src/page.rs:238-245. Return leaves the lock held (push_accepts_a_prefix_extension asserts the holder remains). A check is refused until release and accepted after the checker's own lockout (session_05_returns_under_the_lock_and_checks_after_release). The same order runs on load. That is the blocking compatibility finding, and it is why the packed tests can pass while published logs do not load.
+  - Done when, holder release and override authority: met at command time, not met for a recorded override. 01.md:9. The holder releases at src/cmd.rs:569-573. override_authority at src/cmd.rs:499-521 accepts the book's current prime or the person, and if the book or its prime is missing only the person, with the message that the book Prime is missing. The packed tests cover a former Prime and a work-page Prime on a new lock. The fixture confirmed the same after set-prime: lead, old, and pri are refused once bea is Prime, and bea and mat are accepted. Page::load replays that rule through apply (src/page.rs:388-389) and order (src/page.rs:321-322). override_authority reads book.prime now. prime_at at src/page.rs:211-213 is not used. After set-prime to bea, the override recorded while lead was Prime fails at entry 3 and the page cannot be read.
+  - Done when, byte-prefix push: met. 01.md:10. push_log is src/cmd.rs:720-750. PREFIX_REFUSAL is src/cmd.rs:686. A non-prefix returns immediately. A lost push loops at most three times, fetches again, and repeats the prefix check. The function body has no pull and no --force (tests/page_0423.rs:326-335). push_refuses_when_the_published_log_is_not_a_prefix and push_accepts_a_prefix_extension passed. There is no test that a rejected push then succeeds on a later try. The retry does not update the local branch tip, so a branch move that leaves the log a prefix can fail the same way three times. That matches the pack's "fetch again and repeat the prefix check; do not pull-merge."
+  - Done when, named cargo tests: met. 01.md:11. Both named commands passed on Windows. The new tests cover the packed lock, authority, and push cases in w06. They do not load a pre-lockout published log and they do not set-prime after an override.
+  - Jobs w01-w06: implemented as written. w04 puts the work refusals in Page::order where an event would be appended, and apply calls order for every existing entry. w03 checks the book's current Prime in Page::order, including when an old override is replayed. The blocking findings are those rules applied to history.
+  - Load path: Page::load src/page.rs:185-192. apply src/page.rs:388-389 wraps the order error as "log entry N is out of order: ...; the page cannot be read". lock_block src/page.rs:229 returns "refused: lockout first" when no lockout holds. Init and prime are not gated. The first face on 0408 and on 0423 is entry 2, so both published logs fail there.
+- Minors, not the fail reason:
+  - Withdraw is still ungated. lock_order has no withdraw arm. withdraw_still_runs_without_a_lockout passed. The return discloses this. It is outside the five Done when lines.
+  - The design review says DESIGN.md section 1 still says several models may work one page at once, and this pass differs. Disclosed. Not a separate fail.
+  - tests/lab_0423.rs is absent. Face 01 says that lab trial is after this pass closes. It is not a Done when line.
+  - The sealed pack still prints Builder: Grok-5. Lead report 58fb28d431cad13a2dc389fcfd3d078e4041c72b assigns Grok-2. Claim 8 and return 9 are Grok-2. This is not a self-check.
+- Blockers:
+  - The returned binary cannot load a published log that has a face, draft, pack, claim, return, or check with no earlier lockout. Reproduced on the 0408 suite (0 passed, 3 failed) and by status and verify of the published 0408 and 0423 logs (entry 2, refused: lockout first).
+  - An override that was valid when recorded fails to load after the book Prime changes. status and verify exit 1: entry 3, refused: only the book's Prime (bea) or the person (mat) may override.
+- Time taken:
+  - Recorded wf check 11.939s. Dry-run cargo 0.14s and 3.89s. page_0408 0.53s after a 6.53s compile. The isolated status, verify, and override fixture were a few seconds more. Reading the return and the 1b0d2c sources was the rest of the pass.
