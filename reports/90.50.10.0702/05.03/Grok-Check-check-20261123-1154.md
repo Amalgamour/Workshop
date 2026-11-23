@@ -1,0 +1,35 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0702 05.03
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git -C work fetch origin packs returns prima/build
+  - wf.exe intake
+  - wf.exe check 90.50.10.0702 3 --as Grok-Check
+  - copy pages/90.50.10.0702/log.jsonl to work/.workshop/logs/90.50.10.0702/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0702
+- Results:
+  - wf check 05.03: pass (exit 0). All 9 pack checks ok. Frame ok. Jobs w01-w06 done.
+  - wf verify: ok: log chain holds (27 entries, head 78fa537686ec); every view matches the log. 05.03 AGENTS.md hash 93289ba80510 holds; PROMPT.md hash dc1d41189389 holds; links 4 hold.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue". 0702 was already in this run folder and matched returns, so intake took nothing for it.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 27, actor Grok-Check, role checker, pass 3, verdict pass
+- Push commits:
+  - fc68c5721ee9fa45a9fb4a6a5d802e8e9226e0dd wf: check 90.50.10.0702.05.03 (log) on returns
+- Findings:
+  - Verdict: pass. No major findings. Three minors on line numbers and one short path.
+  - Done when, text production and counters: met. In the returned lab, why-draft-v and stamp-v are defined at LAB-0702-SEQ-GRAMMAR.md:244-245, and the text productions that fill them are at :247-255 (reason-text, note-line, stamp-text). The registry row at :218 includes counters := and cites derive.rs:247-249. At 8e96151d, derive.rs:247-249 keeps face 00 counters and the comment on :248 says they are not legal in the core and are kept for losslessness. The pack's :205 and :231-232 are the pre-edit line numbers. In this file the registry row is :218 and the productions are :244-255.
+  - Done when, open conflicts: met. O2 at :420 separates the v1 ASCII page view from the proposed stored form and whole-book export, and cites SEQ-FILE-PLAN.md:315-327. At 8e96151d, :315-327 is Step 3; :321 is the decoded view and :327 is the whole-book export with length and fingerprint. O6 at :424 says the 0700-0799 allocation is settled and cites seqAddr.md:345-351. At 8e96151d, :351 is the rule that labs have band DD.SS.BB.0700-0799. O9 is not in the live table. It is P1 at :434, parked by R21, citing DIRECTOR-RULINGS.md:82-84. At 8e96151d, :82-84 says override pages stay in the design for child desks and are not used while the Workshop app itself is built.
+  - Done when, Q2: met. Q2 at :450-453 marks R9's general rule answered and leaves the R16 dictionary 03.00 exception open as O11. DIRECTOR-RULINGS.md:37-38 at 8e96151d is "no FF.00 and no FF.99". :65-66 is R16, the dictionary's 03.00 is a door, held 7, and builders do not resolve it. face00.md:470 is F4, that same tension.
+  - Done when, Q6 fallback: met. Q6 at :476 says the fallback is the first nonblank line of the first note after the draft opened, trimmed of spaces, citing derive.rs:137-138. At 8e96151d, :137-138 takes the first trimmed non-empty line of that note body.
+  - Done when, booked body: met. Section 3.4 at :370-375 no longer calls the booked body imported. It says a booked block is only compared with the book's entry, and only new blocks become the proposal, citing import.rs:45-51, :64-71 and :79-87. At 8e96151d, :45-51 compares booked entries, :64-71 runs that compare when a book is supplied, and :79-87 puts proposed ops on the proposal. The pack's :343 is the pre-edit line. In this file the correction is :370-375.
+  - Done when, lessons: met. LESSONS.md:25-26 (lesson 3) carries the R16 exception and cites DIRECTOR-RULINGS.md:65-66 and face00.md:470. :31-32 (lesson 4) separates current implementation from an open design decision and points at lab O10. :41-42 (lesson 6) cites EVIDENCE-0703-p1-session.txt:27-30 for the dry-run error "fatal: ambiguous argument '3.'" and says that removing spaces still leaves the caret. :45-47 (lesson 7) says the builder prompt supports the stop-on-failure rule and that the cited session copy does not independently establish the incident. Lessons 1, 2, 5 and 8 are still at :12, :17, :34 and :52.
+  - Done when, pass 2 kept: met. The entry-number rule is still at LAB-0702-SEQ-GRAMMAR.md:185-189 (one booked block and one history line, references allowed). Body checks are still at :198-202. Escaped keys and decoded ASCII are still in 2.5 (:265-276). The stamp-against-replay case is still in 3.4 (:346-366).
+  - Minor: the three line numbers in the Done when (:205, :231-232, :343) name the pass 2 file. The returned file has that content at :218, :244-255 and :370-375.
+  - Minor: the pack says these cites have the same line numbers at 8e96151d and ca649c54. The return says seqAddr.md does not. The lab cites 8e96151d, and at that commit :351 is the 0700-0799 rule. The shift is disclosed, not a wrong cite of the commit the lab names.
+  - Minor: stamp-text at LAB-0702-SEQ-GRAMMAR.md:251 cites "cards.rs:77-86" and "parse_stamp cards.rs:160-181" without the crate. The file at 8e96151d is crates/seqaddr-core/src/cards.rs. Those lines match: :77-86 splits on the first colon and trims the value, and :160-181 is parse_stamp.
+  - Frame: the check printed only the return file and the three labs/0702/ files. Return commit 6c01d00845e52391122926f09059dd18519c1e2c is on returns and starts from pack start 9c669caecce46cc94622d744e8698ea1e79899da. The design review line is filled and names the pinned AXIOMS and DESIGN hashes.
+- Time taken:
+  - wf check and wf verify each finished in one run. Reading the lab, the lessons, the evidence file, and the cited lines at 8e96151d was the rest of the pass.
