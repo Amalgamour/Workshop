@@ -1,0 +1,12 @@
+[package]
+name = "seq-storage-lab"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+rusqlite = { version = "0.37.0", features = ["bundled"] }
+sha2 = "0.10.9"
+tempfile = "3"
+
+[workspace]
