@@ -1,7 +1,14 @@
 # Lab 0705: the wf worker-report system, design
 
-Page 90.50.10.0705, pass 05.01. Builder: Claude (Matthew's PC, D:\Git\claude). Checker: Grok-Check.
-Made: 2026-11-23. Status: `9`. Nobody has run a hostile trial on it yet. Research only: no code changed.
+Page 90.50.10.0705. Builder: Claude (Matthew's PC, D:\Git\claude). Checker: Grok-Check.
+Made: 2026-11-23. Status: `9`. Research only: no code changed.
+
+Versions:
+- Pass 05.01 (commit d7c505ba): closed passed (Grok-Check check entry 9; signoff and close entries 10-11).
+- Pass 05.02 (this version): folds in Matthew's answers t530u and t531u, and t533u. Section 4.1 is now answered, not open.
+- The 05.01 text stays in git history (axiom 6).
+- Rulings cites `DW530:N` are docs/review/DIRECTOR-WORDS-t530.md, and `DW533:N` is docs/review/DIRECTOR-WORDS-t533.md, both on prima/build 04c13954.
+- `PR:N` is docs/review/PENDING-RULES.md at 04c13954.
 
 How to read this lab:
 - **Matthew** marks his words, quoted from docs/review/DIRECTOR-WORDS-t526-t528u.md on prima/build at 661732f5 (cited as `DW:N`).
@@ -13,7 +20,7 @@ The other files in this lab:
 - SPEC.md: the config, commands, report file format and hash-chain entry.
 - WORKER-SETUP.md: how to add a worker.
 - FAILURES.md: what happens when a push or lock fails.
-- BUILD-PAGES.md: the proposed Grok build pages.
+- BUILD-PAGES.md: the report-system work order 90.50.10.0422 and its passes.
 - LESSONS.md: lessons from this lab.
 
 ## 1. Goal
@@ -106,7 +113,7 @@ Why `.workshop/reports` and not today's `reports/` (**Claude proposal**):
 | `build` | the builder files a return | `wf return <page> <NN> ... --push` | the return file the builder already wrote (`.workshop/returns/<page>.05.NN.md`), plus wf's facts: the commit, the changed files and the entry numbers |
 | `lab` | a lab builder files a return | the same `wf return ... --push`; the kind is `lab` when the page is in the lab band 0700-0799 (seqAddr.md:351@8e96151d) | the same as build |
 | `check` | the checker files a check | `wf check <page> <NN>` (not `--dry-run`) | the check report wf already prints (src/cmd.rs:688-723, :785) |
-| `setup` | a new worker's run folder is ready | `wf setup` (new; WORKER-SETUP.md) | wf's own facts: worker name, wf build, branches, config, and the result of a `verify` of one page |
+| `setup` | a new worker's run folder is ready | `wf return 90.50.10.06NN <NN> ... --push` on the worker's own N6 page. The kind is `setup` on pages 0601-0698 (t530u; WORKER-SETUP.md section 1). `wf setup` (new) writes the run-folder config first and checks it. | the return file, plus wf's own facts: worker name, wf build, branches, config, and the result of a `verify` of one page |
 | `troubleshoot` | a prompt-box fix changed something that should be on record | `wf report <page> <NN> --kind troubleshoot --file F` (new) | a short note the worker writes |
 
 What wf does each time:
@@ -123,16 +130,24 @@ A report is written only when the step succeeds. A refused return already writes
 
 A check that fails still writes a check report: a failed check is finished work.
 
-### 4.1 Questions for Matthew (t528u: "message me when your ready")
+### 4.1 Matthew's answers (t530u, t531u), and t533u
 
-Each question has a proposed default. The default is a **Claude proposal**, not a decision.
+Pass 05.01 asked three questions (05.01 text, commit d7c505ba, DESIGN.md:126-138). Matthew answered all three on 2026-11-23. His words are quoted from DW530. The readings are Prima's (DW530:21, :27, :35, :41, :47) unless marked **Claude proposal**. None of the three is open now.
 
-1. **Setup reports have no page.** Where do they chain?
-   - (a) Proposed default: no chain. The file goes to `<report.path>/setup/<worker>/<stamp>.md` on the branch, and the push commit is the only record.
-   - (b) A workers page in the lab or system range that logs every setup.
-2. **Report pages jump the `src/lib.rs` queue?** The build pages need `src/lib.rs` and `src/page.rs`. 0408, then 0409, 0406, 0411 and 0412, hold those files in waves 1-10 (docs/plan/GROK-BUILDER-QUEUE.md:79-82, :124-132). You said "We need this before we can setup more workers" (DW:15).
-   - (a) Proposed default: let the report pages go right after 0408 closes, ahead of 0409.
-   - (b) Keep the queue, and add workers on the stopgap until wave 11.
-3. **Should `wf check` push?** Today it never pushes (src/cmd.rs:786-793).
-   - (a) Proposed default: yes, always, when a config exists.
-   - (b) Only with `--push`, like return.
+1. **Where setup reports chain: ANSWERED. On the worker's own page in band N6.**
+   - **Matthew:** "A workers page" (DW530:7); "N6 is where worker pages should live." (DW530:11); "One page per worker" (DW530:15); "The title should be the worker's name." (DW530:19).
+   - Each worker has its own page `90.50.10.06NN`. 0600 is the band door, so the first open slot is 0601 (DW530:21; PR:13, :16).
+   - The title is the worker's name in lowercase, because titles allow only lowercase letters, digits and hyphens (seqAddr.md:112@8e96151d). So Grok-Check is titled `grok-check`, and the exact name is kept in the stamp and the worker config (DW530:21; PR:15).
+   - The pass 05.01 default, "no chain, a file only", is withdrawn (Grok-Check minor (a), DESIGN.md:130-131 at d7c505ba). Setup reports now land on the worker's page, in its hash chain.
+   - **Claude proposal: how.** The setup is a pass on the worker's page. Prima packs `06NN.05.01` ("set up <Name>"); the worker claims it, runs `wf setup`, and files `wf return ... --push`. That return writes the `setup` report, as in section 4. A later change to the worker's setup is a later pass on the same page.
+   - So the setup uses the normal loop (DW:15), and needs no report entry outside a pass. WORKER-SETUP.md section 1 gives the steps.
+   - The N6 band rule itself is pending in docs/review/PENDING-RULES.md and is not yet in seqAddr.md (PR:5-18).
+2. **Queue order: ANSWERED. One work-order page, 90.50.10.0422, titled report-system, next in the queue.**
+   - **Matthew:** first "First open slot after N600." (DW530:33). Prima reads that as the N6 numbering in Q1, not the queue (DW530:35).
+   - Then: "Next open N4 slot that isn't being used." (DW530:39). Then t531u: "N4 is our dev band so the work for building the report system goes that is a work order page. The work order is building our report-system :)" (DW530:45).
+   - Reading: one work-order page at the next open, unused 04NN, which is 0422. It is titled `report-system`, its passes carry the build, and it goes next in the queue once this lab closes (DW530:41, :47).
+   - **t533u adds a safety page that goes first.** **Matthew:** "Once a worker is in a page, no other workers can use it. We can run many pages in parralel but no more then one worker per page at a time." (DW533:5).
+   - The enforcement page 90.50.10.0423, titled `one-worker`, goes first after 0408, ahead of 0422 (DW533:15; PR:34). BUILD-PAGES.md is rewritten for this.
+3. **Should `wf check` push: ANSWERED. Always.**
+   - **Matthew:** "Always (Recommended)" (DW530:25).
+   - Every real `wf check` writes and pushes its report; `--dry-run` still writes nothing (DW530:27). SPEC.md section 2 carries this.
