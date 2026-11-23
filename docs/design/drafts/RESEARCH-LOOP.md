@@ -1,107 +1,129 @@
 # Research loop
 
-state: draft for Matthew. Not a ruling. Nothing built.
-made: 2026-11-23, 10:55 AM EST, by Cursor-C (Design).
-Words files for t506u, t507u, and t508u are not in the repo (looked on origin/prima/build at 78101fe6). t508u below is the quote from this job. t506u and t507u are the job's summary of his rulings, not a file quote.
+state: draft, revised after t509. Not a ruling. Nothing built.
+made: 2026-11-23, 11:15 AM EST, by Cursor-C (Design).
+replaces: the band 0800 proposal and questions 1 to 5 in the previous draft of this file. That text stays in the git history.
+words: docs/design/drafts/DIRECTOR-WORDS-t506-t509.md. The review copies of t506u through t509 are not in the repo (origin/prima/build at 78101fe6). t508u and t509 below are the quotes from this job. t506u and t507u were summaries, so they are not quoted as his words.
 
-t506u, as this job states it: every lab ends with a final learning report by its builder, cross-checked by the other builder. Lessons are kept in docs/lessons/ in the Workshop repo.
-
-t507u, as this job states it: docs/lessons/ is the primary source for researchers. The menu is docs/lessons/INDEX.md, with topic, read-when, size, and link, so a researcher chooses what to spend usage on.
-
-t508u, his words, from this job:
+t508u:
 
 "Any completed work should have that in the page and in the repo as well. So if the researcher needs to look at all the packs and returns it can. So it's first menu on the lessons, then the lessons reports, then the actually pages 3rd if needed request from lead for that deep should be authorized. Research should have packs as well. So you can link them to pages for finding later. Then we need loops for how to run a check how you authorize different kinds of research work."
 
+t509, the answers that change this note:
+
+- Q1: "I think 900 band it's also set aside for logs so it's a good match such things go there."
+- Q2: "By writing a reseach pack with limites on how much it can use, example it can review 10 pages in research, check 4 packs and max 4 web searches."
+- Q3: "When a page has achieved its goals and no more active work on it is needed to achieve the current phrase of the project. Like our steering wheel example. Once we have a working steering wheel we take the lessons learned and shape it into a report that can be found in the N9 band."
+- Q4: the reviewer of the completed work builds the lessons. They are the seated 05. The page can be parked as complete for now. The reviewer builds that pack, updates face 01, then we extract a brief searchable part. His word is "ritted 05". That is read here as "seated 05".
+- Q5: "Matthew approves only new kinds of runs; Prima approves named command lists."
+
 ## 1. Three levels
 
-A researcher starts at the cheap end and stops there unless the work needs more.
+The order is his: menu, then lesson reports, then the pages only if needed.
 
-| Level | What they may read | Authorization |
+| Level | What they may read | How far |
 |---|---|---|
-| 1 Menu | docs/lessons/INDEX.md only | none |
-| 2 Reports | the lesson files the index links | the index row is the permission. Prime adds the row |
-| 3 Deep | the page, its packs, and its returns | Prime says yes first, in a note on the research page |
+| 1 Menu | docs/lessons/INDEX.md | one small file. No pack |
+| 2 Reports | the lesson reports the index links, in band 0900 | the report. Not the work pages |
+| 3 Deep | the work pages, their packs, and their returns | only inside a research pack Prime has written, and only up to its limits |
 
-Level 3 is the "if needed" step in t508u. The request goes to the lead. The lead here is Prime.
+A deep dig is not a note. Prime writes a research pack. The pack is the authorization. The example he gave: review 10 pages, check 4 packs, max 4 web searches. The researcher stops at the first limit they hit, and reports what was used. They do not take one more page, pack, or search.
 
-How the yes is recorded, for now: a face 06 note on the research page, before the draft. wf already refuses a draft until a new face 06 note exists (src/cmd.rs:298 on origin/returns). The note names the pages and says deep. The draft pins that note, so it stays with the pack. No new wf field yet. A future page can add an auth field and refuse a deep pack without it.
+The pack also has lines for returns and for runs, because t508u names packs and returns, and Q5 names runs. His example does not set those two numbers. See the last question.
 
-## 2. Where a research pack sits
+## 2. The research pack, band 0900
 
-Work for this stage is band 0400-0499, door 0400 (STAGE-PLAN-90.50.10.md:8; t423u). Labs are band 0700-0799, door 0700 (same plan, section 13; t432u). A lab tries to break a page. A research page reads lessons and, when authorized, packs and returns. Those are different jobs, so research does not go on a lab page.
+Stage work is band 0400-0499, door 0400 (STAGE-PLAN-90.50.10.md:8). Labs are band 0700-0799, door 0700 (same plan, section 13). He put research on the 900 band, which is N9: pages 0900-0999. Door 90.50.10.0900. Research pages 0901-0998. 0999 is the continuation, not a research page.
 
-Proposal: band 0800 on the same book. Door 90.50.10.0800. Research pages 0801-0898. 0899 is the continuation, not a page. 0800 is not the stage band and not the lab band. The plan's other stage-numbering idea skips 0700 and would use 0800 as a later stage (STAGE-PLAN section 13.2). That is why this band is a proposal, not a claim. See question 1.
+What the files already say about N9:
 
-The pack is the page's own 05.NN, the same shape wf already packs. Face 08 says serves: and lists the work or lab pages this research is about. The other page lists the research page back when it is next written. A research pack can link those pages for finding later (t508u). Linking is the face 08 line. It is not a copy of the pack.
+- workflow-loop.md:50: N8NN and N9NN are "not in use" and "reserved".
+- workflow-loop.003.md:49: 0800-0999 is "unassigned by this workflow".
+- decisions.md:121 and seqAddr.md:225: 0100-0999 are the kernel's standard bands, and the list runs through 0900. They do not say what 0900 holds.
+- No file in this repo says band 0900 is set aside for logs. He says it is. That clash is flagged, not fixed here. His answer is the later word for where research and lesson reports go.
 
-No new wf command is needed to start one. init-page, face 01, face 08, a face 06 note, draft, pack.
+The stage plan does not use 0900 as a stage band. Its default for later stages is one 0400-shaped band in each thousand (section 13.2). 0900 is not that.
 
-## 3. Lessons at each close
+The pack uses the pass wf already has, 05.NN on the research page. No new command to start it. Face 08 says serves: and lists the work pages it may look at. Those pages link back when they are next written.
 
-Two homes, as t508u says: on the page, and in the repo.
+Limits, written in the pack, in plain numbers:
 
-On the page: face 06 (seqAddr.md:155, notes). The builder writes the lesson in the return, under noticed. Prime, at signoff, adds one face 06 note: the pass number, one short lesson, and the file name in docs/lessons/. The lab's last pass is the final learning report (t506u). The other builder cross-checks that report before the file is added to the index. See section 4. That cross-check is not the code check.
+- pages: 10
+- packs: 4
+- web searches: 4
+- returns: a number, or blank
+- runs: a number, or blank
 
-In the repo: one file, docs/lessons/<page>.<pass>.md, plus one row in docs/lessons/INDEX.md. The row is topic, read-when, size, link (t507u). Size is so the researcher can see the usage before opening it. wf does not write the Workshop repo. A person copies the file. That is convention until a later page.
+stop if: any count would pass its number. The researcher stops and reports the counts. They do not continue.
+
+wf today will not count this. The numbers sit in the pack text. The researcher keeps the count. A future page can refuse a dig past the number. Web searches are outside wf. Runs are too, unless the pack names commands Prime has approved (Q5).
+
+## 3. When the lesson is written, and the seated 05
+
+Not at every close. When the page has met its goals, and no more work is needed for this phase. His picture: a working steering wheel. Then the lessons become a report that can be found in the N9 band.
+
+Who writes it: the reviewer of the completed work, not the builder. The steps he named:
+
+1. The packs and returns are complete. The page can be parked as complete for now.
+2. The reviewer builds a new pack. That pack is the seated 05. It holds the finished work and the lessons learned.
+3. The reviewer updates face 01, so a later builder can be handed that 05 and run it again.
+4. We extract the lessons and give a brief searchable part.
+
+The brief part is one row in docs/lessons/INDEX.md: topic, read-when, size, link. The link points at the report in band 0900. The full report stays on that 0900 page. The index is the menu (level 1). Opening the report is level 2. Opening the work packs is level 3, and only inside a research pack.
+
+What wf can do today:
+
+- A new pass can be drafted, packed, and closed. The reviewer can put the best pack and the lessons in that pass. Face 01 can be rewritten with face-write. That much is convention, and it works now.
+- wf has no seat command. Face 05 is a counted face, and seqAddr.md:199 says a counted face is never seated. So the new pass is not a seated 05 yet. It is the pass we will seat when a later page allows it. R22 and R23 already ask for a seated 05 (DIRECTOR-RULINGS.md:86-92). wf does not do that.
+- wf has no "parked as complete". It has halt (src/lib.rs:36 on origin/returns). Halt stops a new draft while a note is on the page. Halt is not "complete". Retire is page 0409, and it is not built.
+
+Until those pages exist: the reviewer closes the lesson pass, updates face 01, and Prime halts the work page with a note that says "complete for this phase". The note also says halt is the stand-in, not the real parked-complete state.
+
+The copy into docs/lessons/INDEX.md is done by a person. wf does not write the Workshop repo.
 
 ## 4. The check loop, as the logs show it
 
-Read on origin/packs at bac1d93f.
+This is the code check. It is not the lesson. Read on origin/packs at bac1d93f.
 
-The code check and the lesson cross-check are two different checks.
-
-Code check, what the logs already do:
-
-1. Dry run. wf check --dry-run prints the verdict and writes nothing (src/cmd.rs:735 and :760). None of the four page logs below contain the word dry-run. The dry run is done, then the real check is the one that is kept.
-2. Recorded check. The actor is prima-check, role checker. The builder may not check their own work (src/cmd.rs:734).
-3. Signoff. Actor prima, role prime, outcome passed or failed.
+1. Dry run. wf check --dry-run prints a verdict and writes nothing (src/cmd.rs:735 and :760). The logs of 0404, 0415, 0701, and 0702 do not contain the word dry-run. The dry run happens first. The saved check is the one that stays.
+2. Saved check. Actor prima-check, role checker. The builder may not check their own work (src/cmd.rs:734).
+3. Signoff. Actor prima, role prime.
 4. Close. Actor prima, role tool (src/cmd.rs:866).
 
-What the packs logs show:
+0404 pass 1: Cursor-1 built it, prima-check failed, signoff failed, closed failed. 0702 and 0703: Claude and Codex built them, prima-check passed, and Prima still signed off failed. A passed check is not a passed signoff.
 
-- 90.50.10.0404 pass 1: Cursor-1 built it. prima-check failed. Prima signed off failed. Closed failed.
-- 90.50.10.0415 pass 1: Cursor-1 built it. prima-check passed. No signoff in that log yet.
-- 90.50.10.0701 pass 1: Cursor-1 built it. prima-check passed. Prima signed off passed. Closed passed.
-- 90.50.10.0702 pass 1: Claude built it. prima-check passed. Prima signed off failed. Closed failed.
-- 90.50.10.0703 pass 1: Codex built it. prima-check passed. Prima signed off failed. Closed failed.
+The lesson is not this loop. The reviewer builds it after the work is done (Q4).
 
-A passed check is not a passed signoff. 0702 and 0703 show that.
+## 5. Who approves which kind
 
-Lesson cross-check, not in those logs yet. t506u: the builder writes the report, the other builder checks it. The pair already on the lab pages is Claude (0702) and Codex (0703). Each checks the other's lesson. For a page built by Cursor-1, the pack names the other builder. The cross-check is a face 06 line, "cross-check: <name>, pass" or "fail", written before the lesson is added to the index. It is not a wf check, because a wf check runs the pack's commands, not a reading of the lesson.
+| Kind | Who says yes | Usage reason |
+|---|---|---|
+| Menu only | nobody | one small file |
+| Reports | the index row. Prime adds it | the size column shows the cost before the file is opened |
+| Deep pages, packs, returns, web searches | Prime, by writing the research pack and its limits | each extra page, pack, or search costs more, so the pack sets a max |
+| Named command list | Prime (Q5) | a run costs more than a read, and the commands are named in advance |
+| A new kind of run | Matthew (Q5) | an open-ended run has no max until he allows that kind |
 
-## 5. Authorization by kind
+The researcher stops at the pack's limits and reports. They do not raise the numbers themselves.
 
-| Kind | What it is | Who says yes | Why the usage matters |
-|---|---|---|---|
-| Menu only | read the index | nobody | one small file |
-| Reports | read the lesson files | Prime, by adding the index row | the size column is the cost |
-| Deep | read pages, packs, and returns | Prime, face 06 note before the draft, naming the pages | a log is much larger than a lesson |
-| Code runs and benchmarks | run commands, not only read | Prime names the commands in that same note. A new kind of benchmark waits for Matthew | a run costs more than a read, and a benchmark can be open-ended |
+## What works now, and what needs a page
 
-The researcher does not open a deep page, a pack, or a return until the note is on the research page. They do not run a command that the note does not name.
+Works now, by people using wf as it is:
 
-## What works now, and what needs a wf page
-
-Works now, by convention:
-
-- Level 1 and level 2, once INDEX.md and the lesson files exist.
-- A research page in band 0800, packed with today's wf, face 08 serves links written by hand.
-- Level 3 and code-run yes recorded as a face 06 note, which the draft already pins.
-- The lesson in the return, Prime's short copy on face 06, and a person copying docs/lessons/ and the index row.
-- The code check loop in section 4. It already runs.
-- The lesson cross-check as a face 06 line by the other builder. Nothing in wf does this yet. People do it.
+- A research page at 90.50.10.0901 and up, with a normal 05.NN pack and the limit lines in the pack text.
+- Face 08 links to the work pages.
+- The reviewer drafts the lesson pass and updates face 01.
+- A person adds the index row.
+- The code check loop in section 4.
 
 Needs a future wf page:
 
-- An auth field that refuses a deep pack with no note. Not this draft.
-- wf writing docs/lessons/ or INDEX.md. wf does not write the Workshop repo today.
-- A lesson cross-check that is its own log entry, separate from prima-check.
+- Parked as complete. Halt is only the stand-in.
+- Seating 05. seqAddr.md:199 forbids seating a counted face, and wf has no seat command.
+- wf counting the limits and refusing past them.
+- wf writing docs/lessons/INDEX.md.
 
-## Questions for Matthew
+## Questions still open
 
-1. Where do research pages live? (default) Band 0800, door 90.50.10.0800, so they are not lab pages. Other choice: a lab page in band 0700.
-2. How is a deep read authorized? (default) Prime's face 06 note on the research page, before the draft. Other choice: a new wf field now.
-3. When is the lesson written down? (default) At close. The return holds the builder's words. Face 06 gets Prime's short copy. The repo file is added after the other builder's cross-check.
-4. Who is the other builder? (default) Claude and Codex check each other on the seq labs (0702 and 0703). Any other page names the pair in the pack.
-5. Who may approve a benchmark? (default) Prime, for a command list written in the note. Matthew, only when the kind of run is new.
-6. May this note stand until the words files exist? (default) Yes, as a draft. The t508u quote is from this job. t506u and t507u are summaries. A words file should replace them when it is recorded.
+1. A blank returns line or runs line. (default) Blank means 0. The researcher may not open returns or run commands unless the pack writes a number. His example would be pages 10, packs 4, web searches 4, returns 0, runs 0.
+2. Halt as the stand-in for parked complete. (default) Yes, with the note "complete for this phase", until a page adds a real complete state. Halt is not that state.
