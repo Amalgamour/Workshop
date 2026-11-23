@@ -10,6 +10,8 @@ t523u: Matthew approved a second work folder on prima/build for core builders. T
 
 t524u: the next builder is Grok-4 (`D:\Git\grok4`). 0418 is packed for Grok-4, not Grok-5. 0416 goes to Grok-5 after 0415 closes.
 
+t526u-t528u: builders push reports to GitHub so Prima can read them (docs/plan/REPORTS.md). Lab 90.50.10.0705 (Claude, `D:\Git\claude`) designs the built-in wf report system. Do not pack the Grok implementation pages until that lab closes. Prompt boxes stay for brief troubleshooting; the normal loop is packs > returns > review through GitHub, with wf controlling it.
+
 This note is the queue. It does not pack any page.
 
 ## How many
@@ -45,7 +47,7 @@ Grok-Check, and only Grok-Check, runs a real check:
 wf check <page> <NN> --as Grok-Check
 ```
 
-Not a dry-run. Then push the page log to the returns branch, the same way a close log is pushed. Prima reads the report and signs off.
+Not a dry-run. Then push the page log to the returns branch, the same way a close log is pushed. Prima reads the report and signs off. Until wf itself sends that report, also push a markdown file as docs/plan/REPORTS.md says.
 
 If a pack uses `git grep`, the pattern must have **no caret, no quotes, and no spaces**. A safe form is in `docs/design/drafts/WF-WINDOWS-QUOTING.md` (prima/build). The form that works under Linux `sh -c` and stays safe on Windows `cmd /C` is `git grep -q -E [#][#][[:space:]]3[.] -- labs/0703/LAB-0703-SEQ-STORAGE.md`. A bare `##` pattern is a comment under `sh -c` (git exits 128, no pattern given), so packs must not use that.
 
@@ -58,11 +60,13 @@ Grok-Check can start here today, after intake:
 - 90.50.10.0702.05.02 (returned, Claude)
 - 90.50.10.0703.05.02 (returned, Codex)
 
+Claude can take 90.50.10.0705.05.01 once it is packed (worker-report lab). The wf report Grok build pages wait on that lab.
+
 0415.05.01 already passed its check. Prima signs off and closes it, so 0416 can be packed.
 
 ## Inventory
 
-Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is known), and dependencies are met. The page still needs init, faces, draft and pack before a builder claims it. "New" pages have no pack text yet. Suggested numbers 0418-0421 are free slots; Prima sets the address at pack time.
+Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is known), and dependencies are met. The page still needs init, faces, draft and pack before a builder claims it. "New" pages have no pack text yet. 0418 and 0419 are assigned. 0420 (dead lock) and 0421 (wf seat) stay suggested. The wf report implementation starts at 0422 or at numbers lab 0705 proposes; do not pack those pages until 0705 closes (t528u). Prima sets the address at pack time.
 
 | Page | Goal | Grant | Depends on | Packable now |
 |---|---|---|---|---|
@@ -81,6 +85,8 @@ Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is
 | 0419 | Pack checks are safe on Windows (no caret, quotes or spaces in `git grep` patterns; harden `src/git.rs` if needed) | `src/git.rs`, `tests/page_0419.rs` | Packed on packs, start `a823ee28`. Assigned to Grok-3 (t522u). Must finish before 0417 takes `src/git.rs` | Y, packed |
 | 0420 (suggest) | `wf verify --fix` takes over a dead `.wf-lock` (or a lock older than the last log entry) | `src/lib.rs` (lock at `Lock::acquire`), tests | After 0412 frees `src/lib.rs` | N, needs a pack |
 | 0421 (suggest) | wf prints the seated 05 and updates face 01 | wf `src/` (likely `src/render.rs` and `src/cmd.rs`) | 0418 closed. Needs a later slot when those files are free | N, needs a pack and 0418 |
+| 0422+ (wait) | wf writes and pushes the worker's report when the worker is done (built into wf; destination configured once). Split as lab 0705 proposes. | wf `src/` (split; 0408 holds `cmd.rs`, `lib.rs`, `page.rs`; 0407 holds `render.rs`; 0419 holds `git.rs`; a new `src/report.rs` is allowed) | 0705 closed (t528u). Do not pack until then | N, waits on 0705 |
+| 0705 | Worker-report lab: design the system end to end, plus a disjoint-grant split for Grok builders | `labs/0705/` | Packed on packs, start returns `10abb9f2598191ebf2652b70704cddc0fe3ffd56`. Assigned to Claude (`D:\Git\claude`). Checker Grok-Check | Y, packed |
 
 Lab trials (`tests/lab_PPPP.rs` on 0701) run in the wave after each work wave. Each trial is its own new file, so they can run in parallel. 0410 stays unused (security is parked). 0405 stays parked; its job moved to 0416.
 
@@ -98,7 +104,13 @@ Pages in the same wave change no shared file. A page holds its files until its t
 | 0418 | Seated-05 in seqaddr-core | Grok-4 | Y, packed | Work clone is `prima/build` (t523). Setup in `docs/plan/CORE-RUN.md`. Pack hash `5f94dd5099e30e7363f9877baadab3e4fc1286be7788eeb7e247f90f46172163`. |
 | 0416 | Windows `tests/wf.rs` five fails | Grok-5 | N | Close 0415, then init and pack |
 
-**Wave 2** — trials of those same pages, same builders (Grok-1 on 0407, Grok-2 on 0408, Grok-3 on 0419, Grok-4 on 0418, Grok-5 on 0416), each on a different `tests/lab_*.rs` or core trial. Grok-Check checks the wave 1 returns first. The 0418 trial is a core trial; the 0416 trial is on the wf kit.
+**Wave 2** (t528u). Lab 90.50.10.0705 (Claude) is first: design the wf worker-report system. The Grok pages that build it wait until 0705 closes and proposes the split (starting at 0422 unless the lab says otherwise). Wave 1 trials can run in parallel; they do not touch `labs/0705/`. Grok-Check checks the wave 1 returns, then this lab.
+
+| Page | Goal | Builder | Packable now | Blocker |
+|---|---|---|---|---|
+| 0705 | Design wf worker reports | Claude | Y, packed | none |
+
+Then the wave 1 trials, same builders as before (Grok-1 on 0407, Grok-2 on 0408, Grok-3 on 0419, Grok-4 on 0418, Grok-5 on 0416), each on a different `tests/lab_*.rs` or core trial. The 0418 trial is a core trial; the 0416 trial is on the wf kit.
 
 **Wave 3**
 
@@ -147,3 +159,4 @@ Waves 5-10 are a single-file queue on `src/cmd.rs`. Only one builder is busy the
 3. 0407, 0408 and 0419 are already packed and published on the wf kit.
 4. 0418 is packed for Grok-4 on the core run (t523, t524u).
 5. Hand each builder one prompt, first line `Builder: <name>`. For 0419 that line is `Builder: Grok-3 (Matthew's PC, D:\Git\grok3)`, even though the published pack text still says Grok-5. For 0418 that line is `Builder: Grok-4 (Matthew's PC, D:\Git\grok4)`.
+6. Pack 0705 for Claude (t528u). Until that lab closes, do not pack the wf report implementation. Until wf sends reports, builders use docs/plan/REPORTS.md.
