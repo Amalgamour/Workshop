@@ -1,0 +1,44 @@
+EVIDENCE for labs/0702/LESSONS.md lessons 6 and 7 (added in pass 90.50.10.0702.05.03)
+
+Source: Claude's own session output, copied verbatim from the PowerShell tool result
+of 2026-11-23, Matthew's PC, D:\Git\claude\wf-run, wf.exe built from c09fa60c.
+This is not a wf-recorded transcript. wf writes nothing on --dry-run, and no repo file
+holds this output. Treat it as the builder's own record (axiom 9: not independent).
+Lines marked [...] are omitted from the copy; nothing else is changed.
+
+Command run (one line, steps joined with ";"):
+  wf.exe intake; "intake exit: $LASTEXITCODE"; wf.exe check 90.50.10.0703 1 --dry-run --as Claude; "check exit: $LASTEXITCODE"
+
+Output:
+90.50.10.0404: took 3 new log entries
+90.50.10.0415: took 2 new log entries
+90.50.10.0703: took 2 new log entries
+ready to check:
+  90.50.10.0404 05.01: wf check 90.50.10.0404 1 --as <checker>
+  90.50.10.0415 05.01: wf check 90.50.10.0415 1 --as <checker>
+  90.50.10.0703 05.01: wf check 90.50.10.0703 1 --as <checker>
+wf: intake refused: 90.50.00.0001: the returned log does not continue this run folder's log; nothing taken; 90.50.10.0403: the returned log does not continue this run folder's log; nothing taken; 90.50.10.0701: the returned log does not continue this run folder's log; nothing taken
+intake exit: 1
+check 05.01: fail (dry-run: nothing written)
+  check ok: cargo test --manifest-path labs/0703/Cargo.toml
+[... cargo test output: 6 passed ...]
+  check ok: git ls-files --error-unmatch labs/0703/LAB-0703-SEQ-STORAGE.md
+    labs/0703/LAB-0703-SEQ-STORAGE.md
+  check FAIL: git grep -q -F "## 3. Results" labs/0703/LAB-0703-SEQ-STORAGE.md
+    fatal: ambiguous argument '3.': unknown revision or path not in the working tree.
+    Use '--' to separate paths from revisions, like this:
+    'git <command> [<revision>...] -- [<file>...]'
+  check FAIL: git grep -q -F "## 4. Pick" labs/0703/LAB-0703-SEQ-STORAGE.md
+    fatal: ambiguous argument '4.': unknown revision or path not in the working tree.
+    Use '--' to separate paths from revisions, like this:
+    'git <command> [<revision>...] -- [<file>...]'
+  check FAIL: git grep -q -F "## 5. How to rerun" labs/0703/LAB-0703-SEQ-STORAGE.md
+    fatal: ambiguous argument '5.': unknown revision or path not in the working tree.
+    Use '--' to separate paths from revisions, like this:
+    'git <command> [<revision>...] -- [<file>...]'
+[... frame, job and done-when lines ...]
+check exit: 0
+
+Follow-up run by Claude in the same session (same file, by hand in PowerShell):
+  git grep -q -F "## 3. Results" -- labs/0703/LAB-0703-SEQ-STORAGE.md
+  manual grep 3 exit: 0

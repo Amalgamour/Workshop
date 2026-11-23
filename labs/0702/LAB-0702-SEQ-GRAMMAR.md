@@ -4,11 +4,21 @@ Page: 90.50.10.0702. Builder: Claude. Checker: Codex, by hand.
 Status: `9`. Nobody has run a hostile trial on this version yet (Axioms.md:29@8e96151d).
 Why: t451u, quoted on face 01. Matthew: "We have a lot to learn about axioms, designing and building our grammar out of seqaddr. How a .seq file should work."
 
-**Versions.** This file has two versions so far:
+**Versions.** This file has three versions so far. Each is a new step; older text stays in git history (Axioms.md:23).
 - Pass 05.01 (commit 56f89178): the first version. It closed failed on Codex's cross-check (page 0702 face 05, signoff entry 10).
-- Pass 05.02 (this version, 2026-11-23): a new step after the first, made from Codex's cross-check. The old text stays in git history at 56f89178 (Axioms.md:23).
+- Pass 05.02 (commit ba9a5b71): it closed failed on Codex's manual check, 4 met and 3 not met (page 0702 face 05, check entry 18, signoff entry 19).
+- Pass 05.03 (this version, 2026-11-23): made from that check. Line cites in the 05.03 pack (lab :205, :231-232, :343) are lines of ba9a5b71.
 
-What changed in pass 05.02:
+What changed in pass 05.03:
+1. The text productions behind `why-draft-v` and `stamp-v` are defined from the code (2.4).
+2. The registry row lists `counters :=` for face 00 counter history (2.4; derive.rs:247-249).
+3. The stamp-against-replay note no longer calls the booked body imported (3.4; import.rs:45-51, :64-87).
+4. Open conflicts O2 and O6 are narrowed. O9 moves to a new "parked" table (5.3, P1). The R16 dictionary exception is a new open conflict (O11).
+5. Q2 is split: R9's general rule is answered, and the R16 exception stays open.
+6. Q6 gives the exact note fallback (derive.rs:137-138).
+7. LESSONS.md lessons 3, 4, 6 and 7 are tightened. The evidence for lessons 6 and 7 is saved in labs/0702/EVIDENCE-0703-p1-session.txt.
+
+What changed in pass 05.02, and still holds:
 1. The entry-number rule is restated (2.3, item 2).
 2. The claim about body checks is fixed (2.3, item 5).
 3. Derived values now have a value grammar (2.4).
@@ -52,6 +62,9 @@ Commit: 8e96151dbe9ff03a55e6838168033ba6bf5f4a4a. Fetched from origin/prima/buil
 | crates/seqaddr-core/src/state.rs | present | 686 | pass 05.02: read lines 600-635 |
 | crates/seqaddr-core/src/tail.rs | present | - | pass 05.02: read lines 54-66 |
 | crates/seqaddr-core/src/addr.rs | present | - | pass 05.02: read lines 136-156 |
+| crates/seqpage/src/import.rs | present | - | pass 05.03: read lines 40-90 |
+| crates/seqaddr-core/src/cards.rs | present | - | pass 05.03: read lines 77-87 and 157-181 |
+| src/git.rs (the wf kit, at a823ee28) | present | - | pass 05.03: read lines 100-130, for lesson 6 |
 | crates/seqaddr-core/src/face.rs, validate.rs | present | - | pass 05.02: one grep each (face.rs:101, :103; validate.rs:40-42) |
 | docs/design/SEQ-FILE-PLAN.md | present | 1138 | read in part: lines 1-120, 209-488, 630-706 and 942-1112 |
 | docs/design/SEQ-FILE-PLAN-TEST.md | present | 332 | read in part: headings, verdict, 114-134 and 291-312 |
@@ -202,7 +215,7 @@ Where derived lines may appear (seqpage.md:183-186; derive.rs:195-256):
 
 | Section | Lines, in the order derive.rs writes them |
 |---|---|
-| registry (face 00) | `title`, `state`, `registry`, `why-draft` (only while face 00 is in draft, derive.rs:204-207), `faces`, `type`, `axioms`, `lineage`, `kind` (pages 0000 and 0001-0009 only), `source` |
+| registry (face 00) | `title`, `state`, `registry`, `why-draft` (only while face 00 is in draft, derive.rs:204-207), `faces`, `type`, `axioms`, `lineage`, `kind` (pages 0000 and 0001-0009 only), `source`, then `counters` (only when face 00 has counter history; derive.rs:247-249 keeps it on face 00 "for losslessness" although the core does not treat face 00 counters as legal) |
 | face | `state`, `why-draft` (only while in draft), `source`, `counters` (only when the face has counters) |
 | counter | `state`, `source` |
 | block | `cards` (any other key under a block is refused, parse.rs:366-368) |
@@ -228,8 +241,18 @@ counter-state = counter SP ( board-word / unknown )
 board-word    = "draft" / "pack" / "open" / "return" / "review" / "closed"   ; tail.rs:54-58, seqpage.md:122
 cards-v       = unknown / card *( ", " card )                   ; derive.rs:72-84; card as seqAddr.md:280
 kind-v        = "book door (R10: face 00 only)" / "override (R7)"   ; derive.rs:110-117
-why-draft-v   = text / unknown                                  ; derive.rs:119-145, seqpage.md:109
-stamp-v       = text / none / unknown        ; title, type, axioms read from the stamp (derive.rs:189-194)
+why-draft-v   = reason-text / note-line / unknown               ; derive.rs:119-145, seqpage.md:109
+stamp-v       = stamp-text / none / unknown  ; title, type, axioms read from the stamp (derive.rs:189-194)
+
+; text productions (added in pass 05.03)
+r4-char       = %x20-7E                      ; printable ASCII; the file is R4 (parse.rs:86-88; text.rs:59-61)
+text          = 1*r4-char                    ; one line, at least one character
+stamp-text    = r4-char [ *r4-char r4-char ] ; text with no leading or trailing space:
+                ; the value after the first ":" on a stamp field line, trimmed (cards.rs:77-86, parse_stamp cards.rs:160-181);
+                ; an empty value is shown as none (derive.rs:193)
+reason-text   = text                         ; the opening entry's `reason` string, used as stored, not trimmed (derive.rs:131, :135)
+note-line     = stamp-text                   ; the first nonblank line of the first `note` body after the draft
+                ; opened, trimmed (derive.rs:137-138)
 ```
 
 Notes on the grammar:
@@ -237,6 +260,8 @@ Notes on the grammar:
   *Pass 05.01 wrote it as `source := book BB @n @m`, which is not the form.*
 - With no entries, the registry's `source` is just `book DD.SS.BB` (derive.rs:216).
 - `-` means face 00 has no such field. `7` means it could not be computed, for example when the entries do not replay (seqpage.md:179, :188).
+- `reason-text` is one line only if the stored reason is one line. A decoded JSON string may hold a newline and still pass R4, because newline is an R4 character (text.rs:59-61, :97-104). derive.rs:131 and :135 do not trim or split the reason. I found no code that refuses a multi-line reason before it reaches `why-draft :=`, and I did not test it. That case stays `7`.
+- On face 00, `counters :=` uses `counters-v` like any other face (derive.rs:232-243, :249).
 
 ### 2.5 Escaped keys and decoded ASCII (new in pass 05.02)
 
@@ -340,7 +365,14 @@ What stays open:
 - Which wins between a written and a derived `faces:` (face00.md F2, :468).
 - These are O4 and O5 in section 5.2.
 
-**Claude proposal.** This is the clearest real case for Q6 and O4. The derived line, which is never imported, shows one truth, and the body, which is imported, shows another. The grammar reports the gap but does not choose, which keeps axiom 1: "Do not choose" (Axioms.md:13).
+**Claude proposal.** This is the clearest real case for Q6 and O4. The derived line shows one truth, and the stamp in the booked body shows another.
+
+Neither is sent as a write on import (fixed in pass 05.03):
+- Derived lines are never imported (seqpage.md:177).
+- The stamp sits in booked block @12. When a book is supplied, import only compares each booked block with the book's entry of that number, refusing a missing or different entry (import.rs:45-51, :64-71).
+- Only `new` blocks become the proposal (import.rs:79-87).
+
+*Pass 05.02 called the booked body "imported". That was wrong.* The grammar reports the gap but does not choose, which keeps axiom 1: "Do not choose" (Axioms.md:13).
 
 ---
 
@@ -373,7 +405,7 @@ The older line is not rewritten. It stays as written, and the later step governs
 | # | Was | Older text | Later step that governs |
 |---|---|---|---|
 | S1 | K2 | seqpage.md:13 "The book is the real copy (R3)"; SEQ-GUIDE.md:22 | R26: "The stored form is today's small files. A whole-book .seq file is an export" (DIRECTOR-RULINGS.md:103-106) |
-| S2 | K4 | seqAddr.md:197-198 "A face is counted if and only if `FF.00` exists"; :44, :53, :277, :288 | R9: "no `FF.00` and no `FF.99`. Counted faces have no door" (DIRECTOR-RULINGS.md:37-38); seqpage.md:120 |
+| S2 | K4 | seqAddr.md:197-198 "A face is counted if and only if `FF.00` exists"; :44, :53, :277, :288 | R9: "no `FF.00` and no `FF.99`. Counted faces have no door" (DIRECTOR-RULINGS.md:37-38); seqpage.md:120. R9 settles the general rule only. The R16 dictionary 03.00 "door" (DIRECTOR-RULINGS.md:65-66) is held 7, and is open conflict O11. |
 | S3 | K5 | seqAddr.md:149 names face `00` "identity"; R1 calls the zero sequence "door" (DIRECTOR-RULINGS.md:5) | R10: "On any page, face 00 is the registry" (DIRECTOR-RULINGS.md:40-41); seqpage.md:81-82 |
 | S4 | K7 | seqAddr.md:158 face 09 "reserved, unassigned" | R28: "face 09 is the page's log" (DIRECTOR-RULINGS.md:113-115). Only the short-log-in-00 part is held 7 (:115). The build gap stays: the core refuses face 09 (TEST-2:196-197). |
 | S5 | K9 | seqAddr.md:189 face 03 allowed only on reserved pages | R35, 2: "Any page may have a compute-written face 03 menu", for the menu card (DIRECTOR-RULINGS.md:179-180) |
@@ -385,15 +417,22 @@ The older line is not rewritten. It stays as written, and the later step governs
 | # | Was | One side | Other side | What clashes |
 |---|---|---|---|---|
 | O1 | K1 | seqpage.md:11 "A `.seq` file holds one page" | R26: a whole-book .seq is an export (DIRECTOR-RULINGS.md:106); PLAN:242, :274 | two `.seq` shapes under one extension. R26 says the book shape exists but not how the two are named or told apart (PLAN:1050-1053, C1). |
-| O2 | K3 | seqpage.md:31, :44 R4 for every `.seq` line; parse.rs:86-88 | R27: every face other than 04 "may be stored as compact computer code (binary)" (DIRECTOR-RULINGS.md:108-111) | whether R27 reaches the `.seq` view, or only the stored small files |
+| O2 | K3 | the v1 page view: `seqpage 1` files are plain ASCII on every line (seqpage.md:31, :44; parse.rs:86-88) | the proposed stored form and whole-book format: R27 lets faces other than 04 be compact code (DIRECTOR-RULINGS.md:108-111). SEQ-FILE-PLAN Step 3 frames that binary for stored face files and the whole-book export, with length and fingerprint before the bytes (PLAN:315-327, esp. :321, :327). | Narrowed in pass 05.03. The v1 page view stays ASCII, and nothing in R27 or PLAN:315-327 changes `seqpage 1`. What stays open is only how a code face appears in a page view: PLAN:321 says "a decoded view", but no format or version for it is written. |
 | O3 | K6 | seqAddr.md:128 counter tail in the address, `PPPP.FF.NN.tail` | seqpage.md:122 and timer.seq:98 counter tail as a `tail:` field and `tail` ops; R8 puts the face draft in the address (DIRECTOR-RULINGS.md:34-35) | where a tail lives |
 | O4 | new | the stamp `state:` (face00.md:62, :103) | the replayed page tail (derive.rs:198); seqpage.md:86 "Still open" | which is the page's state. The real case is real/bob.seq:4 against :23 (section 3.4). |
 | O5 | new | a written `faces:` in the registry card (real/bob.seq:28) | the derived `faces :=` (real/bob.seq:7; derive.rs:88-108) | written against derived; face00.md F2 (:468) |
-| O6 | K12 | face00.md:214 band digit `N7` is "colab" | seqAddr.md:351 0700-0799 is the lab band | what band digit 7 means |
+| O6 | K12 | face00.md:214 workflow `role` from the band digit: `N7` is "colab" | the lab band allocation `DD.SS.BB.0700-0799` is settled by t432u and t434 (seqAddr.md:345-351) | Narrowed in pass 05.03. The allocation is not in conflict: 0700-0799 is the lab band. What stays open is only face00.md's draft role table, which still maps `N7` to `colab` for workflow pages. Whether that table drops `N7`, or keeps colab for bands other than 0700, is not written. |
 | O7 | K13 | seqAddr.md:157 face 08 with face 00 keeps lineage | seqpage.md:88 `lineage :=` is the address chain only (S3) | what lineage holds; face00.md F5 (:471) |
 | O8 | K14 | seqAddr.md:149-158 faces 01 law, 03 operate, 06 notes, 07 reserved | kit docs/DESIGN.md:22, :24, :27, :28 @c09fa60c: 01 agents card, 03 menu, 06 prime notes, 07 labs | face names on wf pages. DESIGN.md is a kit file, not a listed source. |
-| O9 | K15 | seqpage.md:96 override pages (R7); seqpage.md:263 lists S10 open | R21: no override pages "while we build the Workshop app itself"; they "stay in the design for child desks later" (DIRECTOR-RULINGS.md:82-84) | R21 parks override pages and does not remove them, so S10 is parked, not answered |
 | O10 | K8 (part) | face00.md:111 a draft page carries a stamp `why-draft:` | the view's `why-draft :=` comes from the entry's `reason:` (derive.rs:119-145, :204-206) | two whys for one draft. The view's rule is answered (Q6), but whether the stamp field should exist is open (face00.md:113, PROPOSED). |
+| O11 | new in 05.03 | R9: "no `FF.00` and no `FF.99`" (DIRECTOR-RULINGS.md:37-38) | R16: "the dictionary's 03.00 is a door", held 7 with the tension named (DIRECTOR-RULINGS.md:65-66); face00.md:470 (F4) | Whether the dictionary's face 03 is an exception to R9. Builders do not resolve it (DIRECTOR-RULINGS.md:66). |
+
+### 5.3 Parked by a ruling (not a live conflict)
+
+| # | Was | Text | Ruling that parks it |
+|---|---|---|---|
+| P1 | K15, then O9 | seqpage.md:96 override pages in 0001-0009 (R7); seqpage.md:263 lists S10 open | R21: no override pages "while we build the Workshop app itself"; they "stay in the design for child desks later" (DIRECTOR-RULINGS.md:82-84). Parked until child desks; not answered and not live. Moved here in pass 05.03. |
+
 
 ---
 
@@ -408,10 +447,13 @@ Questions marked **ANSWERED** in pass 05.02 keep their number, so links from pas
 - (b) One extension, two shapes, told apart by a header marker (PLAN:1052).
 - (c) **(default)** One grammar at every scale: a book file is the book's door page (`DD.SS.BB.0000`, face 00 only) as its registry section, then each page in the page shape of section 2. A book is identified by page 0000 (seqAddr.md:56), as a page is by face 00 (seqAddr.md:64).
 
-**Q2. The board of a counted face. ANSWERED.**
-- R9: "no `FF.00` and no `FF.99`. Counted faces have no door; counters run 01-98 only" (DIRECTOR-RULINGS.md:37-38).
-- The board is the derived `counters :=` (derive.rs:232-243).
-- seqAddr's `FF.00` lines are superseded (5.1, S2).
+**Q2. The board of a counted face. General rule ANSWERED; one exception open.**
+- Answered: R9's general rule, "no `FF.00` and no `FF.99`. Counted faces have no door; counters run 01-98 only" (DIRECTOR-RULINGS.md:37-38).
+- The board is the derived `counters :=` (derive.rs:232-243), and seqAddr's `FF.00` lines are superseded (5.1, S2).
+- Open (O11): R16 calls the dictionary's `03.00` "a door". That ruling is held 7, its tension with R9 is named, and "Builders do not resolve it" (DIRECTOR-RULINGS.md:65-66; face00.md:470, F4).
+  - (a) The dictionary's 03.00 is a named exception to R9.
+  - (b) R9 governs, and the dictionary's index board is derived, like every other board.
+  - (b) is the **(default)**: one board form at every face (Axioms.md:15). An exception would need a named override (Axioms.md:15).
 
 **Q3. Where a tail lives (O3).** Open.
 - (a) In the address at every level, as R8 does for face drafts.
@@ -431,7 +473,7 @@ Questions marked **ANSWERED** in pass 05.02 keep their number, so links from pas
 - So `--- @10 copy ...01` on the seated address is the built form (timer.seq:39).
 
 **Q6. Which why governs a draft in the view. ANSWERED** (by code).
-- The view's `why-draft :=` comes from the `reason` of the entry that opened the current draft. That entry is a `put` to `FF.draft` (or with tail draft) or a `copy`. If there is no reason, it comes from the first line of a `note`. Otherwise it is `7` (derive.rs:119-145).
+- The view's `why-draft :=` comes from the `reason` of the entry that opened the current draft. That entry is a `put` to `FF.draft` (or with tail draft) or a `copy`. If there is no reason, it comes from the first nonblank line of the first `note` after the draft opened, trimmed of spaces (derive.rs:137-138). Otherwise it is `7` (derive.rs:119-145).
 - The same rule applies to face 00 (derive.rs:204-206).
 - Still open: whether the stamp keeps its own `why-draft:` field at all (5.2, O10). derive.rs:121 also marks the rule provisional (S7).
 
@@ -481,5 +523,7 @@ Also open: may `cites:` name an entry on another page (PLAN:1044-1047, C10)?
 
 - Every section is `9`.
 - I did not run `seqpage check` or any other code in either pass. Every "covered" and "ANSWERED" verdict cites a line of spec, ruling or code that I read. None is tool output.
-- Pass 05.02 checks use `[[:space:]]` patterns with no space inside quotes (pages/90.50.10.0702/05.02/PACK.md, checks line), so `wf check` should not split them on Windows.
-- LESSONS.md, beside this file, lists what went wrong in pass 05.01 and why.
+- Pass 05.03 checks use the form `[#][#][[:space:]]N[.]`, with no caret, no quotes and no space (pages/90.50.10.0702/05.03/PACK.md, checks line). On Windows, wf runs each check through `cmd /C` (src/git.rs:111 @a823ee28), where `^` and `"` have meanings of their own.
+- In pass 05.03 I ran the pack's checks by hand in PowerShell, not through `wf check`. Only the checker's run shows how wf runs them.
+- Line numbers in this version differ from ba9a5b71. The pack's lab:N cites refer to ba9a5b71.
+- LESSONS.md, beside this file, lists what went wrong in passes 05.01 and 05.02, and why.
