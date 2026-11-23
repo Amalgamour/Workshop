@@ -31,5 +31,25 @@ The rules, in plain words:
 4. **The checker also enters the page.** `wf check` refuses while any pass on that page is claimed and not yet returned. After the return, the checker may enter.
 5. **Packing may stage later passes, but only one pass is claimable or active at a time.** Prima must not pack two open passes of one page for different workers. That planning rule also lives in `docs/plan/GROK-BUILDER-QUEUE.md`.
 
-Related, not this ruling: the 0701 log overwrite is a `push_log` prefix bug. Page 90.50.10.0423 (title one-worker) is drafted to enforce rules 3 and 4 in wf, and to make `push_log` / `wf return --push` refuse unless the published log is a prefix of the local log. It waits on 0408 close, then goes first in the queue, ahead of 0422. The 0701 repair plan is `docs/review/0701-LOG-REPAIR.md` (not done in this turn).
+Rules 2 and 5 are refined by t541u below: the active window is the lockout session, not only claim-until-return, and packing later passes is allowed only when no lockout is held. Rules 1, 3 and 4 still stand inside that session.
 
+Related, not this ruling: the 0701 log overwrite is a `push_log` prefix bug. Page 90.50.10.0423 (title one-worker) is drafted to enforce this rule and the t541u lockout, and to make `push_log` / `wf return --push` refuse unless the published log is a prefix of the local log. It waits on 0408 close, then goes first in the queue, ahead of 0422. The 0701 repair plan is `docs/review/0701-LOG-REPAIR.md` (not done in this turn).
+
+## t541u  -  face lockout (session lock)
+
+Status: pending. Apply to the wf kit `docs/DESIGN.md` section 5 (Open), as a versioned note, together with the t533u rule above, once no open pass that pins or cites that file stands in the way (t381u). Do not edit the kit DESIGN.md, AXIOMS.md, DIRECTOR-RULINGS.md or decisions.md in this turn. 0408 is packed and holds `src/cmd.rs`, `src/lib.rs` and `src/page.rs`. This ruling is not a seqAddr band rule.
+
+Authority: t541u, docs/review/DIRECTOR-WORDS-t541-mvp-gaps.md. Verbatim: "A worker only holds the page when they are activelly working on it." "If it's being updated as 01 or more work on 05 or just the human readable version of the page's scope and design as 04." "One model should be working on it at a time." "It's the 05 face, 01 is the agents and scope, 04 is the planned out work we are doing on it. So the face must be locked while it's being worked on." "Lock the face for the whole work session, released when the worker is done." "It's a lock out. Look at lockouts as your template from industrial construction and maintaince safety practices."
+
+The rules, in plain words:
+
+1. **A page is held only while one worker is actively working on a face (01, 04 or 05).** One model at a time. Many pages may run in parallel. Between sessions, when no lockout is held, the page is not held.
+2. **The face lock is a lockout.** It lasts the whole work session and is released when the worker is done. The template is lockout/tagout (LOTO) practice from industrial construction and maintenance safety.
+3. **Each worker applies their own named lock and tag.** The log entry names the face, the worker, the reason, and the start time.
+4. **Only the worker who applied a lock removes it.** The removal is a release entry in the log.
+5. **Before work starts, try-out verifies the lock holds.** Work commands also check that this worker holds the unreleased lockout on the face they are working on.
+6. **Group lockout is not allowed.** Several locks may not sit on one face, or on one page. A page may have only one unreleased lockout at a time.
+7. **An abandoned lock is removed only by a recorded supervisor override.** Only Prima or Matthew (the page's person) may do it. It needs a reason. The log keeps it.
+8. **While a lockout is held, every other worker is refused on that page.** Packing may stage a later pass only when no lockout is held.
+
+Related: page 90.50.10.0423 (title one-worker) is drafted to enforce these rules, the t533u claim and check refusals, and the `push_log` prefix check. The grant grows to include `src/lib.rs` because lockout, try-out and release are new commands. This lockout is not the short `.wf-lock` file. The draft is not packed. It waits on 0408 close, then goes first in the queue, ahead of 0422.
