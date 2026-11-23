@@ -1,6 +1,6 @@
 # Director words: t541u MVP gaps G1-G8 (2026-11-23, about 12:51 PM EST)
 
-Matthew's answers to the eight gaps in docs/plan/MVP-GOAL-PROPOSAL.md section 5, verbatim, plus two later answers the same day on how the face lock works. Readings follow each answer. Nothing was packed.
+Matthew's answers to the eight gaps in docs/plan/MVP-GOAL-PROPOSAL.md section 5, verbatim, plus later answers the same day on how the face lock works and who may break an abandoned lock. Readings follow each answer. Nothing was packed.
 
 ## G1. What does the checking for the MVP?
 
@@ -62,4 +62,16 @@ Reading: a worker takes a lock on the face they will work on (01, 04 or 05). The
 
 > It's a lock out. Look at lockouts as your template from industrial construction and maintaince safety practices.
 
-Reading: the face lock follows lockout/tagout (LOTO) practice from industrial construction and maintenance safety. In Workshop terms: each worker applies their own named lock and tag, giving the face, the worker, the reason and the start time. Only the worker who applied a lock removes it, and that removal is a release entry in the log. Before work starts, the lock is checked (try-out: verify it holds). Group lockout, where several locks sit on one face, is not allowed, because only one worker may work a face, and only one worker may work a page at a time. Removing an abandoned lock takes a recorded supervisor override: only Prima or Matthew may do it, it needs a reason, and the log keeps it. The 0423 draft uses this template. The kit DESIGN.md is not edited while open packs pin it (t381u); the rule sits in docs/review/PENDING-RULES.md until then.
+Reading: the face lock follows lockout/tagout (LOTO) practice from industrial construction and maintenance safety. In Workshop terms: each worker applies their own named lock and tag, giving the face, the worker, the reason and the start time. Only the worker who applied a lock removes it, and that removal is a release entry in the log. Before work starts, the lock is checked (try-out: verify it holds). Group lockout, where several locks sit on one face, is not allowed, because only one worker may work a face, and only one worker may work a page at a time. Removing an abandoned lock takes a recorded supervisor override: it needs a reason, and the log keeps it. Who may do it is in the 1:08 PM EST answers below. The 0423 draft uses this template. The kit DESIGN.md is not edited while open packs pin it (t381u); the rule sits in docs/review/PENDING-RULES.md until then.
+
+## Abandoned-lock override (1:08 PM EST)
+
+Asked who may break an abandoned lock, after the 0423 draft read that as `--as Prima` or the page's person, and asked whether a prime who is not Prima may override.
+
+> Only Prima or Matthew may break an abandoned lock, with a reason
+
+Then, the same minute, a refinement:
+
+> Project lead of the book can break or higher authority.
+
+Reading: the first answer names the people who hold those roles on this work today. The refinement states it as roles, so it stays true if the lead changes. The book's project lead, or a higher authority, may break an abandoned lock, with a recorded reason. The kit already records the team-lead role as Prime (t254u), on the page stamp, face 00 (t255u): current Prime and previous Primes. wf stores that as the page's current Prime, set at init and changed with `wf set-prime`. There is no separate book-level project-lead field. The 0423 draft therefore treats the page's current Prime as the project lead, and the page's person as the higher authority (the Director, Matthew). A former Prime may not override. This is flagged in the 0423 README, in case "project lead of the book" is meant to be a book-wide name that does not exist yet.
