@@ -445,6 +445,19 @@ pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     Ok(())
 }
 
+/// Prime takes back a packed pass that nobody has claimed. The pass stays in the log
+/// with tail withdrawn, so a later claim is refused and the pass no longer holds its files.
+pub fn withdraw(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    must_be(p, who, "prime")?;
+    let n = nn(a, 1)?;
+    let x = p.pass(n)?;
+    tail_is(x, &["pack"])?;
+    need(x.claim.is_none(), format!("refused: 05.{n:02} already has a claim"))?;
+    p.add(who, "prime", "withdraw", json!({"pass": n}))?;
+    println!("withdrew 05.{n:02}. The pass stays in the log. A later claim is refused.");
+    Ok(())
+}
+
 fn ret_change_paths(r: &Value) -> Vec<String> {
     r["changed"]
         .as_array()
