@@ -132,19 +132,25 @@ Pages in the same wave change no shared file. A page holds its files until its t
 | 0705.05.01 | Design wf worker reports | Claude | closed passed | done |
 | 0705.05.02 | Fold in t530u/t531u and Grok-Check minors | Claude | closed passed | done (returns `efadd4d2`, packs `c439cbdc`) |
 | 0423 | one-worker (session lockout on 01, 04 or 05, and push_log prefix) | (after 0408) | N | 0408 closed; then first in the queue, ahead of 0422. Grant includes `src/lib.rs`. Draft updated; not packed. |
-| 0422 | report-system page (05 passes are the work orders) | (after 0423) | N | 0705 closed. 0423 first (they share cmd.rs, lib.rs, page.rs). Lead assignment: docs/plan/CLAUDE-LEAD-0422.md. Not an MVP blocker. |
+| 0422 | report-system page (05 passes are the work orders) | (after 0423) | N | 0705 closed. 0423 first (they share cmd.rs, lib.rs, page.rs). Lead assignment: docs/plan/CLAUDE-LEAD-0422.md. Plan: labs/0422-plan/ on returns (b5cb8a47); answers in docs/review/ANSWERS-0422-PLAN.md. Not an MVP blocker. Goes ahead of 0409 (wave 3). |
 
 Then the wave 1 trials, same builders as before (Grok-1 on 0407, Grok-2 on 0408, Grok-3 on 0419, Grok-4 on 0418, Grok-5 on 0416), each on a different `tests/lab_*.rs` or core trial. The 0418 trial is a core trial; the 0416 trial is on the wf kit.
 
-**Wave 3** — 0423 first if 0408 is already closed when this wave starts (safety, holds `src/cmd.rs` and `src/page.rs`). 0409 waits until 0423 has freed `src/cmd.rs`.
+**Wave 3** — 0423 first if 0408 is already closed when this wave starts (safety, holds `src/cmd.rs`, `src/lib.rs` and `src/page.rs`). Then 0422 (report-system), one pass at a time, ahead of 0409 (t530u, t531u; docs/review/ANSWERS-0422-PLAN.md R1, t558u). 0425 (book-prime, MVP) is the one page that may go before a 0422 pass on a shared file, once 0425 is drafted (R2). 0409, 0406, 0411 and 0412 wait until 0422.05.03's trial is done.
 
 | Page | Goal | Builder | Packable now | Blocker |
 |---|---|---|---|---|
 | 0423 | one-worker | (after 0408) | N | 0408 closed; pack text drafted |
-| 0409 | Retire a page | Grok-1 | N | 0423 closed (and 0408 closed); pack text |
+| 0425 | book-prime (MVP) | (not set) | N, no draft | 0423 closed and its trial done. Goes before any 0422 pass that needs the same file, once drafted. Never cuts into an open 0422 pass. |
+| 0422.05.01 | report module and config | (set at pack) | N | 0423 closed and its trial done. May go before 0425 if 0425 is not drafted by then (grant `src/report.rs`, `src/lib.rs`, `tests/page_0422_01.rs`). |
+| 0422.05.02 | report log kind | (set at pack) | N | 05.01 closed. 0425 first if it is drafted and needs `src/page.rs`. |
+| 0422.05.03 | commands write and push reports | (set at pack) | N | 05.01 and 05.02 closed. 0425 first if it is drafted and needs `src/cmd.rs`. A missing `.wf/config.json` warns and falls back to docs/plan/REPORTS.md (R5; Matthew M1 open). |
+| 0422.05.04 | report views and status | (set at pack) | N | 05.02 and 05.03 closed; no open `src/render.rs` or `src/status.rs` holder (R3, R4). |
+| 0422.05.05 | report docs and setup on N6 | (set at pack) | N | 05.03 and 05.04 closed. Then N6 worker pages (0601 onward), one worker at a time. |
+| 0409 | Retire a page | Grok-1 | N | 0423 closed (and 0408 closed); 0422.05.03 trial done; pack text |
 | 0413 | Work order view | Grok-2 | Y, after init | 0407 trial done (frees `src/render.rs`) |
 
-**Wave 4** — trials 0409 and 0413.
+**Wave 4** — trials 0409 and 0413. The 0422 lab trials (`tests/lab_0422_0N.rs` on 0701) run in the wave after each 0422 pass.
 
 **Wave 5** — 0406 (Grok-1). Holds cmd, lib, page and render. No partner in this wave.
 
