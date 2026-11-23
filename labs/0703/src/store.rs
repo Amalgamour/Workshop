@@ -1,6 +1,7 @@
 use crate::sample::Page;
 use rusqlite::{Connection, OpenFlags, params};
 use sha2::{Digest, Sha256};
+use std::collections::BTreeMap;
 use std::error::Error;
 use std::fs::{self, File, OpenOptions};
 use std::io::{BufRead, BufReader, BufWriter, Read, Seek, SeekFrom, Write};
@@ -31,17 +32,20 @@ impl Kind {
         match self {
             Self::Git => {
                 let repo = root.join("git");
-                write_git(&repo, pages)?;
+                fs::create_dir(&repo)?;
+                git(&repo, &["init", "--quiet", "--template=", "--initial-branch=trial"])?;
+                commit_pages(&repo, pages)?;
                 Ok(Store::Git(repo))
             }
             Self::Chain => {
                 let path = root.join("pages.log");
-                let head = write_chain(&path, pages)?;
+                let file = OpenOptions::new().create_new(true).append(true).open(&path)?;
+                let head = write_records(file, pages, GENESIS)?;
                 Ok(Store::Chain { path, head })
             }
             Self::Sqlite => {
                 let path = root.join("pages.sqlite");
-                write_sqlite(&path, pages)?;
+                write_sqlite(&path, pages, true)?;
                 Ok(Store::Sqlite(path))
             }
         }
@@ -55,6 +59,19 @@ pub enum Store {
 }
 
 impl Store {
+    pub fn update(&mut self, page: &Page) -> Result<()> {
+        let pages = std::slice::from_ref(page);
+        match self {
+            Self::Git(repo) => commit_pages(repo, pages),
+            Self::Chain { path, head } => {
+                let file = OpenOptions::new().append(true).open(path)?;
+                *head = write_records(file, pages, head)?;
+                Ok(())
+            }
+            Self::Sqlite(path) => write_sqlite(path, pages, false),
+        }
+    }
+
     pub fn read_all(&self) -> Result<Vec<Page>> {
         match self {
             Self::Git(repo) => {
@@ -69,20 +86,21 @@ impl Store {
             }
             Self::Chain { path, .. } => {
                 let mut log = BufReader::new(File::open(path)?);
-                let mut pages = Vec::new();
+                let mut latest = BTreeMap::new();
                 while let Some(record) = read_record(&mut log)? {
-                    pages.push(record.page);
+                    latest.insert(record.page.id.clone(), record.page);
                 }
-                Ok(pages)
+                Ok(latest.into_values().collect())
             }
             Self::Sqlite(path) => {
                 let connection = open_sqlite(path)?;
-                let mut statement = connection.prepare("SELECT id, body FROM pages ORDER BY id")?;
+                let mut statement = connection.prepare(
+                    "SELECT id, body FROM revisions r
+                     WHERE version = (SELECT MAX(version) FROM revisions WHERE id = r.id)
+                     ORDER BY id",
+                )?;
                 let rows = statement.query_map([], |row| {
-                    Ok(Page {
-                        id: row.get(0)?,
-                        text: row.get(1)?,
-                    })
+                    Ok(Page { id: row.get(0)?, text: row.get(1)? })
                 })?;
                 Ok(rows.collect::<rusqlite::Result<Vec<_>>>()?)
             }
@@ -90,27 +108,53 @@ impl Store {
     }
 
     pub fn read_one(&self, id: &str) -> Result<Page> {
-        match self {
-            Self::Git(repo) => read_text(&repo.join(format!("{id}.seq"))),
+        let text = match self {
+            Self::Git(repo) => fs::read_to_string(repo.join(format!("{id}.seq")))?,
             Self::Chain { path, .. } => {
                 let mut log = BufReader::new(File::open(path)?);
+                let mut latest = None;
                 while let Some(record) = read_record(&mut log)? {
                     if record.page.id == id {
-                        return Ok(record.page);
+                        latest = Some(record.page.text);
                     }
                 }
-                Err(format!("page {id} missing from log").into())
+                latest.ok_or_else(|| format!("page {id} missing from log"))?
+            }
+            Self::Sqlite(path) => open_sqlite(path)?.query_row(
+                "SELECT body FROM revisions WHERE id = ? ORDER BY version DESC LIMIT 1",
+                [id],
+                |row| row.get(0),
+            )?,
+        };
+        Ok(Page { id: id.to_owned(), text })
+    }
+
+    pub fn history(&self, id: &str) -> Result<Vec<String>> {
+        match self {
+            Self::Git(repo) => {
+                let file = format!("{id}.seq");
+                let commits = git(
+                    repo,
+                    &["log", "--first-parent", "--reverse", "--format=%H", "HEAD", "--", &file],
+                )?;
+                commits.lines().map(|commit| git_blob(repo, commit, &file)).collect()
+            }
+            Self::Chain { path, .. } => {
+                let mut log = BufReader::new(File::open(path)?);
+                let mut versions = Vec::new();
+                while let Some(record) = read_record(&mut log)? {
+                    if record.page.id == id {
+                        versions.push(record.page.text);
+                    }
+                }
+                Ok(versions)
             }
             Self::Sqlite(path) => {
                 let connection = open_sqlite(path)?;
-                let text =
-                    connection.query_row("SELECT body FROM pages WHERE id = ?", [id], |row| {
-                        row.get(0)
-                    })?;
-                Ok(Page {
-                    id: id.to_owned(),
-                    text,
-                })
+                let mut statement =
+                    connection.prepare("SELECT body FROM revisions WHERE id = ? ORDER BY version")?;
+                let rows = statement.query_map([id], |row| row.get(0))?;
+                Ok(rows.collect::<rusqlite::Result<Vec<_>>>()?)
             }
         }
     }
@@ -122,78 +166,109 @@ impl Store {
         }
     }
 
-    pub fn tamper_trial(&self, original: &Page) -> Result<String> {
-        let probe = original.probe();
+    pub fn verify_native(&self, id: &str) -> Result<()> {
         match self {
             Self::Git(repo) => {
-                let file = original.filename();
-                let pinned = git(repo, &["rev-parse", &format!("HEAD:{file}")])?;
-                let raw_hash = || git(repo, &["hash-object", "--no-filters", "--", &file]);
-                if raw_hash()? != pinned {
-                    return Err("clean file does not match the committed blob".into());
+                git(repo, &["fsck", "--full", "--no-reflogs"])?;
+                let file = format!("{id}.seq");
+                if fs::read_to_string(repo.join(&file))? != git_blob(repo, "HEAD", &file)? {
+                    return Err(format!("working file {file} disagrees with HEAD").into());
                 }
-                flip_probe(&repo.join(&file), &probe)?;
-                let matched = raw_hash()? == pinned;
-                Ok(format!("raw blob hash matches committed blob: {matched}"))
             }
-            Self::Chain { path, head } => {
-                verify_chain(path, head)?;
-                flip_probe(path, &probe)?;
-                match verify_chain(path, head) {
-                    Ok(()) => Ok("chain verification passed".to_owned()),
-                    Err(error) => Ok(error.to_string()),
+            Self::Chain { path, .. } => verify_chain(path)?,
+            Self::Sqlite(path) => {
+                let result: String = open_sqlite(path)?
+                    .query_row("PRAGMA integrity_check", [], |row| row.get(0))?;
+                if result != "ok" {
+                    return Err(result.into());
                 }
+            }
+        }
+        Ok(())
+    }
+
+    pub fn flip_current_byte(&self, page: &Page) -> Result<()> {
+        let path = match self {
+            Self::Git(repo) => repo.join(page.filename()),
+            Self::Chain { path, .. } | Self::Sqlite(path) => path.clone(),
+        };
+        flip_probe(&path, &page.probe(2))
+    }
+
+    // Exercise self-consistent replacement solely in stores created under the lab scratch root.
+    pub fn replace_first_version(&mut self, replacement: &Page, latest: &Page) -> Result<()> {
+        match self {
+            Self::Git(repo) => replace_git_history(repo, replacement, latest),
+            Self::Chain { path, head } => {
+                let mut log = BufReader::new(File::open(&*path)?);
+                let mut pages = Vec::new();
+                while let Some(record) = read_record(&mut log)? {
+                    pages.push(record.page);
+                }
+                drop(log);
+                let first = pages.iter_mut().find(|page| page.id == replacement.id)
+                    .ok_or("missing first log version")?;
+                first.text.clone_from(&replacement.text);
+                let file = OpenOptions::new().write(true).truncate(true).open(path)?;
+                *head = write_records(file, &pages, GENESIS)?;
+                Ok(())
             }
             Self::Sqlite(path) => {
-                flip_probe(path, &probe)?;
-                let structural: String =
-                    open_sqlite(path)?.query_row("PRAGMA integrity_check", [], |row| row.get(0))?;
-                let matched = digest(b"", self.read_one(&original.id)?.text.as_bytes())
-                    == digest(b"", original.text.as_bytes());
-                Ok(format!(
-                    "integrity_check: {structural}; payload SHA-256 matches baseline: {matched}"
-                ))
+                let connection = sqlite_writer(path)?;
+                if connection.execute(
+                    "UPDATE revisions SET body = ? WHERE id = ? AND version = 1",
+                    params![replacement.text, replacement.id],
+                )? != 1 {
+                    return Err("missing first SQLite version".into());
+                }
+                Ok(())
             }
         }
     }
 }
 
-fn git(repo: &Path, args: &[&str]) -> Result<String> {
+fn run_git(repo: &Path, args: &[&str]) -> Result<String> {
     let output = Command::new("git")
         .current_dir(repo)
         .env_remove("GIT_DIR")
         .env_remove("GIT_WORK_TREE")
         .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_COMMON_DIR")
+        .env_remove("GIT_OBJECT_DIRECTORY")
+        .env_remove("GIT_ALTERNATE_OBJECT_DIRECTORIES")
+        .env_remove("GIT_CONFIG_COUNT")
+        .env_remove("GIT_CONFIG_PARAMETERS")
         .env("GIT_CONFIG_NOSYSTEM", "1")
         .env("GIT_CONFIG_GLOBAL", repo.join("unused-global-config"))
         .args([
-            "-c",
-            "core.autocrlf=false",
-            "-c",
-            "commit.gpgsign=false",
-            "-c",
-            "gc.auto=0",
-            "-c",
-            "user.name=Storage Lab",
-            "-c",
-            "user.email=storage-lab@example.invalid",
+            "-c", "core.autocrlf=false",
+            "-c", "core.fsync=none",
+            "-c", "commit.gpgsign=false",
+            "-c", "gc.auto=0",
+            "-c", "user.name=Storage Lab",
+            "-c", "user.email=storage-lab@example.invalid",
         ])
         .args(args)
         .output()?;
     if !output.status.success() {
-        return Err(format!("git {} failed: {}", args[0], String::from_utf8_lossy(&output.stderr))
-            .into());
+        return Err(format!("git {} failed: {}", args[0], String::from_utf8_lossy(&output.stderr)).into());
     }
-    Ok(String::from_utf8(output.stdout)?.trim().to_owned())
+    Ok(String::from_utf8(output.stdout)?)
 }
 
-fn write_git(repo: &Path, pages: &[Page]) -> Result<()> {
-    fs::create_dir(repo)?;
-    git(repo, &["init", "--quiet", "--template="])?;
+fn git(repo: &Path, args: &[&str]) -> Result<String> {
+    Ok(run_git(repo, args)?.trim().to_owned())
+}
+
+fn git_blob(repo: &Path, commit: &str, file: &str) -> Result<String> {
+    run_git(repo, &["cat-file", "blob", &format!("{commit}:{file}")])
+}
+
+fn commit_pages(repo: &Path, pages: &[Page]) -> Result<()> {
     for page in pages {
         fs::write(repo.join(page.filename()), &page.text)?;
     }
-    // Windows limits the command-line length. Every add still names specific files.
+    // Each add names specific files and stays under Windows' command-line length limit.
     for batch in pages.chunks(200) {
         let files = batch.iter().map(Page::filename).collect::<Vec<_>>();
         let mut args = vec!["add", "--"];
@@ -204,16 +279,29 @@ fn write_git(repo: &Path, pages: &[Page]) -> Result<()> {
     Ok(())
 }
 
+fn replace_git_history(repo: &Path, replacement: &Page, latest: &Page) -> Result<()> {
+    let name = replacement.filename();
+    let tip = git(repo, &["rev-parse", "HEAD"])?;
+    let tip_tree = git(repo, &["rev-parse", "HEAD^{tree}"])?;
+    let first_tree = git(repo, &["rev-parse", "HEAD^1^{tree}"])?;
+
+    git(repo, &["read-tree", &first_tree])?;
+    fs::write(repo.join(&name), &replacement.text)?;
+    git(repo, &["add", "--", &name])?;
+    let tree = git(repo, &["write-tree"])?;
+    let first = git(repo, &["commit-tree", &tree, "-m", "Trial replacement of first version"])?;
+    let new_tip = git(repo, &["commit-tree", &tip_tree, "-p", &first, "-m", "Trial replacement tip"])?;
+
+    fs::write(repo.join(&name), &latest.text)?;
+    git(repo, &["read-tree", &tip_tree])?;
+    git(repo, &["update-ref", "HEAD", &new_tip, &tip])?;
+    Ok(())
+}
+
 fn read_text(path: &Path) -> Result<Page> {
-    let id = path
-        .file_stem()
-        .and_then(|stem| stem.to_str())
-        .ok_or("invalid page filename")?
-        .to_owned();
-    Ok(Page {
-        id,
-        text: fs::read_to_string(path)?,
-    })
+    let id = path.file_stem().and_then(|stem| stem.to_str())
+        .ok_or("invalid page filename")?.to_owned();
+    Ok(Page { id, text: fs::read_to_string(path)? })
 }
 
 fn directory_bytes(dir: &Path) -> Result<u64> {
@@ -235,27 +323,33 @@ struct Record {
     header: String,
     previous: String,
     page: Page,
+    hash: String,
 }
 
-fn digest(header: &[u8], body: &[u8]) -> String {
+fn record_hash(header: &str, body: &str) -> String {
     let mut sha = Sha256::new();
     sha.update(header);
     sha.update(body);
     format!("{:x}", sha.finalize())
 }
 
-fn write_chain(path: &Path, pages: &[Page]) -> Result<String> {
-    let file = OpenOptions::new().create_new(true).append(true).open(path)?;
+fn write_records(file: File, pages: &[Page], previous: &str) -> Result<String> {
     let mut log = BufWriter::new(file);
-    let mut previous = GENESIS.to_owned();
+    let mut previous = previous.to_owned();
     for page in pages {
         let header = format!("{} {previous} {}\n", page.id, page.text.len());
+        let hash = record_hash(&header, &page.text);
         log.write_all(header.as_bytes())?;
         log.write_all(page.text.as_bytes())?;
-        previous = digest(header.as_bytes(), page.text.as_bytes());
+        writeln!(log, "{hash}")?;
+        previous = hash;
     }
     log.flush()?;
     Ok(previous)
+}
+
+fn hash_field(value: &str) -> bool {
+    value.len() == 64 && value.bytes().all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
 }
 
 fn read_record(log: &mut BufReader<File>) -> Result<Option<Record>> {
@@ -263,49 +357,70 @@ fn read_record(log: &mut BufReader<File>) -> Result<Option<Record>> {
     if log.read_line(&mut header)? == 0 {
         return Ok(None);
     }
-    let mut fields = header
-        .strip_suffix('\n')
-        .ok_or("incomplete record header")?
-        .split(' ');
+    let mut fields = header.strip_suffix('\n').ok_or("incomplete record header")?.split(' ');
     let id = fields.next().ok_or("missing page ID")?.to_owned();
     let previous = fields.next().ok_or("missing previous hash")?.to_owned();
     let length: u64 = fields.next().ok_or("missing body length")?.parse()?;
-    if id.is_empty() || previous.len() != GENESIS.len() || fields.next().is_some() {
-        return Err("invalid record header".into());
+    if id.is_empty() || !hash_field(&previous) || fields.next().is_some() {
+        return Err(format!("invalid record header for {id}").into());
     }
     let mut text = String::new();
     if log.take(length).read_to_string(&mut text)? as u64 != length {
-        return Err("incomplete record body".into());
+        return Err(format!("{id}: incomplete record body").into());
     }
-    Ok(Some(Record {
-        header,
-        previous,
-        page: Page { id, text },
-    }))
+    let mut hash = String::new();
+    log.read_line(&mut hash)?;
+    let hash = hash.strip_suffix('\n').filter(|hash| hash_field(hash))
+        .ok_or_else(|| format!("{id}: incomplete or invalid record hash"))?.to_owned();
+    Ok(Some(Record { header, previous, page: Page { id, text }, hash }))
 }
 
-pub fn verify_chain(path: &Path, expected_head: &str) -> Result<()> {
+pub fn verify_chain(path: &Path) -> Result<()> {
     let mut log = BufReader::new(File::open(path)?);
     let mut previous = GENESIS.to_owned();
+    let mut number = 0;
     while let Some(record) = read_record(&mut log)? {
-        if record.previous != previous {
-            return Err(format!("previous hash mismatch before {}", record.page.id).into());
+        number += 1;
+        if record_hash(&record.header, &record.page.text) != record.hash {
+            return Err(format!("record {number} ({}): content hash mismatch", record.page.id).into());
         }
-        previous = digest(record.header.as_bytes(), record.page.text.as_bytes());
-    }
-    if previous != expected_head {
-        return Err("trusted head hash mismatch".into());
+        if record.previous != previous {
+            return Err(format!("record {number} ({}): previous hash mismatch", record.page.id).into());
+        }
+        previous = record.hash;
     }
     Ok(())
 }
 
-fn write_sqlite(path: &Path, pages: &[Page]) -> Result<()> {
-    let mut connection = Connection::open(path)?;
-    connection.execute_batch("PRAGMA journal_mode = DELETE; PRAGMA synchronous = FULL;")?;
+#[cfg(test)]
+pub fn record_end(log: &mut BufReader<File>) -> Result<u64> {
+    read_record(log)?.ok_or("expected one log record")?;
+    Ok(log.stream_position()?)
+}
+
+fn sqlite_writer(path: &Path) -> Result<Connection> {
+    let connection = Connection::open(path)?;
+    connection.execute_batch("PRAGMA journal_mode = DELETE; PRAGMA synchronous = OFF;")?;
+    Ok(connection)
+}
+
+fn write_sqlite(path: &Path, pages: &[Page], create: bool) -> Result<()> {
+    let mut connection = sqlite_writer(path)?;
     let transaction = connection.transaction()?;
-    transaction.execute("CREATE TABLE pages (id TEXT PRIMARY KEY, body TEXT NOT NULL) WITHOUT ROWID", [])?;
+    if create {
+        transaction.execute(
+            "CREATE TABLE revisions (
+                id TEXT NOT NULL, version INTEGER NOT NULL, body TEXT NOT NULL,
+                PRIMARY KEY (id, version)
+             ) WITHOUT ROWID",
+            [],
+        )?;
+    }
     {
-        let mut insert = transaction.prepare("INSERT INTO pages (id, body) VALUES (?, ?)")?;
+        let mut insert = transaction.prepare(
+            "INSERT INTO revisions (id, version, body)
+             SELECT ?1, COALESCE(MAX(version), 0) + 1, ?2 FROM revisions WHERE id = ?1",
+        )?;
         for page in pages {
             insert.execute(params![page.id, page.text])?;
         }
@@ -318,12 +433,9 @@ fn open_sqlite(path: &Path) -> Result<Connection> {
     Ok(Connection::open_with_flags(path, OpenFlags::SQLITE_OPEN_READ_ONLY)?)
 }
 
-// Change exactly one on-disk byte and keep the payload syntactically plausible.
-pub fn flip_probe(path: &Path, probe: &str) -> Result<()> {
+fn flip_probe(path: &Path, probe: &str) -> Result<()> {
     let bytes = fs::read(path)?;
-    let mut offsets = bytes
-        .windows(probe.len())
-        .enumerate()
+    let mut offsets = bytes.windows(probe.len()).enumerate()
         .filter_map(|(offset, window)| (window == probe.as_bytes()).then_some(offset));
     let offset = offsets.next().ok_or("probe missing from store")?;
     if offsets.next().is_some() {

@@ -14,8 +14,15 @@ impl Page {
         format!("{}.seq", self.id)
     }
 
-    pub fn probe(&self) -> String {
-        format!("Storage trial marker {}", self.id)
+    pub fn probe(&self, version: u8) -> String {
+        format!("Storage trial v{version} marker {}", self.id)
+    }
+
+    pub fn revised(&self) -> Self {
+        Self {
+            id: self.id.clone(),
+            text: self.text.replacen(&self.probe(1), &self.probe(2), 1),
+        }
     }
 }
 
@@ -142,7 +149,7 @@ fn make_page(index: usize, shape: &Shape, seed: &mut u64) -> Page {
         id,
         text: String::from("seqpage 1\n"),
     };
-    let probe = page.probe();
+    let probe = page.probe(1);
     let state = if shape.draft { "draft" } else { "live" };
     let mut history = String::from("~ history\n");
     let mut entry = 0;
@@ -160,7 +167,7 @@ fn make_page(index: usize, shape: &Shape, seed: &mut u64) -> Page {
             writeln!(page.text, "= {section} {name} {address}").unwrap();
         }
         if *section == "00" {
-            writeln!(page.text, "title := {} sample\nstate := {state}", shape.name).unwrap();
+            writeln!(page.text, "title := {}-sample\nstate := {state}", shape.name).unwrap();
         }
         if ops.is_empty() {
             page.text.push('\n');
@@ -226,10 +233,10 @@ mod tests {
         assert_eq!(corpus, pages(PAGE_COUNT));
         for (index, page) in corpus.iter().enumerate() {
             let shape = &SHAPES[index % SHAPES.len()];
-            assert!(page.text.contains(&format!("title := {} sample", shape.name)));
+            assert!(page.text.contains(&format!("title := {}-sample", shape.name)));
             assert!(page.text.starts_with("seqpage 1\n= 00 registry "));
             assert!(page.text.ends_with("~ end\n"));
-            assert_eq!(page.text.matches(&page.probe()).count(), 1);
+            assert_eq!(page.text.matches(&page.probe(1)).count(), 1);
         }
     }
 }
