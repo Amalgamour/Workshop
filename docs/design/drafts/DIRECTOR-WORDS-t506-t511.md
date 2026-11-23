@@ -1,4 +1,4 @@
-# Director words, t506u through t509 (draft copy)
+# Director words, t506u through t511 (draft copy)
 
 state: draft record for the research-loop note. Not the review file.
 made: 2026-11-23, by Cursor-C (Design).
@@ -31,3 +31,9 @@ Reading, not his word: "ritted" is likely "seated".
 Q5:
 
 > Matthew approves only new kinds of runs; Prima approves named command lists.
+
+## t511, his choice, verbatim
+
+Asked: how should the finished, rerunnable version of a page be kept, given seqAddr.md:199 says a counted face is never seated.
+
+> Change the rule so face 05 can be seated

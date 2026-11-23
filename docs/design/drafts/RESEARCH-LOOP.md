@@ -3,7 +3,7 @@
 state: draft, revised after t509. Not a ruling. Nothing built.
 made: 2026-11-23, 11:15 AM EST, by Cursor-C (Design).
 replaces: the band 0800 proposal and questions 1 to 5 in the previous draft of this file. That text stays in the git history.
-words: docs/design/drafts/DIRECTOR-WORDS-t506-t509.md. The review copies of t506u through t509 are not in the repo (origin/prima/build at 78101fe6). t508u and t509 below are the quotes from this job. t506u and t507u were summaries, so they are not quoted as his words.
+words: docs/design/drafts/DIRECTOR-WORDS-t506-t511.md. The review copies are not in the repo (origin/prima/build at 78101fe6). t508u, t509, and t511 below are the quotes from the jobs. t506u and t507u were summaries, so they are not quoted as his words.
 
 t508u:
 
@@ -16,6 +16,7 @@ t509, the answers that change this note:
 - Q3: "When a page has achieved its goals and no more active work on it is needed to achieve the current phrase of the project. Like our steering wheel example. Once we have a working steering wheel we take the lessons learned and shape it into a report that can be found in the N9 band."
 - Q4: the reviewer of the completed work builds the lessons. They are the seated 05. The page can be parked as complete for now. The reviewer builds that pack, updates face 01, then we extract a brief searchable part. His word is "ritted 05". That is read here as "seated 05".
 - Q5: "Matthew approves only new kinds of runs; Prima approves named command lists."
+- t511: "Change the rule so face 05 can be seated." The proposal is docs/design/drafts/SEATED-05-PROPOSAL.md. No rule file was edited.
 
 ## 1. Three levels
 
@@ -29,7 +30,7 @@ The order is his: menu, then lesson reports, then the pages only if needed.
 
 A deep dig is not a note. Prime writes a research pack. The pack is the authorization. The example he gave: review 10 pages, check 4 packs, max 4 web searches. The researcher stops at the first limit they hit, and reports what was used. They do not take one more page, pack, or search.
 
-The pack also has lines for returns and for runs, because t508u names packs and returns, and Q5 names runs. His example does not set those two numbers. See the last question.
+The pack also has lines for returns and for runs. Prima's decision: a blank limit means 0. His example is then pages 10, packs 4, web searches 4, returns 0, runs 0. The researcher may not open returns or run commands unless the pack writes a number above 0.
 
 ## 2. The research pack, band 0900
 
@@ -74,10 +75,10 @@ The brief part is one row in docs/lessons/INDEX.md: topic, read-when, size, link
 What wf can do today:
 
 - A new pass can be drafted, packed, and closed. The reviewer can put the best pack and the lessons in that pass. Face 01 can be rewritten with face-write. That much is convention, and it works now.
-- wf has no seat command. Face 05 is a counted face, and seqAddr.md:199 says a counted face is never seated. So the new pass is not a seated 05 yet. It is the pass we will seat when a later page allows it. R22 and R23 already ask for a seated 05 (DIRECTOR-RULINGS.md:86-92). wf does not do that.
-- wf has no "parked as complete". It has halt (src/lib.rs:36 on origin/returns). Halt stops a new draft while a note is on the page. Halt is not "complete". Retire is page 0409, and it is not built.
+- wf has no seat command. seqAddr.md:199 still says a counted face is never seated. t511 changes that rule for face 05. The wording is in SEATED-05-PROPOSAL.md. The rule files are not edited yet, so the code still refuses a seat (crates/seqaddr-core/src/state.rs:459-460).
+- wf has no "parked as complete". It has halt (src/lib.rs:36 on origin/returns). Prima's decision: parked complete means halt, with the note "complete for this phase", until a real state exists. Halt is the stand-in. It is not that state. Retire is page 0409, and it is not built.
 
-Until those pages exist: the reviewer closes the lesson pass, updates face 01, and Prime halts the work page with a note that says "complete for this phase". The note also says halt is the stand-in, not the real parked-complete state.
+Until the seat exists: the reviewer closes the lesson pass and updates face 01. Prime halts the work page with that note.
 
 The copy into docs/lessons/INDEX.md is done by a person. wf does not write the Workshop repo.
 
@@ -119,11 +120,10 @@ Works now, by people using wf as it is:
 Needs a future wf page:
 
 - Parked as complete. Halt is only the stand-in.
-- Seating 05. seqAddr.md:199 forbids seating a counted face, and wf has no seat command.
-- wf counting the limits and refusing past them.
+- Seating face 05, after the rule change in SEATED-05-PROPOSAL.md is applied. wf has no seat command today.
+- wf counting the limits and refusing past them. A blank limit is already 0 by Prima's decision. The researcher enforces it until wf does.
 - wf writing docs/lessons/INDEX.md.
 
 ## Questions still open
 
-1. A blank returns line or runs line. (default) Blank means 0. The researcher may not open returns or run commands unless the pack writes a number. His example would be pages 10, packs 4, web searches 4, returns 0, runs 0.
-2. Halt as the stand-in for parked complete. (default) Yes, with the note "complete for this phase", until a page adds a real complete state. Halt is not that state.
+None. The two forks from the last draft are Prima's decisions: a blank limit means 0, and parked complete is halt with the note "complete for this phase" until a real state exists. t511 settles how the rerunnable version is kept.
