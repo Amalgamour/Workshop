@@ -1,0 +1,31 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0419 05.01
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git -C work fetch origin packs returns prima/build
+  - wf.exe intake
+  - wf.exe check 90.50.10.0419 1 --as Grok-Check --fail "tests/lab_0419.rs is not in this return and is not on returns, so the lab trial has not passed in lab 0701. Face 01 says another view writes that trial after this return, and the grant does not include it. The safe git grep form, the bare-form note, and tests/page_0419.rs are in the return."
+  - git -C work pull --ff-only origin returns (five newer commits; the 0419 log was unchanged)
+  - copy pages/90.50.10.0419/log.jsonl to work/.workshop/logs/90.50.10.0419/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0419
+- Results:
+  - wf check 05.01: fail (exit 0). Both pack checks ok. Frame ok. Jobs w01 and w02 done. The verdict is fail because Done when line 4 is not met.
+  - wf verify: ok: log chain holds (9 entries, head 025b2f2fb16a); every view matches the log. 05.01 AGENTS.md hash e404380168ef holds; PROMPT.md hash 07b2cc478934 holds; links 4 hold.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue". 0419 was already in this run folder and matched returns, so intake took nothing for it.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 9, actor Grok-Check, role checker, pass 1, verdict fail
+- Push commits:
+  - b3a4ca497a87335171306485c864178bb1d3d14c wf: check 90.50.10.0419.05.01 (log) on returns
+- Findings:
+  - Verdict: fail. One major finding: the lab trial named on face 01 is not in this return. No major defect in the Windows-safe git grep work. One minor finding on the builder name.
+  - Done when, safe git grep form: met. At return 710485918b0f7ef90638d8ab57c363ba1f2d0a71, src/git.rs:111-136 passes the check string through unchanged (`cmd /C` on Windows, `sh -c` on Unix). src/git.rs:124-127 names `git grep -q -E [#][#][[:space:]]0[.] -- <file>`. tests/page_0419.rs:7 is that form. tests/page_0419.rs:48-54 asserts the pattern token has no caret, no quotes, no space, and does not start with `#`. tests/page_0419.rs:57-63 matches a heading under `sh -c` (exit 0). tests/page_0419.rs:90-99 matches under `cmd /C`. src/git.rs:223-232 calls `run` with the same form. The packed `cargo test --lib` (52 passed) and `cargo test --test page_0419` (4 passed) both passed in the check worktree.
+  - Done when, bare form documented: met. src/git.rs:118-122 says the bare `git grep -q -E ##[[:space:]]0[.] -- <file>` is a comment under `sh -c`, git prints `fatal: no pattern given`, it exits 128, and packs must not use it. tests/page_0419.rs:8 is that bare form. tests/page_0419.rs:66-72 asserts exit 128 and `no pattern given`. tests/page_0419.rs:75-85 pins those strings in the `src/git.rs` comment.
+  - Done when, page test: met. `cargo test --test page_0419` in the check worktree at 71048591 passed: 4 tests, 0 failed.
+  - Done when, lab trial: not met. Face 01 (log entry 2) says tests/lab_0419.rs is written by another view after this return. The return's not-done line says the same, and the grant is only src/git.rs and tests/page_0419.rs. The return commit's tree has tests/page_0419.rs and does not have tests/lab_0419.rs. `git ls-tree` of returns HEAD also has no tests/lab_0419.rs. The lab trial has not passed in lab 0701. This is why the verdict is fail, so the pass can be checked again after that trial exists.
+  - Minor: the published pack and face 01 name the builder Grok-5. The claim (log entry 7) and the return (log entry 8) are Grok-3. The return's noticed line says wf claim does not check the pack name (t522u) and the pack was not republished. The frame is still inside the grant.
+  - Frame: the check printed only A .workshop/returns/90.50.10.0419.05.01.md, M src/git.rs, A tests/page_0419.rs. Return commit 710485918b0f7ef90638d8ab57c363ba1f2d0a71 is on returns and starts from pack start a823ee284574be3d9f6247925b9088137a27a539. The design review line is filled and says the AXIOMS and DESIGN hashes match the pack pins.
+- Time taken:
+  - wf check and wf verify each finished in one run. Reading src/git.rs and tests/page_0419.rs at the return commit, and confirming tests/lab_0419.rs is absent, was the rest of the pass.
