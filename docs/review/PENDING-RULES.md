@@ -6,6 +6,8 @@ Rulings that belong in a spec file but cannot be written there yet, because an o
 
 Status: pending. Apply to `docs/spec/seqAddr.md` as a versioned note (after section 11, the lab and stage bands) once 90.50.10.0705.05.01 is closed. That pass is returned, not closed, and its face 08 cites seqAddr.md section 11. Do not edit seqAddr.md, DIRECTOR-RULINGS.md or decisions.md while it is open.
 
+Update (23 Nov 2026, 2:55 PM EST): 0705.05.01 and 05.02 are closed passed, so that lock is gone. Matthew's words fully define the band rule (rules 1-4 below; the door and continuation follow from seqAddr.md section 10, rule 4, and the lowercase title from seqAddr.md:112). But 90.50.10.0418.05.01 is packed and open, and its face 01, face 08 and PACK.md cite `seqAddr.md:199-204` on prima/build (the t512 seated-05 rule). By t381u, seqAddr.md does not change while that pass is open. So the note waits until 0418.05.01 is closed (or until Matthew says an append after section 11 may go in while 0418 is open).
+
 Authority: t530u, docs/review/DIRECTOR-WORDS-t530.md. Verbatim: "N6 is where worker pages should live." "One page per worker" "The title should be the worker's name." And, for numbering: "First open slot after N600."
 
 The rules, in plain words:
@@ -85,3 +87,17 @@ The rules, in plain words, from lockout/tagout (when equipment fails, tag it out
 5. **A manual return never closes as passed without the checker's review.** Prima and the checker confirm the diff stays in the grant, run the tests, and confirm the log chain was not touched. Then either fix wf and re-run normal intake for the same pass, or, if wf cannot be fixed soon, record a manual intake through wf once wf works, with a note saying it was a manual return. The wf failure itself becomes a bug note or a page.
 
 Related: the full process, the report fields, and the prompt block are in `docs/plan/MANUAL-RETURN.md`. The three questions were decided at t557s2212 (defaults). If wf still works and only the network is down, first follow labs/0705 FAILURES.md.
+
+## t558s2225  -  report-system rollout and offline return
+
+Status: approved by Matthew (t558s2225, 2:53 PM EST, 23 Nov 2026). He picked the default on both questions (M1, M2 in docs/review/ANSWERS-0422-PLAN.md). Write it into the wf kit `docs/REPORTS.md` when 0422.05.05 adds that doc, and into the wf kit `docs/DESIGN.md` section 5 (Open) with the other pending wf rules, once no open pass that pins or cites that file stands in the way (t381u). The 0422 pack texts on returns (labs/0422-plan/) carry it until then.
+
+Authority: t558s2225, docs/review/DIRECTOR-WORDS-t558-report-system.md. Verbatim: "warn and carry on, and block later" (M1). "not now, use the manual return" (M2).
+
+The rules, in plain words:
+
+1. **A run folder with no report config warns and carries on (for now).** wf runs the command as before, writes no report entry, and ends with lines naming `.wf/config.json`, docs/plan/REPORTS.md and `wf setup`. The worker pushes the stopgap report. There is no flag. A config that is present but invalid still refuses.
+2. **Block later.** A later small pass brings back the refusal for a missing config. Prima packs it only when every active worker has a setup report on its N6 page.
+3. **A configured worker's real `wf check` always writes and pushes its report** (t530u Q3, "Always"). Rule 1 does not loosen that.
+4. **An offline return is a manual return, not now a wf feature.** An offline `return --push` still fails at the fetch and records nothing. The builder follows docs/plan/MANUAL-RETURN.md. A return counts when it lands on `returns` (t557s2212 Q3). Recording an offline return locally is not queued.
+

@@ -4,7 +4,7 @@ Asked by Claude, lead for page 90.50.10.0422 (report-system), relayed by Matthew
 Plan read: labs/0422-plan/README.md, PACK-0422-05.01.txt to 05.05.txt, reports/90.50.10.0422/plan/Claude-lead-20261123-1345.md (returns b5cb8a47).
 Also read: docs/plan/GROK-BUILDER-QUEUE.md, docs/review/PENDING-RULES.md, docs/plan/MVP-GOAL-PROPOSAL.md (G1-G8), docs/review/DIRECTOR-WORDS-t530.md, docs/review/DIRECTOR-WORDS-t541-mvp-gaps.md, docs/design/drafts/90.50.10.0423/, docs/plan/MANUAL-RETURN.md (approved at 78ce324), labs/0705/ on returns.
 
-These are Prima's decisions on queue order and technical fit. Two points that touch Matthew's design intent are raised at the end as questions, each with the default Prima is using until he answers. Nothing is packed.
+These are Prima's decisions on queue order and technical fit. Two points that touch Matthew's design intent were raised as M1 and M2. Matthew decided both at 2:53 PM EST (t558s2225, docs/review/DIRECTOR-WORDS-t558-report-system.md): he chose the default on each. Nothing is packed.
 
 The split, the five grants and the one-page shape stand as Claude wrote them.
 
@@ -39,7 +39,7 @@ The split, the five grants and the one-page shape stand as Claude wrote them.
 - Effect: the pinned wf can move to a build with 05.03 once 05.03's trial passes. It does not have to wait for every N6 page. Workers set up one at a time after 05.05.
 - Reason: refusing now would stop every worker until about ten N6 pages exist and each has a setup pass, and the t530u band rule is not yet written into seqAddr.md. That blocks the whole team on a report system that is not an MVP blocker (G8). Matthew's words ask that wf send the report "once it is taught where it should land them" (t527u). They do not say wf must refuse when it has not been taught yet. His "Always" (t530u Q3) is about every real `wf check` pushing its report, and that stays: a configured worker's check always writes and pushes its report, with no flag to skip it. The fallback is the stopgap report, which Matthew already accepted (G8), so nothing is silently skipped.
 - Lesson 9 (labs/0705/LESSONS.md, "a rule with an opt-out gets skipped") is kept in spirit: there is no flag, the warning prints every time, and the strict pass removes the fallback.
-- This changes the 0705 design (lesson 9, "no opt-out"). It is raised to Matthew as question M1 below. Until he answers, this default is used.
+- This changes the 0705 design (lesson 9, "no opt-out") for the rollout only. Matthew decided it (M1, t558s2225): "warn and carry on, and block later".
 - Related chore for Prima: the t530u band rule can now be written into seqAddr.md as a versioned note, because 0705 is closed. N6 pages (0601 onward) start after 05.05, one worker at a time.
 
 ## C2. Push from run() after the page lock drops: accepted, with one limit
@@ -66,7 +66,7 @@ The split, the five grants and the one-page shape stand as Claude wrote them.
 - Accepted for 05.03: today's code merge is kept. An offline `return --push` still fails at the fetch and records nothing. Only the report push is queued. An offline `check` records its entry and report and queues the push.
 - What is already answered: Matthew approved MANUAL-RETURN.md at 2:45 PM EST (t557s2212, docs/review/DIRECTOR-WORDS-t557-manual-return.md). An offline return that wf cannot record is a manual-return case (section 1, triggers 1 and 7). His Q3 answer says the pass never closes until the report is committed to `returns`. That matches FAILURES.md section 2(a)'s default: a return counts when it lands on the branch.
 - Ask of 05.03: when an offline `return --push` fails at the fetch, the message names docs/plan/MANUAL-RETURN.md, so the builder knows the next step.
-- What is not answered: whether a later pass should change wf so that an offline return records locally and queues (FAILURES.md section 2, "a return that needs the network"). That changes when a return is recorded. It is raised to Matthew as question M2 below. Until he answers, C6 stands.
+- What is not answered: whether a later pass should change wf so that an offline return records locally and queues (FAILURES.md section 2, "a return that needs the network"). That changes when a return is recorded. Matthew decided it (M2, t558s2225): "not now, use the manual return". C6 stands.
 
 ## R3, R4, R6, R7
 
@@ -75,11 +75,11 @@ The split, the five grants and the one-page shape stand as Claude wrote them.
 - R6: agreed, a later page. Not queued yet.
 - R7: agreed, outside this page.
 
-## Questions for Matthew (defaults in use until he answers)
+## Decided by Matthew (t558s2225, 2:53 PM EST)
+
+Words: docs/review/DIRECTOR-WORDS-t558-report-system.md. Rule: docs/review/PENDING-RULES.md (t558s2225).
 
 - M1 (R5). Before every worker is set up, what should wf do when a run folder has no report config?
-  - Default: warn and fall back to the stopgap report. Refuse later, in a small pass, once every active worker has its N6 setup.
-  - Other choice: refuse now. The pinned wf then cannot move past 05.03 until every worker has an N6 page and a setup pass.
+  - Decided: "warn and carry on, and block later". A missing config warns and falls back to the stopgap report. A later small pass brings back the refusal, once every active worker has its N6 setup.
 - M2 (FAILURES.md 2(a), what MANUAL-RETURN does not cover). If the network is down at return time, should a later wf pass record the return locally and send it later?
-  - Default: not now. Keep today's rule (wf records nothing, and the builder follows MANUAL-RETURN.md). A return counts when it lands on `returns`, as t557s2212 Q3 already says.
-  - Other choice: yes, in a later pass. wf records the return locally and queues it, and it still counts only when it lands.
+  - Decided: "not now, use the manual return". Today's rule stays (wf records nothing, and the builder follows MANUAL-RETURN.md). A return counts when it lands on `returns` (t557s2212 Q3).

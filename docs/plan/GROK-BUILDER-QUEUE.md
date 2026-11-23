@@ -144,7 +144,7 @@ Then the wave 1 trials, same builders as before (Grok-1 on 0407, Grok-2 on 0408,
 | 0425 | book-prime (MVP) | (not set) | N, no draft | 0423 closed and its trial done. Goes before any 0422 pass that needs the same file, once drafted. Never cuts into an open 0422 pass. |
 | 0422.05.01 | report module and config | (set at pack) | N | 0423 closed and its trial done. May go before 0425 if 0425 is not drafted by then (grant `src/report.rs`, `src/lib.rs`, `tests/page_0422_01.rs`). |
 | 0422.05.02 | report log kind | (set at pack) | N | 05.01 closed. 0425 first if it is drafted and needs `src/page.rs`. |
-| 0422.05.03 | commands write and push reports | (set at pack) | N | 05.01 and 05.02 closed. 0425 first if it is drafted and needs `src/cmd.rs`. A missing `.wf/config.json` warns and falls back to docs/plan/REPORTS.md (R5; Matthew M1 open). |
+| 0422.05.03 | commands write and push reports | (set at pack) | N | 05.01 and 05.02 closed. 0425 first if it is drafted and needs `src/cmd.rs`. A missing `.wf/config.json` warns and falls back to docs/plan/REPORTS.md (R5; Matthew decided M1, t558s2225). |
 | 0422.05.04 | report views and status | (set at pack) | N | 05.02 and 05.03 closed; no open `src/render.rs` or `src/status.rs` holder (R3, R4). |
 | 0422.05.05 | report docs and setup on N6 | (set at pack) | N | 05.03 and 05.04 closed. Then N6 worker pages (0601 onward), one worker at a time. |
 | 0409 | Retire a page | Grok-1 | N | 0423 closed (and 0408 closed); 0422.05.03 trial done; pack text |
