@@ -8,9 +8,9 @@ Lessons from the first closed passes of the day: 90.50.10.0404, 0702, and 0703.
 
 **Why.** wf runs each check through `cmd /C` on Windows. The quotes around a multi-word pattern do not stay together.
 
-**What to do next time.** Write pack checks with no spaces inside a pattern. Until a page fixes the quoting, use a form like `git grep -q -E "^##[[:space:]]3[.]" -- <file>`.
+**What to do next time.** Write pack checks with no caret, no quotes, and no spaces in the pattern. The form that works under Linux `sh -c` and stays safe on Windows `cmd /C` is `git grep -q -E [#][#][[:space:]]3[.] -- <file>`. Do not use a caret form such as `git grep -q -E "^##[[:space:]]3[.]"` (the queue and the 0419 pack reject it). A bare `##` pattern is a comment under `sh -c` (git exits 128, no pattern given).
 
-**Source.** `docs/design/drafts/WF-WINDOWS-QUOTING.md` on branch `cloud/design` at 35a3f18a. Close logs 90.50.10.0703 `bdcc8b72` and 90.50.10.0702 `86770ec2` (checker notes: Windows heading-check fails are a wf quoting bug). The failing check form is in the 0703 pack: `git grep -q -F "## 3. Results"`.
+**Source.** `docs/design/drafts/WF-WINDOWS-QUOTING.md` on prima/build; `docs/plan/GROK-BUILDER-QUEUE.md` (the Windows-safe form); page 90.50.10.0419. Close logs 90.50.10.0703 `bdcc8b72` and 90.50.10.0702 `86770ec2` (checker notes: Windows heading-check fails are a wf quoting bug). The original failing form is in the 0703 pack: `git grep -q -F "## 3. Results"`. Lab 0704 flagged this lesson as still recommending the rejected caret form (`labs/0704/DRIFT-REVIEW.md`).
 
 ## A changed template version must update every test that pins the old version
 

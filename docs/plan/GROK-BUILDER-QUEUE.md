@@ -64,11 +64,15 @@ Grok-Check can start here today, after intake:
 
 Claude returned 90.50.10.0705.05.01. Next: Grok-Check runs `wf check 90.50.10.0705 1 --as Grok-Check` (not a dry-run), then Prima signs off and closes, then 05.02 can be packed (fold in t530u/t531u). 0422 report-system waits until 0705 closes.
 
+Codex returned 90.50.10.0704.05.01. Intake is on packs. Do not check or close 0704 until Grok-Check runs `wf check 90.50.10.0704 1 --as Grok-Check`. Prima's response is `docs/review/DRIFT-0704-RESPONSE.md`.
+
+90.50.10.0701.05.03 was also returned by Grok-1 (commit b71ab3e0, 10:41 AM EST), then a later 05.02 return (a3a0f83a, 10:49 AM EST) overwrote those two log events. Both returns and both tests are still in git. Packs still has the 22-entry prefix; do not publish-pack 0701 until the log is repaired (append the 05.03 claim and return after the current head, do not rewrite entries 23-24). See the drift response.
+
 0415.05.01 already passed its check. Prima signs off and closes it, so 0416 can be packed.
 
 ## Inventory
 
-Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is known), and dependencies are met. The page still needs init, faces, draft and pack before a builder claims it. "New" pages have no pack text yet. 0418 and 0419 are assigned. 0420 (dead lock) and 0421 (wf seat) stay suggested. 0422 is the report-system work-order page (t530u, t531u): one page, title report-system, next in the queue once 0705 closes. Do not pack it until 0705 closes (t528u).
+Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is known), and dependencies are met. The page still needs init, faces, draft and pack before a builder claims it. "New" pages have no pack text yet. 0418 and 0419 are assigned. 0420 (dead lock) and 0421 (wf seat) stay suggested. 0422 is the report-system work-order page (t530u, t531u): one page, title report-system, next in the queue once 0705 closes. Do not pack it until 0705 closes (t528u). 0423 is suggested for the 0701 log-overwrite fix: `push_log` must refuse a log that is not a prefix-extension of the published returns log (`docs/review/DRIFT-0704-RESPONSE.md`).
 
 | Page | Goal | Grant | Depends on | Packable now |
 |---|---|---|---|---|
@@ -82,12 +86,13 @@ Packable now means: pack text is ready, wf `a823ee28` can pack it (template 4 is
 | 0406 | One command writes needs-links both ways | `src/cmd.rs`, `src/lib.rs`, `src/page.rs`, `src/render.rs`, `tests/page_0406.rs` | 0409 closed (holds those files). No pack text yet | N, needs a pack |
 | 0411 | The real runner starts a page; Matthew grants it | `src/cmd.rs`, `src/lib.rs`, `tests/page_0411.rs` | 0406 closed. No pack text yet | N, needs a pack |
 | 0412 | The real runner records Matthew's grant | `src/cmd.rs`, `src/lib.rs`, `tests/page_0412.rs` | 0411 closed. No pack text yet | N, needs a pack |
-| 0498 | One working wf Matthew can install and run | `README.md`, `docs/WALKTHROUGH.md`, `tests/page_0498.rs` | Every stage page above, including 0417 | N, last, needs a pack |
+| 0498 | One working wf Matthew can install and run. This is the Stage 1 proof: a walkthrough on Matthew's PC that covers the full loop, including finding and understanding the saved record from a fresh session (0704 finding 4). | `README.md`, `docs/WALKTHROUGH.md`, `tests/page_0498.rs` | Every stage page above, including 0417 | N, last in dependency order, needs a pack. Priority: the stage is not done until this walkthrough is packed and run on Matthew's PC. |
 | 0418 | Seated-05 in the compute core: a body on face 05 with no counter is the seat; 05.NN stays a pass; face 06 stays unseated | `crates/seqaddr-core/src/state.rs`, `resolve.rs`, `validate.rs`, `face.rs`, `tests/page_0418.rs` | t523 core run: start and return branch are `prima/build` `c1750c32`. Grant-ref t523. Assigned to Grok-4 (t524u). Packed on packs `98324515` | Y, packed |
 | 0419 | Pack checks are safe on Windows (no caret, quotes or spaces in `git grep` patterns; harden `src/git.rs` if needed) | `src/git.rs`, `tests/page_0419.rs` | Packed on packs, start `a823ee28`. Assigned to Grok-3 (t522u). Must finish before 0417 takes `src/git.rs` | Y, packed |
 | 0420 (suggest) | `wf verify --fix` takes over a dead `.wf-lock` (or a lock older than the last log entry) | `src/lib.rs` (lock at `Lock::acquire`), tests | After 0412 frees `src/lib.rs` | N, needs a pack |
 | 0421 (suggest) | wf prints the seated 05 and updates face 01 | wf `src/` (likely `src/render.rs` and `src/cmd.rs`) | 0418 closed. Needs a later slot when those files are free | N, needs a pack and 0418 |
 | 0422 (wait) | report-system: one work-order page that builds wf worker reports. Passes under this page carry the grants (0705.05.02 will name them). | wf `src/` as 0705.05.02 proposes (0408 holds `cmd.rs`, `lib.rs`, `page.rs`; 0407 holds `render.rs`; 0419 holds `git.rs`) | 0705 closed (t528u, t531u). Next in the queue after that. Do not pack until then | N, waits on 0705 |
+| 0423 (suggest) | `push_log` / `wf return --push` refuses to publish a log that is not a prefix-extension of the log already on returns, so a later return on one counter cannot replace an earlier return on another (`docs/review/DRIFT-0704-RESPONSE.md`) | likely `src/cmd.rs`, tests | After 0408 frees `src/cmd.rs`. Suggested next open unused 04NN after 0422 | N, needs a pack |
 | 0705 | Worker-report lab: design the system end to end, then fold t530u/t531u into 05.02 | `labs/0705/` | 05.01 packed and returned (Claude). 05.02 pack text is drafted; packing waits on a Grok-Check of 05.01, then signoff and close | 05.01 returned; 05.02 not packed |
 
 Lab trials (`tests/lab_PPPP.rs` on 0701) run in the wave after each work wave. Each trial is its own new file, so they can run in parallel. 0410 stays unused (security is parked). 0405 stays parked; its job moved to 0416.
@@ -152,7 +157,7 @@ Then the wave 1 trials, same builders as before (Grok-1 on 0407, Grok-2 on 0408,
 
 **Wave 15** — 0421, wf seat (Grok-1), after 0418 is closed and when `src/cmd.rs` and `src/render.rs` are free.
 
-**Wave 16** — 0498 (Grok-1), last. Then its trial.
+**Wave 16** — 0498 (Grok-1), last in dependency order, but the Stage 1 proof: the walkthrough on Matthew's PC must cover the full loop, including finding and understanding the saved record from a fresh session (0704 finding 4). Then its trial.
 
 Waves 5-10 are a single-file queue on `src/cmd.rs`. Only one builder is busy there. The others can take 0701 trials, pack prep, or later-wave drafts, but they must not touch a file a live wave still holds.
 
