@@ -3,12 +3,13 @@
 use crate::chars::{self, check_text, check_text_nl};
 use crate::git;
 use crate::log::{sha, short, Res};
-use crate::page::{check_addr, done_when_lines, face01_drift, inside, paths_overlap, s, split_list, Page, Pass};
+use crate::page::{check_addr, done_when_lines, face01_drift, inside, lock_face, paths_overlap, s, split_list, Page, Pass};
 use crate::render::{self, fill, jobs, pass_name, AXIOMS, DESIGN, T_CLOSE, T_PACK};
 use crate::Args;
 use serde_json::{json, Map, Value};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
 const CARD_WORDS: [&str; 4] = ["accepted", "carried", "discarded", "candidate"];
 pub(crate) const OUTCOMES: [&str; 4] = ["passed", "failed", "blocked", "needs-authority"];
@@ -247,6 +248,9 @@ pub fn face_write(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         ("00" | "03" | "05", _) => return Err(format!("refused: face {face} is printed by wf; nobody writes it")),
         _ => return Err(format!("refused: face '{face}' cannot be written in wf v0")),
     };
+    if let Some(need) = lock_face(face) {
+        p.lock_block(who, need)?;
+    }
     must_be(p, who, role)?;
     p.add(who, role, "face", json!({"face": face, "mode": mode, "section": section, "text": text}))
 }
@@ -260,6 +264,7 @@ fn pin05(p: &Page) -> Value {
 }
 
 pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("04"))?;
     must_be(p, who, "prime")?;
     not_halted(p)?;
     let mut f = fields(&text_arg(a)?);
@@ -355,6 +360,7 @@ fn refuse_overlap(p: &Page, n: u32, mine: &[String], allow: Option<u32>) -> Res<
 }
 
 pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("05"))?;
     must_be(p, who, "prime")?;
     not_halted(p)?;
     let n = nn(a, 1)?;
@@ -433,6 +439,7 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
 }
 
 pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("05"))?;
     not_halted(p)?;
     let n = nn(a, 1)?;
     let x = p.pass(n)?;
@@ -440,6 +447,9 @@ pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         return Err(format!("refused: 05.{n:02} is already claimed by {} (first claim wins)", chars::escape_line(c)));
     }
     tail_is(x, &["pack"])?;
+    if let Some(why) = p.open_claim_block(n) {
+        return Err(why);
+    }
     p.add(who, "builder", "claim", json!({"pass": n}))?;
     println!("claimed 05.{n:02}. Read pages/{}/05.{n:02}/PROMPT.md and {}", p.addr, render::agents_file(p, p.pass(n)?));
     Ok(())
@@ -455,6 +465,112 @@ pub fn withdraw(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     need(x.claim.is_none(), format!("refused: 05.{n:02} already has a claim"))?;
     p.add(who, "prime", "withdraw", json!({"pass": n}))?;
     println!("withdrew 05.{n:02}. The pass stays in the log. A later claim is refused.");
+    Ok(())
+}
+
+/// The book identity page: the work address with the last dotted part replaced by 0000.
+/// The identity page's own book parent is itself, so that case is missing and is not loaded.
+fn book_addr(addr: &str) -> Option<String> {
+    let (head, _) = addr.rsplit_once('.')?;
+    if head.is_empty() {
+        return None;
+    }
+    Some(format!("{head}.0000"))
+}
+
+fn book_page(p: &Page) -> Res<Option<Page>> {
+    let Some(id) = book_addr(&p.addr) else {
+        return Ok(None);
+    };
+    if id == p.addr {
+        return Ok(None);
+    }
+    let Some(pages) = p.dir.parent() else {
+        return Ok(None);
+    };
+    let dir = pages.join(id);
+    if !dir.join("log.jsonl").is_file() {
+        return Ok(None);
+    }
+    Page::load(&dir).map(Some)
+}
+
+/// Who may override an abandoned lockout. A missing book Prime does not fall back to the work Prime.
+pub(crate) fn override_authority(p: &Page, who: &str) -> Res<&'static str> {
+    let Some(book) = book_page(p)? else {
+        need(who == p.person, "refused: the book Prime is missing")?;
+        return Ok("person");
+    };
+    if book.prime.is_empty() {
+        let person = if book.person.is_empty() { p.person.as_str() } else { book.person.as_str() };
+        need(who == person, "refused: the book Prime is missing")?;
+        return Ok("person");
+    }
+    if who == book.prime {
+        return Ok("prime");
+    }
+    let person = if book.person.is_empty() { p.person.clone() } else { book.person.clone() };
+    if who == person {
+        return Ok("person");
+    }
+    Err(format!(
+        "refused: only the book's Prime ({}) or the person ({}) may override",
+        chars::escape_line(&book.prime),
+        chars::escape_line(&person)
+    ))
+}
+
+pub fn lockout(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    let face = a.pos.get(1).map(|s| s.as_str()).unwrap_or("");
+    need(matches!(face, "01" | "04" | "05"), format!("refused: face '{face}' cannot be locked; lockout is 01, 04 or 05"))?;
+    let reason = nonblank(a.req("reason")?, "reason")?;
+    if let Some(h) = &p.hold {
+        return Err(format!("refused: face {} is locked by {}", h.face, chars::escape_line(&h.worker)));
+    }
+    p.add(who, "worker", "lockout", json!({"face": face, "reason": reason}))?;
+    println!("locked face {face}. Next: wf try-out {} before work.", p.addr);
+    Ok(())
+}
+
+/// Read only. Does not apply or release a lock.
+pub fn try_out(p: &Page, who: &str) -> Res<()> {
+    match &p.hold {
+        None => println!("no lockout holds"),
+        Some(h) if h.worker == who => {
+            println!("lock holds on face {}", h.face);
+            println!("worker: {}", chars::escape_line(&h.worker));
+            println!("reason: {}", chars::escape_line(&h.reason));
+            println!("since: {}", chars::escape_line(&h.time));
+            println!("other workers are refused");
+        }
+        Some(h) => {
+            println!("you would be refused");
+            println!("face {} is locked by {}", h.face, chars::escape_line(&h.worker));
+            println!("reason: {}", chars::escape_line(&h.reason));
+            println!("since: {}", chars::escape_line(&h.time));
+        }
+    }
+    Ok(())
+}
+
+pub fn release(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    let h = p.hold.clone().ok_or("refused: no lockout holds")?;
+    if a.flag("override").is_some() {
+        let reason = nonblank(a.req("reason")?, "reason")?;
+        let role = override_authority(p, who)?;
+        p.add(who, role, "release", json!({
+            "face": h.face,
+            "lockout": h.seq,
+            "holder": h.worker,
+            "override": true,
+            "reason": reason,
+        }))?;
+        println!("override released face {} held by {}. The page has no holder.", h.face, chars::escape_line(&h.worker));
+    } else {
+        need(who == h.worker, format!("refused: face {} is locked by {}", h.face, chars::escape_line(&h.worker)))?;
+        p.add(who, "worker", "release", json!({"face": h.face, "lockout": h.seq}))?;
+        println!("released face {}. The page has no holder.", h.face);
+    }
     Ok(())
 }
 
@@ -499,6 +615,7 @@ pub fn parse_return(text: &str, x: &Pass, pack_hash: &str) -> Res<Map<String, Va
 }
 
 pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("05"))?;
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
     tail_is(&x, &["open"])?;
@@ -566,26 +683,68 @@ fn merge_into_shared(r: &Path, branch: &str, sha_in: &str) -> Res<()> {
     Ok(())
 }
 
-/// `return --push`, step 2: copy the page log to .workshop/logs/<page>/log.jsonl on the branch,
-/// commit it by path, and push. A lost race pulls (merge) and tries again, 3 times. Never forces.
+const PREFIX_REFUSAL: &str = "refused: the published log is not a prefix of this page's log. Intake the published log and return again so new events append.";
+
+/// Raw `git show` bytes. `git::git` trims, which can treat a shorter line as a prefix.
+fn git_bytes(repo: &Path, args: &[&str]) -> Res<std::process::Output> {
+    Command::new("git").arg("-C").arg(repo).args(args).output().map_err(|e| format!("cannot run git: {e}"))
+}
+
+/// The published log blob, or empty when that path is not on the branch yet.
+fn published_bytes(repo: &Path, branch: &str, rel: &str) -> Res<Vec<u8>> {
+    let spec = format!("origin/{branch}:{rel}");
+    let out = git_bytes(repo, &["show", &spec])?;
+    if out.status.success() {
+        return Ok(out.stdout);
+    }
+    let err = String::from_utf8_lossy(&out.stderr);
+    let low = err.to_lowercase();
+    if low.contains("does not exist") || low.contains("exists on disk, but not in") {
+        return Ok(Vec::new());
+    }
+    Err(format!("git show {}: {}", chars::escape_line(&spec), chars::escape_line(err.trim())))
+}
+
+/// True when the index differs from HEAD for `rel`. Exit 1 is a diff, not a failure.
+fn cached_diff(repo: &Path, rel: &str) -> Res<bool> {
+    let out = git_bytes(repo, &["diff", "--cached", "--quiet", "--", rel])?;
+    match out.status.code() {
+        Some(0) => Ok(false),
+        Some(1) => Ok(true),
+        _ => Err(format!("git diff --cached --quiet: {}", chars::escape_line(String::from_utf8_lossy(&out.stderr).trim()))),
+    }
+}
+
+/// `return --push`, step 2: the published log must be a byte prefix of the local log.
+/// A lost push fetches and checks again. It does not pull-merge, and it never force-pushes.
 fn push_log(p: &Page, r: &Path, branch: &str, n: u32) -> Res<()> {
     let rel = format!(".workshop/logs/{}/log.jsonl", p.addr);
     let dest = r.join(&rel);
-    fs::create_dir_all(dest.parent().unwrap()).map_err(|e| e.to_string())?;
-    fs::copy(p.dir.join("log.jsonl"), &dest).map_err(|e| format!("cannot copy the log: {e}"))?;
-    git::git(r, &["add", "--", &rel])?;
-    git::git(r, &["commit", "-q", "-m", &format!("wf: return {} (log)", pass_name(p, n)), "--", &rel])?;
+    let local = fs::read(p.dir.join("log.jsonl")).map_err(|e| format!("cannot read the log: {e}"))?;
     let mut last = String::new();
     for _ in 0..3 {
+        git::git(r, &["fetch", "origin", branch])?;
+        let published = published_bytes(r, branch, &rel)?;
+        if published == local {
+            // Nothing new in the log. Still push the branch so the code merge is published.
+        } else if local.starts_with(&published) {
+            if let Some(parent) = dest.parent() {
+                fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+            }
+            fs::write(&dest, &local).map_err(|e| format!("cannot copy the log: {e}"))?;
+            git::git(r, &["add", "--", &rel])?;
+            if cached_diff(r, &rel)? {
+                git::git(r, &["commit", "-q", "-m", &format!("wf: return {} (log)", pass_name(p, n)), "--", &rel])?;
+            }
+        } else {
+            return Err(PREFIX_REFUSAL.into());
+        }
         match git::git(r, &["push", "-q", "origin", &format!("HEAD:refs/heads/{branch}")]) {
             Ok(_) => {
                 println!("pushed {branch}: your commit, the return file and the page log. Prima picks it up with wf intake.");
                 return Ok(());
             }
-            Err(e) => {
-                last = e;
-                let _ = git::git(r, &["pull", "-q", "--no-rebase", "--no-edit", "origin", branch]);
-            }
+            Err(e) => last = e,
         }
     }
     Err(format!("return recorded locally but the push failed 3 times ({last}). Nothing was forced. Run: git -C {} push origin HEAD:{branch}", r.display()))
@@ -735,6 +894,7 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
 }
 
 pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("05"))?;
     let n = nn(a, 1)?;
     if let Some(note) = a.flag("note") {
         check_text(note, "note")?;
@@ -807,6 +967,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
 }
 
 pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("05"))?;
     must_be(p, who, "prime")?;
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
@@ -853,6 +1014,7 @@ pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 }
 
 pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
+    p.lock_block(who, Some("05"))?;
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
     tail_is(&x, &["review"])?;
@@ -903,23 +1065,30 @@ mod tests {
     /// A pass state the log order rules now keep out of any loaded page; the commands still refuse it, not panic.
     #[test]
     fn write_commands_refuse_missing_parts_without_a_panic() {
-        use crate::page::{Page, Pass};
+        use crate::page::{Hold, Page, Pass};
         let dir = std::env::temp_dir().join(format!("wf-cmd-noparts-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
         std::fs::create_dir_all(&dir).unwrap();
         let mut p = Page { dir: dir.clone(), addr: "1.2.3.4".into(), prime: "pri".into(), person: "mat".into(), ..Default::default() };
         p.primes.push(("pri".into(), 1, 1));
         let a = |v: &[&str]| crate::Args::parse(&v.iter().map(|s| s.to_string()).collect::<Vec<_>>());
+        let hold = |worker: &str| {
+            Some(Hold { seq: 1, face: "05".into(), worker: worker.into(), reason: "test".into(), time: "1970-01-01T00:00:00Z".into() })
+        };
         p.passes.insert(1, Pass { nn: 1, tail: "open".into(), claim: Some("bob".into()), ..Default::default() });
+        p.hold = hold("bob");
         let err = super::ret(&mut p, &dir, &a(&["1.2.3.4", "1", "--branch", "b", "--commit", "c", "--file", "f"]), "bob").unwrap_err();
         assert!(err.contains("05.01 has no pack in the log"), "{err}");
         p.passes.insert(1, Pass { nn: 1, tail: "return".into(), ..Default::default() });
+        p.hold = hold("cat");
         let err = super::check(&mut p, &dir, &a(&["1.2.3.4", "1"]), "cat").unwrap_err();
         assert!(err.contains("05.01 has no pack in the log"), "{err}");
         p.passes.insert(1, Pass { nn: 1, tail: "review".into(), ..Default::default() });
+        p.hold = hold("pri");
         let err = super::signoff(&mut p, &a(&["1.2.3.4", "1", "--outcome", "failed"]), "pri").unwrap_err();
         assert!(err.contains("05.01 has no return in the log"), "{err}");
         p.passes.insert(1, Pass { nn: 1, tail: "review".into(), signoff: Some(("pri".into(), 1, serde_json::json!({"outcome": "failed"}))), ..Default::default() });
+        p.hold = hold("pri");
         let err = super::close(&mut p, &a(&["1.2.3.4", "1"]), "pri").unwrap_err();
         assert!(err.contains("05.01 has no pack in the log"), "{err}");
         assert!(!dir.join("log.jsonl").exists(), "nothing was written");

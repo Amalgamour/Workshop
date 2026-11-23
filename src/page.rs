@@ -35,6 +35,16 @@ pub struct Pass {
     pub last_seq: u64,
 }
 
+/// The one unreleased session lockout on a page. Not the short `.wf-lock` file.
+#[derive(Clone, Debug)]
+pub struct Hold {
+    pub seq: u64,
+    pub face: String,
+    pub worker: String,
+    pub reason: String,
+    pub time: String,
+}
+
 #[derive(Clone)]
 pub struct Elev {
     pub seq: u64,
@@ -64,6 +74,8 @@ pub struct Page {
     pub findings: Vec<(u64, String, String)>,
     /// Set by a halt entry, cleared by resume: (who, time, note, entry).
     pub halt: Option<(String, u64, String, u64)>,
+    /// The unreleased lockout, if a worker holds the page.
+    pub hold: Option<Hold>,
 }
 
 pub fn s(v: &Value, k: &str) -> String {
@@ -110,6 +122,17 @@ pub fn done_when_lines(text: &str) -> String {
     if found.is_empty() { "none".into() } else { found.join("\n") }
 }
 
+/// Which lock a face-write needs. `None` means this face is not a locked write.
+/// `Some(None)` means any held face, and the worker must be the holder (02, 06, 08).
+pub(crate) fn lock_face(face: &str) -> Option<Option<&'static str>> {
+    match face {
+        "01" => Some(Some("01")),
+        "04" => Some(Some("04")),
+        "02" | "06" | "08" => Some(None),
+        _ => None,
+    }
+}
+
 /// If face 01 no longer matches the pack's pinned source, `Some("vN entry E")`.
 pub fn face01_drift(p: &Page, pack: &Value) -> Option<String> {
     let now = p.faces.get("01").map(|g| format!("v{} entry {}", g.version, g.seq)).unwrap_or_default();
@@ -122,8 +145,8 @@ pub fn face01_drift(p: &Page, pack: &Value) -> Option<String> {
 
 /// Entry kinds that only make sense for a pass that was drafted first.
 /// Every entry kind wf writes. Anything else in a log is refused.
-const KINDS: [&str; 18] = ["init", "prime", "grant", "face", "draft", "pack", "claim", "withdraw", "return-refused", "return",
-    "check", "signoff", "close", "elevate", "answer", "finding", "halt", "resume"];
+const KINDS: [&str; 20] = ["init", "prime", "grant", "face", "draft", "pack", "claim", "withdraw", "return-refused", "return",
+    "check", "signoff", "close", "elevate", "answer", "finding", "halt", "resume", "lockout", "release"];
 
 /// Kinds that belong to one pass (data.pass, 01-98).
 const PASS_KINDS: [&str; 10] = ["draft", "pack", "claim", "withdraw", "return-refused", "return", "check", "signoff", "close", "elevate"];
@@ -192,7 +215,7 @@ impl Page {
     /// Append one event to the log and fold it in.
     pub fn add(&mut self, actor: &str, role: &str, kind: &str, data: Value) -> Res<()> {
         let seq = self.events.len() as u64 + 1;
-        self.order(seq, kind, &data).map_err(|why| format!("refused, nothing written: {why}"))?;
+        self.order(seq, kind, actor, &data).map_err(|why| format!("refused, nothing written: {why}"))?;
         let (e, head) = log::append(&self.log_path(), &self.head, seq, actor, role, kind, data)?;
         self.apply(&e)?;
         self.events.push(e);
@@ -200,9 +223,82 @@ impl Page {
         Ok(())
     }
 
+    /// Why this worker cannot do `face` work. `None` means any held face, as long as the worker matches.
+    pub(crate) fn lock_block(&self, actor: &str, face: Option<&str>) -> Res<()> {
+        let Some(h) = &self.hold else {
+            return Err("refused: lockout first".into());
+        };
+        if h.worker != actor || face.is_some_and(|f| f != h.face.as_str()) {
+            return Err(format!("refused: face {} is locked by {}", h.face, crate::chars::escape_line(&h.worker)));
+        }
+        Ok(())
+    }
+
+    /// Another pass is claimed and not returned. The same worker is included.
+    pub(crate) fn open_claim_block(&self, nn: u32) -> Option<String> {
+        let open = self.passes.values().find(|x| x.nn != nn && x.tail == "open")?;
+        Some(format!(
+            "refused: 05.{:02} is claimed by {} and not returned; a second claim is refused",
+            open.nn,
+            crate::chars::escape_line(open.claim.as_deref().unwrap_or(""))
+        ))
+    }
+
+    /// Lockout, release, and the work events that need the matching lock. Withdraw is not here.
+    fn lock_order(&self, kind: &str, actor: &str, d: &Value) -> Option<String> {
+        match kind {
+            "lockout" => {
+                if let Some(h) = &self.hold {
+                    return Some(format!("refused: face {} is locked by {}", h.face, crate::chars::escape_line(&h.worker)));
+                }
+                let face = s(d, "face");
+                if !matches!(face.as_str(), "01" | "04" | "05") {
+                    return Some(format!("refused: face '{face}' cannot be locked; lockout is 01, 04 or 05"));
+                }
+                if s(d, "reason").trim().is_empty() {
+                    return Some("refused: a lockout needs a reason".into());
+                }
+                None
+            }
+            "release" => {
+                let Some(h) = &self.hold else {
+                    return Some("refused: no lockout holds".into());
+                };
+                let face = s(d, "face");
+                let lockout = d.get("lockout").and_then(|v| v.as_u64()).unwrap_or(0);
+                if face != h.face || lockout != h.seq {
+                    return Some(format!("refused: release must name face {} lockout {}", h.face, h.seq));
+                }
+                let is_override = d.get("override").and_then(|v| v.as_bool()).unwrap_or(false);
+                if is_override {
+                    if s(d, "reason").trim().is_empty() {
+                        return Some("refused: an override needs a reason".into());
+                    }
+                    if s(d, "holder") != h.worker {
+                        return Some(format!("refused: face {} is locked by {}", h.face, crate::chars::escape_line(&h.worker)));
+                    }
+                    if let Err(why) = crate::cmd::override_authority(self, actor) {
+                        return Some(why);
+                    }
+                } else if actor != h.worker {
+                    return Some(format!("refused: face {} is locked by {}", h.face, crate::chars::escape_line(&h.worker)));
+                }
+                None
+            }
+            "face" => {
+                let need = lock_face(&s(d, "face"))?;
+                self.lock_block(actor, need).err()
+            }
+            "draft" => self.lock_block(actor, Some("04")).err(),
+            "pack" | "claim" | "return" | "check" | "signoff" | "close" => self.lock_block(actor, Some("05")).err(),
+            _ => None,
+        }
+    }
+
     /// Why an entry of `kind` with `d` cannot come next on this page, or Ok.
     /// The same state order the commands keep: draft, pack, claim, return, check, signoff, close.
-    pub fn order(&self, seq: u64, kind: &str, d: &Value) -> Res<()> {
+
+    pub fn order(&self, seq: u64, kind: &str, actor: &str, d: &Value) -> Res<()> {
         if !KINDS.contains(&kind) {
             return Err(if kind.is_empty() { "the entry has no kind".into() } else { format!("'{}' is not a wf entry kind", crate::chars::escape_line(kind)) });
         }
@@ -221,6 +317,9 @@ impl Page {
             }
             "resume" if self.halt.is_none() => return Err("a resume while the page is not halted".into()),
             _ => {}
+        }
+        if let Some(why) = self.lock_order(kind, actor, d) {
+            return Err(why);
         }
         if !PASS_KINDS.contains(&kind) {
             return Ok(());
@@ -247,6 +346,11 @@ impl Page {
         if !want.contains(&x.tail.as_str()) {
             let what = if kind == "draft" && x.tail == "closed" { "a re-draft".to_string() } else { format!("a {kind}") };
             return Err(format!("{what} for 05.{nn:02}, which is at '{}'; a {kind} needs {}", x.tail, want.join(" or ")));
+        }
+        if kind == "claim" {
+            if let Some(why) = self.open_claim_block(nn) {
+                return Err(why);
+            }
         }
         if kind == "check" {
             match d.get("verdict") {
@@ -282,7 +386,7 @@ impl Page {
 
     /// Fold one entry in. An entry for a pass that was never drafted is an error, not a panic.
     fn apply(&mut self, e: &Event) -> Res<()> {
-        self.order(e.seq, &e.kind, &e.data).map_err(|why| format!("log entry {} is out of order: {why}; the page cannot be read", e.seq))?;
+        self.order(e.seq, &e.kind, &e.actor, &e.data).map_err(|why| format!("log entry {} is out of order: {why}; the page cannot be read", e.seq))?;
         let d = &e.data;
         let nn = d["pass"].as_u64().unwrap_or(0) as u32;
         let missing = || missing_pass(e.seq, &e.kind, nn);
@@ -362,6 +466,16 @@ impl Page {
             "finding" => self.findings.push((e.seq, e.actor.clone(), s(d, "text"))),
             "halt" => self.halt = Some((e.actor.clone(), e.time, s(d, "note"), e.seq)),
             "resume" => self.halt = None,
+            "lockout" => {
+                self.hold = Some(Hold {
+                    seq: e.seq,
+                    face: s(d, "face"),
+                    worker: e.actor.clone(),
+                    reason: s(d, "reason"),
+                    time: crate::log::iso(e.time),
+                });
+            }
+            "release" => self.hold = None,
             _ => {}
         }
         if let Some(p) = self.passes.get_mut(&nn) {
