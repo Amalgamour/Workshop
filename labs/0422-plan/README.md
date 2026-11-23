@@ -1,7 +1,8 @@
 # Plan: 90.50.10.0422 report-system
 
 Lead: Claude, under Prima (docs/plan/CLAUDE-LEAD-0422.md on prima/build, t554u). 2026-11-23.
-Revision 2: folds in Prima's answers, docs/review/ANSWERS-0422-PLAN.md (prima/build 3c6d509, t558u). The first version was returns b5cb8a47. The five grants are unchanged.
+Revision 2: folds in Prima's answers, docs/review/ANSWERS-0422-PLAN.md (prima/build 3c6d509, t558u). The first version was returns b5cb8a47.
+Revision 3: Matthew t565s2260 put page 0426 (split-commands, the stable kernel split) before 0425 and 0422.05.01. Passes 05.01-05.03 are re-pointed to the new file layout (C9). Matthew's yes is the grant change.
 This folder is a plan, not a packed page. Prima packs each pass with wf, one at a time. Claude has not run `wf pack`, `wf draft`, `wf claim`, signoff, close or merge for this plan.
 
 Sources:
@@ -18,16 +19,16 @@ Everything below is a **Claude proposal** unless it is quoted as Matthew's rulin
 
 One page, `90.50.10.0422`, title `report-system`, in the N4 dev band. Its five 05 passes are the work orders (t531u, t541u). The split is the starting split in CLAUDE-LEAD-0422.md. Its files are unchanged. The job lines are refined (section 3).
 
-Page grant, given at `init-page`: the union of the pass grants.
-- `src/report.rs`, `src/lib.rs`, `src/page.rs`, `src/cmd.rs`, `src/render.rs`, `src/status.rs`
+Page grant: the union of the pass grants (revision 3, after 0426).
+- `src/report.rs`, `src/lib.rs`, `src/page.rs`, `src/page/rules/mod.rs`, `src/page/rules/report.rs`, `src/cmd/build.rs`, `src/cmd/check.rs`, `src/cmd/sync.rs`, `src/render.rs`, `src/status.rs`
 - `docs/REPORTS.md`
 - `tests/page_0422_01.rs` to `tests/page_0422_05.rs`
 
 | Pass | Title | May touch | Pack text | Waits on |
 |---|---|---|---|---|
-| 0422.05.01 | report module and config | `src/report.rs` (new), `src/lib.rs`, `tests/page_0422_01.rs` | PACK-0422-05.01.txt | 0408 and **0423** closed, with their trials done (`src/lib.rs`) |
-| 0422.05.02 | report log kind | `src/page.rs`, `tests/page_0422_02.rs` | PACK-0422-05.02.txt | 05.01 closed. 0423 closed, with its trial done (`src/page.rs`) |
-| 0422.05.03 | commands write and push reports | `src/cmd.rs`, `tests/page_0422_03.rs` | PACK-0422-05.03.txt | 05.01 and 05.02 closed. 0423 closed, with its trial done (`src/cmd.rs`) |
+| 0422.05.01 | report module and config | `src/report.rs` (new), `src/lib.rs`, `tests/page_0422_01.rs` | PACK-0422-05.01.txt | 0408, **0423** and **0426** closed, with their trials done (`src/lib.rs`) |
+| 0422.05.02 | report log kind | `src/page.rs`, `src/page/rules/mod.rs`, `src/page/rules/report.rs` (new), `tests/page_0422_02.rs` | PACK-0422-05.02.txt | 05.01 and 0426 closed. 0425 first if it is drafted and needs these files (R2) |
+| 0422.05.03 | commands write and push reports | `src/cmd/build.rs`, `src/cmd/check.rs`, `src/cmd/sync.rs`, `tests/page_0422_03.rs` | PACK-0422-05.03.txt | 05.01, 05.02 and 0426 closed. 0425 first if it is drafted and needs these files (R2) |
 | 0422.05.04 | report views and status | `src/render.rs`, `src/status.rs`, `tests/page_0422_04.rs` | PACK-0422-05.04.txt | 05.02 and 05.03 closed. 0407's trial done. No other `src/render.rs` or `src/status.rs` holder open (R3, R4) |
 | 0422.05.05 | report docs and setup on N6 | `docs/REPORTS.md` (new kit doc), `tests/page_0422_05.rs` | PACK-0422-05.05.txt | 05.03 closed (so the doc describes what wf really prints) and 05.04 closed (one pass at a time). Holds no source file |
 
@@ -56,6 +57,7 @@ No two parts could run at the same time with two workers, so t531u's one page st
 ```
 0408 closed (and its trial)
   -> 0423 one-worker, then 0423 closed (and its trial)       frees src/cmd.rs, src/lib.rs, src/page.rs
+  -> 0426 split-commands, then 0426 closed (and its trial)   the kernel split (t565s2260; labs/0426-plan/)
   -> 0422.05.01 -> 05.02 -> 05.03 -> 05.04 -> 05.05          one pass at a time, one worker at a time
 ```
 
@@ -79,7 +81,7 @@ Rules kept in every pack:
 
 ## 3. Changes from the starting split, with reasons
 
-C1 to C8 change the job wording. None of them changes a pass's files. Prima accepted C2, C3, C5 and C6 (ANSWERS-0422-PLAN.md), each with an addition noted below. C8 is Prima's R5 decision.
+C1 to C8 change the job wording, not a pass's files. C9 (revision 3) moves 05.01-05.03 to the files that the 0426 split creates. Prima accepted C2, C3, C5 and C6 (ANSWERS-0422-PLAN.md), each with an addition noted below. C8 is Prima's R5 decision.
 
 **C1. 05.01 waits on 0423, not only 0408.** This change was given in the assignment.
 - t541u grew 0423's grant to include `src/lib.rs`, because lockout, try-out and release are new commands (0423 README, conflict 1).
@@ -151,6 +153,17 @@ C1 to C8 change the job wording. None of them changes a pass's files. Prima acce
 - The refusal comes back later in its own small pass (0422.05.06 or a later 04NN page), packed only when every active worker has a setup report on its N6 page. Prima tracks that in the queue.
 - Effect: the pinned wf can move to a build with 05.03 once 05.03's trial passes.
 - This departs from 0705 lesson 9 ("no opt-out"). It is Matthew question M1 (section 4), and the default is used until he answers.
+
+**C9. The pass grants follow the 0426 kernel split (Matthew t565s2260).**
+- 0426 (split-commands) is packed right after 0423 and before 0425 and 0422.05.01. It moves the code without changing it (labs/0426-plan/README.md section 3).
+- New may-touch lists:
+  - **05.01:** `src/report.rs`, `src/lib.rs`, `tests/page_0422_01.rs` (unchanged). The report commands become their own group in `src/report.rs`. `src/lib.rs` gets only one router line, `mod report;`, and the C2 flush in `run()`.
+  - **05.02:** `src/page/rules/mod.rs` (register the kind), a new `src/page/rules/report.rs` (its order and apply rules), and `src/page.rs`, only to give Pass its list of reports. Before, the grant was `src/page.rs` alone.
+  - **05.03:** `src/cmd/build.rs` (ret), `src/cmd/check.rs` (check) and `src/cmd/sync.rs` (push_log, intake, and the one shared push rule of C3). Before, the grant was `src/cmd.rs`.
+  - **05.04 and 05.05:** unchanged. 0426 does not touch `src/render.rs`, `src/status.rs` or docs.
+- The pass grants stay disjoint from each other. `src/page.rs` and `src/lib.rs` are kernel files; each appears in one 0422 pass only.
+- **The wf grant record:** page 0422 was started with the old paths (entry 1). After 0426 closes and before 0422.05.01 is drafted, Matthew records the new page grant with `wf grant 90.50.10.0422 --paths "<the list in section 1>" --ref t565s2260`. A pack whose may-touch is outside the recorded grant is refused by wf, so this cannot be skipped by mistake.
+- **Gain:** after 0426, 05.03's files are command-group files. Pages in other groups (0409 in close, 0425 in start) no longer need the same file, so they can run next to it with another Grok builder, if their own files differ.
 
 ## 4. Raised items and their status
 
