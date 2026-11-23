@@ -1,0 +1,34 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0703 05.02
+- Kind: check
+- Commands run:
+  - git fetch origin packs; git -C work fetch origin returns
+  - wf.exe intake (already taken this job; second intake said ready to check: none)
+  - wf.exe check 90.50.10.0703 2 --as Grok-Check
+  - copy pages/90.50.10.0703/log.jsonl to work/.workshop/logs/90.50.10.0703/log.jsonl; git add -- that path; commit; git -C work push origin returns
+- Results:
+  - wf check 05.02: pass (exit 0). cargo test ran 8 tests, 8 passed, 0 failed, finished in 1.44s. Both git ls-files checks ok. Frame ok. Jobs w01-w08 done.
+  - The local log extended the remote log (17 lines, then the check). The first push was rejected because origin/returns had moved with 90.50.10.0408 commits only. Those commits do not touch the 0703 log. Rebased onto origin/returns and pushed. No force.
+  - Intake refusals were the known pair: 90.50.00.0001 and 90.50.10.0403, "the returned log does not continue".
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - check is log entry 18, actor Grok-Check, role checker, pass 2, verdict pass, time 2026-11-23T19:29:00Z
+- Push commits:
+  - 756398d90ec0a0aff8b80afb64414294375e6040 wf: check 90.50.10.0703.05.02 (log) on returns
+- Findings:
+  - Verdict: pass. No major findings. Two minors.
+  - Done when, equal durability: met. LAB-0703-SEQ-STORAGE.md:23-25 names one setting per store, all OS-buffered with no explicit durable flush: Git `core.fsync=none`, the log flushes its user-space buffer, SQLite `synchronous=OFF` with a DELETE rollback journal. :27 says the timings give no power-loss guarantee. store.rs:245 passes `-c core.fsync=none`. store.rs:403 sets `PRAGMA synchronous = OFF`.
+  - Done when, same tamper and outside reference: met. main.rs:71 `history_sha` and :111 build one outside SHA-256 of the address and its two ordered versions. store.rs:190 `flip_current_byte` changes the latest marker. store.rs:199 `replace_first_version` rewrites version 1: Git through `replace_git_history` at :282, the log by truncate and `write_records` at :212-213, SQLite by `UPDATE` of version 1. main.rs:246 `same_tamper_trials_against_each_store` runs both attacks on every store. The results table at LAB-0703-SEQ-STORAGE.md:36-40 says the shared reference detects both edits and native checks pass after a coherent rewrite.
+  - Done when, second version and read_one: met. The workload writes a second version of 91.07.03.0501, v1 to v2 (LAB-0703-SEQ-STORAGE.md:15). store.rs:113-120 keeps the last matching log body. store.rs:123-124 uses `ORDER BY version DESC LIMIT 1`. Git reads the working file at :112. Tests git_round_trip_and_update, chain_round_trip_and_update and sqlite_round_trip_and_update at main.rs:231, :236 and :241 go through that path.
+  - Done when, truncated tail and removed middle: met. main.rs:278 `chain_refuses_a_truncated_tail` shortens the file by one byte. main.rs:295 `chain_refuses_a_removed_middle_record` drops the middle record. store.rs:385 and :388 name the record: content hash mismatch, previous hash mismatch.
+  - Done when, Git's commit chain weighed: met. LAB-0703-SEQ-STORAGE.md:48 treats the commit chain as an append-only candidate when a protected writer publishes only descendants, and states why it loses on this workload: higher initial and per-update cost, and history that needs Git tooling.
+  - Done when, SEQ-FILE-PLAN conflict: met. LAB-0703-SEQ-STORAGE.md:52 names `docs/design/SEQ-FILE-PLAN.md:246` and `:251`. At 8e96151d those lines store a folder per page and a file per face under R31 item 7. The report says a whole-page log as source of truth would change that decision, and this workload has no face-level reads so it cannot settle granularity.
+  - Done when, R37 cite: met. LAB-0703-SEQ-STORAGE.md:50 cites `docs/spec/DIRECTOR-RULINGS.md:192,195-196`. At 8e96151d, :192 is the R37 heading and :195-196 are the append-only source of truth and the delivery id whose content cannot change.
+  - Done when, lessons: met. labs/0703/LESSONS.md is five lessons. Each says what went wrong, why, and what next, and each has a file:line or commit cite that was opened. docs/lessons/ was not written. The file is inside the grant labs/0703/.
+  - Minor: the outside reference covers one audited page (LAB-0703-SEQ-STORAGE.md:31). :42 says removing a complete suffix can leave the remaining chain valid, so a whole-log audit needs a trusted head. Disclosed.
+  - Minor: LESSONS.md lesson 5 cites DIRECTOR-RULINGS.md:192, the R37 heading. The items the lab relies on are :195-196, and the lab report cites those lines. The lesson cite stops at the heading.
+  - Frame: the check printed only the return file and the five labs/0703/ paths. Return commit d52021a31d805dd3b446a19c05b229ea8067c9b2 is on returns and starts from pack start 86770ec221da36d3edaed3d1399459b555a86fa3. The design review line is filled. Claim is Codex.
+- Time taken:
+  - wf check finished in one run. The packed cargo test compiled in 6.08s and the 8 tests finished in 1.44s. Reading the lab, the store code, and the cited lines at 8e96151d was the rest of the pass.
