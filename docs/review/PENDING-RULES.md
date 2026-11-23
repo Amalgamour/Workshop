@@ -69,3 +69,19 @@ The rules, in plain words, from lockout/tagout shift change:
 5. **Interim, until 0423 lands.** There is no `wf release` command today. The next builder's report must state the handover, and the checker must compare the git diffs. Use only `git fetch`, `git log`, `git diff`, `git status`, the published packs and returns logs, `wf status`, `wf verify`, and the report file in docs/plan/REPORTS.md.
 
 Related: the 0416.05.01 case, and the exact checker list for that pass, are in `docs/review/HANDOVER-0416.md`. As of 2:25 PM EST on 2026-11-23, origin packs has the packed unclaimed 0416 page, and origin returns has no 0416 claim or push.
+
+## t557u  -  manual return when wf fails
+
+Status: pending. This is a process rule for builders and checkers. Keep it in `docs/plan/MANUAL-RETURN.md` until it can be written into the wf kit `docs/DESIGN.md` section 5 (Open), together with the t533u, t541u and t547u rules, once no open pass that pins or cites that file stands in the way (t381u). Do not edit the kit DESIGN.md in this turn. 0423 will add lockout and release in wf; it is not packed yet. Until then this process uses only the tools we already have: git, the report file, and a last-resort paste to Matthew.
+
+Authority: t557u. Verbatim: "We need a process for a manual return if the compute isn't working. So what it does if the prompt and the pack don't execute correctly."
+
+The rules, in plain words, from lockout/tagout (when equipment fails, tag it out of service and record it; never bypass it by hand):
+
+1. **If wf fails, stop and retry at most once.** Same command, same arguments. If it fails again, do not keep trying, and do not switch wf binaries on your own. Triggers include a wf error, a failed claim, verify flagging a hand edit, a template or version mismatch, a rejected push, a stale `.wf-lock`, a blocked network, or a pack that does not match the repo.
+2. **Never bypass wf by hand.** Never hand-edit `.workshop` logs or the `log.jsonl` hash chain. Never fake a claim, a return, a check, or a close. Never remove a `.wf-lock` on your own judgement.
+3. **Save the work and a report on `returns`.** Keep the work inside the grant. Stage files by path only (never `add -A`, never `commit -a`). Commit with the trailer `Builder: <name>`. The report path is `reports/<page>/05.NN/<Builder>-MANUAL-RETURN-<stamp>.md`, with the fixed fields in `docs/plan/MANUAL-RETURN.md`. Never force push. If the push fails too, paste that same report to Matthew in one block. A paste does not close the pass.
+4. **The builder keeps the page while the manual return is open.** This is not a handover (t547u). The manual-return record releases the face lock, so Prima and the checker may review. No other builder may claim the page until the tag is cleared.
+5. **A manual return never closes as passed without the checker's review.** Prima and the checker confirm the diff stays in the grant, run the tests, and confirm the log chain was not touched. Then either fix wf and re-run normal intake for the same pass, or, if wf cannot be fixed soon, record a manual intake through wf once wf works, with a note saying it was a manual return. The wf failure itself becomes a bug note or a page.
+
+Related: the full process, the report fields, the prompt block, and the open questions for Matthew are in `docs/plan/MANUAL-RETURN.md`. If wf still works and only the network is down, first follow labs/0705 FAILURES.md.
