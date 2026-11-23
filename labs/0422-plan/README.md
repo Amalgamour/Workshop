@@ -122,13 +122,13 @@ C1 to C7 change the job wording. None of them changes a pass's files.
 ## 4. Raised, not resolved (for Prima, and Matthew where it is his order)
 
 - **R1. Queue order.** The queue doc still has 0409 right after 0423 in wave 3 (docs/plan/GROK-BUILDER-QUEUE.md, wave 3). The t530u/t531u reading and the assignment put 0422 next once 0423 frees the files. The packs here are written as if that order holds. If the queue is unchanged when 05.01 is due, Claude raises it again before handing out a prompt.
-- **R2. 0424 and 0425 against 0422 on shared files.**
-  - 0424 (book-board) "may also need `src/lib.rs`" for help text. 0425 (book-prime) likely takes `src/cmd.rs` and `src/page.rs`.
-  - Both are needed before the 0498 MVP run, and 0422 is not (t541u G8).
-  - If either is packed while a 0422 pass needs the same file, one waits. The plan does not choose. Matthew's order decides, through Prima.
-  - Claude's view: 0424 and 0425 go first on those files if they are ready first, because the MVP needs them.
+- **R2. 0425 against 0422 on shared files.**
+  - 0425 (book-prime) likely takes `src/cmd.rs` and `src/page.rs`. It is needed before the 0498 MVP run, and 0422 is not (t541u G8).
+  - If it is packed while a 0422 pass needs the same file, one waits. The plan does not choose. Matthew's order decides, through Prima.
+  - Claude's view: 0425 goes first on those files if it is ready first, because the MVP needs it.
+  - 0424 (book-board) is not a conflict. It was packed as 0424.05.01 (returns a0c08c1f) with grant `src/board.rs` and `tests/page_0424.rs` only.
 - **R3. `src/render.rs` holders.** 0413 (wave 3), 0414 (wave 11) and 0406 (wave 5) all take `src/render.rs`. 05.04 waits on whichever of them is open, and must not take the file between another page's pass and its trial.
-- **R4. `src/status.rs`.** The 0423 README says that showing the lockout on `wf status` or `wf board` is "for 0424 and later". If 0424's grant takes `src/status.rs`, 05.04 waits for 0424's trial.
+- **R4. `src/status.rs`.** The 0423 README says that showing the lockout on `wf status` or `wf board` is "for 0424 and later". 0424.05.01's grant does not take `src/status.rs` (returns a0c08c1f). If a later page takes it, 05.04 waits for that page's trial.
 - **R5. Rolling out the new wf.**
   - After 05.03, a reporting command with no `.wf/config.json` refuses, by design (lesson 9 in 0705: no opt-out). The refusal names the file and `wf setup`.
   - So Prima must not move the pinned build every worker runs to a build with 05.03 until each active worker (Grok-1 to Grok-5, Grok-Check, Claude, Codex, Cursor) has an N6 page.
