@@ -2,7 +2,17 @@
 
 Lead: Claude, acting lead (t562u). 2026-11-23.
 Decision: Matthew t565s2260 (Nov 23, 3:17 PM EST) said yes: page 0426, title split-commands, packed right after 0423 is closed and its trial is done, before 0425 and before 0422.05.01.
-This folder is a plan, not a packed page. Nothing is packed.
+This folder is a plan, not a packed page.
+
+**Revision 2 (t570u, Nov 23 3:33 PM EST):** Matthew asked for 0426 to be drafted beside the live kernel. So the page now has two passes:
+- **05.01, the proof test** (PACK-0426-05.01.txt). The only file it touches is `tests/page_0426.rs`, which no page holds, so it is packed now on today's layout. It pins `wf help` and a full page loop's log and views against a golden copy kept inside the test file. An ignored `regenerate_golden` test refreshes the golden at any start commit.
+- **05.02, the move** (PACK-0426-05.02.txt; this was 05.01 in revision 1). It is packed only when Codex reports 0423 closed. It first refreshes the golden at its own start commit and commits that alone, then moves the code, and the test must still pass.
+
+This makes the move checkable without anyone waiting: the proof is written and checked while 0423 is still open. Section 6 below still describes what the proof covers.
+
+**Tools (lead lab work, not a pass):**
+- `tools/split_cmd.py` splits `src/cmd.rs` into the group files by function name. It is a move only, and it can be re-run at any start commit. I ran it once in a local scratch worktree and nothing was pushed. It is offered to the 05.02 builder, and to the optional dry run, as a starting point. It is not a substitute for their own check.
+- `tools/push_log.ps1` pushes a page log to returns only if the published log is a byte prefix of the local log. It commits only that path.
 
 **Matthew's framing (t565s2260):** this builds a stable kernel that every page pulls from and rarely changes: the shared helpers, the log, the page lock and the router. That lets forks of work run in parallel. Command groups sit on top, in their own files.
 
