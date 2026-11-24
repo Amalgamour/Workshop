@@ -1,0 +1,57 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0701 05.02
+- Kind: check
+- Verdict: pass
+- Commands run:
+  - git checkout -- pages; git pull --ff-only origin packs
+  - git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe verify 90.50.10.0701
+  - wf.exe check 90.50.10.0701 2 --dry-run --as Grok-Check
+  - cargo test --lib, cargo test --test lab_0404, and cargo test --test wf at 018892bab46ea08c5ee2d36f1b6926e2aa6a4b42
+  - cargo test --test wf draft_refuses_a_99th_pass -- --exact, rerun alone
+  - wf.exe check 90.50.10.0701 2 --as Grok-Check
+  - copy pages/90.50.10.0701/log.jsonl to work/.workshop/logs/90.50.10.0701/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0701
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --test lab_0404: 2 passed, 0 failed, finished in 4.37s. Compile finished in 9.13s. Frame ok. Wall 15442 ms, 2026-11-24T19:49:03Z through 19:49:19Z.
+  - Recorded check exit 0. cargo test --test lab_0404: 2 passed, 0 failed, finished in 2.23s. Compile finished in 5.51s. Frame ok: A .workshop/returns/90.50.10.0701.05.02.md, A tests/lab_0404.rs.
+  - The worktree for both runs was commit 018892bab46ea08c5ee2d36f1b6926e2aa6a4b42. Later lockout commits were not the tree under test.
+  - wf printed the Done when line as "checks ok; the checker judges the rest" and echoed w01 as done. That text is the packed-command result. The verdict is pass.
+- Results:
+  - wf check 05.02: pass (exit 0). No --fail.
+  - Wall time of the recorded check: 8190 ms, 2026-11-24T19:51:51Z through 2026-11-24T19:51:59Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539.
+  - Verify after the log push: ok, log chain holds (27 entries, head 2be453172e79). Views match. 05.01 AGENTS.md 66ac07c0ab76, PROMPT.md c13f5ff606f7. 05.02 AGENTS.md b71d13ba443c, PROMPT.md ecc1f7a7a919. 05.03 AGENTS.md d50f26d8cc59, PROMPT.md 13c09ebae12f. Links 4 hold.
+  - Before the check the returns log and the run-folder log were equal, 64128 bytes, 26 lines, blob 44e880d89899cb1a796b8eca58633e574541e9ca. After the check the local log is 67526 bytes, 27 lines. The 26-line returns log was a byte prefix. The pushed file is that 27-line log.
+  - The first 60426 bytes of that log are blob 0ec01bbab4c6f480989c3141de94973e43899bc0. Entries 23 and 24 are the original 05.02 claim and return.
+  - Intake took 4 entries for 0701 (the 05.02 claim and return, then the recovered 05.03 claim and return). It also took 0407 and 0419. It refused 90.50.00.0001 and 90.50.10.0403 because those logs do not continue. Intake exit 1 is that mix. Those other pages were not checked.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - claim is entry 23, actor Grok-1, role builder, pass 2, time 2026-11-23T15:47:39Z, prev 03efa4f3f2d81d316537f34b5f09eabe8f8ae67a4a8dad2577024af420b0c831. Line hash a344cf411dfe7a1fad625bddfa37274518360cb2610ada1a82aa32abe8fe6b8c.
+  - return is entry 24, actor Grok-1, role builder, pass 2, time 2026-11-23T15:49:46Z, commit 018892bab46ea08c5ee2d36f1b6926e2aa6a4b42, file .workshop/returns/90.50.10.0701.05.02.md, text hash c2ae18a4d4823b0777977db6aa82286632dc5099bbd4e6e3fc361d6fea9ef912. Line hash acb1cfb460352374e444ca6ad79dd6b90e531652c6ab315dbb9fe4c61400dc82.
+  - check is entry 27, actor Grok-Check, role checker, pass 2, verdict pass, time 2026-11-24T19:51:59Z, prev 5fe25fdf1002cec7ab56e8ff62b45273c4aab0997dadede16aefc851d88ec9d0. Line hash 2be453172e7940b4087e1cf93ef2393cfac9dfe46768fddfa78835329a467295.
+- Push commits:
+  - check log ab12e1170699f4280f3ebfb5281f66e758c9c067
+  - builder commit 018892bab46ea08c5ee2d36f1b6926e2aa6a4b42
+  - pack start a823ee284574be3d9f6247925b9088137a27a539
+  - pack hash 0fe67d63e293f6102674cf21a06ba8a9c6be07c310e499ff07bc9ca74783023c
+  - packs tip at check time 5b44fbdcc992175e46eafe8a885d8b3c7e9c38ab
+- Face 01 drift:
+  - Sealed pin: v3 entry 16 hash 7fdd999bf5fb.
+  - Live face 01: v5 entry 22 hash ccb268c3d6c9.
+  - wf printed "drift: face 01 changed since pack (now v5 entry 22)".
+  - Drift is recorded. It is not the verdict. The Done when line was judged on the returned commit.
+- Evidence:
+  - tests/lab_0404.rs:1 is `mod common;`. The file does not copy tests/common. Diff a823ee28..018892ba is two files, 152 insertions: A .workshop/returns/90.50.10.0701.05.02.md and A tests/lab_0404.rs. src/, tests/common/mod.rs, and tests/wf.rs are unchanged. a823ee28 is an ancestor of 018892ba.
+  - tests/lab_0404.rs:8-28 refuses a template 4 return with no design review line, requires the refusal to name t416u and to contain "return refused (recorded)", and requires the log to contain kind return-refused and t416u. The same test then accepts the return once the design review line is filled.
+  - tests/lab_0404.rs:32-42 prints templates 1, 2, and 3 and accepts a return that has no design review line. tests/lab_0404.rs:82-128 appends those older pack entries through Page::add because wf pack on this tree writes template 4 only. That is the behavior the return disclosed, and it is how a pass packed on template 1, 2, or 3 (such as 0403.05.01) still sits in a log.
+  - Separate target at 018892ba: cargo test --lib exit 0, 51 passed, 0 failed, finished in 0.07s (compile 9.84s). That 51 includes cmd::tests::v4_return_needs_a_filled_design_review_and_v3_does_not. cargo test --test lab_0404 exit 0, 2 passed, 0 failed, finished in 7.92s (compile 3.59s).
+  - cargo test --test wf at 018892ba exit 101, 125 passed, 8 failed, finished in 33.79s (compile 3.42s). tests/wf.rs is the start-tree file. None of the eight failures are in tests/lab_0404.rs.
+  - draft_refuses_a_99th_pass (tests/wf.rs:965) took 18.81s in that concurrent run and wanted under 10s. Rerun alone: exit 0, finished in 4.47s. That failure was load from four cargo runs, not the trial.
+  - check_stores_at_most_last_40_lines_of_output (tests/wf.rs:375) packs `seq`, which this Windows cmd does not have. check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen (tests/wf.rs:392) packs `sh src/chk.sh`, and sh is not on PATH. Both fail before their assertions.
+  - board_escapes_hostile_log_text_everywhere (tests/wf.rs:1646), planted_file_names_are_escaped_in_views (tests/wf.rs:1436), and return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii (tests/wf.rs:847) panic on Windows error 123, InvalidFilename, while creating names that contain an escape, a tab, or a newline.
+  - new_pack_records_template_version_3 (tests/wf.rs:1332) asserts `"templates":"3"`. This tree's wf pack records template 4. stripped_hashes_with_a_rechained_log_stay_invalid_after_fix (tests/wf.rs:2840) expects that same pack, with links removed, to be described as templates 3; the refusal names templates 4. Both assertions predate this trial. The grant forbids editing tests/wf.rs.
+  - Judgment: the lab covers the template-4 refusal and the older templates. cargo test --lib passes. The wf suite's remaining failures are the unchanged start tree on Windows, not a regression from tests/lab_0404.rs. No --fail.
+- Code commit: 018892bab46ea08c5ee2d36f1b6926e2aa6a4b42
