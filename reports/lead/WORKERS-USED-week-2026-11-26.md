@@ -34,3 +34,5 @@ Running roll (t562u). Append one row per job. Claude and Codex both append here.
 | 2026-11-24 | Codex | Grok-Check | independently check replay compatibility | 90.50.10.0423 | 05.02 | relay prompt prepared for Matthew | pending | returns a21473c; reports/mvp/lead/Codex-lead-20261124-1324.md |
 | 2026-11-24 | Codex | Codex | build Stage 1 operating checklist and acceptance map | 90.50.10.0498 | plan | current evidence and dependencies recorded | ~2 min | labs/mvp-plan/README.md |
 | 2026-11-24 | Codex | Grok-1 | replay displaced 05.03 return while 0423 is checked | 90.50.10.0701 | 05.03 recovery | assigned; scratch proof verified by Codex | pending | reports/mvp/lead/Codex-lead-20261124-1333.md |
+| 2026-11-24 | Codex | Grok-Check | independent replay compatibility check | 90.50.10.0423 | 05.02 | pass; previous replay blockers cleared | wf check 13.511s; total unreported | fca0563; reports/mvp/lead/Codex-lead-20261124-1336.md |
+| 2026-11-24 | Codex | Codex | verify, sign off and close as Prima | 90.50.10.0423 | 05.02 | passed, four cards accepted | same lead turn | returns 314bcd2; packs 5b44fbd; reports/mvp/lead/Codex-lead-20261124-1336.md |
