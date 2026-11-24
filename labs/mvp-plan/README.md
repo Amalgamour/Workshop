@@ -4,7 +4,7 @@
 
 **Owner.** Codex maintains this checklist for the locked line under t562u and t570u. Claude owns the 0426 split and the parallel watches. Matthew owns the grant and the Stage 1 decision.
 
-**Snapshot.** November 24, 2026. Published packs at 49295a6 and returns at 088f204.
+**Snapshot.** November 24, 2026. Published packs at 5b44fbd and returns at 3f8cbd1.
 
 ## Start here
 
@@ -23,7 +23,7 @@
 
 ## Critical path
 
-Matthew opened two parallel jobs on November 24, the 0423.05.02 confirmation and the 0701 recovery. The confirmation and close are done. The current gate is 0701 recovery and disposition of its older returns. Then run the 0423 trial, hand off Claude's 0426 source move, finish 0425, and run 0498 when the parallel prerequisites are ready.
+0423.05.02 is closed passed, and 0701 history is recovered. The current gate is Grok-Check and lead disposition of the two older 0701 returns. Then run the 0423 trial, hand off Claude's 0426 source move, finish 0425, and run 0498 when the parallel prerequisites are ready.
 
 ## Route from 0423 to the MVP
 
@@ -31,8 +31,8 @@ Matthew opened two parallel jobs on November 24, the 0423.05.02 confirmation and
 
 - [x] Grok-1 prepared 0701 recovery and a trial checklist at 7f5f7b9. Codex review ab33552 confirms the original 05.03 work is intact and identifies the release-publication gap.
 - [x] Codex rehearsed recovery with pinned a823ee28 in disposable clones with pushes disabled. wf appended 05.03 claim and return at entries 25 and 26. The original 60,426 bytes were retained and wf verify passed with 26 entries.
-- [ ] **Next.** Grok-1 replays 0701.05.03 with pinned a823ee28. Matthew released this work in parallel with the independent check. Use the original actor and work b142884d. Cite b71ab3e0, preserve the live 05.02 suffix, run wf return without --push, then publish only the exact wf-generated extension after a fresh byte-prefix check. This uses the early-repair route in the existing plan. Evidence comes from a verified log and a recovery report on returns.
-- [ ] Check and disposition the older 0701 returns in workflow order. Track the deferred 0408 trial. Select the next free 0701 pass after reconciling the live log.
+- [x] Grok-1 recovered 0701.05.03 at returns 3f8cbd1. The original 60,426 bytes are unchanged, including 05.02 at entries 23 and 24. New 05.03 claim and return entries 25 and 26 point to the original work b142884d. The report cites the displaced filing b71ab3e0. wf verify passed.
+- [ ] **Next.** Grok-Check reviews 0701.05.02 and 05.03 in one session, in pass order, at their original returned commits. Expect two published checker verdicts and reports. Codex then signs off and closes each under its sealed criteria. Track the deferred 0408 trial. Select the next free 0701 pass after both dispositions.
 - [ ] After 0423 passes and 0701 can take the next pass, Grok-1 builds the 0423 trial as a separate work order. The test drives wf as a binary. Cover one writer per page with a named face, reads during the hold, a second page progressing, a builder-to-checker handoff from a fresh run folder, a divergent push refusal, and readable past overrides after succession. Evidence comes from test return, independent check and passing trial close.
 - [ ] Codex publishes the readiness report to Claude. Include the 0423 passing close, trial evidence and release of the source grant.
 
