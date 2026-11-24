@@ -1,0 +1,75 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0423 05.02
+- Kind: check
+- Verdict: pass
+- Commands run:
+  - git checkout -- pages; git pull --ff-only origin packs
+  - git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe verify 90.50.10.0423
+  - wf.exe check 90.50.10.0423 2 --dry-run --as Grok-Check
+  - cargo build --bin wf of bf520780 in C:\Users\misg\AppData\Local\Temp\wf-0423b-target
+  - status and verify of copied published 0408 and 0423 pages, then a new lock on that 0423 copy
+  - isolated override fixture, including a root with no book page
+  - cargo test --test page_0423, cargo test --test page_0408, cargo test --test wf in that separate target
+  - wf.exe check 90.50.10.0423 2 --as Grok-Check
+  - copy pages/90.50.10.0423/log.jsonl to work/.workshop/logs/90.50.10.0423/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0423
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --lib: 52 passed, 0 failed, finished in 0.12s. cargo test --test page_0423: 17 passed, 0 failed, finished in 4.15s. Frame ok. Wall 13410 ms.
+  - Recorded check exit 0. cargo test --lib: 52 passed, 0 failed, finished in 0.12s. Compile finished in 5.13s. cargo test --test page_0423: 17 passed, 0 failed, finished in 4.47s. Compile finished in 3.04s. Frame ok: A .workshop/returns/90.50.10.0423.05.02.md, M src/cmd.rs, M src/lib.rs, M src/page.rs, M tests/page_0423.rs.
+  - Separate target, same commit: cargo test --test page_0423 exit 0, 17 passed, 0 failed, finished in 3.64s. The earlier holder, open-claim, wrong-face, and byte-prefix tests are in that 17: lockout_on_01_lasts_across_two_face_writes_until_release, work_refuses_with_no_lock_and_under_another_workers_lock, second_claim_is_refused_while_one_claim_is_open, session_05_returns_under_the_lock_and_checks_after_release, push_refuses_when_the_published_log_is_not_a_prefix, push_accepts_a_prefix_extension, push_log_does_not_pull_merge.
+  - wf printed each Done when line as "checks ok; the checker judges the rest" and echoed w01-w04 as done. That text is the packed-command result. The verdict is pass.
+- Results:
+  - wf check 05.02: pass (exit 0). No --fail.
+  - Wall time of the recorded check: 13511 ms, 2026-11-24T19:32:30Z through 2026-11-24T19:32:44Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539. The candidate binary was built beside it and was not installed over it.
+  - Verify after the log push: ok, log chain holds (20 entries, head cb005b89c59b). Views match. 05.01 AGENTS.md ace6c87175b7, PROMPT.md 9582bbde9bbb. 05.02 AGENTS.md f174acc65161, PROMPT.md 30bd10e82ed4. Links 4 hold.
+  - Before the check the returns log and the run-folder log were equal, 90479 bytes, 19 lines. After the check the local log is 103982 bytes, 20 lines, and the 19-line returns log was a byte prefix. The pushed file is that 20-line log.
+  - Intake took the claim and the return (2 entries). It also refused 90.50.00.0001 and 90.50.10.0403 because those logs do not continue. Intake exit 1 is that mix.
+  - Did not sign off. Did not close. Did not merge the build.
+- wf entry numbers:
+  - claim is entry 18, actor Grok-2, role builder, time 2026-11-24T19:01:24Z, pass 2
+  - return is entry 19, actor Grok-2, role builder, time 2026-11-24T19:22:41Z, pass 2, commit bf5207807781cbf16f52f7270dc0f09d8a3a175e
+  - check is entry 20, actor Grok-Check, role checker, pass 2, verdict pass, time 2026-11-24T19:32:44Z, prev 3ddaee4a972fe3a670f5aca865b1725029ba6ffb6697f066f7f3d63b4d85d609
+- Push commits:
+  - return log a21473ce051df3846ef82a804c47875403593a85
+  - builder commit bf5207807781cbf16f52f7270dc0f09d8a3a175e
+  - pack start 1fdef9ad49c721a6b9dab5e44a24b1543c1c5dec
+  - sealed pack 49295a68bf01c1e507fe751d4bb7572d4eac6313
+  - pack hash e8e5d3404b3977c26489fce3c30024106142dc6f3d1e81bcee1190887eb8327f
+  - returns before the log push 3f7018f4342d77205988c5d38bff1f89a7234851
+  - b3c24fbf508b32a204f0b32a3d1feca21b7bb416 wf: check 90.50.10.0423.05.02 (log) on returns
+- Published logs, candidate binary, copies only:
+  - status 90.50.10.0408 exit 0. 11 entries, head d1710972b729, 05.01 closed failed. verify exit 0: log chain holds, views match.
+  - status 90.50.10.0423 exit 0. 19 entries, head 3ddaee4a972f, 05.02 at return. verify exit 0: log chain holds, views match, both pack hashes hold.
+  - SHA-256 of both log files was unchanged by status and verify.
+  - face-write of 01 with no lockout exit 1: refused: lockout first. The log hash was unchanged.
+  - lockout 01 by prima exit 0. face-write by prima exit 0. face-write by bob exit 1: refused: face 01 is locked by prima. release by prima exit 0. face-write of 01 and of 06 after that release each exit 1: refused: lockout first. The legacy prefix was extended only by the accepted lock, face, and release.
+- Override fixture, same binary:
+  - Book 10.10.10.0000 set-prime to lead. release --override --as old exit 1. --as pri exit 1. Both: refused: only the book's Prime (lead) or the person (mat) may override. --as lead exit 0. The release records basis book 10.10.10.0000, person mat, prime lead, revision 2, role prime.
+  - set-prime to bea exit 0. status and verify of the work page exit 0. Same 3 entries, head 04fce93db219. The recorded override still loads.
+  - A new lock. --as lead, --as pri, and --as old each exit 1: refused: only the book's Prime (bea) or the person (mat) may override. --as bea exit 0, basis prime bea, revision 3, role prime. A later lock released --as mat exit 0, role person, same basis.
+  - A root with no book page. --as pri exit 1: refused: the book Prime is missing. --as mat exit 0. The release basis is book 10.10.10.0000, fallback missing-book, person mat, role person.
+  - Old-shape reload and Page::add are in the separate page_0423 run, which passed. old_shape_override_reloads_after_succession_and_a_new_one_needs_live_authority appends a release with no basis through wf::log::append (tests/page_0423.rs:591-603), reloads after set-prime, and Page::add of a no-basis release is refused (tests/page_0423.rs:627-631). override_basis_survives_book_prime_succession refuses a stale basis and a missing basis through Page::add (tests/page_0423.rs:564-574) and still loads the earlier override.
+- Findings:
+  - Verdict: pass. The two 05.01 failures are repaired on this binary. The four Done when lines are met.
+  - Done when, published logs load and verify: met. pages/90.50.10.0423/01.md:7. Page::load replays through apply (src/page.rs:236-243 and :482-484). before_lockout is replay && !seen_lockout (src/page.rs:317-320). Face, draft, pack, claim, return, check, signoff, and close skip the lock while that is true (src/page.rs:369-386). seen_lockout is set when a lockout is folded (src/page.rs:564-565) and a release clears only the hold (src/page.rs:574). The published 0408 and 0423 logs have no lockout entry, so they load. Direct status and verify left the bytes unchanged.
+  - Done when, a new write needs the matching lock, and replay keeps the lifecycle: met. 01.md:8. Page::add calls order with replay false (src/page.rs:267-271), so a page that has never had a lockout still refuses a new face with lockout first. The copied 0423 page did that, then accepted work only under the new hold, and refused work again after release. post_lockout_replay_checks_lifecycle passed: a release before any lock, a second lock, the wrong holder, a pack after release, and a release by someone else each fail load (tests/page_0423.rs:472-520).
+  - Done when, a recorded override survives a Prime change, and a new override uses live authority: met. 01.md:9. A new release stores the live basis (src/cmd.rs:608-620). live_authority reads the current book (src/cmd.rs:551-572). Replay uses replay_override and does not load the book (src/page.rs:128-173 and :356-360). An old-shape release with no basis loads only when the role is prime or person. live_override refuses a missing or unequal basis (src/page.rs:300-314). The fixture showed the former Prime and the work-page Prime refused on a new lock, and the person-only fallback when the book page is absent.
+  - Done when, named cargo tests and the old lock and prefix tests: met. 01.md:10. Both named commands passed on Windows. The new tests are the six named above for replay and succession, and the seven earlier lock and prefix tests also passed.
+  - Jobs w01-w04: implemented as written. The diff from 1fdef9ad to bf520780 is the return file, src/cmd.rs, src/lib.rs, src/page.rs, and tests/page_0423.rs. 507 insertions, 31 deletions. Start is an ancestor of the builder commit.
+- Public log module:
+  - src/lib.rs:10 changes `mod log` to `pub mod log`. That is the whole lib.rs diff. tests/page_0423.rs:340-348 calls wf::log::read and wf::log::append because an integration test cannot see a private module. The chain writer is src/log.rs:96. A test-local copy of that writer would also have worked. Publishing the module is how this return reached the historical lines.
+  - It does not change the command write path. Work commands still go through Page::add, which runs the live order check before log::append. init-page still writes entry 1 through log::append, as it did before. A caller of the public append can place a pre-lockout work event or an old-shape override on disk, and Page::load will accept those shapes. That acceptance is the replay rule this pass adds. The wf commands cannot skip the live check.
+- page_0408 and tests/wf.rs, separate from the packed verdict:
+  - cargo test --test page_0408 exit 101. 0 passed, 3 failed, finished in 0.35s. a_later_claim_is_refused, withdraw_at_pack_with_no_claim_keeps_the_pass, and withdraw_is_refused_at_open_or_later each panicked at tests/common/mod.rs:46. Env::ready face-writes 04 before any lockout (tests/common/mod.rs:61-64). The message is refused: lockout first. Those files were not in the diff.
+  - cargo test --test wf exit 101. 13 passed, 120 failed, 0 ignored, finished in 5.33s. 119 panicked at tests/common/mod.rs:46 on that same face-write. draft_needs_a_06_note_after_the_last_close panicked at tests/common/mod.rs:52. The test expects "write a 06 note" (tests/wf.rs:47-52) and the draft is refused with lockout first before that rule runs. The 13 passes do not call Env::ready: agents_overlap_line_cites_t262u, board_on_real_pages_is_read_only_and_short, eight_init_page_runs_leave_one_init, help_lists_overlap_ok_and_check_flags, job_agents_template_has_clean_and_touch, init_page_address_accepts_a_work_page, init_page_address_refuses_each_rule, init_page_address_system_records_the_ref_and_the_page_still_reads, init_page_address_system_without_a_ref_is_refused, log_append_source_writes_one_record_and_syncs_new_dir, page_needs_its_person_to_start_it, past_packed_pages_still_verify, write_atomic_source_opens_temp_with_create_new.
+  - These are stale unlocked fixtures. No failure got past the helper into a later assertion. That is not a broader product regression, and it is not evidence that the later assertions still hold. The follow-up scope is tests/common/mod.rs, tests/page_0408.rs, and tests/wf.rs. It is outside this grant. It is not a fail on this pass.
+- Minors, not a fail:
+  - Withdraw is still ungated. withdraw_still_runs_without_a_lockout passed. This pass does not change that.
+  - The design review says DESIGN.md section 1 still says several models may work one page at once. The live rule kept from 05.01 is one holder. Disclosed. Not a separate fail.
+  - The 0701 lab trial is outside this pass. Face 01 says so.
+- Time taken:
+  - Recorded wf check 13.511s. Dry-run 13.410s. Separate page_0423 3.64s. page_0408 0.35s. tests/wf.rs 5.33s. The published-log and override fixtures were about 34s. Reading the return and the bf520780 sources was the rest of the pass.
