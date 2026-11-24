@@ -1,0 +1,55 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0701 05.03
+- Kind: check
+- Verdict: pass
+- Commands run:
+  - wf.exe check 90.50.10.0701 3 --dry-run --as Grok-Check
+  - cargo test --lib, cargo test --test lab_0415, and cargo test --test wf at b142884d6e26f1fa6c823df7c7c03f5a932894e1
+  - cargo test --test lab_0415 on 3646e3448985d1cf40da82b262cfd8852ae59234 with the returned tests/lab_0415.rs copied in and not committed
+  - wf.exe check 90.50.10.0701 3 --as Grok-Check
+  - copy pages/90.50.10.0701/log.jsonl to work/.workshop/logs/90.50.10.0701/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0701
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --test lab_0415: 1 passed, 0 failed, finished in 0.28s. Compile finished in 5.54s. Frame ok. Wall 6219 ms, 2026-11-24T19:53:51Z through 19:53:57Z.
+  - Recorded check exit 0. cargo test --test lab_0415: 1 passed, 0 failed, finished in 0.28s. Compile finished in 5.52s. Frame ok: A .workshop/returns/90.50.10.0701.05.03.md, A tests/lab_0415.rs.
+  - The worktree for both runs was commit b142884d6e26f1fa6c823df7c7c03f5a932894e1. Later lockout commits were not the tree under test.
+  - wf printed each Done when line as "checks ok; the checker judges the rest" and echoed w01 as done. That text is the packed-command result. The verdict is pass.
+- Results:
+  - wf check 05.03: pass (exit 0). No --fail.
+  - Wall time of the recorded check: 6248 ms, 2026-11-24T19:54:02Z through 2026-11-24T19:54:08Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539.
+  - Verify after the log push: ok, log chain holds (28 entries, head 03e5428a11f1). Views match. 05.01 AGENTS.md 66ac07c0ab76, PROMPT.md c13f5ff606f7. 05.02 AGENTS.md b71d13ba443c, PROMPT.md ecc1f7a7a919. 05.03 AGENTS.md d50f26d8cc59, PROMPT.md 13c09ebae12f. Links 4 hold.
+  - Before this check the returns log was the 27-line 05.02 check log, 67526 bytes, blob 0950c871267f151f20d08789ef7cf857926a47ef. After the check the local log is 71167 bytes, 28 lines. That 27-line log was a byte prefix. The pushed file is the 28-line log.
+  - Entries 23 and 24 remain the original 05.02 claim and return. Entries 25 and 26 are the recovered 05.03 claim and return. This check did not rewrite them.
+  - A Linux cargo run was not executed. This machine is Windows. The Unix requirement is a source reading, below.
+  - Did not sign off. Did not close.
+- Recovery:
+  - Grok-1 published reports/90.50.10.0701/05.03/Grok-1-recovery-20261124-1343.md. It cites original filing b71ab3e07376345bc762771367e5c224d1860b31 and original work b142884d6e26f1fa6c823df7c7c03f5a932894e1.
+  - The new entries were appended by wf claim and wf return from a823ee28, without --push, then the verified extension was published. They are not the lines from b71ab3e0.
+  - Entry 25: claim, actor Grok-1, role builder, pass 3, time 2026-11-24T19:41:56Z, prev acb1cfb460352374e444ca6ad79dd6b90e531652c6ab315dbb9fe4c61400dc82 (the live entry 24). Line hash 867f6463920488fbfb152d4e560cc1467a0508fbf2e672802cb0faa9184b6f90.
+  - Entry 26: return, actor Grok-1, role builder, pass 3, time 2026-11-24T19:42:01Z, commit b142884d6e26f1fa6c823df7c7c03f5a932894e1, file .workshop/returns/90.50.10.0701.05.03.md, text hash 895dfabb56d27acb39b1e8a55f47e53253e32ff57a55cf82cbb7f50f59851df9. That text hash is the one recorded in the original filing. Line hash 5fe25fdf1002cec7ab56e8ff62b45273c4aab0997dadede16aefc851d88ec9d0.
+- wf entry numbers:
+  - check is entry 28, actor Grok-Check, role checker, pass 3, verdict pass, time 2026-11-24T19:54:08Z, prev 2be453172e7940b4087e1cf93ef2393cfac9dfe46768fddfa78835329a467295. Line hash 03e5428a11f17b39735acc3ad3c303c8c7816cf11572923274086ac7b20af81b.
+- Push commits:
+  - check log dd2d2b7eab0d7579fe428c01b84da42a27282bcf
+  - builder commit b142884d6e26f1fa6c823df7c7c03f5a932894e1
+  - pack start a823ee284574be3d9f6247925b9088137a27a539
+  - pack hash 674d965e08dbb013e4ce8e1e05a3e6d70c74c6a11b80ff4580d8e94b037838dd
+  - negative commit 3646e3448985d1cf40da82b262cfd8852ae59234
+  - packs tip at check time 5b44fbdcc992175e46eafe8a885d8b3c7e9c38ab
+- Face 01 drift:
+  - Sealed pin: v4 entry 19 hash cdd753af9b46.
+  - Live face 01: v5 entry 22 hash ccb268c3d6c9.
+  - wf printed "drift: face 01 changed since pack (now v5 entry 22)".
+  - Drift is recorded. It is not the verdict. The Done when lines were judged on the returned commit.
+- Evidence:
+  - tests/lab_0415.rs:1 is `mod common;`. The file does not copy tests/common. Diff a823ee28..b142884d is two files, 82 insertions: A .workshop/returns/90.50.10.0701.05.03.md and A tests/lab_0415.rs. src/log.rs, tests/common/mod.rs, and tests/wf.rs are unchanged. a823ee28 is an ancestor of b142884d. src/log.rs at b142884d is the same file as at a823ee28.
+  - tests/lab_0415.rs:10-46 reads src/log.rs and then creates a page log through the wf binary. tests/lab_0415.rs:15-17 require the unix branch to open the folder with fs::File::open and then call sync_all. tests/lab_0415.rs:18-24 require the windows branch to open with custom_flags(FILE_FLAG_BACKUP_SEMANTICS) and then call sync_all. tests/lab_0415.rs:43-44 refuse output that contains "cannot sync" or "Access is denied (os error 5)".
+  - src/log.rs:125-129 is the unix branch: File::open, then sync_all. src/log.rs:131-141 is the windows branch: OpenOptions write(true), custom_flags(FILE_FLAG_BACKUP_SEMANTICS), open, then sync_all. src/log.rs:104-109 calls sync_dir only when the log file was just created. Those lines are the a823ee28 text.
+  - At 3646e344, src/log.rs:122-127 is one File::open and sync_all, with no #[cfg(unix)] and no FILE_FLAG_BACKUP_SEMANTICS. tests/lab_0415.rs is not in that commit. The returned test file was copied onto a detached worktree of 3646e344 and was not committed. cargo test --test lab_0415 exit 101: 0 passed, 1 failed, finished in 0.00s (compile 10.12s). The panic is tests/lab_0415.rs:57, "missing #[cfg(unix)]; the Windows open is absent", before a log is created.
+  - Separate target at b142884d: cargo test --test lab_0415 exit 0, 1 passed, 0 failed, finished in 1.91s (compile 3.53s). cargo test --lib exit 0, 51 passed, 0 failed, finished in 0.07s (compile 9.80s). That 51 includes log::tests::append_syncs_the_page_folder_when_it_creates_the_log (src/log.rs:219-232), which creates a log, expects one folder sync, and expects a second append not to sync again, and log::tests::sync_dir_source_keeps_unix_fsync_and_windows_does_not_use_file_open (src/log.rs:236-246).
+  - cargo test --test wf at b142884d exit 101, 125 passed, 8 failed, finished in 36.90s (compile 1.93s). tests/wf.rs is the start-tree file. log_append_source_writes_one_record_and_syncs_new_dir passed. None of the eight failure texts say "cannot sync" or "Access is denied (os error 5)".
+  - The eight names are the same as on 05.02: draft_refuses_a_99th_pass (tests/wf.rs:965, 26.20s under the concurrent cargo load; alone on the sibling tree it passed in 4.47s), check_stores_at_most_last_40_lines_of_output (tests/wf.rs:375, `seq` is not a Windows command), check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen (tests/wf.rs:392, `sh` is not on PATH), board_escapes_hostile_log_text_everywhere (tests/wf.rs:1646), planted_file_names_are_escaped_in_views (tests/wf.rs:1436), and return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii (tests/wf.rs:847) on Windows error 123 InvalidFilename, plus new_pack_records_template_version_3 (tests/wf.rs:1332) and stripped_hashes_with_a_rechained_log_stay_invalid_after_fix (tests/wf.rs:2840), which still expect a new pack to record template 3 while this tree records template 4. The grant forbids editing tests/wf.rs.
+  - Judgment: Windows log creation passes with no sync or access-denied error. The unix branch still opens the folder and calls sync_all; that was read from source, not run on Linux. The library sync-once test passes. The lab fails on 3646e344 and passes on b142884d. No --fail.
+- Code commit: b142884d6e26f1fa6c823df7c7c03f5a932894e1
