@@ -76,6 +76,9 @@ pub struct Page {
     pub halt: Option<(String, u64, String, u64)>,
     /// The unreleased lockout, if a worker holds the page.
     pub hold: Option<Hold>,
+    /// Set when a lockout entry is applied. A release does not clear it, so a later
+    /// session is not treated as the historical prefix from before any lockout.
+    pub seen_lockout: bool,
 }
 
 pub fn s(v: &Value, k: &str) -> String {
@@ -120,6 +123,54 @@ pub fn done_when_lines(text: &str) -> String {
         }
     }
     if found.is_empty() { "none".into() } else { found.join("\n") }
+}
+
+/// Replay of an override uses the recorded basis and role. It does not load the book.
+/// A release with no basis is the 05.01 shape: role prime or person, plus the structural checks
+/// the caller already made. That shape is replay only.
+fn replay_override(actor: &str, role: &str, d: &Value) -> Res<()> {
+    let basis = d.get("basis").filter(|v| !v.is_null());
+    let Some(basis) = basis else {
+        return if role == "prime" || role == "person" {
+            Ok(())
+        } else {
+            Err("refused: an override was recorded for a role that is not prime or person".into())
+        };
+    };
+    let Some(b) = basis.as_object() else {
+        return Err("refused: an override basis is not a record".into());
+    };
+    match b.get("fallback").and_then(|v| v.as_str()) {
+        Some("missing-book") | Some("missing-prime") => {
+            let person = b.get("person").and_then(|v| v.as_str()).unwrap_or("");
+            if role == "person" && !person.is_empty() && actor == person {
+                Ok(())
+            } else {
+                Err("refused: an override actor does not match the recorded person".into())
+            }
+        }
+        Some(_) => Err("refused: an override basis names an unknown fallback".into()),
+        None => {
+            let book = b.get("book").and_then(|v| v.as_str()).unwrap_or("");
+            let prime = b.get("prime").and_then(|v| v.as_str()).unwrap_or("");
+            let person = b.get("person").and_then(|v| v.as_str()).unwrap_or("");
+            if book.is_empty() || prime.is_empty() || b.get("revision").and_then(|v| v.as_u64()).is_none() {
+                return Err("refused: an override basis is missing the book, revision or prime".into());
+            }
+            let matches = match role {
+                "prime" => actor == prime,
+                "person" => !person.is_empty() && actor == person,
+                _ => false,
+            };
+            if matches {
+                Ok(())
+            } else if role == "prime" || role == "person" {
+                Err("refused: an override actor does not match the recorded authority".into())
+            } else {
+                Err("refused: an override was recorded for a role that is not prime or person".into())
+            }
+        }
+    }
 }
 
 /// Which lock a face-write needs. `None` means this face is not a locked write.
@@ -215,7 +266,9 @@ impl Page {
     /// Append one event to the log and fold it in.
     pub fn add(&mut self, actor: &str, role: &str, kind: &str, data: Value) -> Res<()> {
         let seq = self.events.len() as u64 + 1;
-        self.order(seq, kind, actor, &data).map_err(|why| format!("refused, nothing written: {why}"))?;
+        // Live: a new append always takes the lock and authority rules, even on a page
+        // that has never had a lockout. Replay is the other call, from apply.
+        self.order(seq, kind, actor, role, &data, false).map_err(|why| format!("refused, nothing written: {why}"))?;
         let (e, head) = log::append(&self.log_path(), &self.head, seq, actor, role, kind, data)?;
         self.apply(&e)?;
         self.events.push(e);
@@ -244,8 +297,31 @@ impl Page {
         ))
     }
 
+    /// A new override must match a fresh book lookup and must carry that basis.
+    /// An old-shape release (no basis) is not accepted here.
+    fn live_override(&self, actor: &str, role: &str, d: &Value) -> Res<()> {
+        let live = crate::cmd::live_authority(self, actor)?;
+        if role != live.role {
+            return Err(format!(
+                "refused: an override must be recorded as {}, not {}",
+                live.role,
+                crate::chars::escape_line(role)
+            ));
+        }
+        if d.get("basis") != Some(&live.basis) {
+            return Err("refused: an override must record the live authority basis".into());
+        }
+        Ok(())
+    }
+
+    /// Work records from before the first lockout may replay without a hold.
+    /// The live path (`replay` false) never uses this, so a missing lock is not excused on a new append.
+    fn before_lockout(&self, replay: bool) -> bool {
+        replay && !self.seen_lockout
+    }
+
     /// Lockout, release, and the work events that need the matching lock. Withdraw is not here.
-    fn lock_order(&self, kind: &str, actor: &str, d: &Value) -> Option<String> {
+    fn lock_order(&self, kind: &str, actor: &str, role: &str, d: &Value, replay: bool) -> Option<String> {
         match kind {
             "lockout" => {
                 if let Some(h) = &self.hold {
@@ -261,7 +337,7 @@ impl Page {
                 None
             }
             "release" => {
-                let Some(h) = &self.hold else {
+                let Some(h) = self.hold.clone() else {
                     return Some("refused: no lockout holds".into());
                 };
                 let face = s(d, "face");
@@ -277,7 +353,12 @@ impl Page {
                     if s(d, "holder") != h.worker {
                         return Some(format!("refused: face {} is locked by {}", h.face, crate::chars::escape_line(&h.worker)));
                     }
-                    if let Err(why) = crate::cmd::override_authority(self, actor) {
+                    if replay {
+                        // The book may have a new Prime. Use the basis recorded on this release.
+                        if let Err(why) = replay_override(actor, role, d) {
+                            return Some(why);
+                        }
+                    } else if let Err(why) = self.live_override(actor, role, d) {
                         return Some(why);
                     }
                 } else if actor != h.worker {
@@ -286,11 +367,24 @@ impl Page {
                 None
             }
             "face" => {
+                if self.before_lockout(replay) {
+                    return None;
+                }
                 let need = lock_face(&s(d, "face"))?;
                 self.lock_block(actor, need).err()
             }
-            "draft" => self.lock_block(actor, Some("04")).err(),
-            "pack" | "claim" | "return" | "check" | "signoff" | "close" => self.lock_block(actor, Some("05")).err(),
+            "draft" => {
+                if self.before_lockout(replay) {
+                    return None;
+                }
+                self.lock_block(actor, Some("04")).err()
+            }
+            "pack" | "claim" | "return" | "check" | "signoff" | "close" => {
+                if self.before_lockout(replay) {
+                    return None;
+                }
+                self.lock_block(actor, Some("05")).err()
+            }
             _ => None,
         }
     }
@@ -298,7 +392,7 @@ impl Page {
     /// Why an entry of `kind` with `d` cannot come next on this page, or Ok.
     /// The same state order the commands keep: draft, pack, claim, return, check, signoff, close.
 
-    pub fn order(&self, seq: u64, kind: &str, actor: &str, d: &Value) -> Res<()> {
+    pub fn order(&self, seq: u64, kind: &str, actor: &str, role: &str, d: &Value, replay: bool) -> Res<()> {
         if !KINDS.contains(&kind) {
             return Err(if kind.is_empty() { "the entry has no kind".into() } else { format!("'{}' is not a wf entry kind", crate::chars::escape_line(kind)) });
         }
@@ -318,7 +412,7 @@ impl Page {
             "resume" if self.halt.is_none() => return Err("a resume while the page is not halted".into()),
             _ => {}
         }
-        if let Some(why) = self.lock_order(kind, actor, d) {
+        if let Some(why) = self.lock_order(kind, actor, role, d, replay) {
             return Err(why);
         }
         if !PASS_KINDS.contains(&kind) {
@@ -386,7 +480,8 @@ impl Page {
 
     /// Fold one entry in. An entry for a pass that was never drafted is an error, not a panic.
     fn apply(&mut self, e: &Event) -> Res<()> {
-        self.order(e.seq, &e.kind, &e.actor, &e.data).map_err(|why| format!("log entry {} is out of order: {why}; the page cannot be read", e.seq))?;
+        self.order(e.seq, &e.kind, &e.actor, &e.role, &e.data, true)
+            .map_err(|why| format!("log entry {} is out of order: {why}; the page cannot be read", e.seq))?;
         let d = &e.data;
         let nn = d["pass"].as_u64().unwrap_or(0) as u32;
         let missing = || missing_pass(e.seq, &e.kind, nn);
@@ -467,6 +562,7 @@ impl Page {
             "halt" => self.halt = Some((e.actor.clone(), e.time, s(d, "note"), e.seq)),
             "resume" => self.halt = None,
             "lockout" => {
+                self.seen_lockout = true;
                 self.hold = Some(Hold {
                     seq: e.seq,
                     face: s(d, "face"),

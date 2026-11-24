@@ -258,6 +258,10 @@ fn override_accepts_the_book_prime_or_the_person() {
     assert!(log.contains("\"holder\":\"bob\""), "{log}");
     assert!(log.contains("\"reason\":\"holder left\""), "{log}");
     assert!(log.contains("\"face\":\"05\""), "{log}");
+    assert!(log.contains(&format!("\"book\":\"{BOOK}\"")), "{log}");
+    assert!(log.contains("\"prime\":\"lead\""), "{log}");
+    assert!(log.contains("\"revision\":2"), "{log}");
+    assert!(log.contains("\"person\":\"mat\""), "{log}");
     let p = wf::page::Page::load(&e.page()).unwrap();
     assert!(p.hold.is_none());
     lock(&e, "04", "bob", "again");
@@ -276,7 +280,13 @@ fn missing_book_lets_only_the_person_override() {
     assert_eq!(e.log(), before);
     let out = e.ok(&["release", PG, "--override", "--reason", "holder left", "--as", "mat"]);
     assert!(out.contains("override released face 05 held by bob"), "{out}");
-    assert!(e.log().contains("\"override\":true"));
+    let log = e.log();
+    let release = log.lines().find(|l| l.contains("\"kind\":\"release\"")).unwrap();
+    assert!(release.contains("\"override\":true"), "{release}");
+    assert!(release.contains("\"fallback\":\"missing-book\""), "{release}");
+    assert!(release.contains(&format!("\"book\":\"{BOOK}\"")), "{release}");
+    assert!(release.contains("\"person\":\"mat\""), "{release}");
+    assert!(!release.contains("\"prime\""), "{release}");
     let p = wf::page::Page::load(&e.page()).unwrap();
     assert!(p.hold.is_none());
 }
@@ -320,6 +330,309 @@ fn push_accepts_a_prefix_extension() {
     assert_eq!(origin_log(&e), local);
     let held = wf::page::Page::load(&e.page()).unwrap();
     assert_eq!(held.hold.as_ref().map(|h| h.worker.as_str()), Some("bob"));
+}
+
+const FULL: &str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+/// Published logs at the start commit. Copied out of the repo before status and verify.
+const PUBLISHED_0408: &[u8] = include_bytes!("../.workshop/logs/90.50.10.0408/log.jsonl");
+const PUBLISHED_0423: &[u8] = include_bytes!("../.workshop/logs/90.50.10.0423/log.jsonl");
+
+fn raw(dir: &std::path::Path, actor: &str, role: &str, kind: &str, data: serde_json::Value) {
+    let path = dir.join("log.jsonl");
+    let (n, head) = if path.is_file() {
+        let (ev, head) = wf::log::read(&path).unwrap();
+        (ev.len() as u64 + 1, head)
+    } else {
+        (1, "0".into())
+    };
+    wf::log::append(&path, &head, n, actor, role, kind, data).unwrap();
+}
+
+/// A finished pass written the way earlier wf wrote it: no lockout entry.
+fn write_closed_without_lock(dir: &std::path::Path) {
+    raw(dir, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri", "grant": ["src/"], "grant_ref": "t1"}));
+    raw(dir, "pri", "prime", "face", serde_json::json!({"face": "04", "mode": "append", "section": "goals", "text": "a works"}));
+    raw(dir, "pri", "prime", "face", serde_json::json!({"face": "01", "mode": "replace", "section": "", "text": "Goal: a.\nDone when: checks pass."}));
+    raw(dir, "pri", "prime", "face", serde_json::json!({"face": "06", "mode": "append", "section": "note", "text": "read 04"}));
+    raw(dir, "pri", "prime", "draft", serde_json::json!({"pass": 1, "fields": {"w01": "set a"}, "pins": {}}));
+    raw(dir, "pri", "prime", "pack", serde_json::json!({"pass": 1}));
+    raw(dir, "bob", "builder", "claim", serde_json::json!({"pass": 1}));
+    raw(dir, "bob", "builder", "return", serde_json::json!({"pass": 1, "commit": FULL}));
+    raw(dir, "cat", "checker", "check", serde_json::json!({"pass": 1, "verdict": "pass", "commit": FULL}));
+    raw(dir, "pri", "prime", "signoff", serde_json::json!({"pass": 1, "outcome": "passed"}));
+    raw(dir, "pri", "prime", "close", serde_json::json!({"pass": 1}));
+}
+
+fn write_legacy_faces(dir: &std::path::Path) {
+    raw(dir, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri", "grant": ["src/"], "grant_ref": "t1"}));
+    raw(dir, "pri", "prime", "face", serde_json::json!({"face": "04", "mode": "append", "section": "goals", "text": "a works"}));
+    raw(dir, "pri", "prime", "face", serde_json::json!({"face": "01", "mode": "replace", "section": "", "text": "Goal: a.\nDone when: checks pass."}));
+    raw(dir, "pri", "prime", "face", serde_json::json!({"face": "06", "mode": "append", "section": "note", "text": "read 04"}));
+}
+
+fn reprint(dir: &std::path::Path) {
+    let p = wf::page::Page::load(dir).unwrap();
+    wf::render::write(&p).unwrap();
+}
+
+fn load_err(dir: &std::path::Path, want: &str) {
+    match wf::page::Page::load(dir) {
+        Err(err) => {
+            assert!(err.contains(want), "{err}");
+            assert!(err.contains("cannot be read"), "{err}");
+        }
+        Ok(_) => panic!("page loaded: {want}"),
+    }
+}
+
+/// Status, then verify. Reprint views from the log when the recorded hashes still match.
+/// Either way the log bytes stay equal to `bytes`.
+fn status_and_verify(e: &Env, addr: &str, bytes: &[u8]) {
+    let dir = e.root.join("pages").join(addr);
+    fs::create_dir_all(&dir).unwrap();
+    let log = dir.join("log.jsonl");
+    fs::write(&log, bytes).unwrap();
+    let status = e.ok(&["status", addr]);
+    assert!(status.contains(&format!("page {addr}")), "{status}");
+    assert!(status.contains("entries"), "{status}");
+    let page = wf::page::Page::load(&dir).unwrap();
+    assert!(!page.events.is_empty());
+    let reprinted = wf::render::write(&page);
+    let (ok, verify) = e.wf(&["verify", addr]);
+    assert_eq!(fs::read(&log).unwrap(), bytes, "status or verify changed the log");
+    match reprinted {
+        Ok(()) => {
+            assert!(ok, "{verify}");
+            assert!(verify.contains("log chain holds"), "{verify}");
+        }
+        Err(err) => {
+            assert!(!err.contains("out of order") && !err.contains("lockout first"), "{err}");
+            assert!(!ok, "{verify}");
+            assert!(!verify.contains("out of order") && !verify.contains("lockout first"), "{verify}");
+        }
+    }
+}
+
+#[test]
+fn pre_lockout_order_loads_and_a_new_write_still_needs_a_lock() {
+    let e = Env::new("prelock");
+    let dir = e.page();
+    fs::create_dir_all(&dir).unwrap();
+    write_closed_without_lock(&dir);
+    let bytes = fs::read(dir.join("log.jsonl")).unwrap();
+    let p = wf::page::Page::load(&dir).unwrap();
+    assert_eq!(p.pass(1).unwrap().tail, "closed");
+    assert!(p.hold.is_none());
+    assert!(!p.seen_lockout);
+    assert!(!std::str::from_utf8(&bytes).unwrap().contains("lockout"));
+    let status = e.ok(&["status", PG]);
+    assert!(status.contains("05.01"), "{status}");
+    assert!(status.contains("closed"), "{status}");
+    reprint(&dir);
+    let file = e.root.join("pack.txt");
+    fs::write(&file, "repo: game\n").unwrap();
+    e.no(&["face-write", PG, "01", "--text", "Goal: later.", "--as", "pri"], "lockout first");
+    e.no(&["draft", PG, "--file", file.to_str().unwrap(), "--as", "pri"], "lockout first");
+    e.no(&["pack", PG, "1", "--as", "pri"], "lockout first");
+    e.no(&["claim", PG, "1", "--as", "bob"], "lockout first");
+    let mut p = wf::page::Page::load(&dir).unwrap();
+    let err = p.add("pri", "prime", "face", serde_json::json!({"face": "01", "mode": "replace", "section": "", "text": "n"})).unwrap_err();
+    assert!(err.contains("lockout first"), "{err}");
+    assert!(err.contains("nothing written"), "{err}");
+    assert_eq!(fs::read(dir.join("log.jsonl")).unwrap(), bytes);
+}
+
+#[test]
+fn legacy_page_takes_its_first_lock_and_release_does_not_restore_the_exemption() {
+    let e = Env::new("legacy");
+    let dir = e.page();
+    fs::create_dir_all(&dir).unwrap();
+    write_legacy_faces(&dir);
+    let prefix = fs::read(dir.join("log.jsonl")).unwrap();
+    let p = wf::page::Page::load(&dir).unwrap();
+    assert!(!p.seen_lockout);
+    assert_eq!(p.faces.get("01").map(|f| f.version), Some(1));
+    reprint(&dir);
+    e.no(&["face-write", PG, "06", "--text", "new note", "--as", "pri"], "lockout first");
+    assert_eq!(fs::read(dir.join("log.jsonl")).unwrap(), prefix);
+    lock(&e, "01", "pri", "first lock on a legacy page");
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass. Kept.", "--as", "pri"]);
+    unlock(&e, "pri");
+    e.no(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: after.", "--as", "pri"], "lockout first");
+    e.no(&["face-write", PG, "06", "--text", "after release", "--as", "pri"], "lockout first");
+    let p = wf::page::Page::load(&dir).unwrap();
+    assert!(p.seen_lockout);
+    assert!(p.hold.is_none());
+    let now = fs::read(dir.join("log.jsonl")).unwrap();
+    assert!(now.starts_with(&prefix), "the legacy prefix was rewritten");
+    assert!(now.len() > prefix.len());
+}
+
+#[test]
+fn post_lockout_replay_checks_lifecycle() {
+    let e = Env::new("life");
+    let good = e.root.join("good");
+    fs::create_dir_all(&good).unwrap();
+    raw(&good, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&good, "pri", "worker", "lockout", serde_json::json!({"face": "01", "reason": "scope"}));
+    raw(&good, "pri", "prime", "face", serde_json::json!({"face": "01", "mode": "replace", "section": "", "text": "Goal"}));
+    raw(&good, "pri", "worker", "release", serde_json::json!({"face": "01", "lockout": 2}));
+    raw(&good, "pri", "worker", "lockout", serde_json::json!({"face": "04", "reason": "plan"}));
+    raw(&good, "pri", "prime", "face", serde_json::json!({"face": "06", "mode": "append", "section": "note", "text": "while 04 is held"}));
+    let p = wf::page::Page::load(&good).unwrap();
+    assert!(p.seen_lockout);
+    assert_eq!(p.hold.as_ref().map(|h| h.face.as_str()), Some("04"));
+    assert_eq!(p.hold.as_ref().map(|h| h.worker.as_str()), Some("pri"));
+
+    let bare = e.root.join("release-first");
+    fs::create_dir_all(&bare).unwrap();
+    raw(&bare, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&bare, "pri", "worker", "release", serde_json::json!({"face": "01", "lockout": 1}));
+    load_err(&bare, "no lockout holds");
+
+    let twice = e.root.join("second-lock");
+    fs::create_dir_all(&twice).unwrap();
+    raw(&twice, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&twice, "pri", "worker", "lockout", serde_json::json!({"face": "01", "reason": "scope"}));
+    raw(&twice, "pri", "worker", "lockout", serde_json::json!({"face": "04", "reason": "again"}));
+    load_err(&twice, "face 01 is locked by pri");
+
+    let wrong = e.root.join("wrong-holder");
+    fs::create_dir_all(&wrong).unwrap();
+    raw(&wrong, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&wrong, "pri", "worker", "lockout", serde_json::json!({"face": "01", "reason": "scope"}));
+    raw(&wrong, "bob", "prime", "face", serde_json::json!({"face": "01", "mode": "replace", "section": "", "text": "no"}));
+    load_err(&wrong, "face 01 is locked by pri");
+
+    let after = e.root.join("after-release");
+    fs::create_dir_all(&after).unwrap();
+    raw(&after, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&after, "pri", "worker", "lockout", serde_json::json!({"face": "05", "reason": "session"}));
+    raw(&after, "pri", "worker", "release", serde_json::json!({"face": "05", "lockout": 2}));
+    raw(&after, "pri", "prime", "pack", serde_json::json!({"pass": 1}));
+    load_err(&after, "lockout first");
+
+    let other = e.root.join("other-release");
+    fs::create_dir_all(&other).unwrap();
+    raw(&other, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&other, "pri", "worker", "lockout", serde_json::json!({"face": "05", "reason": "session"}));
+    raw(&other, "bob", "worker", "release", serde_json::json!({"face": "05", "lockout": 2}));
+    load_err(&other, "face 05 is locked by pri");
+}
+
+#[test]
+fn published_0408_and_0423_logs_load_without_changing_bytes() {
+    let e = Env::new("published");
+    assert!(PUBLISHED_0408.starts_with(b"{"), "0408 log");
+    assert!(PUBLISHED_0423.starts_with(b"{"), "0423 log");
+    status_and_verify(&e, "90.50.10.0408", PUBLISHED_0408);
+    status_and_verify(&e, "90.50.10.0423", PUBLISHED_0423);
+    let repo = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let spec = "origin/returns:.workshop/logs/90.50.10.0423/log.jsonl";
+    let shown = Command::new("git").arg("-C").arg(&repo).args(["show", spec]).output().unwrap();
+    if shown.status.success() && shown.stdout.starts_with(b"{") {
+        assert_ne!(shown.stdout, PUBLISHED_0423, "origin/returns 0423 should be the later published log");
+        status_and_verify(&e, "90.50.10.0423", &shown.stdout);
+    }
+}
+
+#[test]
+fn override_basis_survives_book_prime_succession() {
+    let e = start("succ");
+    book(&e);
+    let book = wf::page::Page::load(&e.root.join("pages").join(BOOK)).unwrap();
+    assert_eq!(book.primes.last().map(|(_, from, _)| *from), Some(2));
+    lock(&e, "05", "bob", "left");
+    let out = e.ok(&["release", PG, "--override", "--reason", "holder left", "--as", "lead"]);
+    assert!(out.contains("override released face 05 held by bob"), "{out}");
+    let recorded = e.log();
+    assert!(recorded.contains("\"prime\":\"lead\""), "{recorded}");
+    assert!(recorded.contains("\"revision\":2"), "{recorded}");
+    e.ok(&["set-prime", BOOK, "bea", "--ref", "tbea", "--as", "mat"]);
+    let book = wf::page::Page::load(&e.root.join("pages").join(BOOK)).unwrap();
+    assert_eq!(book.prime, "bea");
+    let p = wf::page::Page::load(&e.page()).unwrap();
+    assert!(p.hold.is_none());
+    assert!(p.seen_lockout);
+    assert_eq!(e.log(), recorded, "succession rewrote the work page");
+    lock(&e, "05", "bob", "fresh");
+    let held = e.log();
+    e.no(&["release", PG, "--override", "--reason", "former prime", "--as", "lead"], "only the book's Prime");
+    e.no(&["release", PG, "--override", "--reason", "work prime", "--as", "pri"], "only the book's Prime");
+    e.no(&["release", PG, "--override", "--reason", "first prime", "--as", "old"], "only the book's Prime");
+    assert_eq!(e.log(), held);
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    let seq = p.hold.as_ref().unwrap().seq;
+    let stale = serde_json::json!({
+        "face": "05", "lockout": seq, "holder": "bob", "override": true, "reason": "stale",
+        "basis": {"book": BOOK, "person": "mat", "prime": "lead", "revision": 2}
+    });
+    let err = p.add("bea", "prime", "release", stale).unwrap_err();
+    assert!(err.contains("live authority basis"), "{err}");
+    let err = p.add("bea", "prime", "release", serde_json::json!({"face": "05", "lockout": seq, "holder": "bob", "override": true, "reason": "no basis"})).unwrap_err();
+    assert!(err.contains("live authority basis"), "{err}");
+    assert_eq!(e.log(), held);
+    let out = e.ok(&["release", PG, "--override", "--reason", "current prime", "--as", "bea"]);
+    assert!(out.contains("override released face 05 held by bob"), "{out}");
+    assert!(e.log().contains("\"prime\":\"bea\""));
+    lock(&e, "01", "bob", "person");
+    let out = e.ok(&["release", PG, "--override", "--reason", "the person", "--as", "mat"]);
+    assert!(out.contains("override released face 01 held by bob"), "{out}");
+    assert!(e.log().contains("\"role\":\"person\""));
+}
+
+#[test]
+fn old_shape_override_reloads_after_succession_and_a_new_one_needs_live_authority() {
+    let e = start("oldshape");
+    book(&e);
+    e.ok(&["set-prime", BOOK, "bea", "--ref", "tbea", "--as", "mat"]);
+    lock(&e, "05", "bob", "left");
+    let hold = wf::page::Page::load(&e.page()).unwrap().hold.unwrap();
+    raw(&e.page(), "lead", "prime", "release", serde_json::json!({
+        "face": hold.face, "lockout": hold.seq, "holder": hold.worker, "override": true, "reason": "recorded while lead was Prime"
+    }));
+    let legacy = e.log();
+    assert!(!legacy.contains("\"basis\""), "{legacy}");
+    let p = wf::page::Page::load(&e.page()).unwrap();
+    assert!(p.hold.is_none(), "old-shape override did not release");
+    assert_eq!(p.events.last().unwrap().role, "prime");
+    e.ok(&["set-prime", BOOK, "cara", "--ref", "tcara", "--as", "mat"]);
+    let p = wf::page::Page::load(&e.page()).unwrap();
+    assert!(p.hold.is_none());
+    assert_eq!(e.log(), legacy, "a later Prime rewrote the old override");
+    reprint(&e.page());
+
+    // The book Prime is cara. Replay must still refuse an actor the recorded basis does not name.
+    let forged = e.root.join("pages").join("10.10.10.0402");
+    fs::create_dir_all(&forged).unwrap();
+    raw(&forged, "mat", "person", "init", serde_json::json!({"address": "10.10.10.0402", "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&forged, "bob", "worker", "lockout", serde_json::json!({"face": "05", "reason": "left"}));
+    raw(&forged, "cara", "prime", "release", serde_json::json!({
+        "face": "05", "lockout": 2, "holder": "bob", "override": true, "reason": "named the old prime",
+        "basis": {"book": BOOK, "person": "mat", "prime": "lead", "revision": 2}
+    }));
+    load_err(&forged, "does not match the recorded authority");
+
+    let worker = e.root.join("worker-role");
+    fs::create_dir_all(&worker).unwrap();
+    raw(&worker, "mat", "person", "init", serde_json::json!({"address": PG, "title": "t", "person": "mat", "prime": "pri"}));
+    raw(&worker, "bob", "worker", "lockout", serde_json::json!({"face": "05", "reason": "left"}));
+    raw(&worker, "lead", "worker", "release", serde_json::json!({
+        "face": "05", "lockout": 2, "holder": "bob", "override": true, "reason": "wrong role"
+    }));
+    load_err(&worker, "not prime or person");
+
+    lock(&e, "05", "bob", "fresh");
+    let held = fs::read(e.page().join("log.jsonl")).unwrap();
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    let seq = p.hold.as_ref().unwrap().seq;
+    let err = p.add("cara", "prime", "release", serde_json::json!({"face": "05", "lockout": seq, "holder": "bob", "override": true, "reason": "old shape"})).unwrap_err();
+    assert!(err.contains("live authority basis"), "{err}");
+    assert_eq!(fs::read(e.page().join("log.jsonl")).unwrap(), held);
+    let out = e.ok(&["release", PG, "--override", "--reason", "current prime", "--as", "cara"]);
+    assert!(out.contains("override released face 05 held by bob"), "{out}");
+    assert!(e.log().contains("\"basis\""));
+    assert!(e.log().contains("\"prime\":\"cara\""));
 }
 
 #[test]
