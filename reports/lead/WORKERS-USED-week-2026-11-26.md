@@ -29,3 +29,4 @@ Running roll (t562u). Append one row per job. Claude and Codex both append here.
 | 2026-11-24 | Codex | Codex | draft and publish repair pack as Prima | 90.50.10.0423 | 05.02 | verified and packed | same lead turn | packs 49295a6; returns ec64190; reports/mvp/lead/Codex-lead-20261124-1253.md |
 | 2026-11-24 | Codex | Grok-2 | build replay compatibility repair | 90.50.10.0423 | 05.02 | assigned; claim pending | pending | packs 49295a6; reports/mvp/lead/Codex-lead-20261124-1253.md |
 | 2026-11-24 | Codex | Grok-1 | verify 0701 recovery evidence and draft 0423 trial checklist | 90.50.10.0701 | 05.03 prep | assigned, report only | pending | returns d34fe49; reports/mvp/lead/Codex-lead-20261124-1305.md |
+| 2026-11-24 | Codex | Grok-1 | verify recovery evidence and draft trial scenarios | 90.50.10.0701 | 05.03 prep | report-only complete; release publication gap found | ~9 min | returns 7f5f7b9; reports/mvp/lead/Codex-lead-20261124-1319.md |
