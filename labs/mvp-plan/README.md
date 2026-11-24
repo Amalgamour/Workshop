@@ -19,16 +19,21 @@
 - [x] Close 0423.05.01 failed and capture the two replay regressions. Check f5125ea, close 1fdef9a.
 - [x] Return 0423.05.02. Grok-2 delivered bf520780, return entry 19 in a21473c. The builder reported 52 library and 17 page tests passing.
 - [ ] **Next. Grok-Check verifies 0423.05.02.** The returned binary must read the exact published 0408 and 0423 logs byte for byte, and a past override must still replay after Prime succession. Every new write still requires a matching lock, and live overrides still require the current book Prime or the person. Check the byte-prefix guard, the authority-basis evidence and the reason for the older suite failures. Evidence comes from independent wf verdict and checker report on returns.
-- [ ] Codex records signoff and close as the authorized typist for Prima. A passing close opens the 0701 recovery and trial. A blocking finding calls for a recorded failed close and the next 0423 repair pass before the trial.
+- [ ] Codex records signoff and close as the authorized typist for Prima. A passing close opens the 0423 trial once 0701 is ready. A blocking finding calls for a recorded failed close and the next 0423 repair pass before the trial.
+
+## Critical path
+
+Run the 0423.05.02 confirmation and the 0701 recovery in parallel. They join before the separate 0423 trial. The sequence after the join is the trial, Claude's 0426 source move, 0425 book Prime, then the 0498 run when its parallel prerequisites are ready. This is Matthew's November 24 direction. The independent verdict still governs the 0423 signoff.
 
 ## Route from 0423 to the MVP
 
 ### 1. Recover the lab history and prove the lockout
 
 - [x] Grok-1 prepared 0701 recovery and a trial checklist at 7f5f7b9. Codex review ab33552 confirms the original 05.03 work is intact and identifies the release-publication gap.
-- [ ] After a passing 0423 close, Grok-1 rehearses the 0701 replay using the passing binary and an isolated run folder. Use the original actor and work commit b142884d, cite the displaced filing b71ab3e0, preserve the live 05.02 suffix, and verify the full generated suffix through release. The expected handoff is a fresh checker able to enter. Evidence comes from dry rehearsal, exact prefix comparison, then the lawful published recovery commit and log.
+- [x] Codex rehearsed recovery with pinned a823ee28 in disposable clones with pushes disabled. wf appended 05.03 claim and return at entries 25 and 26. The original 60,426 bytes were retained and wf verify passed with 26 entries.
+- [ ] **Parallel now.** Grok-1 replays 0701.05.03 with pinned a823ee28 while Grok-Check reviews 0423.05.02. Use the original actor and work b142884d. Cite b71ab3e0, preserve the live 05.02 suffix, run wf return without --push, then publish only the exact wf-generated extension after a fresh byte-prefix check. This uses the early-repair route in the existing plan. Evidence comes from a verified log and a recovery report on returns.
 - [ ] Check and disposition the older 0701 returns in workflow order. Track the deferred 0408 trial. Select the next free 0701 pass after reconciling the live log.
-- [ ] Grok-1 builds the 0423 trial as a separate work order. The test drives wf as a binary. Cover one writer per page with a named face, reads during the hold, a second page progressing, a builder-to-checker handoff from a fresh run folder, a divergent push refusal, and readable past overrides after succession. Evidence comes from test return, independent check and passing trial close.
+- [ ] After 0423 passes and 0701 can take the next pass, Grok-1 builds the 0423 trial as a separate work order. The test drives wf as a binary. Cover one writer per page with a named face, reads during the hold, a second page progressing, a builder-to-checker handoff from a fresh run folder, a divergent push refusal, and readable past overrides after succession. Evidence comes from test return, independent check and passing trial close.
 - [ ] Codex publishes the readiness report to Claude. Include the 0423 passing close, trial evidence and release of the source grant.
 
 ### 2. Make the Rust workflow split and prove book authority

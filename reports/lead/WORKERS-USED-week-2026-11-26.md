@@ -33,3 +33,4 @@ Running roll (t562u). Append one row per job. Claude and Codex both append here.
 | 2026-11-24 | Codex | Grok-2 | replay compatibility repair | 90.50.10.0423 | 05.02 | returned; older unlocked fixtures fail | 21m17s claim to return | build bf520780; returns a21473c; reports/mvp/lead/Codex-lead-20261124-1324.md |
 | 2026-11-24 | Codex | Grok-Check | independently check replay compatibility | 90.50.10.0423 | 05.02 | relay prompt prepared for Matthew | pending | returns a21473c; reports/mvp/lead/Codex-lead-20261124-1324.md |
 | 2026-11-24 | Codex | Codex | build Stage 1 operating checklist and acceptance map | 90.50.10.0498 | plan | current evidence and dependencies recorded | ~2 min | labs/mvp-plan/README.md |
+| 2026-11-24 | Codex | Grok-1 | replay displaced 05.03 return while 0423 is checked | 90.50.10.0701 | 05.03 recovery | assigned; scratch proof verified by Codex | pending | reports/mvp/lead/Codex-lead-20261124-1333.md |
