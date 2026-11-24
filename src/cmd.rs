@@ -495,29 +495,81 @@ fn book_page(p: &Page) -> Res<Option<Page>> {
     Page::load(&dir).map(Some)
 }
 
-/// Who may override an abandoned lockout. A missing book Prime does not fall back to the work Prime.
-pub(crate) fn override_authority(p: &Page, who: &str) -> Res<&'static str> {
+/// Who may override, and the basis a new release records for that decision.
+/// `revision` is the book log entry that installed the current Prime.
+/// Replay does not call this: a later Prime must not rewrite an earlier decision.
+pub(crate) struct LiveAuthority {
+    pub role: &'static str,
+    pub basis: Value,
+}
+
+enum BookState {
+    MissingBook { book: Option<String>, person: String },
+    MissingPrime { book: String, person: String },
+    Ready { book: String, revision: u64, prime: String, person: String },
+}
+
+fn book_state(p: &Page) -> Res<BookState> {
+    let looked = book_addr(&p.addr).filter(|id| id != &p.addr);
     let Some(book) = book_page(p)? else {
-        need(who == p.person, "refused: the book Prime is missing")?;
-        return Ok("person");
+        return Ok(BookState::MissingBook { book: looked, person: p.person.clone() });
     };
-    if book.prime.is_empty() {
-        let person = if book.person.is_empty() { p.person.as_str() } else { book.person.as_str() };
-        need(who == person, "refused: the book Prime is missing")?;
-        return Ok("person");
-    }
-    if who == book.prime {
-        return Ok("prime");
-    }
     let person = if book.person.is_empty() { p.person.clone() } else { book.person.clone() };
-    if who == person {
-        return Ok("person");
+    if book.prime.is_empty() {
+        return Ok(BookState::MissingPrime { book: book.addr, person });
     }
-    Err(format!(
-        "refused: only the book's Prime ({}) or the person ({}) may override",
-        chars::escape_line(&book.prime),
-        chars::escape_line(&person)
-    ))
+    let revision = book.primes.last().map(|(_, from, _)| *from).unwrap_or(0);
+    Ok(BookState::Ready { book: book.addr, revision, prime: book.prime, person })
+}
+
+fn basis_value(state: &BookState) -> Value {
+    match state {
+        BookState::MissingBook { book, person } => {
+            let mut m = Map::new();
+            if let Some(book) = book {
+                m.insert("book".into(), json!(book));
+            }
+            m.insert("fallback".into(), json!("missing-book"));
+            m.insert("person".into(), json!(person));
+            Value::Object(m)
+        }
+        BookState::MissingPrime { book, person } => json!({
+            "book": book,
+            "fallback": "missing-prime",
+            "person": person,
+        }),
+        BookState::Ready { book, revision, prime, person } => json!({
+            "book": book,
+            "person": person,
+            "prime": prime,
+            "revision": revision,
+        }),
+    }
+}
+
+/// Who may override an abandoned lockout. A missing book Prime does not fall back to the work Prime.
+pub(crate) fn live_authority(p: &Page, who: &str) -> Res<LiveAuthority> {
+    let state = book_state(p)?;
+    let role = match &state {
+        BookState::MissingBook { person, .. } | BookState::MissingPrime { person, .. } => {
+            need(who == person, "refused: the book Prime is missing")?;
+            "person"
+        }
+        BookState::Ready { prime, person, .. } => {
+            if who == prime {
+                "prime"
+            } else if who == person {
+                "person"
+            } else {
+                return Err(format!(
+                    "refused: only the book's Prime ({}) or the person ({}) may override",
+                    chars::escape_line(prime),
+                    chars::escape_line(person)
+                ));
+            }
+        }
+    };
+    Ok(LiveAuthority { role, basis: basis_value(&state) })
 }
 
 pub fn lockout(p: &mut Page, a: &Args, who: &str) -> Res<()> {
@@ -557,13 +609,14 @@ pub fn release(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let h = p.hold.clone().ok_or("refused: no lockout holds")?;
     if a.flag("override").is_some() {
         let reason = nonblank(a.req("reason")?, "reason")?;
-        let role = override_authority(p, who)?;
-        p.add(who, role, "release", json!({
+        let live = live_authority(p, who)?;
+        p.add(who, live.role, "release", json!({
             "face": h.face,
             "lockout": h.seq,
             "holder": h.worker,
             "override": true,
             "reason": reason,
+            "basis": live.basis,
         }))?;
         println!("override released face {} held by {}. The page has no holder.", h.face, chars::escape_line(&h.worker));
     } else {

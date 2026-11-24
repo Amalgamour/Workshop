@@ -7,7 +7,7 @@ mod board;
 mod chars;
 mod cmd;
 mod git;
-mod log;
+pub mod log;
 pub mod page;
 pub mod render;
 mod status;
