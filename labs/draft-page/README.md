@@ -164,6 +164,10 @@ It is separate because commits added after a check need their own check (axiom 9
 - Merge `draft/<page>` into returns, as a normal merge, never forced.
 - Then the pin moves to a build of that merge.
 - That pin move must be recorded somewhere everyone reads (QUESTIONS.md Q2).
+- A gap (`7`): wf has no command that merges a draft branch into returns. `return --push` merges only into the pack's own branch (src/cmd.rs:680-681).
+  - So the merge is a hand git step, done by the Prime after approval.
+  - It must leave a trace: the merge commit id goes on face 08 of the draft page, next to the `draft:` line, and into the pin record.
+  - Otherwise the switch "did not happen" in the record (docs/AXIOMS.md:25).
 
 **Step 7: unfreeze and repack.**
 - A pack whose start is before the switch and whose may-touch overlaps the draft is now stale.
