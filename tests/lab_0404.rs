@@ -95,7 +95,7 @@ fn open_old_pack(e: &Env, ver: &str) {
     ] {
         fields.insert(k.into(), serde_json::json!(v));
     }
-    page.add("pri", "prime", "draft", serde_json::json!({"pass": 1, "fields": fields, "pins": {}})).unwrap();
+    common::add_held(&mut page, "pri", "prime", "draft", serde_json::json!({"pass": 1, "fields": fields, "pins": {}}));
     let seq = page.events.len() as u64 + 1;
     let mut d = serde_json::json!({
         "pass": 1,
@@ -123,8 +123,8 @@ fn open_old_pack(e: &Env, ver: &str) {
         let prompt_hash = sha256(&wf::render::prompt(&page, &preview).unwrap());
         d["prompt_hash"] = serde_json::json!(prompt_hash);
     }
-    page.add("pri", "prime", "pack", d).unwrap();
-    page.add("bob", "builder", "claim", serde_json::json!({"pass": 1})).unwrap();
+    common::add_held(&mut page, "pri", "prime", "pack", d);
+    common::add_held(&mut page, "bob", "builder", "claim", serde_json::json!({"pass": 1}));
     wf::render::write(&page).unwrap();
 }
 

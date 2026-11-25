@@ -10,7 +10,7 @@ fn withdraw_at_pack_with_no_claim_keeps_the_pass() {
     assert!(help.contains("withdraw <page> <NN>"), "{help}");
     e.draft("src/a.rs", "cargo --version");
     e.no(&["withdraw", PG, "1", "--as", "pri"], "is at 'draft'");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     e.no(&["withdraw", PG, "1", "--as", "bob"], "only the prime");
     let out = e.ok(&["withdraw", PG, "1", "--as", "pri"]);
     assert!(out.contains("withdrew 05.01"), "{out}");
@@ -50,8 +50,10 @@ fn withdraw_is_refused_at_open_or_later() {
     e.no(&["withdraw", PG, "1", "--as", "pri"], "is at 'review'");
 
     let e = Env::checked("wd-closed");
+    e.lock("05", "pri");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.unlock("pri");
     let before = e.log();
     e.no(&["withdraw", PG, "1", "--as", "pri"], "is at 'closed'");
     assert_eq!(e.log(), before);
@@ -63,8 +65,9 @@ fn withdraw_is_refused_at_open_or_later() {
 fn a_later_claim_is_refused() {
     let e = Env::ready("wd-claim");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     e.ok(&["withdraw", PG, "1", "--as", "pri"]);
+    e.lock("05", "bob");
     let before = e.log();
     e.no(&["claim", PG, "1", "--as", "bob"], "is at 'withdrawn'");
     assert_eq!(e.log(), before);
@@ -73,4 +76,5 @@ fn a_later_claim_is_refused() {
     assert_eq!(x.tail, "withdrawn");
     assert!(x.claim.is_none());
     assert!(before.lines().any(|l| l.contains("\"kind\":\"withdraw\"") && l.contains("\"pass\":1")));
+    e.unlock("bob");
 }

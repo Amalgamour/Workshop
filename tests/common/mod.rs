@@ -51,19 +51,48 @@ impl Env {
         assert!(!ok, "wf {args:?} should be refused: {out}");
         assert!(out.contains(want), "wf {args:?}: expected '{want}' in: {out}");
     }
+    /// Take the matching lockout the way a worker does, then release it. Callers keep using `ok` when they already hold.
+    pub fn lock(&self, face: &str, who: &str) {
+        self.ok(&["lockout", PG, face, "--reason", "work", "--as", who]);
+    }
+    pub fn unlock(&self, who: &str) {
+        self.ok(&["release", PG, "--as", who]);
+    }
+    /// Lock, run one write, release. The page ends with no holder, as it did before 0423.
+    pub fn held(&self, face: &str, who: &str, args: &[&str]) -> String {
+        self.lock(face, who);
+        let (ok, out) = self.wf(args);
+        let (released, rout) = self.wf(&["release", PG, "--as", who]);
+        assert!(ok, "wf {args:?} failed: {out}");
+        assert!(released, "wf release failed: {rout}");
+        out
+    }
+    pub fn held_no(&self, face: &str, who: &str, args: &[&str], want: &str) {
+        self.lock(face, who);
+        self.no(args, want);
+        self.unlock(who);
+    }
+    pub fn held_wf(&self, face: &str, who: &str, args: &[&str]) -> (bool, String) {
+        self.lock(face, who);
+        let got = self.wf(args);
+        self.unlock(who);
+        got
+    }
     pub fn page(&self) -> PathBuf {
         self.root.join("pages").join(PG)
     }
     pub fn log(&self) -> String {
         fs::read_to_string(self.page().join("log.jsonl")).unwrap()
     }
-    /// A page with person mat, prime pri, goals, a 01 card and a 06 note.
+    /// A page with person mat, prime pri, goals, a 01 card and a 06 note. No holder left.
     pub fn ready(name: &str) -> Env {
         let e = Env::new(name);
         e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
-        e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+        e.held("04", "pri", &["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+        e.lock("01", "pri");
         e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
         e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+        e.unlock("pri");
         e
     }
     pub fn draft(&self, may: &str, checks: &str) {
@@ -72,13 +101,13 @@ impl Env {
     pub fn draft_jobs(&self, may: &str, checks: &str, jobs: &str) {
         let f = self.root.join("pack.txt");
         fs::write(&f, format!("repo: game\nstart: main\noutcome: a = 2\n{jobs}\nmay touch: {may}\nchecks: {checks}\nstop if: b must change\n")).unwrap();
-        self.ok(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
+        self.held("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
     }
-    /// Draft, pack, claim pass 1 as bob.
+    /// Draft, pack, claim pass 1 as bob. No holder left.
     pub fn open(&self, may: &str, checks: &str) {
         self.draft(may, checks);
-        self.ok(&["pack", PG, "1", "--as", "pri"]);
-        self.ok(&["claim", PG, "1", "--as", "bob"]);
+        self.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
+        self.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
     }
     /// The builder's work: branch, edit files, return file, commit. Returns the SHA.
     pub fn work(&self, nn: u32, edits: &[(&str, &str)], jobs: &str) -> String {
@@ -100,7 +129,17 @@ impl Env {
     }
     pub fn ret(&self, nn: u32, sha: &str, who: &str) -> (bool, String) {
         let name = format!("{PG}.05.{nn:02}");
-        self.wf(&["return", PG, &nn.to_string(), "--branch", &format!("pass/{name}"), "--commit", sha, "--file", &format!(".workshop/returns/{name}.md"), "--as", who])
+        let branch = format!("pass/{name}");
+        let file = format!(".workshop/returns/{name}.md");
+        let n = nn.to_string();
+        let args = ["return", PG, &n, "--branch", &branch, "--commit", sha, "--file", &file, "--as", who];
+        let (ok, out) = self.wf(&args);
+        // Return does not release. A caller that already holds 05 keeps that hold.
+        // An unlocked caller is told to lock first; take 05, run the return, then release.
+        if ok || !out.contains("refused: lockout first") {
+            return (ok, out);
+        }
+        self.held_wf("05", who, &args)
     }
     /// Run wf with a git config env override (this box sets core.quotePath=false via GIT_CONFIG_*).
     pub fn wf_git(&self, args: &[&str], key: &str, val: &str) -> (bool, String) {
@@ -117,23 +156,25 @@ impl Env {
     #[allow(dead_code)]
     pub fn close_one(&self, nn: u32) {
         let n = nn.to_string();
-        self.ok(&["face-write", PG, "06", "--text", "read 04 and the last close", "--as", "pri"]);
+        self.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and the last close", "--as", "pri"]);
         self.draft("src/a.rs", "cargo --version");
-        self.ok(&["pack", PG, &n, "--as", "pri"]);
-        self.ok(&["claim", PG, &n, "--as", "bob"]);
+        self.held("05", "pri", &["pack", PG, &n, "--as", "pri"]);
+        self.held("05", "bob", &["claim", PG, &n, "--as", "bob"]);
         let sha = self.work(nn, &[("src/a.rs", &format!("a = {nn}\n"))], "w01: done - a");
         assert!(self.ret(nn, &sha, "bob").0);
-        self.ok(&["check", PG, &n, "--as", "cat"]);
+        self.held("05", "cat", &["check", PG, &n, "--as", "cat"]);
+        self.lock("05", "pri");
         self.ok(&["signoff", PG, &n, "--outcome", "passed", "--as", "pri"]);
         self.ok(&["close", PG, &n, "--as", "pri"]);
+        self.unlock("pri");
     }
-    /// A full pass up to a passing check.
+    /// A full pass up to a passing check. No holder left.
     pub fn checked(name: &str) -> Env {
         let e = Env::ready(name);
         e.open("src/a.rs", "cargo --version");
         let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
         assert!(e.ret(1, &sha, "bob").0);
-        e.ok(&["check", PG, "1", "--as", "cat"]);
+        e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
         e
     }
 }
@@ -144,12 +185,42 @@ impl Drop for Env {
     }
 }
 
+/// Which face a live work event needs. `None` means the kind is not lockout-gated.
+fn lock_face_for(kind: &str, data: &serde_json::Value) -> Option<&'static str> {
+    match kind {
+        "draft" => Some("04"),
+        "pack" | "claim" | "return" | "check" | "signoff" | "close" => Some("05"),
+        "face" => match data.get("face").and_then(|v| v.as_str()) {
+            Some("01") => Some("01"),
+            Some("04") => Some("04"),
+            Some("02") | Some("06") | Some("08") => Some("04"),
+            _ => None,
+        },
+        _ => None,
+    }
+}
+
+/// Append one live event. A locked kind records a lockout, the event, then a release,
+/// through the same `Page::add` path the wf commands use. The page ends with no holder.
+/// The 98-pass seed stays in-process: spawning wf once per event would blow the 10s bound
+/// on `draft_refuses_a_99th_pass`, and that assertion stays.
+pub fn add_held(p: &mut wf::page::Page, actor: &str, role: &str, kind: &str, data: serde_json::Value) {
+    if let Some(face) = lock_face_for(kind, &data) {
+        p.add(actor, "worker", "lockout", serde_json::json!({"face": face, "reason": "work"})).unwrap();
+        let seq = p.events.len() as u64;
+        p.add(actor, role, kind, data).unwrap();
+        p.add(actor, "worker", "release", serde_json::json!({"face": face, "lockout": seq})).unwrap();
+    } else {
+        p.add(actor, role, kind, data).unwrap();
+    }
+}
+
 /// Closed passes written through the tool's own log append (Page::add), not 98 process runs.
 pub fn seed_closed_passes(e: &Env, count: u32) {
     let mut p = wf::page::Page::load(&e.page()).unwrap();
     for i in 1..=count {
         for (actor, role, kind, data) in closed_chain(i, "passed") {
-            p.add(actor, role, kind, data).unwrap();
+            add_held(&mut p, actor, role, kind, data);
         }
     }
     wf::render::write(&p).unwrap();

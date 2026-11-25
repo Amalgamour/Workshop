@@ -14,8 +14,8 @@ use std::os::unix::fs::{self as unix_fs, MetadataExt, PermissionsExt};
 #[test]
 fn full_pass_closes_with_a_record() {
     let e = Env::checked("full");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    let rec = e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     assert!(rec.contains("signed off: pri, face 00 prime at entry"));
     assert!(rec.contains("cards:      w01 accepted"));
     let st = e.ok(&["status", PG]);
@@ -29,7 +29,7 @@ fn full_pass_closes_with_a_record() {
 fn pack_prints_prompt_and_pins_axioms_and_design() {
     let e = Env::ready("pack");
     e.draft("src/a.rs", "cargo --version");
-    let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let out = e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("=== WORKSHOP JOB 10.10.10.0401.05.01 ===") && out.contains("May touch: src/a.rs"));
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     assert!(agents.contains("kit docs/AXIOMS.md") && agents.contains("kit docs/DESIGN.md") && agents.contains("sha256 "), "{agents}");
@@ -49,25 +49,25 @@ fn draft_needs_a_06_note_after_the_last_close() {
     e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
     let f = e.root.join("p.txt");
     fs::write(&f, "w01: x\n").unwrap();
-    e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "write a 06 note");
+    e.held_no("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "write a 06 note");
 }
 
 #[test]
 fn stale_pin_is_refused_until_redrafted() {
     let e = Env::ready("stale");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["face-write", PG, "04", "--section", "responses", "--text", "too slow", "--as", "mat"]);
-    e.no(&["pack", PG, "1", "--as", "pri"], "stale pin 04");
-    e.no(&["pack", PG, "1", "--as", "pri"], "Write a new 06 note and redraft");
-    e.ok(&["draft", PG, "--pass", "1", "--file", e.root.join("pack.txt").to_str().unwrap(), "--as", "pri"]);
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("04", "mat", &["face-write", PG, "04", "--section", "responses", "--text", "too slow", "--as", "mat"]);
+    e.held_no("05", "pri", &["pack", PG, "1", "--as", "pri"], "stale pin 04");
+    e.held_no("05", "pri", &["pack", PG, "1", "--as", "pri"], "Write a new 06 note and redraft");
+    e.held("04", "pri", &["draft", PG, "--pass", "1", "--file", e.root.join("pack.txt").to_str().unwrap(), "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
 }
 
 #[test]
 fn may_touch_outside_grant_is_refused() {
     let e = Env::ready("grant");
     e.draft("docs/x.md", "cargo --version");
-    e.no(&["pack", PG, "1", "--as", "pri"], "outside the grant");
+    e.held_no("05", "pri", &["pack", PG, "1", "--as", "pri"], "outside the grant");
 }
 
 #[test]
@@ -75,43 +75,45 @@ fn draft_waits_while_a_pass_is_open_so_files_cannot_overlap() {
     // w03: a second pass cannot be drafted while 05.01 is open, so two passes never hold the same files.
     let e = Env::ready("ov-ref");
     e.open("src/a.rs", "cargo --version");
+    e.lock("04", "pri");
     let before = e.log();
     let f = e.root.join("pack.txt");
     e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
     assert_eq!(e.log(), before, "a refused draft must not append");
+    e.unlock("pri");
 }
 
 #[test]
 fn pack_allows_overlap_after_other_closes() {
     let e = Env::checked("ov-close");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    e.ok(&["close", PG, "1", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
 }
 
 #[test]
 fn overlap_ok_refuses_a_pass_that_is_not_open() {
     let e = Env::ready("ov-bad");
     e.draft("src/a.rs", "cargo --version");
-    e.no(&["pack", PG, "1", "--overlap-ok", "9", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.09 is not open (no such pass)");
+    e.held_no("05", "pri", &["pack", PG, "1", "--overlap-ok", "9", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.09 is not open (no such pass)");
     let e = Env::checked("ov-closed");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    e.ok(&["close", PG, "1", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is closed)");
+    e.held_no("05", "pri", &["pack", PG, "2", "--overlap-ok", "1", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is closed)");
 }
 
 #[test]
 fn pin_text_in_pack_is_05_01() {
     let e = Env::checked("pin-pad");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    e.ok(&["close", PG, "1", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     let pack = fs::read_to_string(e.page().join("05.02/PACK.md")).unwrap();
     assert!(pack.contains("last closed 05: 05.01 closed at entry"), "{pack}");
 }
@@ -122,6 +124,7 @@ fn check_dry_run_prints_full_output_and_writes_nothing() {
     e.open("src/a.rs", "printf '%s\\n' 'running 2 tests' 'test result: ok. 2 passed' 'running 23 tests' 'test result: ok. 23 passed'");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
+    e.lock("05", "cat");
     let before = e.log();
     let out = e.ok(&["check", PG, "1", "--dry-run", "--as", "cat"]);
     assert!(out.contains("running 2 tests") && out.contains("running 23 tests"), "{out}");
@@ -129,7 +132,8 @@ fn check_dry_run_prints_full_output_and_writes_nothing() {
     assert!(out.contains("dry-run: nothing written"), "{out}");
     assert_eq!(e.log(), before);
     assert!(!before.contains("\"kind\":\"check\""));
-    let filed = e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.unlock("cat");
+    let filed = e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     assert!(filed.contains("running 2 tests") && filed.contains("running 23 tests"), "{filed}");
     assert!(e.log().contains("\"kind\":\"check\""));
 }
@@ -147,14 +151,14 @@ fn help_lists_overlap_ok_and_check_flags() {
 fn only_prime_drafts_and_packs() {
     let e = Env::ready("roles");
     e.draft("src/a.rs", "cargo --version");
-    e.no(&["pack", PG, "1", "--as", "bob"], "only the prime");
+    e.held_no("05", "bob", &["pack", PG, "1", "--as", "bob"], "only the prime");
 }
 
 #[test]
 fn first_claim_wins_and_only_holder_returns() {
     let e = Env::ready("claim");
     e.open("src/a.rs", "cargo --version");
-    e.no(&["claim", PG, "1", "--as", "eve"], "already claimed by bob");
+    e.held_no("05", "eve", &["claim", PG, "1", "--as", "eve"], "already claimed by bob");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     let (ok, out) = e.ret(1, &sha, "eve");
     assert!(!ok && out.contains("only the claim holder"), "{out}");
@@ -208,7 +212,7 @@ fn builder_cannot_check_own_work() {
     e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
-    e.no(&["check", PG, "1", "--as", "bob"], "may not check its own work");
+    e.held_no("05", "bob", &["check", PG, "1", "--as", "bob"], "may not check its own work");
 }
 
 #[test]
@@ -217,29 +221,29 @@ fn failed_check_twice_goes_up_and_blocks_passed_signoff() {
     e.open("src/a.rs", "cargo metadata --no-deps");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
-    assert!(e.ok(&["check", PG, "1", "--as", "cat"]).contains("check FAIL: cargo metadata --no-deps"));
-    e.ok(&["check", PG, "1", "--as", "cat"]);
+    assert!(e.held("05", "cat", &["check", PG, "1", "--as", "cat"]).contains("check FAIL: cargo metadata --no-deps"));
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     assert!(e.ok(&["status", PG]).contains("second failed check"));
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "check failed");
-    e.ok(&["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
-    assert!(e.ok(&["close", PG, "1", "--as", "pri"]).contains("w01 discarded"));
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "check failed");
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
+    assert!(e.held("05", "pri", &["close", PG, "1", "--as", "pri"]).contains("w01 discarded"));
 }
 
 #[test]
 fn non_prime_cannot_sign_off_and_close_needs_signoff() {
     let e = Env::checked("sign");
-    e.no(&["close", PG, "1", "--as", "pri"], "has not signed off");
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "mat"], "only the prime");
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "cat"], "only the prime");
+    e.held_no("05", "pri", &["close", PG, "1", "--as", "pri"], "has not signed off");
+    e.held_no("05", "mat", &["signoff", PG, "1", "--outcome", "passed", "--as", "mat"], "only the prime");
+    e.held_no("05", "cat", &["signoff", PG, "1", "--outcome", "passed", "--as", "cat"], "only the prime");
 }
 
 #[test]
 fn prime_change_is_kept_and_old_prime_cannot_sign() {
     let e = Env::checked("handover");
     e.ok(&["set-prime", PG, "neo", "--ref", "t275u", "--as", "mat"]);
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "only the prime (neo)");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "neo"]);
-    e.ok(&["close", PG, "1", "--as", "neo"]);
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "only the prime (neo)");
+    e.held("05", "neo", &["signoff", PG, "1", "--outcome", "passed", "--as", "neo"]);
+    e.held("05", "neo", &["close", PG, "1", "--as", "neo"]);
     let f00 = fs::read_to_string(e.page().join("00.md")).unwrap();
     assert!(f00.contains("prime:   neo") && f00.contains("  - pri: entries 1-"), "{f00}");
 }
@@ -247,11 +251,11 @@ fn prime_change_is_kept_and_old_prime_cannot_sign() {
 #[test]
 fn face_writes_follow_roles() {
     let e = Env::ready("faces");
-    e.no(&["face-write", PG, "04", "--section", "responses", "--text", "x", "--as", "pri"], "only the person");
-    e.no(&["face-write", PG, "01", "--text", "x", "--as", "mat"], "only the prime");
+    e.held_no("04", "pri", &["face-write", PG, "04", "--section", "responses", "--text", "x", "--as", "pri"], "only the person");
+    e.held_no("01", "mat", &["face-write", PG, "01", "--text", "x", "--as", "mat"], "only the prime");
     e.no(&["face-write", PG, "03", "--text", "x", "--as", "pri"], "printed by wf");
     e.no(&["face-write", PG, "05", "--text", "x", "--as", "pri"], "printed by wf");
-    e.ok(&["face-write", PG, "04", "--section", "responses", "--text", "ok", "--as", "mat"]);
+    e.held("04", "mat", &["face-write", PG, "04", "--section", "responses", "--text", "ok", "--as", "mat"]);
 }
 
 #[test]
@@ -263,7 +267,7 @@ fn hand_edited_face_is_refused_then_reprinted() {
     e.no(&["verify", PG], "view files differ from the log (hand edit or a failed reprint): 01.md");
     e.ok(&["verify", PG, "--fix"]);
     assert!(fs::read_to_string(&f).unwrap().contains("Goal: a."));
-    e.ok(&["face-write", PG, "06", "--text", "x", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "x", "--as", "pri"]);
 }
 
 #[test]
@@ -291,7 +295,7 @@ fn observer_reports_and_files_but_prime_cannot() {
     e.open("src/a.rs", "cargo --version");
     let later = e.wf_at(&["observe", PG, "--as", "olly"], Some(4_000_000_000)).1;
     assert!(later.contains("stalled: nothing has moved"), "{later}");
-    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "b works too", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "04", "--section", "goals", "--text", "b works too", "--as", "pri"]);
     assert!(e.ok(&["observe", PG]).contains("drift: 05.01 was packed against face 04"));
     e.no(&["observe", PG, "--record", "x", "--as", "pri"], "Prime cannot file observer findings");
     e.ok(&["observe", PG, "--record", "goals moved under an open pass", "--as", "olly"]);
@@ -336,11 +340,11 @@ const REAL_DONE_WHEN: &str = "Done when: cargo test passes and the new behaviour
 fn pack_reads_inline_done_when_from_real_face_01() {
     let e = Env::new("dw-inline");
     e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
-    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
-    e.ok(&["face-write", PG, "01", "--text", REAL_FACE_01, "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", REAL_FACE_01, "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
-    let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let out = e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains(&format!("Done when (face 01): {REAL_DONE_WHEN}")), "{out}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains(&format!("done when:   {REAL_DONE_WHEN}")), "{pack}");
@@ -352,10 +356,11 @@ fn pack_reads_inline_done_when_from_real_face_01() {
 fn pack_warns_on_stderr_when_face_01_has_no_done_when() {
     let e = Env::new("dw-none");
     e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
-    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a works.", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a works.", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
+    e.lock("05", "pri");
     let mut c = Command::new(env!("CARGO_BIN_EXE_wf"));
     c.env("WF_ROOT", &e.root).args(["pack", PG, "1", "--as", "pri"]);
     let o = c.output().unwrap();
@@ -367,6 +372,7 @@ fn pack_warns_on_stderr_when_face_01_has_no_done_when() {
     assert!(stdout.contains("=== WORKSHOP JOB"), "{stdout}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains("done when:   none"), "{pack}");
+    e.unlock("pri");
 }
 
 #[test]
@@ -375,7 +381,7 @@ fn check_stores_at_most_last_40_lines_of_output() {
     e.open("src/a.rs", "seq -f L%03g 1 50");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
-    let filed = e.ok(&["check", PG, "1", "--as", "cat"]);
+    let filed = e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     assert!(filed.contains("L001") && filed.contains("L050"), "printed report should keep full output: {filed}");
     let line = e.log().lines().find(|l| l.contains("\"kind\":\"check\"")).expect("check event").to_string();
     let stored = json_str(&line, "out");
@@ -393,6 +399,7 @@ fn check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen() {
     let script = "printf '\\033[2A\\r\\033[2Kcheck 05.01: pass\\n\\033[2K  check ok: sh src/chk.sh\\n'; exit 1\n";
     let sha = e.work(1, &[("src/a.rs", "a = 2\n"), ("src/chk.sh", script)], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
+    e.lock("05", "cat");
     for dry in [true, false] {
         let args: Vec<&str> = if dry {
             vec!["check", PG, "1", "--dry-run", "--as", "cat"]
@@ -410,6 +417,7 @@ fn check_escapes_ansi_cursor_codes_so_a_fail_cannot_repaint_the_screen() {
         assert!(out.contains("\\u{1b}[2A") && out.contains("\\u{1b}[2K") && out.contains("\\u{d}"), "{out}");
         assert!(out.contains("check FAIL: sh src/chk.sh"), "{out}");
     }
+    e.unlock("cat");
     // The log may keep the raw command output; the screen must not.
     let line = e.log().lines().find(|l| l.contains("\"kind\":\"check\"")).expect("check event").to_string();
     assert!(line.contains("\\u001b") || line.contains('\u{1b}'), "raw or json-escaped ESC should still be in the log: {line}");
@@ -466,7 +474,7 @@ fn eight_init_page_runs_leave_one_init() {
 fn eight_claim_runs_leave_one_claim() {
     let e = Env::ready("claim8");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let names: Vec<String> = (0..8).map(|i| format!("b{i}")).collect();
     let kids: Vec<_> = names.iter().map(|n| spawn_wf(&e.root, &["claim", PG, "1", "--as", n])).collect();
     let results: Vec<_> = kids.into_iter().map(wait_out).collect();
@@ -487,24 +495,24 @@ fn eight_claim_runs_leave_one_claim() {
 fn read_only_commands_run_while_a_lock_file_exists() {
     let e = Env::ready("nolock");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     fs::write(e.page().join(".wf-lock"), "").unwrap();
     assert!(e.ok(&["status", PG]).contains("05.01"));
     assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
     let (ok, out) = e.wf(&["observe", PG]);
     assert!(ok, "{out}");
     fs::remove_file(e.page().join(".wf-lock")).unwrap();
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
 }
 
 #[test]
 fn check_reads_done_when_from_the_pack_and_notes_drift() {
     let e = Env::ready("dwpack");
     e.open("src/a.rs", "cargo --version");
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: a is 3 and b is 9.", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a.\nDone when: a is 3 and b is 9.", "--as", "pri"]);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
-    let out = e.ok(&["check", PG, "1", "--as", "cat"]);
+    let out = e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     assert!(out.contains("done when (01): Done when: checks pass. -> checks ok; the checker judges the rest"), "{out}");
     assert!(!out.contains("Done when: a is 3 and b is 9."), "{out}");
     assert!(out.contains("drift: face 01 changed since pack (now v2 entry "), "{out}");
@@ -516,11 +524,11 @@ fn check_reads_done_when_from_the_pack_and_notes_drift() {
 fn check_lists_jobs_not_done_apart_from_checks_ok() {
     let e = Env::ready("notdone");
     e.draft_jobs("src/a.rs", "cargo --version", "w01: set a to 2\nw02: leave b alone");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2\nw02: blocked - b is outside may touch");
     assert!(e.ret(1, &sha, "bob").0);
-    let out = e.ok(&["check", PG, "1", "--as", "cat"]);
+    let out = e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     assert!(out.contains("check 05.01: pass"), "{out}");
     assert!(out.contains("job w01: done - a is 2"), "{out}");
     assert!(out.contains("job w02: blocked - b is outside may touch"), "{out}");
@@ -531,15 +539,15 @@ fn check_lists_jobs_not_done_apart_from_checks_ok() {
 fn signoff_passed_refuses_unfinished_jobs_until_named() {
     let e = Env::ready("so-jobs");
     e.draft_jobs("src/a.rs", "cargo --version", "w01: set a to 2\nw02: leave b alone");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2\nw02: blocked - b is outside may touch");
     assert!(e.ret(1, &sha, "bob").0);
-    e.ok(&["check", PG, "1", "--as", "cat"]);
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "jobs not done: w02");
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w02=carried", "--as", "pri"], "--note needs a reason and a (ref)");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w02=carried", "--note", "carry b (t275u)", "--as", "pri"]);
-    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "jobs not done: w02");
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--cards", "w02=carried", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--cards", "w02=carried", "--note", "carry b (t275u)", "--as", "pri"]);
+    let rec = e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     assert!(rec.contains("w01 accepted") && rec.contains("w02 carried"), "{rec}");
 }
 
@@ -549,33 +557,33 @@ fn signoff_passed_refuses_unanswered_person_elevation_and_drift() {
     e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
-    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     e.ok(&["elevate", PG, "1", "--to", "person", "--item", "may we accept this?", "--as", "pri"]);
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "to person has no answer");
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "to person has no answer");
     let seq = e.log().lines().enumerate().find(|(_, l)| l.contains("\"to\":\"person\"")).map(|(i, _)| i + 1).unwrap();
     e.ok(&["answer", PG, &seq.to_string(), "--text", "yes", "--as", "mat"]);
     // face 01 drift still blocks a passed signoff without a note
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "face 01 has changed since pack");
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--note", "no ref here", "--as", "pri"], "--note needs a reason and a (ref)");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--note", "same goal (t275u)", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "face 01 has changed since pack");
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--note", "no ref here", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--note", "same goal (t275u)", "--as", "pri"]);
 }
 
 #[test]
 fn overlap_ok_needs_why_and_set_prime_needs_ref() {
     let e = Env::ready("whyref");
     e.draft("src/a.rs", "cargo --version");
-    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--as", "pri"], "missing --why");
-    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
-    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "ok ( )", "--as", "pri"], "--why needs a reason and a (ref)");
-    e.no(&["pack", PG, "1", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is draft)");
+    e.held_no("05", "pri", &["pack", PG, "1", "--overlap-ok", "1", "--as", "pri"], "missing --why");
+    e.held_no("05", "pri", &["pack", PG, "1", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.held_no("05", "pri", &["pack", PG, "1", "--overlap-ok", "1", "--why", "ok ( )", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.held_no("05", "pri", &["pack", PG, "1", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is draft)");
     let e = Env::checked("setref");
     e.no(&["set-prime", PG, "neo", "--as", "mat"], "missing --ref");
     e.no(&["set-prime", PG, "neo", "--ref", " ", "--as", "mat"], "--ref must have non-blank text");
     e.ok(&["set-prime", PG, "neo", "--ref", "t275u", "--as", "mat"]);
     // changing a default card on a fully done passed pass needs --note
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--as", "neo"], "--note needs a reason and a (ref)");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "hold for later (t275u)", "--as", "neo"]);
+    e.held_no("05", "neo", &["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--as", "neo"], "--note needs a reason and a (ref)");
+    e.held("05", "neo", &["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "hold for later (t275u)", "--as", "neo"]);
 }
 
 #[test]
@@ -589,7 +597,7 @@ fn check_commands_run_without_holding_the_page_lock() {
     assert!(!e.page().join(".wf-lock").exists(), "check held .wf-lock while its command was running");
     let start = std::time::Instant::now();
     assert!(e.ok(&["status", PG]).contains("05.01"));
-    e.ok(&["face-write", PG, "06", "--text", "note during check", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "note during check", "--as", "pri"]);
     assert!(
         start.elapsed() < std::time::Duration::from_millis(800),
         "a writer took {:?} during a check; expected well under 1s",
@@ -607,23 +615,23 @@ fn answer_text_must_be_nonblank() {
     e.ok(&["elevate", PG, "1", "--to", "person", "--item", "may we accept this?", "--as", "pri"]);
     let seq = e.log().lines().enumerate().find(|(_, l)| l.contains("\"to\":\"person\"")).map(|(i, _)| i + 1).unwrap();
     e.no(&["answer", PG, &seq.to_string(), "--text", " ", "--as", "mat"], "--text must have non-blank text");
-    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "to person has no answer");
+    e.held_no("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "to person has no answer");
     e.ok(&["answer", PG, &seq.to_string(), "--text", "yes", "--as", "mat"]);
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
 }
 
 #[test]
 fn close_passed_reruns_signoff_refusals() {
     let e = Env::checked("close-re");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     e.ok(&["elevate", PG, "1", "--to", "person", "--item", "a late question", "--as", "pri"]);
-    e.no(&["close", PG, "1", "--as", "pri"], "to person has no answer");
+    e.held_no("05", "pri", &["close", PG, "1", "--as", "pri"], "to person has no answer");
     let seq = e.log().lines().enumerate().find(|(_, l)| l.contains("\"to\":\"person\"")).map(|(i, _)| i + 1).unwrap();
     e.ok(&["answer", PG, &seq.to_string(), "--text", "yes", "--as", "mat"]);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
-    e.no(&["close", PG, "1", "--as", "pri"], "face 01 has changed since pack");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--note", "same goal (t275u)", "--as", "pri"]);
-    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.held_no("05", "pri", &["close", PG, "1", "--as", "pri"], "face 01 has changed since pack");
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--note", "same goal (t275u)", "--as", "pri"]);
+    let rec = e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     assert!(rec.contains("cards:      w01 accepted"), "{rec}");
 }
 
@@ -635,7 +643,7 @@ fn check_report_includes_drift_that_happens_during_the_check() {
     assert!(e.ret(1, &sha, "bob").0);
     let slow = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
     std::thread::sleep(std::time::Duration::from_millis(200));
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
     let (ok, out) = wait_out(slow);
     assert!(ok, "{out}");
     assert!(out.contains("drift: face 01 changed since pack (now v2 entry "), "{out}");
@@ -727,8 +735,8 @@ fn return_keeps_git_letters_and_prints_them_as_evidence() {
     let face05 = fs::read_to_string(e.page().join("05.md")).unwrap();
     assert!(face05.contains("git: A .workshop/returns/10.10.10.0401.05.01.md, M src/a.rs"), "{face05}");
     assert!(face05.contains("changed: modify src/a.rs"), "{face05}");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    let rec = e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     assert!(rec.contains("git: A .workshop/returns/10.10.10.0401.05.01.md, M src/a.rs"), "{rec}");
 }
 
@@ -752,11 +760,11 @@ fn torn_last_log_line_is_named_and_left_alone() {
 #[test]
 fn close_passed_refuses_face_01_change_after_signoff_even_with_a_stored_note() {
     let e = Env::checked("close-after");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "hold for later (t275u)", "--as", "pri"]);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
-    e.no(&["close", PG, "1", "--as", "pri"], "face 01 changed after the signoff entry");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "same goal (t275u)", "--as", "pri"]);
-    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "hold for later (t275u)", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.held_no("05", "pri", &["close", PG, "1", "--as", "pri"], "face 01 changed after the signoff entry");
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "same goal (t275u)", "--as", "pri"]);
+    let rec = e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     assert!(rec.contains("w01 carried"), "{rec}");
 }
 
@@ -855,12 +863,14 @@ fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     let sha = e.git(&["rev-parse", "HEAD"]);
     e.git(&["checkout", "-q", "main"]);
     let name_ret = format!("{PG}.05.01");
+    e.lock("05", "bob");
     let (ok, out) = e.wf_git(
         &["return", PG, "1", "--branch", &format!("pass/{name_ret}"), "--commit", &sha, "--file", &format!(".workshop/returns/{name_ret}.md"), "--as", "bob"],
         "core.quotePath",
         "true",
     );
     assert!(ok, "{out}");
+    e.unlock("bob");
     let log = e.log();
     assert!(log.contains("src/a space.rs"), "{log}");
     assert!(log.contains("src/a\\tb.rs"), "{log}");
@@ -916,7 +926,7 @@ fn reprint_replaces_a_hardlinked_view_without_writing_through() {
     fs::hard_link(&view, &outside).unwrap();
     assert_eq!(fs::metadata(&view).unwrap().nlink(), 2);
 
-    e.ok(&["face-write", PG, "06", "--text", "new note", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "new note", "--as", "pri"]);
 
     assert_eq!(fs::read_to_string(&outside).unwrap(), original, "must not write through the hard link");
     assert!(view.is_file() && !view.is_symlink(), "06.md should stay a regular file");
@@ -931,9 +941,9 @@ fn draft_refuses_pass_0() {
     let f = e.root.join("pack.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
-    e.no(&["draft", PG, "--pass", "0", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
-    e.no(&["draft", PG, "--pass", "00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
-    e.no(&["draft", PG, "--pass", "05.00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
+    e.held_no("04", "pri", &["draft", PG, "--pass", "0", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
+    e.held_no("04", "pri", &["draft", PG, "--pass", "00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
+    e.held_no("04", "pri", &["draft", PG, "--pass", "05.00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
     assert!(!e.log().contains("\"kind\":\"draft\""), "pass 0 must not be logged");
 }
 
@@ -947,20 +957,14 @@ fn draft_refuses_a_99th_pass() {
     let file = f.to_str().unwrap();
     let st = e.ok(&["status", PG]);
     assert!(st.contains("05.98  closed"), "{st}");
+    // One hold covers the three refusals. The lock sits outside the snapshot: a refusal must not append.
+    e.lock("04", "pri");
     let before = e.log();
-    e.no(
-        &["draft", PG, "--file", file, "--as", "pri"],
-        "counter 98 reached: after 98 is open (QD16); ask Prime",
-    );
+    e.no(&["draft", PG, "--file", file, "--as", "pri"], "counter 98 reached: after 98 is open (QD16); ask Prime");
     assert_eq!(e.log(), before, "a refused 99th draft must not append");
-    e.no(
-        &["draft", PG, "--pass", "99", "--file", file, "--as", "pri"],
-        "counter 98 reached: after 98 is open (QD16); ask Prime",
-    );
-    e.no(
-        &["draft", PG, "--pass", "05.99", "--file", file, "--as", "pri"],
-        "counter 98 reached: after 98 is open (QD16); ask Prime",
-    );
+    e.no(&["draft", PG, "--pass", "99", "--file", file, "--as", "pri"], "counter 98 reached: after 98 is open (QD16); ask Prime");
+    e.no(&["draft", PG, "--pass", "05.99", "--file", file, "--as", "pri"], "counter 98 reached: after 98 is open (QD16); ask Prime");
+    e.unlock("pri");
     let elapsed = start.elapsed();
     assert!(
         elapsed < std::time::Duration::from_secs(10),
@@ -978,6 +982,7 @@ fn reprint_failure_after_append_says_logged_as() {
     let outside = e.root.join("ext-0501");
     fs::create_dir_all(&outside).unwrap();
     unix_fs::symlink(&outside, page.join("05.01")).unwrap();
+    e.lock("05", "pri");
     let n = e.log().lines().count() + 1;
     let (ok, out) = e.wf(&["pack", PG, "1", "--as", "pri"]);
     assert!(!ok, "{out}");
@@ -991,11 +996,14 @@ fn reprint_failure_after_append_says_logged_as() {
     assert!(e.log().contains("\"kind\":\"pack\""), "{}", e.log());
     assert!(page.join("05.01").is_symlink(), "must not replace the pre-made link");
     assert!(fs::read_dir(&outside).unwrap().next().is_none(), "must not write through the linked folder");
+    e.unlock("pri");
 }
 
 #[test]
 fn reprint_failure_when_temp_path_is_a_directory_says_logged_as() {
     let e = Env::ready("tmptmp");
+    // Lock before the temp directory exists: lockout reprints 06.md, and that reprint uses the same temp path.
+    e.lock("04", "pri");
     fs::create_dir(e.page().join(".06.md.wf-tmp")).unwrap();
     let n = e.log().lines().count() + 1;
     let (ok, out) = e.wf(&["face-write", PG, "06", "--text", "x", "--as", "pri"]);
@@ -1008,6 +1016,10 @@ fn reprint_failure_when_temp_path_is_a_directory_says_logged_as() {
     );
     assert!(!out.contains("nothing was changed"), "{out}");
     assert_eq!(e.log().lines().count(), n, "the face write must have been logged");
+    fs::remove_dir(e.page().join(".06.md.wf-tmp")).unwrap();
+    // The face write is in the log and 06.md was not reprinted. Release refuses a dirty view, so reprint from the log first. The assertion text above is unchanged.
+    e.ok(&["verify", PG, "--fix"]);
+    e.unlock("pri");
 }
 
 #[test]
@@ -1041,9 +1053,9 @@ fn halt_and_resume_need_prime_or_person_and_a_note_with_ref() {
 fn halt_is_refused_while_a_pass_is_open() {
     let e = Env::ready("halt-open");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     e.no(&["halt", PG, "--note", "stop (t1)", "--as", "pri"], "refused: 05.01 is at 'pack'; halt only when no pass is open");
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
     e.no(&["halt", PG, "--note", "stop (t1)", "--as", "mat"], "refused: 05.01 is at 'open'");
     let e = Env::checked("halt-review");
     let before = e.log();
@@ -1060,19 +1072,36 @@ fn halted_page_shows_in_status_and_stops_draft_pack_claim() {
     assert!(st.contains("halted:  by pri at ") && st.contains("wait for Matthew (t301u)"), "{st}");
     assert!(st.contains("next:    halted. Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401 --note"), "{st}");
     let f = e.root.join("pack.txt");
+    let file = f.to_str().unwrap();
+    // Draft, pack and claim need different holds, so each refusal keeps its own snapshot.
+    e.lock("04", "pri");
     let before = e.log();
-    for args in [vec!["draft", PG, "--pass", "1", "--file", f.to_str().unwrap(), "--as", "pri"], vec!["pack", PG, "1", "--as", "pri"], vec!["claim", PG, "1", "--as", "bob"]] {
-        e.no(&args, "refused: page 10.10.10.0401 is halted (by pri, entry ");
-        e.no(&args, "Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401");
-    }
+    let draft = ["draft", PG, "--pass", "1", "--file", file, "--as", "pri"];
+    e.no(&draft, "refused: page 10.10.10.0401 is halted (by pri, entry ");
+    e.no(&draft, "Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401");
     assert_eq!(e.log(), before, "refusals on a halted page must not append");
+    e.unlock("pri");
+    e.lock("05", "pri");
+    let before = e.log();
+    let pack = ["pack", PG, "1", "--as", "pri"];
+    e.no(&pack, "refused: page 10.10.10.0401 is halted (by pri, entry ");
+    e.no(&pack, "Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401");
+    assert_eq!(e.log(), before, "refusals on a halted page must not append");
+    e.unlock("pri");
+    e.lock("05", "bob");
+    let before = e.log();
+    let claim = ["claim", PG, "1", "--as", "bob"];
+    e.no(&claim, "refused: page 10.10.10.0401 is halted (by pri, entry ");
+    e.no(&claim, "Prime (pri) or the person (mat) resumes it: wf resume 10.10.10.0401");
+    assert_eq!(e.log(), before, "refusals on a halted page must not append");
+    e.unlock("bob");
     let later = e.wf_at(&["observe", PG], Some(4_000_000_000)).1;
     assert!(!later.contains("stalled"), "{later}");
     e.ok(&["resume", PG, "--note", "answered (t302u)", "--as", "mat"]);
     assert!(!e.ok(&["status", PG]).contains("halted"));
     assert!(e.wf_at(&["observe", PG], Some(4_000_000_000)).1.contains("stalled"));
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
 }
 
 #[test]
@@ -1081,27 +1110,29 @@ fn draft_is_refused_while_an_earlier_pass_is_not_closed() {
     let f = e.root.join("pack.txt");
     let file = f.to_str().unwrap().to_string();
     let refused = |tail: &str, next: &str| {
+        e.lock("04", "pri");
         let before = e.log();
         e.no(&["draft", PG, "--file", &file, "--as", "pri"], &format!("refused: 05.01 is at '{tail}' and not closed"));
         e.no(&["draft", PG, "--file", &file, "--as", "pri"], next);
         assert_eq!(e.log(), before, "a refused draft must not append");
+        e.unlock("pri");
     };
     e.draft("src/a.rs", "cargo --version");
     refused("draft", "Next for 05.01: Prime releases it: wf pack 10.10.10.0401 1, or redraft it: wf draft 10.10.10.0401 --pass 1");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     refused("pack", "Next for 05.01: a builder claims it: wf claim 10.10.10.0401 1");
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
     refused("open", "Next for 05.01: bob pushes the work, then wf return 10.10.10.0401 1");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
     refused("return", "Next for 05.01: a checker (not the builder) runs wf check 10.10.10.0401 1");
-    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     refused("review", "Next for 05.01: Prime (pri) reads the check report, then wf signoff 10.10.10.0401 1");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     refused("review", "Next for 05.01: wf close 10.10.10.0401 1");
-    e.ok(&["close", PG, "1", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
-    assert!(e.ok(&["draft", PG, "--file", &file, "--as", "pri"]).contains("drafted 05.02"));
+    e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    assert!(e.held("04", "pri", &["draft", PG, "--file", &file, "--as", "pri"]).contains("drafted 05.02"));
 }
 
 #[test]
@@ -1111,10 +1142,12 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     let f = e.root.join("p2.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
+    e.lock("04", "pri");
     let before = e.log();
     e.no(&["draft", PG, "--file", file, "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
     assert_eq!(e.log(), before, "a refused draft must not append");
-    let out = e.ok(&[
+    e.unlock("pri");
+    let out = e.held("04", "pri", &[
         "draft", PG, "--file", file, "--overlap-ok", "1", "--why", "several models can work one page (t262u)", "--as", "pri",
     ]);
     assert!(out.contains("drafted 05.02"), "{out}");
@@ -1122,11 +1155,11 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     // a pass still at draft cannot be overlapped
     let f3 = e.root.join("p3.txt");
     fs::write(&f3, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
-    e.no(
+    e.held_no("04", "pri", 
         &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "1", "--why", "again (t262u)", "--as", "pri"],
         "refused: 05.02 is at 'draft' and not closed",
     );
-    e.no(
+    e.held_no("04", "pri", 
         &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "2", "--why", "again (t262u)", "--as", "pri"],
         "--overlap-ok 05.02 is not open (tail is draft)",
     );
@@ -1134,17 +1167,17 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     let plan = "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: cargo --version\nstop if: b must change\n";
     let e = Env::ready("draft-ov-pack");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let f = e.root.join("p2.txt");
     fs::write(&f, plan).unwrap();
-    assert!(e.ok(&[
+    assert!(e.held("04", "pri", &[
         "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t262u)", "--as", "pri",
     ]).contains("drafted 05.02"));
 
     let e = Env::checked("draft-ov-rev");
     let f = e.root.join("p2.txt");
     fs::write(&f, plan).unwrap();
-    assert!(e.ok(&[
+    assert!(e.held("04", "pri", &[
         "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t262u)", "--as", "pri",
     ]).contains("drafted 05.02"));
 }
@@ -1155,10 +1188,10 @@ fn pack_refuses_overlapping_may_touch() {
     e.open("src/a.rs", "cargo --version");
     let f = e.root.join("pack.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/\nchecks: cargo --version\nstop if: b must change\n").unwrap();
-    e.ok(&[
+    e.held("04", "pri", &[
         "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri",
     ]);
-    let (ok, out) = e.wf(&["pack", PG, "2", "--as", "pri"]);
+    let (ok, out) = e.held_wf("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     assert!(!ok, "{out}");
     assert!(out.contains("overlaps open pass 05.01") && out.contains("src/") && out.contains("src/a.rs"), "{out}");
 }
@@ -1169,12 +1202,12 @@ fn pack_allows_overlap_with_flag() {
     e.open("src/a.rs", "cargo --version");
     let f = e.root.join("pack.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: b must change\n").unwrap();
-    e.ok(&[
+    e.held("04", "pri", &[
         "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri",
     ]);
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "missing --why");
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
-    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
+    e.held_no("05", "pri", &["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "missing --why");
+    e.held_no("05", "pri", &["pack", PG, "2", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.held("05", "pri", &["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
     assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("shared files (t275u)"), "{}", e.log());
 }
 
@@ -1184,18 +1217,24 @@ fn plus_one_is_not_read_as_pass_1() {
     e.draft("src/a.rs", "cargo --version");
     let f = e.root.join("pack.txt");
     let file = f.to_str().unwrap();
+    e.lock("04", "pri");
     let before = e.log();
     e.no(&["draft", PG, "--pass", "+1", "--file", file, "--as", "pri"], "bad --pass");
+    assert_eq!(e.log(), before, "+1 must not be accepted as pass 1");
+    e.unlock("pri");
+    e.lock("05", "pri");
+    let before = e.log();
     e.no(&["pack", PG, "+1", "--as", "pri"], "give the pass number, like 3 or 05.03");
     assert_eq!(e.log(), before, "+1 must not be accepted as pass 1");
+    e.unlock("pri");
     // a real pack of pass 1 still works, so the earlier +1 did not consume it
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
 }
 
 #[test]
 fn pass_100_is_not_printed_as_05_100() {
     let e = Env::ready("p100");
-    let (ok, out) = e.wf(&["pack", PG, "100", "--as", "pri"]);
+    let (ok, out) = e.held_wf("05", "pri", &["pack", PG, "100", "--as", "pri"]);
     assert!(!ok, "{out}");
     assert!(out.contains("no pass 100 on this page"), "{out}");
     assert!(!out.contains("05.100"), "{out}");
@@ -1226,7 +1265,7 @@ fn halt_note_refuses_a_newline() {
 fn job_box_names_axioms_in_the_kit_folder() {
     let e = Env::ready("kitpath");
     e.draft("src/a.rs", "cargo --version");
-    let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let out = e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("kit folder") && out.contains("docs/AXIOMS.md") && out.contains("not the run folder that holds pages/"), "{out}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     assert!(agents.contains("kit docs/AXIOMS.md") && agents.contains("not the run folder with pages/"), "{agents}");
@@ -1327,7 +1366,7 @@ fn past_packed_pages_still_verify() {
 fn new_pack_records_template_version_4() {
     let e = Env::ready("tmpl-ver");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
     assert!(log.contains("\"templates\":\"4\""), "{log}");
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
@@ -1373,7 +1412,7 @@ fn printed_fields_refuse_every_unsafe_char_class() {
     // Face text from --file keeps newlines but refuses the rest.
     let f = e.root.join("face01.txt");
     fs::write(&f, "Goal: a.\nDone when: checks pass.\n").unwrap();
-    e.ok(&["face-write", PG, "01", "--file", f.to_str().unwrap(), "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--file", f.to_str().unwrap(), "--as", "pri"]);
     fs::write(&f, "Goal: a.\u{001B}hidden\nDone when: checks pass.\n").unwrap();
     e.no(&["face-write", PG, "01", "--file", f.to_str().unwrap(), "--as", "pri"], "--file cannot contain control characters");
     fs::write(&f, "Goal: a.\r\nDone when: checks pass.\n").unwrap();
@@ -1455,12 +1494,12 @@ fn draft_field_keys_are_checked() {
     let e = Env::ready("dkey");
     let f = e.root.join("pack.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\nw0\u{1b}1: hidden\n").unwrap();
-    e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "--field cannot contain control characters");
+    e.held_no("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "--field cannot contain control characters");
     // CR in a pack field value is refused; newline is kept.
     fs::write(&f, "repo: game\nstart: main\noutcome: a =\r2\nw01: set a\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\n").unwrap();
-    e.no(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "--outcome cannot contain control characters");
+    e.held_no("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"], "--outcome cannot contain control characters");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\n  still one job\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\n").unwrap();
-    e.ok(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
+    e.held("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
 }
 
 // ---- wf board (docs/design/WF-BOARD.md): read only, built from the log ----
@@ -1476,7 +1515,7 @@ fn sha_map(dir: &PathBuf) -> std::collections::BTreeMap<String, String> {
 fn seed(e: &Env, page: &str, evs: &[(&str, &str, &str, serde_json::Value)]) {
     let mut p = wf::page::Page::load(&e.root.join("pages").join(page)).unwrap();
     for (actor, role, kind, data) in evs {
-        p.add(actor, role, kind, data.clone()).unwrap();
+        add_held(&mut p, actor, role, kind, data.clone());
     }
     wf::render::write(&p).unwrap();
 }
@@ -1583,8 +1622,8 @@ fn board_marks_a_waiting_pass_and_drift_as_stale() {
     assert!(ok && b.contains("(open)  STALE") && b.contains("STALE 05.01: wait: no log entry for 25h (last entry 7; limit 24h)"), "{b}");
     let (_, b) = e.wf_at(&["board", PG, "--stall-hours", "48"], Some(now + 25 * 3600));
     assert!(!b.contains("STALE"), "{b}");
-    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "b works too", "--as", "pri"]);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a and b.\nDone when: checks pass.", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "04", "--section", "goals", "--text", "b works too", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a and b.\nDone when: checks pass.", "--as", "pri"]);
     let b = e.ok(&["board", PG, "--card", "1"]);
     assert!(b.contains("drift: packed against face 04 entry 2; face 04 is now entry 8"), "{b}");
     assert!(b.contains("drift: packed against face 01 v1 entry 3; face 01 is now v2 entry 9"), "{b}");
@@ -1596,7 +1635,7 @@ fn board_marks_a_check_on_another_commit_and_an_old_signoff() {
     e.open("src/a.rs", "false");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
-    e.ok(&["check", PG, "1", "--as", "cat"]); // fails: entry 9
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]); // fails: entry 9
     let c = e.ok(&["board", PG, "--card", "1"]);
     assert!(c.contains("stale:      none found in the log"), "{c}");
     // A re-check after the failed check that names a commit no return names (seeded).
@@ -1612,8 +1651,8 @@ fn board_marks_a_check_on_another_commit_and_an_old_signoff() {
     assert!(code == Some(1) && out.contains("log entry 7 is out of order: a return for 05.01, which is at 'review'"), "{out}");
 
     let e = Env::checked("board-oldsign");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a, new.\nDone when: checks pass.", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a, new.\nDone when: checks pass.", "--as", "pri"]);
     let b = e.ok(&["board", PG]);
     assert!(b.contains("old signoff: face 01 changed at entry 11, after the signoff entry 10"), "{b}");
 }
@@ -1669,8 +1708,8 @@ fn board_escapes_hostile_log_text_everywhere() {
 #[test]
 fn board_card_names_evidence_paths_that_exist() {
     let e = Env::checked("board-card");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     let c = e.ok(&["board", PG, "--card", "01"]);
     let files: Vec<&str> = c.lines().filter_map(|l| l.trim().strip_prefix("file:")).map(|f| f.trim()).collect();
     assert_eq!(files.len(), 4, "{c}");
@@ -1874,6 +1913,16 @@ fn run_code(e: &Env, args: &[&str]) -> (Option<i32>, String) {
     (o.status.code(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
 }
 
+/// Lock and release a page that is not `PG`, through the real wf commands.
+fn lock_code(e: &Env, page: &str, face: &str, who: &str) {
+    let (code, out) = run_code(e, &["lockout", page, face, "--reason", "work", "--as", who]);
+    assert_eq!(code, Some(0), "{out}");
+}
+fn unlock_code(e: &Env, page: &str, who: &str) {
+    let (code, out) = run_code(e, &["release", page, "--as", who]);
+    assert_eq!(code, Some(0), "{out}");
+}
+
 /// Item 1: write commands on forged wrong-state logs refuse with exit 1, leave the log as it was and no lock.
 #[test]
 fn write_commands_on_forged_logs_refuse_without_a_panic() {
@@ -1956,18 +2005,21 @@ fn pass_numbers_outside_01_98_are_refused_not_wrapped() {
     write_log(&dir, &evs);
     let (code, out) = run_code(&e, &["board", "7.0.0.4"]);
     assert!(code == Some(1) && out.contains("a pack for pass 4294967297, outside 01-98 (R9)"), "{out}");
-    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    e.lock("04", "pri");
     let before = e.log();
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
     let err = p.add("pri", "prime", "draft", serde_json::json!({"pass": 4_294_967_297u64, "fields": {}, "pins": {}})).unwrap_err();
     assert!(err.contains("outside 01-98 (R9)"), "{err}");
     assert_eq!(e.log(), before);
-    e.no(&["claim", PG, "4294967297", "--as", "bob"], "give the pass number");
+    e.unlock("pri");
+    e.held_no("05", "bob", &["claim", PG, "4294967297", "--as", "bob"], "give the pass number");
 }
 
 /// Item 4: a refused write through the tool's append says the write is refused and why.
 #[test]
 fn refused_append_says_nothing_was_written_and_why() {
     let e = Env::ready("append-guard");
+    e.lock("05", "bob");
     let before = e.log();
     let mut p = wf::page::Page::load(&e.page()).unwrap();
     let err = p.add("bob", "builder", "claim", serde_json::json!({"pass": 5})).unwrap_err();
@@ -1975,6 +2027,7 @@ fn refused_append_says_nothing_was_written_and_why() {
     let err = p.add("mat", "person", "init", serde_json::json!({"address": PG})).unwrap_err();
     assert_eq!(err, "refused, nothing written: a second init: only entry 1 starts the page");
     assert_eq!(e.log(), before);
+    e.unlock("bob");
     assert!(!err.contains("cannot be read"));
     assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
 }
@@ -1999,9 +2052,9 @@ fn overlap_ok_error_for_pass_100_does_not_print_05_100() {
     let e = Env::ready("ovl100");
     let f = e.root.join("pack.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a\nmay touch: src/a.rs\nchecks: cargo --version\nstop if: none\n").unwrap();
-    let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "100", "--why", "shared files (t262u)", "--as", "pri"]);
+    let (ok, out) = e.held_wf("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "100", "--why", "shared files (t262u)", "--as", "pri"]);
     assert!(!ok && out.contains("--overlap-ok pass 100 is not open (no such pass)") && !out.contains("05.100"), "{out}");
-    let (ok, out) = e.wf(&["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "005", "--why", "shared files (t262u)", "--as", "pri"]);
+    let (ok, out) = e.held_wf("04", "pri", &["draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "005", "--why", "shared files (t262u)", "--as", "pri"]);
     assert!(!ok && out.contains("--overlap-ok 05.05 is not open (no such pass)"), "{out}");
     e.draft("src/a.rs", "cargo --version");
     assert_eq!(e.ok(&["board", PG, "--card", "001"]), e.ok(&["board", PG, "--card", "05.01"]));
@@ -2075,11 +2128,13 @@ fn check_after_a_signoff_says_signed_off_and_next_close() {
     e.open("src/a.rs", "false");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
-    e.ok(&["check", PG, "1", "--as", "cat"]);
-    e.ok(&["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
+    e.lock("05", "cat");
     let before = e.log();
     e.no(&["check", PG, "1", "--as", "cat"], "refused: 05.01 was signed off by pri at entry 10 (outcome failed), so it cannot be checked again; nothing was written. Next: wf close 10.10.10.0401 1");
     assert_eq!(e.log(), before);
+    e.unlock("cat");
     assert!(!e.page().join(".wf-lock").exists());
 }
 
@@ -2151,10 +2206,12 @@ fn signed_off_refusal_escapes_log_text() {
     }
     fs::write(dir.join("log.jsonl"), out).unwrap();
     run_code(&e, &["verify", "5.0.0.3", "--fix"]); // print the views from the log, so check reaches the signoff test
+    lock_code(&e, "5.0.0.3", "05", "cat");
     let (code, msg) = run_code(&e, &["check", "5.0.0.3", "1", "--as", "cat"]);
     assert_eq!(code, Some(1), "{msg}");
     assert!(msg.contains("was signed off by p\\u{1b}[2Kri\\u{202e} at entry 7"), "{msg}");
     assert!(!msg.contains('\u{1b}') && !msg.contains('\u{202e}'), "{msg}");
+    unlock_code(&e, "5.0.0.3", "cat");
 }
 
 /// G2: a SHA-256 git repo (64-hex commits) runs return, check, signoff and close, and the page loads.
@@ -2173,17 +2230,17 @@ fn sha256_repo_runs_a_full_pass_and_loads() {
     e.git(&["add", "."]);
     e.git(&["commit", "-q", "-m", "start"]);
     e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
-    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a.\nDone when: checks pass.", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
     e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert_eq!(sha.len(), 64, "{sha}");
     let (ok, out) = e.ret(1, &sha, "bob");
     assert!(ok, "{out}");
-    e.ok(&["check", PG, "1", "--as", "cat"]);
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
-    e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["close", PG, "1", "--as", "pri"]);
     assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
     assert!(e.ok(&["status", PG]).contains("05.01  closed   passed"));
     assert!(e.ok(&["board", PG, "--card", "1"]).contains(&sha));
@@ -2243,7 +2300,7 @@ fn board_card_shows_full_commits_on_return_and_check() {
     e.open("src/a.rs", "cargo --version");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
     assert!(e.ret(1, &sha, "bob").0);
-    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.held("05", "cat", &["check", PG, "1", "--as", "cat"]);
     let card = e.ok(&["board", PG, "--card", "1"]);
     let line = |k: &str| card.lines().find(|l| l.trim_start().starts_with(k)).unwrap_or_else(|| panic!("{k}: {card}")).to_string();
     assert!(line("return:").contains(&format!("commit {sha};")), "{card}");
@@ -2320,11 +2377,13 @@ fn halted_refusal_escapes_forged_halt_name_and_note() {
     write_log(&dir, &[("init", init_data("7.2.0.1"), Some(1)), halt]);
     set_actor(&dir, "halt", bad);
     run_code(&e, &["verify", "7.2.0.1", "--fix"]);
+    lock_code(&e, "7.2.0.1", "05", "bob");
     let (code, out) = run_code(&e, &["claim", "7.2.0.1", "1", "--as", "bob"]);
     assert_eq!(code, Some(1), "{out}");
     let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
     assert!(out.contains(&format!("refused: page 7.2.0.1 is halted (by {esc}, entry 2: {esc})")), "{out}");
     no_raw_ctrl(&out);
+    unlock_code(&e, "7.2.0.1", "bob");
 }
 
 /// Role refusals escape a forged Prime and person (must_be and prime_or_person).
@@ -2339,10 +2398,12 @@ fn role_refusals_escape_a_forged_prime_and_person() {
     write_log(&dir, &[("init", init, Some(1))]);
     run_code(&e, &["verify", "7.2.0.2", "--fix"]);
     let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
+    lock_code(&e, "7.2.0.2", "04", "zed");
     let (code, out) = run_code(&e, &["face-write", "7.2.0.2", "06", "--text", "n", "--as", "zed"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("refused: only the prime ({esc}) may do this, not zed")), "{out}");
     no_raw_ctrl(&out);
+    unlock_code(&e, "7.2.0.2", "zed");
     let (code, out) = run_code(&e, &["halt", "7.2.0.2", "--note", "why (t1)", "--as", "zed"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("refused: only Prime ({esc}) or the person ({esc}) may do this, not zed")), "{out}");
@@ -2359,6 +2420,7 @@ fn claim_refusals_escape_a_forged_holder() {
     set_actor(&dir, "claim", bad);
     run_code(&e, &["verify", "7.2.0.3", "--fix"]);
     let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
+    lock_code(&e, "7.2.0.3", "05", "ann");
     let (code, out) = run_code(&e, &["claim", "7.2.0.3", "1", "--as", "ann"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("refused: 05.01 is already claimed by {esc} (first claim wins)")), "{out}");
@@ -2367,6 +2429,7 @@ fn claim_refusals_escape_a_forged_holder() {
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("refused: only the claim holder ({esc}) may return")), "{out}");
     no_raw_ctrl(&out);
+    unlock_code(&e, "7.2.0.3", "ann");
 }
 
 /// Return's branch and return-file refusals escape forged pack fields.
@@ -2382,6 +2445,7 @@ fn return_refusals_escape_forged_pack_branch_and_file() {
     run_code(&e, &["verify", "7.2.0.4", "--fix"]);
     let esc = "b\\u{1b}[2K\\u{d}f\\u{202e}";
     let sha = "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12";
+    lock_code(&e, "7.2.0.4", "05", "pri");
     let (code, out) = run_code(&e, &["return", "7.2.0.4", "1", "--branch", "other", "--commit", sha, "--file", "f", "--as", "pri"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("branch must be {esc}")), "{out}");
@@ -2390,13 +2454,14 @@ fn return_refusals_escape_forged_pack_branch_and_file() {
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("return file must be {esc}")), "{out}");
     no_raw_ctrl(&out);
+    unlock_code(&e, "7.2.0.4", "pri");
 }
 
 /// Close prints a record with escaped checker, branch, command and note; the signer refusal is escaped too.
 #[test]
 fn close_escapes_forged_record_fields_and_the_signer_refusal() {
     let e = Env::checked("close-esc");
-    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.held("05", "pri", &["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     let bad = "x\u{1b}[2K\rZ\u{202e}";
     let esc = "x\\u{1b}[2K\\u{d}Z\\u{202e}";
     patch_log(&e.page(), |v| {
@@ -2412,6 +2477,10 @@ fn close_escapes_forged_record_fields_and_the_signer_refusal() {
             m.remove("templates"); // an unhashed pack is only lawful as a pre-t373u (v1) entry
             m.remove("links");
         }
+        if (v["kind"] == "lockout" || v["kind"] == "release") && v["actor"] == "cat" {
+            // The check sits inside cat's hold. The forged checker has to be that holder or the log will not load.
+            v["actor"] = serde_json::json!(bad);
+        }
         if v["kind"] == "check" {
             v["actor"] = serde_json::json!(bad);
             if let Some(arr) = v["data"]["results"].as_array_mut() {
@@ -2425,6 +2494,7 @@ fn close_escapes_forged_record_fields_and_the_signer_refusal() {
         }
     });
     run_code(&e, &["verify", PG, "--fix"]);
+    lock_code(&e, PG, "05", "pri");
     let (code, out) = run_code(&e, &["close", PG, "1", "--as", "pri"]);
     assert_eq!(code, Some(0), "{out}");
     assert!(out.contains(&format!("on {esc}")), "branch: {out}");
@@ -2432,15 +2502,18 @@ fn close_escapes_forged_record_fields_and_the_signer_refusal() {
     assert!(out.contains(&format!("{esc} ok")) || out.contains(&format!("{esc} FAIL")), "cmd: {out}");
     assert!(out.contains(&format!("note:       {esc}")), "note: {out}");
     no_raw_ctrl(&out);
+    unlock_code(&e, PG, "pri");
 
     let dir = e.root.join("pages/7.2.0.5");
     write_log(&dir, &[("init", init_data("7.2.0.5"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)]);
     set_actor(&dir, "signoff", bad);
     run_code(&e, &["verify", "7.2.0.5", "--fix"]);
+    lock_code(&e, "7.2.0.5", "05", "pri");
     let (code, out) = run_code(&e, &["close", "7.2.0.5", "1", "--as", "pri"]);
     assert_eq!(code, Some(1), "{out}");
     assert!(out.contains(&format!("refused: {esc} was not prime at entry 7")), "{out}");
     no_raw_ctrl(&out);
+    unlock_code(&e, "7.2.0.5", "pri");
 }
 
 /// observe escapes a forged job key in the 'same blocker again' line.
@@ -2506,7 +2579,7 @@ fn pack_data(e: &Env) -> serde_json::Value {
 fn t373u_hand_edited_agents_md_is_invalid() {
     let e = Env::ready("hash-edit");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let pk = pack_data(&e);
     let agents = e.page().join("05.01/AGENTS.md");
     let released = fs::read(&agents).unwrap();
@@ -2523,6 +2596,7 @@ fn t373u_hand_edited_agents_md_is_invalid() {
     assert!(out.contains("AGENTS.md for pass 05.01 is invalid: hash mismatch"), "{out}");
     assert!(out.contains(&format!("the log recorded {}", &sha_hex(&released)[..12])), "{out}");
     let log = e.log();
+    // The view check refuses this before any lock. A lockout would be refused the same way.
     e.no(&["claim", PG, "1", "--as", "bob"], "AGENTS.md for pass 05.01 is invalid: hash mismatch");
     assert_eq!(e.log(), log, "a refused claim wrote to the log");
 
@@ -2530,7 +2604,7 @@ fn t373u_hand_edited_agents_md_is_invalid() {
     assert!(out.contains("reprinted from the log: 05.01/AGENTS.md"), "{out}");
     assert_eq!(fs::read(&agents).unwrap(), released, "--fix must restore the released bytes");
     assert!(e.ok(&["verify", PG]).contains("every view matches the log"));
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
 }
 
 /// The text this wf would print no longer matches the recorded hash (here the entry's
@@ -2540,7 +2614,7 @@ fn t373u_hand_edited_agents_md_is_invalid() {
 fn t373u_changed_template_with_fix_is_refused() {
     let e = Env::ready("hash-tmpl");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let pk = pack_data(&e);
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
@@ -2575,7 +2649,7 @@ fn t373u_changed_template_with_fix_is_refused() {
 fn t373u_old_page_without_a_hash_still_verifies() {
     let e = Env::ready("hash-old");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
             let m = v["data"].as_object_mut().unwrap();
@@ -2591,7 +2665,7 @@ fn t373u_old_page_without_a_hash_still_verifies() {
     assert!(out.contains("05.01: AGENTS.md no hash recorded (before t373u); PROMPT.md no hash recorded (before t373u)"), "{out}");
     let card = e.ok(&["board", PG, "--card", "1"]);
     assert!(card.contains("released: AGENTS.md no hash recorded (before t373u)"), "{card}");
-    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    e.held("05", "bob", &["claim", PG, "1", "--as", "bob"]);
 
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
@@ -2622,7 +2696,7 @@ fn pack_of(e: &Env, nn: u64) -> serde_json::Value {
 fn reuse_page(name: &str) -> Env {
     let e = Env::ready(name);
     e.close_one(1);
-    e.ok(&["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
     e
 }
@@ -2630,7 +2704,7 @@ fn reuse_page(name: &str) -> Env {
 #[test]
 fn t378u_unchanged_agents_md_is_reused() {
     let e = reuse_page("reuse-same");
-    let out = e.ok(&["pack", PG, "2", "--as", "pri"]);
+    let out = e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     let (p1, p2) = (pack_of(&e, 1), pack_of(&e, 2));
     let released = fs::read(e.page().join("05.01/AGENTS.md")).unwrap();
     assert_eq!(p1["agents_hash"].as_str().unwrap(), sha_hex(&released));
@@ -2649,7 +2723,7 @@ fn t378u_unchanged_agents_md_is_reused() {
     let card = e.ok(&["board", PG, "--card", "2"]);
     assert!(card.contains(&format!("file:     pages/{PG}/05.01/AGENTS.md (reused, t378u)")), "{card}");
     assert!(card.contains(&format!("released: AGENTS.md {h} reused from 05.01")), "{card}");
-    let c = e.ok(&["claim", PG, "2", "--as", "bob"]);
+    let c = e.held("05", "bob", &["claim", PG, "2", "--as", "bob"]);
     assert!(c.contains(&format!("Read pages/{PG}/05.02/PROMPT.md and pages/{PG}/05.01/AGENTS.md")), "{c}");
 }
 
@@ -2657,10 +2731,10 @@ fn t378u_unchanged_agents_md_is_reused() {
 fn t378u_changed_agents_text_prints_a_new_hashed_file() {
     let e = Env::ready("reuse-new");
     e.close_one(1);
-    e.ok(&["face-write", PG, "01", "--text", "Goal: a, now with b in mind.\nDone when: checks pass.", "--as", "pri"]);
-    e.ok(&["face-write", PG, "06", "--text", "read 04, close 1 and the new 01", "--as", "pri"]);
+    e.held("01", "pri", &["face-write", PG, "01", "--text", "Goal: a, now with b in mind.\nDone when: checks pass.", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04, close 1 and the new 01", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
-    let out = e.ok(&["pack", PG, "2", "--as", "pri"]);
+    let out = e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     let (p1, p2) = (pack_of(&e, 1), pack_of(&e, 2));
     let new = fs::read(e.page().join("05.02/AGENTS.md")).unwrap();
     assert!(String::from_utf8_lossy(&new).contains("face 01 v2 text"), "{}", String::from_utf8_lossy(&new));
@@ -2675,7 +2749,7 @@ fn t378u_changed_agents_text_prints_a_new_hashed_file() {
 #[test]
 fn t378u_hand_edit_of_a_reused_agents_md_is_invalid() {
     let e = reuse_page("reuse-edit");
-    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     let f = e.page().join("05.01/AGENTS.md");
     let released = fs::read(&f).unwrap();
     let mut edited = released.clone();
@@ -2711,7 +2785,7 @@ fn t378u_hand_edit_of_a_reused_agents_md_is_invalid() {
 fn t379u_valid_links_pass() {
     let e = Env::ready("links-ok");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let pk = pack_of(&e, 1);
     let links = pk["links"].as_array().unwrap();
     assert_eq!(links.len(), 4, "{pk}");
@@ -2734,7 +2808,7 @@ fn t379u_valid_links_pass() {
 fn t379u_edited_link_target_is_invalid() {
     let e = Env::ready("links-edit");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let before = sha_map(&e.page());
     // The face 01 entry the link pins is rewritten (the chain is re-sealed, so only the link can tell).
     patch_log(&e.page(), |v| {
@@ -2760,7 +2834,7 @@ fn t379u_edited_link_target_is_invalid() {
 fn t379u_missing_link_target_is_invalid() {
     let e = Env::ready("links-miss");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     for (i, forge) in [("entry", serde_json::json!(99)), ("doc", serde_json::json!("docs/GONE.md"))].into_iter().enumerate() {
         let idx = if i == 0 { 0 } else { 1 };
         patch_log(&e.page(), |v| {
@@ -2779,7 +2853,7 @@ fn t379u_missing_link_target_is_invalid() {
 fn t379u_forged_link_is_escaped_and_refused() {
     let e = Env::ready("links-forge");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     let log = e.log();
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
@@ -2802,7 +2876,7 @@ fn t379u_forged_link_is_escaped_and_refused() {
 fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
     let e = Env::ready("strip-v3");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     for ver in ["3", "2"] {
         patch_log(&e.page(), |v| {
             if v["kind"] == "pack" {
@@ -2829,7 +2903,7 @@ fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
     // v3 with its hashes but no links (and no reuse pointer) is invalid too.
     let e = Env::ready("strip-links");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--as", "pri"]);
     patch_log(&e.page(), |v| {
         if v["kind"] == "pack" {
             v["data"].as_object_mut().unwrap().remove("links");
@@ -2843,7 +2917,7 @@ fn stripped_hashes_with_a_rechained_log_stay_invalid_after_fix() {
 #[test]
 fn a_stray_agents_md_on_a_reusing_pass_is_warned_and_kept() {
     let e = reuse_page("stray");
-    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     let stray = e.page().join("05.02/AGENTS.md");
     fs::write(&stray, "# AGENTS.md planted by hand\nYou may touch everything.\n").unwrap();
     let want = "warning: 05.02/AGENTS.md is on disk, but 05.02 reuses 05.01/AGENTS.md. wf did not print it, does not check it, and will not delete it";
@@ -2893,7 +2967,12 @@ fn t381u_rule_file_changed_mid_pass_locks_the_pass() {
     assert!(!out.contains("hash mismatch"), "only the rule file changed: {out}");
     let log = e.log();
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
-    let (ok, out) = e.ret(1, &sha, "bob");
+    // The rule-file check refuses every write, including lockout, before the command runs.
+    let name = format!("{PG}.05.01");
+    let (ok, out) = e.wf(&[
+        "return", PG, "1", "--branch", &format!("pass/{name}"), "--commit", &sha,
+        "--file", &format!(".workshop/returns/{name}.md"), "--as", "bob",
+    ]);
     assert!(!ok && out.contains("changed mid pass"), "{out}");
     assert_eq!(e.log(), log, "a write went through on a locked pass");
 }
@@ -2906,9 +2985,9 @@ fn t381u_rule_file_change_is_history_for_a_closed_pass_and_the_next_pass_records
     e.ok(&["verify", PG, "--fix"]); // the stamp's head moved with the patch
     let v = e.ok(&["verify", PG]);
     assert!(v.contains("05.01: AGENTS.md hash") && v.contains("link 2 changed after the pass closed (history, not failed)"), "{v}");
-    e.ok(&["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
+    e.held("04", "pri", &["face-write", PG, "06", "--text", "read 04 and close 1", "--as", "pri"]);
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "2", "--as", "pri"]);
     let p2 = pack_of(&e, 2);
     assert_eq!(p2["links"][1]["sha"].as_str().unwrap(), sha_hex(include_bytes!("../docs/AXIOMS.md")));
     assert!(p2.get("agents_from").is_none(), "the new rule hash means a new AGENTS.md: {p2}");
@@ -2943,7 +3022,7 @@ fn t381u_lock_shows_in_status_and_observe_still_runs() {
 fn t401u_pack_on_the_shared_branch_prints_one_builder_prompt() {
     let e = Env::ready("builder-prompt");
     e.draft("src/a.rs", "cargo --version");
-    e.ok(&["pack", PG, "1", "--branch", "returns", "--as", "pri"]);
+    e.held("05", "pri", &["pack", PG, "1", "--branch", "returns", "--as", "pri"]);
     let pk = pack_of(&e, 1);
     assert_eq!(pk["branch"], "returns");
     let b = fs::read_to_string(e.page().join("05.01/BUILDER-PROMPT.md")).unwrap();
