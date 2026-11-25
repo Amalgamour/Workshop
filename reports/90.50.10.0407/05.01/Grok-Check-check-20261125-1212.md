@@ -1,0 +1,53 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0407 05.01
+- Kind: check
+- Verdict: fail
+- Commands run:
+  - git checkout -- pages; git pull --ff-only origin packs
+  - git -C work fetch origin; git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe verify 90.50.10.0407
+  - cargo test --lib; cargo test --test page_0407, at 38a9b7f1814c0a0abb5f8b68d641abfd13011eec with CARGO_TARGET_DIR C:\Users\misg\AppData\Local\Temp\wf-0407-ret-target
+  - wf.exe check 90.50.10.0407 1 --dry-run
+  - wf.exe check 90.50.10.0407 1 --fail "tests/lab_0407.rs is not in this return and is not on returns, so the lab trial has not passed in lab 0701. Face 01 says another view writes that trial after this return, and the grant does not include it." --note "Entry 9 elevates w02 as need. Stopping without a dropped page is the stop-if working as written: the log has no dropped state until 0409, and inventing one is forbidden. w02 is not a missing job. The band door lists each page in its band with its log state, and a non-door page has no list."
+  - copy pages/90.50.10.0407/log.jsonl to work/.workshop/logs/90.50.10.0407/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0407
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --lib: 51 passed, 0 failed, finished in 0.06s, compile 4.96s. cargo test --test page_0407: 1 passed, 0 failed, finished in 0.09s, compile 2.50s. Worktree C:\Users\misg\AppData\Local\Temp\wf-check-15880-38a9b7f1. Frame ok. Wall 8189 ms, 2026-11-25T18:11:43Z through 18:11:51Z.
+  - Recorded check exit 0. The same two commands passed: cargo test --lib 51 passed, 0 failed, finished in 0.06s, compile 4.97s. cargo test --test page_0407 1 passed, 0 failed, finished in 0.13s, compile 2.58s. Worktree C:\Users\misg\AppData\Local\Temp\wf-check-12044-38a9b7f1. Frame ok: A .workshop/returns/90.50.10.0407.05.01.md, M src/render.rs, A tests/page_0407.rs.
+  - Both packed runs used a worktree of 38a9b7f1814c0a0abb5f8b68d641abfd13011eec.
+  - wf printed each Done when line as "checks ok; the checker judges the rest" and printed "jobs not done: w02" because the return marks w02 need. That text is the packed-command result. The verdict is fail because of --fail.
+- Results:
+  - wf check 05.01: fail (exit 0).
+  - Wall time of the recorded check: 8354 ms, 2026-11-25T18:12:01Z through 2026-11-25T18:12:10Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539.
+  - Separate target at the return commit: cargo test --lib exit 0, 51 passed, 0 failed, finished in 0.07s, compile 5.19s. cargo test --test page_0407 exit 0, 1 passed, 0 failed, finished in 0.09s, compile 2.57s. Wall of that set: 2026-11-25T18:11:07Z through 18:11:15Z.
+  - The pack start a823ee284574be3d9f6247925b9088137a27a539 is an ancestor of the return. The return is an ancestor of the 0423 repair bf5207807781cbf16f52f7270dc0f09d8a3a175e. Later 0423 helper failures are outside this pass. This commit's lib suite is 51 tests.
+  - Verify after the log push: ok, log chain holds (10 entries, head ccf7cb23e9d8). Views match. 05.01 AGENTS.md 78526c7f73b8, PROMPT.md 8dfc82b7a77c. Links 4 hold.
+  - Before the check the returns log and the run-folder log were equal, 20613 bytes, 9 lines, head 6962fc66efe4. After the check the local log is 30502 bytes, 10 lines. The published log at origin/returns was still those 20613 bytes after returns moved from 28f055bc to cc5f95fa. Those commits do not change this page's log. The 9-line log is a byte prefix of the local log. The work tree was fast-forwarded, the file was copied, and the copied bytes match. The pushed file is that 10-line log.
+  - Intake took the 05.01 claim, return, and elevation (3 entries) and also took 0419. It refused only 90.50.00.0001 and 90.50.10.0403 because those logs do not continue. Intake exit 1 is that pair. 0419 was not checked.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - pack is entry 6, pack hash 7ac8e94417e60349fb1c5d2cda794ab6aa5f4db8d07ea71a26dd52109787f387
+  - claim is entry 7, actor Grok-1, role builder, pass 1, time 2026-11-23T19:23:15Z, prev 9c2d0110f8692f6249ea83bf35ee6aebd92b098e659a9e5d20ae32adc818c196
+  - return is entry 8, actor Grok-1, role builder, pass 1, time 2026-11-23T19:37:01Z, commit 38a9b7f1814c0a0abb5f8b68d641abfd13011eec, file .workshop/returns/90.50.10.0407.05.01.md, text hash 8f227bf138fd2ded9dd34bb41b6f8baa67f2fb5b0b8650eeb9a8d27ed7f28eb0, prev 03f0174a67a2ea6d11cafef70dd7121cf29fd661c75c351d546095a26f005cd3
+  - elevation is entry 9, actor wf, role tool, pass 1, to prime, time 2026-11-23T19:37:01Z, item w02 need
+  - check is entry 10, actor Grok-Check, role checker, pass 1, verdict fail, time 2026-11-25T18:12:10Z, prev 6962fc66efe49c8404d4102b81300f13ce19f0b31c770cf662ef65fdefee1137. Line hash ccf7cb23e9d899d1269ff1aa16de08f4aa5abb920db770fca7dd4abca6c81ff9.
+- Push commits:
+  - check log a0927e82bd84a3d0fcd583c94b9f25164770b41c
+  - builder commit 38a9b7f1814c0a0abb5f8b68d641abfd13011eec
+  - pack start a823ee284574be3d9f6247925b9088137a27a539
+  - pack hash 7ac8e94417e60349fb1c5d2cda794ab6aa5f4db8d07ea71a26dd52109787f387
+- Face 01 drift:
+  - Sealed pin: v1 entry 2 hash 556630a7d2d0.
+  - Live face 01: v1 entry 2 hash 556630a7d2d0.
+  - The dry-run and the recorded check printed no drift line.
+- Evidence:
+  - Diff a823ee28..38a9b7f1 is three files, 262 insertions: A .workshop/returns/90.50.10.0407.05.01.md, M src/render.rs (87 lines added), A tests/page_0407.rs (98 lines). src/addr.rs is unchanged.
+  - Done when, a band door lists each page in its band with its state: met. src/render.rs:365-367 prints `type: band` and the contents only when page_kind is BandHead. src/render.rs:391-420 reads the pages directory and keeps folders whose band head is this door (src/addr.rs:89-94). src/render.rs:440-450 prints halted, the newest pass tail that is not closed, closed, or init. A claim's tail is open (src/page.rs:328-331, unchanged). tests/page_0407.rs:74-83 requires type: band and the lines for 10.10.10.0400 init, 0401 open, 0402 closed, 0403 halted, and 0404 unreadable because that folder has no log. It excludes 10.10.10.0501 and a notes folder. The test passed.
+  - Done when, a dropped page shows as dropped: the stop-if working as written. Entry 9 elevates w02 need. The return says the test does not show a dropped page because the log has no dropped state until 0409. src/render.rs:390 and src/render.rs:439 say the list does not invent dropped. tests/page_0407.rs:86 requires the door text to contain no "dropped". A folder with no log is printed as unreadable (src/render.rs:425-426), and a page with no folder is not in the directory the list reads. Inventing a dropped state is the stop-if. Stopping there and saying so is what w02 requires. w02 is not a missing job. This line is not the --fail.
+  - Done when, a non-door page shows no list: met. tests/page_0407.rs:88-95 stamps the open page 10.10.10.0401 and the other-band page 10.10.10.0501. Neither contains `type: band` or `contents:`. The test passed.
+  - Done when, cargo test --test page_0407 passes on the box: met. The separate run and both packed runs passed, 1 passed, 0 failed. The file has no std::os::unix and no check command that is only true, grep, or test.
+  - Done when, the lab trial tests/lab_0407.rs passes in lab 0701: not met. Face 01 says that file is written by another view after this return. The grant does not include it. The return's not-done line says it was not written or run here. The return tree has no tests/lab_0407.rs. returns HEAD has no tests/lab_0407.rs. This is why the verdict is fail.
+- Code commit: 38a9b7f1814c0a0abb5f8b68d641abfd13011eec
