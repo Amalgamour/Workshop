@@ -1,0 +1,55 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0419 05.02
+- Kind: check
+- Verdict: pass
+- Commands run:
+  - git checkout -- pages; git pull --ff-only origin packs
+  - git -C work fetch origin; git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe verify 90.50.10.0419
+  - cargo test --lib; cargo test --test page_0419; cargo test --test lab_0419, at fa82cf29b9e7278263640645f605cbe54b92eb89 with CARGO_TARGET_DIR C:\Users\misg\AppData\Local\Temp\wf-0419-ret-target
+  - cargo test --test lab_0419 on a823ee284574be3d9f6247925b9088137a27a539 with only tests/lab_0419.rs added
+  - cargo test --test lab_0419 on 710485918b0f7ef90638d8ab57c363ba1f2d0a71 with only tests/lab_0419.rs added
+  - wf.exe check 90.50.10.0419 2 --dry-run
+  - wf.exe check 90.50.10.0419 2
+  - copy pages/90.50.10.0419/log.jsonl to work/.workshop/logs/90.50.10.0419/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0419
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --lib: 52 passed, 0 failed, finished in 0.22s, compile 4.79s. cargo test --test page_0419: 4 passed, 0 failed, finished in 0.13s, compile 2.69s. cargo test --test lab_0419: 1 passed, 0 failed, finished in 0.14s, compile 0.32s. Worktree C:\Users\misg\AppData\Local\Temp\wf-check-1776-fa82cf29. Frame ok. Wall 9107 ms, 2026-11-25T18:00:17Z through 18:00:26Z.
+  - Recorded check exit 0. cargo test --lib: 52 passed, 0 failed, finished in 0.12s, compile 5.11s. cargo test --test page_0419: 4 passed, 0 failed, finished in 0.13s, compile 2.55s. cargo test --test lab_0419: 1 passed, 0 failed, finished in 0.14s, compile 0.34s. Worktree C:\Users\misg\AppData\Local\Temp\wf-check-6520-fa82cf29. Frame ok: A .workshop/returns/90.50.10.0419.05.02.md, A tests/lab_0419.rs.
+  - Both packed runs used a worktree of fa82cf29b9e7278263640645f605cbe54b92eb89.
+  - wf printed each Done when line as "checks ok; the checker judges the rest" and echoed w01 as done. That text is the packed-command result. The verdict is pass.
+- Results:
+  - wf check 05.02: pass (exit 0). No --fail. No note.
+  - Wall time of the recorded check: 9147 ms, 2026-11-25T18:02:43Z through 2026-11-25T18:02:52Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539.
+  - Separate target at the return commit: cargo test --lib exit 0, 52 passed, 0 failed, finished in 0.13s, compile 7.54s. cargo test --test page_0419 exit 0, 4 passed, 0 failed, finished in 0.14s, compile 2.68s. cargo test --test lab_0419 exit 0, 1 passed, 0 failed, finished in 0.21s, compile 0.33s. Wall of that set: 2026-11-25T17:59:54Z through 18:00:06Z.
+  - On a823ee284574be3d9f6247925b9088137a27a539 with the returned tests/lab_0419.rs copied in and left uncommitted: cargo test --test lab_0419 exit 101, 0 passed, 1 failed, finished in 0.00s, compile 7.65s. Panic at tests/lab_0419.rs:19: missing tests/page_0419.rs; the 05.01 outside test is absent. That commit has no tests/page_0419.rs. Wall 2026-11-25T17:59:54Z through 18:00:02Z.
+  - On 710485918b0f7ef90638d8ab57c363ba1f2d0a71 with the same uncommitted file: cargo test --test lab_0419 exit 0, 1 passed, 0 failed, finished in 0.29s, compile 7.66s. Wall 2026-11-25T17:59:54Z through 18:00:02Z.
+  - The pack start 4dc2e0f076326657a7f4ac232bf8edd6733464c2 is an ancestor of the return. The return is an ancestor of the 0423 repair bf5207807781cbf16f52f7270dc0f09d8a3a175e. Later 0423 helper failures are outside this pass.
+  - Verify after the log push: ok, log chain holds (20 entries, head 60850212fdec). Views match. 05.01 AGENTS.md e404380168ef, PROMPT.md 07b2cc478934. 05.02 AGENTS.md 96f611bac36e, PROMPT.md 76cef319a4ad. Links 4 hold.
+  - Before the check the returns log and the run-folder log were equal, 49083 bytes, 19 lines, head e45844d740c4. After the check the local log is 59987 bytes, 20 lines. The published log at origin/returns was still those 49083 bytes, including after returns moved from f2178076 to 259e72b2. That commit does not change this page's log. The 19-line log is a byte prefix of the local log. The work tree was fast-forwarded, the file was copied, and the copied bytes match. The pushed file is that 20-line log.
+  - Intake took the 05.02 claim and return (2 entries) and also took 0407 and 0701. It refused only 90.50.00.0001 and 90.50.10.0403 because those logs do not continue. Intake exit 1 is that pair. Those other pages were not checked.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - pack is entry 17, pack hash b1882a4544faf8fa7865d570c351f2633df21cd4e049528bf9eb073a8c1e43f6
+  - claim is entry 18, actor Grok-3, role builder, pass 2, time 2026-11-23T19:24:46Z, prev c69f31487dc17ba974a4ff6036143a21c00ea7aa29d3cfabd87d7d89191a2a8d
+  - return is entry 19, actor Grok-3, role builder, pass 2, time 2026-11-23T19:38:49Z, commit fa82cf29b9e7278263640645f605cbe54b92eb89, file .workshop/returns/90.50.10.0419.05.02.md, text hash c7b9dbdbf95477e4e28af8322c13ca1e916dfd5b6bdf5fb3cd9632ad3a0b63fb, prev 4d6b9e51ec3decc49e002a9f98984854895f22555a22cfcdf7cc76eb38b3cf9e
+  - check is entry 20, actor Grok-Check, role checker, pass 2, verdict pass, time 2026-11-25T18:02:52Z, prev e45844d740c44743e95ba9b2b9aef6a441157c884f1c2df3942dba4a2b238d51. Line hash 60850212fdecabfe88d656fd1be0757d2ddeba66b00e472e69d365f59c2b310b.
+- Push commits:
+  - check log b3fe52730a1682428c0b4c4a8e6f22ae10abb7c5
+  - builder commit fa82cf29b9e7278263640645f605cbe54b92eb89
+  - pack start 4dc2e0f076326657a7f4ac232bf8edd6733464c2
+  - pack hash b1882a4544faf8fa7865d570c351f2633df21cd4e049528bf9eb073a8c1e43f6
+  - 05.01 return 710485918b0f7ef90638d8ab57c363ba1f2d0a71
+- Face 01 drift:
+  - Sealed pin: v2 entry 13 hash 8c21ee105930.
+  - Live face 01: v2 entry 13 hash 8c21ee105930.
+  - The dry-run and the recorded check printed no drift line.
+- Evidence:
+  - Diff 4dc2e0f0..fa82cf29 is two files, 95 insertions: A .workshop/returns/90.50.10.0419.05.02.md (11 lines) and A tests/lab_0419.rs (84 lines). src/git.rs and tests/page_0419.rs are unchanged from the pack start.
+  - Done when 1, met. cargo test --test lab_0419 passed on the return commit in the separate target and in both packed runs. The one test is safe_git_grep_form_holds_outside_page_0419 (tests/lab_0419.rs:13-45). It starts with `mod common;` (line 1) and uses common::PG (line 15).
+  - Done when 2, met. tests/lab_0419.rs:17-19 reads tests/page_0419.rs and panics with "missing tests/page_0419.rs; the 05.01 outside test is absent" when that read fails. On a823ee284574be3d9f6247925b9088137a27a539 the file is absent and the trial exited 101 at that line. On this return, and on 710485918b0f7ef90638d8ab57c363ba1f2d0a71 with the same lab file added, the trial passed.
+  - Done when 3, met. The safe form `git grep -q -E [#][#][[:space:]]0[.] -- <file>` is the constant at tests/page_0419.rs:7 and the run comment at src/git.rs:124-127. tests/page_0419.rs:57-63 matches a heading under sh -c. tests/page_0419.rs:92-99 matches it under cmd /C. The bare form is tests/page_0419.rs:8. tests/page_0419.rs:66-72 requires exit 128 and "no pattern given". src/git.rs:118-122 documents that a token starting with # is a comment under sh -c, that the bare form gets no pattern, and that it exits 128. tests/page_0419.rs:75-85 and the lab at tests/lab_0419.rs:24-31 require those sentences to stay in the run comment. The lab pattern token is checked at tests/lab_0419.rs:33-37: no caret, no quotes, no space, and it does not start with #. The lab runs the safe form under sh -c at lines 40-41 (exit 0) and the bare form at lines 42-44 (exit 128, "no pattern given"). The unit test git::tests::bracket_hash_git_grep_matches_a_heading_through_run (src/git.rs:224-228) passed inside the 52 lib tests.
+- Code commit: fa82cf29b9e7278263640645f605cbe54b92eb89
