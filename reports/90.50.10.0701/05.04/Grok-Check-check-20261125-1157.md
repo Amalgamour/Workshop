@@ -1,0 +1,55 @@
+# Report
+
+- Builder: Grok-Check
+- Page/pass: 90.50.10.0701 05.04
+- Kind: check
+- Verdict: pass
+- Commands run:
+  - git checkout -- pages; git pull --ff-only origin packs
+  - git -C work fetch origin; git -C work pull --ff-only origin returns
+  - wf.exe intake
+  - wf.exe verify 90.50.10.0701
+  - cargo test --test lab_0423, twice, at 89b1dedd90edef02e8f19a52da5f36268b386f28 with CARGO_TARGET_DIR C:\Users\misg\AppData\Local\Temp\wf-0701-0504-target
+  - wf.exe check 90.50.10.0701 4 --dry-run
+  - wf.exe check 90.50.10.0701 4
+  - copy pages/90.50.10.0701/log.jsonl to work/.workshop/logs/90.50.10.0701/log.jsonl; git add -- that path; commit; git -C work push origin returns
+  - wf.exe verify 90.50.10.0701
+- Packed Cargo, separate from the verdict:
+  - Dry-run exit 0. Wrote nothing. cargo test --test lab_0423: 4 passed, 0 failed, finished in 5.37s. Compile finished in 5.34s. Frame ok. Wall 11382 ms, 2026-11-25T17:56:38Z through 17:56:49Z.
+  - Recorded check exit 0. cargo test --test lab_0423: 4 passed, 0 failed, finished in 5.94s. Compile finished in 6.27s. Frame ok: A .workshop/returns/90.50.10.0701.05.04.md, A tests/lab_0423.rs.
+  - Both packed runs used a worktree of 89b1dedd90edef02e8f19a52da5f36268b386f28.
+  - wf printed each Done when line as "checks ok; the checker judges the rest" and echoed w01-w04 as done. That text is the packed-command result. The verdict is pass.
+- Results:
+  - wf check 05.04: pass (exit 0). No --fail. No note.
+  - Wall time of the recorded check: 12800 ms, 2026-11-25T17:56:56Z through 2026-11-25T17:57:09Z. Windows PowerShell 5.1. Checker wf.exe is the install built from a823ee284574be3d9f6247925b9088137a27a539. The trial binary is the one cargo built for the returned commit.
+  - Separate target, same commit, first run: exit 0, 4 passed, 0 failed, finished in 6.64s, wall 16109 ms including compile 7.70s.
+  - Second run: exit 0, 4 passed, 0 failed, finished in 6.07s, wall 6126 ms.
+  - Temp folders: before either run, %TEMP%\lab0423-failed-1b0d2c1 was already present. After both runs that directory is still the only lab0423 folder. No lab0423-<pid>-* roots remain. tests/lab_0423.rs:305-309 keeps that directory when built-from.txt matches 1b0d2c123f7fc8537dcac1e6819f2456a781890f. The per-test roots are removed in Root::drop (tests/lab_0423.rs:23-28).
+  - Verify after the log push: ok, log chain holds (40 entries, head 32de2d2e1042). Views match. 05.01 AGENTS.md 66ac07c0ab76, PROMPT.md c13f5ff606f7. 05.02 AGENTS.md b71d13ba443c, PROMPT.md ecc1f7a7a919. 05.03 AGENTS.md d50f26d8cc59, PROMPT.md 13c09ebae12f. 05.04 AGENTS.md 27551cdb4084, PROMPT.md e5c343965bc9. Links 4 hold.
+  - Before the check the returns log and the run-folder log were equal, 96166 bytes, 39 lines. After the check the local log is 101395 bytes, 40 lines. The 39-line returns log was a byte prefix. The pushed file is that 40-line log.
+  - Intake took the 05.04 claim and return (2 entries) and also took 0407 and 0419. It refused only 90.50.00.0001 and 90.50.10.0403 because those logs do not continue. Intake exit 1 is that pair. Those other pages were not checked.
+  - Did not sign off. Did not close.
+- wf entry numbers:
+  - pack is entry 37, pack hash 6c5192505588597d9969e4030dadaac2a9549613bf5433c2813d2ef7d20b8141
+  - claim is entry 38, actor Grok-1, role builder, pass 4, time 2026-11-24T21:43:47Z
+  - return is entry 39, actor Grok-1, role builder, pass 4, time 2026-11-24T21:54:50Z, commit 89b1dedd90edef02e8f19a52da5f36268b386f28, file .workshop/returns/90.50.10.0701.05.04.md, text hash 405dec90dd98e771d16c1ab8a38f9cde8f8c0bdc283cf2fa39ce6185ba8425ab
+  - check is entry 40, actor Grok-Check, role checker, pass 4, verdict pass, time 2026-11-25T17:57:09Z, prev 6ab7dc7384ec420e7ad4dc7bee502c70f7650738edf851df08d3c36d3a003584. Line hash 32de2d2e1042d215416be4c889706cc26918a3096650b3fc886fe29e9db0c6d4.
+- Push commits:
+  - check log 1cda2c6ce03857c061d70f82520ec47be5b8fab5
+  - builder commit 89b1dedd90edef02e8f19a52da5f36268b386f28
+  - pack start 14467f3e79e859b45d8cc5a6789ec00616db4480
+  - pack hash 6c5192505588597d9969e4030dadaac2a9549613bf5433c2813d2ef7d20b8141
+  - failed 05.01 build 1b0d2c123f7fc8537dcac1e6819f2456a781890f
+  - passing 0423 build bf5207807781cbf16f52f7270dc0f09d8a3a175e is an ancestor of the pack start
+- Face 01 drift:
+  - Sealed pin: v6 entry 33 hash 0e94d5e33926.
+  - Live face 01: v6 entry 33 hash 0e94d5e33926.
+  - The dry-run and the recorded check printed no drift line.
+- Evidence:
+  - Diff 14467f3e..89b1dedd is two files, 637 insertions: A .workshop/returns/90.50.10.0701.05.04.md and A tests/lab_0423.rs. The file does not say `mod common` and does not import wf. Every command is a process of CARGO_BIN_EXE_wf (tests/lab_0423.rs:71-87).
+  - Done when 1, met. tests/lab_0423.rs:340-394 locks face 05, reads with try-out, status, board and verify, and asserts the log bytes stay the same. A second writer is refused on faces 01 and 04, on face-write, and on release (lines 374-378). The same worker locks 10.20.30.0402 and writes face 02 while the first log stays byte-identical (lines 380-393). The test passed on both runs.
+  - Done when 2, met. tests/lab_0423.rs:419-421 refuses the checker while bob holds face 05. Lines 423-437 release, then require the published bytes to be a strict prefix of the generated log. Lines 439-461 commit that unchanged log by path, and a fresh root intakes it, takes the checker lock, and records check 05.01: pass by cat after bob's lockout, claim, return and release. The return file names this path commit. The pack allows it because wf release is local. The test passed on both runs.
+  - Done when 3, met. tests/lab_0423.rs:471-500 publishes the bytes `not-the-page-log`, refuses return --push with the prefix sentence, and keeps those remote bytes. A plain git push of an unrelated commit is refused with non-fast-forward, a different message, and the remote bytes stay the same. Lines 502-523 accept a valid extension and require the remote log to equal the local log. No force push. The test passed on both runs.
+  - Done when 4, met. tests/lab_0423.rs:534-567 records an override for book Prime lead, rotates the book Prime to bea, and requires status and verify to read the page while the work log stays byte-identical. A fresh lock refuses lead, pri and old, and accepts bea. Lines 569-581: with no book page, pri is refused with "the book Prime is missing", and mat is accepted with fallback missing-book. Lines 584-607 run the same succession on the failed 05.01 build 1b0d2c123f7fc8537dcac1e6819f2456a781890f. Status fails, and the output contains "log entry 3 is out of order", "only the book's Prime (bea) or the person (mat) may override", and "the page cannot be read". Verify fails with "the page cannot be read". The log bytes stay the recorded override. A later override attempt also cannot read the page. The test passed on both runs, so that negative result was produced.
+  - Done when 5, met. Both direct runs and both packed runs passed on Windows. The only changed files are tests/lab_0423.rs and the return file.
+- Code commit: 89b1dedd90edef02e8f19a52da5f36268b386f28
