@@ -1,13 +1,16 @@
 # Fire sale: Monday review list
 
-state: review, not a ruling. By Prima's fire-sale worker, Thu Nov 26 2026, 12:34 AM EST.
-For: Prima first, then Matthew for the four questions. Nothing here was applied. No work page was edited.
+state: review, not a ruling. By Prima's fire-sale worker, Thu Nov 26 2026, 12:34 AM EST. Updated 12:59 AM EST (job 19: H3, U1-U3 and the board survey default ranked in; job 20: consistency pass).
+For: Prima first, then Matthew for the six questions. Nothing here was applied. No work page was edited.
 
 Merged from:
 - the Nov 30 fix proposal: docs/review/FIRE-SALE-2026-11-26-NOV30-FIX-PROPOSAL.md (Fix 1-17)
 - the Done-when pass: docs/review/FIRE-SALE-2026-11-26-DONE-WHEN.md (DW1-DW11)
 - the question sweep: docs/review/FIRE-SALE-2026-11-26-QUESTION-SWEEP.md
 - the parked questions in the catch-log and stale-doc audits (Q1, Q2)
+- the seqAddr.md fix proposal: docs/review/FIRE-SALE-2026-11-26-SEQADDR-SPEC-FIX-PROPOSAL.md (H1-H6; H3 is a question)
+- the UI-1 check: docs/review/FIRE-SALE-2026-11-26-UI1-CHECK.md (U1-U6; U1-U3 are Medium)
+- the board survey: docs/research/BOARD-DESIGN-ALTERNATIVES-2026-11-26.md (options A-C, Q1-Q11)
 
 ## Where the fix proposal and the Done-when pass don't line up
 
@@ -31,15 +34,18 @@ Proposed text for Prima to add to the fix proposal (Prima decides; none of it ch
 |---|---|---|---|
 | 1 | 0426's Prime is Claude, so it can't be signed off (DW1, G1) | DONE-WHEN.md DW1; docs/plan/WORK-PAGE-2026-11-25.md:65 | **Matthew** (question M1) |
 | 2 | Q13's default fails in the tool. Reshape it (F1, Fix 1, G4) | NOV30-FIX-PROPOSAL.md Fix 1; docs/quality/CATCH-LOG.md row 19 | **Matthew** answers the reshaped Q13 (question M2). Prima applies Fix 1 first |
-| 3 | Claude's check is promised but no pack does it (F4, Fix 4) | NOV30-FIX-PROPOSAL.md Fix 4 | Prima (adds 3 Codex packs, about 15% of Codex's week) |
-| 4 | X3/X4/X6 repack text is stale or misses the Done-when findings (Fix 2-3, G2, G3, G5) | NOV30-FIX-PROPOSAL.md Fix 2-3; this file, proposed text above | Prima |
-| 5 | Claude and Codex sub-lead files still read as live (S2, S3) | STALE-DOCS.md S2, S3, Q2 | **Matthew** (question M3) |
-| 6 | File the Nov 24-25 DIRECTOR-WORDS (S8) | docs/review/FIRE-SALE-2026-11-26-DIRECTOR-WORDS-DRAFT.md | Prima matches the t-numbers. Ask Matthew what "it" means in M2, and what he meant in M13 ("you should then your authority under me") |
-| 7 | Who writes a catch row when Prima made the mistake (A4) | CATCH-LOG-AUDIT.md A4, Q1 | **Matthew** (question M4) |
-| 8 | Old questions still shown open but answered: QD01/O6 (t512), QD22 (t541u), T1 (t401u), sample-page check (t267u), QD06 put off (t585u) | QUESTION-SWEEP.md top findings 1-6; STALE-DOCS.md S13-S15 | Prima (records fix) |
-| 9 | Medium and Low text fixes on the Nov 30 page (Fix 5-17) | NOV30-FIX-PROPOSAL.md | Prima (Fix 9 changes a default: if Prima reads A as the design-following option, nothing changes for Matthew) |
+| 3 | H3: once plain 05 is the seat, the 05 pass board has no address. seqAddr.md 5.7 line 202 says it "stays `05.00`", which R9 refuses at parse, and 0418 w01 copies that sentence. Blocks 0418 | docs/review/FIRE-SALE-2026-11-26-SEQADDR-SPEC-FIX-PROPOSAL.md section H3 (four-part question); PROTOTYPES.md H3 and P1 | **Prima or Matthew** (question M5). Default A: the board is derived from the log and has no address (R9, no new grammar) |
+| 4 | Claude's check is promised but no pack does it (F4, Fix 4) | NOV30-FIX-PROPOSAL.md Fix 4 | Prima (adds 3 Codex packs, about 15% of Codex's week) |
+| 5 | X3/X4/X6 repack text is stale or misses the Done-when findings (Fix 2-3, G2, G3, G5) | NOV30-FIX-PROPOSAL.md Fix 2-3; this file, proposed text above | Prima |
+| 6 | UI-1 check U1-U3 (Medium): U1 invents a "pending" card state (wf has accepted, carried, discarded, candidate); U2 marks the job step "missing" before close, though return and signoff entries carry it; U3 repeats the stale DESIGN.md:15-16 "ids not checked" line, though 0403 passed. Claude changed no data | docs/review/FIRE-SALE-2026-11-26-UI1-CHECK.md U1-U3 and proposed catch rows P1-P3 (P4 is a self-catch) | Prima (route the fixes to labs/ui-scaffold/ in a fenced pack, with an independent check per t580u; write or drop rows P1-P4; returns docs/DESIGN.md:15-16 goes on the stale-doc list) |
+| 7 | Claude and Codex sub-lead files still read as live (S2, S3) | STALE-DOCS.md S2, S3, Q2 | **Matthew** (question M3) |
+| 8 | File the Nov 24-25 DIRECTOR-WORDS (S8) | docs/review/FIRE-SALE-2026-11-26-DIRECTOR-WORDS-DRAFT.md | Prima matches the t-numbers. Ask Matthew what "it" means in draft message M2, and what he meant in draft message M13 ("you should then your authority under me"). These are the draft's own M-numbers, not the M1-M6 questions below |
+| 9 | Who writes a catch row when Prima made the mistake (A4) | CATCH-LOG-AUDIT.md A4, Q1 | **Matthew** (question M4) |
+| 10 | Board survey default: Option A, wf makes the board as JSON (`wf board --json`, book board first) and the Next.js front only draws it, read-only until stage 7. Claude's UI-1 picked the same A on its own | docs/research/BOARD-DESIGN-ALTERNATIVES-2026-11-26.md sections 3-5 (Q1-Q11, each with a default) | **Matthew** (question M6, survey Q1). Nothing is built until 0424 closes, so it can wait |
+| 11 | Old questions still shown open but answered: QD01/O6 (t512), QD22 (t541u), T1 (t401u), sample-page check (t267u), QD06 put off (t585u) | QUESTION-SWEEP.md top findings 1-6; STALE-DOCS.md S13-S15 | Prima (records fix) |
+| 12 | Medium and Low text fixes on the Nov 30 page (Fix 5-17) | NOV30-FIX-PROPOSAL.md | Prima (Fix 9 changes a default: if Prima reads A as the design-following option, nothing changes for Matthew) |
 
-Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pack after C2 is used.
+Do 1 and 2 before the next stage1-route pack (X3 on), and 3 before 0418 is released. Do 4 before any Claude pack after C2 is used. Do 6 before UI-1 feeds a build page or item 10 is built on it.
 
 ## Questions for Matthew
 
@@ -66,7 +72,7 @@ Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pac
 - A (default): Keep the three held until a granted wf fix makes "withdrawn" final for drafting. Then the Prime withdraws each and repacks with the Done-when fixes. No pass is reopened by hand and wf stays in control (t528u).
 - B: Approve a pinned build with withdraw now, and accept that the repack waits on that same fix.
 - C: Keep them held with no fix planned.
-- D (untested, added by self-check SC2): leave each 05.01 packed and have the Prime draft a fresh 05.02 with `--overlap-ok 1` and a why, which the pinned wf allows for an open (packed) pass. Not tried. Risk: the stale 05.01 stays claimable.
+- D (added by self-check SC2, WORK-PAGE-REVIEW.md): leave each 05.01 packed and have the Prime draft a fresh 05.02 with `--overlap-ok 1` and a why, which the pinned wf allows for an open (packed) pass. Tried in a sandbox by job 12 (PROTOTYPES.md, Job 12): it works, but 05.01 and 05.02 could then both be claimed by two builders. So 05.01 has to be withdrawn or closed right after, which hits the same wf gap as A.
 
 **What happens if no answer.** All three stay held, as now. The replacement pack drafts (X4, X5) can still be written and wait.
 
@@ -74,7 +80,7 @@ Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pac
 
 **Question.** SUB-LEADS.md (t560u) and CLAUDE-LEAD-0422.md (t554u) still make Claude a lead who runs wf. Do they still stand?
 
-**Why it matters.** Both read as live rules. A new session would give Claude a lead job with wf, against the no-wf rule on WORK-PAGE-2026-11-30.md:39-40 (Prima's application of t580u). t572u said the trial was not a success.
+**Why it matters.** Both read as live rules. A new session would give Claude a lead job with wf, against the no-wf rule on WORK-PAGE-2026-11-30.md:40 (Prima's application of t580u). t572u said the trial was not a success.
 
 **Options.**
 - A (default): Pause both for Claude, under the Nov 30 page's Claude rules (t580u as applied). Claude does only fenced lab packs. Codex keeps lab and evidence work with no lead role. Prima leads 0422. This follows the latest rulings and the current work pages.
@@ -96,7 +102,16 @@ Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pac
 
 **What happens if no answer.** Prima keeps writing them, each marked "written by the maker (Prima)" so it is easy to check later.
 
+### M5. Where is the 05 pass board read once plain 05 is the seat? (H3)
+
+Written in full, in four parts, in docs/review/FIRE-SALE-2026-11-26-SEQADDR-SPEC-FIX-PROPOSAL.md section H3. In short: A (default) the board is derived from the log and has no address; B plain 05 means board, then seat; C a new tail like `05.board`; D an R9 exception for `05.00`. If no answer, 0418 stays held and nothing else is blocked.
+
+### M6. Which data flow builds the board front? (board survey Q1)
+
+Written in full in docs/research/BOARD-DESIGN-ALTERNATIVES-2026-11-26.md section 5, Q1 (Q2-Q11 follow, each with a default). In short: A (default) wf makes the board as JSON and the front only draws it; B wf writes snapshot files and the front is static; C the web side reads the logs itself. If no answer, plan A and build nothing until 0424 closes.
+
 ## Not on this list
 
-- Low Done-when wording (DW7, DW9, DW11): fold into the repacks with item 4.
-- The 66 open rows of the question sweep: only the answered ones are listed (item 8). QUESTIONS-2026-11-19 should be re-checked against the chat record.
+- Low Done-when wording (DW7, DW9, DW11): fold into the repacks with item 5.
+- UI-1 check U4-U6 (Low) and seqAddr H1, H2, H4-H6: text fixes that follow rulings already given; they wait for 0418.05.01 to close (t381u).
+- The 66 open rows of the question sweep: only the answered ones are listed (item 11). QUESTIONS-2026-11-19 should be re-checked against the chat record.
