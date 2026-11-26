@@ -1,6 +1,6 @@
 # Fire sale: independent check of Claude's UI-1 return
 
-Prima fire-sale worker, Thu Nov 26 2026, about 1:00 AM EST. Read only. Checked per t580u (any Claude change to data, logs or tests gets an independent check).
+Prima fire-sale worker, Thu Nov 26 2026, 12:55 AM EST. Read only. Checked per t580u (any Claude change to data, logs or tests gets an independent check).
 
 ## What was checked
 

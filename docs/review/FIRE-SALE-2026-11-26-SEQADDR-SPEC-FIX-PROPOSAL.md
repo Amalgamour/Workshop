@@ -1,6 +1,6 @@
 # Fire sale: seqAddr.md fix proposal for H1-H6
 
-Prima fire-sale worker, Thu Nov 26 2026, about 12:55 AM EST. Draft only. **`docs/spec/seqAddr.md` was not edited.**
+Prima fire-sale worker, Thu Nov 26 2026, 12:52 AM EST. Draft only. **`docs/spec/seqAddr.md` was not edited.**
 
 Source of H1-H6: job 13 in `docs/review/FIRE-SALE-2026-11-26-PROTOTYPES.md` (scratch commit `07cd904`, tests/hostile.rs, 40 of 40 pass).
 Spec text quoted from `docs/spec/seqAddr.md` on build (last changed 46aac4d, Nov 23). Line numbers are that file.
