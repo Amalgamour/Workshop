@@ -1,6 +1,6 @@
 # Stale-doc audit: docs/plan/ and docs/design/
 
-Written by the Prima fire-sale worker, Thu Nov 26 2026, about 12:45 AM EST.
+Written by the Prima fire-sale worker, Thu Nov 26 2026, about 12:21 AM EST.
 All times are EST. This audit does not edit any of the docs it names.
 
 ## How I checked
@@ -90,9 +90,38 @@ This is a targeted pass, not a line-by-line read of all 95 files. The big old de
 - The EOW page (issue 4) already flags it. UI-1 (returns d7da9e80) designs the new card.
 - Fix: none now. Mark WF-BOARD.md "replaced by labs/ui-scaffold once checked".
 
+## Part 2: the old question lists
+
+Added later the same night, after jobs 1-3 were done and usage remained.
+I checked the three question lists in docs/design/ against newer rulings.
+
+### S13. Medium. QD01 (seated face 05) is listed open, but Matthew approved it.
+- Doc: docs/design/QUESTIONS-FOR-DIRECTOR.md:23 "QD01. Is face 05 a seated face now, or does it stay a task list?" under "Open" (:21). Last change f867b08, Nov 12.
+- Same question: docs/design/DECISIONS-WAITING.md:64 "O6. Best pass seated on plain 05?" (last change decdd2c, Nov 17).
+- Newer: docs/review/DIRECTOR-WORDS-t512-seated05-approval.md:7 "Yes, approve the seated-05 rule change" (Nov 23). Built as page 0418 (GROK-BUILDER-QUEUE.md:102: "a body on face 05 with no counter is the seat; 05.NN stays a pass").
+- Fix: mark QD01 and O6 "answered t512" with a pointer.
+
+### S14. Low. QD06 (sign-in) is listed open and blocking, but Matthew put it off.
+- Doc: docs/design/QUESTIONS-FOR-DIRECTOR.md:86-95. "Blocks: every write path".
+- Newer: t585u (Nov 25): proper sign-in for each model and person comes at a later dev stage. For now, typed-for notes stand in. (No DIRECTOR-WORDS file yet, see S8.)
+- Fix: mark QD06 "deferred by t585u; not blocking now".
+
+### S15. Medium. QD22 (taking back an abandoned task) is listed open, but t541u answered it.
+- Doc: docs/design/QUESTIONS-FOR-DIRECTOR.md:220-225. "Refused until you decide."
+- Newer: docs/review/DIRECTOR-WORDS-t541-mvp-gaps.md:67-79: the book's Prime (project lead) or a higher authority may break an abandoned lock, always with a recorded reason. Built into 0423 (lockout, abandoned-lock override).
+- This is close to QD22's Option A (a written decision with an approval). It rules out a time-out.
+- Fix: mark QD22 "answered t541u (book Prime or higher, with reason)".
+
+### S16. Low. None of the three question lists has an "answered since" marker.
+- docs/design/QUESTIONS-FOR-DIRECTOR.md (Nov 12, 519 lines), docs/design/OPEN.md (Nov 11, 255 lines), docs/design/DECISIONS-WAITING.md (Nov 17, 210 lines).
+- Many rulings came after (t333u to t593u). I checked only QD01, QD06, QD16, QD22 and O6. QD16 (after task 98) is still truly open: R9 removed slot 99 (docs/spec/DIRECTOR-RULINGS.md:37-38) but did not say what comes after 98.
+- Why it matters: a session that reads these lists will ask Matthew questions he already answered.
+- Fix: one Codex lab pack: "sweep the three lists; mark each item answered (cite), deferred (cite) or still open". Read only, outside src/ and pages/.
+
 ## Count
 
-12 findings: 3 High, 5 Medium, 4 Low.
+16 findings: 3 High, 7 Medium, 6 Low.
+(Part 1: S1-S12. Part 2: S13-S16.)
 
 ## Parked question for Matthew
 

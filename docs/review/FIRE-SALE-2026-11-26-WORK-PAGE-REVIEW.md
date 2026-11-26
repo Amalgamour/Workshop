@@ -4,7 +4,7 @@ Pages checked:
 - docs/plan/WORK-PAGE-2026-11-30.md (local 514b850 + f6d47b0; published 4e57df04 + d83fbc16)
 - docs/plan/WORK-PAGE-2026-11-25-EOW.md (local 7fe0dbf; published 5201b243)
 
-Written by the Prima fire-sale worker, Thu Nov 26 2026, about 12:20 AM EST.
+Written by the Prima fire-sale worker, Thu Nov 26 2026, about 12:17 AM EST.
 All times are EST.
 
 This review does not edit the work pages. Each finding has a suggested fix.
