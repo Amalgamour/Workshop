@@ -4,7 +4,7 @@ Pages checked:
 - docs/plan/WORK-PAGE-2026-11-30.md (local 514b850 + f6d47b0; published 4e57df04 + d83fbc16)
 - docs/plan/WORK-PAGE-2026-11-25-EOW.md (local 7fe0dbf; published 5201b243)
 
-Written by the Prima fire-sale worker, Thu Nov 26 2026, about 12:17 AM EST.
+Written by the Prima fire-sale worker, Thu Nov 26 2026, finished 12:18 AM EST (log time; was "about 12:17", see SC5).
 All times are EST.
 
 This review does not edit the work pages. Each finding has a suggested fix.
@@ -148,3 +148,57 @@ Severity: **High** = could send a worker the wrong way or break a rule. **Medium
 ## Count
 
 19 findings: 4 High, 6 Medium, 9 Low.
+
+## Self-check
+
+Second hostile view of this review, by the same fire-sale worker, Thu Nov 26 2026, 12:36 AM EST.
+Every line and commit cite above was re-checked against the local repo (build) and a read-only clone of the public repo (packs c697e035, returns ec78461d, prima/build 5201b243).
+**The findings above are left as written.** Corrections are listed here.
+
+Result: 15 of 19 findings hold as written. F1 holds but overclaims and missed an option (SC1, SC2). F4 and F8 cite t580u for more than Matthew said (SC3). F16 has a wrong line cite (SC4). The header time and the packs tip were wrong (SC5, SC6).
+
+### SC1. Medium. F1 overclaims what `wf draft` refuses.
+- F1 says `wf draft` "refuses any pass tail that is not closed (src/cmd.rs@1e0d74c6 lines 293-298)".
+- Exact: it refuses unless the Prime names that pass with `--overlap-ok` and a why, and the named pass has an open tail: pack, open, return or review (src/cmd.rs@1e0d74c6:290-299, overlap_ok_flag at :329-342; src/page.rs@1e0d74c6:226-228). The refusal spans 293-299, not 293-298.
+- "withdrawn" is not an open tail, so `--overlap-ok` can't name a withdrawn pass. **F1's conclusion stands**: withdraw-then-repack is refused.
+
+### SC2. High. F1 and Nov 30 Fix 1 missed an option for Q13.
+- The three held passes are at tail "pack", which is open. The pinned a823 wf has the same rule (src/cmd.rs@a823ee28:286-294, src/page.rs@a823ee28:151-153).
+- So the Prime may be able to run `wf draft <page> --pass 2 --overlap-ok 1 --why "..."` today and draft a fresh 05.02 with no withdraw at all.
+- **Not tried.** I did not check whether claim, pack or close of 05.02 refuse while 05.01 is still packed. The risk: a stale 05.01 stays claimable unless every prompt says not to claim it. It also sets a precedent of open passes stacking on one page (t533u: one worker per page).
+- So it is not a default. But Matthew should see it as an option, marked untested. Added as option D to M2 in docs/review/FIRE-SALE-2026-11-26-MONDAY-LIST.md.
+
+### SC3. Medium. F4 and F8 cite t580u for rules Matthew did not state.
+- F4: "t580u says any Claude change needs an independent check." F8: "t580u (memory, Nov 25): Claude has no close or signoff authority, and its changes are checked independently."
+- Matthew's own words (M9 in docs/review/FIRE-SALE-2026-11-26-DIRECTOR-WORDS-DRAFT.md): "I also see we have issues with claude being able to poison datasets it decides it doesn't like so we need to be careful with claude moving into the future."
+- The independent check, no wf and no signoff rules are **Prima's application** of t580u on WORK-PAGE-2026-11-30.md:37-42. I cited them from a memory summary as if they were his words.
+- The findings still hold, because the page sets those rules itself. The right cite is "t580u as applied on WORK-PAGE-2026-11-30.md:37-42".
+- The same slip is in DONE-WHEN DW1 and STALE-DOCS S2 and S3. It is corrected in the Monday list (M1, M3). F19's cite ("t580u warns about data poisoning") is right.
+
+### SC4. Low. F16 has a wrong line cite.
+- F16 says "Grok-Check report f2178076 line 44". In that commit the report is reports/90.50.10.0701/05.04/Grok-Check-check-20261125-1157.md. The intake refusal of 90.50.00.0001 and 90.50.10.0403 is at **line 30**. Line 44 is "Face 01 drift".
+
+### SC5. Low. The header time, and a log line that overclaimed a fix.
+- The log line at 12:22 AM EST says the "about ... EST" times were fixed in the three review headers. This file (line 7) and CATCH-LOG-AUDIT.md (line 3) still said "about". Both are fixed now, to the log's finish times.
+
+### SC6. Low. The packs tip in "How I checked" was one commit stale.
+- I recorded packs 88be5702. The packs head was already c697e035 ("wf: publish 90.50.10.0423.05.03", Wed 5:41 PM EST), the only commit after 88be5702.
+- No finding changes: the 0423.05.03 failure was read from returns ec78461d. But DONE-WHEN's line "Nothing moved since the first round" is wrong against this record. The first round's packs tip was what was stale.
+
+### SC7. Low (in the Nov 30 fix proposal, also my first-round work). Fix 6 names the wrong heading line.
+- Fix 6 says the heading "## Claude packs (design and hostile review)" is at line 61. At f6d47b0 line 61 is blank and the heading is line 62. "Insert after line 60" still lands in the right place.
+
+### What holds on re-check
+- F2, F3, F5, F6, F7, F9-F15, F17, F18, F19: every line and commit cite matches. Times of 128a541b, bf7014ad, d7da9e80, 6fca9e2f, ec78461d and bbb7d956 match their commit times in EST. 0419 at PAGES.csv:18 and 0407 at :6 match. c5bde1e2 is on pass/90.50.10.0416.05.01 and not on returns. C1-REVIEW.md:88 is P14. The 12 fence lines and 6 prompt headings match. The 10 + 6 lane folders match.
+
+### Proposed catch-log rows (for a checker to write; not written here)
+
+The maker and the catcher are the same here (the fire-sale worker checking its own work). That is the Q1/M4 case. A checker should confirm each row before it goes into docs/quality/CATCH-LOG.md.
+
+| Date (EST) | Page.pass | Kind | What happened | Who made it | Caught by | How caught | Why it matters (axiom) | Outcome / fix | Evidence |
+|---|---|---|---|---|---|---|---|---|---|
+| Thu Nov 26, 12:36 AM | Nov 30 Q13 | catch | The review said `wf draft` refuses any unclosed tail. It missed `--overlap-ok` on open (packed) passes, so it also missed an untested option for the held packs. | Prima fire-sale worker (round 1) | Prima fire-sale worker (self-check) | re-read src/cmd.rs at 1e0d74c6 and a823ee28 | 9: trial; a question to Matthew must show every option the tool allows | Option D (untested) added to Monday list M2; F1's conclusion stands | WORK-PAGE-REVIEW.md SC1, SC2 |
+| Thu Nov 26, 12:36 AM | review cites | mistake | Rules written by Prima on the Nov 30 page (Claude: independent check, no signoff) were cited as Matthew's t580u words, from a memory summary. | Prima fire-sale worker (round 1) | Prima fire-sale worker (self-check) | compared with Matthew's verbatim M9 | 6: lineage, authority must trace to its real source | Monday list M1/M3 recited; DW1, S2 and S3 noted | WORK-PAGE-REVIEW.md SC3; DIRECTOR-WORDS-DRAFT M9 |
+| Thu Nov 26, 12:36 AM | review F16 | mistake | Wrong line cite (44 for 30) in a Grok-Check report. | Prima fire-sale worker (round 1) | Prima fire-sale worker (self-check) | re-read f2178076 | cite must match evidence | Noted in SC4 | WORK-PAGE-REVIEW.md SC4 |
+| Thu Nov 26, 12:36 AM | fire-sale log | mistake | The log claimed header times were fixed in three review files. Two were not. | Prima fire-sale worker (round 1) | Prima fire-sale worker (self-check) | re-read the headers | a log line must be true when written | Headers fixed in this commit | WORK-PAGE-REVIEW.md SC5; log line at 12:22 AM EST |
+

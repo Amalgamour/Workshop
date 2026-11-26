@@ -47,7 +47,7 @@ Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pac
 
 **Question.** Page 90.50.10.0426 was set up on Nov 23 with Claude as Prime (returns log entry 1). May its Prime move to prima by a recorded `wf set-prime`?
 
-**Why it matters.** Under t580u Claude has no close or signoff authority. As packed, 0426.05.01 can't be signed off by anyone, so the pass would sit returned with no lawful signer. DECISIONS-WAITING S14 says a Prime is changed by you or by your grant.
+**Why it matters.** Claude has no close or signoff authority under the Claude rules on WORK-PAGE-2026-11-30.md:37-42 (Prima's application of t580u, where Matthew said "we need to be careful with claude"). As packed, 0426.05.01 can't be signed off by anyone, so the pass would sit returned with no lawful signer. DECISIONS-WAITING S14 says a Prime is changed by you or by your grant.
 
 **Options.**
 - A (default): Yes. You run, or grant Prima to run, `wf set-prime 90.50.10.0426 prima` with your t-number as the ref. This is recorded in the log, and it follows the design: authority stays where it really sits (t567u), and a Prime change is yours (S14, t547u).
@@ -66,6 +66,7 @@ Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pac
 - A (default): Keep the three held until a granted wf fix makes "withdrawn" final for drafting. Then the Prime withdraws each and repacks with the Done-when fixes. No pass is reopened by hand and wf stays in control (t528u).
 - B: Approve a pinned build with withdraw now, and accept that the repack waits on that same fix.
 - C: Keep them held with no fix planned.
+- D (untested, added by self-check SC2): leave each 05.01 packed and have the Prime draft a fresh 05.02 with `--overlap-ok 1` and a why, which the pinned wf allows for an open (packed) pass. Not tried. Risk: the stale 05.01 stays claimable.
 
 **What happens if no answer.** All three stay held, as now. The replacement pack drafts (X4, X5) can still be written and wait.
 
@@ -73,10 +74,10 @@ Do 1 and 2 before the next stage1-route pack (X3 on). Do 3 before any Claude pac
 
 **Question.** SUB-LEADS.md (t560u) and CLAUDE-LEAD-0422.md (t554u) still make Claude a lead who runs wf. Do they still stand?
 
-**Why it matters.** Both read as live rules. A new session would give Claude a lead job with wf, against t580u. t572u said the trial was not a success.
+**Why it matters.** Both read as live rules. A new session would give Claude a lead job with wf, against the no-wf rule on WORK-PAGE-2026-11-30.md:39-40 (Prima's application of t580u). t572u said the trial was not a success.
 
 **Options.**
-- A (default): Pause both for Claude under t580u. Claude does only fenced lab packs. Codex keeps lab and evidence work with no lead role. Prima leads 0422. This follows the latest rulings and the current work pages.
+- A (default): Pause both for Claude, under the Nov 30 page's Claude rules (t580u as applied). Claude does only fenced lab packs. Codex keeps lab and evidence work with no lead role. Prima leads 0422. This follows the latest rulings and the current work pages.
 - B: Keep Codex as sub-lead (SUB-LEADS.md for Codex only). Pause Claude.
 - C: Keep both files as they are.
 
