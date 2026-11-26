@@ -1,6 +1,6 @@
 # Fire sale: question sweep, Thu Nov 26 2026
 
-state: review, not a ruling. By Prima's fire-sale worker, 12:23-12:27 AM EST.
+state: review, not a ruling. By Prima's fire-sale worker, 12:23-12:26 AM EST (log times).
 For: Prima, to mark the lists. Nothing in the lists was edited.
 
 ## What this is

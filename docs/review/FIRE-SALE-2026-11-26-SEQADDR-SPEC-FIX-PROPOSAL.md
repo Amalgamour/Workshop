@@ -1,6 +1,6 @@
 # Fire sale: seqAddr.md fix proposal for H1-H6
 
-Prima fire-sale worker, Thu Nov 26 2026, 12:52 AM EST. Draft only. **`docs/spec/seqAddr.md` was not edited.**
+Prima fire-sale worker, Thu Nov 26 2026, 12:52 AM EST (committed 12:54 AM EST, b1de73d). Draft only. **`docs/spec/seqAddr.md` was not edited.**
 
 Source of H1-H6: job 13 in `docs/review/FIRE-SALE-2026-11-26-PROTOTYPES.md` (scratch commit `07cd904`, tests/hostile.rs, 40 of 40 pass).
 Spec text quoted from `docs/spec/seqAddr.md` on build (last changed 46aac4d, Nov 23). Line numbers are that file.
@@ -16,9 +16,9 @@ Spec text quoted from `docs/spec/seqAddr.md` on build (last changed 46aac4d, Nov
 - **R10** (:40-41): face 00 is the page's registry, not a sentinel.
 - **t511 / t512** (SEATED-05-PROPOSAL.md:5; DIRECTOR-WORDS-t512-seated05-approval.md): "Change the rule so face 05 can be seated." Approved.
 - **A4.4** as the code applies it: counters live only on counted faces (05, 06 and `Policy.extra_counted`, today `0012.03`), state.rs:417-420.
-- **What follows counter 98** is still held `7` (CONFLICTS.md:148, D1). It is not R16. R16 is the dictionary `03.00` door (DIRECTOR-RULINGS.md:65, Q29).
+- **What follows counter 98** is still held `7` (kernel/CONFLICTS.md:148, D1). It is not R16. R16 is the dictionary `03.00` door (docs/spec/DIRECTOR-RULINGS.md:65, Q29).
 
-Correction to the prototypes doc: H4 there says "R16 (overflow) is still held". The held item is D1 "what follows counter 98", not R16. The prototypes doc was not changed; this note is the fix.
+Correction to the prototypes doc: H4 there says "R16 (overflow) is still held". The held item is D1 "what follows counter 98", not R16. The prototypes doc was corrected in job 20 (H4 and H7, with a note in its header).
 
 ## H1. 1.4 table, line 53 (Medium)
 

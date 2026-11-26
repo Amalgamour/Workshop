@@ -1,6 +1,6 @@
 # Fire sale prototypes, Thu Nov 26 2026 (jobs 10-14)
 
-Written by the Prima fire-sale worker, 12:42 AM EST (jobs 10-12); jobs 13-14 added later the same night. Samples only. None of this is a pass return.
+Written by the Prima fire-sale worker, 12:42 AM EST (jobs 10-12); jobs 13-14 added 12:49 AM EST. Corrected 1:00 AM EST (job 20): H4 and H7 said "R16" for the held overflow item; it is kernel/CONFLICTS.md D1 (R16 is the dictionary `03.00` door, docs/spec/DIRECTOR-RULINGS.md:65). Samples only. None of this is a pass return.
 
 ## Where it lives
 
@@ -109,12 +109,12 @@ Spec mismatches. The code follows the rulings; the spec text was not updated (`d
 | H1 | 1.4 table, line 53 | `FF.00` is a counted face's board | parse refuses `FF.00` (R9) | Medium |
 | H2 | 5.7, lines 197-199, example line 209 | "A face is counted if and only if `FF.00` exists"; `1523.05.00 board` | counted = 05, 06 and `Policy.extra_counted`; `FF.00` cannot be written | Medium |
 | H3 | 5.7, line 202 (t511/t512) | "Plain `05` is the seat"; "The board of the passes stays `05.00`" | state.rs:459-460 refuses a put at plain 05 (A4.4); `05.00` is refused at parse. Same as P1 and the red page_0418 case | High (blocks 0418) |
-| H4 | 7.1, line 262; 7, line 259 | once `FF.98` exists, `FF.99` points to the next page | `FF.99` refused at parse (R9). A 99th pass or note has no address at all; R16 (overflow) is held | Medium |
+| H4 | 7.1, line 262; 7, line 259 | once `FF.98` exists, `FF.99` points to the next page | `FF.99` refused at parse (R9). A 99th pass or note has no address at all; what follows counter 98 is held `7` (kernel/CONFLICTS.md:148, D1) | Medium |
 | H5 | 8 grammar, line 282; rules, lines 293-294 | `counter = 2DIGIT ; 00 board, 01-98, 99 continuation`; "A counter requires its face's `00` board"; "write it as `FF.00`" | 01-98 only; the rule is now "counters only on counted faces" (A4.4) | Medium |
 | H6 | 1.2 table, lines 29-31 | `01-09` reserved "on every axis" | faces 01-09 are the ordinary faces (5.1); R9 says faces have no sentinels. The table should say which axes it covers | Low |
 
 Code notes (not spec):
-- **H7 (Low).** Dead code at state.rs:426-433 (`if nn == 99`). It can never run, because line 417 refuses 99 first. Keep it, remove it, or mark it for R16; that choice belongs to whoever takes R16.
+- **H7 (Low).** Dead code at state.rs:426-433 (`if nn == 99`). It can never run, because line 417 refuses 99 first. Keep it, remove it, or mark it for D1; that choice belongs to whoever takes D1.
 - **H8 (Low).** The printers don't check what they print. `PageAddr` and `FacePart` are pub structs, so a hand-built value can print text that reads back differently, or not at all. Desk set with no shelf prints `10.21.4442`, which reads back as shelf 10. Counter 0 prints `.05.00`, which is refused. parse never builds either value. Code that builds addresses by hand (compute, wf) should go through parse, or there should be a checked constructor.
 - **H9 (Low, for the compute).** Titles have no length limit. A 100,000-character title is accepted. The spec sets none (seqAddr 3), but an HTTP compute should cap input size before it parses.
 

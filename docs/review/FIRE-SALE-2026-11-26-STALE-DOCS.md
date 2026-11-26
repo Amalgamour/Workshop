@@ -1,6 +1,6 @@
 # Stale-doc audit: docs/plan/ and docs/design/
 
-Written by the Prima fire-sale worker, Thu Nov 26 2026, about 12:21 AM EST.
+Written by the Prima fire-sale worker, Thu Nov 26 2026, finished 12:21 AM EST (log time); part 2 added 12:22 AM EST.
 All times are EST. This audit does not edit any of the docs it names.
 
 ## How I checked

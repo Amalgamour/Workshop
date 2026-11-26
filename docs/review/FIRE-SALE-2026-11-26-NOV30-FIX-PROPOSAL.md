@@ -1,6 +1,6 @@
 # Fire sale: proposed fixes to the Nov 30 work page
 
-state: proposal, for Prima to approve. By Prima's fire-sale worker, Thu Nov 26 2026, 12:27 AM EST.
+state: proposal, for Prima to approve. By Prima's fire-sale worker, Thu Nov 26 2026, 12:28 AM EST (log time).
 Page: docs/plan/WORK-PAGE-2026-11-30.md at local f6d47b0. **The page was not edited.**
 Findings: docs/review/FIRE-SALE-2026-11-26-WORK-PAGE-REVIEW.md (F1-F16 and F19 are about this page; F17-F18 are about the EOW page, which is done, so they are left out).
 

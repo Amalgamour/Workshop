@@ -1,6 +1,6 @@
 # DIRECTOR-WORDS draft: Matthew's messages of Nov 24-25, 2026
 
-state: draft, for Prima to file. By Prima's fire-sale worker, Thu Nov 26 2026. Not a ruling record until Prima files it.
+state: draft, for Prima to file. By Prima's fire-sale worker, Thu Nov 26 2026, 12:32 AM EST (log time). Not a ruling record until Prima files it.
 
 Source: Prima's extract of Matthew's messages, verbatim, in transcript order, deduplicated (a box file, not in the repo). The source has no t-numbers.
 
