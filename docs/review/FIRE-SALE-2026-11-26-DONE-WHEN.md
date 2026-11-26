@@ -1,7 +1,7 @@
 # Fire sale: hostile pass on Done-when lines of open passes
 
-state: review, not a ruling. By Prima's fire-sale worker, Thu Nov 26 2026, 12:31 AM EST.
-Read only. Source: a bare clone of the public repo in my scratch folder, fetched 12:30 AM EST.
+state: review, not a ruling. By Prima's fire-sale worker, Thu Nov 26 2026, 12:30 AM EST.
+Read only. Source: a bare clone of the public repo in my scratch folder, fetched 12:28 AM EST.
 Tips: packs c697e035, returns ec78461d (Wed 5:41 PM EST), prima/build 5201b243. Nothing moved since the first round.
 No wf command was run. Nothing was pushed. No pack was edited.
 
