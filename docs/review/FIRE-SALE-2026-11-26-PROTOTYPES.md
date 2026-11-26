@@ -1,6 +1,6 @@
-# Fire sale prototypes, Thu Nov 26 2026 (jobs 10-12)
+# Fire sale prototypes, Thu Nov 26 2026 (jobs 10-14)
 
-Written by the Prima fire-sale worker, 12:42 AM EST. Samples only. None of this is a pass return.
+Written by the Prima fire-sale worker, 12:42 AM EST (jobs 10-12); jobs 13-14 added later the same night. Samples only. None of this is a pass return.
 
 ## Where it lives
 
@@ -9,6 +9,7 @@ Written by the Prima fire-sale worker, 12:42 AM EST. Samples only. None of this 
 - Commits on the scratch branch:
   - `fd453dd`: job 10, `crates/seqaddr-core/tests/page_0418.rs`
   - `4a0c361`: job 11, `firesale-proto/golden-norm/` (a standalone crate with its own `[workspace]`, not a member of the repo workspace)
+  - `07cd904`: job 13, `crates/seqaddr-core/tests/hostile.rs`
 - Build output: `CARGO_TARGET_DIR=/workspace/firesale-notes/target`.
 - wf sandbox for job 12: `/workspace/firesale-notes/wf-sandbox` (a throwaway copy. Not a git repo at the root. `work/` is a fresh `git init` with no remote).
 - No wf command ran against a real worktree. Nothing was edited in src/, tests/, .workshop/, pages/ or labs/ on build or packs.
@@ -54,7 +55,7 @@ Result, `cargo test` in golden-norm: **12 passed, 0 failed**. Tests include:
 - Negative cases: lines with spaces are not touched, a backslash outside the root is kept, an un-keyed 12-hex is kept, and exit codes stay different (the normaliser can't hide ok against fail).
 - `normalise_is_idempotent`.
 
-The repo-wide `cargo test --workspace --offline` did not run: other crates need `async-trait`, which isn't in the box's cargo cache offline. Only seqaddr-core and golden-norm were run.
+The repo-wide `cargo test --workspace --offline` did not run then: other crates need `async-trait`, which wasn't in the box's offline cargo cache. Job 14 below fetched it and ran the whole workspace.
 
 ## Job 12: SC1 trial, `wf draft --overlap-ok` after a packed 05.01
 
@@ -82,6 +83,59 @@ What it shows:
 - **Inconsistency (Low):** `draft --overlap-ok` took a `--why` with no (ref); `pack --overlap-ok` demanded one. Worth a wf note.
 - **Odd (Low):** 05.02's PROMPT.md says "Read first: pages/…/05.01/AGENTS.md (reused from 05.01)". That's fine for a repack, but the builder of 05.02 is pointed into the old pass's folder.
 - P3 above (Done-when comes from face 01) also came from this trial.
+
+## Job 13: hostile test pass on seqaddr-core
+
+Scratch commit `07cd904` on `firesale/proto-2026-11-26` adds `crates/seqaddr-core/tests/hostile.rs`. It has 40 cases and adds no dependencies (the fuzz uses a hand-written xorshift, not proptest).
+
+What it covers:
+- **R9 counters.** `00` and `99` are refused with rule R9 on every route: full, short, leading dot, with a tail, with a card, on the door page. `01` and `98` parse and round-trip, with every counter tail. `counter_role` bounds hold at 0, 1, 98, 99 and 255. Faces `00` and `99` still parse as faces (seqAddr 5.1).
+- **Edge addresses.** `00.00.00.0000`, `99.99.99.9999` and `00`/`99.99.99` containers. Short forms read right to left (seqAddr 2.1, 2.2). Four ancestors are refused, two page groups are refused, and `0000.timer` is refused (A2.8). `sentinel` is checked at widths 2, 3 and 4, and `page_kind` at all 18 range edges (seqAddr 6). Bands and sets are checked too (6.1, R18).
+- **Malformed tails (seqAddr 4, 8).** Counter tails on a page or a bare face, `retired` with a counter, two tails, a tail then a title, a counter after a tail, tails on containers, and a title between a page and its face (A2.2). Cards and brands: 000 and 999 are refused, a bare brand is refused, and so are a 2-digit brand, two brands, two cards, and a tail word as a card.
+- **Words (seqAddr 3).** Capitals, `_`, a leading `-` and a leading digit are refused. `t-` and `a--b` are accepted, which the spec allows.
+- **Unicode and whitespace (seqAddr 3, R4).** All of these are refused: full-width digits, Arabic-Indic digits, accented letters, zero-width space, BOM, NBSP, a combining accent, a `ﬁ` ligature, U+2028, an RTL override, tab and newline, and empty groups.
+- **Very long input.** A 100,000-character title, 50,000 groups, 50,000 faces and 100,000 digits run without a panic.
+- **Round trip.** 524 generated addresses (4 ancestor forms × 7 pages × 19 endings, less the illegal `0000.title` ones), plus active-relative addresses and containers: print(parse(s)) == s and parse(print(parse(s))) == parse(s).
+- **Fuzz.** 200,000 random strings over `0-9 . a d e i n o p r t v w x -`. No panic. Every accepted string prints back byte-identical.
+- **Also checked:** `BookId::parse` strictness, `parse_full_page`, `expand` (missing gives 404, several active pages are elevated), and log timestamps (leap years, 24:00, missing Z, full-width digit). `BookLog` refuses non-ASCII, `\u2014` and `\u0000` escapes, and bad headers.
+- **State level.** A counter on uncounted face 01 is refused (A4.4). A seat at plain 05 is refused. 06.01-06.98 can be written, but 06.99 has no address.
+
+**Result: 40 of 40 pass. No parser bug was found.** The parser holds against every hostile input above.
+
+Spec mismatches. The code follows the rulings; the spec text was not updated (`docs/spec/seqAddr.md`, same on build and the scratch branch):
+
+| id | where in seqAddr.md | spec says | code does | severity |
+|---|---|---|---|---|
+| H1 | 1.4 table, line 53 | `FF.00` is a counted face's board | parse refuses `FF.00` (R9) | Medium |
+| H2 | 5.7, lines 197-199, example line 209 | "A face is counted if and only if `FF.00` exists"; `1523.05.00 board` | counted = 05, 06 and `Policy.extra_counted`; `FF.00` cannot be written | Medium |
+| H3 | 5.7, line 202 (t511/t512) | "Plain `05` is the seat"; "The board of the passes stays `05.00`" | state.rs:459-460 refuses a put at plain 05 (A4.4); `05.00` is refused at parse. Same as P1 and the red page_0418 case | High (blocks 0418) |
+| H4 | 7.1, line 262; 7, line 259 | once `FF.98` exists, `FF.99` points to the next page | `FF.99` refused at parse (R9). A 99th pass or note has no address at all; R16 (overflow) is held | Medium |
+| H5 | 8 grammar, line 282; rules, lines 293-294 | `counter = 2DIGIT ; 00 board, 01-98, 99 continuation`; "A counter requires its face's `00` board"; "write it as `FF.00`" | 01-98 only; the rule is now "counters only on counted faces" (A4.4) | Medium |
+| H6 | 1.2 table, lines 29-31 | `01-09` reserved "on every axis" | faces 01-09 are the ordinary faces (5.1); R9 says faces have no sentinels. The table should say which axes it covers | Low |
+
+Code notes (not spec):
+- **H7 (Low).** Dead code at state.rs:426-433 (`if nn == 99`). It can never run, because line 417 refuses 99 first. Keep it, remove it, or mark it for R16; that choice belongs to whoever takes R16.
+- **H8 (Low).** The printers don't check what they print. `PageAddr` and `FacePart` are pub structs, so a hand-built value can print text that reads back differently, or not at all. Desk set with no shelf prints `10.21.4442`, which reads back as shelf 10. Counter 0 prints `.05.00`, which is refused. parse never builds either value. Code that builds addresses by hand (compute, wf) should go through parse, or there should be a checked constructor.
+- **H9 (Low, for the compute).** Titles have no length limit. A 100,000-character title is accepted. The spec sets none (seqAddr 3), but an HTTP compute should cap input size before it parses.
+
+## Job 14: full workspace test run
+
+`cargo fetch --locked` in the scratch worktree reached crates.io over the network without credentials. `Cargo.lock` was unchanged. Then `CARGO_TARGET_DIR=/workspace/firesale-notes/target cargo test --workspace --locked --no-fail-fast`. The build finished in 19.5 s with 0 warnings. Full output is in `/workspace/firesale-notes/proto-workspace-test-full.txt` (box only).
+
+| crate | test binaries | passed | failed | ignored |
+|---|---|---|---|---|
+| ask | solve 10 | 10 | 0 | 0 |
+| compute | lib 1, ask 3, clock 2, contract_delivery 1, delivery 11, host 2, http 15, r5 4, restart 6 | 45 | 0 | 0 |
+| seqaddr-core | grammar 79, hostile 40 (job 13), log_format 35, page_0418 4+1 fail (job 10), repo_books 1, resolve_validate 75, tails 56 | 290 | 1 | 0 |
+| seqpage | cli 3, corrupt 37, face00 9, golden 6, round_trip 4 | 59 | 0 | 0 |
+| trial-compute | binary 2, crash 2, findings 15, held 14 | 33 | 0 | 0 |
+| trial-core | grammar_hostile 8, log_hostile 10, rules_hostile 20 | 38 | 0 | 2 |
+| **total** | doc tests: 0 in all 6 crates | **475** | **1** | **2** |
+
+- The one failure is `page_0418::seat_at_plain_05_is_accepted`, the expected red case from job 10 (H3). It isn't in build's code; it's in the scratch test file.
+- Without the two scratch files (hostile.rs, page_0418.rs), the build tree is **431 passed, 0 failed, 2 ignored**.
+- The 2 ignored tests are in trial-core `rules_hostile`: `a_kernel_draft_counter_is_not_inherited` (finding 6) and `back_link_must_be_live_not_a_draft` (finding 12). Both are marked "raised 7, see Fix pass", so they are known held items and not new.
+- This was a Linux run only. The Windows sync_dir failures (0701 baseline) are not covered here.
 
 ## What a real pass would need
 
