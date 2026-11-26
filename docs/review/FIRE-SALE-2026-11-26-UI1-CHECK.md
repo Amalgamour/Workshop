@@ -47,14 +47,14 @@ Design note, not a finding: Claude's default A (wf gives the board as JSON, the 
 
 ## Proposed CATCH-LOG rows (for a checker or Prime to write; CATCH-LOG.md not touched)
 
-Columns as in docs/quality/CATCH-LOG.md. Dates Nov 26 2026.
+Same 11 columns as docs/quality/CATCH-LOG.md:21. Row numbers are placeholders (P1-P4); the writer numbers them.
 
-| # | what happened | who made it | caught by | how | why / axiom | outcome | evidence |
-|---|---|---|---|---|---|---|---|
-| P1 | UI-1 README names pass-level columns "pending, accepted, discarded"; wf has no "pending" and has "carried", "candidate" | Claude (UI-1) | Prima fire-sale worker | opened src/cmd.rs:14 against README.md:38 | axiom 7 (no guess as fact); t580u check | fix README.md:38 before UI-1 feeds a build | d7da9e80; this doc U1 |
-| P2 | UI-1 CONTRACT marks the job step "missing" before close, though signoff and return entries carry it | Claude (UI-1) | Prima fire-sale worker | read 0404 and 0423 logs on packs 88be5702 and src/board.rs:412-432 | axiom 9 (check what really exists) | fix CONTRACT.md:24 to "partial" with the sources | d7da9e80; this doc U2 |
-| P3 | UI-1 repeats stale DESIGN.md:15-16 ("ids not checked as SeqAddr") though 0403 passed and src/addr.rs checks work addresses | Claude (UI-1); stale source DESIGN.md | Prima fire-sale worker | read 0403 close entry 12 and src/cmd.rs:187 | axiom 9 | fix README.md:24 and CONTRACT.md:44; DESIGN.md:15-16 is a stale-doc item for Prima | d7da9e80; this doc U3 |
-| P4 | Fire-sale prototypes doc called the held overflow item "R16"; it is CONFLICTS D1 (R16 is the 03.00 door) | Prima fire-sale worker | Prima fire-sale worker (self-check) | read DIRECTOR-RULINGS.md:65 and CONFLICTS.md:148 | axiom 7 | corrected in the seqAddr fix proposal | 4e94864; SEQADDR-SPEC-FIX-PROPOSAL.md |
+| # | Date (EST) | Page.pass | Kind | What happened | Who made it | Caught by | How caught | Why it matters (axiom) | Outcome / fix | Evidence |
+|---|---|---|---|---|---|---|---|---|---|---|
+| P1 | 2026-11-26 | lab UI-1 | catch | UI-1 README names pass-level columns "pending, accepted, discarded"; wf has no "pending" and has "carried", "candidate" | Claude (UI-1) | Prima fire-sale worker | opened src/cmd.rs:14 against README.md:38 | axiom 7 (no guess as fact); t580u check | fix README.md:38 before UI-1 feeds a build | d7da9e80; this doc U1 |
+| P2 | 2026-11-26 | lab UI-1 | catch | UI-1 CONTRACT marks the job step "missing" before close, though signoff and return entries carry it | Claude (UI-1) | Prima fire-sale worker | read 0404 and 0423 logs on packs 88be5702 and src/board.rs:412-432 | axiom 9 (check what really exists) | fix CONTRACT.md:24 to "partial" with the sources | d7da9e80; this doc U2 |
+| P3 | 2026-11-26 | lab UI-1 | catch | UI-1 repeats stale DESIGN.md:15-16 ("ids not checked as SeqAddr") though 0403 passed and src/addr.rs checks work addresses | Claude (UI-1); stale source DESIGN.md | Prima fire-sale worker | read 0403 close entry 12 and src/cmd.rs:187 | axiom 9 | fix README.md:24 and CONTRACT.md:44; DESIGN.md:15-16 is a stale-doc item for Prima | d7da9e80; this doc U3 |
+| P4 | 2026-11-26 | fire sale job 13 | mistake (self-catch) | Fire-sale prototypes doc called the held overflow item "R16"; it is CONFLICTS D1 (R16 is the 03.00 door) | Prima fire-sale worker | Prima fire-sale worker (self-check) | read DIRECTOR-RULINGS.md:65 and CONFLICTS.md:148 | axiom 7 | corrected in the seqAddr fix proposal | 4e94864; SEQADDR-SPEC-FIX-PROPOSAL.md |
 
 P4 is a self-catch. Under t586u the model that made the mistake does not write its row, so Prima or a checker should write it, or drop it.
 
