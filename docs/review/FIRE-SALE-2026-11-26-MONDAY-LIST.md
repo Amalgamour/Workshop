@@ -1,6 +1,6 @@
 # Fire sale: Monday review list
 
-state: review, not a ruling. By Prima's fire-sale worker, Thu Nov 26 2026, 12:34 AM EST. Updated 12:59 AM EST (job 19: H3, U1-U3 and the board survey default ranked in; job 20: consistency pass).
+state: review, not a ruling. By Prima's fire-sale worker, Thu Nov 26 2026, 12:34 AM EST. Updated 12:58 AM EST (job 19: H3, U1-U3 and the board survey default ranked in; job 20: consistency pass).
 For: Prima first, then Matthew for the six questions. Nothing here was applied. No work page was edited.
 
 Merged from:

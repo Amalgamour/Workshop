@@ -1,6 +1,6 @@
 # Fire sale prototypes, Thu Nov 26 2026 (jobs 10-14)
 
-Written by the Prima fire-sale worker, 12:42 AM EST (jobs 10-12); jobs 13-14 added 12:49 AM EST. Corrected 1:00 AM EST (job 20): H4 and H7 said "R16" for the held overflow item; it is kernel/CONFLICTS.md D1 (R16 is the dictionary `03.00` door, docs/spec/DIRECTOR-RULINGS.md:65). Samples only. None of this is a pass return.
+Written by the Prima fire-sale worker, 12:42 AM EST (jobs 10-12); jobs 13-14 added 12:49 AM EST. Corrected 12:58 AM EST (job 20): H4 and H7 said "R16" for the held overflow item; it is kernel/CONFLICTS.md D1 (R16 is the dictionary `03.00` door, docs/spec/DIRECTOR-RULINGS.md:65). Samples only. None of this is a pass return.
 
 ## Where it lives
 
