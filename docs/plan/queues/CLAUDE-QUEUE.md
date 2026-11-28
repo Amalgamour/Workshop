@@ -3,7 +3,7 @@
 Plan doc. Written by Prima on Sat Nov 28 2026 (t599u). It lists the packs of work page docs/plan/WORK-PAGE-2026-11-30.md in the order they go out, with each one's status.
 
 Status words:
-- done: returned and on returns.
+- done: returned and on returns. "checked" means Prima checked it (PASS, PARTIAL or FAIL).
 - batch 1: goes out first. Matthew pastes each prompt himself.
 - ready: the prompt is written and nothing blocks it. It goes out when its batch comes up and Matthew says so.
 - held: the prompt is written, but the pack waits for the thing in the last column.
@@ -13,12 +13,12 @@ Prompts: docs/plan/queues/CLAUDE-PROMPTS.md. Order follows docs/plan/WORK-PAGE-2
 | Order | Pack | Batch | Status | Folder | Report file | Waits for / return |
 |---|---|---|---|---|---|---|
 | 1 | C1 | done | done | labs/review-stage1-route/ | reports/lab/review-stage1-route/Claude-20261125-1450.md | returns 128a541b28a6456d01a0f2a09ca362e0216d5e3e |
-| 2 | C2 | 1 | batch 1 | labs/review-stage1-route/ | reports/lab/review-stage1-route/Claude-C2.md | - |
-| 3 | C3 | 1 | batch 1 | labs/draft-page/ | reports/lab/draft-page/Claude-C3.md | - |
-| 4 | C21 | 1 | batch 1 | labs/ui-scaffold/ | reports/lab/ui-scaffold/Claude-C21.md | - |
+| 2 | C2 | 1 | done, checked PASS | labs/review-stage1-route/ | reports/lab/review-stage1-route/Claude-C2.md | returns ded9a5b504dff99b022e0e02107dd2551065e5ff |
+| 3 | C3 | 1 | done, checked PASS | labs/draft-page/ | reports/lab/draft-page/Claude-C3.md | returns eab873bbac0238d814e047eda88b6823d0061329 |
+| 4 | C21 | 1 | done, checked PASS | labs/ui-scaffold/ | reports/lab/ui-scaffold/Claude-C21.md | returns 8ac8c9e7af10bd12c48dc27a46e4197f6b018a40 |
 | 5 | C8 | 2 | ready | labs/delegated-grant/ | reports/lab/delegated-grant/Claude-C8.md | - |
 | 6 | C9 | 2 | ready | labs/delegated-grant/ | reports/lab/delegated-grant/Claude-C9.md | C8 returned |
-| 7 | C20 | 2 | ready | labs/draft-page/ | reports/lab/draft-page/Claude-C20.md | X2 returned |
+| 7 | C20 | 2 | ready | labs/draft-page/ | reports/lab/draft-page/Claude-C20.md | X2 returned (returns a82a04887fdcdbf71628c72f835c08a12448101d). Not blocked now. |
 | 8 | C4 | 3 | held | labs/pin-record/ | reports/lab/pin-record/Claude-C4.md | Matthew answers work page question 2, or says to use its default |
 | 9 | C5 | 3 | held | labs/pin-record/ | reports/lab/pin-record/Claude-C5.md | C4 returned |
 | 10 | C6 | 3 | held | labs/pin-move/ | reports/lab/pin-move/Claude-C6.md | C4 returned |
@@ -43,4 +43,4 @@ Prompts: docs/plan/queues/CLAUDE-PROMPTS.md. Order follows docs/plan/WORK-PAGE-2
 - Claude has no close, signoff or pack authority. Every Claude pack is "not usable until checked". Codex checks them in X21 to X24.
 - C8 and C9 are spec and test plan only. Option C is not decided (t584u).
 - Batch numbers are a plan. Prima may move a pack when an answer arrives. Each change is written here.
-
+- Nov 28, about 12:00 PM EST: Prima checked batch 1. C2, C3 and C21 all PASS. See docs/review/BATCH1-CLAUDE-CHECK-2026-11-28.md. C20 is unblocked because X2 landed. C8 has no wait. C9 waits for C8 to return.
