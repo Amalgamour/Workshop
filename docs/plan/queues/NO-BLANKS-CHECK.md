@@ -13,6 +13,7 @@ Every filled prompt must have nothing left to fill in. The check searches for th
 - date-stamp placeholders (YYYY, HHMM, the word "stamp")
 - a field name with nothing after it (Builder, Pack, Lab folder, Job, Done when, Note)
 - an empty table cell
+- a cell that only says "Same as" another pack (the prompt must carry its own text)
 
 It runs on the two prompt files, the two queue files, the Nov 30 work page, and the Grok prompt blocks P1-P4 of the week page.
 
@@ -31,7 +32,7 @@ The script (box only, same text as below):
 # no-blanks check. Prints every hit; "hits=0" means clean.
 cd /workspace/workshop-build/repo
 F="docs/plan/queues/CLAUDE-PROMPTS.md docs/plan/queues/CODEX-PROMPTS.md docs/plan/queues/CLAUDE-QUEUE.md docs/plan/queues/CODEX-QUEUE.md docs/plan/WORK-PAGE-2026-11-30.md"
-PAT='<|>|\bNN\b|\bTBD\b|\bTODO\b|\bXXX\b|\{\{|\}\}|\.\.\.|\[\]|\(\s*\)|YYYY|HHMM|\bstamp\b|^(Builder|Pack|Lab folder|Job|Done when|Note|Why|Prompt):[[:space:]]*$|\|[[:space:]]*\|'
+PAT='<|>|\bNN\b|\bTBD\b|\bTODO\b|\bXXX\b|\{\{|\}\}|\.\.\.|\[\]|\(\s*\)|YYYY|HHMM|\bstamp\b|^(Builder|Pack|Lab folder|Job|Done when|Note|Why|Prompt):[[:space:]]*$|\|[[:space:]]*\||Same as [CX][0-9]+'
 n=$(grep -n -E -e "$PAT" $F | tee /dev/stderr | wc -l)
 # week page: only the prompt code blocks P1-P4 (from "## 11. Ready prompts" to "### P5")
 awk '/^## 11. Ready prompts/{f=1} /^### P5/{f=0} f' docs/plan/WORK-PAGE-2026-11-26-WEEK.md > /tmp/weekprompts.txt
@@ -44,6 +45,7 @@ echo "hits=$((n+m))"
 First run: 1 hit, in P1 of the week page ("w01, w02, ..." was an ellipsis). Fixed to "w01 first, then w02, and so on".
 Earlier in the run, the first draft of the pattern also matched every line that ends in a colon, like "Steps:". That was the pattern, not the files, so it was narrowed to named field names.
 Second run: `hits=0`.
+Then a read of the C2 prompt found "Same as C1" in its Done-when line. That points to another pack's text, so it was expanded in the work page and in the prompts (C2, X5, X22, X23), and the "Same as" search was added to the script. Third run (final, after the republish): `hits=0`.
 
 Also checked:
 - 20 Claude prompts and 20 Codex prompts. Every one starts with "Builder: Claude" or "Builder: Codex".

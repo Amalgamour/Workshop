@@ -20,7 +20,7 @@ Allowed files (your free lane). Write only these:
 - labs/review-stage1-route/C2-REVIEW.md (new)
 - reports/lab/review-stage1-route/Claude-C2.md (new, your report)
 Job: Hostile review of Codex's QUEUE.md and QUESTIONS.md. Check that each group really shares no file.
-Done when: Same as C1. Each group marked free or clash, with the file.
+Done when: Every finding cites a log entry or file line. Each claim is marked holds, wrong or unclear. Each group marked free or clash, with the file.
 Inputs (read only):
 - labs/stage1-route/QUEUE.md (Codex, read only)
 - labs/stage1-route/QUESTIONS.md (Codex, read only)

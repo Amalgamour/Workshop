@@ -152,7 +152,7 @@ Allowed files (your free lane). Write only these:
 - labs/stage1-route/packs/PACK-0424-DRAFT.md (new)
 - reports/lab/stage1-route/Codex-X5.md (new, your report)
 Job: Replacement pack text for 0424.05.01. Holder means the lock holder. Start commit as for X4.
-Done when: Same as X4 (start commit, grant paths, may-touch, done-when lines, files confirmed free against QUEUE.md). Says whether a withdrawn pass shows as current (to match the Q13 answer) (DW8). Holder word is "none" or "nobody" on purpose, matching the page board (DW6).
+Done when: A full draft file that names: start commit, grant paths, may-touch, done-when lines, and files confirmed free against labs/stage1-route/QUEUE.md (with its commit). The builder pastes the Windows run; the checker runs on the box; the box run decides (DW10). Says whether a withdrawn pass shows as current (to match the Q13 answer) (DW8). Holder word is "none" or "nobody" on purpose, matching the page board (DW6).
 Inputs (read only):
 - labs/stage1-route/QUEUE.md and PAGES.csv (your own)
 - The 0424 page log and old pack text on origin/packs
@@ -743,7 +743,7 @@ Allowed files (your free lane). Write only these:
 - labs/review-claude-specs/X22-CHECK.md (new)
 - reports/lab/review-claude-specs/Codex-X22.md (new, your report)
 Job: Hostile check of C10-C15 (overlap-check, stale-pack, retire-0409).
-Done when: Same as X21.
+Done when: Each spec marked holds, breaks or unclear, with cites. Any widening of authority listed as a question for Matthew.
 Inputs (read only):
 - labs/overlap-check/, labs/stale-pack/, labs/retire-0409/ (Claude, read only). If any file is missing after the pull, stop and tell Matthew which.
 Note: Mark each spec holds, breaks or unclear, with cites. List any widening of authority as a question for Matthew.
@@ -783,7 +783,7 @@ Allowed files (your free lane). Write only these:
 - labs/review-claude-specs/X23-CHECK.md (new)
 - reports/lab/review-claude-specs/Codex-X23.md (new, your report)
 Job: Hostile check of C16-C19 (catch-log-flow, prompt-check).
-Done when: Same as X21.
+Done when: Each spec marked holds, breaks or unclear, with cites. Any widening of authority listed as a question for Matthew.
 Inputs (read only):
 - labs/catch-log-flow/ and labs/prompt-check/ (Claude, read only). If any file is missing after the pull, stop and tell Matthew which.
 Note: Mark each spec holds, breaks or unclear, with cites. List any widening of authority as a question for Matthew.
