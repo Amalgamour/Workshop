@@ -21,7 +21,7 @@ These six fields are the card shape from the brief (W:74).
 |---|---|---|---|
 | address | page id: the folder name under `pages/` (src/board.rs:467-477); also log `init` `address` | `<page>.05.NN` (src/board.rs:350, :357) | `<page>.05.NN` + job key, for example `w01` (src/board.rs:362) |
 | holder | **missing.** The book board prints no holder (src/board.rs:486-489) | **partial.** The board prints the claimant: "held by" (src/board.rs:368). The lock holder is in the page log `lockout` entry (src/cmd.rs:582) and in `Hold` (src/page.rs:38-46), but the board does not print it | **missing.** A job has no holder of its own |
-| step | the six tail counts (src/board.rs:486-489) | the column and tail (src/board.rs:358) | **partial.** Only after close: the close entry's `cards` (0404 log entry 22: `w01 accepted`). Before close: **missing** |
+| step | the six tail counts (src/board.rs:486-489) | the column and tail (src/board.rs:358) | **partial.** From return on: each job's text from the return entry's `jobs` (src/board.rs:412-413; 0423 log entry 19). From signoff on: the signoff `cards` (src/board.rs:432; 0404 log entry 21). At close: the close `cards` (0404 log entry 22: `w01 accepted`). Before return: no job step |
 | next | **missing** on the book board | "next" (src/board.rs:371), from `pass_next` (src/status.rs:24) | **missing** |
 | why | face 04 goals: log `face` entries with `face 04`, `section goals` (0403 log entry 2); file `pages/<addr>/04.md` | face 01 "Goal:" line (`pages/90.50.10.0423/01.md` line 4 on packs); also the pack entry `face01` key (0423 log entry 27) | the job text in the pack: "job ..." (src/board.rs:362) |
 | ruling id | log `init` `grant_ref`, for example `t413u` (0403 log entry 1) | **missing.** The pack entry has no ref key (0423 log entry 27, keys). Only a `grant` entry carries `ref` (0423 log entry 23: `t584s2361`) | **missing** |
@@ -41,7 +41,7 @@ These six fields are the card shape from the brief (W:74).
 | per page: halted | wf board output | src/board.rs:489 |
 | per page: unreadable, with why | wf board output | src/board.rs:479-483 |
 | book title, words, brands | the compute crate, `/book/:addr`, `/brands` | crates/compute/src/lib.rs:247, :253 |
-| join of a wf page to its compute book | **missing.** wf ids are not checked as SeqAddr | docs/DESIGN.md:15-16 |
+| join of a wf page to its compute book | **missing.** wf checks only the form of a work address at init. It does not look it up in a compute book | src/addr.rs:108-123; src/cmd.rs:187 |
 
 ## Page board
 

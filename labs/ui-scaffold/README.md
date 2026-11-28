@@ -21,7 +21,7 @@ This is design only. No file in `app/` is edited.
 - **But it prints text only.** Every line is a `format!` string (src/board.rs:284-305, :357-372). There is no JSON form.
 - **The reader app is old.** app/ was last changed Nov 11 (commit 9f5500f3). That is before wf (W:21).
 - **The app reads a different store.** It calls the compute crate at `COMPUTE_URL`, port 7700 (app/lib/compute.ts:2). The compute crate reads `books/`, not wf `pages/` (crates/compute/src/lib.rs:130-131, :246-261).
-- **wf page ids are not checked as SeqAddr yet** (docs/DESIGN.md:15-16).
+- **wf checks the form of a work address, DD.SS.BB.PPPP, at init.** It uses rules copied from seqaddr-core (src/addr.rs:1-4, :108-123), called at src/cmd.rs:187. It does not look the address up in a compute book.
 
 So the front must join two stores: wf pages (the work) and compute books (the words).
 Today nothing joins them.
@@ -35,7 +35,7 @@ Each level inherits that shape. It writes only its difference.
 |---|---|---|---|
 | Book | a book, for example 90.50.10 | its pages | the six pass tails, as counts per page (src/board.rs:486-489) |
 | Page | one page, for example 90.50.10.0423 | faces 00-08, plus each 05 pass | faces: one "Faces" lane; passes: the six tails (src/board.rs:25-32) |
-| Pass | one pass, for example 05.03 | its jobs w01, w02 ... | pending, accepted, discarded (close `cards`, 0404 log entry 12 and 22) |
+| Pass | one pass, for example 05.03 | its jobs w01, w02 ... | the wf card words: accepted, carried, discarded, candidate (src/cmd.rs:14; signoff and close `cards`, 0404 log entry 12 and 22) |
 
 - The card shape is the same at every level: address, holder, step, next, why, ruling id.
 - A card at one level opens the board one level down. A page card opens the page board. A pass card opens the pass board.
